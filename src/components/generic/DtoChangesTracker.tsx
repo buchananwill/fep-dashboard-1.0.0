@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
+import { Card, CardBody } from '@nextui-org/card';
 import {
   DtoListControllerProps,
   UnsavedChangesProps
@@ -8,6 +8,7 @@ import {
 import { DtoIdListController } from 'dto-stores/dist/controllers/DtoIdListController';
 import { HasId } from '@/app/api/main';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
+import { DtoControllerArray } from 'dto-stores';
 
 function UnsavedChangesToast({
   handleCommit,
@@ -43,6 +44,18 @@ export default function DtoChangesTracker<T extends HasId>({
     <DtoIdListController
       unsavedChangesComponent={UnsavedChangesToast}
       {...props}
+    />
+  );
+}
+
+export function DtoListChangesTracker<T extends HasId>({
+  unsavedChangesComponent,
+  ...props
+}: DtoListControllerProps<T>) {
+  return (
+    <DtoControllerArray
+      {...props}
+      unsavedChangesComponent={UnsavedChangesToast}
     />
   );
 }
