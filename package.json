@@ -36,6 +36,7 @@
     "trailingComma": "none"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "@types/d3": "^7.4.3",
     "@types/js-cookie": "^3.0.3",
     "@types/node": "^20",

@@ -65,7 +65,7 @@ export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
                   value
               })}
               className={
-                'rounded py-0.5 px-1 max-w-fit w-12 outline-blue-400 outline-offset-1'
+                'rounded-md py-0.5 px-1 max-w-fit w-8 outline-blue-400 outline-offset-1 no-spinner text-right'
               }
             ></DtoStoreNumberInput>
           );
