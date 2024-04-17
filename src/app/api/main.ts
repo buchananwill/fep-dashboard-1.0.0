@@ -1,5 +1,3 @@
-
-
 import { StringMap } from '@/app/api/string-map';
 
 export const BASE_URL = process.env.BASE_URL!;
@@ -79,5 +77,19 @@ export interface HasUuid {
   id: string;
 }
 
-
 export type HasId = HasNumberId | HasUuid;
+
+export interface IntersectionGeneratorMatrix<T, U> {
+  rowReferenceList: T[];
+  columnReferenceList: U[];
+  generatorMatrix: number[][];
+}
+
+export interface IntersectionGeneratorRow {
+  [key: string]: number;
+}
+
+export interface IntersectionGeneratorRowWithHeader<T>
+  extends IntersectionGeneratorRow {
+  id: number;
+}

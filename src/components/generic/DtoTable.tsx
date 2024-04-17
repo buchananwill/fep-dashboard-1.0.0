@@ -24,7 +24,7 @@ export function DtoTable<T extends HasId>({
   renderCell: (item: T, columnKey: Key) => string | number | React.JSX.Element;
 }) {
   return (
-    <Table aria-label="Example table with custom cells">
+    <Table isStriped aria-label="Example table with custom cells">
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn key={column.uid} align={'start'}>

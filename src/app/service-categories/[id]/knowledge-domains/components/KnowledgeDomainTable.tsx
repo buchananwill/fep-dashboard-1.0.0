@@ -3,8 +3,8 @@ import { KnowledgeDomainDto } from '@/app/api/dtos/KnowledgeDomainDtoSchema';
 import React, { useCallback, useMemo } from 'react';
 import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
-import { DtoStoreRename } from '@/app/service-categories/[id]/knowledge-domains/components/DtoStoreRename';
-import { DtoTable } from '@/app/service-categories/[id]/knowledge-domains/components/DtoTable';
+import { DtoStoreRename } from '@/components/generic/DtoStoreRename';
+import { DtoTable } from '@/components/generic/DtoTable';
 
 export function KnowledgeDomainTable({
   data,

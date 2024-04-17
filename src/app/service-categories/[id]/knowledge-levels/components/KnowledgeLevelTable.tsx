@@ -1,9 +1,9 @@
 'use client';
 import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import React, { useCallback, useMemo } from 'react';
-import { DtoStoreRename } from '@/app/service-categories/[id]/knowledge-domains/components/DtoStoreRename';
+import { DtoStoreRename } from '@/components/generic/DtoStoreRename';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
-import { DtoTable } from '@/app/service-categories/[id]/knowledge-domains/components/DtoTable';
+import { DtoTable } from '@/components/generic/DtoTable';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { Chip } from '@nextui-org/chip';
 
