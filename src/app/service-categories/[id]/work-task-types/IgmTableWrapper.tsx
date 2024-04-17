@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import IgmTable, { createRows } from '@/components/generic/IgmTable';
 import { DtoControllerArray } from 'dto-stores';
-import { SubmitTable } from '@/app/work-task-types/SubmitTable';
+import { SubmitTable } from '@/app/service-categories/[id]/work-task-types/SubmitTable';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { IntersectionGeneratorMatrix } from '@/app/api/main';
 

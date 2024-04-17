@@ -2,7 +2,19 @@ import { HasId } from '@/app/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { useDtoStoreDispatch } from 'dto-stores';
 import { Input } from '@nextui-org/input';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react';
+
+interface DtoStoreNumberInputProps<T extends HasId, U extends string | number>
+  extends Omit<
+    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+    'type' & 'value' & 'onChange'
+  > {
+  entityId: U;
+  entityType: string;
+  numberUpdater: (entity: T, value: number) => T;
+  numberAccessor: (entity: T) => number;
+  listenerKey: string;
+}
 
 export function DtoStoreNumberInput<
   T extends HasId,
@@ -12,14 +24,9 @@ export function DtoStoreNumberInput<
   entityType,
   numberUpdater,
   listenerKey,
-  numberAccessor
-}: {
-  entityId: U;
-  entityType: string;
-  numberUpdater: (entity: T, value: number) => T;
-  numberAccessor: (entity: T) => number;
-  listenerKey: string;
-}) {
+  numberAccessor,
+  className
+}: DtoStoreNumberInputProps<T, U>) {
   let { currentState, dispatchWithoutControl } = useDtoStoreDispatch<T>(
     entityId,
     entityType,
@@ -41,7 +48,7 @@ export function DtoStoreNumberInput<
       type={'number'}
       value={numberAccessor(currentState)}
       onChange={(e) => update(e)}
-      className={'rounded p-0.5 max-w-fit w-8'}
+      className={className}
     ></input>
   );
 }

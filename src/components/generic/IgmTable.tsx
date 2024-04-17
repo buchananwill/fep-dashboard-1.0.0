@@ -36,8 +36,6 @@ export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
   tableRows: IntersectionGeneratorRowWithHeader<T>[];
   tableColumns: { name: string; uid: string }[];
 }) {
-  console.log(tableRows);
-
   const renderCell = useCallback(
     (
       rowWithHeader: IntersectionGeneratorRowWithHeader<T>,
@@ -45,7 +43,6 @@ export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
     ) => {
       const cellValue =
         rowWithHeader[columnKey as keyof IntersectionGeneratorRowWithHeader<T>];
-      console.log(cellValue);
 
       switch (columnKey) {
         case 'id':
@@ -67,6 +64,9 @@ export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
                 [columnKey as keyof IntersectionGeneratorRowWithHeader<T>]:
                   value
               })}
+              className={
+                'rounded py-0.5 px-1 max-w-fit w-12 outline-blue-400 outline-offset-1'
+              }
             ></DtoStoreNumberInput>
           );
       }
