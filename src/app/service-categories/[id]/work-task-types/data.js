@@ -1,59 +1,11 @@
 export const columns = [
   {
-    name: '7: KS3',
-    id: 6,
-    levelOrdinal: 7,
-    serviceCategoryId: 2,
-    knowledgeLevelDescriptor: 'Year Group',
-    workTaskTypeCount: 20
+    name: 'Teacher',
+    id: 1
   },
   {
-    name: '8: KS3',
-    id: 7,
-    levelOrdinal: 8,
-    serviceCategoryId: 2,
-    knowledgeLevelDescriptor: 'Year Group',
-    workTaskTypeCount: 19
-  },
-  {
-    name: '9: KS3',
-    id: 8,
-    levelOrdinal: 9,
-    serviceCategoryId: 2,
-    knowledgeLevelDescriptor: 'Year Group',
-    workTaskTypeCount: 23
-  },
-  {
-    name: '10: GCSE',
-    id: 9,
-    levelOrdinal: 10,
-    serviceCategoryId: 2,
-    knowledgeLevelDescriptor: 'Year Group',
-    workTaskTypeCount: 22
-  },
-  {
-    name: '11: GCSE',
-    id: 10,
-    levelOrdinal: 11,
-    serviceCategoryId: 2,
-    knowledgeLevelDescriptor: 'Year Group',
-    workTaskTypeCount: 22
-  },
-  {
-    name: '12: A-Level',
-    id: 11,
-    levelOrdinal: 12,
-    serviceCategoryId: 2,
-    knowledgeLevelDescriptor: 'Year Group',
-    workTaskTypeCount: 30
-  },
-  {
-    name: '13: A-Level',
-    id: 12,
-    levelOrdinal: 13,
-    serviceCategoryId: 2,
-    knowledgeLevelDescriptor: 'Year Group',
-    workTaskTypeCount: 30
+    name: 'Classroom',
+    id: 1
   }
 ];
 
