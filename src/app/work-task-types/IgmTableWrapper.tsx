@@ -4,6 +4,7 @@ import IgmTable, { createRows } from '@/components/generic/IgmTable';
 import { DtoControllerArray } from 'dto-stores';
 import { SubmitTable } from '@/app/work-task-types/SubmitTable';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
+import { IntersectionGeneratorMatrix } from '@/app/api/main';
 
 export default function IgmTableWrapper<
   T extends HasNameDto,
@@ -11,14 +12,18 @@ export default function IgmTableWrapper<
 >({
   rowEntityName,
   columns,
-  rows
+  rows,
+  submitTo,
+  defaultValue = 1
 }: {
   rowEntityName: string;
   rows: T[];
   columns: U[];
+  submitTo?: (matrix: IntersectionGeneratorMatrix<T, U>) => Promise<any>;
+  defaultValue?: number;
 }) {
   const tableRows = useMemo(() => {
-    return createRows(rows, columns);
+    return createRows(rows, columns, defaultValue);
   }, [rows, columns]);
 
   const tableColumns = useMemo(() => {
@@ -41,7 +46,7 @@ export default function IgmTableWrapper<
         tableColumns={tableColumns}
       />
       <div className={'fixed bottom-4 left-1/2 '}>
-        <SubmitTable rows={rows} columns={columns} />
+        <SubmitTable rows={rows} columns={columns} targetEndpoint={submitTo} />
       </div>
     </>
   );

@@ -41,7 +41,7 @@ export function DtoStoreNumberInput<
       type={'number'}
       value={numberAccessor(currentState)}
       onChange={(e) => update(e)}
-      className={'rounded p-0.5 w-fit'}
+      className={'rounded p-0.5 max-w-fit w-8'}
     ></input>
   );
 }

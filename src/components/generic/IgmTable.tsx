@@ -10,14 +10,15 @@ import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 
 export function createRows<T, U>(
   rows: T[],
-  columns: U[]
+  columns: U[],
+  defaultValue: number
 ): IntersectionGeneratorRowWithHeader<T>[] {
   return rows.map((row, index) => ({
     id: index, // Plus any other details you need from the subject
     ...columns.reduce(
       (acc, level, index) => ({
         ...acc,
-        [index.toString()]: 0 // Initialize level columns to 0
+        [index.toString()]: defaultValue // Initialize level columns to 0
       }),
       {} as IntersectionGeneratorRow
     )
@@ -70,7 +71,7 @@ export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
           );
       }
     },
-    [entityList, tableRows]
+    [entityList]
   );
 
   return (
