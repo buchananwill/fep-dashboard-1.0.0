@@ -7,6 +7,8 @@ export const WorkProjectSeriesSchemaDtoSchema = z.object({
   deliveryAllocations: z.array(DeliveryAllocationDtoSchema),
   workProjectBandwidth: z.number(),
   userToProviderRatio: z.number(),
-  shortCode: z.string(),
+  shortCode: z.string().optional()
 });
-export type WorkProjectSeriesSchemaDto = z.infer<typeof WorkProjectSeriesSchemaDtoSchema>;
+export type WorkProjectSeriesSchemaDto = z.infer<
+  typeof WorkProjectSeriesSchemaDtoSchema
+>;

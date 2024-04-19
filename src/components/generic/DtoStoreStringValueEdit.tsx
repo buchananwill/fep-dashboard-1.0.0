@@ -7,17 +7,19 @@ export function DtoStoreStringValueEdit<T extends HasId & HasNameDto>({
   entity,
   entityType,
   producer,
-  valueAccessor
+  valueAccessor,
+  listenerKey
 }: {
   entity: T;
   entityType: string;
   producer?: (value: string, entity: T) => T;
   valueAccessor?: (entity: T) => string;
+  listenerKey: string;
 }) {
   let { currentState, dispatchWithoutControl } = useDtoStoreDispatch<T>(
     entity.id,
     entityType,
-    'renameCell'
+    listenerKey
   );
 
   if (valueAccessor === undefined) {

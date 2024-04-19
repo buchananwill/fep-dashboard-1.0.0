@@ -30,7 +30,7 @@ export default function WpssEditTable({
   const renderCell = useCallback(
     (dto: WorkProjectSeriesSchemaDto, columnKey: React.Key) => {
       try {
-        const devAlSize = parseInt(`${columnKey}`);
+        const devAlSize = parseInt(`${columnKey}`.substring(5));
         const found = dto.deliveryAllocations.find(
           (devAl) => devAl.deliveryAllocationSize === devAlSize
         );
@@ -45,6 +45,7 @@ export default function WpssEditTable({
               entityType={entityType}
               valueAccessor={(dto) => dto.name}
               producer={(value, dto) => ({ ...dto, name: value })}
+              listenerKey={`${dto.id}:name`}
             />
           );
         case 'shortCode':
@@ -52,17 +53,18 @@ export default function WpssEditTable({
             <DtoStoreStringValueEdit
               entity={dto}
               entityType={entityType}
-              valueAccessor={(dto) => dto.shortCode}
+              valueAccessor={(dto) => dto.shortCode || ''}
               producer={(value, entity) => ({ ...entity, shortCode: value })}
+              listenerKey={`${dto.id}:shortCode`}
             />
           );
         case 'workProjectBandwidth':
-          return dto[columnKey as keyof WorkProjectSeriesSchemaDto];
+          return dto.workProjectBandwidth;
         case 'userToProviderRatio':
-          return dto[columnKey as keyof WorkProjectSeriesSchemaDto];
+          return dto.userToProviderRatio;
 
         default: {
-          return null;
+          return '';
         }
       }
     },
