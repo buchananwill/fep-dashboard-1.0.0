@@ -1,10 +1,11 @@
 'use client';
 import { useMemo } from 'react';
-import IgmTable, { createRows } from '@/components/generic/IgmTable';
+import IgmTable from '@/components/generic/IgmTable';
 import { DtoControllerArray } from 'dto-stores';
 import { SubmitTable } from '@/app/service-categories/[id]/work-task-types/SubmitTable';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { IntersectionGeneratorMatrix } from '@/app/api/main';
+import { createRows } from '@/components/generic/createRows';
 
 export default function IgmTableWrapper<
   T extends HasNameDto,

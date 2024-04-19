@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Secondary Education",
+    "id": 1,
+    "knowledgeDomainDescriptor": "Subject",
+    "knowledgeLevelDescriptor": "Year",
+    "knowledgeDomainIds": [],
+    "knowledgeLevelIds": []
+  }
+]

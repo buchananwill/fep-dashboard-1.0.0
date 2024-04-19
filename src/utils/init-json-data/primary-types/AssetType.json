@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Building",
+    "isMoveable": false
+  },
+  {
+    "id": 2,
+    "name": "Floor",
+    "isMoveable": false
+  },
+  {
+    "id": 3,
+    "name": "Room",
+    "isMoveable": false
+  }
+]

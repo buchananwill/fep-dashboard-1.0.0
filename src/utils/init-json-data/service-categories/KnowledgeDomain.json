@@ -1,0 +1,198 @@
+[
+  {
+    "id": 1,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "General",
+    "workTaskTypeCount": 16
+  },
+  {
+    "id": 2,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Art",
+    "workTaskTypeCount": 17
+  },
+  {
+    "id": 3,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Biology",
+    "workTaskTypeCount": 17
+  },
+  {
+    "id": 4,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Chemistry",
+    "workTaskTypeCount": 18
+  },
+  {
+    "id": 5,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Classical Civ",
+    "workTaskTypeCount": 13
+  },
+  {
+    "id": 6,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Computing",
+    "workTaskTypeCount": 19
+  },
+  {
+    "id": 7,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Design and T",
+    "workTaskTypeCount": 17
+  },
+  {
+    "id": 8,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Drama",
+    "workTaskTypeCount": 18
+  },
+  {
+    "id": 9,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Economics",
+    "workTaskTypeCount": 10
+  },
+  {
+    "id": 10,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "English",
+    "workTaskTypeCount": 16
+  },
+  {
+    "id": 11,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Form Period",
+    "workTaskTypeCount": 14
+  },
+  {
+    "id": 12,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "French",
+    "workTaskTypeCount": 16
+  },
+  {
+    "id": 13,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Games",
+    "workTaskTypeCount": 18
+  },
+  {
+    "id": 14,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Geography",
+    "workTaskTypeCount": 17
+  },
+  {
+    "id": 15,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "German",
+    "workTaskTypeCount": 17
+  },
+  {
+    "id": 16,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "GP",
+    "workTaskTypeCount": 9
+  },
+  {
+    "id": 17,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "History",
+    "workTaskTypeCount": 20
+  },
+  {
+    "id": 18,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Latin",
+    "workTaskTypeCount": 17
+  },
+  {
+    "id": 19,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Learning Development",
+    "workTaskTypeCount": 17
+  },
+  {
+    "id": 20,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Music",
+    "workTaskTypeCount": 16
+  },
+  {
+    "id": 21,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Maths",
+    "workTaskTypeCount": 22
+  },
+  {
+    "id": 22,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "PE",
+    "workTaskTypeCount": 16
+  },
+  {
+    "id": 23,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "PE as an Option",
+    "workTaskTypeCount": 15
+  },
+  {
+    "id": 24,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Philosophy",
+    "workTaskTypeCount": 13
+  },
+  {
+    "id": 25,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Physics",
+    "workTaskTypeCount": 15
+  },
+  {
+    "id": 26,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Private Study",
+    "workTaskTypeCount": 12
+  },
+  {
+    "id": 27,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "RS",
+    "workTaskTypeCount": 18
+  },
+  {
+    "id": 28,
+    "serviceCategoryId": 2,
+    "knowledgeDomainDescriptor": "Subject",
+    "name": "Registration",
+    "workTaskTypeCount": 17
+  }
+]

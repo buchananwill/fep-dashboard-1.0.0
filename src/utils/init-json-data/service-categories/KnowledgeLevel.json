@@ -1,0 +1,58 @@
+[
+  {
+    "name": "7: KS3",
+    "id": 1,
+    "levelOrdinal": 7,
+    "serviceCategoryId": 2,
+    "knowledgeLevelDescriptor": "Year",
+    "workTaskTypeCount": 55
+  },
+  {
+    "name": "8: KS3",
+    "id": 2,
+    "levelOrdinal": 8,
+    "serviceCategoryId": 2,
+    "knowledgeLevelDescriptor": "Year",
+    "workTaskTypeCount": 50
+  },
+  {
+    "name": "9: KS3",
+    "id": 3,
+    "levelOrdinal": 9,
+    "serviceCategoryId": 2,
+    "knowledgeLevelDescriptor": "Year",
+    "workTaskTypeCount": 58
+  },
+  {
+    "name": "10: GCSE",
+    "id": 4,
+    "levelOrdinal": 10,
+    "serviceCategoryId": 2,
+    "knowledgeLevelDescriptor": "Year",
+    "workTaskTypeCount": 57
+  },
+  {
+    "name": "11: GCSE",
+    "id": 5,
+    "levelOrdinal": 11,
+    "serviceCategoryId": 2,
+    "knowledgeLevelDescriptor": "Year",
+    "workTaskTypeCount": 61
+  },
+  {
+    "name": "12: A-Level",
+    "id": 6,
+    "levelOrdinal": 12,
+    "serviceCategoryId": 2,
+    "knowledgeLevelDescriptor": "Year",
+    "workTaskTypeCount": 68
+  },
+  {
+    "name": "13: A-Level",
+    "id": 7,
+    "levelOrdinal": 13,
+    "serviceCategoryId": 2,
+    "knowledgeLevelDescriptor": "Year",
+    "workTaskTypeCount": 72
+  }
+]

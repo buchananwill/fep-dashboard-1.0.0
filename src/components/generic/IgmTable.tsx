@@ -1,29 +1,13 @@
 'use client';
 import { DtoTable } from '@/components/generic/DtoTable';
-import React, { useCallback, useMemo } from 'react';
-import {
-  IntersectionGeneratorRow,
-  IntersectionGeneratorRowWithHeader
-} from '@/app/api/main';
+import React, { useCallback } from 'react';
+import { IntersectionGeneratorRowWithHeader } from '@/app/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
-
-export function createRows<T, U>(
-  rows: T[],
-  columns: U[],
-  defaultValue: number
-): IntersectionGeneratorRowWithHeader<T>[] {
-  return rows.map((row, index) => ({
-    id: index, // Plus any other details you need from the subject
-    ...columns.reduce(
-      (acc, level, index) => ({
-        ...acc,
-        [index.toString()]: defaultValue // Initialize level columns to 0
-      }),
-      {} as IntersectionGeneratorRow
-    )
-  }));
-}
+import {
+  useSelectiveContextGlobalController,
+  useSelectiveContextGlobalDispatch
+} from 'selective-context';
 
 export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
   rowEntityName,
