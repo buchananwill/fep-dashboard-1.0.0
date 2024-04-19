@@ -3,7 +3,7 @@ import { KnowledgeDomainDto } from '@/app/api/dtos/KnowledgeDomainDtoSchema';
 import React, { useCallback, useMemo } from 'react';
 import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
-import { DtoStoreRename } from '@/components/generic/DtoStoreRename';
+import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { DtoTable } from '@/components/generic/DtoTable';
 
 export function KnowledgeDomainTable({
@@ -28,7 +28,7 @@ export function KnowledgeDomainTable({
       switch (columnKey) {
         case 'name':
           return (
-            <DtoStoreRename
+            <DtoStoreStringValueEdit
               entity={domain}
               entityType={EntityNamesMap.knowledgeDomain}
             />

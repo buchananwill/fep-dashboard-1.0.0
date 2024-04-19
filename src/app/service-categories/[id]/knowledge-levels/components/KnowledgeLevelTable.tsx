@@ -1,7 +1,7 @@
 'use client';
 import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import React, { useCallback, useMemo } from 'react';
-import { DtoStoreRename } from '@/components/generic/DtoStoreRename';
+import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import { DtoTable } from '@/components/generic/DtoTable';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
@@ -30,7 +30,7 @@ export default function KnowledgeLevelTable({
       switch (columnKey) {
         case 'name':
           return (
-            <DtoStoreRename
+            <DtoStoreStringValueEdit
               entity={level}
               entityType={EntityNamesMap.knowledgeLevel}
             />

@@ -3,12 +3,16 @@ import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { useDtoStoreDispatch } from 'dto-stores';
 import { Input } from '@nextui-org/input';
 
-export function DtoStoreRename<T extends HasId & HasNameDto>({
+export function DtoStoreStringValueEdit<T extends HasId & HasNameDto>({
   entity,
-  entityType
+  entityType,
+  producer,
+  valueAccessor
 }: {
   entity: T;
   entityType: string;
+  producer?: (value: string, entity: T) => T;
+  valueAccessor?: (entity: T) => string;
 }) {
   let { currentState, dispatchWithoutControl } = useDtoStoreDispatch<T>(
     entity.id,
@@ -16,18 +20,27 @@ export function DtoStoreRename<T extends HasId & HasNameDto>({
     'renameCell'
   );
 
+  if (valueAccessor === undefined) {
+    console.error('No value accessor supplied');
+    return null;
+  }
+
   const update = (value: string) => {
     if (dispatchWithoutControl === undefined) {
-      console.log('no dispatch defined!');
+      console.error('no dispatch defined!');
       return;
     }
-    dispatchWithoutControl((entity) => ({ ...entity, name: value }));
+    if (producer === undefined) {
+      console.error('no producer defined!');
+      return;
+    }
+    dispatchWithoutControl((entityState) => producer(value, entityState));
   };
 
   return (
     <Input
       type={'text'}
-      value={currentState.name}
+      value={valueAccessor(currentState)}
       onValueChange={update}
     ></Input>
   );

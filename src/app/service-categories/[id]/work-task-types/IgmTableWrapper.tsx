@@ -25,7 +25,7 @@ export default function IgmTableWrapper<
 }) {
   const tableRows = useMemo(() => {
     return createRows(rows, columns, defaultValue);
-  }, [rows, columns]);
+  }, [defaultValue, rows, columns]);
 
   const tableColumns = useMemo(() => {
     return [

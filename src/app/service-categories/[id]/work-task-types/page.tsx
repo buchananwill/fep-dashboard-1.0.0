@@ -4,8 +4,6 @@ import { submitLessonTypeMatrix } from '@/app/service-categories/[id]/work-task-
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/app/api/generated-actions/KnowledgeLevel';
 import { getDtoListByExampleList as getKnowledgeDomainsByExample } from '@/app/api/generated-actions/KnowledgeDomain';
 import { MissingData } from '@/components/generic/MissingData';
-import { columns } from '@/app/service-categories/[id]/work-task-types/data';
-import { submitProviderRoleTypeAndAssetRoleTypeMatrix } from '@/app/service-categories/[id]/work-task-types/submitProviderRoleTypeAndAssetRoleTypeMatrix';
 
 const rowEntityName = 'Lesson Type';
 export default async function Page({
@@ -32,8 +30,8 @@ export default async function Page({
       <IgmTableWrapper
         rowEntityName={rowEntityName}
         rows={kDomains}
-        columns={columns}
-        submitTo={submitProviderRoleTypeAndAssetRoleTypeMatrix}
+        columns={kLevels}
+        submitTo={submitLessonTypeMatrix}
       />
     </Card>
   );
