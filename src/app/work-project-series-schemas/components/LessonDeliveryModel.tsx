@@ -1,16 +1,18 @@
 'use client';
 import { DtoUiComponentProps } from 'dto-stores';
-import { isNotUndefined } from '../../api/main';
+import { isNotUndefined, ObjectPlaceholder } from '../../api/main';
 import { AdjustAllocation } from './AdjustAllocation';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { Button } from '@nextui-org/button';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
-import React from 'react';
+import React, { useContext } from 'react';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import RenameModal from '@/components/modals/RenameModal';
 import { useRenameEntity } from '@/components/modals/useRenameEntity';
+import { useSelectiveContextGlobalController } from 'selective-context';
+import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 
 export const LessonDeliveryModel = (
   props: DtoUiComponentProps<WorkProjectSeriesSchemaDto>

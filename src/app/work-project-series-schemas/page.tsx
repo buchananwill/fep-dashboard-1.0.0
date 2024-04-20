@@ -9,13 +9,10 @@ export default function Page() {
   return (
     <>
       <DtoListChangesTracker
-        dtoList={data.slice(0, 20)}
+        dtoList={data}
         entityName={EntityNamesMap.workProjectSeriesSchema}
       />
-      <WpssEditGridColList
-        data={data.slice(0, 20)}
-        deliveryAllocationSizes={[1, 2]}
-      />
+      <WpssEditGridColList data={data} deliveryAllocationSizes={[1, 2]} />
     </>
   );
 }
