@@ -7,6 +7,7 @@ export const API_ACADEMIC_URL = process.env.API_ACADEMIC_URL!;
 
 export const SECONDARY_EDUCATION_CATEGORY_ID = 2;
 export const CLASSROOM_ROLE_TYPE_ID: number = 1;
+export const TransientIdOffset = Math.pow(2, 50);
 
 // Spring Web Pagination interface
 export interface Page<T> {

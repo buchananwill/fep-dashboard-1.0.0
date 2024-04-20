@@ -3,6 +3,7 @@ import data from '@/utils/init-json-data/work-project-series-schema/WorkProjectS
 import { DtoControllerArray } from 'dto-stores';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
+import WpssEditGridColList from '@/app/work-project-series-schemas/components/WpssEditGridColList';
 
 export default function Page() {
   return (
@@ -11,7 +12,7 @@ export default function Page() {
         dtoList={data.slice(0, 20)}
         entityName={EntityNamesMap.workProjectSeriesSchema}
       />
-      <WpssEditTable
+      <WpssEditGridColList
         data={data.slice(0, 20)}
         deliveryAllocationSizes={[1, 2]}
       />
