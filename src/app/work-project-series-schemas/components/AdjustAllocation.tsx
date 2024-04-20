@@ -57,37 +57,35 @@ export function AdjustAllocation({
 
   return (
     <div>
-      <h3 className={'px-2 text-sm'}>Total Allocation: {totalAllocations}</h3>
-      <div className=" py-2 divide-x flex justify-start align-baseline">
+      <div className=" py-2 flex justify-start align-middle items-center gap-1">
+        <h3 className={'px-2 text-sm w-20'}>Total: {totalAllocations}</h3>
         {currentAllocations.map((deliveryAllocation, index) => (
-          <div key={`del-al-${index}`} className={'px-1'}>
-            <StepperContext.Provider
-              value={{
-                increment: () =>
-                  handleModifyAllocation(
-                    deliveryAllocation.deliveryAllocationSize,
-                    true
-                  ),
-                decrement: () =>
-                  handleModifyAllocation(
-                    deliveryAllocation.deliveryAllocationSize,
-                    false
-                  ),
-                min: 0,
-                max: 10,
-                current: currentAllocations[index].count
-              }}
-            >
-              <div className={'flex items-center'}>
-                <AllocationUnitGroup
-                  size={deliveryAllocation.deliveryAllocationSize}
-                  indexOfGroup={index}
-                />
-                <LandscapeStepper></LandscapeStepper>
-              </div>
-              <div className={'h-1'}></div>
-            </StepperContext.Provider>
-          </div>
+          <StepperContext.Provider
+            value={{
+              increment: () =>
+                handleModifyAllocation(
+                  deliveryAllocation.deliveryAllocationSize,
+                  true
+                ),
+              decrement: () =>
+                handleModifyAllocation(
+                  deliveryAllocation.deliveryAllocationSize,
+                  false
+                ),
+              min: 0,
+              max: 10,
+              current: currentAllocations[index].count
+            }}
+          >
+            <div className={'flex items-center'}>
+              <AllocationUnitGroup
+                size={deliveryAllocation.deliveryAllocationSize}
+                indexOfGroup={index}
+              />
+              <LandscapeStepper></LandscapeStepper>
+            </div>
+            <div className={'h-1'}></div>
+          </StepperContext.Provider>
         ))}
       </div>
     </div>

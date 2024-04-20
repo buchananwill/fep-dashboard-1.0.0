@@ -59,7 +59,7 @@ export const LessonDeliveryModel = (
           onPress={() => renameEntityProps.onOpen()}
           // size={'sm'}
           className={'px-unit-2'}
-          endContent={<PencilSquareIcon className={'p-1'} />}
+          endContent={<PencilSquareIcon className={'p-1.5'} />}
         >
           <span className={'text-left truncate ...'}>{model.name}</span>
         </Button>
