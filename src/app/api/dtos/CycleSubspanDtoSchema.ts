@@ -1,7 +1,7 @@
 import { z } from 'zod';
 export const CycleSubspanDtoSchema = z.object({
   id: z.number(),
-  timeSpan: z.date(),
+  timeSpanDto: z.date(),
   parentCycleId: z.number(),
   description: z.string(),
   zeroIndexedCycleDay: z.number(),

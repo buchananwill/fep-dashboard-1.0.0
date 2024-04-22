@@ -32,8 +32,6 @@ export default function WpssEditGridColList() {
     );
   }, [idList]);
 
-  console.log(contextKeys);
-
   const { currentState } =
     useSelectiveContextListenerGroupGlobal<WorkProjectSeriesSchemaDto>({
       contextKeys,
