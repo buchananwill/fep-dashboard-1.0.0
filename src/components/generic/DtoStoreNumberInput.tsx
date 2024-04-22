@@ -1,7 +1,5 @@
 import { HasId } from '@/app/api/main';
-import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { useDtoStoreDispatch } from 'dto-stores';
-import { Input } from '@nextui-org/input';
 import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
 interface DtoStoreNumberInputProps<T extends HasId, U extends string | number>

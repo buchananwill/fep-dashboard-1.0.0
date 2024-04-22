@@ -1,18 +1,38 @@
-import WpssEditTable from '@/app/work-project-series-schemas/components/WpssEditTable';
-import data from '@/utils/init-json-data/work-project-series-schema/WorkProjectSeriesSchemaSome.json';
-import { DtoControllerArray } from 'dto-stores';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
 import WpssEditGridColList from '@/app/work-project-series-schemas/components/WpssEditGridColList';
+import { getDtoListByExampleList as getWorkTaskTypesByExample } from '@/app/api/generated-actions/WorkTaskType';
+import { getDtoListByExampleList as getWorkProjectSeriesSchemasByExample } from '@/app/api/generated-actions/WorkProjectSeriesSchema';
+import { MissingData } from '@/components/generic/MissingData';
 
-export default function Page() {
+const levelOrdinal = 9;
+
+export default async function Page({}: {}) {
+  const wttResponse = await getWorkTaskTypesByExample([
+    { knowledgeLevelLevelOrdinal: levelOrdinal }
+  ]);
+
+  const { data: workTaskTypes } = wttResponse;
+
+  if (workTaskTypes === undefined)
+    return <MissingData response={wttResponse} />;
+
+  const wpssActionResponse = await getWorkProjectSeriesSchemasByExample(
+    workTaskTypes.map((wtt) => ({ workTaskTypeId: wtt.id }))
+  );
+
+  const { data: wpssData } = wpssActionResponse;
+
+  if (wpssData === undefined)
+    return <MissingData response={wpssActionResponse} />;
+
   return (
     <>
       <DtoListChangesTracker
-        dtoList={data}
+        dtoList={wpssData}
         entityName={EntityNamesMap.workProjectSeriesSchema}
       />
-      <WpssEditGridColList data={data} deliveryAllocationSizes={[1, 2]} />
+      <WpssEditGridColList />
     </>
   );
 }

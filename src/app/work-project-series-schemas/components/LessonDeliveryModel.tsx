@@ -1,19 +1,21 @@
 'use client';
 import { DtoUiComponentProps } from 'dto-stores';
-import { isNotUndefined, ObjectPlaceholder } from '../../api/main';
+import { isNotUndefined } from '../../api/main';
 import { AdjustAllocation } from './AdjustAllocation';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { Button } from '@nextui-org/button';
+
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
-import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
-import React, { useContext } from 'react';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import React from 'react';
 import RenameModal from '@/components/modals/RenameModal';
 import { useRenameEntity } from '@/components/modals/useRenameEntity';
-import { useSelectiveContextGlobalController } from 'selective-context';
-import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
+import { Button } from '@nextui-org/button';
+import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
+import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
+import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 
+const numberEditClassNames =
+  'text-right no-spinner rounded-xl px-2 mx-1 bg-default-100 hover:bg-default-200';
 export const LessonDeliveryModel = (
   props: DtoUiComponentProps<WorkProjectSeriesSchemaDto>
 ) => {
@@ -33,15 +35,15 @@ export const LessonDeliveryModel = (
   );
 
   return (
-    <div className={'grid grid-cols-4 items-center'}>
-      {/*{isNotUndefined(dispatchDeletion) && (*/}
-      {/*  <DeletedOverlay*/}
-      {/*    show={deleted}*/}
-      {/*    handleUnDelete={() =>*/}
-      {/*      dispatchDeletion((state) => state.filter((id) => id != model.id))*/}
-      {/*    }*/}
-      {/*  />*/}
-      {/*)}*/}
+    <div className={'grid grid-cols-4 items-center relative'}>
+      {isNotUndefined(dispatchDeletion) && (
+        <DeletedOverlay
+          show={deleted}
+          handleUnDelete={() =>
+            dispatchDeletion((state) => state.filter((id) => id != model.id))
+          }
+        />
+      )}
 
       <div className={'flex items-center'}>
         {isNotUndefined(dispatchDeletion) && (
@@ -64,8 +66,39 @@ export const LessonDeliveryModel = (
           <span className={'text-left truncate ...'}>{model.name}</span>
         </Button>
       </div>
-      <div className={'col-span-2'}>
+      <div className={'col-span-2 px-2'}>
         <AdjustAllocation {...props}></AdjustAllocation>
+      </div>
+      <div className={'grid grid-cols-3'}>
+        <DtoStoreStringValueEdit
+          entity={model}
+          entityType={entityClass}
+          valueAccessor={(dto) => dto.shortCode || ''}
+          producer={(value, entity) => ({ ...entity, shortCode: value })}
+          listenerKey={`${model.id}:shortCode`}
+        />
+        <DtoStoreNumberInput<WorkProjectSeriesSchemaDto, string>
+          entityId={model.id}
+          entityType={entityClass}
+          numberUpdater={(wpss, value) => ({
+            ...wpss,
+            workProjectBandwidth: value
+          })}
+          numberAccessor={(wpss) => wpss.workProjectBandwidth}
+          listenerKey={'projectBandwidthEdit'}
+          className={numberEditClassNames}
+        />
+        <DtoStoreNumberInput<WorkProjectSeriesSchemaDto, string>
+          entityId={model.id}
+          entityType={entityClass}
+          numberUpdater={(wpss, value) => ({
+            ...wpss,
+            userToProviderRatio: value
+          })}
+          numberAccessor={(wpss) => wpss.userToProviderRatio}
+          listenerKey={'userRatioEdit'}
+          className={numberEditClassNames}
+        />
       </div>
 
       <RenameModal

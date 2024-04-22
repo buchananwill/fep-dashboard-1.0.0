@@ -20,13 +20,7 @@ export function DeliveryAllocation({
     );
   }
 
-  return (
-    <div className={'flex h-4 '}>
-      {allocation.length > 0 ? (
-        [...allocation]
-      ) : (
-        <XMarkIcon className={'h-4 w-4'}></XMarkIcon>
-      )}
-    </div>
-  );
+  return allocation.length > 0 ? (
+    <div className={'flex h-4 '}>{[...allocation]}</div>
+  ) : null; // <XMarkIcon className={'h-4 w-4'}></XMarkIcon>
 }

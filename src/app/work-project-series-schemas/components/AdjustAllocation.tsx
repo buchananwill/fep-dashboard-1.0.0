@@ -58,9 +58,9 @@ export function AdjustAllocation({
   return (
     <div>
       <div className=" py-2 flex justify-start align-middle items-center gap-1">
-        <h3 className={'px-2 text-sm w-20'}>Total: {totalAllocations}</h3>
         {currentAllocations.map((deliveryAllocation, index) => (
           <StepperContext.Provider
+            key={index}
             value={{
               increment: () =>
                 handleModifyAllocation(
@@ -84,8 +84,11 @@ export function AdjustAllocation({
               />
               <LandscapeStepper></LandscapeStepper>
             </div>
-            <div className={'h-1'}></div>
           </StepperContext.Provider>
+        ))}
+        <h3 className={'px-2 text-sm w-20'}>Total: {totalAllocations}</h3>
+        {currentAllocations.map((delivAl) => (
+          <DeliveryAllocation deliveryAllocation={delivAl} key={delivAl.id} />
         ))}
       </div>
     </div>
