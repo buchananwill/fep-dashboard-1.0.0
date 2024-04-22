@@ -1,6 +1,6 @@
 import { getDtoListByExampleList as getSchemaBundleByExampleList } from '@/app/api/generated-actions/WorkSeriesSchemaBundle';
 import { MissingData } from '@/components/generic/MissingData';
-import { Card, CardHeader } from '@nextui-org/card';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { getDtoListByExampleList as getWorkTaskTypesByExampleList } from '@/app/api/generated-actions/WorkTaskType';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { getDtoListByExampleList } from '@/app/api/generated-actions/WorkProjectSeriesSchema';
@@ -32,9 +32,19 @@ export default async function Page() {
     return <MissingData response={workProjectSeriesSchemaResponse} />;
   const { data: workProjectSeriesSchemaList } = workProjectSeriesSchemaResponse;
 
-  return data.map((bundle, index) => (
-    <Card key={index}>
-      <CardHeader>{bundle.name}</CardHeader>
+  return (
+    <Card>
+      <CardHeader>Bundles!</CardHeader>
+      {/* 1. Vertical tabs for the bundles
+          2. Central pane shows the available schemas
+          3. Selectable as a listbox group
+          4. Each schema has an indicator for how many bundles it is included in.
+          */}
+      <CardBody>
+        {data.map((bundle, index) => (
+          <div key={index}>{bundle.name}</div>
+        ))}
+      </CardBody>
     </Card>
-  ));
+  );
 }
