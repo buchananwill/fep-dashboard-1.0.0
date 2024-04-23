@@ -4,6 +4,8 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { getDtoListByExampleList as getWorkTaskTypesByExampleList } from '@/app/api/generated-actions/WorkTaskType';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { getDtoListByExampleList } from '@/app/api/generated-actions/WorkProjectSeriesSchema';
+import { Tab, Tabs } from '@nextui-org/tabs';
+import BundleTabGroup from '@/app/work-project-series-schemas/bundles/components/BundleTabGroup';
 
 const levelOrdinal = 7;
 
@@ -41,9 +43,10 @@ export default async function Page() {
           4. Each schema has an indicator for how many bundles it is included in.
           */}
       <CardBody>
-        {data.map((bundle, index) => (
-          <div key={index}>{bundle.name}</div>
-        ))}
+        <BundleTabGroup
+          collectionData={data}
+          referencedItemData={workProjectSeriesSchemaList}
+        />
       </CardBody>
     </Card>
   );
