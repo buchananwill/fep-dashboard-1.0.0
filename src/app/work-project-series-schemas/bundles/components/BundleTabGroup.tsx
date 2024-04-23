@@ -3,7 +3,6 @@
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { DtoControllerArray } from 'dto-stores';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import BundleItemChooser from '@/app/work-project-series-schemas/bundles/components/BundleItemChooser';
@@ -32,7 +31,12 @@ export default function BundleTabGroup({
         dtoList={referencedItemData}
         entityName={EntityNamesMap.workProjectSeriesSchema}
       />
-      <Tabs aria-label={'bundle tabs'} items={collectionData} isVertical={true}>
+      <Tabs
+        aria-label={'bundle tabs'}
+        size={'lg'}
+        items={collectionData}
+        isVertical={true}
+      >
         {(item) => (
           <Tab key={item.id} title={item.name}>
             <BundleItemChooser
