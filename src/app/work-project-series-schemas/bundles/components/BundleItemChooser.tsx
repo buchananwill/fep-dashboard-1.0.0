@@ -67,7 +67,8 @@ export default function BundleItemChooser({
           key={listboxItem.id}
           classNames={{ base: 'data-[selected=true]:bg-emerald-100' }}
         >
-          {listboxItem.name}
+          <BundleItemWithInclusionCount id={listboxItem.id} />
+          {/*{listboxItem.name}*/}
         </ListboxItem>
       )}
     </Listbox>

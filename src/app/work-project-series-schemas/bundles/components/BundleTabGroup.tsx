@@ -46,14 +46,6 @@ export default function BundleTabGroup({
                 entityClass={entityName}
                 referencedItemContextKeys={itemContextKeys}
               />
-              <div className={'flex flex-col p-2'}>
-                {referencedItemData.map((schema) => (
-                  <BundleItemWithInclusionCount
-                    id={schema.id}
-                    key={schema.id}
-                  />
-                ))}
-              </div>
             </div>
           </Tab>
         )}

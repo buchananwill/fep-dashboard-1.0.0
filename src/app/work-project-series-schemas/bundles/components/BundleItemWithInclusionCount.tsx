@@ -11,6 +11,7 @@ import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundle
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useSelectiveContextListenerGroup } from 'selective-context/dist/hooks/base/useSelectiveContextListenerGroup';
 import { useMemo } from 'react';
+import { Chip } from '@nextui-org/chip';
 
 export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   const { currentState } = useDtoStoreListener<WorkProjectSeriesSchemaDto>(
@@ -45,11 +46,22 @@ export default function BundleItemWithInclusionCount({ id }: { id: string }) {
     (bundle) => bundle && bundle.workProjectSeriesSchemaIds.includes(id)
   ).length;
 
-  const colonIndex = currentState.name.indexOf(':');
-
   return (
-    <span>
-      {currentState.name.substring(0, colonIndex)} ({inclusionCount})
-    </span>
+    <div className={'flex justify-between'}>
+      <span>{currentState.name}</span>{' '}
+      <Chip
+        size={'sm'}
+        classNames={{ base: 'py-0.5 h-fit' }}
+        color={
+          inclusionCount === 0
+            ? 'default'
+            : inclusionCount === 1
+              ? 'success'
+              : 'warning'
+        }
+      >
+        {inclusionCount}
+      </Chip>
+    </div>
   );
 }
