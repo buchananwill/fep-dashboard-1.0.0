@@ -9,6 +9,9 @@ import {
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { Key, useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
+import { sumAllSchemas } from '@/app/work-project-series-schemas/functions/sum-delivery-allocations';
+import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { Chip } from '@nextui-org/chip';
 
 export interface CollectionItemChooserProps {
   collectionId: string | number;
@@ -52,25 +55,45 @@ export default function BundleItemChooser({
     });
   };
 
+  const currentAllocationSum = useMemo(() => {
+    const workProjectSeriesSchemaDtos =
+      currentState.workProjectSeriesSchemaIds.map(
+        (id) => schemaMap[`${EntityNamesMap.workProjectSeriesSchema}:${id}`]
+      );
+    return sumAllSchemas(workProjectSeriesSchemaDtos);
+  }, [currentState, schemaMap]);
+
   return (
-    <Listbox
-      items={items}
-      selectedKeys={currentState.workProjectSeriesSchemaIds}
-      selectionMode={'multiple'}
-      variant={'bordered'}
-      aria-label={'Select Bundle Items'}
-      label={'Select Bundle Items'}
-      onSelectionChange={(keys) => handleAction(keys)}
-    >
-      {(listboxItem) => (
-        <ListboxItem
-          key={listboxItem.id}
-          classNames={{ base: 'data-[selected=true]:bg-emerald-100' }}
-          textValue={listboxItem.name}
-        >
-          <BundleItemWithInclusionCount id={listboxItem.id} />
-        </ListboxItem>
-      )}
-    </Listbox>
+    <div className={'flex flex-col'}>
+      <div className={'flex justify-between items-baseline mb-2'}>
+        <span>{currentState.name}</span>{' '}
+        <span>
+          <Chip size={'sm'} color={'secondary'}>
+            {currentAllocationSum}
+          </Chip>
+          Periods this bundle
+        </span>
+      </div>
+      <Listbox
+        items={items}
+        selectedKeys={currentState.workProjectSeriesSchemaIds}
+        selectionMode={'multiple'}
+        variant={'bordered'}
+        aria-label={'Select Bundle Items'}
+        label={'Select Bundle Items'}
+        onSelectionChange={(keys) => handleAction(keys)}
+        classNames={{ base: 'border-2 rounded-lg p-2' }}
+      >
+        {(listboxItem) => (
+          <ListboxItem
+            key={listboxItem.id}
+            classNames={{ base: 'data-[selected=true]:bg-emerald-100' }}
+            textValue={listboxItem.name}
+          >
+            <BundleItemWithInclusionCount id={listboxItem.id} />
+          </ListboxItem>
+        )}
+      </Listbox>
+    </div>
   );
 }

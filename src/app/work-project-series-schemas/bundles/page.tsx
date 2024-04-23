@@ -5,8 +5,9 @@ import { getDtoListByExampleList as getWorkTaskTypesByExampleList } from '@/app/
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { getDtoListByExampleList } from '@/app/api/generated-actions/WorkProjectSeriesSchema';
 import BundleTabGroup from '@/app/work-project-series-schemas/bundles/components/BundleTabGroup';
+import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/components/AllBundlesTotal';
 
-const levelOrdinal = 9;
+const levelOrdinal = 10;
 
 export default async function Page() {
   const bundleActionResponse = await getSchemaBundleByExampleList([
@@ -34,8 +35,13 @@ export default async function Page() {
   const { data: workProjectSeriesSchemaList } = workProjectSeriesSchemaResponse;
 
   return (
-    <Card>
-      <CardHeader>Bundles!</CardHeader>
+    <Card className={'w-fit'}>
+      <CardHeader className={'flex justify-between'}>
+        <span>Bundles Year {levelOrdinal} </span>
+        <span>
+          <AllBundlesTotal /> Periods All Bundles
+        </span>
+      </CardHeader>
       <CardBody>
         <BundleTabGroup
           collectionData={data}

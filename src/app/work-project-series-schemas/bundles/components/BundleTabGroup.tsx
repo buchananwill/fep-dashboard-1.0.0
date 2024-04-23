@@ -8,6 +8,7 @@ import { EntityNamesMap } from '@/app/api/entity-names-map';
 import BundleItemChooser from '@/app/work-project-series-schemas/bundles/components/BundleItemChooser';
 import { useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
+import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/components/AllBundlesTotal';
 
 interface BundleTabGroupProps<T, U> {
   collectionData: T[];
