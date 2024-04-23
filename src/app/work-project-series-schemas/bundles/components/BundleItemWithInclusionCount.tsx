@@ -4,14 +4,13 @@ import {
   ArrayPlaceholder,
   ObjectPlaceholder,
   useSelectiveContextGlobalListener,
-  useSelectiveContextGlobalReadAll,
   useSelectiveContextListenerGroupGlobal
 } from 'selective-context';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { useSelectiveContextListenerGroup } from 'selective-context/dist/hooks/base/useSelectiveContextListenerGroup';
 import { useMemo } from 'react';
 import { Chip } from '@nextui-org/chip';
+import { StringMap } from '@/app/api/string-map';
 
 export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   const { currentState } = useDtoStoreListener<WorkProjectSeriesSchemaDto>(
@@ -36,12 +35,14 @@ export default function BundleItemWithInclusionCount({ id }: { id: string }) {
     [bundleIdList]
   );
 
-  const { currentState: bundleMap } =
-    useSelectiveContextListenerGroupGlobal<WorkSeriesSchemaBundleDto>({
-      contextKeys,
-      listenerKey: `inclusionCounter:${id}`,
-      initialValue: ObjectPlaceholder
-    });
+  const { currentState: bundleMap } = useSelectiveContextGlobalListener<
+    StringMap<WorkSeriesSchemaBundleDto>
+  >({
+    contextKey: `${EntityNamesMap.workSeriesSchemaBundle}:stringMap`,
+    listenerKey: id,
+    initialValue: ObjectPlaceholder
+  });
+
   const inclusionCount = Object.values(bundleMap).filter(
     (bundle) => bundle && bundle.workProjectSeriesSchemaIds.includes(id)
   ).length;
