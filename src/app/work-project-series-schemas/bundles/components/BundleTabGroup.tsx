@@ -7,6 +7,7 @@ import { DtoControllerArray } from 'dto-stores';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import BundleItemChooser from '@/app/work-project-series-schemas/bundles/components/BundleItemChooser';
 import { useMemo } from 'react';
+import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
 
 interface BundleTabGroupProps<T, U> {
   collectionData: T[];
@@ -39,11 +40,21 @@ export default function BundleTabGroup({
       >
         {(item) => (
           <Tab key={item.id} title={item.name}>
-            <BundleItemChooser
-              collectionId={item.id}
-              entityClass={entityName}
-              referencedItemContextKeys={itemContextKeys}
-            />
+            <div className={'flex'}>
+              <BundleItemChooser
+                collectionId={item.id}
+                entityClass={entityName}
+                referencedItemContextKeys={itemContextKeys}
+              />
+              <div className={'flex flex-col p-2'}>
+                {referencedItemData.map((schema) => (
+                  <BundleItemWithInclusionCount
+                    id={schema.id}
+                    key={schema.id}
+                  />
+                ))}
+              </div>
+            </div>
           </Tab>
         )}
       </Tabs>

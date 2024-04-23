@@ -8,6 +8,7 @@ import {
 } from 'selective-context';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { Key, useMemo } from 'react';
+import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
 
 export interface CollectionItemChooserProps {
   collectionId: string | number;
