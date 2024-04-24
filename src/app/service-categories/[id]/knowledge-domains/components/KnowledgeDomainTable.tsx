@@ -5,6 +5,7 @@ import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { DtoTable } from '@/components/generic/DtoTable';
+import { d } from '@nextui-org/slider/dist/use-slider-64459b54';
 
 export function KnowledgeDomainTable({
   data,
@@ -16,8 +17,7 @@ export function KnowledgeDomainTable({
   const columns = useMemo(() => {
     return [
       { name: 'id', uid: 'id' },
-      { name: serviceCategory.knowledgeDomainDescriptor, uid: 'name' },
-      { name: 'Task Types', uid: 'workTaskTypeCount' }
+      { name: serviceCategory.knowledgeDomainDescriptor, uid: 'name' }
     ];
   }, [serviceCategory]);
 
@@ -31,6 +31,9 @@ export function KnowledgeDomainTable({
             <DtoStoreStringValueEdit
               entity={domain}
               entityType={EntityNamesMap.knowledgeDomain}
+              listenerKey={`${domain.id}:nameEdit`}
+              valueAccessor={(domain) => domain.name}
+              producer={(name, domain) => ({ ...domain, name })}
             />
           );
         default:
