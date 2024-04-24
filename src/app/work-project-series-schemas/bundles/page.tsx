@@ -6,12 +6,18 @@ import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSche
 import { getDtoListByExampleList } from '@/app/api/generated-actions/WorkProjectSeriesSchema';
 import BundleTabGroup from '@/app/work-project-series-schemas/bundles/components/BundleTabGroup';
 import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/components/AllBundlesTotal';
+import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
+import { SECONDARY_EDUCATION_CATEGORY_ID } from '@/app/api/main';
 
-const levelOrdinal = 10;
+const levelOrdinal = 9;
 
 export default async function Page() {
+  const levelPartial: Partial<KnowledgeLevelDto> = {
+    levelOrdinal: levelOrdinal,
+    serviceCategoryId: SECONDARY_EDUCATION_CATEGORY_ID
+  };
   const bundleActionResponse = await getSchemaBundleByExampleList([
-    { knowledgeLevelLevelOrdinal: levelOrdinal }
+    { knowledgeLevel: levelPartial }
   ]);
   const { data } = bundleActionResponse;
   if (data === undefined)

@@ -12,7 +12,6 @@ import {
 } from './template-actions';
 import { BASE_URL, HasNumberId, HasUuid, isNotUndefined, Page } from '../main';
 
-
 export function constructUrl(
   resourceSegments: string[] | string,
   action?: string
@@ -33,6 +32,10 @@ export interface PageRequest {
   sort?: string;
 }
 
+type RecursivePartial<T> = {
+  [P in keyof T]?: T[P] extends object ? RecursivePartial<T[P]> : T[P];
+};
+
 export interface BaseEndpointSet<T, ID_TYPE extends string | number> {
   getPage: (pageRequest: PageRequest) => ActionResponsePromise<Page<T>>;
   getAll: () => ActionResponsePromise<T[]>;
@@ -46,7 +49,7 @@ export interface BaseEndpointSet<T, ID_TYPE extends string | number> {
   getDtoListByParamList: (idList: ID_TYPE[]) => ActionResponsePromise<T[]>;
   getDtoListByBodyList: (idList: ID_TYPE[]) => ActionResponsePromise<T[]>;
   getDtoListByExampleList: (
-    exampleList: Partial<T>[]
+    exampleList: RecursivePartial<T>[]
   ) => ActionResponsePromise<T[]>;
 }
 
@@ -74,10 +77,10 @@ async function getDtoListByBodyList<T, ID_TYPE extends string | number>(
   return getDtoListByIds<ID_TYPE, T>(idList, `${url}/listById`);
 }
 async function getDtoListByExampleList<T>(
-  exampleList: Partial<T>[],
+  exampleList: RecursivePartial<T>[],
   url: string
 ): ActionResponsePromise<T[]> {
-  return postEntitiesWithDifferentReturnType<Partial<T>[], T[]>(
+  return postEntitiesWithDifferentReturnType<RecursivePartial<T>[], T[]>(
     exampleList,
     `${url}/listByExampleList`
   );
