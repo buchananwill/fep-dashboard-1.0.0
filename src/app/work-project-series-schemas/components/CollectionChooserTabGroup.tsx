@@ -6,38 +6,50 @@ import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSche
 import { DtoControllerArray, DtoGroupMapController } from 'dto-stores';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import BundleItemChooser from '@/app/work-project-series-schemas/bundles/components/BundleItemChooser';
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
 import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/components/AllBundlesTotal';
+import { CollectionItemChooserProps } from '@/app/work-project-series-schemas/bundles/components/collectionItemChooserProps';
+import { HasId } from '@/app/api/main';
+import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 
-interface BundleTabGroupProps<T, U> {
+export interface CollectionChooserTabGroupProps<T, U> {
   collectionData: T[];
   referencedItemData: U[];
+  referencedEntityClass: string;
+  collectionEntityClass: string;
+  collectionItemChooser: FC<CollectionItemChooserProps>;
 }
 
-const entityName = EntityNamesMap.workSeriesSchemaBundle;
-export default function BundleTabGroup({
+export default function CollectionChooserTabGroup<
+  T extends HasId & HasNameDto,
+  U extends HasId
+>({
   collectionData,
-  referencedItemData
-}: BundleTabGroupProps<WorkSeriesSchemaBundleDto, WorkProjectSeriesSchemaDto>) {
+  referencedItemData,
+  referencedEntityClass,
+  collectionEntityClass,
+  collectionItemChooser: ItemChooser
+}: CollectionChooserTabGroupProps<T, U>) {
   const itemContextKeys = useMemo(() => {
     return referencedItemData.map(
-      (item) => `${EntityNamesMap.workProjectSeriesSchema}:${item.id}`
+      (item) => `${referencedEntityClass}:${item.id}`
     );
-  }, [referencedItemData]);
+  }, [referencedItemData, referencedEntityClass]);
 
   return (
     <>
-      <DtoControllerArray dtoList={collectionData} entityName={entityName} />
+      <DtoControllerArray
+        dtoList={collectionData}
+        entityName={collectionEntityClass}
+      />
       <DtoControllerArray
         dtoList={referencedItemData}
-        entityName={EntityNamesMap.workProjectSeriesSchema}
+        entityName={referencedEntityClass}
       />
-      <DtoGroupMapController
-        entityClass={EntityNamesMap.workSeriesSchemaBundle}
-      />
+      <DtoGroupMapController entityClass={collectionEntityClass} />
       <Tabs
-        aria-label={'bundle tabs'}
+        aria-label={'collection tabs'}
         size={'lg'}
         items={collectionData}
         isVertical={true}
@@ -45,9 +57,9 @@ export default function BundleTabGroup({
         {(item) => (
           <Tab key={item.id} title={item.name}>
             <div className={'flex'}>
-              <BundleItemChooser
+              <ItemChooser
                 collectionId={item.id}
-                entityClass={entityName}
+                entityClass={collectionEntityClass}
                 referencedItemContextKeys={itemContextKeys}
               />
             </div>

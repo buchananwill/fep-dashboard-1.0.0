@@ -2,22 +2,23 @@
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { useDtoStoreDispatch } from 'dto-stores';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import {
-  ObjectPlaceholder,
-  useSelectiveContextListenerGroupGlobal
-} from 'selective-context';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import React, { Key, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
 import { sumAllSchemas } from '@/app/work-project-series-schemas/functions/sum-delivery-allocations';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import { Chip } from '@nextui-org/chip';
+import { useItemChooserMap } from '@/utils/useItemChooserMap';
+import { CollectionItemChooserProps } from '@/app/work-project-series-schemas/bundles/components/collectionItemChooserProps';
+import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 
-export interface CollectionItemChooserProps {
-  collectionId: string | number;
-  entityClass: string;
-  referencedItemContextKeys: string[];
-}
+const produceBundle = (
+  updatedKeys: string[],
+  bundle: WorkSeriesSchemaBundleDto
+) => ({
+  ...bundle,
+  workProjectSeriesSchemaIds: updatedKeys
+});
 
 export default function BundleItemChooser({
   collectionId,
@@ -30,30 +31,15 @@ export default function BundleItemChooser({
       entityClass,
       'itemChooser'
     );
-  const { currentState: schemaMap } =
-    useSelectiveContextListenerGroupGlobal<WorkProjectSeriesSchemaDto>({
-      contextKeys: referencedItemContextKeys,
-      listenerKey: `bundleItemChooser:${collectionId}`,
-      initialValue: ObjectPlaceholder
-    });
-
-  const items = useMemo(() => {
-    return referencedItemContextKeys
-      .map((cKey) => schemaMap[cKey])
-      .filter((schema) => schema !== undefined)
-      .map((schema) => schema as WorkProjectSeriesSchemaDto);
-  }, [referencedItemContextKeys, schemaMap]);
-
-  const handleAction = (key: Set<Key> | 'all') => {
-    console.log(key);
-    dispatchWithoutControl((bundle) => {
-      const updatedKeys = [...key].map((nextKey) => `${nextKey}`);
-      return {
-        ...bundle,
-        workProjectSeriesSchemaIds: updatedKeys
-      };
-    });
-  };
+  const { itemMap: schemaMap, items } =
+    useItemChooserMap<WorkProjectSeriesSchemaDto>(
+      referencedItemContextKeys,
+      collectionId
+    );
+  const handleSelectionChange = useListboxSelectionChangeCallback(
+    dispatchWithoutControl,
+    produceBundle
+  );
 
   const currentAllocationSum = useMemo(() => {
     const workProjectSeriesSchemaDtos =
@@ -79,9 +65,8 @@ export default function BundleItemChooser({
         selectedKeys={currentState.workProjectSeriesSchemaIds}
         selectionMode={'multiple'}
         variant={'bordered'}
-        aria-label={'Select Bundle Items'}
-        label={'Select Bundle Items'}
-        onSelectionChange={(keys) => handleAction(keys)}
+        aria-label={'Select Collection Items'}
+        onSelectionChange={handleSelectionChange}
         classNames={{ base: 'border-2 rounded-lg p-2' }}
       >
         {(listboxItem) => (

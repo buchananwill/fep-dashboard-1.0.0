@@ -4,10 +4,13 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { getDtoListByExampleList as getWorkTaskTypesByExampleList } from '@/app/api/generated-actions/WorkTaskType';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { getDtoListByExampleList } from '@/app/api/generated-actions/WorkProjectSeriesSchema';
-import BundleTabGroup from '@/app/work-project-series-schemas/bundles/components/BundleTabGroup';
+import CollectionChooserTabGroup from '@/app/work-project-series-schemas/components/CollectionChooserTabGroup';
 import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/components/AllBundlesTotal';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { SECONDARY_EDUCATION_CATEGORY_ID } from '@/app/api/main';
+import WorkSeriesSchemaBundleTabGroup from '@/app/work-project-series-schemas/bundles/components/WorkSeriesSchemaBundleTabGroup';
+import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { getWorkProjectSeriesSchemasByKnowledgeLevel } from '@/app/work-project-series-schemas/functions/getWorkProjectSeriesSchemasByKnowledgeLevel';
 
 const levelOrdinal = 9;
 
@@ -23,16 +26,8 @@ export default async function Page() {
   if (data === undefined)
     return <MissingData response={bundleActionResponse} />;
 
-  const workProjectSeriesSchemaResponse = await getWorkTaskTypesByExampleList([
-    { knowledgeLevelLevelOrdinal: levelOrdinal }
-  ]).then((r) => {
-    const exampleList = r.data?.map(
-      (wtt) =>
-        ({ workTaskTypeId: wtt.id }) as Partial<WorkProjectSeriesSchemaDto>
-    );
-    if (exampleList) return getDtoListByExampleList(exampleList);
-    else return undefined;
-  });
+  const workProjectSeriesSchemaResponse =
+    await getWorkProjectSeriesSchemasByKnowledgeLevel(levelOrdinal);
 
   if (workProjectSeriesSchemaResponse === undefined)
     return <MissingData response={workProjectSeriesSchemaResponse} />;
@@ -49,9 +44,11 @@ export default async function Page() {
         </span>
       </CardHeader>
       <CardBody>
-        <BundleTabGroup
+        <WorkSeriesSchemaBundleTabGroup
           collectionData={data}
           referencedItemData={workProjectSeriesSchemaList}
+          collectionEntityClass={EntityNamesMap.workSeriesSchemaBundle}
+          referencedEntityClass={EntityNamesMap.workProjectSeriesSchema}
         />
       </CardBody>
     </Card>

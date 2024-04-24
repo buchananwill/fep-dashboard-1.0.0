@@ -103,7 +103,7 @@ export const LessonDeliveryModel = (
 
       <RenameModal
         {...renameEntityProps}
-        onCancel={() => renameEntityProps.dispatch()(model.name)}
+        onCancel={() => renameEntityProps.dispatch(model.name)}
       >
         thing
       </RenameModal>
