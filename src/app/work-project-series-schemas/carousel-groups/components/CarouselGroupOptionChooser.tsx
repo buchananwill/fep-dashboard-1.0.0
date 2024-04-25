@@ -70,17 +70,6 @@ export default function CarouselGroupOptionChooser({
       listenerKey: 'itemChooser'
     });
 
-  const handleAddGroup = () => {
-    const newCarousel: CarouselGroupDto = {
-      id: crypto.randomUUID(),
-      name: `New Carousel ${masterList.length}`,
-      carousels: [],
-      carouselGroupOptions: [],
-      knowledgeLevel: masterList[0].knowledgeLevel // TODO: Make the KnowledgeLevel context available
-    };
-    updateMasterList((list) => [...list, newCarousel]);
-  };
-
   return (
     <div className={'flex flex-col'}>
       <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
@@ -90,7 +79,6 @@ export default function CarouselGroupOptionChooser({
         >
           {currentState.name}
         </Button>
-        <Button onPress={handleAddGroup}>Add Carousel</Button>
       </div>
       <Listbox
         items={items}

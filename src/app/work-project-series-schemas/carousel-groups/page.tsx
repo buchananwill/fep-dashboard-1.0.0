@@ -1,10 +1,8 @@
 import { MissingData } from '@/components/generic/MissingData';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { getDtoListByExampleList as getCarouselGroupsByExampleList } from '@/app/api/generated-actions/CarouselGroup';
-import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/components/AllBundlesTotal';
+import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/app/api/generated-actions/KnowledgeLevel';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { SECONDARY_EDUCATION_CATEGORY_ID } from '@/app/api/main';
-import WorkSeriesSchemaBundleTabGroup from '@/app/work-project-series-schemas/bundles/components/WorkSeriesSchemaBundleTabGroup';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
 import { getWorkProjectSeriesSchemasByKnowledgeLevel } from '@/app/work-project-series-schemas/functions/getWorkProjectSeriesSchemasByKnowledgeLevel';
 import CarouselGroupTabGroup from '@/app/work-project-series-schemas/carousel-groups/components/CarouselGroupTabGroup';
@@ -16,8 +14,18 @@ export default async function Page() {
     levelOrdinal: levelOrdinal,
     serviceCategoryId: SECONDARY_EDUCATION_CATEGORY_ID
   };
+
+  const levelResponse = await getKnowledgeLevelsByExampleList([levelPartial]);
+
+  const kLevelList = levelResponse.data;
+
+  if (kLevelList === undefined || kLevelList.length === 0)
+    return <MissingData response={levelResponse} />;
+
+  const [knowledgeLevel] = kLevelList;
+
   const carouselGroupsActionResponse = await getCarouselGroupsByExampleList([
-    { knowledgeLevel: levelPartial }
+    { knowledgeLevel: knowledgeLevel }
   ]);
   const { data } = carouselGroupsActionResponse;
   if (data === undefined)
@@ -32,18 +40,12 @@ export default async function Page() {
   const { data: workProjectSeriesSchemaList } = workProjectSeriesSchemaResponse;
 
   return (
-    <Card className={'w-fit'}>
-      <CardHeader className={'flex justify-center'}>
-        <span>Carousel Groups Year {levelOrdinal} </span>
-      </CardHeader>
-      <CardBody>
-        <CarouselGroupTabGroup
-          collectionData={data}
-          referencedItemData={workProjectSeriesSchemaList}
-          collectionEntityClass={EntityNamesMap.carouselGroup}
-          referencedEntityClass={EntityNamesMap.workProjectSeriesSchema}
-        />
-      </CardBody>
-    </Card>
+    <CarouselGroupTabGroup
+      collectionData={data}
+      referencedItemData={workProjectSeriesSchemaList}
+      collectionEntityClass={EntityNamesMap.carouselGroup}
+      referencedEntityClass={EntityNamesMap.workProjectSeriesSchema}
+      knowledgeLevel={knowledgeLevel}
+    />
   );
 }
