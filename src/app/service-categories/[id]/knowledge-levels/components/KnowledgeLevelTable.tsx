@@ -33,6 +33,9 @@ export default function KnowledgeLevelTable({
             <DtoStoreStringValueEdit
               entity={level}
               entityType={EntityNamesMap.knowledgeLevel}
+              valueAccessor={(level) => level.name}
+              producer={(name, level) => ({ ...level, name })}
+              listenerKey={`${EntityNamesMap.knowledgeLevel}${level.id}`}
             />
           );
         case 'levelOrdinal':
