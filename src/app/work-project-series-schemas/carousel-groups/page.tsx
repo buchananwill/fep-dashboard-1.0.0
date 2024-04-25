@@ -37,7 +37,10 @@ export default async function Page() {
     return <MissingData response={workProjectSeriesSchemaResponse} />;
   if (workProjectSeriesSchemaResponse.data === undefined)
     return <MissingData response={workProjectSeriesSchemaResponse} />;
-  const { data: workProjectSeriesSchemaList } = workProjectSeriesSchemaResponse;
+  const workProjectSeriesSchemaList =
+    workProjectSeriesSchemaResponse.data.filter(
+      (schema) => !schema.name.toLowerCase().includes('carousel')
+    );
 
   return (
     <CarouselGroupTabGroup

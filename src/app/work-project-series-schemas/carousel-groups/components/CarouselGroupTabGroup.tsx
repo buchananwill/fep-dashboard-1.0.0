@@ -40,7 +40,7 @@ export default function CarouselGroupTabGroup({
   return (
     <Card className={'w-fit'}>
       <CardHeader className={'flex'}>
-        <Button onPress={handleAddGroup}>Add Carousel</Button>
+        <Button onPress={handleAddGroup}>Add Carousel Group</Button>
         <div className={'grow text-center'}>
           Carousel Groups Year {knowledgeLevel.levelOrdinal}{' '}
         </div>

@@ -1,4 +1,10 @@
-import { createContext, Dispatch, SetStateAction, useContext } from 'react';
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useContext
+} from 'react';
 
 export interface StepperInterface {
   increment: () => void;
@@ -20,15 +26,24 @@ export function useStepperContext() {
   return useContext(StepperContext);
 }
 
-export function getStepperInterface(
+export function useStepperInterface(
   dispatch: Dispatch<SetStateAction<number>>,
   max: number,
   min: number,
   current: number
 ) {
+  const increment = useCallback(
+    () => dispatch((prev) => Math.min(prev + 1, max)),
+    [max, dispatch]
+  );
+  const decrement = useCallback(
+    () => dispatch((prev) => Math.max(prev - 1, min)),
+    [min, dispatch]
+  );
+
   return {
-    increment: () => dispatch((prev) => Math.min(prev + 1, max)),
-    decrement: () => dispatch((prev) => Math.max(prev - 1, min)),
+    increment: increment,
+    decrement: decrement,
     max,
     min,
     current

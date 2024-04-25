@@ -3,7 +3,7 @@ import { useDtoStoreDispatch } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
@@ -16,8 +16,12 @@ import {
   ArrayPlaceholder,
   useSelectiveContextGlobalDispatch
 } from 'selective-context';
+import { StepperContext } from '@/components/generic/stepperContextCreator';
+import LandscapeStepper from '@/components/generic/LandscapeStepper';
+import { CarouselDto } from '@/app/api/dtos/CarouselDtoSchema';
+import { CarouselLeanDto } from '@/app/api/dtos/CarouselLeanDtoSchema';
 
-function produceCarouselGroup(
+function produceCarouselGroupOptionsEdit(
   updatedKeys: string[],
   carouselGroupDto: CarouselGroupDto
 ): CarouselGroupDto {
@@ -47,7 +51,7 @@ export default function CarouselGroupOptionChooser({
     );
   const handleSelectionChange = useListboxSelectionChangeCallback(
     dispatchWithoutControl,
-    produceCarouselGroup
+    produceCarouselGroupOptionsEdit
   );
 
   const { onOpen, dispatchRename, ...renameProps } = useRenameEntity(
@@ -63,12 +67,33 @@ export default function CarouselGroupOptionChooser({
     );
   }, [currentState]);
 
-  const { dispatchWithoutControl: updateMasterList, currentState: masterList } =
-    useSelectiveContextGlobalDispatch<CarouselGroupDto[]>({
-      contextKey: `${entityClass}:masterList`,
-      initialValue: ArrayPlaceholder,
-      listenerKey: 'itemChooser'
-    });
+  const editCarouselCount = useCallback(
+    (direction: 'inc' | 'dec') => {
+      if (direction === 'inc') {
+        dispatchWithoutControl((group) => {
+          const currentCarouselCount = group.carousels.length + 1;
+          const carouselsUpdate: CarouselLeanDto[] = [
+            ...group.carousels,
+            {
+              id: crypto.randomUUID(),
+              carouselOrdinal: currentCarouselCount
+            }
+          ];
+          return { ...group, carousels: carouselsUpdate };
+        });
+      } else {
+        dispatchWithoutControl((group) => {
+          if (group.carousels.length === 0) return group;
+          else
+            return {
+              ...group,
+              carousels: group.carousels.slice(0, group.carousels.length - 1)
+            };
+        });
+      }
+    },
+    [dispatchWithoutControl]
+  );
 
   return (
     <div className={'flex flex-col'}>
@@ -79,6 +104,18 @@ export default function CarouselGroupOptionChooser({
         >
           {currentState.name}
         </Button>
+        <div className={'flex justify-center'}>
+          <StepperContext.Provider
+            value={{
+              increment: () => editCarouselCount('inc'),
+              decrement: () => editCarouselCount('dec'),
+              current: currentState.carousels.length
+            }}
+          >
+            <span className={'pr-2'}>Carousels:</span>{' '}
+            <LandscapeStepper></LandscapeStepper>
+          </StepperContext.Provider>
+        </div>
       </div>
       <Listbox
         items={items}
