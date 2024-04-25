@@ -12,9 +12,7 @@ import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
 
 export const RenameContextKey = 'rename';
-export const RenameModalWrapperListener = `${RenameContextKey}:listener`;
-
-export interface ConfirmActionModalProps extends ModalProps {
+export interface ConfirmActionModalProps extends Omit<ModalProps, 'children'> {
   onConfirm?: () => void;
   onCancel?: () => void;
 }
@@ -29,7 +27,6 @@ export interface RenameModalProps extends ConfirmActionModalProps {
 export default function RenameModal({
   contextKey,
   listenerKey,
-  children,
   error,
   isOpen,
   onCancel,

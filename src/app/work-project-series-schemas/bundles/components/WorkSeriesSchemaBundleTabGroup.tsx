@@ -1,7 +1,7 @@
 'use client';
 import CollectionChooserTabGroup, {
   CollectionChooserTabGroupProps
-} from '@/app/work-project-series-schemas/components/CollectionChooserTabGroup';
+} from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import BundleItemChooser from '@/app/work-project-series-schemas/bundles/components/BundleItemChooser';

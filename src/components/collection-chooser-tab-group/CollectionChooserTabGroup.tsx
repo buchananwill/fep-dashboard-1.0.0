@@ -12,6 +12,7 @@ import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/component
 import { CollectionItemChooserProps } from '@/app/work-project-series-schemas/bundles/components/collectionItemChooserProps';
 import { HasId } from '@/app/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
+import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
 
 export interface CollectionChooserTabGroupProps<T, U> {
   collectionData: T[];
@@ -48,24 +49,11 @@ export default function CollectionChooserTabGroup<
         entityName={referencedEntityClass}
       />
       <DtoGroupMapController entityClass={collectionEntityClass} />
-      <Tabs
-        aria-label={'collection tabs'}
-        size={'lg'}
-        items={collectionData}
-        isVertical={true}
-      >
-        {(item) => (
-          <Tab key={item.id} title={item.name}>
-            <div className={'flex'}>
-              <ItemChooser
-                collectionId={item.id}
-                entityClass={collectionEntityClass}
-                referencedItemContextKeys={itemContextKeys}
-              />
-            </div>
-          </Tab>
-        )}
-      </Tabs>
+      <InnerWrapper
+        collectionItemChooser={ItemChooser}
+        itemContextKeys={itemContextKeys}
+        collectionEntityClass={collectionEntityClass}
+      />
     </>
   );
 }

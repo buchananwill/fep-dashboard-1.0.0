@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { getDtoListByExampleList as getWorkTaskTypesByExampleList } from '@/app/api/generated-actions/WorkTaskType';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { getDtoListByExampleList } from '@/app/api/generated-actions/WorkProjectSeriesSchema';
-import CollectionChooserTabGroup from '@/app/work-project-series-schemas/components/CollectionChooserTabGroup';
+import CollectionChooserTabGroup from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
 import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/components/AllBundlesTotal';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { SECONDARY_EDUCATION_CATEGORY_ID } from '@/app/api/main';

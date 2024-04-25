@@ -15,9 +15,9 @@ export function useRenameEntity<T extends HasNameDto & HasId>(
   listenerKey: string,
   dispatchWithoutControl?: Dispatch<SetStateAction<T>>
 ) {
-  const disclosureReturn = useDisclosure();
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const contextKey = getRenameContextKey(entityClass, entity);
-  const { currentState, dispatch } =
+  const { currentState, dispatch: dispatchRename } =
     useSelectiveContextGlobalController<string>({
       contextKey,
       listenerKey: 'controller',
@@ -29,5 +29,14 @@ export function useRenameEntity<T extends HasNameDto & HasId>(
       dispatchWithoutControl((dto) => ({ ...dto, name: currentState }));
     }
   }, [currentState, dispatchWithoutControl]);
-  return { contextKey, onConfirm, ...disclosureReturn, listenerKey, dispatch };
+  return {
+    contextKey,
+    onConfirm,
+    isOpen,
+    onOpenChange,
+    onClose,
+    onOpen,
+    listenerKey,
+    dispatchRename
+  };
 }

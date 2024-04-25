@@ -7,6 +7,15 @@ import React, { useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
+import { useRenameEntity } from '@/components/modals/useRenameEntity';
+import { EntityNamesMap } from '@/app/api/entity-names-map';
+import RenameModal from '@/components/modals/RenameModal';
+import { Button } from '@nextui-org/button';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import {
+  ArrayPlaceholder,
+  useSelectiveContextGlobalDispatch
+} from 'selective-context';
 
 function produceCarouselGroup(
   updatedKeys: string[],
@@ -41,16 +50,47 @@ export default function CarouselGroupOptionChooser({
     produceCarouselGroup
   );
 
+  const { onOpen, dispatchRename, ...renameProps } = useRenameEntity(
+    entityClass,
+    currentState,
+    'itemChooserTabPanel',
+    dispatchWithoutControl
+  );
+
   const selectedKeys = useMemo(() => {
     return currentState.carouselGroupOptions.map(
       (option) => option.workProjectSeriesSchemaId
     );
   }, [currentState]);
 
+  const { dispatchWithoutControl: updateMasterList, currentState: masterList } =
+    useSelectiveContextGlobalDispatch<CarouselGroupDto[]>({
+      contextKey: `${entityClass}:masterList`,
+      initialValue: ArrayPlaceholder,
+      listenerKey: 'itemChooser'
+    });
+
+  const handleAddGroup = () => {
+    const newCarousel: CarouselGroupDto = {
+      id: crypto.randomUUID(),
+      name: `New Carousel ${masterList.length}`,
+      carousels: [],
+      carouselGroupOptions: [],
+      knowledgeLevel: masterList[0].knowledgeLevel // TODO: Make the KnowledgeLevel context available
+    };
+    updateMasterList((list) => [...list, newCarousel]);
+  };
+
   return (
     <div className={'flex flex-col'}>
-      <div className={'flex justify-between items-baseline mb-2'}>
-        <span>{currentState.name}</span>
+      <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
+        <Button
+          onPress={onOpen}
+          endContent={<PencilSquareIcon className={'px-1'} />}
+        >
+          {currentState.name}
+        </Button>
+        <Button onPress={handleAddGroup}>Add Carousel</Button>
       </div>
       <Listbox
         items={items}
@@ -71,6 +111,7 @@ export default function CarouselGroupOptionChooser({
           </ListboxItem>
         )}
       </Listbox>
+      <RenameModal {...renameProps} />
     </div>
   );
 }

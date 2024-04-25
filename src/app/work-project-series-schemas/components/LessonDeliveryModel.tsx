@@ -59,7 +59,6 @@ export const LessonDeliveryModel = (
 
         <Button
           onPress={() => renameEntityProps.onOpen()}
-          // size={'sm'}
           className={'px-unit-2'}
           endContent={<PencilSquareIcon className={'p-1.5'} />}
         >
@@ -103,10 +102,8 @@ export const LessonDeliveryModel = (
 
       <RenameModal
         {...renameEntityProps}
-        onCancel={() => renameEntityProps.dispatch(model.name)}
-      >
-        thing
-      </RenameModal>
+        onCancel={() => renameEntityProps.dispatchRename(model.name)}
+      />
     </div>
   );
 };
