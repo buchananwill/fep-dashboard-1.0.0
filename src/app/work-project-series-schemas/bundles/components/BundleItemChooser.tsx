@@ -37,8 +37,8 @@ export default function BundleItemChooser({
       collectionId
     );
   const handleSelectionChange = useListboxSelectionChangeCallback(
-    dispatchWithoutControl,
-    produceBundle
+    produceBundle,
+    dispatchWithoutControl
   );
 
   const currentAllocationSum = useMemo(() => {

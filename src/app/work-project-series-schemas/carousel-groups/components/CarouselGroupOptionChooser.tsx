@@ -50,8 +50,8 @@ export default function CarouselGroupOptionChooser({
       collectionId
     );
   const handleSelectionChange = useListboxSelectionChangeCallback(
-    dispatchWithoutControl,
-    produceCarouselGroupOptionsEdit
+    produceCarouselGroupOptionsEdit,
+    dispatchWithoutControl
   );
 
   const { onOpen, dispatchRename, ...renameProps } = useRenameEntity(
