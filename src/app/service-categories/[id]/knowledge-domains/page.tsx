@@ -6,7 +6,7 @@ import {
 import { MissingData } from '@/components/generic/MissingData';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-domains/components/KnowledgeDomainTable';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
 import { getOne } from '@/app/api/generated-actions/ServiceCategory';
 
@@ -33,7 +33,7 @@ export default async function Page({
       <ResourceContextProvider pathSegment={id}>
         <DtoListChangesTracker
           dtoList={data}
-          entityName={EntityNamesMap.knowledgeDomain}
+          entityName={EntityClassMap.knowledgeDomain}
           updateServerAction={putList}
           deleteServerAction={deleteIdList}
         />

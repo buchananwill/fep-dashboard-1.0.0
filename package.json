@@ -12,6 +12,7 @@
     "@floating-ui/react": "^0.26.12",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.3.4",
+    "@internationalized/date": "^3.5.2",
     "@nextui-org/button": "^2.0.30",
     "@nextui-org/react": "^2.2.10",
     "@nextui-org/system": "^2.1.0",

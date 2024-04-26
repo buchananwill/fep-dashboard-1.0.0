@@ -4,7 +4,7 @@ import { Tab, Tabs } from '@nextui-org/tabs';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DtoControllerArray, DtoGroupMapController } from 'dto-stores';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import BundleItemChooser from '@/app/work-project-series-schemas/bundles/components/BundleItemChooser';
 import { FC, useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';

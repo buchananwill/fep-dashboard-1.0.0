@@ -1,4 +1,4 @@
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
 import WpssEditGridColList from '@/app/work-project-series-schemas/components/WpssEditGridColList';
 import { getDtoListByExampleList as getWorkTaskTypesByExample } from '@/app/api/generated-actions/WorkTaskType';
@@ -30,7 +30,7 @@ export default async function Page({}: {}) {
     <>
       <DtoListChangesTracker
         dtoList={wpssData}
-        entityName={EntityNamesMap.workProjectSeriesSchema}
+        entityName={EntityClassMap.workProjectSeriesSchema}
       />
       <WpssEditGridColList />
     </>

@@ -8,7 +8,7 @@ import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
 import { useRenameEntity } from '@/components/modals/useRenameEntity';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import RenameModal from '@/components/modals/RenameModal';
 import { Button } from '@nextui-org/button';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';

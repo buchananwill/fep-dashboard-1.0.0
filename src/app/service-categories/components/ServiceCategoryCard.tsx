@@ -2,7 +2,7 @@
 import { DtoComponentWrapper, DtoUiComponentProps } from 'dto-stores';
 import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import {
   StringAttributeInputArray,
   StringPropertyNames
@@ -45,7 +45,7 @@ export default function ServiceCategoryCard({ id }: { id: number }) {
     <DtoComponentWrapper
       uiComponent={InternalUiComponent}
       id={id}
-      entityClass={EntityNamesMap.serviceCategory}
+      entityClass={EntityClassMap.serviceCategory}
     />
   );
 }

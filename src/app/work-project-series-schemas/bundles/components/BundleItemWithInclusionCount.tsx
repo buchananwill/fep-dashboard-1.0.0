@@ -1,5 +1,5 @@
 import { useDtoStoreListener } from 'dto-stores';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import {
   ArrayPlaceholder,
   ObjectPlaceholder,
@@ -15,14 +15,14 @@ import { StringMap } from '@/app/api/string-map';
 export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   const { currentState } = useDtoStoreListener<WorkProjectSeriesSchemaDto>(
     id,
-    EntityNamesMap.workProjectSeriesSchema,
+    EntityClassMap.workProjectSeriesSchema,
     'inclusionCounter'
   );
 
   const { currentState: bundleIdList } = useSelectiveContextGlobalListener<
     number[]
   >({
-    contextKey: `${EntityNamesMap.workSeriesSchemaBundle}:idList`,
+    contextKey: `${EntityClassMap.workSeriesSchemaBundle}:idList`,
     initialValue: ArrayPlaceholder,
     listenerKey: `${id}`
   });
@@ -30,7 +30,7 @@ export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   const contextKeys = useMemo(
     () =>
       bundleIdList.map(
-        (bundleId) => `${EntityNamesMap.workSeriesSchemaBundle}:${bundleId}`
+        (bundleId) => `${EntityClassMap.workSeriesSchemaBundle}:${bundleId}`
       ),
     [bundleIdList]
   );
@@ -38,7 +38,7 @@ export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   const { currentState: bundleMap } = useSelectiveContextGlobalListener<
     StringMap<WorkSeriesSchemaBundleDto>
   >({
-    contextKey: `${EntityNamesMap.workSeriesSchemaBundle}:stringMap`,
+    contextKey: `${EntityClassMap.workSeriesSchemaBundle}:stringMap`,
     listenerKey: id,
     initialValue: ObjectPlaceholder
   });

@@ -1,4 +1,4 @@
-export const EntityNamesMap = {
+export const EntityClassMap = {
   workSeriesSchemaBundle: 'WorkSeriesSchemaBundle',
   workSeriesBundleAssignment: 'WorkSeriesBundleAssignment',
   providerRole: 'ProviderRole',

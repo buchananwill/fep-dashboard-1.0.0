@@ -9,7 +9,7 @@ import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/component
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { SECONDARY_EDUCATION_CATEGORY_ID } from '@/app/api/main';
 import WorkSeriesSchemaBundleTabGroup from '@/app/work-project-series-schemas/bundles/components/WorkSeriesSchemaBundleTabGroup';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { getWorkProjectSeriesSchemasByKnowledgeLevel } from '@/app/work-project-series-schemas/functions/getWorkProjectSeriesSchemasByKnowledgeLevel';
 
 const levelOrdinal = 9;
@@ -47,8 +47,8 @@ export default async function Page() {
         <WorkSeriesSchemaBundleTabGroup
           collectionData={data}
           referencedItemData={workProjectSeriesSchemaList}
-          collectionEntityClass={EntityNamesMap.workSeriesSchemaBundle}
-          referencedEntityClass={EntityNamesMap.workProjectSeriesSchema}
+          collectionEntityClass={EntityClassMap.workSeriesSchemaBundle}
+          referencedEntityClass={EntityClassMap.workProjectSeriesSchema}
         />
       </CardBody>
     </Card>

@@ -1,7 +1,7 @@
 'use client';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { DtoComponentArrayGenerator } from 'dto-stores';
 import { LessonDeliveryModel } from '@/app/work-project-series-schemas/components/LessonDeliveryModel';
@@ -12,18 +12,18 @@ import {
 import { EmptyArray, ObjectPlaceholder } from '@/app/api/main';
 import { sumAllSchemas } from '@/app/work-project-series-schemas/functions/sum-delivery-allocations';
 
-const entityType = EntityNamesMap.workProjectSeriesSchema;
+const entityType = EntityClassMap.workProjectSeriesSchema;
 
 export default function WpssEditGridColList() {
   const { currentState: idList } = useSelectiveContextGlobalListener({
-    contextKey: `${EntityNamesMap.workProjectSeriesSchema}:idList`,
+    contextKey: `${EntityClassMap.workProjectSeriesSchema}:idList`,
     initialValue: EmptyArray,
     listenerKey: 'editList'
   });
 
   const contextKeys = useMemo(() => {
     return idList.map(
-      (id) => `${EntityNamesMap.workProjectSeriesSchema}:${id}`
+      (id) => `${EntityClassMap.workProjectSeriesSchema}:${id}`
     );
   }, [idList]);
 

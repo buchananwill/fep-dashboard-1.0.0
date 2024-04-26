@@ -1,21 +1,25 @@
 import { HasId } from '@/app/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { useDtoStoreDispatch } from 'dto-stores';
-import { Input } from '@nextui-org/input';
+import { Input, InputProps } from '@nextui-org/input';
 
-export function DtoStoreStringValueEdit<T extends HasId & HasNameDto>({
-  entity,
-  entityType,
-  producer,
-  valueAccessor,
-  listenerKey
-}: {
+interface DtoStoreStringValueEditProps<T extends HasId>
+  extends Omit<InputProps, 'onValueChange' & 'value' & 'type'> {
   entity: T;
   entityType: string;
   producer?: (value: string, entity: T) => T;
   valueAccessor?: (entity: T) => string;
   listenerKey: string;
-}) {
+}
+
+export function DtoStoreStringValueEdit<T extends HasId>({
+  entity,
+  entityType,
+  producer,
+  valueAccessor,
+  listenerKey,
+  ...inputProps
+}: DtoStoreStringValueEditProps<T>) {
   let { currentState, dispatchWithoutControl } = useDtoStoreDispatch<T>(
     entity.id,
     entityType,
@@ -44,6 +48,7 @@ export function DtoStoreStringValueEdit<T extends HasId & HasNameDto>({
       type={'text'}
       value={valueAccessor(currentState)}
       onValueChange={update}
+      {...inputProps}
     ></Input>
   );
 }

@@ -6,7 +6,7 @@ import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSche
 import React, { useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
 import { sumAllSchemas } from '@/app/work-project-series-schemas/functions/sum-delivery-allocations';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { Chip } from '@nextui-org/chip';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { CollectionItemChooserProps } from '@/app/work-project-series-schemas/bundles/components/collectionItemChooserProps';
@@ -44,7 +44,7 @@ export default function BundleItemChooser({
   const currentAllocationSum = useMemo(() => {
     const workProjectSeriesSchemaDtos =
       currentState.workProjectSeriesSchemaIds.map(
-        (id) => schemaMap[`${EntityNamesMap.workProjectSeriesSchema}:${id}`]
+        (id) => schemaMap[`${EntityClassMap.workProjectSeriesSchema}:${id}`]
       );
     return sumAllSchemas(workProjectSeriesSchemaDtos);
   }, [currentState, schemaMap]);

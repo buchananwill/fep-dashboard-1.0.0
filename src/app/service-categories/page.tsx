@@ -1,5 +1,5 @@
 import { getPage } from '@/app/api/generated-actions/ServiceCategory';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { MissingData } from '@/components/generic/MissingData';
 import { LinkListResourcePage } from '@/components/generic/LinkListResourcePage';
 
@@ -11,7 +11,7 @@ export default async function Page() {
   return (
     <main className={'p-8'}>
       <LinkListResourcePage
-        entityName={EntityNamesMap.serviceCategory}
+        entityName={EntityClassMap.serviceCategory}
         dtoList={data.content}
       />
     </main>

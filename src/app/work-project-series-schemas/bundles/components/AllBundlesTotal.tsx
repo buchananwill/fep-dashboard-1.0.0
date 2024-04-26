@@ -4,7 +4,7 @@ import {
   useSelectiveContextGlobalListener,
   useSelectiveContextGlobalReadAll
 } from 'selective-context';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { StringMap } from '@/app/api/string-map';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -16,7 +16,7 @@ export default function AllBundlesTotal() {
   const { currentState } = useSelectiveContextGlobalListener<
     StringMap<WorkSeriesSchemaBundleDto>
   >({
-    contextKey: `${EntityNamesMap.workSeriesSchemaBundle}:stringMap`,
+    contextKey: `${EntityClassMap.workSeriesSchemaBundle}:stringMap`,
     listenerKey: 'allBundlesTotal',
     initialValue: ObjectPlaceholder
   });
@@ -28,7 +28,7 @@ export default function AllBundlesTotal() {
       .map((list) =>
         list.map((idItem) =>
           selectiveContextReadAll(
-            `${EntityNamesMap.workProjectSeriesSchema}:${idItem}`
+            `${EntityClassMap.workProjectSeriesSchema}:${idItem}`
           )
         )
       )

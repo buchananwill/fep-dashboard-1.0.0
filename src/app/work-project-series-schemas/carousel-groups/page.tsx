@@ -3,7 +3,7 @@ import { getDtoListByExampleList as getCarouselGroupsByExampleList } from '@/app
 import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/app/api/generated-actions/KnowledgeLevel';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { SECONDARY_EDUCATION_CATEGORY_ID } from '@/app/api/main';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { getWorkProjectSeriesSchemasByKnowledgeLevel } from '@/app/work-project-series-schemas/functions/getWorkProjectSeriesSchemasByKnowledgeLevel';
 import CarouselGroupTabGroup from '@/app/work-project-series-schemas/carousel-groups/components/CarouselGroupTabGroup';
 
@@ -46,8 +46,8 @@ export default async function Page() {
     <CarouselGroupTabGroup
       collectionData={data}
       referencedItemData={workProjectSeriesSchemaList}
-      collectionEntityClass={EntityNamesMap.carouselGroup}
-      referencedEntityClass={EntityNamesMap.workProjectSeriesSchema}
+      collectionEntityClass={EntityClassMap.carouselGroup}
+      referencedEntityClass={EntityClassMap.workProjectSeriesSchema}
       knowledgeLevel={knowledgeLevel}
     />
   );

@@ -1,7 +1,8 @@
+import { TimeSpanDtoSchema } from './TimeSpanDtoSchema';
 import { z } from 'zod';
 export const CycleSubspanDtoSchema = z.object({
   id: z.number(),
-  timeSpanDto: z.date(),
+  timeSpanDto: TimeSpanDtoSchema,
   parentCycleId: z.number(),
   description: z.string(),
   zeroIndexedCycleDay: z.number(),

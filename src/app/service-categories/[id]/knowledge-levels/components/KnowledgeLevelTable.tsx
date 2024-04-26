@@ -2,7 +2,7 @@
 import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import React, { useCallback, useMemo } from 'react';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
-import { EntityNamesMap } from '@/app/api/entity-names-map';
+import { EntityClassMap } from '@/app/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { Chip } from '@nextui-org/chip';
@@ -32,10 +32,10 @@ export default function KnowledgeLevelTable({
           return (
             <DtoStoreStringValueEdit
               entity={level}
-              entityType={EntityNamesMap.knowledgeLevel}
+              entityType={EntityClassMap.knowledgeLevel}
               valueAccessor={(level) => level.name}
               producer={(name, level) => ({ ...level, name })}
-              listenerKey={`${EntityNamesMap.knowledgeLevel}${level.id}`}
+              listenerKey={`${EntityClassMap.knowledgeLevel}${level.id}`}
             />
           );
         case 'levelOrdinal':
