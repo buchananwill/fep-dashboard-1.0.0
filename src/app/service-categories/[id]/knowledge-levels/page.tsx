@@ -8,7 +8,7 @@ import { MissingData } from '@/components/generic/MissingData';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
 import { EntityNamesMap } from '@/app/api/entity-names-map';
-import KnowledgeLevelTable from '@/app/service-categories/[id]/knowledge-levels/components/KnowledgeLevelTable';
+import KnowledgeLevelTable from '@/app/service-categories/[id]/knowledge-levels/_components/KnowledgeLevelTable';
 
 export default async function Page({
   params: { id }
