@@ -14,26 +14,26 @@ export interface TriIntersectionEndpoints<T, U, V, W> {
     idsForHasIdTypeT: U[],
     idsForHasIdTypeU: V[],
     layerId: W
-  ) => ActionResponsePromise<IdReferencedIntersectionTableDto<T>>;
+  ) => Promise<IdReferencedIntersectionTableDto<T>>;
   getByRowIdListAndLayerId: (
     rowIdList: string[] | number[],
     layerId: W
-  ) => ActionResponsePromise<IdReferencedIntersectionTableDto<T>>;
+  ) => Promise<IdReferencedIntersectionTableDto<T>>;
   getColumnIdListAndLayerId: (
     columnIdList: string[] | number[],
     layerId: W
-  ) => ActionResponsePromise<IdReferencedIntersectionTableDto<T>>;
+  ) => Promise<IdReferencedIntersectionTableDto<T>>;
   getByRowIdListAndColumnIdListAndLayerId: (
     idsForHasIdTypeT: T[],
     idsForHasIdTypeU: U[],
     layerId: W
-  ) => ActionResponsePromise<IdReferencedIntersectionTableDto<T>>;
+  ) => Promise<IdReferencedIntersectionTableDto<T>>;
 }
 
 async function getTriIntersectionTable<T, U, V, W>(
   request: IntersectionRequestParams<U, V>,
   layerId: W
-): ActionResponsePromise<IdReferencedIntersectionTableDto<T>> {
+): Promise<IdReferencedIntersectionTableDto<T>> {
   const modifiedUrlRequest = {
     ...request,
     url: `${request.url}/${layerId}/intersectionTable`
@@ -79,7 +79,7 @@ export function generateTriIntersectionEndpointSet<T, U, V, W>(
 async function getTriIntersectionEntitiesByRowAndColumnIdLists<T, W>(
   request: IntersectionRequestParams<any, any>,
   layerId: W
-): ActionResponsePromise<IdReferencedIntersectionTableDto<T>> {
+): Promise<IdReferencedIntersectionTableDto<T>> {
   const modifiedUrlRequest = {
     ...request,
     url: `${request.url}/${layerId}/byRowIdListAndColumnIdList`
@@ -90,7 +90,7 @@ async function getByRowIdListAndLayerId<T, W>(
   idList: string[] | number[],
   url: string,
   layerId: W
-): ActionResponsePromise<IdReferencedIntersectionTableDto<T>> {
+): Promise<IdReferencedIntersectionTableDto<T>> {
   return postEntitiesWithDifferentReturnType<
     string[] | number[],
     IdReferencedIntersectionTableDto<T>
@@ -100,7 +100,7 @@ async function getByColumnIdListAndLayerId<T, W>(
   idList: string[] | number[],
   url: string,
   layerId: W
-): ActionResponsePromise<IdReferencedIntersectionTableDto<T>> {
+): Promise<IdReferencedIntersectionTableDto<T>> {
   return postEntitiesWithDifferentReturnType<
     string[] | number[],
     IdReferencedIntersectionTableDto<T>

@@ -1,9 +1,5 @@
 'use server';
-import {
-  ActionResponsePromise,
-  errorResponse,
-  successResponse
-} from './actionResponse';
+import { ActionResponsePromise } from './actionResponse';
 import { HTTP_METHOD } from 'next/dist/server/web/http';
 import {
   IdReferencedIntersectionTableDto,
@@ -35,24 +31,21 @@ function createRequestInit<T>({
   return init;
 }
 
-export async function postEntities<T>(
-  dtoList: T[],
-  url: string
-): ActionResponsePromise<T[]> {
+export async function postEntities<T>(dtoList: T[], url: string): Promise<T[]> {
   const requestInit = createRequestInit({ body: dtoList });
   return callApi<T[]>(url, requestInit);
 }
 export async function postEntitiesWithDifferentReturnType<T, U>(
   dtoOutbound: T,
   url: string
-): ActionResponsePromise<U> {
+): Promise<U> {
   const requestInit = createRequestInit({ body: dtoOutbound, method: 'POST' });
   return callApi<U>(url, requestInit);
 }
 export async function putRequestWithDifferentReturnType<T, U>(
   request: T,
   url: string
-): ActionResponsePromise<U> {
+): Promise<U> {
   const requestInit = createRequestInit({ body: request, method: 'PUT' });
   return callApi<U>(url, requestInit);
 }
@@ -65,15 +58,12 @@ export async function getWithoutBody<T>(url: string) {
 export async function getDtoListByIds<T, U>(
   idList: T[],
   url: string
-): ActionResponsePromise<U[]> {
+): Promise<U[]> {
   const requestInit = createRequestInit({ body: idList });
   return callApi(url, requestInit);
 }
 
-export async function putEntities<T>(
-  entities: T,
-  url: string
-): ActionResponsePromise<T> {
+export async function putEntities<T>(entities: T, url: string): Promise<T> {
   const requestInit = createRequestInit({
     body: entities,
     method: 'PUT'
@@ -82,20 +72,14 @@ export async function putEntities<T>(
   return callApi<T>(url, requestInit);
 }
 
-export async function patchEntity<T>(
-  entity: T,
-  url: string
-): ActionResponsePromise<T> {
+export async function patchEntity<T>(entity: T, url: string): Promise<T> {
   const requestInit = createRequestInit({
     body: entity,
     method: 'PATCH'
   });
   return callApi<T>(url, requestInit);
 }
-export async function putEntity<T>(
-  entity: T,
-  url: string
-): ActionResponsePromise<T> {
+export async function putEntity<T>(entity: T, url: string): Promise<T> {
   const requestInit = createRequestInit({
     body: entity,
     method: 'PUT'
@@ -105,17 +89,14 @@ export async function putEntity<T>(
 export async function patchEntityList<T>(
   entityList: T[],
   url: string
-): ActionResponsePromise<T[]> {
+): Promise<T[]> {
   const requestInit = createRequestInit({
     body: entityList,
     method: 'PATCH'
   });
   return callApi<T[]>(url, requestInit);
 }
-export async function postEntity<T>(
-  entity: T,
-  url: string
-): ActionResponsePromise<T> {
+export async function postEntity<T>(entity: T, url: string): Promise<T> {
   const requestInit = createRequestInit({
     body: entity,
     method: 'POST'
@@ -144,26 +125,22 @@ export async function postIntersectionTableRequest<T, U, V>({
 export async function deleteEntities<T>(
   entityBody: T[],
   url: string
-): ActionResponsePromise<T[]> {
+): Promise<T[]> {
   const request = createRequestInit({ body: entityBody, method: 'DELETE' });
   return callApi<T[]>(url, request);
 }
 
-export async function deleteEntity<T>(url: string): ActionResponsePromise<T> {
+export async function deleteEntity<T>(url: string): Promise<T> {
   const request = createRequestInit({ method: 'DELETE' });
   return callApi<T>(url, request);
 }
 
-async function callApi<T>(
-  url: string,
-  request: RequestInit
-): ActionResponsePromise<T> {
+async function callApi<T>(url: string, request: RequestInit): Promise<T> {
   try {
     const response = await fetch(url, request);
     if (response.status >= 200 && response.status < 300) {
-      const responseBody: T = await response.json();
-      const message = response.statusText;
-      return successResponse(responseBody, message);
+      // const message = response.statusText;
+      return await response.json();
     } else {
       console.error(response);
       console.error('From: %s', url);

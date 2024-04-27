@@ -13,14 +13,14 @@ import { constructUrl } from './template-base-endpoints';
 export type DepthOp = '>' | '>=' | '<' | '<=' | '=' | '!=';
 
 export interface GraphEndpointSet<T extends HasNumberIdDto> {
-  getGraph: () => ActionResponsePromise<GraphDto<T>>;
+  getGraph: () => Promise<GraphDto<T>>;
   putGraph: (
     graphPutRequest: GraphDtoPutRequestBody<T>
-  ) => ActionResponsePromise<GraphDto<T>>;
+  ) => Promise<GraphDto<T>>;
   getGraphByRootId: (
     graphRootRequest: ByRootIdGraphRequest
-  ) => ActionResponsePromise<GraphDto<T>>;
-  getGraphByNodeList: (idList: number[]) => ActionResponsePromise<GraphDto<T>>;
+  ) => Promise<GraphDto<T>>;
+  getGraphByNodeList: (idList: number[]) => Promise<GraphDto<T>>;
 }
 
 export interface ByRootIdGraphRequest {
@@ -32,7 +32,7 @@ export interface ByRootIdGraphRequest {
 async function getGraphByRootId<T extends HasNumberIdDto>(
   { rootId, depth, depthOp }: ByRootIdGraphRequest,
   url: string
-): ActionResponsePromise<GraphDto<T>> {
+): Promise<GraphDto<T>> {
   const depthParam =
     isNotUndefined(depth) && isNotUndefined(depthOp)
       ? `?depth=${depth}&depthOp=${encodeURIComponent(depthOp)}`
@@ -42,7 +42,7 @@ async function getGraphByRootId<T extends HasNumberIdDto>(
 async function getGraphByNodeList<T extends HasNumberIdDto>(
   idList: number[],
   url: string
-): ActionResponsePromise<GraphDto<T>> {
+): Promise<GraphDto<T>> {
   return postEntitiesWithDifferentReturnType<number[], GraphDto<T>>(
     idList,
     `${url}/byNodeIdList`
@@ -52,7 +52,7 @@ async function getGraphByNodeList<T extends HasNumberIdDto>(
 async function putGraph<T extends HasNumberIdDto>(
   graphPutRequestBody: GraphDtoPutRequestBody<T>,
   url: string
-): ActionResponsePromise<GraphDto<T>> {
+): Promise<GraphDto<T>> {
   return putRequestWithDifferentReturnType<
     GraphDtoPutRequestBody<T>,
     GraphDto<T>
@@ -61,7 +61,7 @@ async function putGraph<T extends HasNumberIdDto>(
 
 async function getGraph<T extends HasNumberIdDto>(
   url: string
-): ActionResponsePromise<GraphDto<T>> {
+): Promise<GraphDto<T>> {
   return getWithoutBody(url);
 }
 

@@ -1,4 +1,3 @@
-import { ActionResponsePromise } from './actionResponse';
 import {
   deleteEntities,
   deleteEntity,
@@ -37,26 +36,24 @@ type RecursivePartial<T> = {
 };
 
 export interface BaseEndpointSet<T, ID_TYPE extends string | number> {
-  getPage: (pageRequest: PageRequest) => ActionResponsePromise<Page<T>>;
-  getAll: () => ActionResponsePromise<T[]>;
-  putList: (dtoList: T[]) => ActionResponsePromise<T[]>;
-  postList: (dtoList: T[]) => ActionResponsePromise<T[]>;
-  deleteIdList: (idDeletionList: ID_TYPE[]) => ActionResponsePromise<ID_TYPE[]>;
-  getOne: (id: ID_TYPE) => ActionResponsePromise<T>;
-  putOne: (dto: T) => ActionResponsePromise<T>;
-  postOne: (dto: T) => ActionResponsePromise<T>;
-  deleteOne: (id: ID_TYPE) => ActionResponsePromise<ID_TYPE>;
-  getDtoListByParamList: (idList: ID_TYPE[]) => ActionResponsePromise<T[]>;
-  getDtoListByBodyList: (idList: ID_TYPE[]) => ActionResponsePromise<T[]>;
-  getDtoListByExampleList: (
-    exampleList: RecursivePartial<T>[]
-  ) => ActionResponsePromise<T[]>;
+  getPage: (pageRequest: PageRequest) => Promise<Page<T>>;
+  getAll: () => Promise<T[]>;
+  putList: (dtoList: T[]) => Promise<T[]>;
+  postList: (dtoList: T[]) => Promise<T[]>;
+  deleteIdList: (idDeletionList: ID_TYPE[]) => Promise<ID_TYPE[]>;
+  getOne: (id: ID_TYPE) => Promise<T>;
+  putOne: (dto: T) => Promise<T>;
+  postOne: (dto: T) => Promise<T>;
+  deleteOne: (id: ID_TYPE) => Promise<ID_TYPE>;
+  getDtoListByParamList: (idList: ID_TYPE[]) => Promise<T[]>;
+  getDtoListByBodyList: (idList: ID_TYPE[]) => Promise<T[]>;
+  getDtoListByExampleList: (exampleList: RecursivePartial<T>[]) => Promise<T[]>;
 }
 
 async function getDtoList<T>(
   { page = 0, pageSize = 10 }: PageRequest,
   url: string
-): ActionResponsePromise<Page<T>> {
+): Promise<Page<T>> {
   return getWithoutBody(`${url}?page=${page}&size=${pageSize}`);
 }
 
@@ -66,44 +63,38 @@ async function getAll<T>(url: string) {
 async function getDtoListByParamList<T, ID_TYPE extends string | number>(
   idList: ID_TYPE[],
   url: string
-): ActionResponsePromise<T[]> {
+): Promise<T[]> {
   const paramString = idList.map((id) => `id=${id}`).join('&');
   return getWithoutBody(`${url}/listById?${paramString}`);
 }
 async function getDtoListByBodyList<T, ID_TYPE extends string | number>(
   idList: ID_TYPE[],
   url: string
-): ActionResponsePromise<T[]> {
+): Promise<T[]> {
   return getDtoListByIds<ID_TYPE, T>(idList, `${url}/listById`);
 }
 async function getDtoListByExampleList<T>(
   exampleList: RecursivePartial<T>[],
   url: string
-): ActionResponsePromise<T[]> {
+): Promise<T[]> {
   return postEntitiesWithDifferentReturnType<RecursivePartial<T>[], T[]>(
     exampleList,
     `${url}/listByExampleList`
   );
 }
 
-async function putDtoList<T>(
-  dtoList: T[],
-  url: string
-): ActionResponsePromise<T[]> {
+async function putDtoList<T>(dtoList: T[], url: string): Promise<T[]> {
   return putEntities(dtoList, url);
 }
 
-async function postDtoList<T>(
-  dtoList: T[],
-  url: string
-): ActionResponsePromise<T[]> {
+async function postDtoList<T>(dtoList: T[], url: string): Promise<T[]> {
   return postEntities(dtoList, url);
 }
 
 async function deleteDtoList<ID_TYPE>(
   deletionIdList: ID_TYPE[],
   url: string
-): ActionResponsePromise<ID_TYPE[]> {
+): Promise<ID_TYPE[]> {
   return deleteEntities(deletionIdList, url);
 }
 
@@ -114,25 +105,25 @@ function getSingletonCrudUrl(url: string, id: number | string) {
 async function getDto<T, ID_TYPE extends number | string>(
   id: ID_TYPE,
   url: string
-): ActionResponsePromise<T> {
+): Promise<T> {
   return getWithoutBody(getSingletonCrudUrl(url, id));
 }
 
 async function putDto<T extends HasNumberId | HasUuid>(
   dto: T,
   url: string
-): ActionResponsePromise<T> {
+): Promise<T> {
   return putEntity(dto, getSingletonCrudUrl(url, dto.id));
 }
 
-async function postDto<T>(dto: T, url: string): ActionResponsePromise<T> {
+async function postDto<T>(dto: T, url: string): Promise<T> {
   return postEntity(dto, `${url}/create`);
 }
 
 async function deleteOneEntity<ID_TYPE extends number | string>(
   deletionId: ID_TYPE,
   url: string
-): ActionResponsePromise<ID_TYPE> {
+): Promise<ID_TYPE> {
   return deleteEntity(getSingletonCrudUrl(url, deletionId));
 }
 

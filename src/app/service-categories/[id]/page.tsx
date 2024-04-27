@@ -3,7 +3,6 @@ import {
   getOne,
   putList
 } from '@/app/api/generated-actions/ServiceCategory';
-import { MissingData } from '@/components/generic/MissingData';
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
@@ -14,11 +13,7 @@ export default async function Page({
 }: {
   params: { id: string };
 }) {
-  let actionResponse = await getOne(parseInt(id));
-
-  if (actionResponse.data === undefined) return <MissingData />;
-
-  const data = actionResponse.data;
+  let data = await getOne(parseInt(id));
 
   return (
     <>

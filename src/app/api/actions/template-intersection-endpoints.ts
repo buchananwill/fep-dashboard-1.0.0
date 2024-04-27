@@ -13,22 +13,22 @@ export interface IntersectionEndpoints<T, U, V> {
   getIntersectionTable: (
     idsForHasIdTypeT: T[],
     idsForHasIdTypeU: U[]
-  ) => ActionResponsePromise<IdReferencedIntersectionTableDto<V>>;
+  ) => Promise<IdReferencedIntersectionTableDto<V>>;
   getByRowIdList: (
     rowIdList: string[] | number[]
-  ) => ActionResponsePromise<IdReferencedIntersectionTableDto<T>>;
+  ) => Promise<IdReferencedIntersectionTableDto<T>>;
   getColumnIdList: (
     columnIdList: string[] | number[]
-  ) => ActionResponsePromise<IdReferencedIntersectionTableDto<T>>;
+  ) => Promise<IdReferencedIntersectionTableDto<T>>;
   getByRowIdListAndColumnIdList: (
     idsForHasIdTypeT: T[],
     idsForHasIdTypeU: U[]
-  ) => ActionResponsePromise<IdReferencedIntersectionTableDto<T>>;
+  ) => Promise<IdReferencedIntersectionTableDto<T>>;
 }
 
 async function getIntersectionTable<T, U, V>(
   request: IntersectionRequestParams<T, U>
-): ActionResponsePromise<IdReferencedIntersectionTableDto<V>> {
+): Promise<IdReferencedIntersectionTableDto<V>> {
   const modifiedUrlRequest = {
     ...request,
     url: `${request.url}/intersectionTable`
@@ -62,7 +62,7 @@ export function generateIntersectionEndpointSet<T, U, V>(
 
 async function getIntersectionEntitiesByRowAndColumnIdLists<T>(
   request: IntersectionRequestParams<any, any>
-): ActionResponsePromise<IdReferencedIntersectionTableDto<T>> {
+): Promise<IdReferencedIntersectionTableDto<T>> {
   const modifiedUrlRequest = {
     ...request,
     url: `${request.url}/byRowIdListAndColumnIdList`
@@ -72,7 +72,7 @@ async function getIntersectionEntitiesByRowAndColumnIdLists<T>(
 async function getByRowIdList<T>(
   idList: string[] | number[],
   url: string
-): ActionResponsePromise<IdReferencedIntersectionTableDto<T>> {
+): Promise<IdReferencedIntersectionTableDto<T>> {
   return postEntitiesWithDifferentReturnType<
     string[] | number[],
     IdReferencedIntersectionTableDto<T>
@@ -81,7 +81,7 @@ async function getByRowIdList<T>(
 async function getByColumnIdList<T>(
   idList: string[] | number[],
   url: string
-): ActionResponsePromise<IdReferencedIntersectionTableDto<T>> {
+): Promise<IdReferencedIntersectionTableDto<T>> {
   return postEntitiesWithDifferentReturnType<
     string[] | number[],
     IdReferencedIntersectionTableDto<T>
