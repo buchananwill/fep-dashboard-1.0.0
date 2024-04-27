@@ -1,4 +1,4 @@
-'use server'
+'use server';
 import {
   ActionResponsePromise,
   errorResponse,
@@ -10,6 +10,7 @@ import {
   IntersectionPostRequestMap,
   IntersectionRequestParams
 } from '../main';
+import { notFound } from 'next/navigation';
 
 function createRequestInit<T>({
   body,
@@ -169,10 +170,12 @@ async function callApi<T>(
       const newVar = await response.json();
       const errorMessage: string = newVar.message;
       const originalRequest: T = newVar.requestBody;
-      return errorResponse(errorMessage, originalRequest);
+      // return errorResponse(errorMessage, originalRequest);
+      notFound();
     }
   } catch (error) {
     console.error('Error fetching data: ', error);
-    return errorResponse('Error');
+    // return errorResponse('Error');
+    throw Error('Error while fetching data.');
   }
 }

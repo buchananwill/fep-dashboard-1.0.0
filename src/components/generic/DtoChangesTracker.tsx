@@ -49,9 +49,8 @@ export default function DtoChangesTracker<T extends HasId>({
 }
 
 export function DtoListChangesTracker<T extends HasId>({
-  unsavedChangesComponent,
   ...props
-}: DtoListControllerProps<T>) {
+}: Omit<DtoListControllerProps<T>, 'unsavedChangesComponent'>) {
   return (
     <DtoControllerArray
       {...props}
