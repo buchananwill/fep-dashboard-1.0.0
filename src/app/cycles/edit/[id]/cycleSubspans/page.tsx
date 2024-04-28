@@ -17,6 +17,8 @@ const entityClass = EntityClassMap.cycleSubspan;
 export default function Page() {
   const { groupedByCycleDay, cycleDays } = groupCycleSubspansByDay(data, cycle);
 
+  console.log(Object.groupBy);
+
   return (
     <div className={'grid grid-cols-5 w-fit gap-1'}>
       <DtoControllerArray dtoList={data} entityName={entityClass} />

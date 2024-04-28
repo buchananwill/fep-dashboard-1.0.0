@@ -1,7 +1,3 @@
-'use client';
-
-import cycleSubspans from '../../../../../utils/init-json-data/time/CycleSubspan.json';
-import cycleSubspanGroups from '../../../../../utils/init-json-data/time/CycleSubspanGroup.json';
 import cycle from '../../../../../utils/init-json-data/time/Cycle.json';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import {
@@ -11,52 +7,65 @@ import {
 
 import { DtoControllerArray } from 'dto-stores';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { DtoComponentWrapperListView } from '@/components/generic/DtoComponentWrapperListView';
-import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
-import { useSelectiveContextGlobalController } from 'selective-context';
-import CycleSubspanGroup from '@/app/cycles/_components/CycleSubspanGroup';
-import { useMemo } from 'react';
+import { CycleSubspanGroupEditDto } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
+import { getWithoutBody } from '@/app/api/actions/template-actions';
+import { API_V2_URL } from '@/app/api/main';
+import data from '@/utils/init-json-data/time/CycleSubspan.json';
+import UiWrapper from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/UiWrapper';
 
 const cycleSubspan = EntityClassMap.cycleSubspan;
 const cycleSubspanGroup = EntityClassMap.cycleSubspanGroup;
 
-export default function Page() {
-  const { currentState } = useSelectiveContextGlobalController({
-    contextKey: `${cycleSubspanGroup}:masterList`,
-    listenerKey: 'controller',
-    initialValue: cycleSubspanGroups
-  });
+const entityName = 'CycleSubspanGroupEdit';
+export default async function Page({
+  params: { id }
+}: {
+  params: { id: string };
+}) {
+  const cycleSubspanGroupEditDtos = await getWithoutBody<
+    CycleSubspanGroupEditDto[]
+  >(`${API_V2_URL}/time/cycleSubspanGroups/cycleSubspanGroupEditList/${id}`);
 
-  const { cycleDays } = useMemo(
-    () => groupCycleSubspansByDay(cycleSubspans, cycle),
-    [cycleSubspans, cycle]
-  );
+  const { groupedByCycleDay, cycleDays } =
+    groupCycleSubspansByDay<CycleSubspanGroupEditDto>(
+      cycleSubspanGroupEditDtos,
+      cycle
+    );
 
-  useSelectiveContextGlobalController({
-    contextKey: 'cycleDayList',
-    initialValue: cycleDays,
-    listenerKey: 'controller'
-  });
+  console.log(cycleSubspanGroupEditDtos);
 
   return (
-    <div>
-      <DtoControllerArray dtoList={cycleSubspans} entityName={cycleSubspan} />
+    <div className={'grid grid-cols-5 w-fit gap-1'}>
       <DtoControllerArray
-        dtoList={currentState}
-        entityName={cycleSubspanGroup}
+        dtoList={cycleSubspanGroupEditDtos}
+        entityName={entityName}
       />
-
-      <Card classNames={{ base: 'w-fit' }}>
-        <CardHeader className={'text-center justify-center'}>Groups</CardHeader>
-        <CardBody className={''}>
-          <DtoComponentWrapperListView
-            entityList={currentState}
-            entityClass={cycleSubspanGroup}
-            eachAs={CycleSubspanGroup}
-          />
-        </CardBody>
-      </Card>
+      {cycleDays.map((cycleDay) => {
+        const cycleSubspanDtoList =
+          groupedByCycleDay[cycleDay.zeroIndexCycleDay];
+        if (cycleSubspanDtoList === undefined) return null;
+        return (
+          <Card
+            key={cycleDay.zeroIndexCycleDay}
+            classNames={{ base: 'w-full' }}
+          >
+            <CardHeader className={'text-center justify-center'}>
+              {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
+            </CardHeader>
+            <CardBody className={''}>
+              <table>
+                <tbody>
+                  <UiWrapper
+                    entityList={cycleSubspanDtoList}
+                    entityClass={entityName}
+                  />
+                </tbody>
+              </table>
+            </CardBody>
+          </Card>
+        );
+      })}
     </div>
   );
 }

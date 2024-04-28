@@ -15,10 +15,12 @@ export function getWeekNumberInt(cycleDay: CycleDay) {
   return Math.floor(cycleDay.zeroIndexCycleDay / 7) + 1;
 }
 
-export function groupCycleSubspansByDay(
-  items: CycleSubspanDto[],
+export function groupCycleSubspansByDay<T extends CycleSubspanDto>(
+  items: T[],
   cycle: CycleDto
 ) {
+  if (!Array.isArray(items)) throw Error('Items is not an array:', items);
+
   const groupedByCycleDay = Object.groupBy(
     items,
     (cycleSubspan) => cycleSubspan.zeroIndexedCycleDay

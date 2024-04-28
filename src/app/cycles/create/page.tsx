@@ -40,11 +40,9 @@ export default function Page() {
 
   const onSubmit: SubmitHandler<CycleDto> = async (data) => {
     startTransition(async () => {
-      const actionResponse = await postOne(data);
-      if (actionResponse.status === 200) {
-        alert(actionResponse.message);
-        appRouterInstance.push('/');
-      }
+      const cycleDto = await postOne(data);
+
+      appRouterInstance.push(`/cycles/${cycleDto.id}/cycleSubspans`);
     });
   };
 

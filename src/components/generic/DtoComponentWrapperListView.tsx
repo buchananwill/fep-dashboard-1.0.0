@@ -1,15 +1,17 @@
 import { HasId } from '@/app/api/main';
 import { DtoComponentWrapper, DtoUiComponent } from 'dto-stores';
 
+export interface DtoComponentWrapperListViewProps<T extends HasId> {
+  entityList: T[];
+  entityClass: string;
+  eachAs: DtoUiComponent<T>;
+}
+
 export function DtoComponentWrapperListView<T extends HasId>({
   entityList,
   entityClass,
   eachAs
-}: {
-  entityList: T[];
-  entityClass: string;
-  eachAs: DtoUiComponent<T>;
-}) {
+}: DtoComponentWrapperListViewProps<T>) {
   return entityList.map((entity) => (
     <DtoComponentWrapper
       entityClass={entityClass}
