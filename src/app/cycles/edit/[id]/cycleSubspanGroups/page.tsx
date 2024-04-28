@@ -4,15 +4,14 @@ import {
   getWeekNumberInt,
   groupCycleSubspansByDay
 } from '@/app/cycles/_functions/groupCycleSubspansByDay';
-
-import { DtoControllerArray } from 'dto-stores';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { CycleSubspanGroupEditDto } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
 import { getWithoutBody } from '@/app/api/actions/template-actions';
 import { API_V2_URL } from '@/app/api/main';
-import data from '@/utils/init-json-data/time/CycleSubspan.json';
 import UiWrapper from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/UiWrapper';
+import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
+import { putGroupEditAction } from '@/app/cycles/edit/[id]/cycleSubspanGroups/putGroupEditAction';
 
 const cycleSubspan = EntityClassMap.cycleSubspan;
 const cycleSubspanGroup = EntityClassMap.cycleSubspanGroup;
@@ -23,9 +22,9 @@ export default async function Page({
 }: {
   params: { id: string };
 }) {
-  const cycleSubspanGroupEditDtos = await getWithoutBody<
-    CycleSubspanGroupEditDto[]
-  >(`${API_V2_URL}/time/cycleSubspanGroups/cycleSubspanGroupEditList/${id}`);
+  const groupEditListUrl = `${API_V2_URL}/time/cycleSubspanGroups/cycleSubspanGroupEditList/${id}`;
+  const cycleSubspanGroupEditDtos =
+    await getWithoutBody<CycleSubspanGroupEditDto[]>(groupEditListUrl);
 
   const { groupedByCycleDay, cycleDays } =
     groupCycleSubspansByDay<CycleSubspanGroupEditDto>(
@@ -37,9 +36,10 @@ export default async function Page({
 
   return (
     <div className={'grid grid-cols-5 w-fit gap-1'}>
-      <DtoControllerArray
+      <DtoListChangesTracker
         dtoList={cycleSubspanGroupEditDtos}
         entityName={entityName}
+        updateServerAction={putGroupEditAction}
       />
       {cycleDays.map((cycleDay) => {
         const cycleSubspanDtoList =
