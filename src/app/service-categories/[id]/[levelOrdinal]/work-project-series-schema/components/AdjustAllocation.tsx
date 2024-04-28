@@ -4,11 +4,11 @@ import { DtoUiComponentProps } from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DeliveryAllocationDto } from '@/app/api/dtos/DeliveryAllocationDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
-import { sumDeliveryAllocations } from '@/app/work-project-series-schemas/functions/sum-delivery-allocations';
+import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
-import { AllocationUnitGroup } from '@/app/work-project-series-schemas/components/AllocationUnitGroup';
+import { AllocationUnitGroup } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/AllocationUnitGroup';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
-import { DeliveryAllocation } from '@/app/work-project-series-schemas/components/DeliveryAllocation';
+import { DeliveryAllocation } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/DeliveryAllocation';
 
 export const allocationSizes = [1, 2];
 

@@ -7,16 +7,21 @@ import { actionResponseHandler } from '@/utils/data-fetching/actionResponseHandl
 
 export interface WorkProjectSeriesSchemaFetchParams {
   levelOrdinal: number;
+  serviceCategoryId: number;
 }
 
 export async function workProjectSeriesSchemaActionSequence({
-  levelOrdinal
+  levelOrdinal,
+  serviceCategoryId
 }: WorkProjectSeriesSchemaFetchParams): Promise<{
   workTaskTypes: WorkTaskTypeDto[];
   workProjectSeriesSchemas: WorkProjectSeriesSchemaDto[];
 }> {
   const workTaskTypes = await getWorkTaskTypesByExample([
-    { knowledgeLevelLevelOrdinal: levelOrdinal }
+    {
+      knowledgeLevelLevelOrdinal: levelOrdinal,
+      serviceCategoryId: serviceCategoryId
+    }
   ]);
 
   const workProjectSeriesSchemas = await getWorkProjectSeriesSchemasByExample(

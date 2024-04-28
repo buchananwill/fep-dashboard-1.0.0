@@ -9,7 +9,7 @@ import { StringMap } from '@/app/api/string-map';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useMemo } from 'react';
-import { sumAllSchemas } from '@/app/work-project-series-schemas/functions/sum-delivery-allocations';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 import { Chip } from '@nextui-org/chip';
 
 export default function AllBundlesTotal() {

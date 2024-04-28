@@ -8,11 +8,10 @@ export async function getWorkProjectSeriesSchemasByKnowledgeLevel(
   return await getWorkTaskTypesByExampleList([
     { knowledgeLevelLevelOrdinal: knowledgeLevelLevelOrdinal }
   ]).then((r) => {
-    const exampleList = r.data?.map(
+    const exampleList = r.map(
       (wtt) =>
         ({ workTaskTypeId: wtt.id }) as Partial<WorkProjectSeriesSchemaDto>
     );
-    if (exampleList) return getDtoListByExampleList(exampleList);
-    else return undefined;
+    return getDtoListByExampleList(exampleList);
   });
 }

@@ -5,11 +5,11 @@ import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundle
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DtoControllerArray, DtoGroupMapController } from 'dto-stores';
 import { EntityClassMap } from '@/app/api/entity-class-map';
-import BundleItemChooser from '@/app/work-project-series-schemas/bundles/components/BundleItemChooser';
+import BundleItemChooser from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemChooser';
 import { FC, useMemo } from 'react';
-import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
-import AllBundlesTotal from '@/app/work-project-series-schemas/bundles/components/AllBundlesTotal';
-import { CollectionItemChooserProps } from '@/app/work-project-series-schemas/bundles/components/collectionItemChooserProps';
+import BundleItemWithInclusionCount from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemWithInclusionCount';
+import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/AllBundlesTotal';
+import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
 import { HasId } from '@/app/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';

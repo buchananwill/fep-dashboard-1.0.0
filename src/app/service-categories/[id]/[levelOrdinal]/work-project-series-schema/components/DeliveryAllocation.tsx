@@ -1,8 +1,8 @@
-import { DeliveryAllocationDto } from '../../api/dtos/DeliveryAllocationDtoSchema';
+import { DeliveryAllocationDto } from '../../../../../api/dtos/DeliveryAllocationDtoSchema';
 import React from 'react';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { AllocationUnitGroup } from '@/app/work-project-series-schemas/components/AllocationUnitGroup';
+import { AllocationUnitGroup } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/AllocationUnitGroup';
 
 export function DeliveryAllocation({
   deliveryAllocation: { deliveryAllocationSize, count }

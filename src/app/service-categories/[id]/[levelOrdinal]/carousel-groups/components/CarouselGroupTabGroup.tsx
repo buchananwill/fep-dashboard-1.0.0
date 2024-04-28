@@ -4,7 +4,7 @@ import CollectionChooserTabGroup, {
 } from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
-import CarouselGroupOptionChooser from '@/app/work-project-series-schemas/carousel-groups/components/CarouselGroupOptionChooser';
+import CarouselGroupOptionChooser from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/CarouselGroupOptionChooser';
 import { useSelectiveContextGlobalController } from 'selective-context';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';

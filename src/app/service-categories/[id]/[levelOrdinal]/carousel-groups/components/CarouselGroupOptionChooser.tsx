@@ -1,4 +1,4 @@
-import { CollectionItemChooserProps } from '@/app/work-project-series-schemas/bundles/components/collectionItemChooserProps';
+import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
 import { useDtoStoreDispatch } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';

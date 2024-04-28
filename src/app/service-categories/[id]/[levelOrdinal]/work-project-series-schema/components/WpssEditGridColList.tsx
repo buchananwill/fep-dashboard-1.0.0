@@ -4,13 +4,13 @@ import React, { useMemo } from 'react';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { DtoComponentArrayGenerator } from 'dto-stores';
-import { LessonDeliveryModel } from '@/app/work-project-series-schemas/components/LessonDeliveryModel';
+import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
 import {
   useSelectiveContextGlobalListener,
   useSelectiveContextListenerGroupGlobal
 } from 'selective-context';
 import { EmptyArray, ObjectPlaceholder } from '@/app/api/main';
-import { sumAllSchemas } from '@/app/work-project-series-schemas/functions/sum-delivery-allocations';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 

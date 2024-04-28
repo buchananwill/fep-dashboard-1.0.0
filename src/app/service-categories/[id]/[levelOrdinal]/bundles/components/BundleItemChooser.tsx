@@ -4,12 +4,12 @@ import { useDtoStoreDispatch } from 'dto-stores';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
-import BundleItemWithInclusionCount from '@/app/work-project-series-schemas/bundles/components/BundleItemWithInclusionCount';
-import { sumAllSchemas } from '@/app/work-project-series-schemas/functions/sum-delivery-allocations';
+import BundleItemWithInclusionCount from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemWithInclusionCount';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import { Chip } from '@nextui-org/chip';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
-import { CollectionItemChooserProps } from '@/app/work-project-series-schemas/bundles/components/collectionItemChooserProps';
+import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 
 const produceBundle = (
