@@ -15,16 +15,11 @@ export default async function Page({
 }: {
   params: { id: string };
 }) {
-  const actionResponse = await getDtoListByExampleList([
+  const data = await getDtoListByExampleList([
     { serviceCategoryId: parseInt(id) }
   ]);
 
-  const serCatResp = await getOne(parseInt(id));
-
-  const data = actionResponse.data;
-  const serviceCategoryDto = serCatResp.data;
-  if (data === undefined || serviceCategoryDto === undefined)
-    return <MissingData response={actionResponse} />;
+  const serviceCategoryDto = await getOne(parseInt(id));
 
   return (
     <div className={'p-4'}>

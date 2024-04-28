@@ -1,3 +1,4 @@
+'use client';
 import { HasId } from '@/app/api/main';
 import { Link } from '@nextui-org/link';
 import { DtoUiComponentProps } from 'dto-stores';
@@ -11,10 +12,13 @@ export default function ContextualLinkToEntityPage<T extends HasId>({
   entityClass
 }: DtoUiComponentProps<T>) {
   let resourceLocation = pluralize(toKebabCase(entityClass));
-  let contextPath = useContext(ResourcePathContext).join('/');
+  let contextPath = useContext(ResourcePathContext);
+
+  const url =
+    '/' + [...contextPath, resourceLocation, `${entity.id}`].join('/');
 
   return (
-    <Link href={`/${contextPath}/${resourceLocation}/${entity.id}`}>
+    <Link href={url}>
       {entityClass} : {entity.id}
     </Link>
   );

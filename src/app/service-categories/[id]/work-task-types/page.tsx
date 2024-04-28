@@ -11,19 +11,13 @@ export default async function Page({
 }: {
   params: { id: string };
 }) {
-  const knowledgeLevelResp = await getKnowledgeLevelsByExample([
+  const kLevels = await getKnowledgeLevelsByExample([
     { serviceCategoryId: parseInt(id) }
   ]);
-  const kLevels = knowledgeLevelResp.data;
-  if (kLevels === undefined)
-    return <MissingData response={knowledgeLevelResp} />;
 
-  const knowledgeDomResponse = await getKnowledgeDomainsByExample([
+  const kDomains = await getKnowledgeDomainsByExample([
     { serviceCategoryId: parseInt(id) }
   ]);
-  const kDomains = knowledgeDomResponse.data;
-  if (kDomains === undefined)
-    return <MissingData response={knowledgeDomResponse} />;
 
   return (
     <Card fullWidth={false} className={'max-w-3xl'}>

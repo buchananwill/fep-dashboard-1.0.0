@@ -32,8 +32,6 @@ export default async function Page({
       cycle
     );
 
-  console.log(cycleSubspanGroupEditDtos);
-
   return (
     <div className={'grid grid-cols-5 w-fit gap-1'}>
       <DtoListChangesTracker

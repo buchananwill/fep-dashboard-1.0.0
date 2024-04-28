@@ -60,28 +60,11 @@ export default function CycleSubspanGroup({
   const selectiveContextReadAll =
     useSelectiveContextGlobalReadAll<CycleSubspanDto>();
 
-  const { currentState: cycleSubspanIdList } =
-    useSelectiveContextGlobalListener<number[]>({
-      contextKey: `${EntityClassMap.cycleSubspan}:idList`,
-      initialValue: ArrayPlaceholder,
-      listenerKey: `${entityClass}:${entity.id}`
-    });
-
   const cycleSubspanDtoList = entity.cycleSubspanJoins
     .sort((j1, j2) => j1.joinOrdinal - j2.joinOrdinal)
     .map((join) => `${EntityClassMap.cycleSubspan}:${join.cycleSubspanId}`)
     .map(selectiveContextReadAll)
     .filter(isNotUndefined);
-
-  const cycleSubspanListAll = useMemo(
-    () =>
-      cycleSubspanIdList
-        .map((id) =>
-          selectiveContextReadAll(`${EntityClassMap.cycleSubspan}:${id}`)
-        )
-        .filter(isNotUndefined),
-    [selectiveContextReadAll, cycleSubspanIdList]
-  );
 
   const { currentState } = useSelectiveContextGlobalListener<CycleDay[]>({
     contextKey: 'cycleDayList',
@@ -89,61 +72,20 @@ export default function CycleSubspanGroup({
     initialValue: ArrayPlaceholder
   });
 
-  const selectedIdList = useMemo(
-    () => cycleSubspanDtoList.map((dto) => dto.id),
-    [cycleSubspanDtoList]
-  );
-
-  const onChangeHandler = useListboxSelectionChangeCallback(
-    updateGroupJoins,
-    dispatchWithoutControl
-  );
-
-  console.log(
-    'selectedIds:',
-    selectedIdList,
-    'in joins list:',
-    cycleSubspanDtoList
-  );
-
   return (
     <div className={'w-full'}>
-      <Select
-        items={cycleSubspanListAll}
-        label={'Periods in Group'}
-        selectionMode={'multiple'}
-        selectedKeys={selectedIdList}
-        className={'w-72'}
-        onSelectionChange={onChangeHandler}
-      >
-        {(cycleSubspanDto) => (
-          <SelectItem
-            key={cycleSubspanDto.id}
-            value={cycleSubspanDto.id}
-            textValue={cycleSubspanDto.description}
-          >
-            {currentState[cycleSubspanDto.zeroIndexedCycleDay].day}:
-            {numberToWeekLetter(
-              getWeekNumberInt(
-                currentState[cycleSubspanDto.zeroIndexedCycleDay]
-              )
-            )}
-            :{cycleSubspanDto.description}
-          </SelectItem>
-        )}
-      </Select>
-      {/*{cycleSubspanDtoList.map((dto) => (*/}
-      {/*  <Chip*/}
-      {/*    key={dto.id}*/}
-      {/*    color={cycleSubspanDtoList.length === 1 ? 'primary' : 'secondary'}*/}
-      {/*  >*/}
-      {/*    {currentState[dto.zeroIndexedCycleDay].day}:*/}
-      {/*    {numberToWeekLetter(*/}
-      {/*      getWeekNumberInt(currentState[dto.zeroIndexedCycleDay])*/}
-      {/*    )}*/}
-      {/*    :{dto.description}*/}
-      {/*  </Chip>*/}
-      {/*))}*/}
+      {cycleSubspanDtoList.map((dto) => (
+        <Chip
+          key={dto.id}
+          color={cycleSubspanDtoList.length === 1 ? 'primary' : 'secondary'}
+        >
+          {currentState[dto.zeroIndexedCycleDay].day}:
+          {numberToWeekLetter(
+            getWeekNumberInt(currentState[dto.zeroIndexedCycleDay])
+          )}
+          :{dto.description}
+        </Chip>
+      ))}
     </div>
   );
 }

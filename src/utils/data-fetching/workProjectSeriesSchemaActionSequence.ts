@@ -15,18 +15,12 @@ export async function workProjectSeriesSchemaActionSequence({
   workTaskTypes: WorkTaskTypeDto[];
   workProjectSeriesSchemas: WorkProjectSeriesSchemaDto[];
 }> {
-  const workTaskTypes = await actionResponseHandler(
-    () =>
-      getWorkTaskTypesByExample([{ knowledgeLevelLevelOrdinal: levelOrdinal }]),
-    'WorkTaskTypes not found'
-  );
+  const workTaskTypes = await getWorkTaskTypesByExample([
+    { knowledgeLevelLevelOrdinal: levelOrdinal }
+  ]);
 
-  const workProjectSeriesSchemas = await actionResponseHandler(
-    () =>
-      getWorkProjectSeriesSchemasByExample(
-        workTaskTypes.map((wtt) => ({ workTaskTypeId: wtt.id }))
-      ),
-    'WorkProjectSeriesSchemas not found'
+  const workProjectSeriesSchemas = await getWorkProjectSeriesSchemasByExample(
+    workTaskTypes.map((wtt) => ({ workTaskTypeId: wtt.id }))
   );
 
   return { workTaskTypes, workProjectSeriesSchemas };
