@@ -18,16 +18,23 @@ function UnsavedChangesToast({
     <div className={'fixed z-30 w-fit h-fit top-4 right-4'}>
       {unsavedFlag && (
         <Card
-          className={'w-fit h-16 hover:opacity-75'}
+          className={'w-fit group hover:opacity-75'}
           isPressable={true}
           onPress={handleCommit}
           isHoverable={true}
         >
-          {/*<CardHeader className={'justify-center'}></CardHeader>*/}
-          <CardBody className={'flex flex-row items-center gap-1'}>
-            Unsaved changes.
+          <CardBody
+            className={'flex flex-row items-center overflow-hidden justify-end'}
+          >
+            <span
+              className={
+                'text-nowrap w-0 group-hover:w-fit  group-hover:text-black text-transparent group-hover:mr-2'
+              }
+            >
+              Unsaved changes.
+            </span>
             <ExclamationTriangleIcon
-              className={'w-6 h-6 inline fill-red-500'}
+              className={'w-6 h-6 fill-red-500'}
             ></ExclamationTriangleIcon>
           </CardBody>
         </Card>

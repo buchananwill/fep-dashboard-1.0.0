@@ -18,16 +18,9 @@ export default async function Page({
 }: {
   params: { id: string; domainId: string };
 }) {
-  let one = await getOne(parseInt(domainId));
-  let actionResponse = await getOneServiceCategory(parseInt(id));
+  let kDomain = await getOne(parseInt(domainId));
 
-  const kDomain = one.data;
-
-  const serviceCategory = actionResponse.data;
-
-  if (kDomain === undefined) return <MissingData response={one} />;
-  if (serviceCategory === undefined)
-    return <MissingData response={actionResponse} />;
+  const serviceCategory = await getOneServiceCategory(parseInt(id));
 
   return (
     <>

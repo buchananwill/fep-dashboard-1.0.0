@@ -1,6 +1,6 @@
 'use client';
 
-import { DtoUiComponentProps, useDtoStoreDispatch } from 'dto-stores';
+import { DtoUiComponentProps } from 'dto-stores';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import { TimeInput } from '@nextui-org/date-input';
 import { Time } from '@internationalized/date';
@@ -12,43 +12,6 @@ import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValu
 
 export interface CycleSubspanProps {
   id: number;
-}
-
-function timeFromZTimeOnly(timeOnly: string): Time {
-  const [hour, minute, second] = timeOnly
-    .split(':')
-    .map((part) => parseInt(part, 10));
-  return new Time(hour, minute, second);
-}
-
-function handleTimeChange(
-  time: Time,
-  target: 'Start' | 'End',
-  dispatcher?: Dispatch<SetStateAction<CycleSubspanDto>>
-) {
-  if (!dispatcher) return;
-  dispatcher((cycleSubspan) => {
-    const { timeSpanDto } = cycleSubspan;
-    const zTimeOnly = time.toString();
-    let updatedTimespan: TimeSpanDto;
-    switch (target) {
-      case 'Start':
-        updatedTimespan = {
-          ...timeSpanDto,
-          startTimeDivisionInstant: zTimeOnly,
-          startTimeDivisionId: TransientIdOffset
-        };
-        break;
-      case 'End':
-        updatedTimespan = {
-          ...timeSpanDto,
-          endTimeDivisionInstant: zTimeOnly,
-          endTimeDivisionId: TransientIdOffset
-        };
-        break;
-    }
-    return { ...cycleSubspan, timeSpanDto: updatedTimespan };
-  });
 }
 
 const entityType = EntityClassMap.cycleSubspan;
@@ -108,4 +71,42 @@ function TimeInputCycleSubspan({
       classNames={{ base: 'w-fit' }}
     />
   );
+}
+
+function timeFromZTimeOnly(timeOnly: string): Time {
+  const [hour, minute, second] = timeOnly
+    .split(':')
+    .map((part) => parseInt(part, 10));
+  return new Time(hour, minute, second);
+}
+
+function handleTimeChange(
+  time: Time,
+  target: 'Start' | 'End',
+  dispatcher?: Dispatch<SetStateAction<CycleSubspanDto>>
+) {
+  if (!dispatcher) return;
+  dispatcher((cycleSubspan) => {
+    const { timeSpanDto } = cycleSubspan;
+    const zTimeOnly = time.toString();
+
+    let updatedTimespan: TimeSpanDto;
+    switch (target) {
+      case 'Start':
+        updatedTimespan = {
+          ...timeSpanDto,
+          startTimeDivisionInstant: zTimeOnly,
+          startTimeDivisionId: TransientIdOffset
+        };
+        break;
+      case 'End':
+        updatedTimespan = {
+          ...timeSpanDto,
+          endTimeDivisionInstant: zTimeOnly,
+          endTimeDivisionId: TransientIdOffset
+        };
+        break;
+    }
+    return { ...cycleSubspan, timeSpanDto: updatedTimespan };
+  });
 }

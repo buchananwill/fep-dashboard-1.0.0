@@ -1,6 +1,6 @@
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import { groupCycleSubspansByDay } from '@/app/cycles/_functions/groupCycleSubspansByDay';
-import CycleDayViewer from '@/app/cycles/_components/CycleDayViewer';
+import CycleViewer from '@/app/cycles/_components/CycleViewer';
 import { getOne } from '@/app/api/generated-actions/Cycle';
 import { getDtoListByExampleList } from '@/app/api/generated-actions/CycleSubspan';
 
@@ -13,9 +13,6 @@ export default async function Page({
 }) {
   const cycleId = parseInt(id);
   const cycle = await getOne(cycleId);
-  const cycleSubspanDtos = await getDtoListByExampleList([
-    { parentCycleId: cycleId }
-  ]);
 
-  return <CycleDayViewer cycle={cycle} cycleSubspanData={cycleSubspanDtos} />;
+  return <CycleViewer cycle={cycle} />;
 }

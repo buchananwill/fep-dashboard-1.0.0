@@ -41,11 +41,11 @@ export default async function Page({
       />
       {cycleDays.map((cycleDay) => {
         const cycleSubspanDtoList =
-          groupedByCycleDay[cycleDay.zeroIndexCycleDay];
+          groupedByCycleDay[cycleDay.zeroIndexedCycleDay];
         if (cycleSubspanDtoList === undefined) return null;
         return (
           <Card
-            key={cycleDay.zeroIndexCycleDay}
+            key={cycleDay.zeroIndexedCycleDay}
             classNames={{ base: 'w-full' }}
           >
             <CardHeader className={'text-center justify-center'}>
