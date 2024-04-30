@@ -1,704 +1,704 @@
 {
-  "7": {
-    "Art": {
-      "totalPeriods": 3,
-      "doubleLessons": 1
-    },
-    "Computing": {
-      "totalPeriods": 1,
-      "doubleLessons": 0
-    },
-    "DesignAndT": {
-      "totalPeriods": 3,
-      "doubleLessons": 1
-    },
-    "Drama": {
-      "totalPeriods": 1,
-      "doubleLessons": 0
-    },
-    "English": {
-      "totalPeriods": 6,
-      "doubleLessons": 0
-    },
-    "French": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "Games": {
-      "totalPeriods": 4,
-      "doubleLessons": 2
-    },
-    "Geography": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "German": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "History": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Latin": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Maths": {
-      "totalPeriods": 6,
-      "doubleLessons": 0
-    },
-    "Music": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Rs": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Biology": {
-      "totalPeriods": 2,
-      "doubleLessons": 0
-    },
-    "Chemistry": {
-      "totalPeriods": 2,
-      "doubleLessons": 0
-    },
-    "LearningDevelopment": {
-      "totalPeriods": 1,
-      "doubleLessons": 0
-    },
-    "Pe": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "Physics": {
-      "totalPeriods": 2,
-      "doubleLessons": 0
-    }
-  },
-  "8": {
-    "Art": {
-      "totalPeriods": 3,
-      "doubleLessons": 1
-    },
-    "Computing": {
-      "totalPeriods": 1,
-      "doubleLessons": 0
-    },
-    "DesignAndT": {
-      "totalPeriods": 3,
-      "doubleLessons": 1
-    },
-    "Drama": {
-      "totalPeriods": 1,
-      "doubleLessons": 0
-    },
-    "English": {
-      "totalPeriods": 6,
-      "doubleLessons": 0
-    },
-    "French": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "Games": {
-      "totalPeriods": 4,
-      "doubleLessons": 2
-    },
-    "Geography": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "German": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "History": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Latin": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Maths": {
-      "totalPeriods": 6,
-      "doubleLessons": 0
-    },
-    "Music": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Rs": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Biology": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Chemistry": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    },
-    "Pe": {
-      "totalPeriods": 2,
-      "doubleLessons": 0
-    },
-    "Physics": {
-      "totalPeriods": 3,
-      "doubleLessons": 0
-    }
-  },
-  "9": {
-    "Art": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Biology": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "Chemistry": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "ClassicalCiv": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Computing": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "DesignAndT": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Drama": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Economics": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "English": {
-      "totalPeriods": 6,
-      "doubleLessons": 0
-    },
-    "FormPeriod": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "French": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Games": {
-      "totalPeriods": 4,
-      "doubleLessons": 2
-    },
-    "Geography": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "German": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Gp": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "History": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Latin": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "LearningDevelopment": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Music": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Maths": {
-      "totalPeriods": 7,
-      "doubleLessons": 0
-    },
-    "Pe": {
-      "totalPeriods": 2,
-      "doubleLessons": 0
-    },
-    "PeAsAnOption": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Philosophy": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Physics": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "PrivateStudy": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Rs": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Registration": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    }
-  },
-  "10": {
-    "Art": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Biology": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Chemistry": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "ClassicalCiv": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Computing": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "DesignAndT": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Drama": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Economics": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "English": {
-      "totalPeriods": 8,
-      "doubleLessons": 1
-    },
-    "FormPeriod": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "French": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Games": {
-      "totalPeriods": 2,
-      "doubleLessons": 1
-    },
-    "Geography": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "German": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Gp": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "History": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Latin": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "LearningDevelopment": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Music": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Maths": {
-      "totalPeriods": 6,
-      "doubleLessons": 0
-    },
-    "Pe": {
-      "totalPeriods": 2,
-      "doubleLessons": 0
-    },
-    "PeAsAnOption": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Philosophy": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Physics": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "PrivateStudy": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Rs": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Registration": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    }
-  },
-  "11": {
-    "Art": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Biology": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Chemistry": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "ClassicalCiv": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Computing": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "DesignAndT": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Drama": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Economics": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "English": {
-      "totalPeriods": 8,
-      "doubleLessons": 1
-    },
-    "FormPeriod": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "French": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Games": {
-      "totalPeriods": 2,
-      "doubleLessons": 1
-    },
-    "Geography": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "German": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Gp": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "History": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Latin": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "LearningDevelopment": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Music": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Maths": {
-      "totalPeriods": 6,
-      "doubleLessons": 0
-    },
-    "Pe": {
-      "totalPeriods": 2,
-      "doubleLessons": 0
-    },
-    "PeAsAnOption": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Philosophy": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "Physics": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    },
-    "PrivateStudy": {
-      "totalPeriods": 1,
-      "doubleLessons": 0
-    },
-    "Rs": {
-      "totalPeriods": 4,
-      "doubleLessons": 0
-    },
-    "Registration": {
-      "totalPeriods": 5,
-      "doubleLessons": 0
-    }
-  },
-  "12": {
-    "Art": {
-      "totalPeriods": 10,
-      "doubleLessons": 4
-    },
-    "Biology": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Chemistry": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "ClassicalCiv": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Computing": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "DesignAndT": {
-      "totalPeriods": 10,
-      "doubleLessons": 4
-    },
-    "Drama": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Economics": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "English": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "FlexibleCarousel": {
-      "totalPeriods": 12,
-      "doubleLessons": 4
-    },
-    "FormPeriod": {
-      "totalPeriods": 1,
-      "doubleLessons": 0
-    },
-    "French": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Games": {
-      "totalPeriods": 2,
-      "doubleLessons": 1
-    },
-    "Geography": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "German": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Gp": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "History": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Latin": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "LearningDevelopment": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Music": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Maths": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Pe": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "PeAsAnOption": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Philosophy": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Physics": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "PrivateStudy": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Rs": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    }
-  },
-  "13": {
-    "Art": {
-      "totalPeriods": 10,
-      "doubleLessons": 4
-    },
-    "Biology": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Chemistry": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "ClassicalCiv": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Computing": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "DesignAndT": {
-      "totalPeriods": 10,
-      "doubleLessons": 4
-    },
-    "Drama": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Economics": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "English": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "FlexibleCarousel": {
-      "totalPeriods": 12,
-      "doubleLessons": 4
-    },
-    "FormPeriod": {
-      "totalPeriods": 1,
-      "doubleLessons": 0
-    },
-    "French": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Games": {
-      "totalPeriods": 2,
-      "doubleLessons": 1
-    },
-    "Geography": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "German": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Gp": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "History": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Latin": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "LearningDevelopment": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Music": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Maths": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Pe": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "PeAsAnOption": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Philosophy": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Physics": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "PrivateStudy": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
-    },
-    "Rs": {
-      "totalPeriods": 11,
-      "doubleLessons": 3
+  "targetCycleId": 1,
+  "periodsInReferenceCycle": 58,
+  "yearLessonAllocationPlans": {
+    "7": {
+      "Art": {
+        "totalPeriods": 3,
+        "doubleLessons": 1
+      },
+      "Computing": {
+        "totalPeriods": 1,
+        "doubleLessons": 0
+      },
+      "DesignAndT": {
+        "totalPeriods": 3,
+        "doubleLessons": 1
+      },
+      "Drama": {
+        "totalPeriods": 1,
+        "doubleLessons": 0
+      },
+      "English": {
+        "totalPeriods": 6,
+        "doubleLessons": 0
+      },
+      "French": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "Games": {
+        "totalPeriods": 4,
+        "doubleLessons": 2
+      },
+      "Geography": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "German": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "History": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Latin": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Maths": {
+        "totalPeriods": 6,
+        "doubleLessons": 0
+      },
+      "Music": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Rs": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Biology": {
+        "totalPeriods": 2,
+        "doubleLessons": 0
+      },
+      "Chemistry": {
+        "totalPeriods": 2,
+        "doubleLessons": 0
+      },
+      "LearningDevelopment": {
+        "totalPeriods": 1,
+        "doubleLessons": 0
+      },
+      "Pe": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "Physics": {
+        "totalPeriods": 2,
+        "doubleLessons": 0
+      }
+    },
+    "8": {
+      "Art": {
+        "totalPeriods": 3,
+        "doubleLessons": 1
+      },
+      "Computing": {
+        "totalPeriods": 1,
+        "doubleLessons": 0
+      },
+      "DesignAndT": {
+        "totalPeriods": 3,
+        "doubleLessons": 1
+      },
+      "Drama": {
+        "totalPeriods": 1,
+        "doubleLessons": 0
+      },
+      "English": {
+        "totalPeriods": 6,
+        "doubleLessons": 0
+      },
+      "French": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "Games": {
+        "totalPeriods": 4,
+        "doubleLessons": 2
+      },
+      "Geography": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "German": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "History": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Latin": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Maths": {
+        "totalPeriods": 6,
+        "doubleLessons": 0
+      },
+      "Music": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Rs": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Biology": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Chemistry": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      },
+      "Pe": {
+        "totalPeriods": 2,
+        "doubleLessons": 0
+      },
+      "Physics": {
+        "totalPeriods": 3,
+        "doubleLessons": 0
+      }
+    },
+    "9": {
+      "Art": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Biology": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "Chemistry": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "ClassicalCiv": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Computing": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "DesignAndT": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Drama": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Economics": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "English": {
+        "totalPeriods": 6,
+        "doubleLessons": 0
+      },
+      "FormPeriod": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "French": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Games": {
+        "totalPeriods": 4,
+        "doubleLessons": 2
+      },
+      "Geography": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "German": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "History": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Latin": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "LearningDevelopment": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Music": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Maths": {
+        "totalPeriods": 7,
+        "doubleLessons": 0
+      },
+      "Pe": {
+        "totalPeriods": 2,
+        "doubleLessons": 0
+      },
+      "PeAsAnOption": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Philosophy": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Physics": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "PrivateStudy": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Rs": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Registration": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      }
+    },
+    "10": {
+      "Art": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Biology": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Chemistry": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "ClassicalCiv": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Computing": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "DesignAndT": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Drama": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Economics": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "English": {
+        "totalPeriods": 8,
+        "doubleLessons": 1
+      },
+      "FormPeriod": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "French": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Games": {
+        "totalPeriods": 2,
+        "doubleLessons": 1
+      },
+      "Geography": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "German": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Gp": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "History": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Latin": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "LearningDevelopment": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Music": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Maths": {
+        "totalPeriods": 6,
+        "doubleLessons": 0
+      },
+      "Pe": {
+        "totalPeriods": 2,
+        "doubleLessons": 0
+      },
+      "PeAsAnOption": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Philosophy": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Physics": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "PrivateStudy": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Rs": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Registration": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      }
+    },
+    "11": {
+      "Art": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Biology": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Chemistry": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "ClassicalCiv": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Computing": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "DesignAndT": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Drama": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Economics": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "English": {
+        "totalPeriods": 8,
+        "doubleLessons": 1
+      },
+      "FormPeriod": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "French": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Games": {
+        "totalPeriods": 2,
+        "doubleLessons": 1
+      },
+      "Geography": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "German": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Gp": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "History": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Latin": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "LearningDevelopment": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Music": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Maths": {
+        "totalPeriods": 6,
+        "doubleLessons": 0
+      },
+      "Pe": {
+        "totalPeriods": 2,
+        "doubleLessons": 0
+      },
+      "PeAsAnOption": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Philosophy": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "Physics": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      },
+      "PrivateStudy": {
+        "totalPeriods": 1,
+        "doubleLessons": 0
+      },
+      "Rs": {
+        "totalPeriods": 4,
+        "doubleLessons": 0
+      },
+      "Registration": {
+        "totalPeriods": 5,
+        "doubleLessons": 0
+      }
+    },
+    "12": {
+      "Art": {
+        "totalPeriods": 10,
+        "doubleLessons": 4
+      },
+      "Biology": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Chemistry": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "ClassicalCiv": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Computing": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "DesignAndT": {
+        "totalPeriods": 10,
+        "doubleLessons": 4
+      },
+      "Drama": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Economics": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "English": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "FlexibleCarousel": {
+        "totalPeriods": 12,
+        "doubleLessons": 4
+      },
+      "FormPeriod": {
+        "totalPeriods": 1,
+        "doubleLessons": 0
+      },
+      "French": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Games": {
+        "totalPeriods": 2,
+        "doubleLessons": 1
+      },
+      "Geography": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "German": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Gp": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "History": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Latin": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "LearningDevelopment": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Music": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Maths": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Pe": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "PeAsAnOption": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Philosophy": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Physics": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "PrivateStudy": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Rs": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      }
+    },
+    "13": {
+      "Art": {
+        "totalPeriods": 10,
+        "doubleLessons": 4
+      },
+      "Biology": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Chemistry": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "ClassicalCiv": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Computing": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "DesignAndT": {
+        "totalPeriods": 10,
+        "doubleLessons": 4
+      },
+      "Drama": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Economics": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "English": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "FlexibleCarousel": {
+        "totalPeriods": 12,
+        "doubleLessons": 4
+      },
+      "FormPeriod": {
+        "totalPeriods": 1,
+        "doubleLessons": 0
+      },
+      "French": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Games": {
+        "totalPeriods": 2,
+        "doubleLessons": 1
+      },
+      "Geography": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "German": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Gp": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "History": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Latin": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "LearningDevelopment": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Music": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Maths": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Pe": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "PeAsAnOption": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Philosophy": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Physics": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "PrivateStudy": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      },
+      "Rs": {
+        "totalPeriods": 11,
+        "doubleLessons": 3
+      }
     }
   }
 }

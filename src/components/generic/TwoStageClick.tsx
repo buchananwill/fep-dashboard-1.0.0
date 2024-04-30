@@ -2,8 +2,9 @@ import React, { useRef, useState } from 'react';
 
 import { offset, useFloating } from '@floating-ui/react';
 import { Button, ButtonProps } from '@nextui-org/button';
-import { PressEvent } from '@react-types/shared';
+
 import { Chip } from '@nextui-org/chip';
+import { PressEvent } from '@react-types/shared';
 
 export function TwoStageClick({
   children,
@@ -37,7 +38,7 @@ export function TwoStageClick({
   };
 
   return (
-    <div className={'w-fit h-fit'} ref={refs.setReference}>
+    <div className={'w-fit h-fit inline-block'} ref={refs.setReference}>
       <Button
         className={`z-10 relative transition-colors duration-500 ${className}`}
         /*{...props}*/

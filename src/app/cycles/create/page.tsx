@@ -42,7 +42,7 @@ export default function Page() {
     startTransition(async () => {
       const cycleDto = await postOne(data);
 
-      appRouterInstance.push(`/cycles/${cycleDto.id}/cycleSubspans`);
+      appRouterInstance.push(`/cycles/edit/${cycleDto.id}/cycleSubspans`);
     });
   };
 

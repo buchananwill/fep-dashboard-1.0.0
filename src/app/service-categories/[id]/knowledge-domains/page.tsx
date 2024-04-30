@@ -3,7 +3,6 @@ import {
   getDtoListByExampleList,
   putList
 } from '@/app/api/generated-actions/KnowledgeDomain';
-import { MissingData } from '@/components/generic/MissingData';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-domains/components/KnowledgeDomainTable';
 import { EntityClassMap } from '@/app/api/entity-class-map';

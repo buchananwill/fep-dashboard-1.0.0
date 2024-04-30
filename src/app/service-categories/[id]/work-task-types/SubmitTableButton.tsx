@@ -9,7 +9,7 @@ import {
 } from '@/app/api/main';
 import { Button } from '@nextui-org/button';
 
-export function SubmitTable<T, U>({
+export function SubmitTableButton<T, U>({
   rows,
   columns,
   targetEndpoint

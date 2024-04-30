@@ -5,10 +5,22 @@ import { EntityClassMap } from '@/app/api/entity-class-map';
 import { TimeInput } from '@nextui-org/date-input';
 import { Time } from '@internationalized/date';
 import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { TimeSpanDto } from '@/app/api/dtos/TimeSpanDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
+import {
+  useEditEntityText,
+  useRenameEntity
+} from '@/components/modals/useRenameEntity';
+import { HasDescription } from '@/app/api/dtos/HasDescriptionSchema';
+import { Button } from '@nextui-org/button';
+import RenameModal from '@/components/modals/RenameModal';
+import { PendingOverlay } from '@/components/overlays/pending-overlay';
+import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { TwoStageClick } from '@/components/generic/TwoStageClick';
+import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 
 export interface CycleSubspanProps {
   id: number;
@@ -16,21 +28,92 @@ export interface CycleSubspanProps {
 
 const entityType = EntityClassMap.cycleSubspan;
 
+function descriptionAccessor<T extends HasDescription>(entity: T) {
+  return entity.description;
+}
+function descriptionSetter<T extends HasDescription>(entity: T, value: string) {
+  return { ...entity, description: value };
+}
+
 export default function CycleSubspan({
   entity,
-  dispatchWithoutControl
+  dispatchWithoutControl,
+  dispatchDeletion,
+  deleted
 }: DtoUiComponentProps<CycleSubspanDto>) {
+  const {
+    onOpen,
+    dispatchTextChange,
+    isOpen,
+    onClose,
+    onConfirm,
+    ...modalProps
+  } = useEditEntityText(
+    entityType,
+    entity,
+    'cycleSubspanDescription',
+    descriptionAccessor,
+    descriptionSetter,
+    dispatchWithoutControl
+  );
+
+  const confirmTextEdit = useCallback(() => {
+    onConfirm();
+    onClose();
+    setShowPopover(false);
+  }, [onConfirm, onClose]);
+
+  const [showPopover, setShowPopover] = useState(false);
+
   return (
-    <div className={'flex items-center gap-2 w-fit'}>
-      <DtoStoreStringValueEdit
-        entity={entity}
-        entityType={entityType}
-        size={'sm'}
-        listenerKey={'editDescription'}
-        valueAccessor={(e) => e.description}
-        producer={(value, entity) => ({ ...entity, description: value })}
-        classNames={{ base: 'w-24', input: 'text-xs' }}
+    <div className={'flex items-center gap-2 w-fit relative rounded-lg'}>
+      <DeletedOverlay
+        classNames={{ overlay: 'rounded-lg' }}
+        show={deleted}
+        handleUnDelete={() => {
+          console.log(dispatchDeletion);
+          if (dispatchDeletion)
+            dispatchDeletion((list) => list.filter((id) => id !== entity.id));
+        }}
       />
+      <Popover
+        placement={'bottom'}
+        showArrow
+        isOpen={showPopover}
+        onOpenChange={(open) => setShowPopover(open)}
+        shouldCloseOnBlur
+      >
+        <PopoverTrigger>
+          <Button className={'w-24 px-2'}>
+            <span className={' truncate ...'}>{entity.description}</span>
+            <PendingOverlay pending={isOpen} />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <div className={'flex gap-2'}>
+            <Button
+              onPress={onOpen}
+              isIconOnly
+              size={'sm'}
+              variant={'ghost'}
+              className={'w-16'}
+            >
+              <PencilSquareIcon className={'h-full p-0.5'} />
+            </Button>
+            <TwoStageClick
+              isIconOnly
+              className={'w-8'}
+              onPress={() => {
+                if (dispatchDeletion)
+                  dispatchDeletion((list) => [...list, entity.id]);
+                setShowPopover(false);
+              }}
+            >
+              <TrashIcon className={'p-1'} />
+            </TwoStageClick>
+          </div>
+        </PopoverContent>
+      </Popover>
       <TimeInputCycleSubspan
         entity={entity}
         boundary={'Start'}
@@ -40,6 +123,12 @@ export default function CycleSubspan({
         entity={entity}
         boundary={'End'}
         dispatchWithoutControl={dispatchWithoutControl}
+      />
+      <RenameModal
+        {...modalProps}
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={confirmTextEdit}
       />
     </div>
   );

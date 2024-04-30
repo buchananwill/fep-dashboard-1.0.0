@@ -2,9 +2,12 @@
 import { useMemo } from 'react';
 import IgmTable from '@/components/generic/IgmTable';
 import { DtoControllerArray } from 'dto-stores';
-import { SubmitTable } from '@/app/service-categories/[id]/work-task-types/SubmitTable';
+import { SubmitTableButton } from '@/app/service-categories/[id]/work-task-types/SubmitTableButton';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
-import { IntersectionGeneratorMatrix } from '@/app/api/main';
+import {
+  IntersectionGeneratorMatrix,
+  IntersectionGeneratorRowWithHeader
+} from '@/app/api/main';
 import { createRows } from '@/components/generic/createRows';
 
 export default function IgmTableWrapper<
@@ -15,28 +18,16 @@ export default function IgmTableWrapper<
   columns,
   rows,
   submitTo,
-  defaultValue = 1
+  tableRows,
+  tableColumns
 }: {
   rowEntityName: string;
   rows: T[];
   columns: U[];
   submitTo?: (matrix: IntersectionGeneratorMatrix<T, U>) => Promise<any>;
-  defaultValue?: number;
+  tableRows: IntersectionGeneratorRowWithHeader<T>[];
+  tableColumns: { name: string; uid: string }[];
 }) {
-  const tableRows = useMemo(() => {
-    return createRows(rows, columns, defaultValue);
-  }, [defaultValue, rows, columns]);
-
-  const tableColumns = useMemo(() => {
-    return [
-      { name: rowEntityName, uid: 'id' },
-      ...columns.map((column, index) => ({
-        name: column.name,
-        uid: `${index}`
-      }))
-    ];
-  }, [columns, rowEntityName]);
-
   return (
     <>
       <DtoControllerArray dtoList={tableRows} entityName={'generatorRow'} />
@@ -47,7 +38,11 @@ export default function IgmTableWrapper<
         tableColumns={tableColumns}
       />
       <div className={'fixed bottom-4 left-1/2 '}>
-        <SubmitTable rows={rows} columns={columns} targetEndpoint={submitTo} />
+        <SubmitTableButton
+          rows={rows}
+          columns={columns}
+          targetEndpoint={submitTo}
+        />
       </div>
     </>
   );

@@ -54,7 +54,7 @@ export default function CarouselGroupOptionChooser({
     dispatchWithoutControl
   );
 
-  const { onOpen, dispatchRename, ...renameProps } = useRenameEntity(
+  const { onOpen, dispatchTextChange, ...renameProps } = useRenameEntity(
     entityClass,
     currentState,
     'itemChooserTabPanel',
