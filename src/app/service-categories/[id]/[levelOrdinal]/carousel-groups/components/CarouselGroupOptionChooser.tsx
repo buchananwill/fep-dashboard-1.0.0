@@ -1,5 +1,5 @@
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
-import { useDtoStoreDispatch } from 'dto-stores';
+import { DtoComponentWrapper, useDtoStoreDispatch } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
@@ -7,19 +7,11 @@ import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
-import { EntityClassMap } from '@/app/api/entity-class-map';
-import RenameModal from '@/components/modals/RenameModal';
-import { Button } from '@nextui-org/button';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import {
-  ArrayPlaceholder,
-  useSelectiveContextGlobalDispatch
-} from 'selective-context';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
-import { CarouselDto } from '@/app/api/dtos/CarouselDtoSchema';
 import { CarouselLeanDto } from '@/app/api/dtos/CarouselLeanDtoSchema';
-import { useRenameEntity } from '@/components/modals/nameSetter';
+import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
+import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 
 function produceCarouselGroupOptionsEdit(
   updatedKeys: string[],
@@ -44,20 +36,12 @@ export default function CarouselGroupOptionChooser({
       entityClass,
       'itemChooser'
     );
-  const { itemMap: schemaMap, items } =
-    useItemChooserMap<WorkProjectSeriesSchemaDto>(
-      referencedItemContextKeys,
-      collectionId
-    );
+  const { items } = useItemChooserMap<WorkProjectSeriesSchemaDto>(
+    referencedItemContextKeys,
+    collectionId
+  );
   const handleSelectionChange = useListboxSelectionChangeCallback(
     produceCarouselGroupOptionsEdit,
-    dispatchWithoutControl
-  );
-
-  const { onOpen, dispatchTextChange, ...renameProps } = useRenameEntity(
-    entityClass,
-    currentState,
-    'itemChooserTabPanel',
     dispatchWithoutControl
   );
 
@@ -98,12 +82,18 @@ export default function CarouselGroupOptionChooser({
   return (
     <div className={'flex flex-col'}>
       <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
-        <Button
-          onPress={onOpen}
-          endContent={<PencilSquareIcon className={'px-1'} />}
-        >
-          {currentState.name}
-        </Button>
+        <DtoComponentWrapper<CarouselGroupDto>
+          entityClass={entityClass}
+          id={collectionId}
+          uiComponent={(props) => (
+            <EditTextDeleteEntityPopover
+              listenerKey={'chooser'}
+              textAccessor={nameAccessor}
+              textSetter={nameSetter}
+              {...props}
+            />
+          )}
+        />
         <div className={'flex justify-center'}>
           <StepperContext.Provider
             value={{
@@ -136,7 +126,6 @@ export default function CarouselGroupOptionChooser({
           </ListboxItem>
         )}
       </Listbox>
-      <RenameModal {...renameProps} />
     </div>
   );
 }

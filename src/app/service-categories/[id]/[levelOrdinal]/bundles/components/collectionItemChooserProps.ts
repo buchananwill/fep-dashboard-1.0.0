@@ -1,5 +1,5 @@
 export interface CollectionItemChooserProps {
-  collectionId: string | number;
+  collectionId: string;
   entityClass: string;
   referencedItemContextKeys: string[];
 }

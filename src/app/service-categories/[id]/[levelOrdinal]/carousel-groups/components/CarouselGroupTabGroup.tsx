@@ -9,10 +9,30 @@ import { useSelectiveContextGlobalController } from 'selective-context';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { Button } from '@nextui-org/button';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListController';
+import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 
 export function getMasterListContextKey(collectionEntityClass: string) {
   return `${collectionEntityClass}:masterList`;
+}
+function handleAddGroup(
+  dispatch: Dispatch<SetStateAction<CarouselGroupDto[]>>,
+  level: KnowledgeLevelDto,
+  dispatchWithoutControl: Dispatch<SetStateAction<string[]>>
+) {
+  let newCarousel: CarouselGroupDto;
+  dispatch((list) => {
+    newCarousel = {
+      id: crypto.randomUUID(),
+      name: `New Carousel ${list.length}`,
+      carousels: [],
+      carouselGroupOptions: [],
+      knowledgeLevel: level
+    };
+    return [...list, newCarousel];
+  });
+  dispatchWithoutControl((list) => [...list, newCarousel.id]);
 }
 
 export default function CarouselGroupTabGroup({
@@ -24,28 +44,26 @@ export default function CarouselGroupTabGroup({
   'collectionItemChooser'
 > & { knowledgeLevel: KnowledgeLevelDto }) {
   const collectionEntityClass = otherProps.collectionEntityClass;
-  const { currentState: collectionDataState, dispatch } =
-    useSelectiveContextGlobalController<CarouselGroupDto[]>({
-      contextKey: getMasterListContextKey(collectionEntityClass),
-      listenerKey: 'tabGroup',
-      initialValue: collectionData
-    });
 
-  const handleAddGroup = () => {
-    const newCarousel: CarouselGroupDto = {
-      id: crypto.randomUUID(),
-      name: `New Carousel ${collectionDataState.length}`,
-      carousels: [],
-      carouselGroupOptions: [],
-      knowledgeLevel: knowledgeLevel
-    };
-    dispatch((list) => [...list, newCarousel]);
-  };
+  const {
+    currentState: collectionDataState,
+    dispatch,
+    dispatchWithoutControl
+  } = useMasterListController<CarouselGroupDto, string>(
+    collectionData,
+    collectionEntityClass
+  );
 
   return (
     <Card className={'w-fit'}>
       <CardHeader className={'flex'}>
-        <Button onPress={handleAddGroup}>Add Carousel Group</Button>
+        <Button
+          onPress={() =>
+            handleAddGroup(dispatch, knowledgeLevel, dispatchWithoutControl)
+          }
+        >
+          Add Carousel Group
+        </Button>
         <div className={'grow text-center'}>
           Carousel Groups Year {knowledgeLevel.levelOrdinal}{' '}
         </div>

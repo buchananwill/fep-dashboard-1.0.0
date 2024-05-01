@@ -1,4 +1,9 @@
-import { getDtoListByExampleList as getCarouselGroupsByExampleList } from '@/app/api/generated-actions/CarouselGroup';
+import {
+  deleteIdList,
+  getDtoListByExampleList as getCarouselGroupsByExampleList,
+  postList,
+  putList
+} from '@/app/api/generated-actions/CarouselGroup';
 import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/app/api/generated-actions/KnowledgeLevel';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import CarouselGroupTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/CarouselGroupTabGroup';
@@ -32,6 +37,9 @@ export default async function Page({
       collectionEntityClass={EntityClassMap.carouselGroup}
       referencedEntityClass={EntityClassMap.workProjectSeriesSchema}
       knowledgeLevel={knowledgeLevel}
+      updateServerAction={putList}
+      postServerAction={postList}
+      deleteServerAction={deleteIdList}
     />
   );
 }

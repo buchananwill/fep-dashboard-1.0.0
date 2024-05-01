@@ -80,6 +80,10 @@ export interface HasUuid {
 
 export type HasId = HasNumberId | HasUuid;
 
+export interface HasIdClass<T> {
+  id: T;
+}
+
 export interface IntersectionGeneratorMatrix<T, U> {
   rowReferenceList: T[];
   columnReferenceList: U[];

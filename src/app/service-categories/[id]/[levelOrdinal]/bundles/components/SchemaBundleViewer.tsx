@@ -5,14 +5,8 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/AllBundlesTotal';
 import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/WorkSeriesSchemaBundleTabGroup';
 import { EntityClassMap } from '@/app/api/entity-class-map';
-import {
-  ArrayPlaceholder,
-  useSelectiveContextGlobalController,
-  useSelectiveContextGlobalDispatch
-} from 'selective-context';
-import { getMasterListContextKey } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/CarouselGroupTabGroup';
 import { Button } from '@nextui-org/button';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
 import {
@@ -20,25 +14,27 @@ import {
   postList,
   putList
 } from '@/app/api/generated-actions/WorkSeriesSchemaBundle';
-import { getDeletedContextKey } from 'dto-stores/dist/functions/getDeletedContextKey';
-import { getAddedContextKey } from 'dto-stores/dist/functions/getAddedContextKey';
+import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListController';
 
 const handleAddBundle = (
   dispatch: Dispatch<SetStateAction<WorkSeriesSchemaBundleDto[]>>,
   level: KnowledgeLevelDto,
-  nextId: number,
-  dispatchWithoutControl: Dispatch<SetStateAction<number[]>>
+  nextId: string,
+  dispatchWithoutControl: Dispatch<SetStateAction<string[]>>
 ) => {
-  const id = nextId + TransientIdOffset;
-  const newBundle: WorkSeriesSchemaBundleDto = {
-    knowledgeLevel: level,
-    id: id,
-    name: `Bundle Year ${level.levelOrdinal} ${nextId}`,
-    workProjectSeriesSchemaIds: [],
-    workSeriesBundleItems: []
-  };
-  dispatch((list) => [...list, newBundle]);
-  dispatchWithoutControl((list) => [...list, id]);
+  let newBundle: WorkSeriesSchemaBundleDto;
+
+  dispatch((list) => {
+    newBundle = {
+      knowledgeLevel: level,
+      id: nextId,
+      name: `Bundle Year ${level.levelOrdinal} ${list.length + 1}`,
+      workProjectSeriesSchemaIds: [],
+      workSeriesBundleItems: []
+    };
+    return [...list, newBundle];
+  });
+  dispatchWithoutControl((list) => [...list, nextId]);
 };
 
 const collectionEntityClass = EntityClassMap.workSeriesSchemaBundle;
@@ -52,46 +48,11 @@ export function SchemaBundleViewer({
   collectionData: WorkSeriesSchemaBundleDto[];
   referencedItemData: WorkProjectSeriesSchemaDto[];
 }) {
-  const { currentState, dispatch } = useSelectiveContextGlobalController({
-    contextKey: getMasterListContextKey(collectionEntityClass),
-    listenerKey: 'bundleViewer',
-    initialValue: collectionData
-  });
-
-  const {
-    currentState: deletedIdList,
-    dispatchWithoutControl: dispatchDeleted
-  } = useSelectiveContextGlobalDispatch<number[]>({
-    contextKey: getDeletedContextKey(collectionEntityClass),
-    listenerKey: 'card',
-    initialValue: ArrayPlaceholder
-  });
-
-  const { dispatchWithoutControl, currentState: transientIdList } =
-    useSelectiveContextGlobalDispatch<number[]>({
-      contextKey: getAddedContextKey(collectionEntityClass),
-      listenerKey: 'card',
-      initialValue: ArrayPlaceholder
-    });
-
-  useEffect(() => {
-    const transientAndDeleted = deletedIdList.filter(
-      (id) => id >= TransientIdOffset
+  const { currentState, dispatch, dispatchWithoutControl } =
+    useMasterListController<WorkSeriesSchemaBundleDto, string>(
+      collectionData,
+      collectionEntityClass
     );
-    if (transientAndDeleted.length > 0) {
-      dispatch((list) =>
-        list.filter((bundle) => !transientAndDeleted.includes(bundle.id))
-      );
-      dispatchDeleted((list) =>
-        list.filter((id) => !deletedIdList.includes(id))
-      );
-      dispatchWithoutControl((list) =>
-        list.filter((id) => !deletedIdList.includes(id))
-      );
-    }
-  }, [deletedIdList, dispatch, dispatchWithoutControl, dispatchDeleted]);
-
-  console.log(deletedIdList, transientIdList);
 
   return (
     <Card className={'w-fit'}>
@@ -101,7 +62,7 @@ export function SchemaBundleViewer({
             handleAddBundle(
               dispatch,
               knowledgeLevel,
-              currentState.length,
+              crypto.randomUUID(),
               dispatchWithoutControl
             )
           }

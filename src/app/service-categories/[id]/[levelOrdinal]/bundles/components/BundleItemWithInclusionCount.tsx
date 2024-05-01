@@ -3,8 +3,7 @@ import { EntityClassMap } from '@/app/api/entity-class-map';
 import {
   ArrayPlaceholder,
   ObjectPlaceholder,
-  useSelectiveContextGlobalListener,
-  useSelectiveContextListenerGroupGlobal
+  useSelectiveContextGlobalListener
 } from 'selective-context';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
