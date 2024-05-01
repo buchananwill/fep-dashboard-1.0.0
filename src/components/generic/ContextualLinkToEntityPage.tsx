@@ -6,6 +6,8 @@ import { toKebabCase } from '@/utils/toKebabCase';
 import pluralize from 'pluralize';
 import { useContext } from 'react';
 import { ResourcePathContext } from '@/components/providers/resource-context/resource-context-creator';
+import { useSelectiveContextGlobalListener } from 'selective-context';
+import { useTextAccessor } from '@/components/providers/text-accessor-context/textAccessorContextCreator';
 
 export default function ContextualLinkToEntityPage<T extends HasId>({
   entity,
@@ -13,13 +15,14 @@ export default function ContextualLinkToEntityPage<T extends HasId>({
 }: DtoUiComponentProps<T>) {
   let resourceLocation = pluralize(toKebabCase(entityClass));
   let contextPath = useContext(ResourcePathContext);
+  const { accessor } = useTextAccessor<T>();
 
   const url =
     '/' + [...contextPath, resourceLocation, `${entity.id}`].join('/');
 
   return (
     <Link href={url}>
-      {entityClass} : {entity.id}
+      {entityClass} : {accessor(entity)}
     </Link>
   );
 }

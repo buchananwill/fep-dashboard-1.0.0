@@ -7,16 +7,20 @@ import {
   StringAttributeInputArray,
   StringPropertyNames
 } from '@/components/generic/StringAttributeInputArray';
+import { Button } from '@nextui-org/button';
+import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
+import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
+import { useDtoStoreDelete } from 'dto-stores/dist/hooks/useDtoStoreDelete';
 
 const serviceCategoryProperties: StringPropertyNames<ServiceCategoryDto>[] = [
-  'name',
   'knowledgeDomainDescriptor',
   'knowledgeLevelDescriptor'
 ];
 
 function InternalUiComponent({
   entity,
-  dispatchWithoutControl
+  dispatchWithoutControl,
+  ...otherProps
 }: DtoUiComponentProps<ServiceCategoryDto>) {
   const update = (
     value: string,
@@ -25,10 +29,29 @@ function InternalUiComponent({
     if (dispatchWithoutControl === undefined) return;
     dispatchWithoutControl((entity) => ({ ...entity, [attributeKey]: value }));
   };
+  const { deleted } = useDtoStoreDelete(
+    otherProps.entityClass,
+    entity.id,
+    'card'
+  );
 
   return (
-    <Card>
-      <CardHeader>Service Category {entity.id}</CardHeader>
+    <Card className={'relative'}>
+      <DeletedOverlay show={deleted} />
+      <CardHeader>
+        <DtoComponentWrapper<ServiceCategoryDto>
+          {...otherProps}
+          id={entity.id}
+          uiComponent={(props) => (
+            <EditTextDeleteEntityPopover
+              {...props}
+              listenerKey={'card'}
+              textAccessor={(ent) => ent.name}
+              textSetter={(ent, value) => ({ ...ent, name: value })}
+            />
+          )}
+        />
+      </CardHeader>
       <CardBody>
         <StringAttributeInputArray
           entity={entity}

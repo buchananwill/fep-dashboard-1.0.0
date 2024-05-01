@@ -1,4 +1,4 @@
-import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
+import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
 import { DtoComponentWrapper, useDtoStoreDispatch } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -12,6 +12,8 @@ import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { CarouselLeanDto } from '@/app/api/dtos/CarouselLeanDtoSchema';
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
+import { useDtoStoreDelete } from 'dto-stores/dist/hooks/useDtoStoreDelete';
+import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 
 function produceCarouselGroupOptionsEdit(
   updatedKeys: string[],
@@ -43,6 +45,12 @@ export default function CarouselGroupOptionChooser({
   const handleSelectionChange = useListboxSelectionChangeCallback(
     produceCarouselGroupOptionsEdit,
     dispatchWithoutControl
+  );
+
+  const { deleted, dispatchDeletion } = useDtoStoreDelete(
+    entityClass,
+    collectionId,
+    'bundleItemChooser'
   );
 
   const selectedKeys = useMemo(() => {
@@ -80,7 +88,14 @@ export default function CarouselGroupOptionChooser({
   );
 
   return (
-    <div className={'flex flex-col'}>
+    <div className={'flex flex-col relative'}>
+      <DeletedOverlay
+        show={deleted}
+        classNames={{ overlay: 'rounded-xl' }}
+        handleUnDelete={() =>
+          dispatchDeletion((list) => list.filter((id) => id !== collectionId))
+        }
+      />
       <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
         <DtoComponentWrapper<CarouselGroupDto>
           entityClass={entityClass}

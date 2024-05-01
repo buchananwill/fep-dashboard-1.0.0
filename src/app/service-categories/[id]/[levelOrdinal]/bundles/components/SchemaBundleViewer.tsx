@@ -8,13 +8,12 @@ import { EntityClassMap } from '@/app/api/entity-class-map';
 import { Button } from '@nextui-org/button';
 import { Dispatch, SetStateAction } from 'react';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
-import { TransientIdOffset } from '@/app/api/main';
 import {
   deleteIdList,
   postList,
   putList
 } from '@/app/api/generated-actions/WorkSeriesSchemaBundle';
-import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListController';
+import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/useMasterListController';
 
 const handleAddBundle = (
   dispatch: Dispatch<SetStateAction<WorkSeriesSchemaBundleDto[]>>,

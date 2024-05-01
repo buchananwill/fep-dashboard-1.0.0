@@ -27,7 +27,7 @@ export function DtoTable<T extends HasId>({
     <Table
       isCompact
       isHeaderSticky={true}
-      aria-label="Example table with custom cells"
+      aria-label="Dto table with custom cells"
       classNames={{
         base: 'max-h-[520px] overflow-auto',
         table: 'min-h-[420px]'

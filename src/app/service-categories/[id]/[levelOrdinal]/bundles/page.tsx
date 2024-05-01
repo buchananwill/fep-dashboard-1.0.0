@@ -5,12 +5,12 @@ import { SchemaBundleViewer } from '@/app/service-categories/[id]/[levelOrdinal]
 import { getDtoListByExampleList } from '@/app/api/generated-actions/KnowledgeLevel';
 
 export default async function Page({
-  params: { serviceCategoryId, levelOrdinal }
+  params: { id, levelOrdinal }
 }: {
   params: ServiceCategoryRouteParams;
 }) {
   const { levelPartial, workProjectSeriesSchemaList } =
-    await getLevelPartialAndSchemaList(levelOrdinal, serviceCategoryId);
+    await getLevelPartialAndSchemaList(levelOrdinal, id);
 
   const [knowledgeLevel] = await getDtoListByExampleList([levelPartial]);
 

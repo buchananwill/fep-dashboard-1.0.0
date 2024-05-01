@@ -1,6 +1,6 @@
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { FC } from 'react';
-import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
+import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
 import {
   ObjectPlaceholder,
   useSelectiveContextGlobalListener,

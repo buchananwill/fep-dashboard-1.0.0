@@ -10,7 +10,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { Button } from '@nextui-org/button';
 import React, { Dispatch, SetStateAction } from 'react';
-import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListController';
+import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/useMasterListController';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 
 export function getMasterListContextKey(collectionEntityClass: string) {

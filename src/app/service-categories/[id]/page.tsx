@@ -7,6 +7,7 @@ import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
 import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
+import NameAccessorContextProvider from '@/components/providers/text-accessor-context/NameAccessorContextProvider';
 
 export default async function Page({
   params: { id }

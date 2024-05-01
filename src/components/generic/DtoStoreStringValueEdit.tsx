@@ -1,5 +1,4 @@
 import { HasId } from '@/app/api/main';
-import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { useDtoStoreDispatch } from 'dto-stores';
 import { Input, InputProps } from '@nextui-org/input';
 

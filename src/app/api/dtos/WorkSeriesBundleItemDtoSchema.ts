@@ -3,6 +3,8 @@ export const WorkSeriesBundleItemDtoSchema = z.object({
   id: z.number(),
   priorityFactor: z.number(),
   workProjectSeriesSchemaId: z.string().uuid(),
-  workSeriesSchemaBundleId: z.number(),
+  workSeriesSchemaBundleId: z.string().uuid()
 });
-export type WorkSeriesBundleItemDto = z.infer<typeof WorkSeriesBundleItemDtoSchema>;
+export type WorkSeriesBundleItemDto = z.infer<
+  typeof WorkSeriesBundleItemDtoSchema
+>;

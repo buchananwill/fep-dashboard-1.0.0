@@ -1,4 +1,4 @@
 export interface ServiceCategoryRouteParams {
-  serviceCategoryId: string;
+  id: string;
   levelOrdinal: string;
 }

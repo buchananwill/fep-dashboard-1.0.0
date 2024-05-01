@@ -5,14 +5,14 @@ import { workProjectSeriesSchemaActionSequence } from '@/app/service-categories/
 import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/serviceCategoryRouteParams';
 
 export default async function Page({
-  params: { serviceCategoryId, levelOrdinal }
+  params: { id, levelOrdinal }
 }: {
   params: ServiceCategoryRouteParams;
 }) {
   const { workProjectSeriesSchemas: wpssData } =
     await workProjectSeriesSchemaActionSequence({
       levelOrdinal: parseInt(levelOrdinal),
-      serviceCategoryId: parseInt(serviceCategoryId)
+      serviceCategoryId: parseInt(id)
     });
 
   return (

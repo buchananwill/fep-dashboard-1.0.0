@@ -11,14 +11,16 @@ import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[level
 import { getLevelPartialAndSchemaList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/getLevelPartialAndSchemaList';
 
 export default async function Page({
-  params: { levelOrdinal, serviceCategoryId }
+  params: { levelOrdinal, id }
 }: {
   params: ServiceCategoryRouteParams;
 }) {
   const { levelPartial, workProjectSeriesSchemaList: data } =
-    await getLevelPartialAndSchemaList(levelOrdinal, serviceCategoryId);
+    await getLevelPartialAndSchemaList(levelOrdinal, id);
 
   const kLevelList = await getKnowledgeLevelsByExampleList([levelPartial]);
+
+  console.log(levelPartial);
 
   const [knowledgeLevel] = kLevelList;
 

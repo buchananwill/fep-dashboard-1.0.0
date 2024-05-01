@@ -9,7 +9,7 @@ import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import { Chip } from '@nextui-org/chip';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
-import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
+import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
