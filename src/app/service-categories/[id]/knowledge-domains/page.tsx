@@ -6,7 +6,7 @@ import {
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-domains/components/KnowledgeDomainTable';
 import { EntityClassMap } from '@/app/api/entity-class-map';
-import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
+import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 import { getOne } from '@/app/api/generated-actions/ServiceCategory';
 
 export default async function Page({
@@ -23,7 +23,7 @@ export default async function Page({
   return (
     <div className={'p-4'}>
       <ResourceContextProvider pathSegment={id}>
-        <DtoListChangesTracker
+        <DtoControllerArrayChangesTracker
           dtoList={data}
           entityName={EntityClassMap.knowledgeDomain}
           updateServerAction={putList}

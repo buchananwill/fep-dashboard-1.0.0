@@ -18,7 +18,8 @@ import { EntityClassMap } from '@/app/api/entity-class-map';
 import { templateCycleSubspan } from '@/app/cycles/_components/CycleViewer';
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { useRenameEntity } from '@/components/modals/useRenameEntity';
+
+import { useRenameEntity } from '@/components/modals/nameSetter';
 
 export interface CycleDayViewerProps extends CycleDayFetcherProps {
   cycleSubspanDtos: CycleSubspanDto[];

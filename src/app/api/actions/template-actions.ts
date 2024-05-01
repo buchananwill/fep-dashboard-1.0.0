@@ -151,7 +151,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
       notFound();
     }
   } catch (error) {
-    console.error('Error fetching data: ', error);
+    console.error('Error fetching data: ', error, request, url);
     // return errorResponse('Error');
     throw Error('Error while fetching data.');
   }

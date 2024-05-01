@@ -1,18 +1,12 @@
 'use client';
 
-import { Tab, Tabs } from '@nextui-org/tabs';
-import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DtoControllerArray, DtoGroupMapController } from 'dto-stores';
-import { EntityClassMap } from '@/app/api/entity-class-map';
-import BundleItemChooser from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemChooser';
 import { FC, useMemo } from 'react';
-import BundleItemWithInclusionCount from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemWithInclusionCount';
-import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/AllBundlesTotal';
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
 import { HasId } from '@/app/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
+import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 
 export interface CollectionChooserTabGroupProps<T, U> {
   collectionData: T[];
@@ -20,6 +14,9 @@ export interface CollectionChooserTabGroupProps<T, U> {
   referencedEntityClass: string;
   collectionEntityClass: string;
   collectionItemChooser: FC<CollectionItemChooserProps>;
+  updateServerAction?: (entityList: T[]) => Promise<any>;
+  deleteServerAction?: (idList: any[]) => Promise<any>;
+  postServerAction?: (entityList: T[]) => Promise<any>;
 }
 
 export default function CollectionChooserTabGroup<
@@ -30,7 +27,8 @@ export default function CollectionChooserTabGroup<
   referencedItemData,
   referencedEntityClass,
   collectionEntityClass,
-  collectionItemChooser: ItemChooser
+  collectionItemChooser: ItemChooser,
+  ...serverActions
 }: CollectionChooserTabGroupProps<T, U>) {
   const itemContextKeys = useMemo(() => {
     return referencedItemData.map(
@@ -40,9 +38,10 @@ export default function CollectionChooserTabGroup<
 
   return (
     <>
-      <DtoControllerArray
+      <DtoControllerArrayChangesTracker
         dtoList={collectionData}
         entityName={collectionEntityClass}
+        {...serverActions}
       />
       <DtoControllerArray
         dtoList={referencedItemData}

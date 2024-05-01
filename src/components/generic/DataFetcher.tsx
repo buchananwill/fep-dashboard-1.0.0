@@ -1,6 +1,6 @@
 import { ActionResponsePromise } from '@/app/api/actions/actionResponse';
 import DataNotFoundModal from '@/components/generic/MissingDataModal';
-import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
+import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 import { HasId } from '@/app/api/main';
 
 export interface DataFetcherProps<T> {
@@ -28,7 +28,7 @@ export default async function DataFetcher<T extends HasId>({
 
   if (Array.isArray(data))
     return (
-      <DtoListChangesTracker
+      <DtoControllerArrayChangesTracker
         dtoList={data}
         entityName={entityClass}
         deleteServerAction={deleteServerAction}
@@ -37,7 +37,7 @@ export default async function DataFetcher<T extends HasId>({
     );
   else
     return (
-      <DtoListChangesTracker
+      <DtoControllerArrayChangesTracker
         dtoList={[data]}
         entityName={entityClass}
         deleteServerAction={deleteServerAction}

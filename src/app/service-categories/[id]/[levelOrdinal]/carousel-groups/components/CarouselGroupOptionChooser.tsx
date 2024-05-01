@@ -7,7 +7,6 @@ import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
-import { useRenameEntity } from '@/components/modals/useRenameEntity';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import RenameModal from '@/components/modals/RenameModal';
 import { Button } from '@nextui-org/button';
@@ -20,6 +19,7 @@ import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { CarouselDto } from '@/app/api/dtos/CarouselDtoSchema';
 import { CarouselLeanDto } from '@/app/api/dtos/CarouselLeanDtoSchema';
+import { useRenameEntity } from '@/components/modals/nameSetter';
 
 function produceCarouselGroupOptionsEdit(
   updatedKeys: string[],

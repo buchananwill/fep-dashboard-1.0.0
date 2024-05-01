@@ -6,7 +6,7 @@ import {
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
-import DtoChangesTracker from '@/components/generic/DtoChangesTracker';
+import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
 
 export default async function Page({
   params: { id }
@@ -17,7 +17,7 @@ export default async function Page({
 
   return (
     <>
-      <DtoChangesTracker
+      <DtoIdListChangesTracker
         dtoList={[data]}
         entityName={EntityClassMap.serviceCategory}
         updateServerAction={putList}

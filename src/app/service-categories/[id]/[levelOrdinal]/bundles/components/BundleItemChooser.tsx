@@ -1,6 +1,6 @@
 'use client';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
-import { useDtoStoreDispatch } from 'dto-stores';
+import { DtoComponentWrapper, useDtoStoreDispatch } from 'dto-stores';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
@@ -11,6 +11,10 @@ import { Chip } from '@nextui-org/chip';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/collectionItemChooserProps';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
+import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
+import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
+import { useDtoStoreDelete } from 'dto-stores/dist/hooks/useDtoStoreDelete';
+import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 
 const produceBundle = (
   updatedKeys: string[],
@@ -31,6 +35,13 @@ export default function BundleItemChooser({
       entityClass,
       'itemChooser'
     );
+
+  const { deleted, dispatchDeletion } = useDtoStoreDelete(
+    entityClass,
+    collectionId,
+    'bundleItemChooser'
+  );
+
   const { itemMap: schemaMap, items } =
     useItemChooserMap<WorkProjectSeriesSchemaDto>(
       referencedItemContextKeys,
@@ -50,15 +61,36 @@ export default function BundleItemChooser({
   }, [currentState, schemaMap]);
 
   return (
-    <div className={'flex flex-col'}>
-      <div className={'flex justify-between items-baseline mb-2'}>
-        <span>{currentState.name}</span>{' '}
-        <span>
+    <div className={'flex flex-col relative'}>
+      <DeletedOverlay
+        classNames={{ overlay: 'rounded-lg' }}
+        show={deleted}
+        handleUnDelete={() =>
+          dispatchDeletion((list) => list.filter((id) => id !== collectionId))
+        }
+      />
+      <div className={'grid grid-cols-2 items-baseline mb-2'}>
+        <DtoComponentWrapper<WorkSeriesSchemaBundleDto>
+          entityClass={entityClass}
+          id={collectionId}
+          uiComponent={(props) => {
+            return (
+              <EditTextDeleteEntityPopover
+                classNames={{ button: 'w-full' }}
+                listenerKey={'popover'}
+                textAccessor={nameAccessor}
+                textSetter={nameSetter}
+                {...props}
+              />
+            );
+          }}
+        />
+        <div className={'flex justify-center gap-2'}>
           <Chip size={'sm'} color={'secondary'}>
             {currentAllocationSum}
           </Chip>
           Periods this bundle
-        </span>
+        </div>
       </div>
       <Listbox
         items={items}

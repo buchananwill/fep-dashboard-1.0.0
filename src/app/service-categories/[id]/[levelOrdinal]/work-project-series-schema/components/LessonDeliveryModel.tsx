@@ -8,11 +8,11 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import React from 'react';
 import RenameModal from '@/components/modals/RenameModal';
-import { useRenameEntity } from '@/components/modals/useRenameEntity';
 import { Button } from '@nextui-org/button';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
+import { useRenameEntity } from '@/components/modals/nameSetter';
 
 const numberEditClassNames =
   'text-right no-spinner rounded-xl px-2 mx-1 bg-default-100 hover:bg-default-200';

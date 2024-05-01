@@ -6,7 +6,7 @@ import { CycleDto } from '@/app/api/dtos/CycleDtoSchema';
 import { TransientIdOffset } from '@/app/api/main';
 import CycleDayFetcher from '@/app/cycles/_components/CycleDayFetcher';
 import { ArrayPlaceholder } from 'selective-context';
-import DtoChangesTracker from '@/components/generic/DtoChangesTracker';
+import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
 import {
   interceptPost,
   interceptPut
@@ -38,7 +38,7 @@ export default function CycleViewer({ cycle }: { cycle: CycleDto }) {
         'p-8 grid grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 min-w-fit'
       }
     >
-      <DtoChangesTracker
+      <DtoIdListChangesTracker
         dtoList={ArrayPlaceholder}
         entityName={entityClass}
         updateServerAction={interceptPut}

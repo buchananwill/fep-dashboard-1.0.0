@@ -43,7 +43,7 @@ function UnsavedChangesToast({
   );
 }
 
-export default function DtoChangesTracker<T extends HasId>({
+export default function DtoIdListChangesTracker<T extends HasId>({
   unsavedChangesComponent,
   ...props
 }: DtoListControllerProps<T>) {
@@ -55,7 +55,7 @@ export default function DtoChangesTracker<T extends HasId>({
   );
 }
 
-export function DtoListChangesTracker<T extends HasId>({
+export function DtoControllerArrayChangesTracker<T extends HasId>({
   ...props
 }: Omit<DtoListControllerProps<T>, 'unsavedChangesComponent'>) {
   return (

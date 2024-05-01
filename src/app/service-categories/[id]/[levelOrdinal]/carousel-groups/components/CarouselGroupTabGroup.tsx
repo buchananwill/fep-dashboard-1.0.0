@@ -11,6 +11,10 @@ import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { Button } from '@nextui-org/button';
 import React from 'react';
 
+export function getMasterListContextKey(collectionEntityClass: string) {
+  return `${collectionEntityClass}:masterList`;
+}
+
 export default function CarouselGroupTabGroup({
   collectionData,
   knowledgeLevel,
@@ -19,9 +23,10 @@ export default function CarouselGroupTabGroup({
   CollectionChooserTabGroupProps<CarouselGroupDto, WorkProjectSeriesSchemaDto>,
   'collectionItemChooser'
 > & { knowledgeLevel: KnowledgeLevelDto }) {
+  const collectionEntityClass = otherProps.collectionEntityClass;
   const { currentState: collectionDataState, dispatch } =
     useSelectiveContextGlobalController<CarouselGroupDto[]>({
-      contextKey: `${otherProps.collectionEntityClass}:masterList`,
+      contextKey: getMasterListContextKey(collectionEntityClass),
       listenerKey: 'tabGroup',
       initialValue: collectionData
     });

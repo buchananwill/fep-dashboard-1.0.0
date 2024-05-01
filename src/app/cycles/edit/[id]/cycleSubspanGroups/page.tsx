@@ -10,7 +10,7 @@ import { CycleSubspanGroupEditDto } from '@/app/cycles/edit/[id]/cycleSubspanGro
 import { getWithoutBody } from '@/app/api/actions/template-actions';
 import { API_V2_URL } from '@/app/api/main';
 import UiWrapper from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/UiWrapper';
-import { DtoListChangesTracker } from '@/components/generic/DtoChangesTracker';
+import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 import { putGroupEditAction } from '@/app/cycles/edit/[id]/cycleSubspanGroups/putGroupEditAction';
 
 const cycleSubspan = EntityClassMap.cycleSubspan;
@@ -34,7 +34,7 @@ export default async function Page({
 
   return (
     <div className={'grid grid-cols-5 w-fit gap-1'}>
-      <DtoListChangesTracker
+      <DtoControllerArrayChangesTracker
         dtoList={cycleSubspanGroupEditDtos}
         entityName={entityName}
         updateServerAction={putGroupEditAction}

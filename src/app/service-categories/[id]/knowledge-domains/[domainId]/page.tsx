@@ -5,7 +5,7 @@ import {
 } from '@/app/api/generated-actions/KnowledgeDomain';
 import { getOne as getOneServiceCategory } from '@/app/api/generated-actions/ServiceCategory';
 import { MissingData } from '@/components/generic/MissingData';
-import DtoChangesTracker from '@/components/generic/DtoChangesTracker';
+import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
 import { EntityClassMap } from '@/app/api/entity-class-map';
 
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
@@ -28,7 +28,7 @@ export default async function Page({
         dtoList={[serviceCategory]}
         entityName={EntityClassMap.serviceCategory}
       />
-      <DtoChangesTracker
+      <DtoIdListChangesTracker
         dtoList={[kDomain]}
         entityName={EntityClassMap.serviceCategory}
         updateServerAction={putList}
