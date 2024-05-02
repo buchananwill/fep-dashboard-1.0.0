@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow
 } from '@nextui-org/table';
+import { TableProps } from '@nextui-org/react';
 
 export interface ColumnMetaData {
   name: string;
@@ -17,21 +18,19 @@ export interface ColumnMetaData {
 export function DtoTable<T extends HasId>({
   columns,
   data,
-  renderCell
+  renderCell,
+  ...tableProps
 }: {
   columns: ColumnMetaData[];
   data: T[];
   renderCell: (item: T, columnKey: Key) => string | number | React.JSX.Element;
-}) {
+} & TableProps) {
   return (
     <Table
+      {...tableProps}
       isCompact
       isHeaderSticky={true}
       aria-label="Dto table with custom cells"
-      classNames={{
-        base: 'max-h-[520px] overflow-auto',
-        table: 'min-h-[420px]'
-      }}
     >
       <TableHeader columns={columns}>
         {(column) => (

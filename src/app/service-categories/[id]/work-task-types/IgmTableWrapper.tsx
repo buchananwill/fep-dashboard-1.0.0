@@ -9,6 +9,8 @@ import {
   IntersectionGeneratorRowWithHeader
 } from '@/app/api/main';
 import { createRows } from '@/components/generic/createRows';
+import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
+import { TableProps } from '@nextui-org/react';
 
 export default function IgmTableWrapper<
   T extends HasNameDto,
@@ -19,7 +21,8 @@ export default function IgmTableWrapper<
   rows,
   submitTo,
   tableRows,
-  tableColumns
+  tableColumns,
+  ...tableProps
 }: {
   rowEntityName: string;
   rows: T[];
@@ -27,7 +30,7 @@ export default function IgmTableWrapper<
   submitTo?: (matrix: IntersectionGeneratorMatrix<T, U>) => Promise<any>;
   tableRows: IntersectionGeneratorRowWithHeader<T>[];
   tableColumns: { name: string; uid: string }[];
-}) {
+} & TableProps) {
   return (
     <>
       <DtoControllerArray dtoList={tableRows} entityName={'generatorRow'} />
@@ -36,8 +39,9 @@ export default function IgmTableWrapper<
         entityList={rows}
         tableRows={tableRows}
         tableColumns={tableColumns}
+        {...tableProps}
       />
-      <div className={'fixed bottom-4 left-1/2 '}>
+      <div className={'absolute bottom-4 left-1/2 '}>
         <SubmitTableButton
           rows={rows}
           columns={columns}

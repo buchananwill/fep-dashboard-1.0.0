@@ -8,18 +8,20 @@ import {
   useSelectiveContextGlobalController,
   useSelectiveContextGlobalDispatch
 } from 'selective-context';
+import { TableProps } from '@nextui-org/react';
 
 export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
   rowEntityName,
   tableRows,
   tableColumns,
-  entityList
+  entityList,
+  ...tableProps
 }: {
   rowEntityName: string;
   entityList: T[];
   tableRows: IntersectionGeneratorRowWithHeader<T>[];
   tableColumns: { name: string; uid: string }[];
-}) {
+} & TableProps) {
   const renderCell = useCallback(
     (
       rowWithHeader: IntersectionGeneratorRowWithHeader<T>,
@@ -59,6 +61,11 @@ export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
   );
 
   return (
-    <DtoTable columns={tableColumns} data={tableRows} renderCell={renderCell} />
+    <DtoTable
+      columns={tableColumns}
+      data={tableRows}
+      renderCell={renderCell}
+      {...tableProps}
+    />
   );
 }

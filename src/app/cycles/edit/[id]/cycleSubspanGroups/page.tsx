@@ -39,14 +39,16 @@ export default async function Page({
         entityName={entityName}
         updateServerAction={putGroupEditAction}
       />
-      {cycleDays.map((cycleDay) => {
+      {cycleDays.map((cycleDay, index) => {
         const cycleSubspanDtoList =
           groupedByCycleDay[cycleDay.zeroIndexedCycleDay];
         if (cycleSubspanDtoList === undefined) return null;
         return (
           <Card
             key={cycleDay.zeroIndexedCycleDay}
-            classNames={{ base: 'w-full' }}
+            classNames={{
+              base: `w-full ${index === 0 ? 'step_edit_cycleSubspanGroups' : ''}`
+            }}
           >
             <CardHeader className={'text-center justify-center'}>
               {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}

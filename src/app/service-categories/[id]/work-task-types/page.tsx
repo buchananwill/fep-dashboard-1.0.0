@@ -7,6 +7,7 @@ import data from '@/utils/init-json-data/service-categories/workTaskTypesIgm.jso
 import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categories/getWorkTaskTypeTableLookUp';
 import { createRows } from '@/components/generic/createRows';
 import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
+import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 
 const rowEntityName = 'Lesson Type';
 export default async function Page({
@@ -38,15 +39,22 @@ export default async function Page({
   ];
 
   return (
-    <Card fullWidth={false} className={'max-w-3xl'}>
-      <IgmTableWrapper
-        rowEntityName={rowEntityName}
-        rows={kDomains}
-        columns={kLevels}
-        tableRows={tableRows}
-        tableColumns={tableColumns}
-        submitTo={submitLessonTypeMatrix}
-      />
-    </Card>
+    <div className={'h-screen p-8'}>
+      <Card fullWidth={false} className={'max-w-3xl'}>
+        <IgmTableWrapper
+          rowEntityName={rowEntityName}
+          rows={kDomains}
+          columns={kLevels}
+          tableRows={tableRows}
+          tableColumns={tableColumns}
+          submitTo={submitLessonTypeMatrix}
+          classNames={{
+            base: 'max-h-[520px] overflow-auto',
+            table: 'min-h-[420px]',
+            thead: 'step_table_header'
+          }}
+        />
+      </Card>
+    </div>
   );
 }

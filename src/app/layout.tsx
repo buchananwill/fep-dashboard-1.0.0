@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { LibraryProvidersWrapper } from '@/components/providers/LibraryProvidersWrapper';
 import React from 'react';
+import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
+import { steps } from '@/components/react-joyride/steps';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <LibraryProvidersWrapper>{children}</LibraryProvidersWrapper>
+        <JoyrideWrapper steps={steps} />
       </body>
     </html>
   );

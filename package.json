@@ -29,8 +29,10 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-floater": "^0.9.3",
     "react-hook-form": "^7.51.3",
     "react-icons": "^5.1.0",
+    "react-joyride": "^2.8.1",
     "selective-context": "file:D:\\Coding\\selective-context",
     "zod": "^3.22.4"
   },

@@ -42,7 +42,11 @@ export function SubmitTableButton<T, U>({
     }
   };
 
-  return <Button onPress={handleSubmit}>Submit</Button>;
+  return (
+    <Button onPress={handleSubmit} className={'step_submit_lesson_types'}>
+      Submit
+    </Button>
+  );
 }
 
 function convertRowWithHeaderToNumberList(

@@ -12,6 +12,11 @@
   }
 }
 
+.__floater {
+  filter: none !important;
+  will-change: auto !important;
+}
+
 
 
 @layer utilities {
