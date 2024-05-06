@@ -7,7 +7,7 @@ import { getOne } from '@/app/api/generated-actions/ServiceCategory';
 import { MissingData } from '@/components/generic/MissingData';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import KnowledgeLevelTable from '@/app/service-categories/[id]/knowledge-levels/_components/KnowledgeLevelTable';
 
 export default async function Page({

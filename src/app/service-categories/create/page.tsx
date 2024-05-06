@@ -1,10 +1,10 @@
 'use client';
 import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
 import data from '@/utils/init-json-data/service-categories/ServiceCategory.json';
-import { TransientIdOffset } from '@/app/api/main';
+import { TransientIdOffset } from '@/api/main';
 import { Button } from '@nextui-org/button';
 import { useSelectiveContextGlobalReadAll } from 'selective-context';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';

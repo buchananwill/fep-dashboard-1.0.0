@@ -4,7 +4,7 @@ import {
   putList
 } from '@/app/api/generated-actions/ServiceCategory';
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
 import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
 import NameAccessorContextProvider from '@/components/providers/text-accessor-context/NameAccessorContextProvider';

@@ -2,7 +2,7 @@
 import { KnowledgeDomainDto } from '@/app/api/dtos/KnowledgeDomainDtoSchema';
 import React, { useCallback, useMemo } from 'react';
 import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { DtoTable } from '@/components/generic/DtoTable';
 import { d } from '@nextui-org/slider/dist/use-slider-64459b54';

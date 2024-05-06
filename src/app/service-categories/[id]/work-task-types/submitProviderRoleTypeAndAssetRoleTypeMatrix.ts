@@ -1,6 +1,6 @@
 'use server';
-import { API_V2_URL, IntersectionGeneratorMatrix } from '@/app/api/main';
-import { postEntitiesWithDifferentReturnType } from '@/app/api/actions/template-actions';
+import { API_V2_URL, IntersectionGeneratorMatrix } from '@/api/main';
+import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { WorkTaskTypeDto } from '@/app/api/dtos/WorkTaskTypeDtoSchema';
 import { ProviderRoleTypeDto } from '@/app/api/dtos/ProviderRoleTypeDtoSchema';
 

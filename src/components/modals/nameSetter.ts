@@ -1,10 +1,13 @@
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import { Dispatch, SetStateAction } from 'react';
 import { RenameContextKey } from '@/components/modals/RenameModal';
 import { useEditEntityText } from '@/components/modals/useRenameEntity';
 
-export function getRenameContextKey<T extends HasId>(entityClass: string, entity: T) {
+export function getRenameContextKey<T extends HasId>(
+  entityClass: string,
+  entity: T
+) {
   return `${entityClass}:${entity.id}:${RenameContextKey}`;
 }
 

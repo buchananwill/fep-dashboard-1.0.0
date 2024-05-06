@@ -1,7 +1,7 @@
 import {
   IntersectionGeneratorRow,
   IntersectionGeneratorRowWithHeader
-} from '@/app/api/main';
+} from '@/api/main';
 
 export function createRows<T, U>(
   rows: T[],

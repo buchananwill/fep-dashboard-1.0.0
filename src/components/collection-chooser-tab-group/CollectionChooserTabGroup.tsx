@@ -3,7 +3,7 @@
 import { DtoControllerArray, DtoGroupMapController } from 'dto-stores';
 import { FC, useMemo } from 'react';
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
 import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';

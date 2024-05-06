@@ -6,8 +6,8 @@ import {
   useSelectiveContextGlobalListener,
   useSelectiveContextListenerGroupGlobal
 } from 'selective-context';
-import { StringMap } from '@/app/api/string-map';
-import { HasId } from '@/app/api/main';
+import { StringMap } from '@/api/string-map';
+import { HasId } from '@/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 
 export interface InnerWrapperProps<T> {

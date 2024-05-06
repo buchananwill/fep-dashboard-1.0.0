@@ -7,7 +7,7 @@ import RenameModal from '@/components/modals/RenameModal';
 import { useEditEntityText } from '@/components/modals/useRenameEntity';
 import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { DtoUiComponentProps } from 'dto-stores';
-import { HasId, isNotUndefined } from '@/app/api/main';
+import { HasId, isNotUndefined } from '@/api/main';
 
 export interface EditTextDeletePopoverProps<T extends HasId>
   extends DtoUiComponentProps<T> {

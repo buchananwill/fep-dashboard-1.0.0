@@ -1,9 +1,9 @@
 import { createCycleDays } from '@/app/cycles/_functions/groupCycleSubspansByDay';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
 import { deleteIdList } from '@/app/api/generated-actions/CycleSubspan';
 import { CycleDto } from '@/app/api/dtos/CycleDtoSchema';
-import { TransientIdOffset } from '@/app/api/main';
+import { TransientIdOffset } from '@/api/main';
 import CycleDayFetcher from '@/app/cycles/_components/CycleDayFetcher';
 import { ArrayPlaceholder } from 'selective-context';
 import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
@@ -17,7 +17,7 @@ const entityClass = EntityClassMap.cycleSubspan;
 export const templateCycleSubspan: CycleSubspanDto = {
   parentCycleId: NaN,
   zeroIndexedCycleDay: NaN,
-  description: 'New Period',
+  name: 'New Period',
   id: TransientIdOffset,
   timeSpanDto: {
     startTimeDivisionInstant: '09:00:00',

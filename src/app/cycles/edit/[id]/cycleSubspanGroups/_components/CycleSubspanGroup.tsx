@@ -6,8 +6,8 @@ import {
   useSelectiveContextGlobalReadAll
 } from 'selective-context';
 import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
-import { EntityClassMap } from '@/app/api/entity-class-map';
-import { isNotUndefined, TransientIdOffset } from '@/app/api/main';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { isNotUndefined, TransientIdOffset } from '@/api/main';
 import { Chip } from '@nextui-org/chip';
 import {
   CycleDay,

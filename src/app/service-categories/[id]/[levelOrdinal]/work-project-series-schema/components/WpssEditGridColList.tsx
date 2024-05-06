@@ -1,7 +1,7 @@
 'use client';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { DtoComponentArrayGenerator } from 'dto-stores';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
@@ -9,7 +9,7 @@ import {
   useSelectiveContextGlobalListener,
   useSelectiveContextListenerGroupGlobal
 } from 'selective-context';
-import { EmptyArray, ObjectPlaceholder } from '@/app/api/main';
+import { EmptyArray, ObjectPlaceholder } from '@/api/main';
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;

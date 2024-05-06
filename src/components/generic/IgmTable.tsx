@@ -1,7 +1,7 @@
 'use client';
 import { DtoTable } from '@/components/generic/DtoTable';
 import React, { useCallback } from 'react';
-import { IntersectionGeneratorRowWithHeader } from '@/app/api/main';
+import { IntersectionGeneratorRowWithHeader } from '@/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import {

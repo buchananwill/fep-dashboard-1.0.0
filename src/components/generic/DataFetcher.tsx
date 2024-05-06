@@ -1,7 +1,7 @@
-import { ActionResponsePromise } from '@/app/api/actions/actionResponse';
+import { ActionResponsePromise } from '@/api/actions/actionResponse';
 import DataNotFoundModal from '@/components/generic/MissingDataModal';
 import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 
 export interface DataFetcherProps<T> {
   serverActionSupplier: () => ActionResponsePromise<T>;

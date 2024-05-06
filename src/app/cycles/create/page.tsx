@@ -1,18 +1,20 @@
 'use client';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { CycleDto, CycleDtoSchema } from '@/app/api/dtos/CycleDtoSchema';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-import { postOne } from '@/app/api/generated-actions/Cycle';
+
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';
-import { DayOfWeekArray } from '@/app/api/date-and-time';
+import { DayOfWeekArray } from '@/api/date-and-time';
 import { SelectItem } from '@nextui-org/select';
 import { Button } from '@nextui-org/button';
-import { TransientIdOffset } from '@/app/api/main';
+import { TransientIdOffset } from '@/api/main';
+import { CycleDto, CycleDtoSchema } from '@/api/dtos/CycleDtoSchema';
+import { postOne } from '@/api/generated-actions/Cycle';
 
 const dayArray = DayOfWeekArray.map((day) => ({
   value: day.toUpperCase(),
@@ -30,8 +32,9 @@ export default function Page() {
     defaultValues: {
       id: TransientIdOffset,
       cycleDayZero: 'MONDAY',
-      cycleLengthInDays: 7,
-      cycleSubspanGroupSizes: []
+      cycleLengthInDays: 14,
+      cycleLengthInWeeks: 2,
+      maxGroupSize: 2
     }
   });
 
@@ -72,9 +75,9 @@ export default function Page() {
             ))}
           </ControlledSelect>
           <label className={'text-default-500 text-sm'}>
-            Cycle Length in Days:
+            Cycle Length in Weeks:
             <input
-              {...register('cycleLengthInDays', { valueAsNumber: true })}
+              {...register('cycleLengthInWeeks', { valueAsNumber: true })}
               type={'number'}
               className={
                 'text-right no-spinner p-2 rounded-xl outline-primary-400 bg-default-100 text-black text-medium w-24 ml-2'

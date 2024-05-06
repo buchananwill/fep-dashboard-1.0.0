@@ -2,7 +2,7 @@
 import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import React, { useCallback, useMemo } from 'react';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { Chip } from '@nextui-org/chip';

@@ -1,5 +1,5 @@
 import { useDtoStoreListener } from 'dto-stores';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import {
   ArrayPlaceholder,
   ObjectPlaceholder,
@@ -9,7 +9,7 @@ import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundle
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useMemo } from 'react';
 import { Chip } from '@nextui-org/chip';
-import { StringMap } from '@/app/api/string-map';
+import { StringMap } from '@/api/string-map';
 
 export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   const { currentState } = useDtoStoreListener<WorkProjectSeriesSchemaDto>(

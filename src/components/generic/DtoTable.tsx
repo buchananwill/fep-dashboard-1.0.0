@@ -1,5 +1,5 @@
 import React, { Key } from 'react';
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import {
   Table,
   TableBody,

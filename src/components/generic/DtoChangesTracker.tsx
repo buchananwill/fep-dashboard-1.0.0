@@ -6,7 +6,7 @@ import {
   UnsavedChangesProps
 } from 'dto-stores/dist/types';
 import { DtoIdListController } from 'dto-stores/dist/controllers/DtoIdListController';
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { DtoControllerArray } from 'dto-stores';
 

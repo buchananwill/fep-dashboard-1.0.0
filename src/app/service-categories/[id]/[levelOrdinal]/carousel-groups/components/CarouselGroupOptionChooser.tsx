@@ -6,7 +6,7 @@ import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionCh
 import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
-import { TransientIdOffset } from '@/app/api/main';
+import { TransientIdOffset } from '@/api/main';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { CarouselLeanDto } from '@/app/api/dtos/CarouselLeanDtoSchema';

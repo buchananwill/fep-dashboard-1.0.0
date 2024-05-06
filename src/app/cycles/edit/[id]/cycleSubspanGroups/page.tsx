@@ -1,5 +1,5 @@
 import cycle from '../../../../../utils/init-json-data/time/Cycle.json';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import {
   getWeekNumberInt,
   groupCycleSubspansByDay
@@ -7,8 +7,8 @@ import {
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { CycleSubspanGroupEditDto } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
-import { getWithoutBody } from '@/app/api/actions/template-actions';
-import { API_V2_URL } from '@/app/api/main';
+import { getWithoutBody } from '@/api/actions/template-actions';
+import { API_V2_URL } from '@/api/main';
 import UiWrapper from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/UiWrapper';
 import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 import { putGroupEditAction } from '@/app/cycles/edit/[id]/cycleSubspanGroups/putGroupEditAction';

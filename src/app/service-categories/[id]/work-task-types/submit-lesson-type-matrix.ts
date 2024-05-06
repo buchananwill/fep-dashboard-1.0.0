@@ -1,13 +1,9 @@
 'use server';
 
-import {
-  API_V2_URL,
-  BASE_URL,
-  IntersectionGeneratorMatrix
-} from '@/app/api/main';
+import { API_V2_URL, BASE_URL, IntersectionGeneratorMatrix } from '@/api/main';
 import { KnowledgeDomainDto } from '@/app/api/dtos/KnowledgeDomainDtoSchema';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
-import { postEntitiesWithDifferentReturnType } from '@/app/api/actions/template-actions';
+import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 
 export async function submitLessonTypeMatrix(
   matrix: IntersectionGeneratorMatrix<KnowledgeDomainDto, KnowledgeLevelDto>

@@ -6,7 +6,7 @@ import {
 import { getOne as getOneServiceCategory } from '@/app/api/generated-actions/ServiceCategory';
 import { MissingData } from '@/components/generic/MissingData';
 import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';

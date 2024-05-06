@@ -6,7 +6,7 @@ import {
   EmptyArray,
   IntersectionGeneratorMatrix,
   IntersectionGeneratorRowWithHeader
-} from '@/app/api/main';
+} from '@/api/main';
 import { Button } from '@nextui-org/button';
 
 export function SubmitTableButton<T, U>({

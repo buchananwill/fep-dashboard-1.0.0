@@ -7,7 +7,7 @@ import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 import {
   IntersectionGeneratorMatrix,
   IntersectionGeneratorRowWithHeader
-} from '@/app/api/main';
+} from '@/api/main';
 import { createRows } from '@/components/generic/createRows';
 import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { TableProps } from '@nextui-org/react';

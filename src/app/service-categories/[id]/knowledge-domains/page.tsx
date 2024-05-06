@@ -5,7 +5,7 @@ import {
 } from '@/app/api/generated-actions/KnowledgeDomain';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-domains/components/KnowledgeDomainTable';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 import { getOne } from '@/app/api/generated-actions/ServiceCategory';
 

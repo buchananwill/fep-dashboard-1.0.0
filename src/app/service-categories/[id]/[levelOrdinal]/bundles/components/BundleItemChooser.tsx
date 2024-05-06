@@ -6,7 +6,7 @@ import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSche
 import React, { useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemWithInclusionCount';
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { Chip } from '@nextui-org/chip';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';

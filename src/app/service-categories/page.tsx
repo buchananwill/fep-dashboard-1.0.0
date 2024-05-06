@@ -1,5 +1,5 @@
 import { getPage } from '@/app/api/generated-actions/ServiceCategory';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { LinkListResourcePage } from '@/components/generic/LinkListResourcePage';
 import NameAccessorContextProvider from '@/components/providers/text-accessor-context/NameAccessorContextProvider';
 

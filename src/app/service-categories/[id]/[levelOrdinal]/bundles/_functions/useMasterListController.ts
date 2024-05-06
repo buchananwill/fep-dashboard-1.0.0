@@ -1,4 +1,4 @@
-import { HasIdClass } from '@/app/api/main';
+import { HasIdClass } from '@/api/main';
 import {
   ArrayPlaceholder,
   useSelectiveContextGlobalController,

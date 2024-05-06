@@ -8,13 +8,13 @@ import { DtoComponentWrapperListView } from '@/components/generic/DtoComponentWr
 import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
 import { CycleDayFetcherProps } from '@/app/cycles/_components/CycleDayFetcher';
 import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
-import { TransientIdOffset } from '@/app/api/main';
+import { TransientIdOffset } from '@/api/main';
 import {
   ArrayPlaceholder,
   useSelectiveContextGlobalController,
   useSelectiveContextGlobalDispatch
 } from 'selective-context';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { templateCycleSubspan } from '@/app/cycles/_components/CycleViewer';
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';

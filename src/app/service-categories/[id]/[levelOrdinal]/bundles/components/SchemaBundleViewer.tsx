@@ -4,7 +4,7 @@ import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSche
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/AllBundlesTotal';
 import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/WorkSeriesSchemaBundleTabGroup';
-import { EntityClassMap } from '@/app/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 import { Button } from '@nextui-org/button';
 import { Dispatch, SetStateAction } from 'react';
 import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';

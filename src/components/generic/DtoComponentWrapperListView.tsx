@@ -1,4 +1,4 @@
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import { DtoComponentWrapper, DtoUiComponent } from 'dto-stores';
 
 export interface DtoComponentWrapperListViewProps<T extends HasId> {

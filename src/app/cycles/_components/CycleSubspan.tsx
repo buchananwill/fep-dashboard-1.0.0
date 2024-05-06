@@ -1,12 +1,14 @@
 'use client';
 
 import { DtoUiComponentProps } from 'dto-stores';
-import { EntityClassMap } from '@/app/api/entity-class-map';
-import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
-import { HasDescription } from '@/app/api/dtos/HasDescriptionSchema';
+import { EntityClassMap } from '@/api/entity-class-map';
+
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { TimeInputCycleSubspan } from '@/app/cycles/_components/TimeInputCycleSubspan';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
+import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
+import { HasDescription } from '@/api/dtos/HasDescriptionSchema';
+import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 
 export interface CycleSubspanProps {
   id: number;
@@ -45,8 +47,8 @@ export default function CycleSubspan(
         classNames={{ button: 'w-24 px-2' }}
         {...props}
         listenerKey={'popover'}
-        textSetter={descriptionSetter}
-        textAccessor={descriptionAccessor}
+        textSetter={nameSetter}
+        textAccessor={nameAccessor}
       />
       <TimeInputCycleSubspan
         entity={entity}

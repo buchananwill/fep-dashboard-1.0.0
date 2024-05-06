@@ -1,4 +1,4 @@
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import { DtoControllerArray } from 'dto-stores';
 import { Card, CardBody } from '@nextui-org/card';
 import { ClientLinkComponentWrapper } from '@/components/generic/ClientLinkComponentWrapper';

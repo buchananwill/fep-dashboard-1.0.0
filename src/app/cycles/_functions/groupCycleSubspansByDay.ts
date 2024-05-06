@@ -2,11 +2,11 @@ import {
   DayOfWeek,
   DayOfWeekArray,
   DayOfWeekObject
-} from '@/app/api/date-and-time';
+} from '@/api/date-and-time';
 import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
 import { CycleDto } from '@/app/api/dtos/CycleDtoSchema';
-import { StringMap } from '@/app/api/string-map';
-import { isNotUndefined } from '@/app/api/main';
+import { StringMap } from '@/api/string-map';
+import { isNotUndefined } from '@/api/main';
 
 export interface CycleDay {
   zeroIndexedCycleDay: number;

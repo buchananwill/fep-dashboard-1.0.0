@@ -1,5 +1,5 @@
 'use client';
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import { Link } from '@nextui-org/link';
 import { DtoUiComponentProps } from 'dto-stores';
 import { toKebabCase } from '@/utils/toKebabCase';

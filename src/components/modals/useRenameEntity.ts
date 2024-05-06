@@ -1,4 +1,4 @@
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import { Dispatch, SetStateAction, useCallback } from 'react';
 import { useSelectiveContextGlobalController } from 'selective-context';
 import { useDisclosure } from '@nextui-org/use-disclosure';

@@ -1,6 +1,6 @@
 'use client';
 import { DtoUiComponentProps } from 'dto-stores';
-import { isNotUndefined } from '../../../../../api/main';
+import { isNotUndefined } from '../../../../../../api/main';
 import { AdjustAllocation } from './AdjustAllocation';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';

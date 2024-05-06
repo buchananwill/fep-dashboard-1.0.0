@@ -4,8 +4,8 @@ import {
   useSelectiveContextGlobalListener,
   useSelectiveContextGlobalReadAll
 } from 'selective-context';
-import { EntityClassMap } from '@/app/api/entity-class-map';
-import { StringMap } from '@/app/api/string-map';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { StringMap } from '@/api/string-map';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useMemo } from 'react';

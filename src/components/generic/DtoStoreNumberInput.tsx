@@ -1,4 +1,4 @@
-import { HasId } from '@/app/api/main';
+import { HasId } from '@/api/main';
 import { useDtoStoreDispatch } from 'dto-stores';
 import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
