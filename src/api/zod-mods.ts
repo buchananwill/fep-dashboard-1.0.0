@@ -29,27 +29,27 @@ const LessonCycleSchema = z.object({
   ...HasNameDtoSchema.shape,
   ...HasUuidDtoSchema.shape
 });
-
-export interface GraphDto<T extends HasNumberIdDto> {
-  nodes: DataNode<T>[];
-  closureDtos: ClosureDto[];
-}
-
-export interface GraphDtoPutRequestBody<T extends HasNumberIdDto> {
-  graphDto: GraphDto<T>;
-  deletedNodeIdList: number[];
-  deletedClosureIdList: number[];
-}
-
-export type DataNode<T extends HasNumberIdDto> = SimulationNodeDatum & {
-  id: number;
-  distanceFromRoot: number;
-  data: T;
-};
-export type DataLink<T extends HasNumberIdDto> = SimulationLinkDatum<
-  DataNode<T>
-> &
-  ClosureDto;
+//
+// export interface GraphDto<T extends HasNumberIdDto> {
+//   nodes: DataNode<T>[];
+//   closureDtos: ClosureDto[];
+// }
+//
+// export interface GraphDtoPutRequestBody<T extends HasNumberIdDto> {
+//   graphDto: GraphDto<T>;
+//   deletedNodeIdList: number[];
+//   deletedClosureIdList: number[];
+// }
+//
+// export type DataNode<T extends HasNumberIdDto> = SimulationNodeDatum & {
+//   id: number;
+//   distanceFromRoot: number;
+//   data: T;
+// };
+// export type DataLink<T extends HasNumberIdDto> = SimulationLinkDatum<
+//   DataNode<T>
+// > &
+//   ClosureDto;
 
 export { LessonCycleSchema };
 

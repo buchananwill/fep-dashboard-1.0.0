@@ -4,7 +4,7 @@ import { useSelectiveContextGlobalController } from 'selective-context';
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { getRenameContextKey } from '@/components/modals/nameSetter';
 
-export function useEditEntityText<T extends HasId>(
+export function useEditEntityTextAttribute<T extends HasId>(
   entityClass: string,
   entity: T,
   listenerKey: string,

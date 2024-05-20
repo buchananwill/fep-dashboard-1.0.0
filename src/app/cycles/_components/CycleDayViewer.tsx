@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useTransition } from 'react';
+import { useTransition } from 'react';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { getWeekNumberInt } from '@/app/cycles/_functions/groupCycleSubspansByDay';
@@ -7,7 +7,7 @@ import { Button } from '@nextui-org/button';
 import { DtoComponentWrapperListView } from '@/components/generic/DtoComponentWrapperListView';
 import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
 import { CycleDayFetcherProps } from '@/app/cycles/_components/CycleDayFetcher';
-import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
+
 import { TransientIdOffset } from '@/api/main';
 import {
   ArrayPlaceholder,
@@ -18,8 +18,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { templateCycleSubspan } from '@/app/cycles/_components/CycleViewer';
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-
-import { useRenameEntity } from '@/components/modals/nameSetter';
+import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 
 export interface CycleDayViewerProps extends CycleDayFetcherProps {
   cycleSubspanDtos: CycleSubspanDto[];

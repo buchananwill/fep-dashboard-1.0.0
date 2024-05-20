@@ -6,9 +6,9 @@ import {
 } from './template-actions';
 import { isNotUndefined } from '../main';
 
-import { GraphDto, GraphDtoPutRequestBody } from '../zod-mods';
-import { HasNumberIdDto } from '../../app/api/dtos/HasNumberIdDtoSchema';
 import { constructUrl } from './template-base-endpoints';
+import { HasNumberIdDto } from '@/api/dtos/HasNumberIdDtoSchema';
+import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-graph';
 
 export type DepthOp = '>' | '>=' | '<' | '<=' | '=' | '!=';
 

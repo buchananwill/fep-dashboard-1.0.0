@@ -1,8 +1,8 @@
 'use client';
 import { DtoUiComponentProps } from 'dto-stores';
-import { isNotUndefined } from '../../../../../../api/main';
+import { isNotUndefined } from '@/api/main';
 import { AdjustAllocation } from './AdjustAllocation';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
@@ -13,6 +13,7 @@ import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValu
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useRenameEntity } from '@/components/modals/nameSetter';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 
 const numberEditClassNames =
   'text-right no-spinner rounded-xl px-2 mx-1 bg-default-100 hover:bg-default-200';
@@ -102,7 +103,7 @@ export const LessonDeliveryModel = (
 
       <RenameModal
         {...renameEntityProps}
-        onCancel={() => renameEntityProps.dispatchRename(model.name)}
+        onCancel={() => renameEntityProps.dispatchTextChange(model.name)}
       />
     </div>
   );
