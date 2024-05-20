@@ -10,6 +10,7 @@ import {
   putEntity
 } from './template-actions';
 import { BASE_URL, HasNumberId, HasUuid, isNotUndefined, Page } from '../main';
+import { PartialDeep } from 'type-fest';
 
 export function constructUrl(
   resourceSegments: string[] | string,
@@ -47,7 +48,7 @@ export interface BaseEndpointSet<T, ID_TYPE extends string | number> {
   deleteOne: (id: ID_TYPE) => Promise<ID_TYPE>;
   getDtoListByParamList: (idList: ID_TYPE[]) => Promise<T[]>;
   getDtoListByBodyList: (idList: ID_TYPE[]) => Promise<T[]>;
-  getDtoListByExampleList: (exampleList: RecursivePartial<T>[]) => Promise<T[]>;
+  getDtoListByExampleList: (exampleList: PartialDeep<T>[]) => Promise<T[]>;
 }
 
 async function getDtoList<T>(
@@ -74,10 +75,10 @@ async function getDtoListByBodyList<T, ID_TYPE extends string | number>(
   return getDtoListByIds<ID_TYPE, T>(idList, `${url}/listById`);
 }
 async function getDtoListByExampleList<T>(
-  exampleList: RecursivePartial<T>[],
+  exampleList: PartialDeep<T>[],
   url: string
 ): Promise<T[]> {
-  return postEntitiesWithDifferentReturnType<RecursivePartial<T>[], T[]>(
+  return postEntitiesWithDifferentReturnType<PartialDeep<T>[], T[]>(
     exampleList,
     `${url}/listByExampleList`
   );

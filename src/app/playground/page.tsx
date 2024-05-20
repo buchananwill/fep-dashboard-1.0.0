@@ -1,25 +1,23 @@
 import { ForceGraphPage, ForceGraphPageOptions } from 'react-d3-force-graph';
-import {
-  getGraph
-  // getGraphByRootId
-} from '@/api/generated-actions/WorkTaskType';
-import {
-  // getGraph,
-  getGraphByRootId
-} from '@/api/generated-actions/Organization';
+import { getGraphByRootId } from '@/api/generated-actions/Organization';
 import {
   convertClosureDtoListToEdgeList,
   convertDataNodeDtoListToFlowNodeList
 } from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
+import { getDtoListByExampleList as getBundlesByExampleList } from '@/api/generated-actions/WorkSeriesSchemaBundle';
+import { DtoControllerArray } from 'dto-stores';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { getDtoListByExampleList as getSchemasByExampleList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 export default async function Page() {
-  const graph = await getGraph();
-  // const frenchGraph = await getGraphByRootId({ rootId: 30 });
   const classGraph = await getGraphByRootId({ rootId: 1446 });
+  const workSeriesSchemaBundleList = await getBundlesByExampleList([
+    { knowledgeLevel: { levelOrdinal: 8 } }
+  ]);
+
   const dataNodes = convertDataNodeDtoListToFlowNodeList(classGraph.nodes);
-  // .slice(0, 80);
   const dataLinks = convertClosureDtoListToEdgeList(
     classGraph.closureDtos
   ).filter(
@@ -35,6 +33,10 @@ export default async function Page() {
       graphName={'test-graph'}
       options={defaultForceGraphPageOptions}
     >
+      <DtoControllerArray
+        dtoList={workSeriesSchemaBundleList}
+        entityName={EntityClassMap.workSeriesSchemaBundle}
+      />
       <ReactFlowWrapper>
         <ClassHierarchyLayoutFlowWithForces></ClassHierarchyLayoutFlowWithForces>
       </ReactFlowWrapper>
