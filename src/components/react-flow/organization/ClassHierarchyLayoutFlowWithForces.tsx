@@ -16,7 +16,9 @@ import { cloneFunctionWrapper } from '@/components/react-flow/organization/organ
 import OrganizationNode from '@/components/react-flow/organization/OrganizationNode';
 import OrganizationDetailsContent from '@/components/react-flow/organization/OrganizationDetailsContent';
 
-export function ExampleLayoutFlowWithForces({ children }: PropsWithChildren) {
+export function ClassHierarchyLayoutFlowWithForces({
+  children
+}: PropsWithChildren) {
   // 4. Call the hook to set up the layout with forces
   const { flowOverlayProps, reactFlowProps } = useLayoutFlowWithForces();
 

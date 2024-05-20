@@ -36,13 +36,6 @@ export function EdgeWithDelete({
     targetX,
     targetY
   });
-  // const [path, labelX, labelY] = getStraightPath({
-  //   sourceX,
-  //   sourceY,
-  //
-  //   targetX,
-  //   targetY
-  // });
 
   return (
     <>

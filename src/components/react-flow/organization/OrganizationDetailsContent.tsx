@@ -38,6 +38,8 @@ export default function OrganizationDetailsContent({
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
 
+  currentState.workSeriesBundleAssignmentId;
+
   return (
     <>
       <ModalHeader className="flex flex-col gap-1">

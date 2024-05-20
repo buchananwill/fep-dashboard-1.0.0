@@ -12,7 +12,7 @@ import {
   convertDataNodeDtoListToFlowNodeList
 } from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
-import { ExampleLayoutFlowWithForces } from '@/components/react-flow/ExampleLayoutFlowWithForces';
+import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 
 export default async function Page() {
   const graph = await getGraph();
@@ -36,7 +36,7 @@ export default async function Page() {
       options={defaultForceGraphPageOptions}
     >
       <ReactFlowWrapper>
-        <ExampleLayoutFlowWithForces></ExampleLayoutFlowWithForces>
+        <ClassHierarchyLayoutFlowWithForces></ClassHierarchyLayoutFlowWithForces>
       </ReactFlowWrapper>
     </ForceGraphPage>
   );
