@@ -2,19 +2,24 @@ import {
   DataNode,
   HasName,
   HasNumberId,
-  incrementCloneSuffix,
-} from "react-d3-force-graph";
+  incrementCloneSuffix
+} from 'react-d3-force-graph';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 
-export function cloneOrganizationNode<T extends HasNumberId & HasName>(
-  templateNode: DataNode<T>,
-): DataNode<T> {
+export function cloneOrganizationNode(
+  templateNode: DataNode<OrganizationDto>
+): DataNode<OrganizationDto> {
   const {
-    data: { name },
+    data: { name }
   } = templateNode;
   let cloneName = incrementCloneSuffix(name);
 
   return {
     ...templateNode,
-    data: { ...templateNode.data, name: cloneName },
+    data: {
+      ...templateNode.data,
+      name: cloneName,
+      workSeriesBundleAssignmentId: NaN
+    }
   };
 }

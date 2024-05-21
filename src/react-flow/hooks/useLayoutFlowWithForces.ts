@@ -1,58 +1,59 @@
-"use client";
-import { Connection, Node, useEdgesState, useNodesState } from "reactflow";
-import { draggingNodeKey, useForces } from "@/react-flow/hooks/useForces";
+'use client';
+import { Connection, Node, useEdgesState, useNodesState } from 'reactflow';
+import { draggingNodeKey, useForces } from '@/react-flow/hooks/useForces';
 import {
   type MouseEvent as ReactMouseEvent,
   useCallback,
   useEffect,
-  useRef,
-} from "react";
-import { useGlobalDispatch } from "selective-context";
-import { FlowEdge, FlowNode } from "@/react-flow/types";
+  useRef
+} from 'react';
+import { useGlobalDispatch } from 'selective-context';
+import { FlowEdge, FlowNode } from '@/react-flow/types';
 import {
   GraphSelectiveContextKeys,
   MemoizedFunction,
   undefinedDeleteLinks,
   useGraphListener,
   useLinkContext,
-  useNodeContext,
-} from "react-d3-force-graph";
+  useNodeContext
+} from 'react-d3-force-graph';
+import { HasNumberId } from '@/api/main';
 
-const listenerKey = "layout-flow-with-forces";
+const listenerKey = 'layout-flow-with-forces';
 
-export function useLayoutFlowWithForces() {
+export function useLayoutFlowWithForces<T extends HasNumberId>() {
   const { nodes: initialNodes } = useNodeContext();
   const { links: initialEdges } = useLinkContext();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(
-    initialNodes as FlowNode[],
+    initialNodes as FlowNode<T>[]
   );
   const [edges, setEdges, onEdgesChange] = useEdgesState(
-    initialEdges as FlowEdge[],
+    initialEdges as FlowEdge<T>[]
   );
   const [initialized, toggle] = useForces();
 
   const { currentState: running } = useGraphListener(
     GraphSelectiveContextKeys.running,
     listenerKey,
-    false,
+    false
   );
 
   const draggingNodeRef = useRef<Node | undefined>(undefined);
   const { dispatchWithoutListen } = useGlobalDispatch(draggingNodeKey);
   const {
-    currentState: { memoizedFunction },
+    currentState: { memoizedFunction }
   } = useGraphListener<MemoizedFunction<string[], void>>(
     GraphSelectiveContextKeys.addLinks,
     listenerKey,
-    undefinedDeleteLinks,
+    undefinedDeleteLinks
   );
 
   const onConnect = useCallback(
     ({ source, target }: Connection) => {
       if (source && target) memoizedFunction([source, target]);
     },
-    [memoizedFunction],
+    [memoizedFunction]
   );
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export function useLayoutFlowWithForces() {
     (_event: ReactMouseEvent, node: Node) => {
       draggingNodeRef.current = { ...node };
     },
-    [draggingNodeRef],
+    [draggingNodeRef]
   );
 
   const onNodeDragStop = useCallback(() => {
@@ -74,12 +75,12 @@ export function useLayoutFlowWithForces() {
     (_event: ReactMouseEvent, node: Node) => {
       draggingNodeRef.current = { ...node };
     },
-    [draggingNodeRef],
+    [draggingNodeRef]
   );
 
   useEffect(() => {
-    setNodes(initialNodes as FlowNode[]);
-    setEdges(initialEdges as FlowEdge[]);
+    setNodes(initialNodes as FlowNode<T>[]);
+    setEdges(initialEdges as FlowEdge<T>[]);
   }, [initialNodes, initialEdges, setEdges, setNodes]);
 
   return {
@@ -91,12 +92,12 @@ export function useLayoutFlowWithForces() {
       onConnect,
       onNodeDragStart,
       onNodeDragStop,
-      onNodeDrag,
+      onNodeDrag
     },
     flowOverlayProps: {
       initialized,
       toggle,
-      running,
-    },
+      running
+    }
   };
 }

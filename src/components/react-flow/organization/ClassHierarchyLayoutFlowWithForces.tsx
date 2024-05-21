@@ -13,8 +13,11 @@ import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
 import { cloneFunctionWrapper } from '@/components/react-flow/organization/organizationCallbacks';
-import OrganizationNode from '@/components/react-flow/organization/OrganizationNode';
+import OrganizationNode, {
+  AllocationTotal
+} from '@/components/react-flow/organization/OrganizationNode';
 import OrganizationDetailsContent from '@/components/react-flow/organization/OrganizationDetailsContent';
+import { DtoControllerArray } from 'dto-stores';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children
@@ -25,6 +28,13 @@ export function ClassHierarchyLayoutFlowWithForces({
   // Set up the available edit hooks.
   useNodeEditing(cloneFunctionWrapper);
   useAllEdits();
+
+  const allocationTotalList: AllocationTotal[] = reactFlowProps.nodes.map(
+    (n) => ({
+      id: n.data.id,
+      amount: 0
+    })
+  );
 
   // useEffectSyncToMemo(dispatchWithoutListen, cloneFunctionWrapper);
 
@@ -39,6 +49,10 @@ export function ClassHierarchyLayoutFlowWithForces({
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
     >
+      <DtoControllerArray
+        dtoList={allocationTotalList}
+        entityName={'allocationTotal'}
+      />
       {children}
       {/* 7. Add a background */}
       <Background variant={BackgroundVariant.Dots} gap={12} size={1} />

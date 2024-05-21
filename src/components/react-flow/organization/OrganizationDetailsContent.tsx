@@ -1,8 +1,9 @@
+'use client';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
-import { ObjectPlaceholder } from 'selective-context';
+import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   ComponentUndefined,
@@ -15,12 +16,27 @@ import {
 } from 'react-d3-force-graph';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
+import {
+  DtoComponentWrapper,
+  DtoControllerArray,
+  useDtoStoreDispatch
+} from 'dto-stores';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
+import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
 
 const listenerKey = 'details-content';
 
 export default function OrganizationDetailsContent({
   onClose
 }: NodeModalContentProps) {
+  const [schemaList, setSchemaList] = useState(
+    [] as WorkProjectSeriesSchemaDto[]
+  );
+
   const {
     currentState: { memoizedFunction: commitEdit }
   } = useGraphListener<MemoizedFunction<OrganizationDto, void>>(
@@ -35,10 +51,31 @@ export default function OrganizationDetailsContent({
       ObjectPlaceholder as OrganizationDto
     );
 
+  const {
+    currentState: bundleAssignment,
+    dispatchWithoutControl: bundleAssignmentDispatch
+  } = useDtoStoreDispatch<WorkSeriesBundleAssignmentDto>(
+    currentState?.workSeriesBundleAssignmentId,
+    EntityClassMap.workSeriesBundleAssignment,
+    listenerKey
+  );
+
+  const seriesSchemaIds =
+    bundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds ??
+    ArrayPlaceholder;
+
+  useEffect(() => {
+    const setLocalSchemas = async () => {
+      let sum = 0;
+      await getDtoListByBodyList(seriesSchemaIds).then((r) => {
+        setSchemaList(r);
+      });
+    };
+    setLocalSchemas();
+  }, [seriesSchemaIds, setSchemaList]);
+
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
-
-  currentState.workSeriesBundleAssignmentId;
 
   return (
     <>
@@ -52,7 +89,20 @@ export default function OrganizationDetailsContent({
           {currentState.name}
         </FocusToEdit>
       </ModalHeader>
-      <ModalBody>Some stuff about the organization.</ModalBody>
+      <ModalBody>
+        <DtoControllerArray
+          dtoList={schemaList}
+          entityName={EntityClassMap.workProjectSeriesSchema}
+        />
+        {schemaList.map((schema) => (
+          <DtoComponentWrapper
+            key={schema.id}
+            entityClass={EntityClassMap.workProjectSeriesSchema}
+            id={schema.id}
+            uiComponent={LessonDeliveryModel}
+          />
+        ))}
+      </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>
           Close

@@ -6,24 +6,28 @@ import {
 } from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
-import { getDtoListByExampleList as getBundlesByExampleList } from '@/api/generated-actions/WorkSeriesSchemaBundle';
-import { DtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { getDtoListByExampleList as getSchemasByExampleList } from '@/api/generated-actions/WorkProjectSeriesSchema';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
+import { getDtoListByBodyList } from '@/api/generated-actions/WorkSeriesBundleAssignment';
+import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
+import { AllocationTotal } from '@/components/react-flow/organization/OrganizationNode';
+import { DtoControllerArray } from 'dto-stores';
 
 export default async function Page() {
   const classGraph = await getGraphByRootId({ rootId: 1446 });
-  const workSeriesSchemaBundleList = await getBundlesByExampleList([
-    { knowledgeLevel: { levelOrdinal: 8 } }
-  ]);
-
-  const dataNodes = convertDataNodeDtoListToFlowNodeList(classGraph.nodes);
+  const dataNodes = convertDataNodeDtoListToFlowNodeList<OrganizationDto>(
+    classGraph.nodes
+  );
   const dataLinks = convertClosureDtoListToEdgeList(
     classGraph.closureDtos
   ).filter(
     (l) =>
       dataNodes.find((n) => l.target === n.id) &&
       dataNodes.find((n) => l.source === n.id)
+  );
+
+  const bundleAssignments = await getDtoListByBodyList(
+    dataNodes.map((d) => d.data.workSeriesBundleAssignmentId)
   );
 
   return (
@@ -33,10 +37,11 @@ export default async function Page() {
       graphName={'test-graph'}
       options={defaultForceGraphPageOptions}
     >
-      <DtoControllerArray
-        dtoList={workSeriesSchemaBundleList}
-        entityName={EntityClassMap.workSeriesSchemaBundle}
+      <DtoControllerArrayChangesTracker
+        dtoList={bundleAssignments}
+        entityName={EntityClassMap.workSeriesBundleAssignment}
       />
+
       <ReactFlowWrapper>
         <ClassHierarchyLayoutFlowWithForces></ClassHierarchyLayoutFlowWithForces>
       </ReactFlowWrapper>

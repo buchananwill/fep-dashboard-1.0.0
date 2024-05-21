@@ -1,8 +1,9 @@
 import { HasId } from '@/api/main';
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { useSelectiveContextGlobalController } from 'selective-context';
+
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { getRenameContextKey } from '@/components/modals/nameSetter';
+import { useGlobalController } from 'selective-context';
 
 export function useEditEntityTextAttribute<T extends HasId>(
   entityClass: string,
@@ -15,7 +16,7 @@ export function useEditEntityTextAttribute<T extends HasId>(
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const contextKey = getRenameContextKey(entityClass, entity);
   const { currentState, dispatch: dispatchTextChange } =
-    useSelectiveContextGlobalController<string>({
+    useGlobalController<string>({
       contextKey,
       listenerKey: 'controller',
       initialValue: textAccessor(entity)

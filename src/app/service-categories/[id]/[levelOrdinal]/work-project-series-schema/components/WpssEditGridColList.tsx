@@ -1,21 +1,21 @@
 'use client';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+
 import React, { useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { DtoComponentArrayGenerator } from 'dto-stores';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
-import {
-  useSelectiveContextGlobalListener,
-  useSelectiveContextListenerGroupGlobal
-} from 'selective-context';
-import { EmptyArray, ObjectPlaceholder } from '@/api/main';
+
+import { EmptyArray } from '@/api/main';
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
+import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
+const initialMap = new Map();
 
 export default function WpssEditGridColList() {
-  const { currentState: idList } = useSelectiveContextGlobalListener({
+  const { currentState: idList } = useGlobalListener({
     contextKey: `${EntityClassMap.workProjectSeriesSchema}:idList`,
     initialValue: EmptyArray,
     listenerKey: 'editList'
@@ -27,12 +27,11 @@ export default function WpssEditGridColList() {
     );
   }, [idList]);
 
-  const { currentState } =
-    useSelectiveContextListenerGroupGlobal<WorkProjectSeriesSchemaDto>({
-      contextKeys,
-      listenerKey: 'editList',
-      initialValue: ObjectPlaceholder
-    });
+  const { currentState } = useGlobalListenerGroup<WorkProjectSeriesSchemaDto>({
+    contextKeys,
+    listenerKey: 'editList',
+    initialValue: initialMap
+  });
 
   const totalAllocation = useMemo(() => {
     return sumAllSchemas(Object.values(currentState));

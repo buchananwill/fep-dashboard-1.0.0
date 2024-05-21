@@ -1,17 +1,17 @@
-"use client";
-import { Controls, MiniMap, Panel } from "reactflow";
-import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/popover";
-import { Button } from "@nextui-org/button";
-import { ChevronLeftIcon } from "@heroicons/react/24/solid";
-import { GraphForceSliders } from "@/react-flow/components/generic/GraphForceSliders";
-import { NodeDetailsModal } from "@/react-flow/components/nodes/NodeDetailsModal";
-import React, { useState } from "react";
-import { useEscapeToClose } from "@/react-flow/hooks/useEscapeToClose";
+'use client';
+import { Controls, MiniMap, Panel } from 'reactflow';
+import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
+import { Button } from '@nextui-org/button';
+import { ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { GraphForceSliders } from '@/react-flow/components/generic/GraphForceSliders';
+import { NodeDetailsModal } from '@/react-flow/components/nodes/NodeDetailsModal';
+import React, { useState } from 'react';
+import { useEscapeToClose } from '@/react-flow/hooks/useEscapeToClose';
 
 export function FlowOverlay({
   initialized,
   toggle,
-  running,
+  running
 }: {
   initialized: boolean;
   toggle?: () => void;
@@ -24,18 +24,18 @@ export function FlowOverlay({
     <>
       <Controls />
       <MiniMap />
-      <Panel position={"top-left"}>
+      <Panel position={'top-left'}>
         <Popover
-          classNames={{ base: "w-56" }}
+          classNames={{ base: 'w-56' }}
           isOpen={showSliders}
           onOpenChange={setShowSliders}
           shouldCloseOnInteractOutside={() => false}
         >
-          <PopoverTrigger className={"p-0"}>
-            <Button className={"relative w-56"}>
-              Forces{" "}
+          <PopoverTrigger className={'p-0'}>
+            <Button className={'relative w-56'}>
+              Forces{' '}
               <ChevronLeftIcon
-                className={`absolute right-2 p-1 transition-transform ${showSliders ? " -rotate-90 " : ""}`}
+                className={`absolute right-2 p-1 transition-transform ${showSliders ? ' -rotate-90 ' : ''}`}
               />
             </Button>
           </PopoverTrigger>
@@ -44,15 +44,15 @@ export function FlowOverlay({
           </PopoverContent>
         </Popover>
       </Panel>
-      <NodeDetailsModal />
-      <Panel position={"top-right"}>
+      <NodeDetailsModal className={'max-w-6xl'} />
+      <Panel position={'top-right'}>
         {initialized && toggle && (
           <Button
             onPress={toggle}
-            color={running ? "danger" : "success"}
-            className={running ? "animate-pulse" : ""}
+            color={running ? 'danger' : 'success'}
+            className={running ? 'animate-pulse' : ''}
           >
-            {running ? "Stop" : "Start"} force simulation
+            {running ? 'Stop' : 'Start'} force simulation
           </Button>
         )}
       </Panel>

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useSelectiveContextGlobalDispatch } from 'selective-context';
+
 import {
   Modal,
   ModalBody,
@@ -10,6 +10,10 @@ import {
 } from '@nextui-org/modal';
 import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
+import {
+  useGlobalDispatch,
+  useGlobalDispatchAndListener
+} from 'selective-context';
 
 export const RenameContextKey = 'rename';
 export interface ConfirmActionModalProps extends Omit<ModalProps, 'children'> {
@@ -35,7 +39,7 @@ export default function RenameModal({
   ...props
 }: RenameModalProps) {
   const { currentState, dispatchWithoutControl } =
-    useSelectiveContextGlobalDispatch<string>({
+    useGlobalDispatchAndListener<string>({
       contextKey,
       listenerKey,
       initialValue: ''
