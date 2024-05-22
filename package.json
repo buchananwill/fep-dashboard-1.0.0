@@ -34,7 +34,7 @@
     "react-icons": "^5.1.0",
     "react-joyride": "D:\\Coding\\react-joyride",
     "reactflow": "^11.11.3",
-    "selective-context": "2.0.1",
+    "selective-context": "file:D:\\Coding\\selective-context",
     "zod": "^3.22.4"
   },
   "prettier": {

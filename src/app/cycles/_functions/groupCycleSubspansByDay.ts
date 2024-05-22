@@ -5,7 +5,7 @@ import {
 } from '@/api/date-and-time';
 import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
 import { CycleDto } from '@/app/api/dtos/CycleDtoSchema';
-import { StringMap } from '@/api/string-map';
+import { StringObjectRecord } from '@/api/string-object-record';
 import { isNotUndefined } from '@/api/main';
 
 export interface CycleDay {
@@ -29,7 +29,7 @@ export function groupCycleSubspansByDay<T extends CycleSubspanDto>(
   );
 
   const cycleDays: CycleDay[] = [];
-  const responseGrouping: StringMap<CycleSubspanDto[]> = {};
+  const responseGrouping: StringObjectRecord<CycleSubspanDto[]> = {};
   // @ts-ignore
   const startDay = DayOfWeekArray.indexOf(DayOfWeekObject[cycle.cycleDayZero]);
 

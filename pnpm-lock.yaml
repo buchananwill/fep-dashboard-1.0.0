@@ -64,7 +64,7 @@ importers:
         version: 18.3.1
       react-d3-force-graph:
         specifier: file:D:\Coding\react-d3-force-graph
-        version: file:../react-d3-force-graph(react@18.3.1)(selective-context@2.0.1(react@18.3.1))
+        version: file:../react-d3-force-graph(react@18.3.1)(selective-context@file:../selective-context(react@18.3.1))
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
@@ -84,8 +84,8 @@ importers:
         specifier: ^11.11.3
         version: 11.11.3(@types/react@18.2.79)(immer@10.0.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       selective-context:
-        specifier: 2.0.1
-        version: 2.0.1(react@18.3.1)
+        specifier: file:D:\Coding\selective-context
+        version: file:../selective-context(react@18.3.1)
       zod:
         specifier: ^3.22.4
         version: 3.23.0
@@ -2861,8 +2861,8 @@ packages:
   scroll-into-view-if-needed@3.0.10:
     resolution: {integrity: sha512-t44QCeDKAPf1mtQH3fYpWz8IM/DyvHLjs8wUvvwMYxk5moOqCzrMSxK6HQVD0QVmVjXFavoFIPRVrMuJPKAvtg==}
 
-  selective-context@2.0.1:
-    resolution: {integrity: sha512-V8vxIuPBV3RFiVBUf2sCXZ8Vxzo8sY+eY26ZQ92diV9FVAvHqVJOLpUC+5NNX9rMrN3UHZ6Pp5StWR0uhfAxKQ==}
+  selective-context@file:../selective-context:
+    resolution: {directory: ../selective-context, type: directory}
     peerDependencies:
       react: ^18.3.1
 
@@ -5838,7 +5838,7 @@ snapshots:
       '@types/react': 18.2.79
       lodash: 4.17.21
       react: 18.3.1
-      selective-context: 2.0.1(react@18.3.1)
+      selective-context: file:../selective-context(react@18.3.1)
 
   eastasianwidth@0.2.0: {}
 
@@ -6774,13 +6774,13 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-d3-force-graph@file:../react-d3-force-graph(react@18.3.1)(selective-context@2.0.1(react@18.3.1)):
+  react-d3-force-graph@file:../react-d3-force-graph(react@18.3.1)(selective-context@file:../selective-context(react@18.3.1)):
     dependencies:
       '@types/d3': 7.4.3
       d3: 7.9.0
       lodash: 4.17.21
       react: 18.3.1
-      selective-context: 2.0.1(react@18.3.1)
+      selective-context: file:../selective-context(react@18.3.1)
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
@@ -6942,7 +6942,7 @@ snapshots:
     dependencies:
       compute-scroll-into-view: 3.1.0
 
-  selective-context@2.0.1(react@18.3.1):
+  selective-context@file:../selective-context(react@18.3.1):
     dependencies:
       react: 18.3.1
 

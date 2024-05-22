@@ -6,7 +6,7 @@ import {
   useSelectiveContextGlobalListener,
   useSelectiveContextListenerGroupGlobal
 } from 'selective-context';
-import { StringMap } from '@/api/string-map';
+import { StringObjectRecord } from '@/api/string-object-record';
 import { HasId } from '@/api/main';
 import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
 
@@ -21,7 +21,9 @@ export default function InnerWrapper<T extends HasId & HasNameDto>({
   itemContextKeys,
   collectionEntityClass
 }: InnerWrapperProps<T>) {
-  const { currentState } = useSelectiveContextGlobalListener<StringMap<T>>({
+  const { currentState } = useSelectiveContextGlobalListener<
+    StringObjectRecord<T>
+  >({
     contextKey: `${collectionEntityClass}:stringMap`,
     initialValue: ObjectPlaceholder,
     listenerKey: 'innerWrapper'

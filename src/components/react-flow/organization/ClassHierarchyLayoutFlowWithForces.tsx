@@ -13,11 +13,10 @@ import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
 import { cloneFunctionWrapper } from '@/components/react-flow/organization/organizationCallbacks';
-import OrganizationNode, {
-  AllocationTotal
-} from '@/components/react-flow/organization/OrganizationNode';
+import { AllocationTotal } from '@/components/react-flow/organization/OrganizationNode';
 import OrganizationDetailsContent from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { DtoControllerArray } from 'dto-stores';
+import { DtoControllerArrayWithIdList } from 'dto-stores';
+import OrganizationNodeLazyReferences from '@/components/react-flow/organization/OrganizationNodeLazyReferences';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children
@@ -49,9 +48,9 @@ export function ClassHierarchyLayoutFlowWithForces({
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
     >
-      <DtoControllerArray
+      <DtoControllerArrayWithIdList
         dtoList={allocationTotalList}
-        entityName={'allocationTotal'}
+        entityClass={'allocationTotal'}
       />
       {children}
       {/* 7. Add a background */}
@@ -63,7 +62,7 @@ export function ClassHierarchyLayoutFlowWithForces({
 }
 // 1. Define the node types and their components
 const nodeTypes = {
-  organization: OrganizationNode
+  organization: OrganizationNodeLazyReferences
 };
 
 // 2. Define the Edge types and their components

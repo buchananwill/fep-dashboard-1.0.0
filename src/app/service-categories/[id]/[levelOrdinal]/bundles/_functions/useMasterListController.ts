@@ -1,13 +1,14 @@
 import { HasIdClass } from '@/api/main';
 import {
   ArrayPlaceholder,
-  useSelectiveContextGlobalController,
-  useSelectiveContextGlobalDispatch
+  useGlobalController,
+  useGlobalDispatch,
+  useGlobalDispatchAndListener
 } from 'selective-context';
-import { getMasterListContextKey } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/CarouselGroupTabGroup';
 import { getDeletedContextKey } from 'dto-stores/dist/functions/getDeletedContextKey';
 import { getAddedContextKey } from 'dto-stores/dist/functions/getAddedContextKey';
 import { useEffect } from 'react';
+import { getMasterListContextKey } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/getMasterListContextKey';
 
 const listenerKey = 'masterListController';
 
@@ -15,7 +16,7 @@ export function useMasterListController<
   T extends HasIdClass<U>,
   U extends string | number
 >(collectionData: T[], entityName: string) {
-  const { currentState, dispatch } = useSelectiveContextGlobalController({
+  const { currentState, dispatch } = useGlobalController({
     contextKey: getMasterListContextKey(entityName),
     listenerKey: listenerKey,
     initialValue: collectionData
@@ -24,14 +25,14 @@ export function useMasterListController<
   const {
     currentState: deletedIdList,
     dispatchWithoutControl: dispatchDeleted
-  } = useSelectiveContextGlobalDispatch<U[]>({
+  } = useGlobalDispatchAndListener<U[]>({
     contextKey: getDeletedContextKey(entityName),
     listenerKey: listenerKey,
     initialValue: ArrayPlaceholder
   });
 
   const { dispatchWithoutControl, currentState: transientIdList } =
-    useSelectiveContextGlobalDispatch<U[]>({
+    useGlobalDispatchAndListener<U[]>({
       contextKey: getAddedContextKey(entityName),
       listenerKey: listenerKey,
       initialValue: ArrayPlaceholder

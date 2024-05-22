@@ -1,4 +1,4 @@
-import { StringMap } from '@/api/string-map';
+import { StringObjectRecord } from '@/api/string-object-record';
 
 export const BASE_URL = process.env.BASE_URL!;
 export const API_BASE_URL = process.env.API_BASE_URL!;
@@ -49,7 +49,9 @@ export function isNotUndefined<T>(value: T | undefined): value is T {
 
 export const EmptyArray: any[] = [];
 
-export function joinSearchParams(searchParams: StringMap<string>): string {
+export function joinSearchParams(
+  searchParams: StringObjectRecord<string>
+): string {
   return Object.entries(searchParams).reduce(
     (joined, currentValue) => `${joined}&${currentValue[0]}=${currentValue[1]}`,
     ''
@@ -66,7 +68,8 @@ export interface IntersectionRequestParams<T, U> {
   url: string;
 }
 
-export interface IdReferencedIntersectionTableDto<W> extends StringMap<W[]> {}
+export interface IdReferencedIntersectionTableDto<W>
+  extends StringObjectRecord<W[]> {}
 
 export const ObjectPlaceholder = {} as const;
 

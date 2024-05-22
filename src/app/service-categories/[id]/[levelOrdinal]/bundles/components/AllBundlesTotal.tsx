@@ -5,7 +5,7 @@ import {
   useSelectiveContextGlobalReadAll
 } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { StringMap } from '@/api/string-map';
+import { StringObjectRecord } from '@/api/string-object-record';
 import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useMemo } from 'react';
@@ -14,7 +14,7 @@ import { Chip } from '@nextui-org/chip';
 
 export default function AllBundlesTotal() {
   const { currentState } = useSelectiveContextGlobalListener<
-    StringMap<WorkSeriesSchemaBundleDto>
+    StringObjectRecord<WorkSeriesSchemaBundleDto>
   >({
     contextKey: `${EntityClassMap.workSeriesSchemaBundle}:stringMap`,
     listenerKey: 'allBundlesTotal',

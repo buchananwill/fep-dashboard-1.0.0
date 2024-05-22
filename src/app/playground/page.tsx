@@ -9,9 +9,11 @@ import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/orga
 import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { getDtoListByBodyList } from '@/api/generated-actions/WorkSeriesBundleAssignment';
-import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
-import { AllocationTotal } from '@/components/react-flow/organization/OrganizationNode';
-import { DtoControllerArray } from 'dto-stores';
+import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
+import { TrackChangesController } from 'dto-stores';
+import { ArrayPlaceholder } from 'selective-context';
+import { MasterChangesTrackWrapper } from '@/components/generic/DtoChangesTracker';
+import { IdListDataFetchingController } from '@/components/generic/IdListDataFetchingController';
 
 export default async function Page() {
   const classGraph = await getGraphByRootId({ rootId: 1446 });
@@ -26,6 +28,9 @@ export default async function Page() {
       dataNodes.find((n) => l.source === n.id)
   );
 
+  const bundleAssignmentIdList = dataNodes.map(
+    (d) => d.data.workSeriesBundleAssignmentId
+  );
   const bundleAssignments = await getDtoListByBodyList(
     dataNodes.map((d) => d.data.workSeriesBundleAssignmentId)
   );
@@ -37,9 +42,24 @@ export default async function Page() {
       graphName={'test-graph'}
       options={defaultForceGraphPageOptions}
     >
-      <DtoControllerArrayChangesTracker
-        dtoList={bundleAssignments}
-        entityName={EntityClassMap.workSeriesBundleAssignment}
+      <MasterChangesTrackWrapper />
+      <TrackChangesController
+        idList={ArrayPlaceholder}
+        entityClass={EntityClassMap.workSeriesBundleAssignment}
+      />
+      <IdListDataFetchingController
+        idList={ArrayPlaceholder}
+        entityClass={EntityClassMap.workSeriesBundleAssignment}
+        getServerAction={getDtoListByBodyList}
+      />
+      <TrackChangesController
+        idList={ArrayPlaceholder}
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+      />
+      <IdListDataFetchingController
+        idList={ArrayPlaceholder}
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        getServerAction={getSchemasByBodyList}
       />
 
       <ReactFlowWrapper>

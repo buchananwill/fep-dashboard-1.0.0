@@ -9,7 +9,7 @@ import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundle
 import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useMemo } from 'react';
 import { Chip } from '@nextui-org/chip';
-import { StringMap } from '@/api/string-map';
+import { StringObjectRecord } from '@/api/string-object-record';
 
 export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   const { currentState } = useDtoStoreListener<WorkProjectSeriesSchemaDto>(
@@ -35,7 +35,7 @@ export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   );
 
   const { currentState: bundleMap } = useSelectiveContextGlobalListener<
-    StringMap<WorkSeriesSchemaBundleDto>
+    StringObjectRecord<WorkSeriesSchemaBundleDto>
   >({
     contextKey: `${EntityClassMap.workSeriesSchemaBundle}:stringMap`,
     listenerKey: id,

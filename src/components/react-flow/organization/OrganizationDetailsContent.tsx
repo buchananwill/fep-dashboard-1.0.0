@@ -1,9 +1,13 @@
 'use client';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
-import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
+import {
+  ArrayPlaceholder,
+  ObjectPlaceholder,
+  useGlobalListenerGroup
+} from 'selective-context';
 
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import {
   ComponentUndefined,
@@ -16,26 +20,22 @@ import {
 } from 'react-d3-force-graph';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import {
-  DtoComponentWrapper,
-  DtoControllerArray,
-  useDtoStoreDispatch
-} from 'dto-stores';
+import { DtoComponentWrapper, useDtoStoreDispatch } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
 
 const listenerKey = 'details-content';
 
+export const initialMap = new Map<string, WorkProjectSeriesSchemaDto>();
+
 export default function OrganizationDetailsContent({
   onClose
 }: NodeModalContentProps) {
-  const [schemaList, setSchemaList] = useState(
-    [] as WorkProjectSeriesSchemaDto[]
-  );
+  // const [schemaList, setSchemaList] = useState(
+  //   [] as WorkProjectSeriesSchemaDto[]
+  // );
 
   const {
     currentState: { memoizedFunction: commitEdit }
@@ -60,19 +60,39 @@ export default function OrganizationDetailsContent({
     listenerKey
   );
 
-  const seriesSchemaIds =
-    bundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds ??
-    ArrayPlaceholder;
+  const seriesSchemaContextKeys = useMemo(() => {
+    return (
+      bundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds.map(
+        (id) => `${EntityClassMap.workProjectSeriesSchema}:${id}`
+      ) ?? ArrayPlaceholder
+    );
+  }, [bundleAssignment]);
 
-  useEffect(() => {
-    const setLocalSchemas = async () => {
-      let sum = 0;
-      await getDtoListByBodyList(seriesSchemaIds).then((r) => {
-        setSchemaList(r);
-      });
-    };
-    setLocalSchemas();
-  }, [seriesSchemaIds, setSchemaList]);
+  const { currentState: schemaMap } = useGlobalListenerGroup({
+    contextKeys: seriesSchemaContextKeys,
+    listenerKey,
+    initialValue: initialMap
+  });
+  // useEffect(() => {
+  //   const setLocalSchemas = async () => {
+  //     let sum = 0;
+  //     await getDtoListByBodyList(seriesSchemaContextKeys).then((r) => {
+  //       setSchemaList(r);
+  //     });
+  //   };
+  //   setLocalSchemas();
+  // }, [seriesSchemaContextKeys, setSchemaList]);
+
+  const schemaComponents = useMemo(() => {
+    return [...schemaMap.values()].map((schema) => (
+      <DtoComponentWrapper
+        key={schema.id}
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        id={schema.id}
+        uiComponent={LessonDeliveryModel}
+      />
+    ));
+  }, [schemaMap]);
 
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
@@ -89,20 +109,7 @@ export default function OrganizationDetailsContent({
           {currentState.name}
         </FocusToEdit>
       </ModalHeader>
-      <ModalBody>
-        <DtoControllerArray
-          dtoList={schemaList}
-          entityName={EntityClassMap.workProjectSeriesSchema}
-        />
-        {schemaList.map((schema) => (
-          <DtoComponentWrapper
-            key={schema.id}
-            entityClass={EntityClassMap.workProjectSeriesSchema}
-            id={schema.id}
-            uiComponent={LessonDeliveryModel}
-          />
-        ))}
-      </ModalBody>
+      <ModalBody>{...schemaComponents}</ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>
           Close

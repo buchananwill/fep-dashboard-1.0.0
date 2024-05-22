@@ -2,20 +2,16 @@
 import CollectionChooserTabGroup, {
   CollectionChooserTabGroupProps
 } from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
 import CarouselGroupOptionChooser from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/CarouselGroupOptionChooser';
-import { useSelectiveContextGlobalController } from 'selective-context';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
+
 import { Button } from '@nextui-org/button';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/useMasterListController';
-import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
+import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
+import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 
-export function getMasterListContextKey(collectionEntityClass: string) {
-  return `${collectionEntityClass}:masterList`;
-}
 function handleAddGroup(
   dispatch: Dispatch<SetStateAction<CarouselGroupDto[]>>,
   level: KnowledgeLevelDto,

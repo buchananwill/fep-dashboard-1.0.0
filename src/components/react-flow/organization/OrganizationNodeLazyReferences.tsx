@@ -35,7 +35,7 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     `allocationTotal:${data.id}`
   );
   const edges = useEdges();
-  const { getNodes, getNode } = useReactFlow();
+
   const ancestorNodeAllocationKeyList = useMemo(() => {
     const localEdges = getEdgesToParents(edges, nodeProps.id);
 

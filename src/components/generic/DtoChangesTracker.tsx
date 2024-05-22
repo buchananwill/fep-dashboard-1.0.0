@@ -8,7 +8,10 @@ import {
 import { DtoIdListController } from 'dto-stores/dist/controllers/DtoIdListController';
 import { HasId } from '@/api/main';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
-import { DtoControllerArray } from 'dto-stores';
+import {
+  DtoControllerArrayWithIdList,
+  MasterChangesController
+} from 'dto-stores';
 
 function UnsavedChangesToast({
   handleCommit,
@@ -59,9 +62,13 @@ export function DtoControllerArrayChangesTracker<T extends HasId>({
   ...props
 }: Omit<DtoListControllerProps<T>, 'unsavedChangesComponent'>) {
   return (
-    <DtoControllerArray
+    <DtoControllerArrayWithIdList
       {...props}
       unsavedChangesComponent={UnsavedChangesToast}
     />
   );
+}
+
+export function MasterChangesTrackWrapper() {
+  return <MasterChangesController unsavedChangesToast={UnsavedChangesToast} />;
 }
