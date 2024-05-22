@@ -16,6 +16,7 @@ import {
   useGlobalListenerGroup
 } from 'selective-context';
 import { isNumber } from 'lodash';
+import { useReferencedEntity } from 'dto-stores/dist/hooks/useReferencedEntity';
 
 export interface AllocationSummary {
   label: string;
@@ -62,9 +63,9 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
 
   const { workSeriesBundleAssignmentId } = data;
   const { currentState: schemaBundleAssignment } =
-    useDtoStoreListener<WorkSeriesBundleAssignmentDto>(
-      workSeriesBundleAssignmentId,
+    useReferencedEntity<WorkSeriesBundleAssignmentDto>(
       EntityClassMap.workSeriesBundleAssignment,
+      workSeriesBundleAssignmentId,
       `organizationNode:${data.id}`
     );
 
@@ -114,7 +115,10 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
         {summaries.map(({ label, amount }) => (
           <li key={label} className={'flex justify-between'}>
             {label}:{' '}
-            <Chip classNames={{ base: 'h-5' }} color={'primary'}>
+            <Chip
+              classNames={{ base: 'h-5' }}
+              color={amount === 0 ? 'default' : 'primary'}
+            >
               {amount}
             </Chip>
           </li>
