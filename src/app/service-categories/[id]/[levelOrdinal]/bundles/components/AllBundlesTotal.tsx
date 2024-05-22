@@ -1,19 +1,20 @@
 'use client';
 import {
   ObjectPlaceholder,
-  useSelectiveContextGlobalListener,
-  useSelectiveContextGlobalReadAll
+  useGlobalListener,
+  useGlobalReadAny
 } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { StringObjectRecord } from '@/api/string-object-record';
-import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+
 import { useMemo } from 'react';
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 import { Chip } from '@nextui-org/chip';
+import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 
 export default function AllBundlesTotal() {
-  const { currentState } = useSelectiveContextGlobalListener<
+  const { currentState } = useGlobalListener<
     StringObjectRecord<WorkSeriesSchemaBundleDto>
   >({
     contextKey: `${EntityClassMap.workSeriesSchemaBundle}:stringMap`,
@@ -21,7 +22,7 @@ export default function AllBundlesTotal() {
     initialValue: ObjectPlaceholder
   });
   const selectiveContextReadAll =
-    useSelectiveContextGlobalReadAll<WorkProjectSeriesSchemaDto>();
+    useGlobalReadAny<WorkProjectSeriesSchemaDto>();
   const currentTotalAllBundles = useMemo(() => {
     const schemaList = Object.values(currentState)
       .map((bundle) => bundle.workProjectSeriesSchemaIds)

@@ -64,8 +64,8 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   const { workSeriesBundleAssignmentId } = data;
   const { currentState: schemaBundleAssignment } =
     useReferencedEntity<WorkSeriesBundleAssignmentDto>(
-      EntityClassMap.workSeriesBundleAssignment,
       workSeriesBundleAssignmentId,
+      EntityClassMap.workSeriesBundleAssignment,
       `organizationNode:${data.id}`
     );
 

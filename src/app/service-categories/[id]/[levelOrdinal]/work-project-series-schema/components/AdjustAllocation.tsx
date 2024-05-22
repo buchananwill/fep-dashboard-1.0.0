@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { DtoUiComponentProps } from 'dto-stores';
 
@@ -34,27 +34,30 @@ export function AdjustAllocation({
     });
   }, [workProjectSeriesSchemaDto]);
 
-  const totalAllocations = useMemo(
-    () => sumDeliveryAllocations(workProjectSeriesSchemaDto),
-    [workProjectSeriesSchemaDto]
-  );
+  const totalAllocations = useMemo(() => {
+    console.log(workProjectSeriesSchemaDto);
+    return sumDeliveryAllocations(workProjectSeriesSchemaDto);
+  }, [workProjectSeriesSchemaDto]);
 
-  const handleModifyAllocation = (size: number, up: boolean) => {
-    if (dispatchWithoutControl === undefined) return;
-    const updatedDevAlloc = currentAllocations.map((allocation) => {
-      if (allocation.deliveryAllocationSize === size) {
-        const newCount = up
-          ? Math.min(allocation.count + 1, 10)
-          : Math.max(allocation.count - 1, 0);
-        return { ...allocation, count: newCount };
-      } else return allocation;
-    });
-    const updatedSchema: WorkProjectSeriesSchemaDto = {
-      ...workProjectSeriesSchemaDto,
-      deliveryAllocations: updatedDevAlloc
-    };
-    dispatchWithoutControl(updatedSchema);
-  };
+  const handleModifyAllocation = useCallback(
+    (size: number, up: boolean) => {
+      if (dispatchWithoutControl === undefined) return;
+      const updatedDevAlloc = currentAllocations.map((allocation) => {
+        if (allocation.deliveryAllocationSize === size) {
+          const newCount = up
+            ? Math.min(allocation.count + 1, 10)
+            : Math.max(allocation.count - 1, 0);
+          return { ...allocation, count: newCount };
+        } else return allocation;
+      });
+      const updatedSchema: WorkProjectSeriesSchemaDto = {
+        ...workProjectSeriesSchemaDto,
+        deliveryAllocations: updatedDevAlloc
+      };
+      dispatchWithoutControl(updatedSchema);
+    },
+    [dispatchWithoutControl, currentAllocations]
+  );
 
   return (
     <div>

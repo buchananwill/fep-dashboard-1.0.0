@@ -1,13 +1,9 @@
 'use client';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
-import {
-  ArrayPlaceholder,
-  ObjectPlaceholder,
-  useGlobalListenerGroup
-} from 'selective-context';
+import { ObjectPlaceholder } from 'selective-context';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 import {
   ComponentUndefined,
@@ -20,11 +16,7 @@ import {
 } from 'react-d3-force-graph';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import {
-  DtoComponentWrapper,
-  ReferencedEntityUiWrapper,
-  useDtoStoreDispatch
-} from 'dto-stores';
+import { ReferencedEntityUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -53,37 +45,12 @@ export default function OrganizationDetailsContent({
       ObjectPlaceholder as OrganizationDto
     );
 
-  const {
-    currentState: bundleAssignment,
-    dispatchWithoutControl: bundleAssignmentDispatch
-  } = useReferencedEntity<WorkSeriesBundleAssignmentDto>(
-    EntityClassMap.workSeriesBundleAssignment,
-    currentState?.workSeriesBundleAssignmentId,
-    listenerKey
-  );
-
-  const seriesSchemaContextKeys = useMemo(() => {
-    return (
-      bundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds.map(
-        (id) => `${EntityClassMap.workProjectSeriesSchema}:${id}`
-      ) ?? ArrayPlaceholder
+  const { currentState: bundleAssignment } =
+    useReferencedEntity<WorkSeriesBundleAssignmentDto>(
+      currentState?.workSeriesBundleAssignmentId,
+      EntityClassMap.workSeriesBundleAssignment,
+      listenerKey
     );
-  }, [bundleAssignment]);
-
-  const { currentState: schemaMap } = useGlobalListenerGroup({
-    contextKeys: seriesSchemaContextKeys,
-    listenerKey,
-    initialValue: initialMap
-  });
-  // useEffect(() => {
-  //   const setLocalSchemas = async () => {
-  //     let sum = 0;
-  //     await getDtoListByBodyList(seriesSchemaContextKeys).then((r) => {
-  //       setSchemaList(r);
-  //     });
-  //   };
-  //   setLocalSchemas();
-  // }, [seriesSchemaContextKeys, setSchemaList]);
 
   const schemaComponents = useMemo(() => {
     return bundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds?.map(
@@ -101,6 +68,8 @@ export default function OrganizationDetailsContent({
 
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
+
+  console.log(schemaComponents);
 
   return (
     <>

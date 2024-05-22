@@ -13,7 +13,7 @@ import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-ac
 import { TrackChangesController } from 'dto-stores';
 import { ArrayPlaceholder } from 'selective-context';
 import { MasterChangesTrackWrapper } from '@/components/generic/DtoChangesTracker';
-import { IdListDataFetchingController } from '@/components/generic/IdListDataFetchingController';
+import { IdListDataFetchingController } from 'dto-stores';
 
 export default async function Page() {
   const classGraph = await getGraphByRootId({ rootId: 1446 });

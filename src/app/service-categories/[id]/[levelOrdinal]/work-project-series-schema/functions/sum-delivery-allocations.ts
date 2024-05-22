@@ -1,12 +1,16 @@
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 
 export function sumDeliveryAllocations(
   schema: WorkProjectSeriesSchemaDto
 ): number {
+  console.log(schema);
   return schema
     ? schema.deliveryAllocations
-        .map((da) => da.count * da.deliveryAllocationSize)
-        .reduce((prev, curr) => prev + curr, 0)
+        .map(
+          (da: DeliveryAllocationDto) => da.count * da.deliveryAllocationSize
+        )
+        .reduce((prev: number, curr: number) => prev + curr, 0)
     : 0;
 }
 
