@@ -1,14 +1,12 @@
-import { Edge, NodeProps, useEdges, useReactFlow } from 'reactflow';
+import { Edge, NodeProps, useEdges } from 'reactflow';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { BaseNodeMemo } from '@/react-flow/components/nodes/BaseNode';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { Chip } from '@nextui-org/chip';
-import { useDtoStoreListener } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
-import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 import {
   ArrayPlaceholder,
@@ -17,6 +15,9 @@ import {
 } from 'selective-context';
 import { isNumber } from 'lodash';
 import { useReferencedEntity } from 'dto-stores/dist/hooks/useReferencedEntity';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
+import { useReferencedEntityListListener } from 'dto-stores';
 
 export interface AllocationSummary {
   label: string;
@@ -31,6 +32,7 @@ const initialTotalMap = new Map<string, number>();
 
 function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   const { selected, dragging, data } = nodeProps;
+  const listenerKey = `organizationNode:${data.id}`;
 
   const { dispatchWithoutListen } = useGlobalDispatch(
     `allocationTotal:${data.id}`
@@ -66,26 +68,36 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     useReferencedEntity<WorkSeriesBundleAssignmentDto>(
       workSeriesBundleAssignmentId,
       EntityClassMap.workSeriesBundleAssignment,
-      `organizationNode:${data.id}`
+      listenerKey
     );
 
   const [localTotal, setLocalTotal] = useState(0);
-  const seriesSchemaIds =
-    schemaBundleAssignment?.workSeriesSchemaBundle
-      ?.workProjectSeriesSchemaIds ?? ArrayPlaceholder;
+  const seriesSchemaIdContextKeys = useMemo(
+    () =>
+      schemaBundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds?.map(
+        (id) => `${EntityClassMap.workProjectSeriesSchema}:${id}`
+      ) ?? ArrayPlaceholder,
+    [schemaBundleAssignment]
+  );
+
+  const { currentState: schemaMap } =
+    useReferencedEntityListListener<WorkProjectSeriesSchemaDto>(
+      schemaBundleAssignment?.workSeriesSchemaBundle
+        ?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
+      EntityClassMap.workProjectSeriesSchema,
+      listenerKey
+    );
 
   useEffect(() => {
-    const setLocalSum = async () => {
-      let sum = 0;
-      await getDtoListByBodyList(seriesSchemaIds).then((r) => {
-        sum = sumAllSchemas(r);
-      });
-
-      setLocalTotal(sum);
-      dispatchWithoutListen(sum);
-    };
-    setLocalSum();
-  }, [setLocalTotal, seriesSchemaIds, dispatchWithoutListen]);
+    // const setLocalSum = () => {
+    let sum = 0;
+    // await getDtoListByBodyList(seriesSchemaIdContextKeys).then((r) => {
+    sum = sumAllSchemas([...schemaMap.values()]);
+    setLocalTotal(sum);
+    dispatchWithoutListen(sum);
+    // };
+    // setLocalSum();
+  }, [setLocalTotal, schemaMap, dispatchWithoutListen]);
 
   const inheritedTotal = useMemo(() => {
     return [...currentState.values()].reduce(

@@ -56,7 +56,7 @@ export function AdjustAllocation({
       };
       dispatchWithoutControl(updatedSchema);
     },
-    [dispatchWithoutControl, currentAllocations]
+    [workProjectSeriesSchemaDto, dispatchWithoutControl, currentAllocations]
   );
 
   return (
