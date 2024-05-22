@@ -1,43 +1,41 @@
-import { useReactFlow, useStore } from "reactflow";
-import { MutableRefObject, useMemo } from "react";
-import { Simulation } from "d3";
+import { useReactFlow, useStore } from 'reactflow';
+import { MutableRefObject, useMemo } from 'react';
+import { Simulation } from 'd3';
 
-import { useGlobalController } from "selective-context";
+import { useGlobalController } from 'selective-context';
 
-import { FlowNode } from "@/react-flow/types";
+import { FlowNode } from '@/react-flow/types';
 import {
   GraphSelectiveContextKeys,
   useD3ForceSimulationMemo,
   useDirectSimRefEditsDispatch,
-  useGraphDispatch,
-} from "react-d3-force-graph";
+  useGraphDispatch
+} from 'react-d3-force-graph';
 
-export const draggingNodeKey = "dragging-node";
+export const draggingNodeKey = 'dragging-node';
 
-const listenerKey = "use-layouted-elements";
+const listenerKey = 'use-layouted-elements';
 
 export function useForces(): [
   boolean,
   (() => void) | undefined,
-  (() => boolean) | undefined,
+  (() => boolean) | undefined
 ] {
   const { getNodes, setNodes, fitView } = useReactFlow();
   const { dispatchWithoutListen } = useGraphDispatch<boolean>(
-    GraphSelectiveContextKeys.running,
+    GraphSelectiveContextKeys.running
   );
   const initialised = useStore((store) =>
-    [...store.nodeInternals.values()].every(
-      (node) => node.width && node.height,
-    ),
+    [...store.nodeInternals.values()].every((node) => node.width && node.height)
   );
 
   useD3ForceSimulationMemo();
   const { currentState: draggingNode } = useGlobalController<
-    MutableRefObject<FlowNode> | undefined
+    MutableRefObject<FlowNode<any>> | undefined
   >({
     contextKey: draggingNodeKey,
-    listenerKey: "controller",
-    initialValue: undefined,
+    listenerKey: 'controller',
+    initialValue: undefined
   });
   const { nodeListRef, linkListRef, simRef } =
     useDirectSimRefEditsDispatch(listenerKey);
@@ -46,8 +44,8 @@ export function useForces(): [
     let nodes = getNodes().map((node) => ({
       ...node,
       x: node.position.x,
-      y: node.position.y,
-    })) as FlowNode[];
+      y: node.position.y
+    })) as FlowNode<any>[];
     let running = false;
     let simulation: Simulation<any, any>;
     console.log(nodes);
@@ -106,9 +104,9 @@ export function useForces(): [
           (node) =>
             ({
               ...node,
-              position: { x: node.fx ?? node.x, y: node.fy ?? node.y },
-            }) as FlowNode,
-        ),
+              position: { x: node.fx ?? node.x, y: node.fy ?? node.y }
+            }) as FlowNode<any>
+        )
       );
 
       window.requestAnimationFrame(async () => {
@@ -147,6 +145,6 @@ export function useForces(): [
     setNodes,
     linkListRef,
     nodeListRef,
-    dispatchWithoutListen,
+    dispatchWithoutListen
   ]);
 }

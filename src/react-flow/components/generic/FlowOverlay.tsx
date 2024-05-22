@@ -5,7 +5,7 @@ import { Button } from '@nextui-org/button';
 import { ChevronLeftIcon } from '@heroicons/react/24/solid';
 import { GraphForceSliders } from '@/react-flow/components/generic/GraphForceSliders';
 import { NodeDetailsModal } from '@/react-flow/components/nodes/NodeDetailsModal';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useEscapeToClose } from '@/react-flow/hooks/useEscapeToClose';
 
 export function FlowOverlay({
@@ -19,6 +19,14 @@ export function FlowOverlay({
 }) {
   const [showSliders, setShowSliders] = useState(false);
   useEscapeToClose(showSliders, setShowSliders);
+  const rerenderRef = useRef(false);
+
+  useEffect(() => {
+    if (!rerenderRef.current && toggle) {
+      toggle();
+      rerenderRef.current = true;
+    }
+  }, [toggle]);
 
   return (
     <>
@@ -49,7 +57,7 @@ export function FlowOverlay({
         {initialized && toggle && (
           <Button
             onPress={toggle}
-            color={running ? 'danger' : 'success'}
+            color={!running ? 'danger' : 'success'}
             className={running ? 'animate-pulse' : ''}
           >
             {running ? 'Stop' : 'Start'} force simulation

@@ -35,8 +35,6 @@ export function ClassHierarchyLayoutFlowWithForces({
     })
   );
 
-  // useEffectSyncToMemo(dispatchWithoutListen, cloneFunctionWrapper);
-
   // 5. Call the hook to define the modal content
   useModalContent(memoizedContentComponent);
 

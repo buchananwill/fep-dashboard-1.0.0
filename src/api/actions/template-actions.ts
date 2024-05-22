@@ -51,7 +51,7 @@ export async function putRequestWithDifferentReturnType<T, U>(
 }
 
 export async function getWithoutBody<T>(url: string) {
-  const requestInit = createRequestInit({});
+  const requestInit = createRequestInit({ method: 'GET' });
   return callApi<T>(url, requestInit);
 }
 

@@ -1,4 +1,3 @@
-import { ActionResponsePromise } from './actionResponse';
 import {
   getWithoutBody,
   postEntitiesWithDifferentReturnType,
