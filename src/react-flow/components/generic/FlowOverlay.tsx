@@ -2,7 +2,11 @@
 import { Controls, MiniMap, Panel } from 'reactflow';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
-import { ChevronLeftIcon, PlayIcon, StopIcon } from '@heroicons/react/24/solid';
+import {
+  ChevronRightIcon,
+  PlayIcon,
+  StopIcon
+} from '@heroicons/react/24/solid';
 import { GraphForceSliders } from '@/react-flow/components/generic/GraphForceSliders';
 import { NodeDetailsModal } from '@/react-flow/components/nodes/NodeDetailsModal';
 import React, { useEffect, useRef, useState } from 'react';
@@ -40,10 +44,10 @@ export function FlowOverlay({
           shouldCloseOnInteractOutside={() => false}
         >
           <PopoverTrigger className={'p-0'}>
-            <Button className={'relative w-56'}>
+            <Button className={'relative w-56'} variant={'light'}>
               Forces{' '}
-              <ChevronLeftIcon
-                className={`absolute right-2 p-1 transition-transform ${showSliders ? ' -rotate-90 ' : ''}`}
+              <ChevronRightIcon
+                className={`absolute left-2 p-1 transition-transform ${showSliders ? ' rotate-90 ' : ''}`}
               />
             </Button>
           </PopoverTrigger>
