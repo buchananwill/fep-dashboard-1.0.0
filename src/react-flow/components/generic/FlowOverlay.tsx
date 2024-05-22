@@ -2,7 +2,7 @@
 import { Controls, MiniMap, Panel } from 'reactflow';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
-import { ChevronLeftIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, PlayIcon, StopIcon } from '@heroicons/react/24/solid';
 import { GraphForceSliders } from '@/react-flow/components/generic/GraphForceSliders';
 import { NodeDetailsModal } from '@/react-flow/components/nodes/NodeDetailsModal';
 import React, { useEffect, useRef, useState } from 'react';
@@ -57,10 +57,16 @@ export function FlowOverlay({
         {initialized && toggle && (
           <Button
             onPress={toggle}
-            color={!running ? 'danger' : 'success'}
+            color={'default'}
+            variant={'light'}
             className={running ? 'animate-pulse' : ''}
           >
-            {running ? 'Stop' : 'Start'} force simulation
+            {running ? (
+              <StopIcon className={'h-5 w-5 text-red-500'} />
+            ) : (
+              <PlayIcon className={'h-5 w-5 text-emerald-500'} />
+            )}{' '}
+            Force Layout
           </Button>
         )}
       </Panel>
