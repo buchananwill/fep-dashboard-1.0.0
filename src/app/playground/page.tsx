@@ -78,7 +78,8 @@ const defaultForceGraphPageOptions: ForceGraphPageOptions = {
   },
   forceAttributesInitial: {
     forceYStrength: 50,
-    linkStrength: 50
+    linkStrength: 50,
+    linkDistance: 150
   },
   forces: { manyBody: true, link: true, center: true, forceY: true }
 };
