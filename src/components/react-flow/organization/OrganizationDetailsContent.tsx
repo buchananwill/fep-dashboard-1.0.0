@@ -20,23 +20,25 @@ import {
 } from 'react-d3-force-graph';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import { DtoComponentWrapper, useDtoStoreDispatch } from 'dto-stores';
+import {
+  DtoComponentWrapper,
+  ReferencedEntityUiWrapper,
+  useDtoStoreDispatch
+} from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
+import { useReferencedEntity } from 'dto-stores/dist/hooks/useReferencedEntity';
 
 const listenerKey = 'details-content';
 
 export const initialMap = new Map<string, WorkProjectSeriesSchemaDto>();
 
+const whileLoading = () => null;
 export default function OrganizationDetailsContent({
   onClose
 }: NodeModalContentProps) {
-  // const [schemaList, setSchemaList] = useState(
-  //   [] as WorkProjectSeriesSchemaDto[]
-  // );
-
   const {
     currentState: { memoizedFunction: commitEdit }
   } = useGraphListener<MemoizedFunction<OrganizationDto, void>>(
@@ -54,9 +56,9 @@ export default function OrganizationDetailsContent({
   const {
     currentState: bundleAssignment,
     dispatchWithoutControl: bundleAssignmentDispatch
-  } = useDtoStoreDispatch<WorkSeriesBundleAssignmentDto>(
-    currentState?.workSeriesBundleAssignmentId,
+  } = useReferencedEntity<WorkSeriesBundleAssignmentDto>(
     EntityClassMap.workSeriesBundleAssignment,
+    currentState?.workSeriesBundleAssignmentId,
     listenerKey
   );
 
@@ -84,15 +86,18 @@ export default function OrganizationDetailsContent({
   // }, [seriesSchemaContextKeys, setSchemaList]);
 
   const schemaComponents = useMemo(() => {
-    return [...schemaMap.values()].map((schema) => (
-      <DtoComponentWrapper
-        key={schema.id}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        id={schema.id}
-        uiComponent={LessonDeliveryModel}
-      />
-    ));
-  }, [schemaMap]);
+    return bundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds?.map(
+      (id) => (
+        <ReferencedEntityUiWrapper<WorkProjectSeriesSchemaDto>
+          key={id}
+          entityClass={EntityClassMap.workProjectSeriesSchema}
+          id={id}
+          renderAs={LessonDeliveryModel}
+          whileLoading={whileLoading}
+        />
+      )
+    );
+  }, [bundleAssignment]);
 
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
@@ -109,7 +114,7 @@ export default function OrganizationDetailsContent({
           {currentState.name}
         </FocusToEdit>
       </ModalHeader>
-      <ModalBody>{...schemaComponents}</ModalBody>
+      <ModalBody>{schemaComponents && schemaComponents}</ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>
           Close
