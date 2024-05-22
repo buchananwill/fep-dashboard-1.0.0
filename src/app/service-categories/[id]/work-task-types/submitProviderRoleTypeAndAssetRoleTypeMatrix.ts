@@ -1,8 +1,8 @@
 'use server';
 import { API_V2_URL, IntersectionGeneratorMatrix } from '@/api/main';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { WorkTaskTypeDto } from '@/app/api/dtos/WorkTaskTypeDtoSchema';
-import { ProviderRoleTypeDto } from '@/app/api/dtos/ProviderRoleTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { ProviderRoleTypeDto } from '@/api/dtos/ProviderRoleTypeDtoSchema';
 
 interface AssetRoleTypeDto {
   name: string;
@@ -36,8 +36,6 @@ export async function submitProviderRoleTypeAndAssetRoleTypeMatrix(
     generatorMatrix: assetRoleTypeNumbers,
     columnReferenceList: matrix.columnReferenceList[1]
   };
-
-  console.log('submitting...');
 
   const promiseProviders = postEntitiesWithDifferentReturnType(
     providerRoleTypeMatrix,

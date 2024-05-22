@@ -28,8 +28,6 @@ export const LessonDeliveryModel = (
     entityClass
   } = props;
 
-  console.log(model);
-
   const renameEntityProps = useRenameEntity(
     entityClass,
     model,

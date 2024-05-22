@@ -69,8 +69,6 @@ export default function OrganizationDetailsContent({
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
 
-  console.log(schemaComponents);
-
   return (
     <>
       <ModalHeader className="flex flex-col gap-1">

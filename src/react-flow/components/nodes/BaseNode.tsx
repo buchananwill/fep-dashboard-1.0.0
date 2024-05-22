@@ -95,7 +95,6 @@ function BaseNode<T extends HasNumberId>({
                   isIconOnly
                   className={'p-1.5'}
                   onPress={() => {
-                    console.log('Adding sibling.');
                     memoizedFunction({
                       sourceNodeIdList: [`${data.id}`],
                       relation: 'sibling'

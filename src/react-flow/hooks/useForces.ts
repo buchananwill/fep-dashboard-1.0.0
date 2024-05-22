@@ -48,7 +48,6 @@ export function useForces(): [
     })) as FlowNode<any>[];
     let running = false;
     let simulation: Simulation<any, any>;
-    console.log(nodes);
 
     // If React Flow hasn't initialised our nodes with a width and height yet, or
     // if there are no nodes in the flow, then we can't run the simulation!
@@ -95,10 +94,8 @@ export function useForces(): [
         }
       }
 
-      if (!foundDrag) nodeIndex = NaN;
-
       simulation.tick();
-      if (!isNaN(nodeIndex)) console.log(scopedNodes[nodeIndex]);
+
       setNodes(
         scopedNodes.map(
           (node) =>

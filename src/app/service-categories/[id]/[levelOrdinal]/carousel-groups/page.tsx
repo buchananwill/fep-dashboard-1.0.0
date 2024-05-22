@@ -1,14 +1,14 @@
-import {
-  deleteIdList,
-  getDtoListByExampleList as getCarouselGroupsByExampleList,
-  postList,
-  putList
-} from '@/app/api/generated-actions/CarouselGroup';
-import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/app/api/generated-actions/KnowledgeLevel';
+import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/api/generated-actions/KnowledgeLevel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import CarouselGroupTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/CarouselGroupTabGroup';
 import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/serviceCategoryRouteParams';
 import { getLevelPartialAndSchemaList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/getLevelPartialAndSchemaList';
+import {
+  deleteIdList,
+  postList,
+  putList,
+  getDtoListByExampleList as getCarouselGroupsByExampleList
+} from '@/api/generated-actions/CarouselGroup';
 
 export default async function Page({
   params: { levelOrdinal, id }
@@ -19,8 +19,6 @@ export default async function Page({
     await getLevelPartialAndSchemaList(levelOrdinal, id);
 
   const kLevelList = await getKnowledgeLevelsByExampleList([levelPartial]);
-
-  console.log(levelPartial);
 
   const [knowledgeLevel] = kLevelList;
 

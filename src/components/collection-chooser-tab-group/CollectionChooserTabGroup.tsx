@@ -43,8 +43,6 @@ export default function CollectionChooserTabGroup<
     return { itemContextKeys, itemIdList };
   }, [referencedItemData, referencedEntityClass]);
 
-  console.log(collectionData, referencedItemData);
-
   return (
     <>
       <DtoControllerArrayChangesTracker

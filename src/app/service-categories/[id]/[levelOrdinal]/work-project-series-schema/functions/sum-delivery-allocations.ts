@@ -4,7 +4,6 @@ import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDt
 export function sumDeliveryAllocations(
   schema: WorkProjectSeriesSchemaDto
 ): number {
-  console.log(schema);
   return schema
     ? schema.deliveryAllocations
         .map(

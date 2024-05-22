@@ -35,7 +35,6 @@ export function AdjustAllocation({
   }, [workProjectSeriesSchemaDto]);
 
   const totalAllocations = useMemo(() => {
-    console.log(workProjectSeriesSchemaDto);
     return sumDeliveryAllocations(workProjectSeriesSchemaDto);
   }, [workProjectSeriesSchemaDto]);
 
