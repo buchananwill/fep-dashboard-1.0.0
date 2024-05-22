@@ -2,7 +2,6 @@ import { HasIdClass } from '@/api/main';
 import {
   ArrayPlaceholder,
   useGlobalController,
-  useGlobalDispatch,
   useGlobalDispatchAndListener
 } from 'selective-context';
 import { getDeletedContextKey } from 'dto-stores/dist/functions/getDeletedContextKey';

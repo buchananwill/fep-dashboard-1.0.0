@@ -1,19 +1,21 @@
 'use client';
-import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/AllBundlesTotal';
 import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/WorkSeriesSchemaBundleTabGroup';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Button } from '@nextui-org/button';
 import { Dispatch, SetStateAction } from 'react';
-import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
+
+import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/useMasterListController';
+import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
+import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import {
   deleteIdList,
   postList,
   putList
-} from '@/app/api/generated-actions/WorkSeriesSchemaBundle';
-import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/useMasterListController';
+} from '@/api/generated-actions/WorkSeriesSchemaBundle';
 
 const handleAddBundle = (
   dispatch: Dispatch<SetStateAction<WorkSeriesSchemaBundleDto[]>>,

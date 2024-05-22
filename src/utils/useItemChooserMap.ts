@@ -1,23 +1,21 @@
-import {
-  ObjectPlaceholder,
-  useSelectiveContextListenerGroupGlobal
-} from 'selective-context';
+import { useGlobalListenerGroup } from 'selective-context';
 import { useMemo } from 'react';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 
 export function useItemChooserMap<T>(
   referencedItemContextKeys: string[],
   collectionId: string | number
 ) {
-  const { currentState: itemMap } = useSelectiveContextListenerGroupGlobal<T>({
+  const { currentState: itemMap } = useGlobalListenerGroup<T>({
     contextKeys: referencedItemContextKeys,
     listenerKey: `collectionItemChooser:${collectionId}`,
-    initialValue: ObjectPlaceholder
+    initialValue: initialMap as Map<string, T>
   });
 
   const items = useMemo(() => {
     return referencedItemContextKeys
-      .map((cKey) => itemMap[cKey])
+      .map((cKey) => itemMap.get(cKey))
       .filter((schema) => schema !== undefined)
       .map((schema) => schema as WorkProjectSeriesSchemaDto);
   }, [referencedItemContextKeys, itemMap]);

@@ -1,12 +1,13 @@
+'use client';
 import { useDtoStoreListener } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   ArrayPlaceholder,
   ObjectPlaceholder,
-  useSelectiveContextGlobalListener
+  useGlobalListener
 } from 'selective-context';
-import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useMemo } from 'react';
 import { Chip } from '@nextui-org/chip';
 import { StringObjectRecord } from '@/api/string-object-record';
@@ -18,9 +19,7 @@ export default function BundleItemWithInclusionCount({ id }: { id: string }) {
     'inclusionCounter'
   );
 
-  const { currentState: bundleIdList } = useSelectiveContextGlobalListener<
-    number[]
-  >({
+  const { currentState: bundleIdList } = useGlobalListener<number[]>({
     contextKey: `${EntityClassMap.workSeriesSchemaBundle}:idList`,
     initialValue: ArrayPlaceholder,
     listenerKey: `${id}`
@@ -34,7 +33,7 @@ export default function BundleItemWithInclusionCount({ id }: { id: string }) {
     [bundleIdList]
   );
 
-  const { currentState: bundleMap } = useSelectiveContextGlobalListener<
+  const { currentState: bundleMap } = useGlobalListener<
     StringObjectRecord<WorkSeriesSchemaBundleDto>
   >({
     contextKey: `${EntityClassMap.workSeriesSchemaBundle}:stringMap`,

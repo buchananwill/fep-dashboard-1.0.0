@@ -25,7 +25,7 @@ import { useReferencedEntity } from 'dto-stores/dist/hooks/useReferencedEntity';
 
 const listenerKey = 'details-content';
 
-export const initialMap = new Map<string, WorkProjectSeriesSchemaDto>();
+export const initialMap = new Map<string, unknown>();
 
 const whileLoading = () => null;
 export default function OrganizationDetailsContent({

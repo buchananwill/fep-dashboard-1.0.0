@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { SelectiveContextManagerGlobal } from 'selective-context';
 import React from 'react';
 
+import { MasterChangesTrackWrapper } from '@/components/generic/DtoChangesTracker';
+
 export function LibraryProvidersWrapper({
   children
 }: {
@@ -14,6 +16,7 @@ export function LibraryProvidersWrapper({
 
   return (
     <SelectiveContextManagerGlobal>
+      <MasterChangesTrackWrapper />
       <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
     </SelectiveContextManagerGlobal>
   );

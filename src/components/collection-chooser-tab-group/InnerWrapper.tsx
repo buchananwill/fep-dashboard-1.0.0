@@ -1,39 +1,35 @@
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { FC } from 'react';
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
-import {
-  ObjectPlaceholder,
-  useSelectiveContextGlobalListener,
-  useSelectiveContextListenerGroupGlobal
-} from 'selective-context';
-import { StringObjectRecord } from '@/api/string-object-record';
-import { HasId } from '@/api/main';
-import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
+import { useGlobalListener } from 'selective-context';
+import { HasUuid } from '@/api/main';
+import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 
-export interface InnerWrapperProps<T> {
+export interface InnerWrapperProps {
   collectionEntityClass: string;
   collectionItemChooser: FC<CollectionItemChooserProps>;
   itemContextKeys: string[];
 }
 
-export default function InnerWrapper<T extends HasId & HasNameDto>({
+export default function InnerWrapper<T extends HasUuid & HasNameDto>({
   collectionItemChooser: ItemChooser,
   itemContextKeys,
   collectionEntityClass
-}: InnerWrapperProps<T>) {
-  const { currentState } = useSelectiveContextGlobalListener<
-    StringObjectRecord<T>
-  >({
+}: InnerWrapperProps) {
+  const { currentState } = useGlobalListener<Map<string, T>>({
     contextKey: `${collectionEntityClass}:stringMap`,
-    initialValue: ObjectPlaceholder,
+    initialValue: initialMap as Map<string, T>,
     listenerKey: 'innerWrapper'
   });
+
+  console.log(currentState);
 
   return (
     <Tabs
       aria-label={'collection tabs'}
       size={'lg'}
-      items={Object.values(currentState)}
+      items={[...currentState.values()]}
       isVertical={true}
     >
       {(item) => (

@@ -1,8 +1,8 @@
 'use client';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { DtoComponentWrapper, useDtoStoreDispatch } from 'dto-stores';
-import { WorkSeriesSchemaBundleDto } from '@/app/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemWithInclusionCount';
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
@@ -15,6 +15,7 @@ import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDelete
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
 import { useDtoStoreDelete } from 'dto-stores/dist/hooks/useDtoStoreDelete';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
+import { isNotUndefined } from '@/api/main';
 
 const produceBundle = (
   updatedKeys: string[],
@@ -53,10 +54,11 @@ export default function BundleItemChooser({
   );
 
   const currentAllocationSum = useMemo(() => {
-    const workProjectSeriesSchemaDtos =
-      currentState.workProjectSeriesSchemaIds.map(
-        (id) => schemaMap[`${EntityClassMap.workProjectSeriesSchema}:${id}`]
-      );
+    const workProjectSeriesSchemaDtos = currentState.workProjectSeriesSchemaIds
+      .map((id) =>
+        schemaMap.get(`${EntityClassMap.workProjectSeriesSchema}:${id}`)
+      )
+      .filter(isNotUndefined);
     return sumAllSchemas(workProjectSeriesSchemaDtos);
   }, [currentState, schemaMap]);
 

@@ -1,8 +1,8 @@
-import { getDtoListByExampleList as getSchemaBundlesByExampleList } from '@/app/api/generated-actions/WorkSeriesSchemaBundle';
 import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/serviceCategoryRouteParams';
 import { getLevelPartialAndSchemaList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/getLevelPartialAndSchemaList';
 import { SchemaBundleViewer } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/SchemaBundleViewer';
-import { getDtoListByExampleList } from '@/app/api/generated-actions/KnowledgeLevel';
+import { getDtoListByExampleList } from '@/api/generated-actions/KnowledgeLevel';
+import { getDtoListByExampleList as getSchemaBundlesByExampleList } from '@/api/generated-actions/WorkSeriesSchemaBundle';
 
 export default async function Page({
   params: { id, levelOrdinal }
@@ -17,6 +17,7 @@ export default async function Page({
   const data = await getSchemaBundlesByExampleList([
     { knowledgeLevel: levelPartial }
   ]);
+
   return (
     <SchemaBundleViewer
       knowledgeLevel={knowledgeLevel}

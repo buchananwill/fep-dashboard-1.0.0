@@ -1,8 +1,8 @@
-import { getDtoListByExampleList as getWorkTaskTypesByExample } from '@/app/api/generated-actions/WorkTaskType';
+import { getDtoListByExampleList as getWorkTaskTypesByExample } from '@/api/generated-actions/WorkTaskType';
 
-import { getDtoListByExampleList as getWorkProjectSeriesSchemasByExample } from '@/app/api/generated-actions/WorkProjectSeriesSchema';
-import { WorkTaskTypeDto } from '@/app/api/dtos/WorkTaskTypeDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { getDtoListByExampleList as getWorkProjectSeriesSchemasByExample } from '@/api/generated-actions/WorkProjectSeriesSchema';
+import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 
 export interface WorkProjectSeriesSchemaFetchParams {
   levelOrdinal: number;
