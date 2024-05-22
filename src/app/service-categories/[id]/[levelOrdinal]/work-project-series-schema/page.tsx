@@ -19,7 +19,7 @@ export default async function Page({
     <>
       <DtoControllerArrayChangesTracker
         dtoList={wpssData}
-        entityName={EntityClassMap.workProjectSeriesSchema}
+        entityClass={EntityClassMap.workProjectSeriesSchema}
       />
       <WpssEditGridColList />
     </>

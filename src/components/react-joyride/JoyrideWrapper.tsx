@@ -1,5 +1,5 @@
 'use client';
-import Joyride, { TooltipRenderProps } from 'react-joyride';
+import Joyride, { Step, TooltipRenderProps } from 'react-joyride';
 import React, { forwardRef, useEffect, useState } from 'react';
 
 const defaultOptions = {
@@ -14,11 +14,7 @@ const defaultOptions = {
   zIndex: 200
 };
 
-export default function JoyrideWrapper({
-  steps
-}: {
-  steps: { target: string; content: string | React.JSX.Element }[];
-}) {
+export default function JoyrideWrapper({ steps }: { steps: Step[] }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => setIsClient(true), []);

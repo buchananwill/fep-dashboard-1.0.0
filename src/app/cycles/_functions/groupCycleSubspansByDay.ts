@@ -3,10 +3,11 @@ import {
   DayOfWeekArray,
   DayOfWeekObject
 } from '@/api/date-and-time';
-import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
-import { CycleDto } from '@/app/api/dtos/CycleDtoSchema';
+
 import { StringObjectRecord } from '@/api/string-object-record';
 import { isNotUndefined } from '@/api/main';
+import { CycleDto } from '@/api/dtos/CycleDtoSchema';
+import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 
 export interface CycleDay {
   zeroIndexedCycleDay: number;

@@ -1,8 +1,7 @@
-import { DeliveryAllocationDto } from '../../../../../api/dtos/DeliveryAllocationDtoSchema';
 import React from 'react';
 
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import { AllocationUnitGroup } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/AllocationUnitGroup';
+import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
 
 export function DeliveryAllocation({
   deliveryAllocation: { deliveryAllocationSize, count }
@@ -22,5 +21,5 @@ export function DeliveryAllocation({
 
   return allocation.length > 0 ? (
     <div className={'flex h-4 '}>{[...allocation]}</div>
-  ) : null; // <XMarkIcon className={'h-4 w-4'}></XMarkIcon>
+  ) : null;
 }

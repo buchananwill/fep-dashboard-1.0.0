@@ -1,5 +1,5 @@
-import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
 import { workProjectSeriesSchemaActionSequence } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/workProjectSeriesSchemaActionSequence';
+import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 
 export async function getLevelPartialAndSchemaList(
   levelOrdinal: string,

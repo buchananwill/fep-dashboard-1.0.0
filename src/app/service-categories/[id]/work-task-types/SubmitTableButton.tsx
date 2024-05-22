@@ -1,7 +1,4 @@
-import {
-  useSelectiveContextGlobalListener,
-  useSelectiveContextGlobalReadAll
-} from 'selective-context';
+import { useGlobalListener, useGlobalReadAny } from 'selective-context';
 import {
   EmptyArray,
   IntersectionGeneratorMatrix,
@@ -18,13 +15,13 @@ export function SubmitTableButton<T, U>({
   columns: U[];
   targetEndpoint?: (matrix: IntersectionGeneratorMatrix<T, U>) => Promise<any>;
 }) {
-  let { currentState } = useSelectiveContextGlobalListener<number[]>({
+  let { currentState } = useGlobalListener<number[]>({
     contextKey: 'generatorRow:idList',
     listenerKey: 'submitHandler',
     initialValue: EmptyArray
   });
   let selectiveContextReadAll =
-    useSelectiveContextGlobalReadAll<IntersectionGeneratorRowWithHeader<any>>();
+    useGlobalReadAny<IntersectionGeneratorRowWithHeader<any>>();
   const handleSubmit = () => {
     const listList = currentState
       .map((id) => selectiveContextReadAll(`generatorRow:${id}`))

@@ -55,7 +55,7 @@ export default function WpssEditGridColList() {
           </div>
         </div>
         <DtoComponentArrayGenerator
-          entityName={entityType}
+          entityClass={entityType}
           eachAs={LessonDeliveryModel}
         />
       </CardBody>
