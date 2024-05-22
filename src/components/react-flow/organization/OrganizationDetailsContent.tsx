@@ -76,6 +76,8 @@ export default function OrganizationDetailsContent({
       <ModalHeader className="flex flex-col gap-1">
         <FocusToEdit
           value={currentState.name}
+          label={'Class name'}
+          size={'sm'}
           onValueChange={(value) =>
             dispatchWithoutControl((data) => ({ ...data, name: value }))
           }
