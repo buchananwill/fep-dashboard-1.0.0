@@ -1,4 +1,3 @@
-import { ForceGraphPage, ForceGraphPageOptions } from 'react-d3-force-graph';
 import { getGraphByRootId } from '@/api/generated-actions/Organization';
 import {
   convertClosureDtoListToEdgeList,
@@ -10,11 +9,12 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { getDtoListByBodyList } from '@/api/generated-actions/WorkSeriesBundleAssignment';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
-import { TrackChangesController } from 'dto-stores';
+import {
+  IdListDataFetchingController,
+  TrackChangesController
+} from 'dto-stores';
 import { ArrayPlaceholder } from 'selective-context';
-import { IdListDataFetchingController } from 'dto-stores';
-
-import { MasterChangesTrackWrapper } from '@/components/generic/DtoChangesTracker';
+import { ForceGraphPage, ForceGraphPageOptions } from 'react-d3-force-graph';
 
 export default async function Page() {
   const classGraph = await getGraphByRootId({ rootId: 1446 });

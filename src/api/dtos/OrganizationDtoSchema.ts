@@ -4,6 +4,6 @@ export const OrganizationDtoSchema = z.object({
   id: z.number(),
   name: z.string(),
   type: OrganizationTypeDtoSchema,
-  workSeriesBundleAssignmentId: z.number(),
+  workSeriesBundleAssignmentId: z.number().optional()
 });
 export type OrganizationDto = z.infer<typeof OrganizationDtoSchema>;

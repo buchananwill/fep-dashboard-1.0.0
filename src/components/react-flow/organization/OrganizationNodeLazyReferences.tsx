@@ -2,7 +2,7 @@ import { Edge, NodeProps, useEdges } from 'reactflow';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { BaseNodeMemo } from '@/react-flow/components/nodes/BaseNode';
+import { BaseNode, BaseNodeMemo } from '@/react-flow/components/nodes/BaseNode';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { Chip } from '@nextui-org/chip';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -30,7 +30,7 @@ export interface AllocationTotal {
 
 const initialTotalMap = new Map<string, number>();
 
-function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
+export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   const { selected, dragging, data } = nodeProps;
   const listenerKey = `organizationNode:${data.id}`;
 
@@ -115,7 +115,7 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   }, [localTotal, inheritedTotal]);
 
   return (
-    <BaseNodeMemo
+    <BaseNode
       {...nodeProps}
       className={clsx(
         'relative flex flex-col gap-1 rounded-md border-black p-2 transition-colors-opacity bg-white',
@@ -136,11 +136,11 @@ function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
           </li>
         ))}
       </ul>
-    </BaseNodeMemo>
+    </BaseNode>
   );
 }
 
-export default React.memo(OrganizationNode);
+// export default React.memo(OrganizationNode);
 
 function getEdgesToParents(edges: Edge[], childId: string) {
   return edges.filter((e) => {

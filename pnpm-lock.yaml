@@ -64,7 +64,7 @@ importers:
         version: 18.3.1
       react-d3-force-graph:
         specifier: file:D:\Coding\react-d3-force-graph
-        version: file:../react-d3-force-graph(react@18.3.1)(selective-context@file:../selective-context(react@18.3.1))
+        version: file:../react-d3-force-graph(react@18.3.1)
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
@@ -2721,7 +2721,6 @@ packages:
     resolution: {directory: ../react-d3-force-graph, type: directory}
     peerDependencies:
       react: ^18.3.1
-      selective-context: 2.0.1
 
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
@@ -6774,7 +6773,7 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-d3-force-graph@file:../react-d3-force-graph(react@18.3.1)(selective-context@file:../selective-context(react@18.3.1)):
+  react-d3-force-graph@file:../react-d3-force-graph(react@18.3.1):
     dependencies:
       '@types/d3': 7.4.3
       d3: 7.9.0

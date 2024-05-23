@@ -1,9 +1,4 @@
-import {
-  DataNode,
-  HasName,
-  HasNumberId,
-  incrementCloneSuffix
-} from 'react-d3-force-graph';
+import { DataNode, incrementCloneSuffix } from 'react-d3-force-graph';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 
 export function cloneOrganizationNode(

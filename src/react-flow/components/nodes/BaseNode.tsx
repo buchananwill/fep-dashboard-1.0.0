@@ -22,9 +22,10 @@ import {
   useGraphDispatch,
   useGraphListener
 } from 'react-d3-force-graph';
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
+import { cloneFunctionWrapper } from '@/components/react-flow/organization/organizationCallbacks';
 
-function BaseNode<T extends HasNumberId>({
+export function BaseNode<T extends HasNumberId>({
   data,
   isConnectable,
   xPos,
@@ -65,6 +66,27 @@ function BaseNode<T extends HasNumberId>({
   );
   const fixAddProps = usePopoverFix();
   const fixDeleteProps = usePopoverFix();
+  const { currentState } = useGraphListener(
+    GraphSelectiveContextKeys.nodeCloneFunction,
+    listenerKey,
+    undefined
+  );
+
+  const { id } = data;
+  const addSibling = useCallback(() => {
+    console.log(
+      'function in source:',
+      cloneFunctionWrapper.memoizedFunction,
+      'clone node in state:',
+      currentState,
+      'addNodes in state:',
+      memoizedFunction
+    );
+    memoizedFunction({
+      sourceNodeIdList: [`${id}`],
+      relation: 'sibling'
+    });
+  }, [memoizedFunction, id, currentState]);
 
   return (
     <>
@@ -91,16 +113,7 @@ function BaseNode<T extends HasNumberId>({
             </PopoverTrigger>
             <PopoverContent>
               <div className={'grid grid-cols-1 gap-1'}>
-                <Button
-                  isIconOnly
-                  className={'p-1.5'}
-                  onPress={() => {
-                    memoizedFunction({
-                      sourceNodeIdList: [`${data.id}`],
-                      relation: 'sibling'
-                    });
-                  }}
-                >
+                <Button isIconOnly className={'p-1.5'} onPress={addSibling}>
                   <ArrowDownOnSquareStackIcon className={'-rotate-90'} />
                 </Button>
                 <Button
