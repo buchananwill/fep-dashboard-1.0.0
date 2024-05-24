@@ -1,6 +1,10 @@
 'use client';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
-import { DtoComponentWrapper, useDtoStoreDispatch } from 'dto-stores';
+import {
+  DtoComponentWrapper,
+  useDtoStoreDispatch,
+  useDtoStoreDispatchAndListener
+} from 'dto-stores';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
@@ -31,7 +35,7 @@ export default function BundleItemChooser({
   referencedItemContextKeys
 }: CollectionItemChooserProps) {
   const { currentState, dispatchWithoutControl } =
-    useDtoStoreDispatch<WorkSeriesSchemaBundleDto>(
+    useDtoStoreDispatchAndListener<WorkSeriesSchemaBundleDto>(
       collectionId,
       entityClass,
       'itemChooser'

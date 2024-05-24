@@ -13,15 +13,13 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { getDtoListByBodyList } from '@/api/generated-actions/WorkSeriesBundleAssignment';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
-import {
-  IdListDataFetchingController,
-  TrackChangesController
-} from 'dto-stores';
+
 import { ArrayPlaceholder } from 'selective-context';
 import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/serviceCategoryRouteParams';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getDtoListByExampleList } from '@/api/generated-actions/OrganizationType';
+import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 
 export default async function Page({
   params: { levelOrdinal }
@@ -61,20 +59,13 @@ export default async function Page({
       graphName={'test-graph'}
       options={defaultForceGraphPageOptions}
     >
-      <TrackChangesController
-        idList={ArrayPlaceholder}
-        entityClass={EntityClassMap.workSeriesBundleAssignment}
-      />
-      <IdListDataFetchingController
-        idList={ArrayPlaceholder}
+      <DataFetchingEditDtoControllerArray
+        idList={bundleAssignmentIdList}
         entityClass={EntityClassMap.workSeriesBundleAssignment}
         getServerAction={getDtoListByBodyList}
       />
-      <TrackChangesController
-        idList={ArrayPlaceholder}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-      />
-      <IdListDataFetchingController
+
+      <DataFetchingEditDtoControllerArray
         idList={ArrayPlaceholder}
         entityClass={EntityClassMap.workProjectSeriesSchema}
         getServerAction={getSchemasByBodyList}

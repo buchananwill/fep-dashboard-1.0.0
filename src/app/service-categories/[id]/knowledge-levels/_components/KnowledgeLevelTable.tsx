@@ -1,12 +1,11 @@
 'use client';
-import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
 import React, { useCallback, useMemo } from 'react';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
-import { KnowledgeLevelDto } from '@/app/api/dtos/KnowledgeLevelDtoSchema';
-import { Chip } from '@nextui-org/chip';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
+import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 
 const entityType = EntityClassMap.knowledgeLevel;
 export default function KnowledgeLevelTable({

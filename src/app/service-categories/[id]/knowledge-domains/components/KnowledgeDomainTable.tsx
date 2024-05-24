@@ -1,11 +1,11 @@
 'use client';
-import { KnowledgeDomainDto } from '@/app/api/dtos/KnowledgeDomainDtoSchema';
 import React, { useCallback, useMemo } from 'react';
-import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
+
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { DtoTable } from '@/components/generic/DtoTable';
-import { d } from '@nextui-org/slider/dist/use-slider-64459b54';
+import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
+import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 
 export function KnowledgeDomainTable({
   data,

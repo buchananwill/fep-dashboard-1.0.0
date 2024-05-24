@@ -2,22 +2,19 @@
 import { DtoTable } from '@/components/generic/DtoTable';
 import React, { useCallback } from 'react';
 import { IntersectionGeneratorRowWithHeader } from '@/api/main';
-import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
-import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
-import {
-  useSelectiveContextGlobalController,
-  useSelectiveContextGlobalDispatch
-} from 'selective-context';
-import { TableProps } from '@nextui-org/react';
 
-export default function IgmTable<T extends HasNameDto, U extends HasNameDto>({
-  rowEntityName,
+import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
+import { TableProps } from '@nextui-org/react';
+import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+
+export default function IgmTable<T extends HasNameDto>({
+  rowEntityClass,
   tableRows,
   tableColumns,
   entityList,
   ...tableProps
 }: {
-  rowEntityName: string;
+  rowEntityClass: string;
   entityList: T[];
   tableRows: IntersectionGeneratorRowWithHeader<T>[];
   tableColumns: { name: string; uid: string }[];

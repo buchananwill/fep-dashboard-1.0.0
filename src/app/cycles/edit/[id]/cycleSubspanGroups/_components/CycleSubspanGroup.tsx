@@ -1,11 +1,11 @@
 import { DtoUiComponentProps } from 'dto-stores';
-import { CycleSubspanGroupDto } from '@/app/api/dtos/CycleSubspanGroupDtoSchema';
+
 import {
   ArrayPlaceholder,
-  useSelectiveContextGlobalListener,
-  useSelectiveContextGlobalReadAll
+  useGlobalListener,
+  useGlobalReadAny
 } from 'selective-context';
-import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
+
 import { EntityClassMap } from '@/api/entity-class-map';
 import { isNotUndefined, TransientIdOffset } from '@/api/main';
 import { Chip } from '@nextui-org/chip';
@@ -14,11 +14,10 @@ import {
   getWeekNumberInt
 } from '@/app/cycles/_functions/groupCycleSubspansByDay';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
-import { useMemo } from 'react';
-import { Select } from '@nextui-org/react';
-import { SelectItem } from '@nextui-org/select';
-import { CycleSubspanJoinDto } from '@/app/api/dtos/CycleSubspanJoinDtoSchema';
-import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
+
+import { CycleSubspanGroupDto } from '@/api/dtos/CycleSubspanGroupDtoSchema';
+import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { CycleSubspanJoinDto } from '@/api/dtos/CycleSubspanJoinDtoSchema';
 
 function updateGroupJoins(
   updatedKeys: string[],
@@ -57,8 +56,7 @@ export default function CycleSubspanGroup({
   deleted,
   entityClass
 }: DtoUiComponentProps<CycleSubspanGroupDto>) {
-  const selectiveContextReadAll =
-    useSelectiveContextGlobalReadAll<CycleSubspanDto>();
+  const selectiveContextReadAll = useGlobalReadAny<CycleSubspanDto>();
 
   const cycleSubspanDtoList = entity.cycleSubspanJoins
     .sort((j1, j2) => j1.joinOrdinal - j2.joinOrdinal)
@@ -66,7 +64,7 @@ export default function CycleSubspanGroup({
     .map(selectiveContextReadAll)
     .filter(isNotUndefined);
 
-  const { currentState } = useSelectiveContextGlobalListener<CycleDay[]>({
+  const { currentState } = useGlobalListener<CycleDay[]>({
     contextKey: 'cycleDayList',
     listenerKey: `${entityClass}${entity.id}`,
     initialValue: ArrayPlaceholder
@@ -83,7 +81,7 @@ export default function CycleSubspanGroup({
           {numberToWeekLetter(
             getWeekNumberInt(currentState[dto.zeroIndexedCycleDay])
           )}
-          :{dto.description}
+          :{dto.name}
         </Chip>
       ))}
     </div>

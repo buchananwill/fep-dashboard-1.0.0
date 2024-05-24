@@ -1,8 +1,8 @@
-import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
 import { DtoUiComponentProps } from 'dto-stores';
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { Checkbox, CheckboxGroup } from '@nextui-org/checkbox';
 import { Chip } from '@nextui-org/chip';
+import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 
 export interface CycleSubspanGroupEditDto extends CycleSubspanDto {
   sizesStartingAtCycleSubspanId: number[];
@@ -59,7 +59,7 @@ export default function CycleSubspanGroupEdit({
   return (
     <tr>
       <td>
-        <Chip className={'col-span-2'}>{entity.description}</Chip>
+        <Chip className={'col-span-2'}>{entity.name}</Chip>
       </td>
       {checkBoxes.map((box, index) => (
         <td key={index}>{box}</td>

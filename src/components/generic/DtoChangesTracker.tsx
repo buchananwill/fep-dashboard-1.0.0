@@ -2,14 +2,15 @@
 
 import { Card, CardBody } from '@nextui-org/card';
 import {
-  DtoListControllerProps,
+  EditControllerProps,
+  PrimaryDtoControllerArrayProps,
   UnsavedChangesProps
 } from 'dto-stores/dist/types';
-import { DtoIdListController } from 'dto-stores/dist/controllers/DtoIdListController';
-import { HasId } from '@/api/main';
+import { HasIdClass } from '@/api/main';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import {
-  DtoControllerArrayWithIdList,
+  EditAddDeleteDtoControllerArray,
+  EditController,
   MasterChangesController
 } from 'dto-stores';
 
@@ -46,27 +47,19 @@ function UnsavedChangesToast({
   );
 }
 
-export default function DtoIdListChangesTracker<T extends HasId>({
-  unsavedChangesComponent,
+export default function DtoIdListChangesTracker({
   ...props
-}: DtoListControllerProps<T>) {
-  return (
-    <DtoIdListController
-      unsavedChangesComponent={UnsavedChangesToast}
-      {...props}
-    />
-  );
+}: EditControllerProps) {
+  return <EditController {...props} />;
 }
 
-export function DtoControllerArrayChangesTracker<T extends HasId>({
+export function DtoControllerArrayChangesTracker<
+  T extends HasIdClass<U>,
+  U extends string | number
+>({
   ...props
-}: Omit<DtoListControllerProps<T>, 'unsavedChangesComponent'>) {
-  return (
-    <DtoControllerArrayWithIdList
-      {...props}
-      unsavedChangesComponent={UnsavedChangesToast}
-    />
-  );
+}: Omit<PrimaryDtoControllerArrayProps<T, U>, 'unsavedChangesComponent'>) {
+  return <EditAddDeleteDtoControllerArray {...props} />;
 }
 
 export function MasterChangesTrackWrapper() {

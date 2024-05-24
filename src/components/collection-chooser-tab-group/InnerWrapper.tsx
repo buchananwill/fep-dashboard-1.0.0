@@ -18,7 +18,7 @@ export default function InnerWrapper<T extends HasUuid & HasNameDto>({
   collectionEntityClass
 }: InnerWrapperProps) {
   const { currentState } = useGlobalListener<Map<string, T>>({
-    contextKey: `${collectionEntityClass}:stringMap`,
+    contextKey: `${collectionEntityClass}:masterMap`,
     initialValue: initialMap as Map<string, T>,
     listenerKey: 'innerWrapper'
   });

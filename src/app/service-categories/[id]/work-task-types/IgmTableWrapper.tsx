@@ -1,22 +1,20 @@
 'use client';
-import { useMemo } from 'react';
 import IgmTable from '@/components/generic/IgmTable';
 import { DtoControllerArray } from 'dto-stores';
 import { SubmitTableButton } from '@/app/service-categories/[id]/work-task-types/SubmitTableButton';
-import { HasNameDto } from '@/app/api/dtos/HasNameDtoSchema';
+
 import {
   IntersectionGeneratorMatrix,
   IntersectionGeneratorRowWithHeader
 } from '@/api/main';
-import { createRows } from '@/components/generic/createRows';
-import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { TableProps } from '@nextui-org/react';
+import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 
 export default function IgmTableWrapper<
   T extends HasNameDto,
   U extends HasNameDto
 >({
-  rowEntityName,
+  rowEntityClass,
   columns,
   rows,
   submitTo,
@@ -24,7 +22,7 @@ export default function IgmTableWrapper<
   tableColumns,
   ...tableProps
 }: {
-  rowEntityName: string;
+  rowEntityClass: string;
   rows: T[];
   columns: U[];
   submitTo?: (matrix: IntersectionGeneratorMatrix<T, U>) => Promise<any>;
@@ -33,9 +31,9 @@ export default function IgmTableWrapper<
 } & TableProps) {
   return (
     <>
-      <DtoControllerArray dtoList={tableRows} entityName={'generatorRow'} />
+      <DtoControllerArray dtoList={tableRows} entityClass={'generatorRow'} />
       <IgmTable
-        rowEntityName={rowEntityName}
+        rowEntityClass={rowEntityClass}
         entityList={rows}
         tableRows={tableRows}
         tableColumns={tableColumns}

@@ -6,7 +6,7 @@ import { toKebabCase } from '@/utils/toKebabCase';
 import pluralize from 'pluralize';
 import { useContext } from 'react';
 import { ResourcePathContext } from '@/components/providers/resource-context/resource-context-creator';
-import { useSelectiveContextGlobalListener } from 'selective-context';
+
 import { useTextAccessor } from '@/components/providers/text-accessor-context/textAccessorContextCreator';
 
 export default function ContextualLinkToEntityPage<T extends HasId>({

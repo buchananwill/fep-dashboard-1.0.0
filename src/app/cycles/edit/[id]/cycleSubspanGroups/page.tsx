@@ -36,7 +36,7 @@ export default async function Page({
     <div className={'grid grid-cols-5 w-fit gap-1'}>
       <DtoControllerArrayChangesTracker
         dtoList={cycleSubspanGroupEditDtos}
-        entityName={entityName}
+        entityClass={entityName}
         updateServerAction={putGroupEditAction}
       />
       {cycleDays.map((cycleDay, index) => {

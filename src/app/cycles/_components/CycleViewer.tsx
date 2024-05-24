@@ -1,16 +1,19 @@
 import { createCycleDays } from '@/app/cycles/_functions/groupCycleSubspansByDay';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
-import { deleteIdList } from '@/app/api/generated-actions/CycleSubspan';
-import { CycleDto } from '@/app/api/dtos/CycleDtoSchema';
+
 import { TransientIdOffset } from '@/api/main';
 import CycleDayFetcher from '@/app/cycles/_components/CycleDayFetcher';
 import { ArrayPlaceholder } from 'selective-context';
-import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
+import DtoIdListChangesTracker, {
+  DtoControllerArrayChangesTracker
+} from '@/components/generic/DtoChangesTracker';
 import {
   interceptPost,
   interceptPut
 } from '@/app/cycles/_components/interceptors';
+import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { CycleDto } from '@/api/dtos/CycleDtoSchema';
+import { deleteIdList } from '@/api/generated-actions/CycleSubspan';
 
 const entityClass = EntityClassMap.cycleSubspan;
 
@@ -38,9 +41,9 @@ export default function CycleViewer({ cycle }: { cycle: CycleDto }) {
         'p-8 grid grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 min-w-fit'
       }
     >
-      <DtoIdListChangesTracker
+      <DtoControllerArrayChangesTracker
         dtoList={ArrayPlaceholder}
-        entityName={entityClass}
+        entityClass={entityClass}
         updateServerAction={interceptPut}
         deleteServerAction={deleteIdList}
         postServerAction={interceptPost}

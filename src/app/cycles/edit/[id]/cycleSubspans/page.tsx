@@ -1,8 +1,6 @@
 import { EntityClassMap } from '@/api/entity-class-map';
-import { groupCycleSubspansByDay } from '@/app/cycles/_functions/groupCycleSubspansByDay';
 import CycleViewer from '@/app/cycles/_components/CycleViewer';
-import { getOne } from '@/app/api/generated-actions/Cycle';
-import { getDtoListByExampleList } from '@/app/api/generated-actions/CycleSubspan';
+import { getOne } from '@/api/generated-actions/Cycle';
 
 const entityClass = EntityClassMap.cycleSubspan;
 

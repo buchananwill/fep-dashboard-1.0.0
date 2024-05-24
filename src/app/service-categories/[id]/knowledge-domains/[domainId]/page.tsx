@@ -2,15 +2,13 @@ import {
   deleteIdList,
   getOne,
   putList
-} from '@/app/api/generated-actions/KnowledgeDomain';
-import { getOne as getOneServiceCategory } from '@/app/api/generated-actions/ServiceCategory';
-import { MissingData } from '@/components/generic/MissingData';
-import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
+} from '@/api/generated-actions/KnowledgeDomain';
+import { getOne as getOneServiceCategory } from '@/api/generated-actions/ServiceCategory';
 import { EntityClassMap } from '@/api/entity-class-map';
-
-import { DtoController } from 'dto-stores/dist/controllers/DtoController';
-import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
-import { DtoControllerArray } from 'dto-stores';
+import {
+  DtoControllerArray,
+  EditAddDeleteDtoControllerArray
+} from 'dto-stores';
 import KnowledgeDomainCard from '@/app/service-categories/[id]/knowledge-domains/components/KnowledgeDomainCard';
 
 export default async function Page({
@@ -24,19 +22,15 @@ export default async function Page({
 
   return (
     <>
-      <DtoControllerArray
-        dtoList={[serviceCategory]}
-        entityName={EntityClassMap.serviceCategory}
-      />
-      <DtoIdListChangesTracker
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.knowledgeDomain}
         dtoList={[kDomain]}
-        entityName={EntityClassMap.serviceCategory}
         updateServerAction={putList}
         deleteServerAction={deleteIdList}
       />
-      <DtoController
-        dto={kDomain}
-        entityName={EntityClassMap.serviceCategory}
+      <DtoControllerArray
+        dtoList={[serviceCategory]}
+        entityClass={EntityClassMap.serviceCategory}
       />
       <KnowledgeDomainCard id={kDomain.id} />
     </>

@@ -30,7 +30,7 @@ export function groupCycleSubspansByDay<T extends CycleSubspanDto>(
   );
 
   const cycleDays: CycleDay[] = [];
-  const responseGrouping: StringObjectRecord<CycleSubspanDto[]> = {};
+  const responseGrouping: StringObjectRecord<T[]> = {};
   // @ts-ignore
   const startDay = DayOfWeekArray.indexOf(DayOfWeekObject[cycle.cycleDayZero]);
 

@@ -16,6 +16,7 @@ import {
   postList,
   putList
 } from '@/api/generated-actions/WorkSeriesSchemaBundle';
+import { useMasterListControllerAddDelete } from 'dto-stores/dist/hooks/internal/useMasterListControllerAddDelete';
 
 const handleAddBundle = (
   dispatch: Dispatch<SetStateAction<WorkSeriesSchemaBundleDto[]>>,
@@ -49,8 +50,8 @@ export function SchemaBundleViewer({
   collectionData: WorkSeriesSchemaBundleDto[];
   referencedItemData: WorkProjectSeriesSchemaDto[];
 }) {
-  const { currentState, dispatch, dispatchWithoutControl } =
-    useMasterListController<WorkSeriesSchemaBundleDto, string>(
+  const { masterList, dispatch, dispatchWithoutControl } =
+    useMasterListControllerAddDelete<WorkSeriesSchemaBundleDto, string>(
       collectionData,
       collectionEntityClass
     );
@@ -77,7 +78,7 @@ export function SchemaBundleViewer({
       </CardHeader>
       <CardBody>
         <WorkSeriesSchemaBundleTabGroup
-          collectionData={currentState}
+          collectionData={masterList}
           referencedItemData={referencedItemData}
           collectionEntityClass={collectionEntityClass}
           referencedEntityClass={EntityClassMap.workProjectSeriesSchema}

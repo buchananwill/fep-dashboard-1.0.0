@@ -8,7 +8,6 @@ import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
 import { cloneFunctionWrapper } from '@/components/react-flow/organization/organizationCallbacks';
 import OrganizationDetailsContent from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { DtoControllerArrayWithIdList } from 'dto-stores';
 
 import {
   NodeModalContentComponent,
@@ -18,6 +17,7 @@ import {
 } from 'react-d3-force-graph';
 import { AllocationTotal } from '@/components/react-flow/organization/allocationTotal';
 import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNodeLazyReferences';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children
@@ -49,7 +49,7 @@ export function ClassHierarchyLayoutFlowWithForces({
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
     >
-      <DtoControllerArrayWithIdList
+      <EditAddDeleteDtoControllerArray
         dtoList={allocationTotalList}
         entityClass={'allocationTotal'}
       />

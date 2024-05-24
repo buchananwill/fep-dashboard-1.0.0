@@ -1,5 +1,8 @@
 import { HasId } from '@/api/main';
-import { useDtoStoreDispatch } from 'dto-stores';
+import {
+  useDtoStoreDispatch,
+  useDtoStoreDispatchAndListener
+} from 'dto-stores';
 import { Input, InputProps } from '@nextui-org/input';
 
 interface DtoStoreStringValueEditProps<T extends HasId>
@@ -19,11 +22,8 @@ export function DtoStoreStringValueEdit<T extends HasId>({
   listenerKey,
   ...inputProps
 }: DtoStoreStringValueEditProps<T>) {
-  let { currentState, dispatchWithoutControl } = useDtoStoreDispatch<T>(
-    entity.id,
-    entityType,
-    listenerKey
-  );
+  let { currentState, dispatchWithoutControl } =
+    useDtoStoreDispatchAndListener<T>(entity.id, entityType, listenerKey);
 
   if (valueAccessor === undefined) {
     console.error('No value accessor supplied');

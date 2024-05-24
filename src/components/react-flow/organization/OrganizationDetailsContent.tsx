@@ -16,7 +16,11 @@ import {
 } from 'react-d3-force-graph';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import { ReferencedEntityUiWrapper } from 'dto-stores';
+import {
+  DtoUiComponentLazy,
+  DtoUiComponentProps,
+  ReferencedEntityUiWrapper
+} from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -45,29 +49,10 @@ export default function OrganizationDetailsContent({
       ObjectPlaceholder as OrganizationDto
     );
 
-  const { currentState: bundleAssignment } =
-    useReferencedEntity<WorkSeriesBundleAssignmentDto>(
-      currentState?.workSeriesBundleAssignmentId,
-      EntityClassMap.workSeriesBundleAssignment,
-      listenerKey
-    );
-
-  const schemaComponents = useMemo(() => {
-    return bundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds?.map(
-      (id) => (
-        <ReferencedEntityUiWrapper<WorkProjectSeriesSchemaDto>
-          key={id}
-          entityClass={EntityClassMap.workProjectSeriesSchema}
-          id={id}
-          renderAs={LessonDeliveryModel}
-          whileLoading={whileLoading}
-        />
-      )
-    );
-  }, [bundleAssignment]);
-
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
+
+  const { workSeriesBundleAssignmentId } = currentState;
 
   return (
     <>
@@ -83,7 +68,16 @@ export default function OrganizationDetailsContent({
           {currentState.name}
         </FocusToEdit>
       </ModalHeader>
-      <ModalBody>{schemaComponents && schemaComponents}</ModalBody>
+      <ModalBody>
+        {workSeriesBundleAssignmentId && (
+          <ReferencedEntityUiWrapper
+            renderAs={SchemaBundleDetails}
+            id={workSeriesBundleAssignmentId}
+            entityClass={EntityClassMap.workSeriesBundleAssignment}
+            whileLoading={() => null}
+          />
+        )}
+      </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>
           Close
@@ -100,4 +94,29 @@ export default function OrganizationDetailsContent({
       </ModalFooter>
     </>
   );
+}
+
+function SchemaBundleDetails({
+  entity: bundleAssignment
+}: DtoUiComponentProps<WorkSeriesBundleAssignmentDto>) {
+  // const { currentState: bundleAssignment } =
+  //   useReferencedEntity<WorkSeriesBundleAssignmentDto>(
+  //     workSeriesBundleAssignmentId,
+  //     EntityClassMap.workSeriesBundleAssignment,
+  //     listenerKey
+  //   );
+
+  return useMemo(() => {
+    return bundleAssignment.workSeriesSchemaBundle?.workProjectSeriesSchemaIds?.map(
+      (id) => (
+        <ReferencedEntityUiWrapper<WorkProjectSeriesSchemaDto>
+          key={id}
+          entityClass={EntityClassMap.workProjectSeriesSchema}
+          id={id}
+          renderAs={LessonDeliveryModel}
+          whileLoading={whileLoading}
+        />
+      )
+    );
+  }, [bundleAssignment]);
 }

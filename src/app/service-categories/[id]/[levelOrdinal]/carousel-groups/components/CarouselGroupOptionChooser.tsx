@@ -1,19 +1,26 @@
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
-import { DtoComponentWrapper, useDtoStoreDispatch } from 'dto-stores';
+import {
+  DtoComponentWrapper,
+  useDtoStoreDispatch,
+  useDtoStoreDispatchAndListener
+} from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
-import { WorkProjectSeriesSchemaDto } from '@/app/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
-import { CarouselGroupDto } from '@/app/api/dtos/CarouselGroupDtoSchema';
+
 import { TransientIdOffset } from '@/api/main';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
-import { CarouselLeanDto } from '@/app/api/dtos/CarouselLeanDtoSchema';
+
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { useDtoStoreDelete } from 'dto-stores/dist/hooks/useDtoStoreDelete';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
+import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { CarouselLeanDto } from '@/api/dtos/CarouselLeanDtoSchema';
 
 function produceCarouselGroupOptionsEdit(
   updatedKeys: string[],
@@ -33,7 +40,7 @@ export default function CarouselGroupOptionChooser({
   referencedItemContextKeys
 }: CollectionItemChooserProps) {
   const { currentState, dispatchWithoutControl } =
-    useDtoStoreDispatch<CarouselGroupDto>(
+    useDtoStoreDispatchAndListener<CarouselGroupDto>(
       collectionId,
       entityClass,
       'itemChooser'

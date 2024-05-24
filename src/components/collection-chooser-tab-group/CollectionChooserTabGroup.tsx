@@ -1,17 +1,17 @@
 'use client';
 
-import {
-  DtoControllerArray,
-  DtoGroupMapController,
-  IdListController,
-  TrackChangesController
-} from 'dto-stores';
 import { FC, useMemo } from 'react';
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
 import { HasId } from '@/api/main';
 import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
-import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
+import {
+  DataMonitoringIdListController,
+  DtoControllerArray,
+  EditAddDeleteController,
+  EditAddDeleteDtoControllerArray,
+  MasterMapController
+} from 'dto-stores';
 
 export interface CollectionChooserTabGroupProps<T, U> {
   collectionData: T[];
@@ -22,6 +22,7 @@ export interface CollectionChooserTabGroupProps<T, U> {
   updateServerAction?: (entityList: T[]) => Promise<any>;
   deleteServerAction?: (idList: any[]) => Promise<any>;
   postServerAction?: (entityList: T[]) => Promise<any>;
+  getServerAction?: (idList: U[]) => Promise<T[]>;
 }
 
 export default function CollectionChooserTabGroup<
@@ -43,25 +44,26 @@ export default function CollectionChooserTabGroup<
     return { itemContextKeys, itemIdList };
   }, [referencedItemData, referencedEntityClass]);
 
+  console.log(collectionData);
+
   return (
     <>
-      <DtoControllerArrayChangesTracker
-        dtoList={collectionData}
+      <DataMonitoringIdListController
+        entityList={collectionData}
+        entityClass={collectionEntityClass}
+      />
+      <EditAddDeleteController
         entityClass={collectionEntityClass}
         {...serverActions}
       />
-      <IdListController
-        idList={itemIdList}
-        entityClass={referencedEntityClass}
-      />
-      <TrackChangesController
-        idList={itemIdList}
-        entityClass={referencedEntityClass}
-      />
-      <DtoGroupMapController entityClass={collectionEntityClass} />
+      <MasterMapController entityClass={collectionEntityClass} />
       <DtoControllerArray
-        dtoList={referencedItemData}
+        entityClass={collectionEntityClass}
+        dtoList={collectionData}
+      />
+      <EditAddDeleteDtoControllerArray
         entityClass={referencedEntityClass}
+        dtoList={referencedItemData}
       />
       <InnerWrapper
         collectionItemChooser={ItemChooser}

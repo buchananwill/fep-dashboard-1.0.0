@@ -1,7 +1,7 @@
 import { Time } from '@internationalized/date';
 import { Dispatch, SetStateAction } from 'react';
-import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
-import { TimeSpanDto } from '@/app/api/dtos/TimeSpanDtoSchema';
+import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { TimeSpanDto } from '@/api/dtos/TimeSpanDtoSchema';
 import { TransientIdOffset } from '@/api/main';
 import { TimeInput } from '@nextui-org/date-input';
 
@@ -18,7 +18,7 @@ export function TimeInputCycleSubspan({
     <TimeInput
       hourCycle={24}
       size={'sm'}
-      aria-label={`${entity.description} ${boundary} time`}
+      aria-label={`${entity.name} ${boundary} time`}
       label={boundary}
       value={timeFromZTimeOnly(
         boundary === 'Start'

@@ -2,8 +2,8 @@ import {
   deleteIdList,
   getDtoListByExampleList,
   putList
-} from '@/app/api/generated-actions/KnowledgeLevel';
-import { getOne } from '@/app/api/generated-actions/ServiceCategory';
+} from '@/api/generated-actions/KnowledgeLevel';
+import { getOne } from '@/api/generated-actions/ServiceCategory';
 import { MissingData } from '@/components/generic/MissingData';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
@@ -26,7 +26,7 @@ export default async function Page({
       <ResourceContextProvider pathSegment={id}>
         <DtoControllerArrayChangesTracker
           dtoList={data}
-          entityName={EntityClassMap.knowledgeLevel}
+          entityClass={EntityClassMap.knowledgeLevel}
           updateServerAction={putList}
           deleteServerAction={deleteIdList}
         />

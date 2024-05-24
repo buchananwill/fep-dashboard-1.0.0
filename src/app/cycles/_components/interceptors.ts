@@ -1,6 +1,7 @@
 'use server';
-import { CycleSubspanDto } from '@/app/api/dtos/CycleSubspanDtoSchema';
-import { postList, putList } from '@/app/api/generated-actions/CycleSubspan';
+
+import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { postList, putList } from '@/api/generated-actions/CycleSubspan';
 
 export const interceptPut = async (dtoList: CycleSubspanDto[]) => {
   return await putList(dtoList);

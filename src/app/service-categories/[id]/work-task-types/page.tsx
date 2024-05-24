@@ -1,13 +1,12 @@
 import IgmTableWrapper from '@/app/service-categories/[id]/work-task-types/IgmTableWrapper';
 import { Card } from '@nextui-org/card';
 import { submitLessonTypeMatrix } from '@/app/service-categories/[id]/work-task-types/submit-lesson-type-matrix';
-import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/app/api/generated-actions/KnowledgeLevel';
-import { getDtoListByExampleList as getKnowledgeDomainsByExample } from '@/app/api/generated-actions/KnowledgeDomain';
+import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
+import { getDtoListByExampleList as getKnowledgeDomainsByExample } from '@/api/generated-actions/KnowledgeDomain';
 import data from '@/utils/init-json-data/service-categories/workTaskTypesIgm.json';
 import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categories/getWorkTaskTypeTableLookUp';
 import { createRows } from '@/components/generic/createRows';
 import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
-import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 
 const rowEntityName = 'Lesson Type';
 export default async function Page({
@@ -42,7 +41,7 @@ export default async function Page({
     <div className={'h-screen p-8'}>
       <Card fullWidth={false} className={'max-w-3xl'}>
         <IgmTableWrapper
-          rowEntityName={rowEntityName}
+          rowEntityClass={rowEntityName}
           rows={kDomains}
           columns={kLevels}
           tableRows={tableRows}

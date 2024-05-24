@@ -1,5 +1,8 @@
 import { HasId } from '@/api/main';
-import { useDtoStoreDispatch } from 'dto-stores';
+import {
+  useDtoStoreDispatch,
+  useDtoStoreDispatchAndListener
+} from 'dto-stores';
 import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
 interface DtoStoreNumberInputProps<T extends HasId, U extends string | number>
@@ -25,11 +28,8 @@ export function DtoStoreNumberInput<
   numberAccessor,
   className
 }: DtoStoreNumberInputProps<T, U>) {
-  let { currentState, dispatchWithoutControl } = useDtoStoreDispatch<T>(
-    entityId,
-    entityType,
-    listenerKey
-  );
+  let { currentState, dispatchWithoutControl } =
+    useDtoStoreDispatchAndListener<T>(entityId, entityType, listenerKey);
 
   const update = (e: ChangeEvent<HTMLInputElement>) => {
     if (dispatchWithoutControl === undefined) {

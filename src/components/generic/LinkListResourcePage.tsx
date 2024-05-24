@@ -4,19 +4,19 @@ import { Card, CardBody } from '@nextui-org/card';
 import { ClientLinkComponentWrapper } from '@/components/generic/ClientLinkComponentWrapper';
 
 export function LinkListResourcePage<T extends HasId>({
-  entityName,
+  entityClass,
   dtoList
 }: {
-  entityName: string;
+  entityClass: string;
   dtoList: T[];
 }) {
   return (
     <>
-      <DtoControllerArray dtoList={dtoList} entityName={entityName} />
+      <DtoControllerArray dtoList={dtoList} entityClass={entityClass} />
       <div className={'p-4'}>
         <Card>
           <CardBody className={'flex flex-col gap-2'}>
-            <ClientLinkComponentWrapper entityName={entityName} />
+            <ClientLinkComponentWrapper entityClass={entityClass} />
           </CardBody>
         </Card>
       </div>

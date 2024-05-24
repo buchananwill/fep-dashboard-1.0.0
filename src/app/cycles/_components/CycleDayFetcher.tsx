@@ -1,7 +1,8 @@
 import { CycleDay } from '@/app/cycles/_functions/groupCycleSubspansByDay';
-import { CycleDto } from '@/app/api/dtos/CycleDtoSchema';
-import { getDtoListByExampleList } from '@/app/api/generated-actions/CycleSubspan';
+
 import CycleDayViewer from '@/app/cycles/_components/CycleDayViewer';
+import { CycleDto } from '@/api/dtos/CycleDtoSchema';
+import { getDtoListByExampleList } from '@/api/generated-actions/CycleSubspan';
 
 export interface CycleDayFetcherProps {
   cycleDay: CycleDay;

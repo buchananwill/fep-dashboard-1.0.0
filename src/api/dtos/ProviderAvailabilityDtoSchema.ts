@@ -1,5 +1,5 @@
-import { CycleSubspanDtoSchema } from '../../../../../fep-dashboard-1.0.0/src/app/api/dtos/CycleSubspanDtoSchema';
 import { z } from 'zod';
+import { CycleSubspanDtoSchema } from '@/api/dtos/CycleSubspanDtoSchema';
 export const ProviderAvailabilityDtoSchema = z.object({
   providerRoleId: z.number(),
   cycleSubspanDto: CycleSubspanDtoSchema,

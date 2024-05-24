@@ -1,6 +1,6 @@
 'use client';
 import { DtoComponentWrapper, DtoUiComponentProps } from 'dto-stores';
-import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
+import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {

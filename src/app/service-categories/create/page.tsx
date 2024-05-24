@@ -1,17 +1,18 @@
 'use client';
-import DtoIdListChangesTracker from '@/components/generic/DtoChangesTracker';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
 import data from '@/utils/init-json-data/service-categories/ServiceCategory.json';
 import { TransientIdOffset } from '@/api/main';
 import { Button } from '@nextui-org/button';
-import { useSelectiveContextGlobalReadAll } from 'selective-context';
+import { useGlobalReadAny } from 'selective-context';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
-import { ServiceCategoryDto } from '@/app/api/dtos/ServiceCategoryDtoSchema';
-import { postOne } from '@/app/api/generated-actions/ServiceCategory';
+import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { postOne } from '@/api/generated-actions/ServiceCategory';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+import { EditAddDeleteController } from 'dto-stores';
+
 const entityName = EntityClassMap.serviceCategory;
 
 const handleSubmit = async (
@@ -35,13 +36,12 @@ export default function Page() {
 
   template.id = TransientIdOffset;
 
-  const selectiveContextReadAll =
-    useSelectiveContextGlobalReadAll<ServiceCategoryDto>();
+  const selectiveContextReadAll = useGlobalReadAny<ServiceCategoryDto>();
 
   return (
     <>
-      <DtoIdListChangesTracker dtoList={data} entityName={entityName} />
-      <DtoController dto={data[0]} entityName={entityName} />
+      <EditAddDeleteController entityClass={entityName} />
+      <DtoController dto={data[0]} entityClass={entityName} />
       <ServiceCategoryCard id={template.id} />
       <Button
         onPress={() => {

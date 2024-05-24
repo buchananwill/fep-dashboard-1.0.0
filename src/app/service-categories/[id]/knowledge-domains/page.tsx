@@ -2,12 +2,12 @@ import {
   deleteIdList,
   getDtoListByExampleList,
   putList
-} from '@/app/api/generated-actions/KnowledgeDomain';
+} from '@/api/generated-actions/KnowledgeDomain';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-domains/components/KnowledgeDomainTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
-import { getOne } from '@/app/api/generated-actions/ServiceCategory';
+import { getOne } from '@/api/generated-actions/ServiceCategory';
 
 export default async function Page({
   params: { id }
@@ -25,7 +25,7 @@ export default async function Page({
       <ResourceContextProvider pathSegment={id}>
         <DtoControllerArrayChangesTracker
           dtoList={data}
-          entityName={EntityClassMap.knowledgeDomain}
+          entityClass={EntityClassMap.knowledgeDomain}
           updateServerAction={putList}
           deleteServerAction={deleteIdList}
         />

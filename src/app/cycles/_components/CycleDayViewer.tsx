@@ -9,16 +9,12 @@ import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
 import { CycleDayFetcherProps } from '@/app/cycles/_components/CycleDayFetcher';
 
 import { TransientIdOffset } from '@/api/main';
-import {
-  ArrayPlaceholder,
-  useSelectiveContextGlobalController,
-  useSelectiveContextGlobalDispatch
-} from 'selective-context';
+import { useGlobalController, useGlobalDispatch } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { templateCycleSubspan } from '@/app/cycles/_components/CycleViewer';
-import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { DtoControllerArray } from 'dto-stores';
 
 export interface CycleDayViewerProps extends CycleDayFetcherProps {
   cycleSubspanDtos: CycleSubspanDto[];
@@ -32,21 +28,15 @@ export default function CycleDayViewer({
 }: CycleDayViewerProps) {
   const [pending, startTransition] = useTransition();
 
-  const { currentState, dispatch } = useSelectiveContextGlobalController<
-    CycleSubspanDto[]
-  >({
+  const { currentState, dispatch } = useGlobalController<CycleSubspanDto[]>({
     contextKey: `${cycleSubspan}:day:${cycleDay.zeroIndexedCycleDay}`,
     listenerKey: 'controller',
     initialValue: cycleSubspanDtos
   });
 
-  const { dispatchWithoutControl } = useSelectiveContextGlobalDispatch<
-    number[]
-  >({
-    contextKey: `${cycleSubspan}:added`,
-    listenerKey: `day:${cycleDay.zeroIndexedCycleDay}`,
-    initialValue: ArrayPlaceholder
-  });
+  const { dispatchWithoutListen } = useGlobalDispatch<number[]>(
+    `${cycleSubspan}:added`
+  );
 
   console.log(currentState);
 
@@ -61,14 +51,13 @@ export default function CycleDayViewer({
     };
     console.log(newCycleSubspan);
     dispatch((csList) => [...csList, newCycleSubspan]);
-    dispatchWithoutControl((list) => [...list, transientId]);
+    dispatchWithoutListen((list) => [...list, transientId]);
   };
 
   return (
     <Card classNames={{ base: 'w-fit', body: 'w-fit' }}>
-      {currentState.map((entity) => (
-        <DtoController dto={entity} entityName={cycleSubspan} key={entity.id} />
-      ))}
+      <DtoControllerArray entityClass={cycleSubspan} dtoList={currentState} />
+
       <CardHeader className={'text-center justify-center gap-2'}>
         {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
         <Button
