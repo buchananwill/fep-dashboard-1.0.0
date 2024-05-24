@@ -2,7 +2,6 @@
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import {
   DtoComponentWrapper,
-  useDtoStoreDispatch,
   useDtoStoreDispatchAndListener
 } from 'dto-stores';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
@@ -17,7 +16,7 @@ import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[level
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
-import { useDtoStoreDelete } from 'dto-stores/dist/hooks/useDtoStoreDelete';
+import { useDtoStoreDelete } from 'dto-stores';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { isNotUndefined } from '@/api/main';
 

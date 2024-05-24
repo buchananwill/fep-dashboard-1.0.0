@@ -2,7 +2,6 @@
 
 import { Card, CardBody } from '@nextui-org/card';
 import {
-  EditControllerProps,
   PrimaryDtoControllerArrayProps,
   UnsavedChangesProps
 } from 'dto-stores/dist/types';
@@ -10,7 +9,6 @@ import { HasIdClass } from '@/api/main';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import {
   EditAddDeleteDtoControllerArray,
-  EditController,
   MasterChangesController
 } from 'dto-stores';
 
@@ -45,12 +43,6 @@ function UnsavedChangesToast({
       )}
     </div>
   );
-}
-
-export default function DtoIdListChangesTracker({
-  ...props
-}: EditControllerProps) {
-  return <EditController {...props} />;
 }
 
 export function DtoControllerArrayChangesTracker<

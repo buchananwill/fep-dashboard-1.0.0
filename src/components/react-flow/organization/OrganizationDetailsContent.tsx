@@ -16,16 +16,11 @@ import {
 } from 'react-d3-force-graph';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import {
-  DtoUiComponentLazy,
-  DtoUiComponentProps,
-  ReferencedEntityUiWrapper
-} from 'dto-stores';
+import { DtoUiComponentProps, LazyDtoComponentWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
-import { useReferencedEntity } from 'dto-stores/dist/hooks/useReferencedEntity';
 
 const listenerKey = 'details-content';
 
@@ -70,7 +65,7 @@ export default function OrganizationDetailsContent({
       </ModalHeader>
       <ModalBody>
         {workSeriesBundleAssignmentId && (
-          <ReferencedEntityUiWrapper
+          <LazyDtoComponentWrapper
             renderAs={SchemaBundleDetails}
             id={workSeriesBundleAssignmentId}
             entityClass={EntityClassMap.workSeriesBundleAssignment}
@@ -109,7 +104,7 @@ function SchemaBundleDetails({
   return useMemo(() => {
     return bundleAssignment.workSeriesSchemaBundle?.workProjectSeriesSchemaIds?.map(
       (id) => (
-        <ReferencedEntityUiWrapper<WorkProjectSeriesSchemaDto>
+        <LazyDtoComponentWrapper<WorkProjectSeriesSchemaDto>
           key={id}
           entityClass={EntityClassMap.workProjectSeriesSchema}
           id={id}

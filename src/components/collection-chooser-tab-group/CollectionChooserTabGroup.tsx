@@ -6,7 +6,6 @@ import { HasId } from '@/api/main';
 import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
 import {
-  DataMonitoringIdListController,
   DtoControllerArray,
   EditAddDeleteController,
   EditAddDeleteDtoControllerArray,
@@ -48,10 +47,6 @@ export default function CollectionChooserTabGroup<
 
   return (
     <>
-      <DataMonitoringIdListController
-        entityList={collectionData}
-        entityClass={collectionEntityClass}
-      />
       <EditAddDeleteController
         entityClass={collectionEntityClass}
         {...serverActions}

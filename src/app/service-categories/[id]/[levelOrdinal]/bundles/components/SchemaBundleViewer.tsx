@@ -6,8 +6,6 @@ import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[level
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Button } from '@nextui-org/button';
 import { Dispatch, SetStateAction } from 'react';
-
-import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/useMasterListController';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';

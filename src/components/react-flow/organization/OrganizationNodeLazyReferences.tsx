@@ -2,7 +2,7 @@ import { Edge, NodeProps, useEdges } from 'reactflow';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { BaseNode, BaseNodeMemo } from '@/react-flow/components/nodes/BaseNode';
+import { BaseNode } from '@/react-flow/components/nodes/BaseNode';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { Chip } from '@nextui-org/chip';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -14,10 +14,11 @@ import {
   useGlobalListenerGroup
 } from 'selective-context';
 import { isNumber } from 'lodash';
-import { useReferencedEntity } from 'dto-stores/dist/hooks/useReferencedEntity';
+import {
+  useReferencedEntity,
+  useReferencedEntityListListener
+} from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { useReferencedEntityListListener } from 'dto-stores';
 
 export interface AllocationSummary {
   label: string;
@@ -89,14 +90,11 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     );
 
   useEffect(() => {
-    // const setLocalSum = () => {
     let sum = 0;
-    // await getDtoListByBodyList(seriesSchemaIdContextKeys).then((r) => {
+
     sum = sumAllSchemas([...schemaMap.values()]);
     setLocalTotal(sum);
     dispatchWithoutListen(sum);
-    // };
-    // setLocalSum();
   }, [setLocalTotal, schemaMap, dispatchWithoutListen]);
 
   const inheritedTotal = useMemo(() => {

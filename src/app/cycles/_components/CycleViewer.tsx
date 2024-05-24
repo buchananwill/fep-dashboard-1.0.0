@@ -4,9 +4,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { TransientIdOffset } from '@/api/main';
 import CycleDayFetcher from '@/app/cycles/_components/CycleDayFetcher';
 import { ArrayPlaceholder } from 'selective-context';
-import DtoIdListChangesTracker, {
-  DtoControllerArrayChangesTracker
-} from '@/components/generic/DtoChangesTracker';
+import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 import {
   interceptPost,
   interceptPut
