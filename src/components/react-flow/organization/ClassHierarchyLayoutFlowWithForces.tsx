@@ -1,12 +1,15 @@
 'use client';
 
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
 import ReactFlow, { Background, BackgroundVariant } from 'reactflow';
 
 import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
-import { cloneFunctionWrapper } from '@/components/react-flow/organization/organizationCallbacks';
+import {
+  cloneFunctionWrapper,
+  organizationGraphUpdater
+} from '@/components/react-flow/organization/organizationCallbacks';
 import OrganizationDetailsContent from '@/components/react-flow/organization/OrganizationDetailsContent';
 
 import {
@@ -17,7 +20,13 @@ import {
 } from 'react-d3-force-graph';
 import { AllocationTotal } from '@/components/react-flow/organization/allocationTotal';
 import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNodeLazyReferences';
-import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import {
+  EditAddDeleteDtoControllerArray,
+  useEffectSyncDeepEqualWithDispatch
+} from 'dto-stores';
+import { useGlobalDispatch } from 'selective-context';
+import { getNameSpacedKey } from 'dto-stores/dist/functions/getNameSpacedKey';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children
@@ -25,18 +34,31 @@ export function ClassHierarchyLayoutFlowWithForces({
   // 4. Call the hook to set up the layout with forces
   const { flowOverlayProps, reactFlowProps } = useLayoutFlowWithForces();
 
-  console.log(cloneFunctionWrapper);
-
   // Set up the available edit hooks.
-  useNodeEditing(cloneFunctionWrapper);
+  useNodeEditing(cloneFunctionWrapper, organizationGraphUpdater);
   useAllEdits();
 
-  const allocationTotalList: AllocationTotal[] = reactFlowProps.nodes.map(
-    (n) => ({
-      id: n.data.id,
-      amount: 0
-    })
+  const { nodes } = reactFlowProps;
+
+  const allocationTotalList: AllocationTotal[] = useMemo(
+    () =>
+      nodes.map((n) => ({
+        id: n.data.id,
+        amount: 0
+      })),
+    [nodes]
   );
+
+  const { dispatchWithoutListen } = useGlobalDispatch(
+    getNameSpacedKey('allocationTotal', KEY_TYPES.MASTER_LIST)
+  );
+
+  useEffectSyncDeepEqualWithDispatch(
+    allocationTotalList,
+    dispatchWithoutListen
+  );
+
+  console.log(allocationTotalList);
 
   // 5. Call the hook to define the modal content
   useModalContent(memoizedContentComponent);

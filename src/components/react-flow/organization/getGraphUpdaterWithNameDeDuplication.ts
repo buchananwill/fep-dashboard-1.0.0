@@ -18,8 +18,8 @@ export function getGraphUpdaterWithNameDeDuplication<
   return (request: GraphDtoPutRequestBody<T>) => {
     const { graphDto } = request;
     const { nodes } = graphDto;
-    const organizationDtos = nodes.map((dn) => dn.data);
-    const dtosWithNamesDeDuplicated = deDuplicateNames(organizationDtos);
+    const hasNameDtos = nodes.map((dn) => dn.data);
+    const dtosWithNamesDeDuplicated = deDuplicateNames(hasNameDtos);
     const nodesWithDataNamesDeDuplicated = nodes.map((dn, index) => {
       const replacementData = dtosWithNamesDeDuplicated[index];
       if (replacementData.id !== dn.id)

@@ -74,13 +74,6 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     );
 
   const [localTotal, setLocalTotal] = useState(0);
-  const seriesSchemaIdContextKeys = useMemo(
-    () =>
-      schemaBundle?.workProjectSeriesSchemaIds?.map(
-        (id) => `${EntityClassMap.workProjectSeriesSchema}:${id}`
-      ) ?? ArrayPlaceholder,
-    [schemaBundle]
-  );
 
   const { currentState: schemaMap } =
     useReferencedEntityListListener<WorkProjectSeriesSchemaDto>(

@@ -5,8 +5,6 @@ import CollectionChooserTabGroup, {
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import BundleItemChooser from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemChooser';
-import { useContext } from 'react';
-import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 
 export default function WorkSeriesSchemaBundleTabGroup(
   props: Omit<
@@ -17,12 +15,6 @@ export default function WorkSeriesSchemaBundleTabGroup(
     'collectionItemChooser'
   >
 ) {
-  const mutableRefObject = useContext(
-    SelectiveContextGlobal.latestValueRefContext
-  );
-
-  console.log(mutableRefObject);
-
   return (
     <CollectionChooserTabGroup
       {...props}
