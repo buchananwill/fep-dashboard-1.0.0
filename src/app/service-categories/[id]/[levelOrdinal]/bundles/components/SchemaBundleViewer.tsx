@@ -5,7 +5,7 @@ import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundle
 import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/WorkSeriesSchemaBundleTabGroup';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Button } from '@nextui-org/button';
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -15,20 +15,22 @@ import {
   putList
 } from '@/api/generated-actions/WorkSeriesSchemaBundle';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { useGlobalDispatch } from 'selective-context';
-import { getNameSpacedKey } from 'dto-stores/dist/functions/getNameSpacedKey';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { useMasterListInteraction } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListInteraction';
+
+export type DispatchList<T> = React.Dispatch<React.SetStateAction<T[]>>;
 
 const handleAddBundle = (
-  dispatch: Dispatch<SetStateAction<WorkSeriesSchemaBundleDto[]>>,
-  level: KnowledgeLevelDto,
-  nextId: string,
-  dispatchWithoutControl: Dispatch<SetStateAction<string[]>>
+  dispatchMasterList: React.Dispatch<
+    React.SetStateAction<WorkSeriesSchemaBundleDto[]>
+  >,
+  dispatchAddedList: React.Dispatch<React.SetStateAction<string[]>>,
+  level: KnowledgeLevelDto
 ) => {
   console.log('making new bundle!');
   let newBundle: WorkSeriesSchemaBundleDto;
+  const nextId = crypto.randomUUID();
 
-  dispatch((list) => {
+  dispatchMasterList((list) => {
     newBundle = {
       knowledgeLevel: level,
       id: nextId,
@@ -39,7 +41,7 @@ const handleAddBundle = (
     return [...list, newBundle];
   });
 
-  dispatchWithoutControl((list) => [...list, nextId]);
+  dispatchAddedList((list) => [...list, nextId]);
 };
 
 const collectionEntityClass = EntityClassMap.workSeriesSchemaBundle;
@@ -53,21 +55,18 @@ export function SchemaBundleViewer({
   collectionData: WorkSeriesSchemaBundleDto[];
   referencedItemData: WorkProjectSeriesSchemaDto[];
 }) {
-  const { dispatchWithoutListen: dispatch } = useGlobalDispatch(
-    getNameSpacedKey(collectionEntityClass, KEY_TYPES.MASTER_LIST)
+  const curriedCallback = useCallback(
+    (
+      dispatchMasterList: DispatchList<any>,
+      dispatchAddedList: DispatchList<any>
+    ) => handleAddBundle(dispatchMasterList, dispatchAddedList, knowledgeLevel),
+    [knowledgeLevel]
   );
-  const { dispatchWithoutListen } = useGlobalDispatch(
-    getNameSpacedKey(collectionEntityClass, KEY_TYPES.ADDED)
-  );
-  const handleOnPress = useCallback(
-    () =>
-      handleAddBundle(
-        dispatch,
-        knowledgeLevel,
-        crypto.randomUUID(),
-        dispatchWithoutListen
-      ),
-    [dispatch, knowledgeLevel, dispatchWithoutListen]
+
+  const handleOnPress = useMasterListInteraction(
+    collectionEntityClass,
+    (dispatch, dispatchWithoutListen) =>
+      curriedCallback(dispatch, dispatchWithoutListen)
   );
 
   return (

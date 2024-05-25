@@ -1,22 +1,18 @@
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
 import {
   DtoComponentWrapper,
-  useDtoStoreDispatch,
+  useDtoStoreDelete,
   useDtoStoreDispatchAndListener
 } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
-
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
-
 import { TransientIdOffset } from '@/api/main';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
-
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
-import { useDtoStoreDelete } from 'dto-stores/dist/hooks/useDtoStoreDelete';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';

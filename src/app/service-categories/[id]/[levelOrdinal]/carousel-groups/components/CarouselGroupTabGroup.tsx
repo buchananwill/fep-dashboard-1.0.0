@@ -6,22 +6,21 @@ import CarouselGroupOptionChooser from '@/app/service-categories/[id]/[levelOrdi
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 import { Button } from '@nextui-org/button';
-import React, { Dispatch, SetStateAction } from 'react';
-import { useMasterListController } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/useMasterListController';
+import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import {
-  DataFetchingEditDtoControllerArray,
-  EditAddDeleteDtoControllerArray
-} from 'dto-stores';
-import { ArrayPlaceholder } from 'selective-context';
-import { EntityClassMap } from '@/api/entity-class-map';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { DispatchList } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/SchemaBundleViewer';
+import { useMasterListInteraction } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListInteraction';
+import { ArrayPlaceholder, useGlobalListener } from 'selective-context';
+import { getNameSpacedKey } from 'dto-stores/dist/functions/getNameSpacedKey';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 function handleAddGroup(
   dispatch: Dispatch<SetStateAction<CarouselGroupDto[]>>,
-  level: KnowledgeLevelDto,
-  dispatchWithoutControl: Dispatch<SetStateAction<string[]>>
+  dispatchWithoutControl: Dispatch<SetStateAction<string[]>>,
+  level: KnowledgeLevelDto
 ) {
   let newCarousel: CarouselGroupDto;
   dispatch((list) => {
@@ -47,25 +46,34 @@ export default function CarouselGroupTabGroup({
 > & { knowledgeLevel: KnowledgeLevelDto }) {
   const collectionEntityClass = otherProps.collectionEntityClass;
 
-  const {
-    currentState: collectionDataState,
-    dispatch,
-    dispatchWithoutControl
-  } = useMasterListController<CarouselGroupDto, string>(
-    collectionData,
-    collectionEntityClass
+  const curriedCallback = useCallback(
+    (
+      dispatchMasterList: DispatchList<any>,
+      dispatchAddedList: DispatchList<any>
+    ) => handleAddGroup(dispatchMasterList, dispatchAddedList, knowledgeLevel),
+    [knowledgeLevel]
   );
+
+  const handleOnPress = useMasterListInteraction(
+    collectionEntityClass,
+    (dispatch, dispatchWithoutListen) =>
+      curriedCallback(dispatch, dispatchWithoutListen)
+  );
+
+  const { currentState: collectionDataState } = useGlobalListener({
+    contextKey: getNameSpacedKey(collectionEntityClass, KEY_TYPES.MASTER_LIST),
+    listenerKey: 'carousel-tab-group',
+    initialValue: ArrayPlaceholder
+  });
 
   return (
     <Card className={'w-fit'}>
+      <EditAddDeleteDtoControllerArray
+        entityClass={collectionEntityClass}
+        dtoList={collectionData}
+      />
       <CardHeader className={'flex'}>
-        <Button
-          onPress={() =>
-            handleAddGroup(dispatch, knowledgeLevel, dispatchWithoutControl)
-          }
-        >
-          Add Carousel Group
-        </Button>
+        <Button onPress={handleOnPress}>Add Carousel Group</Button>
         <div className={'grow text-center'}>
           Carousel Groups Year {knowledgeLevel.levelOrdinal}{' '}
         </div>

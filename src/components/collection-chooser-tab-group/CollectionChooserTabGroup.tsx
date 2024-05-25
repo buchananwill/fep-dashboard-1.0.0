@@ -28,12 +28,10 @@ export default function CollectionChooserTabGroup<
   T extends HasId & HasNameDto,
   U extends HasId
 >({
-  collectionData,
   referencedItemData,
   referencedEntityClass,
   collectionEntityClass,
-  collectionItemChooser: ItemChooser,
-  ...serverActions
+  collectionItemChooser: ItemChooser
 }: CollectionChooserTabGroupProps<T, U>) {
   const { itemContextKeys, itemIdList } = useMemo(() => {
     const itemIdList = referencedItemData.map((item) => `${item.id}`);
