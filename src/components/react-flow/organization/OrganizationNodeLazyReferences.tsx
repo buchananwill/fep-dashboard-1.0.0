@@ -19,6 +19,7 @@ import {
   useReferencedEntityListListener
 } from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 
 export interface AllocationSummary {
   label: string;
@@ -64,27 +65,26 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     initialValue: initialTotalMap
   });
 
-  const { workSeriesBundleAssignmentId } = data;
-  const { currentState: schemaBundleAssignment } =
-    useReferencedEntity<WorkSeriesBundleAssignmentDto>(
-      workSeriesBundleAssignmentId,
-      EntityClassMap.workSeriesBundleAssignment,
+  const { workSeriesBundleAssignment } = data;
+  const { currentState: schemaBundle } =
+    useReferencedEntity<WorkSeriesSchemaBundleDto>(
+      workSeriesBundleAssignment.workSeriesSchemaBundleId,
+      EntityClassMap.workSeriesSchemaBundle,
       listenerKey
     );
 
   const [localTotal, setLocalTotal] = useState(0);
   const seriesSchemaIdContextKeys = useMemo(
     () =>
-      schemaBundleAssignment?.workSeriesSchemaBundle?.workProjectSeriesSchemaIds?.map(
+      schemaBundle?.workProjectSeriesSchemaIds?.map(
         (id) => `${EntityClassMap.workProjectSeriesSchema}:${id}`
       ) ?? ArrayPlaceholder,
-    [schemaBundleAssignment]
+    [schemaBundle]
   );
 
   const { currentState: schemaMap } =
     useReferencedEntityListListener<WorkProjectSeriesSchemaDto>(
-      schemaBundleAssignment?.workSeriesSchemaBundle
-        ?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
+      schemaBundle?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
       EntityClassMap.workProjectSeriesSchema,
       listenerKey
     );

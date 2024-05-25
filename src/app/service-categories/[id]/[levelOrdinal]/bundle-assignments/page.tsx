@@ -11,7 +11,7 @@ import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrap
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import { getDtoListByBodyList } from '@/api/generated-actions/WorkSeriesBundleAssignment';
+import { getDtoListByBodyList } from '@/api/generated-actions/WorkSeriesSchemaBundle';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 import { ArrayPlaceholder } from 'selective-context';
@@ -19,7 +19,10 @@ import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[level
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getDtoListByExampleList } from '@/api/generated-actions/OrganizationType';
-import { DataFetchingEditDtoControllerArray } from 'dto-stores';
+import {
+  DataFetchingEditDtoControllerArray,
+  EditAddDeleteDtoControllerArray
+} from 'dto-stores';
 
 export default async function Page({
   params: { levelOrdinal }
@@ -45,13 +48,6 @@ export default async function Page({
       dataNodes.find((n) => l.source === n.id)
   );
 
-  const bundleAssignmentIdList = dataNodes.map(
-    (d) => d.data.workSeriesBundleAssignmentId
-  );
-  const bundleAssignments = await getDtoListByBodyList(
-    dataNodes.map((d) => d.data.workSeriesBundleAssignmentId)
-  );
-
   return (
     <ForceGraphPage
       dataNodes={dataNodes}
@@ -60,8 +56,8 @@ export default async function Page({
       options={defaultForceGraphPageOptions}
     >
       <DataFetchingEditDtoControllerArray
-        idList={bundleAssignmentIdList}
-        entityClass={EntityClassMap.workSeriesBundleAssignment}
+        idList={ArrayPlaceholder}
+        entityClass={EntityClassMap.workSeriesSchemaBundle}
         getServerAction={getDtoListByBodyList}
       />
 

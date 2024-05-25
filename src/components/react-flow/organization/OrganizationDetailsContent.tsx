@@ -21,6 +21,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
+import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 
 const listenerKey = 'details-content';
 
@@ -47,7 +48,7 @@ export default function OrganizationDetailsContent({
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
 
-  const { workSeriesBundleAssignmentId } = currentState;
+  const { workSeriesBundleAssignment } = currentState;
 
   return (
     <>
@@ -64,12 +65,11 @@ export default function OrganizationDetailsContent({
         </FocusToEdit>
       </ModalHeader>
       <ModalBody>
-        {workSeriesBundleAssignmentId && (
-          <LazyDtoComponentWrapper
-            renderAs={SchemaBundleDetails}
-            id={workSeriesBundleAssignmentId}
+        {workSeriesBundleAssignment && (
+          <BundleAssignment
+            entity={workSeriesBundleAssignment}
             entityClass={EntityClassMap.workSeriesBundleAssignment}
-            whileLoading={() => null}
+            deleted={false}
           />
         )}
       </ModalBody>
@@ -91,27 +91,33 @@ export default function OrganizationDetailsContent({
   );
 }
 
-function SchemaBundleDetails({
+function BundleAssignment({
   entity: bundleAssignment
 }: DtoUiComponentProps<WorkSeriesBundleAssignmentDto>) {
-  // const { currentState: bundleAssignment } =
-  //   useReferencedEntity<WorkSeriesBundleAssignmentDto>(
-  //     workSeriesBundleAssignmentId,
-  //     EntityClassMap.workSeriesBundleAssignment,
-  //     listenerKey
-  //   );
+  const { workSeriesSchemaBundleId } = bundleAssignment;
 
+  return (
+    <LazyDtoComponentWrapper
+      renderAs={BundleDetails}
+      id={workSeriesSchemaBundleId}
+      entityClass={EntityClassMap.workSeriesSchemaBundle}
+      whileLoading={() => null}
+    />
+  );
+}
+
+function BundleDetails({
+  entity
+}: DtoUiComponentProps<WorkSeriesSchemaBundleDto>) {
   return useMemo(() => {
-    return bundleAssignment.workSeriesSchemaBundle?.workProjectSeriesSchemaIds?.map(
-      (id) => (
-        <LazyDtoComponentWrapper<WorkProjectSeriesSchemaDto>
-          key={id}
-          entityClass={EntityClassMap.workProjectSeriesSchema}
-          id={id}
-          renderAs={LessonDeliveryModel}
-          whileLoading={whileLoading}
-        />
-      )
-    );
-  }, [bundleAssignment]);
+    return entity.workProjectSeriesSchemaIds?.map((id) => (
+      <LazyDtoComponentWrapper<WorkProjectSeriesSchemaDto>
+        key={id}
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        id={id}
+        renderAs={LessonDeliveryModel}
+        whileLoading={whileLoading}
+      />
+    ));
+  }, [entity]);
 }

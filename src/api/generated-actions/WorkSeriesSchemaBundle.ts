@@ -15,7 +15,7 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<WorkSeriesSchemaBundleDto, number>(
+} = generateBaseEndpointSet<WorkSeriesSchemaBundleDto, string>(
   '/api/v2/workProjectSeriesSchemas/bundles'
 );
 

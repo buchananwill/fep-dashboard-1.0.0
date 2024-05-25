@@ -1,11 +1,8 @@
 import { z } from 'zod';
-import { SimulationLinkDatum, SimulationNodeDatum } from 'd3';
 import { isValid, parseISO } from 'date-fns';
 import { DayOfWeekObject, REGEX_DATE, REGEX_TIME } from './date-and-time';
-import { ClosureDto } from './dtos/ClosureDtoSchema';
 import { HasUuidDtoSchema } from './dtos/HasUuidDtoSchema';
 import { HasNameDtoSchema } from './dtos/HasNameDtoSchema';
-import { HasNumberIdDto } from './dtos/HasNumberIdDtoSchema';
 
 const days = DayOfWeekObject;
 
