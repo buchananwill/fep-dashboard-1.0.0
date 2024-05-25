@@ -2,7 +2,9 @@ import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[level
 import {
   DtoComponentWrapper,
   useDtoStoreDelete,
-  useDtoStoreDispatchAndListener
+  useDtoStoreDispatchAndListener,
+  useDtoComponent,
+  DtoUiComponentProps
 } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
@@ -12,7 +14,10 @@ import { TransientIdOffset } from '@/api/main';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
-import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
+import {
+  EditTextDeleteEntityPopover,
+  EditTextDeletePopoverProps
+} from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -31,11 +36,24 @@ function produceCarouselGroupOptionsEdit(
   return { ...carouselGroupDto, carouselGroupOptions: carouselOptionList };
 }
 
+const CurriedComponent = (props: DtoUiComponentProps<CarouselGroupDto>) => {
+  return (
+    <EditTextDeleteEntityPopover
+      listenerKey={'chooser'}
+      textAccessor={nameAccessor}
+      textSetter={nameSetter}
+      {...props}
+    />
+  );
+};
+
 export default function CarouselGroupOptionChooser({
   collectionId,
   entityClass,
   referencedItemContextKeys
 }: CollectionItemChooserProps) {
+  const DtoComponent = useDtoComponent(entityClass, CurriedComponent);
+
   const { currentState, dispatchWithoutControl } =
     useDtoStoreDispatchAndListener<CarouselGroupDto>(
       collectionId,
@@ -104,18 +122,7 @@ export default function CarouselGroupOptionChooser({
         }
       />
       <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
-        <DtoComponentWrapper<CarouselGroupDto>
-          entityClass={entityClass}
-          id={collectionId}
-          uiComponent={(props) => (
-            <EditTextDeleteEntityPopover
-              listenerKey={'chooser'}
-              textAccessor={nameAccessor}
-              textSetter={nameSetter}
-              {...props}
-            />
-          )}
-        />
+        <DtoComponent id={collectionId} />
         <div className={'flex justify-center'}>
           <StepperContext.Provider
             value={{
