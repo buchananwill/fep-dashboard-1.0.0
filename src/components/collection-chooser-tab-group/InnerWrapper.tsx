@@ -23,8 +23,6 @@ export default function InnerWrapper<T extends HasUuid & HasNameDto>({
     listenerKey: 'innerWrapper'
   });
 
-  console.log(currentState);
-
   return (
     <Tabs
       aria-label={'collection tabs'}

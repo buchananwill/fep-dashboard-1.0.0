@@ -74,6 +74,9 @@ export function SchemaBundleViewer({
       <EditAddDeleteDtoControllerArray
         entityClass={collectionEntityClass}
         dtoList={collectionData}
+        updateServerAction={putList}
+        postServerAction={postList}
+        deleteServerAction={deleteIdList}
       />
       <CardHeader className={'flex justify-between'}>
         <Button onPress={handleOnPress}>Add Bundle</Button>
@@ -87,9 +90,6 @@ export function SchemaBundleViewer({
           referencedItemData={referencedItemData}
           collectionEntityClass={collectionEntityClass}
           referencedEntityClass={EntityClassMap.workProjectSeriesSchema}
-          updateServerAction={putList}
-          postServerAction={postList}
-          deleteServerAction={deleteIdList}
         />
       </CardBody>
     </Card>

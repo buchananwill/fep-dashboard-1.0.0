@@ -6,7 +6,7 @@ import {
 } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { TransientIdOffset } from '@/api/main';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
@@ -17,6 +17,7 @@ import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselLeanDto } from '@/api/dtos/CarouselLeanDtoSchema';
+import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 
 function produceCarouselGroupOptionsEdit(
   updatedKeys: string[],
@@ -89,6 +90,9 @@ export default function CarouselGroupOptionChooser({
     },
     [dispatchWithoutControl]
   );
+
+  const valueRef = useContext(SelectiveContextGlobal.latestValueRefContext);
+  console.log(valueRef);
 
   return (
     <div className={'flex flex-col relative'}>

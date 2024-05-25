@@ -6,7 +6,7 @@ import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoS
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import BundleItemChooser from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemChooser';
 import { ArrayPlaceholder, useGlobalListener } from 'selective-context';
-import { getNameSpacedKey } from 'dto-stores/dist/functions/getNameSpacedKey';
+import { getNameSpacedKey } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export default function WorkSeriesSchemaBundleTabGroup(
@@ -26,6 +26,7 @@ export default function WorkSeriesSchemaBundleTabGroup(
     listenerKey: 'tab-group-wrapper',
     initialValue: ArrayPlaceholder
   });
+
   return (
     <CollectionChooserTabGroup
       collectionData={currentState}

@@ -10,11 +10,11 @@ import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { EditAddDeleteDtoControllerArray, getNameSpacedKey } from 'dto-stores';
 import { DispatchList } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/SchemaBundleViewer';
 import { useMasterListInteraction } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListInteraction';
 import { ArrayPlaceholder, useGlobalListener } from 'selective-context';
-import { getNameSpacedKey } from 'dto-stores/dist/functions/getNameSpacedKey';
+
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 function handleAddGroup(
@@ -39,6 +39,9 @@ function handleAddGroup(
 export default function CarouselGroupTabGroup({
   collectionData,
   knowledgeLevel,
+  deleteServerAction,
+  postServerAction,
+  updateServerAction,
   ...otherProps
 }: Omit<
   CollectionChooserTabGroupProps<CarouselGroupDto, WorkProjectSeriesSchemaDto>,
@@ -71,6 +74,7 @@ export default function CarouselGroupTabGroup({
       <EditAddDeleteDtoControllerArray
         entityClass={collectionEntityClass}
         dtoList={collectionData}
+        {...{ deleteServerAction, postServerAction, updateServerAction }}
       />
       <CardHeader className={'flex'}>
         <Button onPress={handleOnPress}>Add Carousel Group</Button>

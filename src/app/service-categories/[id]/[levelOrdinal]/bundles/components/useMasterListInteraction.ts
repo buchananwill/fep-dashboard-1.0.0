@@ -1,8 +1,9 @@
 import { useGlobalDispatch } from 'selective-context';
-import { getNameSpacedKey } from 'dto-stores/dist/functions/getNameSpacedKey';
+
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useCallback } from 'react';
 import { DispatchList } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/SchemaBundleViewer';
+import { getNameSpacedKey } from 'dto-stores';
 
 export function useMasterListInteraction(
   entityClass: string,

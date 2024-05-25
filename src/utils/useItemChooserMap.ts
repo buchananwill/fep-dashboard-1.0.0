@@ -13,8 +13,6 @@ export function useItemChooserMap<T>(
     initialValue: initialMap as Map<string, T>
   });
 
-  console.log(itemMap);
-
   const items = useMemo(() => {
     return referencedItemContextKeys
       .map((cKey) => itemMap.get(cKey))
