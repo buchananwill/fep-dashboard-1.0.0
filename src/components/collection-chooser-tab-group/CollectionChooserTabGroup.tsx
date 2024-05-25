@@ -43,19 +43,9 @@ export default function CollectionChooserTabGroup<
     return { itemContextKeys, itemIdList };
   }, [referencedItemData, referencedEntityClass]);
 
-  console.log(collectionData);
-
   return (
     <>
-      <EditAddDeleteController
-        entityClass={collectionEntityClass}
-        {...serverActions}
-      />
       <MasterMapController entityClass={collectionEntityClass} />
-      <DtoControllerArray
-        entityClass={collectionEntityClass}
-        dtoList={collectionData}
-      />
       <EditAddDeleteDtoControllerArray
         entityClass={referencedEntityClass}
         dtoList={referencedItemData}

@@ -5,7 +5,7 @@ import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundle
 import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/WorkSeriesSchemaBundleTabGroup';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Button } from '@nextui-org/button';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -14,7 +14,10 @@ import {
   postList,
   putList
 } from '@/api/generated-actions/WorkSeriesSchemaBundle';
-import { useMasterListControllerAddDelete } from 'dto-stores/dist/hooks/internal/useMasterListControllerAddDelete';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { useGlobalDispatch } from 'selective-context';
+import { getNameSpacedKey } from 'dto-stores/dist/functions/getNameSpacedKey';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 const handleAddBundle = (
   dispatch: Dispatch<SetStateAction<WorkSeriesSchemaBundleDto[]>>,
@@ -22,6 +25,7 @@ const handleAddBundle = (
   nextId: string,
   dispatchWithoutControl: Dispatch<SetStateAction<string[]>>
 ) => {
+  console.log('making new bundle!');
   let newBundle: WorkSeriesSchemaBundleDto;
 
   dispatch((list) => {
@@ -34,6 +38,7 @@ const handleAddBundle = (
     };
     return [...list, newBundle];
   });
+
   dispatchWithoutControl((list) => [...list, nextId]);
 };
 
@@ -48,27 +53,31 @@ export function SchemaBundleViewer({
   collectionData: WorkSeriesSchemaBundleDto[];
   referencedItemData: WorkProjectSeriesSchemaDto[];
 }) {
-  const { masterList, dispatch, dispatchWithoutControl } =
-    useMasterListControllerAddDelete<WorkSeriesSchemaBundleDto, string>(
-      collectionData,
-      collectionEntityClass
-    );
+  const { dispatchWithoutListen: dispatch } = useGlobalDispatch(
+    getNameSpacedKey(collectionEntityClass, KEY_TYPES.MASTER_LIST)
+  );
+  const { dispatchWithoutListen } = useGlobalDispatch(
+    getNameSpacedKey(collectionEntityClass, KEY_TYPES.ADDED)
+  );
+  const handleOnPress = useCallback(
+    () =>
+      handleAddBundle(
+        dispatch,
+        knowledgeLevel,
+        crypto.randomUUID(),
+        dispatchWithoutListen
+      ),
+    [dispatch, knowledgeLevel, dispatchWithoutListen]
+  );
 
   return (
     <Card className={'w-fit'}>
+      <EditAddDeleteDtoControllerArray
+        entityClass={collectionEntityClass}
+        dtoList={collectionData}
+      />
       <CardHeader className={'flex justify-between'}>
-        <Button
-          onPress={() =>
-            handleAddBundle(
-              dispatch,
-              knowledgeLevel,
-              crypto.randomUUID(),
-              dispatchWithoutControl
-            )
-          }
-        >
-          Add Bundle
-        </Button>
+        <Button onPress={handleOnPress}>Add Bundle</Button>
         <span>Bundles Year {knowledgeLevel.levelOrdinal} </span>
         <span>
           <AllBundlesTotal /> Periods All Bundles
@@ -76,7 +85,6 @@ export function SchemaBundleViewer({
       </CardHeader>
       <CardBody>
         <WorkSeriesSchemaBundleTabGroup
-          collectionData={masterList}
           referencedItemData={referencedItemData}
           collectionEntityClass={collectionEntityClass}
           referencedEntityClass={EntityClassMap.workProjectSeriesSchema}
