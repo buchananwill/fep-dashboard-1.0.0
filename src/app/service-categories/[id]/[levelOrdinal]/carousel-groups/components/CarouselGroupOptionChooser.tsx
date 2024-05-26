@@ -1,65 +1,52 @@
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
-import {
-  DtoComponentWrapper,
-  useDtoStoreDelete,
-  useDtoStoreDispatchAndListener,
-  useDtoComponent,
-  DtoUiComponentProps
-} from 'dto-stores';
+import { DtoUiComponentProps, useDtoComponent } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
-import { TransientIdOffset } from '@/api/main';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
-import {
-  EditTextDeleteEntityPopover,
-  EditTextDeletePopoverProps
-} from '@/components/generic/EditTextDeleteEntityPopover';
+import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselLeanDto } from '@/api/dtos/CarouselLeanDtoSchema';
-import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
-
-function produceCarouselGroupOptionsEdit(
-  updatedKeys: string[],
-  carouselGroupDto: CarouselGroupDto
-): CarouselGroupDto {
-  const carouselOptionList = updatedKeys.map((schemaUuid, index) => ({
-    id: index + TransientIdOffset,
-    carouselGroupId: carouselGroupDto.id,
-    workProjectSeriesSchemaId: schemaUuid
-  }));
-  return { ...carouselGroupDto, carouselGroupOptions: carouselOptionList };
-}
-
-const CurriedComponent = (props: DtoUiComponentProps<CarouselGroupDto>) => {
-  return (
-    <EditTextDeleteEntityPopover
-      listenerKey={'chooser'}
-      textAccessor={nameAccessor}
-      textSetter={nameSetter}
-      {...props}
-    />
-  );
-};
+import { produceCarouselGroupOptionsEdit } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/produceCarouselGroupOptionsEdit';
 
 export default function CarouselGroupOptionChooser({
   collectionId,
   entityClass,
   referencedItemContextKeys
 }: CollectionItemChooserProps) {
-  const DtoComponent = useDtoComponent(entityClass, CurriedComponent);
+  const CurriedInnerComponent = useCallback(
+    (dtoProps: DtoUiComponentProps<CarouselGroupDto>) => {
+      return (
+        <InnerChooserComponent
+          collectionId={collectionId}
+          referencedItemContextKeys={referencedItemContextKeys}
+          {...dtoProps}
+        />
+      );
+    },
+    [collectionId, referencedItemContextKeys]
+  );
+  const DtoComponent = useDtoComponent(entityClass, CurriedInnerComponent);
 
-  const { currentState, dispatchWithoutControl } =
-    useDtoStoreDispatchAndListener<CarouselGroupDto>(
-      collectionId,
-      entityClass,
-      'itemChooser'
-    );
+  return <DtoComponent id={collectionId} />;
+}
+
+function InnerChooserComponent(
+  props: DtoUiComponentProps<CarouselGroupDto> &
+    Omit<CollectionItemChooserProps, 'entityClass'>
+) {
+  const { referencedItemContextKeys, collectionId, ...dtoProps } = props;
+  const {
+    dispatchWithoutControl,
+    entity: currentState,
+    deleted,
+    dispatchDeletion
+  } = dtoProps;
   const { items } = useItemChooserMap<WorkProjectSeriesSchemaDto>(
     referencedItemContextKeys,
     collectionId
@@ -67,12 +54,6 @@ export default function CarouselGroupOptionChooser({
   const handleSelectionChange = useListboxSelectionChangeCallback(
     produceCarouselGroupOptionsEdit,
     dispatchWithoutControl
-  );
-
-  const { deleted, dispatchDeletion } = useDtoStoreDelete(
-    entityClass,
-    collectionId,
-    'bundleItemChooser'
   );
 
   const selectedKeys = useMemo(() => {
@@ -83,6 +64,7 @@ export default function CarouselGroupOptionChooser({
 
   const editCarouselCount = useCallback(
     (direction: 'inc' | 'dec') => {
+      if (!dispatchWithoutControl) return;
       if (direction === 'inc') {
         dispatchWithoutControl((group) => {
           const currentCarouselCount = group.carousels.length + 1;
@@ -109,20 +91,18 @@ export default function CarouselGroupOptionChooser({
     [dispatchWithoutControl]
   );
 
-  const valueRef = useContext(SelectiveContextGlobal.latestValueRefContext);
-  console.log(valueRef);
-
   return (
     <div className={'flex flex-col relative'}>
       <DeletedOverlay
         show={deleted}
         classNames={{ overlay: 'rounded-xl' }}
-        handleUnDelete={() =>
-          dispatchDeletion((list) => list.filter((id) => id !== collectionId))
-        }
+        handleUnDelete={() => {
+          if (!dispatchDeletion) return;
+          dispatchDeletion((list) => list.filter((id) => id !== collectionId));
+        }}
       />
       <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
-        <DtoComponent id={collectionId} />
+        <CurriedComponent {...dtoProps} />
         <div className={'flex justify-center'}>
           <StepperContext.Provider
             value={{
@@ -158,3 +138,14 @@ export default function CarouselGroupOptionChooser({
     </div>
   );
 }
+
+const CurriedComponent = (props: DtoUiComponentProps<CarouselGroupDto>) => {
+  return (
+    <EditTextDeleteEntityPopover
+      listenerKey={'chooser'}
+      textAccessor={nameAccessor}
+      textSetter={nameSetter}
+      {...props}
+    />
+  );
+};
