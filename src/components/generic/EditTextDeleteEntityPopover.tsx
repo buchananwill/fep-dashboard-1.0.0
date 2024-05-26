@@ -72,7 +72,10 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
         <PopoverContent>
           <div className={'flex gap-2'}>
             <Button
-              onPress={onOpen}
+              onPress={() => {
+                dispatchTextChange(textAccessor(entity));
+                onOpen();
+              }}
               isIconOnly
               size={'sm'}
               variant={'ghost'}

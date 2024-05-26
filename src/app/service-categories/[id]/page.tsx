@@ -5,7 +5,11 @@ import {
   getOne,
   putList
 } from '@/api/generated-actions/ServiceCategory';
-import { EditAddDeleteController, DtoController } from 'dto-stores';
+import {
+  EditAddDeleteController,
+  DtoController,
+  EditAddDeleteDtoControllerArray
+} from 'dto-stores';
 
 export default async function Page({
   params: { id }
@@ -16,12 +20,12 @@ export default async function Page({
 
   return (
     <>
-      <EditAddDeleteController
+      <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.serviceCategory}
+        dtoList={[data]}
         updateServerAction={putList}
         deleteServerAction={deleteIdList}
       />
-      <DtoController dto={data} entityClass={EntityClassMap.serviceCategory} />
       <ServiceCategoryCard id={data.id} />
     </>
   );

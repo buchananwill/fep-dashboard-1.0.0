@@ -2,6 +2,7 @@
 import {
   DtoComponentWrapper,
   DtoUiComponentProps,
+  useDtoComponent,
   useDtoStoreDelete
 } from 'dto-stores';
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
@@ -13,45 +14,54 @@ import {
 } from '@/components/generic/StringAttributeInputArray';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
+import { useCallback } from 'react';
 
 const serviceCategoryProperties: StringPropertyNames<ServiceCategoryDto>[] = [
   'knowledgeDomainDescriptor',
   'knowledgeLevelDescriptor'
 ];
 
-function InternalUiComponent({
-  entity,
-  dispatchWithoutControl,
-  ...otherProps
-}: DtoUiComponentProps<ServiceCategoryDto>) {
-  const update = (
-    value: string,
-    attributeKey: StringPropertyNames<ServiceCategoryDto>
-  ) => {
-    if (dispatchWithoutControl === undefined) return;
-    dispatchWithoutControl((entity) => ({ ...entity, [attributeKey]: value }));
-  };
-  const { deleted } = useDtoStoreDelete(
-    otherProps.entityClass,
-    entity.id,
-    'card'
+const CurriedPopover = (props: DtoUiComponentProps<ServiceCategoryDto>) => {
+  return (
+    <EditTextDeleteEntityPopover
+      {...props}
+      listenerKey={'card'}
+      textAccessor={(ent) => ent.name}
+      textSetter={(ent, value) => ({ ...ent, name: value })}
+    />
+  );
+};
+
+function InternalUiComponent(props: DtoUiComponentProps<ServiceCategoryDto>) {
+  const { entity, dispatchWithoutControl, deleted, ...otherProps } = props;
+  const update = useCallback(
+    (value: string, attributeKey: StringPropertyNames<ServiceCategoryDto>) => {
+      if (dispatchWithoutControl === undefined) return;
+      dispatchWithoutControl((entity) => ({
+        ...entity,
+        [attributeKey]: value
+      }));
+    },
+    [dispatchWithoutControl]
   );
 
   return (
     <Card className={'relative'}>
-      <DeletedOverlay show={deleted} />
+      <DeletedOverlay
+        show={deleted}
+        handleUnDelete={() => {
+          if (!props.dispatchDeletion) return;
+          props.dispatchDeletion((list) =>
+            list.filter((deletedId) => deletedId !== entity.id)
+          );
+        }}
+      />
       <CardHeader>
-        <DtoComponentWrapper<ServiceCategoryDto>
-          {...otherProps}
-          id={entity.id}
-          uiComponent={(props) => (
-            <EditTextDeleteEntityPopover
-              {...props}
-              listenerKey={'card'}
-              textAccessor={(ent) => ent.name}
-              textSetter={(ent, value) => ({ ...ent, name: value })}
-            />
-          )}
+        <EditTextDeleteEntityPopover
+          {...props}
+          listenerKey={'card'}
+          textAccessor={(ent) => ent.name}
+          textSetter={(ent, value) => ({ ...ent, name: value })}
         />
       </CardHeader>
       <CardBody>
@@ -66,11 +76,10 @@ function InternalUiComponent({
 }
 
 export default function ServiceCategoryCard({ id }: { id: number }) {
-  return (
-    <DtoComponentWrapper
-      uiComponent={InternalUiComponent}
-      id={id}
-      entityClass={EntityClassMap.serviceCategory}
-    />
+  const DtoComponent = useDtoComponent(
+    EntityClassMap.serviceCategory,
+    InternalUiComponent
   );
+
+  return <DtoComponent id={id} />;
 }

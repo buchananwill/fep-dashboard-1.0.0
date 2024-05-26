@@ -1,9 +1,10 @@
 import { HasId } from '@/api/main';
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
 
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { getRenameContextKey } from '@/components/modals/nameSetter';
 import { useGlobalController } from 'selective-context';
+import { useEffectSyncToMemo } from 'react-d3-force-graph';
 
 export function useEditEntityTextAttribute<T extends HasId>(
   entityClass: string,
@@ -27,6 +28,7 @@ export function useEditEntityTextAttribute<T extends HasId>(
       dispatchWithoutControl((dto) => textSetter(dto, currentState));
     }
   }, [currentState, dispatchWithoutControl, textSetter]);
+
   return {
     contextKey,
     onConfirm,

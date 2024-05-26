@@ -29,7 +29,7 @@ import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoS
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Select } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
-import { d } from '@nextui-org/slider/dist/use-slider-64459b54';
+import { produce } from 'immer';
 
 const listenerKey = 'details-content';
 
@@ -38,7 +38,7 @@ export const initialMap = new Map<string, unknown>();
 const whileLoading = () => null;
 export default function OrganizationDetailsContent({
   onClose
-}: NodeModalContentProps) {
+}: Partial<NodeModalContentProps>) {
   const {
     currentState: { memoizedFunction: commitEdit }
   } = useGraphListener<MemoizedFunction<OrganizationDto, void>>(
@@ -62,8 +62,10 @@ export default function OrganizationDetailsContent({
     ArrayPlaceholder
   );
 
+  const onCloseDefined = onClose ? onClose : () => {};
+
   if (currentState === undefined)
-    return <ComponentUndefined onClose={onClose} />;
+    return <ComponentUndefined onClose={onCloseDefined} />;
 
   const { workSeriesBundleAssignment } = currentState;
 
@@ -92,13 +94,13 @@ export default function OrganizationDetailsContent({
                 workSeriesBundleAssignment.workSeriesSchemaBundleId
               ]}
               onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                dispatchWithoutControl((data) => ({
-                  ...data,
-                  workSeriesBundleAssignment: {
-                    ...data.workSeriesBundleAssignment,
-                    workSeriesSchemaBundleId: e.target.value
-                  }
-                }));
+                dispatchWithoutControl((data) =>
+                  produce(data, (draft) => {
+                    draft.workSeriesBundleAssignment.workSeriesSchemaBundleId =
+                      e.target.value;
+                    return draft;
+                  })
+                );
               }}
             >
               {(schemaBundle) => (
@@ -123,7 +125,7 @@ export default function OrganizationDetailsContent({
           color="primary"
           onPress={() => {
             commitEdit(currentState);
-            onClose();
+            onCloseDefined();
           }}
         >
           Confirm Changes
