@@ -1,4 +1,3 @@
-import { DtoController } from 'dto-stores/dist/controllers/DtoController';
 import { EntityClassMap } from '@/api/entity-class-map';
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
 import {
@@ -6,7 +5,7 @@ import {
   getOne,
   putList
 } from '@/api/generated-actions/ServiceCategory';
-import { EditAddDeleteController } from 'dto-stores';
+import { EditAddDeleteController, DtoController } from 'dto-stores';
 
 export default async function Page({
   params: { id }

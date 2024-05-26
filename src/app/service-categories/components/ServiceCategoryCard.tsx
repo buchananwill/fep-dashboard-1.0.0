@@ -1,5 +1,9 @@
 'use client';
-import { DtoComponentWrapper, DtoUiComponentProps } from 'dto-stores';
+import {
+  DtoComponentWrapper,
+  DtoUiComponentProps,
+  useDtoStoreDelete
+} from 'dto-stores';
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -7,10 +11,8 @@ import {
   StringAttributeInputArray,
   StringPropertyNames
 } from '@/components/generic/StringAttributeInputArray';
-import { Button } from '@nextui-org/button';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
-import { useDtoStoreDelete } from 'dto-stores/dist/hooks/useDtoStoreDelete';
 
 const serviceCategoryProperties: StringPropertyNames<ServiceCategoryDto>[] = [
   'knowledgeDomainDescriptor',

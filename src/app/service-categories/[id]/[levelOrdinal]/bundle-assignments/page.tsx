@@ -11,7 +11,7 @@ import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrap
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import { getDtoListByBodyList } from '@/api/generated-actions/WorkSeriesSchemaBundle';
+import { getDtoListByExampleList as getBundleListByExampleList } from '@/api/generated-actions/WorkSeriesSchemaBundle';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 import { ArrayPlaceholder } from 'selective-context';
@@ -23,6 +23,7 @@ import {
   DataFetchingEditDtoControllerArray,
   EditAddDeleteDtoControllerArray
 } from 'dto-stores';
+import { parseTen } from '@/api/date-and-time';
 
 export default async function Page({
   params: { levelOrdinal }
@@ -32,6 +33,11 @@ export default async function Page({
   const [orgType] = await getDtoListByExampleList([
     { name: `Year ${levelOrdinal}` }
   ]);
+
+  const schemaBundles = await getBundleListByExampleList([
+    { knowledgeLevel: { levelOrdinal: parseTen(levelOrdinal) } }
+  ]);
+
   const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
     constructUrl(
       `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
@@ -55,10 +61,9 @@ export default async function Page({
       graphName={'test-graph'}
       options={defaultForceGraphPageOptions}
     >
-      <DataFetchingEditDtoControllerArray
-        idList={ArrayPlaceholder}
+      <EditAddDeleteDtoControllerArray
+        dtoList={schemaBundles}
         entityClass={EntityClassMap.workSeriesSchemaBundle}
-        getServerAction={getDtoListByBodyList}
       />
 
       <DataFetchingEditDtoControllerArray

@@ -10,10 +10,13 @@ import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { EditAddDeleteDtoControllerArray, getNameSpacedKey } from 'dto-stores';
+import {
+  EditAddDeleteDtoControllerArray,
+  NamespacedHooks,
+  useMasterListInteraction
+} from 'dto-stores';
 import { DispatchList } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/SchemaBundleViewer';
-import { useMasterListInteraction } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListInteraction';
-import { ArrayPlaceholder, useGlobalListener } from 'selective-context';
+import { ArrayPlaceholder } from 'selective-context';
 
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
@@ -63,11 +66,12 @@ export default function CarouselGroupTabGroup({
       curriedCallback(dispatch, dispatchWithoutListen)
   );
 
-  const { currentState: collectionDataState } = useGlobalListener({
-    contextKey: getNameSpacedKey(collectionEntityClass, KEY_TYPES.MASTER_LIST),
-    listenerKey: 'carousel-tab-group',
-    initialValue: ArrayPlaceholder
-  });
+  const { currentState: collectionDataState } = NamespacedHooks.useListen(
+    collectionEntityClass,
+    KEY_TYPES.MASTER_LIST,
+    'carousel-tab-group',
+    ArrayPlaceholder
+  );
 
   return (
     <Card className={'w-fit'}>

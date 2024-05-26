@@ -22,10 +22,9 @@ import { AllocationTotal } from '@/components/react-flow/organization/allocation
 import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNodeLazyReferences';
 import {
   EditAddDeleteDtoControllerArray,
+  NamespacedHooks,
   useEffectSyncDeepEqualWithDispatch
 } from 'dto-stores';
-import { useGlobalDispatch } from 'selective-context';
-import { getNameSpacedKey } from 'dto-stores/dist/functions/getNameSpacedKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export function ClassHierarchyLayoutFlowWithForces({
@@ -49,16 +48,15 @@ export function ClassHierarchyLayoutFlowWithForces({
     [nodes]
   );
 
-  const { dispatchWithoutListen } = useGlobalDispatch(
-    getNameSpacedKey('allocationTotal', KEY_TYPES.MASTER_LIST)
+  const dispatchWithoutListen = NamespacedHooks.useDispatch(
+    'allocationTotal',
+    KEY_TYPES.MASTER_LIST
   );
 
   useEffectSyncDeepEqualWithDispatch(
     allocationTotalList,
     dispatchWithoutListen
   );
-
-  console.log(allocationTotalList);
 
   // 5. Call the hook to define the modal content
   useModalContent(memoizedContentComponent);
@@ -83,6 +81,7 @@ export function ClassHierarchyLayoutFlowWithForces({
     </ReactFlow>
   );
 }
+
 // 1. Define the node types and their components
 const nodeTypes = {
   organization: OrganizationNode

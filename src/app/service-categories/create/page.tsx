@@ -1,6 +1,6 @@
 'use client';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { DtoController } from 'dto-stores/dist/controllers/DtoController';
+
 import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
 import data from '@/utils/init-json-data/service-categories/ServiceCategory.json';
 import { TransientIdOffset } from '@/api/main';
@@ -11,7 +11,7 @@ import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 import { postOne } from '@/api/generated-actions/ServiceCategory';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-import { EditAddDeleteController } from 'dto-stores';
+import { DtoController, EditAddDeleteController } from 'dto-stores';
 
 const entityName = EntityClassMap.serviceCategory;
 

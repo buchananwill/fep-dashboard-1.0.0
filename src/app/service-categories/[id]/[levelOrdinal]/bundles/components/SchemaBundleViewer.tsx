@@ -14,8 +14,10 @@ import {
   postList,
   putList
 } from '@/api/generated-actions/WorkSeriesSchemaBundle';
-import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { useMasterListInteraction } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/useMasterListInteraction';
+import {
+  EditAddDeleteDtoControllerArray,
+  useMasterListInteraction
+} from 'dto-stores';
 
 export type DispatchList<T> = React.Dispatch<React.SetStateAction<T[]>>;
 

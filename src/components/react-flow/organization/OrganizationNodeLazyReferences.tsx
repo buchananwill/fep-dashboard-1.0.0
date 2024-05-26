@@ -6,7 +6,7 @@ import { BaseNode } from '@/react-flow/components/nodes/BaseNode';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { Chip } from '@nextui-org/chip';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
+
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 import {
   ArrayPlaceholder,
@@ -14,12 +14,13 @@ import {
   useGlobalListenerGroup
 } from 'selective-context';
 import { isNumber } from 'lodash';
-import {
-  useReferencedEntity,
-  useReferencedEntityListListener
-} from 'dto-stores';
+
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
+import {
+  useLazyDtoDispatchAndListen,
+  useLazyDtoListListener
+} from 'dto-stores';
 
 export interface AllocationSummary {
   label: string;
@@ -67,7 +68,7 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
 
   const { workSeriesBundleAssignment } = data;
   const { currentState: schemaBundle } =
-    useReferencedEntity<WorkSeriesSchemaBundleDto>(
+    useLazyDtoDispatchAndListen<WorkSeriesSchemaBundleDto>(
       workSeriesBundleAssignment.workSeriesSchemaBundleId,
       EntityClassMap.workSeriesSchemaBundle,
       listenerKey
@@ -76,7 +77,7 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   const [localTotal, setLocalTotal] = useState(0);
 
   const { currentState: schemaMap } =
-    useReferencedEntityListListener<WorkProjectSeriesSchemaDto>(
+    useLazyDtoListListener<WorkProjectSeriesSchemaDto>(
       schemaBundle?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
       EntityClassMap.workProjectSeriesSchema,
       listenerKey

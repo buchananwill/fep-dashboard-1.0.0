@@ -1,9 +1,9 @@
 'use client';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
-import { ObjectPlaceholder } from 'selective-context';
+import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
 
-import React, { useMemo } from 'react';
+import React, { ChangeEvent, useMemo } from 'react';
 
 import {
   ComponentUndefined,
@@ -16,12 +16,20 @@ import {
 } from 'react-d3-force-graph';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import { DtoUiComponentProps, LazyDtoComponentWrapper } from 'dto-stores';
+import {
+  DtoUiComponentProps,
+  LazyDtoComponentWrapper,
+  NamespacedHooks
+} from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { Select } from '@nextui-org/react';
+import { SelectItem } from '@nextui-org/select';
+import { d } from '@nextui-org/slider/dist/use-slider-64459b54';
 
 const listenerKey = 'details-content';
 
@@ -45,6 +53,15 @@ export default function OrganizationDetailsContent({
       ObjectPlaceholder as OrganizationDto
     );
 
+  const { currentState: bundleList } = NamespacedHooks.useListen<
+    WorkSeriesSchemaBundleDto[]
+  >(
+    EntityClassMap.workSeriesSchemaBundle,
+    KEY_TYPES.MASTER_LIST,
+    listenerKey,
+    ArrayPlaceholder
+  );
+
   if (currentState === undefined)
     return <ComponentUndefined onClose={onClose} />;
 
@@ -66,11 +83,36 @@ export default function OrganizationDetailsContent({
       </ModalHeader>
       <ModalBody>
         {workSeriesBundleAssignment && (
-          <BundleAssignment
-            entity={workSeriesBundleAssignment}
-            entityClass={EntityClassMap.workSeriesBundleAssignment}
-            deleted={false}
-          />
+          <>
+            <Select
+              items={bundleList}
+              label={'Bundle'}
+              placeholder={'Assign a bundle'}
+              selectedKeys={[
+                workSeriesBundleAssignment.workSeriesSchemaBundleId
+              ]}
+              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                dispatchWithoutControl((data) => ({
+                  ...data,
+                  workSeriesBundleAssignment: {
+                    ...data.workSeriesBundleAssignment,
+                    workSeriesSchemaBundleId: e.target.value
+                  }
+                }));
+              }}
+            >
+              {(schemaBundle) => (
+                <SelectItem key={schemaBundle.id} value={schemaBundle.id}>
+                  {schemaBundle.name}
+                </SelectItem>
+              )}
+            </Select>
+            <BundleAssignment
+              entity={workSeriesBundleAssignment}
+              entityClass={EntityClassMap.workSeriesBundleAssignment}
+              deleted={false}
+            />
+          </>
         )}
       </ModalBody>
       <ModalFooter>
