@@ -36,7 +36,7 @@ export default function IgmTable<T extends HasNameDto>({
               IntersectionGeneratorRowWithHeader<T>,
               string | number
             >
-              entityType={'generatorRow'}
+              entityClass={'generatorRow'}
               listenerKey={`${rowWithHeader.id}:${columnKey}`}
               entityId={rowWithHeader.id}
               numberAccessor={(entity) =>

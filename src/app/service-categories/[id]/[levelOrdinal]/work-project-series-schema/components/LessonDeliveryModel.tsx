@@ -72,14 +72,14 @@ export const LessonDeliveryModel = (
       <div className={'grid grid-cols-3'}>
         <DtoStoreStringValueEdit
           entity={model}
-          entityType={entityClass}
+          entityClass={entityClass}
           valueAccessor={(dto) => dto.shortCode || ''}
           producer={(value, entity) => ({ ...entity, shortCode: value })}
           listenerKey={`${model.id}:shortCode`}
         />
         <DtoStoreNumberInput<WorkProjectSeriesSchemaDto, string>
           entityId={model.id}
-          entityType={entityClass}
+          entityClass={entityClass}
           numberUpdater={(wpss, value) => ({
             ...wpss,
             workProjectBandwidth: value
@@ -90,7 +90,7 @@ export const LessonDeliveryModel = (
         />
         <DtoStoreNumberInput<WorkProjectSeriesSchemaDto, string>
           entityId={model.id}
-          entityType={entityClass}
+          entityClass={entityClass}
           numberUpdater={(wpss, value) => ({
             ...wpss,
             userToProviderRatio: value

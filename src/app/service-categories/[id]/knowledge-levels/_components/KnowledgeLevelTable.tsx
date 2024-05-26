@@ -32,7 +32,7 @@ export default function KnowledgeLevelTable({
           return (
             <DtoStoreStringValueEdit
               entity={level}
-              entityType={entityType}
+              entityClass={entityType}
               valueAccessor={(level) => level.name}
               producer={(name, level) => ({ ...level, name })}
               listenerKey={`${entityType}${level.id}`}
@@ -42,7 +42,7 @@ export default function KnowledgeLevelTable({
           return (
             <DtoStoreNumberInput<KnowledgeLevelDto, number>
               entityId={level.id}
-              entityType={entityType}
+              entityClass={entityType}
               numberUpdater={(entity, value) => ({
                 ...entity,
                 levelOrdinal: value

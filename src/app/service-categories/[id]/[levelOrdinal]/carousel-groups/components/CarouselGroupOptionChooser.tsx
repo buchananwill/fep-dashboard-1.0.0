@@ -19,22 +19,21 @@ export default function CarouselGroupOptionChooser({
   entityClass,
   referencedItemContextKeys
 }: CollectionItemChooserProps) {
-  const CurriedInnerComponent = useCallback(
-    (dtoProps: DtoUiComponentProps<CarouselGroupDto>) => {
-      return (
-        <InnerChooserComponent
-          collectionId={collectionId}
-          referencedItemContextKeys={referencedItemContextKeys}
-          {...dtoProps}
-        />
-      );
-    },
-    [collectionId, referencedItemContextKeys]
+  const DtoComponent = useDtoComponent<CarouselGroupDto, ExtraProps>(
+    entityClass,
+    InnerChooserComponent
   );
-  const DtoComponent = useDtoComponent(entityClass, CurriedInnerComponent);
 
-  return <DtoComponent id={collectionId} />;
+  return (
+    <DtoComponent
+      id={collectionId}
+      collectionId={collectionId}
+      referencedItemContextKeys={referencedItemContextKeys}
+    />
+  );
 }
+
+type ExtraProps = Omit<CollectionItemChooserProps, 'entityClass'>;
 
 function InnerChooserComponent(
   props: DtoUiComponentProps<CarouselGroupDto> &

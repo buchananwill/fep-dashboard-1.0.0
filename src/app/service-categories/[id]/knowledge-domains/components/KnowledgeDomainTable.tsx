@@ -30,7 +30,7 @@ export function KnowledgeDomainTable({
           return (
             <DtoStoreStringValueEdit
               entity={domain}
-              entityType={EntityClassMap.knowledgeDomain}
+              entityClass={EntityClassMap.knowledgeDomain}
               listenerKey={`${domain.id}:nameEdit`}
               valueAccessor={(domain) => domain.name}
               producer={(name, domain) => ({ ...domain, name })}

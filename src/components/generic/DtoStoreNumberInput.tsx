@@ -1,9 +1,7 @@
 import { HasId } from '@/api/main';
-import {
-  useDtoStoreDispatch,
-  useDtoStoreDispatchAndListener
-} from 'dto-stores';
+
 import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import { useDtoStore } from 'dto-stores';
 
 interface DtoStoreNumberInputProps<T extends HasId, U extends string | number>
   extends Omit<
@@ -11,7 +9,7 @@ interface DtoStoreNumberInputProps<T extends HasId, U extends string | number>
     'type' & 'value' & 'onChange'
   > {
   entityId: U;
-  entityType: string;
+  entityClass: string;
   numberUpdater: (entity: T, value: number) => T;
   numberAccessor: (entity: T) => number;
   listenerKey: string;
@@ -22,14 +20,17 @@ export function DtoStoreNumberInput<
   U extends string | number
 >({
   entityId,
-  entityType,
+  entityClass,
   numberUpdater,
   listenerKey,
   numberAccessor,
   className
 }: DtoStoreNumberInputProps<T, U>) {
-  let { currentState, dispatchWithoutControl } =
-    useDtoStoreDispatchAndListener<T>(entityId, entityType, listenerKey);
+  let { entity, dispatchWithoutControl } = useDtoStore<T>({
+    id: entityId,
+    entityClass,
+    listenerKey
+  });
 
   const update = (e: ChangeEvent<HTMLInputElement>) => {
     if (dispatchWithoutControl === undefined) {
@@ -44,7 +45,7 @@ export function DtoStoreNumberInput<
   return (
     <input
       type={'number'}
-      value={numberAccessor(currentState)}
+      value={numberAccessor(entity)}
       onChange={(e) => update(e)}
       className={className}
     ></input>
