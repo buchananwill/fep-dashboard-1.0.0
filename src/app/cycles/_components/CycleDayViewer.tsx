@@ -1,20 +1,33 @@
 'use client';
-import { useTransition } from 'react';
+import {
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useTransition
+} from 'react';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { getWeekNumberInt } from '@/app/cycles/_functions/groupCycleSubspansByDay';
 import { Button } from '@nextui-org/button';
-import { DtoUiWrapperListView } from '@/components/generic/DtoUiWrapperListView';
 import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
 import { CycleDayFetcherProps } from '@/app/cycles/_components/CycleDayFetcher';
 
-import { TransientIdOffset } from '@/api/main';
+import { isNotUndefined, TransientIdOffset } from '@/api/main';
 import { useGlobalController, useGlobalDispatch } from 'selective-context';
+import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { templateCycleSubspan } from '@/app/cycles/_components/CycleViewer';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
-import { DtoControllerArray } from 'dto-stores';
+import {
+  DispatchList,
+  DtoUiListSome,
+  NamespacedHooks,
+  useMasterListInteraction
+} from 'dto-stores';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export interface CycleDayViewerProps extends CycleDayFetcherProps {
   cycleSubspanDtos: CycleSubspanDto[];
@@ -26,6 +39,13 @@ export default function CycleDayViewer({
   cycleDay,
   cycle
 }: CycleDayViewerProps) {
+  const mutableRefObject = useContext(
+    SelectiveContextGlobal.latestValueRefContext
+  );
+  const listeners = useContext(SelectiveContextGlobal.listenersRefContext);
+
+  console.log(mutableRefObject, listeners);
+
   const [pending, startTransition] = useTransition();
 
   const { currentState, dispatch } = useGlobalController<CycleSubspanDto[]>({
@@ -34,29 +54,54 @@ export default function CycleDayViewer({
     initialValue: cycleSubspanDtos
   });
 
-  const { dispatchWithoutListen } = useGlobalDispatch<number[]>(
-    `${cycleSubspan}:added`
+  const handleAddCycleSubspan = useCallback(
+    (
+      dispatchMasterList: DispatchList<CycleSubspanDto>,
+      dispatchAddedList: DispatchList<number>
+    ) => {
+      const transientId =
+        TransientIdOffset +
+        currentState.length * (cycleDay.zeroIndexedCycleDay + 1);
+      const newCycleSubspan: CycleSubspanDto = {
+        ...templateCycleSubspan,
+        zeroIndexedCycleDay: cycleDay.zeroIndexedCycleDay,
+        parentCycleId: cycle.id,
+        id: transientId
+      };
+
+      const addCycleSubspan = (csList: CycleSubspanDto[]) => [
+        ...csList,
+        newCycleSubspan
+      ];
+      const addId = (list: number[]) => [...list, transientId];
+      dispatch(addCycleSubspan);
+      dispatchMasterList(addCycleSubspan);
+      dispatchAddedList(addId);
+    },
+    [cycleDay.zeroIndexedCycleDay, currentState, cycle.id, dispatch]
   );
 
-  console.log(currentState);
+  const masterListCallback = useMasterListInteraction(
+    EntityClassMap.cycleSubspan,
+    handleAddCycleSubspan
+  );
 
-  const handleAddCycleSubspan = (cycleDay: number) => {
-    const transientId =
-      TransientIdOffset + currentState.length * (cycleDay + 1);
-    const newCycleSubspan: CycleSubspanDto = {
-      ...templateCycleSubspan,
-      zeroIndexedCycleDay: cycleDay,
-      parentCycleId: cycle.id,
-      id: transientId
-    };
-    console.log(newCycleSubspan);
-    dispatch((csList) => [...csList, newCycleSubspan]);
-    dispatchWithoutListen((list) => [...list, transientId]);
-  };
+  const dispatchInitialList = NamespacedHooks.useDispatch<CycleSubspanDto[]>(
+    EntityClassMap.cycleSubspan,
+    KEY_TYPES.MASTER_LIST
+  );
+
+  const cycleSubspanIdList = useMemo(() => {
+    return currentState.filter(isNotUndefined).map((dto) => dto.id);
+  }, [currentState]);
+
+  useEffect(() => {
+    dispatchInitialList((list) => [...list, ...cycleSubspanDtos]);
+  }, [dispatchInitialList, cycleSubspanDtos]);
 
   return (
     <Card classNames={{ base: 'w-fit', body: 'w-fit' }}>
-      <DtoControllerArray entityClass={cycleSubspan} dtoList={currentState} />
+      {/*<DtoControllerArray entityClass={cycleSubspan} dtoList={currentState} />*/}
 
       <CardHeader className={'text-center justify-center gap-2'}>
         {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
@@ -65,7 +110,7 @@ export default function CycleDayViewer({
           className={'relative'}
           onPress={() =>
             startTransition(async () => {
-              handleAddCycleSubspan(cycleDay.zeroIndexedCycleDay);
+              masterListCallback();
             })
           }
         >
@@ -74,12 +119,16 @@ export default function CycleDayViewer({
         </Button>
       </CardHeader>
       <CardBody className={'gap-1'}>
-        <DtoUiWrapperListView
-          entityList={currentState}
-          entityClass={cycleSubspan}
-          renderAs={CycleSubspan}
-        />
+        {cycleSubspanIdList.length > 0 && (
+          <DtoUiListSome
+            entityIdList={cycleSubspanIdList}
+            entityClass={cycleSubspan}
+            renderAs={MemoCycleSubspan}
+          />
+        )}
       </CardBody>
     </Card>
   );
 }
+
+const MemoCycleSubspan = memo(CycleSubspan);

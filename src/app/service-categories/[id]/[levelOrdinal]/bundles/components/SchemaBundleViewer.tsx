@@ -5,7 +5,7 @@ import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundle
 import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/WorkSeriesSchemaBundleTabGroup';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Button } from '@nextui-org/button';
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -18,6 +18,7 @@ import {
   EditAddDeleteDtoControllerArray,
   useMasterListInteraction
 } from 'dto-stores';
+import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 
 export type DispatchList<T> = React.Dispatch<React.SetStateAction<T[]>>;
 
@@ -64,6 +65,13 @@ export function SchemaBundleViewer({
     ) => handleAddBundle(dispatchMasterList, dispatchAddedList, knowledgeLevel),
     [knowledgeLevel]
   );
+
+  const mutableRefObject = useContext(
+    SelectiveContextGlobal.latestValueRefContext
+  );
+  const listeners = useContext(SelectiveContextGlobal.listenersRefContext);
+
+  console.log(mutableRefObject, listeners);
 
   const handleOnPress = useMasterListInteraction(
     collectionEntityClass,

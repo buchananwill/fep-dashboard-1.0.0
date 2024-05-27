@@ -41,7 +41,7 @@ export default function CycleViewer({ cycle }: { cycle: CycleDto }) {
     >
       <EditAddDeleteDtoControllerArray
         dtoList={ArrayPlaceholder}
-        entityClass={entityClass}
+        entityClass={EntityClassMap.cycleSubspan}
         updateServerAction={interceptPut}
         deleteServerAction={deleteIdList}
         postServerAction={interceptPost}
