@@ -43,7 +43,7 @@ importers:
         version: 3.6.0
       dto-stores:
         specifier: file:D:\Coding\dto-stores
-        version: file:../dto-stores(@types/react@18.2.79)(lodash@4.17.21)(react@18.3.1)
+        version: file:../dto-stores(lodash@4.17.21)(react@18.3.1)
       framer-motion:
         specifier: ^11.1.1
         version: 11.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1857,7 +1857,6 @@ packages:
   dto-stores@file:../dto-stores:
     resolution: {directory: ../dto-stores, type: directory}
     peerDependencies:
-      '@types/react': ^18.2.78
       lodash: ^4.17.21
       react: ^18.3.1
 
@@ -5832,9 +5831,8 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
-  dto-stores@file:../dto-stores(@types/react@18.2.79)(lodash@4.17.21)(react@18.3.1):
+  dto-stores@file:../dto-stores(lodash@4.17.21)(react@18.3.1):
     dependencies:
-      '@types/react': 18.2.79
       lodash: 4.17.21
       react: 18.3.1
       selective-context: file:../selective-context(react@18.3.1)

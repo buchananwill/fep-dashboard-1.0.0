@@ -4,11 +4,10 @@ import {
   putList
 } from '@/api/generated-actions/KnowledgeLevel';
 import { getOne } from '@/api/generated-actions/ServiceCategory';
-import { MissingData } from '@/components/generic/MissingData';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
-import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 import { EntityClassMap } from '@/api/entity-class-map';
 import KnowledgeLevelTable from '@/app/service-categories/[id]/knowledge-levels/_components/KnowledgeLevelTable';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 
 export default async function Page({
   params: { id }
@@ -24,7 +23,7 @@ export default async function Page({
   return (
     <div className={'p-4'}>
       <ResourceContextProvider pathSegment={id}>
-        <DtoControllerArrayChangesTracker
+        <EditAddDeleteDtoControllerArray
           dtoList={data}
           entityClass={EntityClassMap.knowledgeLevel}
           updateServerAction={putList}

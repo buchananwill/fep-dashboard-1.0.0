@@ -41,7 +41,6 @@ export function TwoStageClick({
     <div className={'w-fit h-fit inline-block'} ref={refs.setReference}>
       <Button
         className={`z-10 relative transition-colors duration-500 ${className}`}
-        /*{...props}*/
         color={clickPrimed ? primedAppearance : 'default'}
         variant={standardAppearance}
         size={'sm'}

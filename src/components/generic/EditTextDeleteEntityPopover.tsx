@@ -5,7 +5,7 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import RenameModal from '@/components/modals/RenameModal';
 import { useEditEntityTextAttribute } from '@/components/modals/useEditEntityTextAttribute';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { DtoUiComponentProps } from 'dto-stores';
 import { HasId, isNotUndefined } from '@/api/main';
 
@@ -14,7 +14,6 @@ export interface EditTextDeletePopoverProps<T extends HasId>
   listenerKey: string;
   textAccessor: (entity: T) => string;
   textSetter: (entity: T, value: string) => T;
-  dispatchWithoutControl?: Dispatch<SetStateAction<T>>;
   classNames?: {
     button?: string;
   };

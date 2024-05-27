@@ -45,15 +45,6 @@ function UnsavedChangesToast({
   );
 }
 
-export function DtoControllerArrayChangesTracker<
-  T extends HasIdClass<U>,
-  U extends string | number
->({
-  ...props
-}: Omit<PrimaryDtoControllerArrayProps<T, U>, 'unsavedChangesComponent'>) {
-  return <EditAddDeleteDtoControllerArray {...props} />;
-}
-
 export function MasterChangesTrackWrapper() {
   return <MasterChangesController unsavedChangesToast={UnsavedChangesToast} />;
 }

@@ -1,8 +1,5 @@
 import { HasId } from '@/api/main';
-import {
-  DtoControllerArray,
-  EditAddDeleteDtoControllerArray
-} from 'dto-stores';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { Card, CardBody } from '@nextui-org/card';
 import { ClientLinkComponentWrapper } from '@/components/generic/ClientLinkComponentWrapper';
 

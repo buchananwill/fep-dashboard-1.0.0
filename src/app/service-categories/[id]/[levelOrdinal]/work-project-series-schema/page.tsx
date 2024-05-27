@@ -1,8 +1,8 @@
 import { EntityClassMap } from '@/api/entity-class-map';
-import { DtoControllerArrayChangesTracker } from '@/components/generic/DtoChangesTracker';
 import WpssEditGridColList from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/WpssEditGridColList';
 import { workProjectSeriesSchemaActionSequence } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/workProjectSeriesSchemaActionSequence';
 import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/serviceCategoryRouteParams';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 
 export default async function Page({
   params: { id, levelOrdinal }
@@ -17,7 +17,7 @@ export default async function Page({
 
   return (
     <>
-      <DtoControllerArrayChangesTracker
+      <EditAddDeleteDtoControllerArray
         dtoList={wpssData}
         entityClass={EntityClassMap.workProjectSeriesSchema}
       />
