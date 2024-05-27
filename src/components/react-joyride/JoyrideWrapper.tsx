@@ -1,6 +1,6 @@
 'use client';
-import Joyride, { Step, TooltipRenderProps } from 'react-joyride';
-import React, { forwardRef, useEffect, useState } from 'react';
+import Joyride, { Step } from 'react-joyride';
+import React, { useEffect, useState } from 'react';
 
 const defaultOptions = {
   arrowColor: '#fff',

@@ -1,5 +1,5 @@
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
-import { DtoUiComponentProps, useDtoComponent } from 'dto-stores';
+import { BaseDtoUiProps, DtoUiProps, useDtoComponent } from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 import React, { useCallback, useMemo } from 'react';
@@ -26,7 +26,7 @@ export default function CarouselGroupOptionChooser({
 
   return (
     <DtoComponent
-      id={collectionId}
+      entityId={collectionId}
       collectionId={collectionId}
       referencedItemContextKeys={referencedItemContextKeys}
     />
@@ -36,7 +36,7 @@ export default function CarouselGroupOptionChooser({
 type ExtraProps = Omit<CollectionItemChooserProps, 'entityClass'>;
 
 function InnerChooserComponent(
-  props: DtoUiComponentProps<CarouselGroupDto> &
+  props: BaseDtoUiProps<CarouselGroupDto> &
     Omit<CollectionItemChooserProps, 'entityClass'>
 ) {
   const { referencedItemContextKeys, collectionId, ...dtoProps } = props;
@@ -138,9 +138,9 @@ function InnerChooserComponent(
   );
 }
 
-const CurriedComponent = (props: DtoUiComponentProps<CarouselGroupDto>) => {
+const CurriedComponent = (props: BaseDtoUiProps<CarouselGroupDto>) => {
   return (
-    <EditTextDeleteEntityPopover
+    <EditTextDeleteEntityPopover<CarouselGroupDto>
       listenerKey={'chooser'}
       textAccessor={nameAccessor}
       textSetter={nameSetter}

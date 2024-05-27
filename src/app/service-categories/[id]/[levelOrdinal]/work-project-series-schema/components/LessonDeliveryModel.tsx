@@ -1,5 +1,5 @@
 'use client';
-import { DtoUiComponentProps } from 'dto-stores';
+import { BaseDtoUiProps } from 'dto-stores';
 import { isNotUndefined } from '@/api/main';
 import { AdjustAllocation } from './AdjustAllocation';
 
@@ -14,11 +14,12 @@ import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useRenameEntity } from '@/components/modals/nameSetter';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { SetOptional } from 'type-fest';
 
 const numberEditClassNames =
   'text-right no-spinner rounded-xl px-2 mx-1 bg-default-100 hover:bg-default-200';
 export const LessonDeliveryModel = (
-  props: DtoUiComponentProps<WorkProjectSeriesSchemaDto>
+  props: SetOptional<BaseDtoUiProps<WorkProjectSeriesSchemaDto>, 'deleted'>
 ) => {
   const {
     entity: model,
@@ -39,7 +40,7 @@ export const LessonDeliveryModel = (
     <div className={'grid grid-cols-4 items-center relative'}>
       {isNotUndefined(dispatchDeletion) && (
         <DeletedOverlay
-          show={deleted}
+          show={deleted ?? false}
           handleUnDelete={() =>
             dispatchDeletion((state) => state.filter((id) => id != model.id))
           }

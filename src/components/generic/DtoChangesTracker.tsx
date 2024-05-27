@@ -1,16 +1,9 @@
 'use client';
 
 import { Card, CardBody } from '@nextui-org/card';
-import {
-  PrimaryDtoControllerArrayProps,
-  UnsavedChangesProps
-} from 'dto-stores/dist/types';
-import { HasIdClass } from '@/api/main';
+import { UnsavedChangesProps } from 'dto-stores/dist/types';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
-import {
-  EditAddDeleteDtoControllerArray,
-  MasterChangesController
-} from 'dto-stores';
+import { MasterChangesController } from 'dto-stores';
 
 function UnsavedChangesToast({
   handleCommit,

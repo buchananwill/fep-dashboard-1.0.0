@@ -1,7 +1,7 @@
 import { workProjectSeriesSchemaActionSequence } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/workProjectSeriesSchemaActionSequence';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 
-export async function getLevelPartialAndSchemaList(
+export function getKnowledgeLevelPartial(
   levelOrdinal: string,
   serviceCategoryId: string
 ) {
@@ -11,6 +11,15 @@ export async function getLevelPartialAndSchemaList(
     levelOrdinal: levelOrdinalInt,
     serviceCategoryId: serviceCategoryIdInt
   };
+  return { levelOrdinalInt, serviceCategoryIdInt, levelPartial };
+}
+
+export async function getLevelPartialAndSchemaList(
+  levelOrdinal: string,
+  serviceCategoryId: string
+) {
+  const { levelOrdinalInt, serviceCategoryIdInt, levelPartial } =
+    getKnowledgeLevelPartial(levelOrdinal, serviceCategoryId);
 
   const { workProjectSeriesSchemas: workProjectSeriesSchemaList } =
     await workProjectSeriesSchemaActionSequence({

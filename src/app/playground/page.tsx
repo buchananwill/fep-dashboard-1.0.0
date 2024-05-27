@@ -40,25 +40,6 @@ export default async function Page() {
       graphName={'test-graph'}
       options={defaultForceGraphPageOptions}
     >
-      <TrackChangesController
-        idList={ArrayPlaceholder}
-        entityClass={EntityClassMap.workSeriesBundleAssignment}
-      />
-      <IdListDataFetchingController
-        idList={ArrayPlaceholder}
-        entityClass={EntityClassMap.workSeriesBundleAssignment}
-        getServerAction={getDtoListByBodyList}
-      />
-      <TrackChangesController
-        idList={ArrayPlaceholder}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-      />
-      <IdListDataFetchingController
-        idList={ArrayPlaceholder}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        getServerAction={getSchemasByBodyList}
-      />
-
       <ReactFlowWrapper>
         <ClassHierarchyLayoutFlowWithForces></ClassHierarchyLayoutFlowWithForces>
       </ReactFlowWrapper>

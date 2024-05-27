@@ -1,5 +1,5 @@
 'use client';
-import { DtoComponentWrapper, DtoUiComponentProps } from 'dto-stores';
+import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
 import {
   StringAttributeInputArray,
   StringPropertyNames
@@ -10,9 +10,9 @@ import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
 
 export default function KnowledgeDomainCard({ id }: { id: number }) {
   return (
-    <DtoComponentWrapper
-      uiComponent={InternalUiComponent}
-      id={id}
+    <DtoUiWrapper
+      renderAs={InternalUiComponent}
+      entityId={id}
       entityClass={EntityClassMap.knowledgeDomain}
     />
   );
@@ -24,7 +24,7 @@ const knowledgeDomainProps: StringPropertyNames<KnowledgeDomainDto>[] = [
 function InternalUiComponent({
   entity,
   dispatchWithoutControl
-}: DtoUiComponentProps<KnowledgeDomainDto>) {
+}: BaseDtoUiProps<KnowledgeDomainDto>) {
   const updateStringProps = (
     value: string,
     attributeKey: StringPropertyNames<KnowledgeDomainDto>

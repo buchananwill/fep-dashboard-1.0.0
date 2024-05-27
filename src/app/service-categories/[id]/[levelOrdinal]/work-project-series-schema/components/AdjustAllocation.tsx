@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { DtoUiComponentProps } from 'dto-stores';
+import { BaseDtoUiProps, DtoUiProps } from 'dto-stores';
 
 import { TransientIdOffset } from '@/api/main';
 import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
@@ -10,13 +10,14 @@ import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { DeliveryAllocation } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/DeliveryAllocation';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
+import { SetOptional } from 'type-fest';
 
 export const allocationSizes = [1, 2];
 
 export function AdjustAllocation({
   entity: workProjectSeriesSchemaDto,
   dispatchWithoutControl
-}: DtoUiComponentProps<WorkProjectSeriesSchemaDto>) {
+}: SetOptional<BaseDtoUiProps<WorkProjectSeriesSchemaDto>, 'deleted'>) {
   const currentAllocations = useMemo(() => {
     return allocationSizes.map((size: number) => {
       const found = workProjectSeriesSchemaDto?.deliveryAllocations?.find(

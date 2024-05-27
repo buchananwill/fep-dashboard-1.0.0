@@ -22,7 +22,7 @@ import {
   useGraphDispatch,
   useGraphListener
 } from 'react-d3-force-graph';
-import React, { memo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { cloneFunctionWrapper } from '@/components/react-flow/organization/organizationCallbacks';
 
 export function BaseNode<T extends HasNumberId>({

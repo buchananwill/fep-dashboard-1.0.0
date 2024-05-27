@@ -1,12 +1,7 @@
 'use client';
-import {
-  DtoComponentWrapper,
-  DtoUiComponentProps,
-  useDtoComponent,
-  useDtoStoreDelete
-} from 'dto-stores';
+
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
+
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   StringAttributeInputArray,
@@ -15,24 +10,15 @@ import {
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useCallback } from 'react';
+import { BaseDtoUiProps, DtoUiProps, useDtoComponent } from 'dto-stores';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 const serviceCategoryProperties: StringPropertyNames<ServiceCategoryDto>[] = [
   'knowledgeDomainDescriptor',
   'knowledgeLevelDescriptor'
 ];
 
-const CurriedPopover = (props: DtoUiComponentProps<ServiceCategoryDto>) => {
-  return (
-    <EditTextDeleteEntityPopover
-      {...props}
-      listenerKey={'card'}
-      textAccessor={(ent) => ent.name}
-      textSetter={(ent, value) => ({ ...ent, name: value })}
-    />
-  );
-};
-
-function InternalUiComponent(props: DtoUiComponentProps<ServiceCategoryDto>) {
+function InternalUiComponent(props: BaseDtoUiProps<ServiceCategoryDto>) {
   const { entity, dispatchWithoutControl, deleted, ...otherProps } = props;
   const update = useCallback(
     (value: string, attributeKey: StringPropertyNames<ServiceCategoryDto>) => {
@@ -57,7 +43,7 @@ function InternalUiComponent(props: DtoUiComponentProps<ServiceCategoryDto>) {
         }}
       />
       <CardHeader>
-        <EditTextDeleteEntityPopover
+        <EditTextDeleteEntityPopover<ServiceCategoryDto>
           {...props}
           listenerKey={'card'}
           textAccessor={(ent) => ent.name}
@@ -76,10 +62,10 @@ function InternalUiComponent(props: DtoUiComponentProps<ServiceCategoryDto>) {
 }
 
 export default function ServiceCategoryCard({ id }: { id: number }) {
-  const DtoComponent = useDtoComponent(
+  const DtoComponent = useDtoComponent<ServiceCategoryDto, any>(
     EntityClassMap.serviceCategory,
     InternalUiComponent
   );
 
-  return <DtoComponent id={id} />;
+  return <DtoComponent entityId={id} />;
 }

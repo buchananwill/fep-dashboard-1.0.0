@@ -17,13 +17,15 @@ import {
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import {
-  DtoUiComponentProps,
-  LazyDtoComponentWrapper,
+  BaseDtoUiProps,
+  BaseLazyDtoUiProps,
+  DtoUiProps,
+  LazyDtoUiProps,
+  LazyDtoUiWrapper,
   NamespacedHooks
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/LessonDeliveryModel';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -137,13 +139,13 @@ export default function OrganizationDetailsContent({
 
 function BundleAssignment({
   entity: bundleAssignment
-}: DtoUiComponentProps<WorkSeriesBundleAssignmentDto>) {
+}: BaseDtoUiProps<WorkSeriesBundleAssignmentDto>) {
   const { workSeriesSchemaBundleId } = bundleAssignment;
 
   return (
-    <LazyDtoComponentWrapper
+    <LazyDtoUiWrapper
       renderAs={BundleDetails}
-      id={workSeriesSchemaBundleId}
+      entityId={workSeriesSchemaBundleId}
       entityClass={EntityClassMap.workSeriesSchemaBundle}
       whileLoading={() => null}
     />
@@ -152,13 +154,13 @@ function BundleAssignment({
 
 function BundleDetails({
   entity
-}: DtoUiComponentProps<WorkSeriesSchemaBundleDto>) {
+}: BaseLazyDtoUiProps<WorkSeriesSchemaBundleDto>) {
   return useMemo(() => {
     return entity.workProjectSeriesSchemaIds?.map((id) => (
-      <LazyDtoComponentWrapper<WorkProjectSeriesSchemaDto>
+      <LazyDtoUiWrapper
         key={id}
         entityClass={EntityClassMap.workProjectSeriesSchema}
-        id={id}
+        entityId={id}
         renderAs={LessonDeliveryModel}
         whileLoading={whileLoading}
       />

@@ -20,7 +20,7 @@ export function DtoStoreStringValueEdit<T extends HasId>({
   ...inputProps
 }: DtoStoreStringValueEditProps<T>) {
   let { entity, dispatchWithoutControl } = useDtoStore<T>({
-    id,
+    entityId: id,
     entityClass,
     listenerKey
   });

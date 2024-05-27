@@ -1,6 +1,6 @@
 'use server';
 
-import { API_V2_URL, BASE_URL, IntersectionGeneratorMatrix } from '@/api/main';
+import { API_V2_URL, IntersectionGeneratorMatrix } from '@/api/main';
 
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';

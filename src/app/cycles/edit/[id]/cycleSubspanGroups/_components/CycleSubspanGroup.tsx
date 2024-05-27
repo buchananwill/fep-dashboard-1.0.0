@@ -1,4 +1,4 @@
-import { DtoUiComponentProps } from 'dto-stores';
+import { BaseDtoUiProps, DtoUiProps } from 'dto-stores';
 
 import {
   ArrayPlaceholder,
@@ -55,7 +55,7 @@ export default function CycleSubspanGroup({
   dispatchDeletion,
   deleted,
   entityClass
-}: DtoUiComponentProps<CycleSubspanGroupDto>) {
+}: BaseDtoUiProps<CycleSubspanGroupDto>) {
   const selectiveContextReadAll = useGlobalReadAny<CycleSubspanDto>();
 
   const cycleSubspanDtoList = entity.cycleSubspanJoins

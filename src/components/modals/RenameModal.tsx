@@ -10,10 +10,7 @@ import {
 } from '@nextui-org/modal';
 import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
-import {
-  useGlobalDispatch,
-  useGlobalDispatchAndListener
-} from 'selective-context';
+import { useGlobalDispatchAndListener } from 'selective-context';
 
 export const RenameContextKey = 'rename';
 export interface ConfirmActionModalProps extends Omit<ModalProps, 'children'> {

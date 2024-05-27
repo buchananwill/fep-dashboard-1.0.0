@@ -5,11 +5,7 @@ import {
   getOne,
   putList
 } from '@/api/generated-actions/ServiceCategory';
-import {
-  EditAddDeleteController,
-  DtoController,
-  EditAddDeleteDtoControllerArray
-} from 'dto-stores';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 
 export default async function Page({
   params: { id }

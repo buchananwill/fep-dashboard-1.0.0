@@ -6,8 +6,6 @@ import { HasId } from '@/api/main';
 import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
 import {
-  DtoControllerArray,
-  EditAddDeleteController,
   EditAddDeleteDtoControllerArray,
   MasterMapController
 } from 'dto-stores';

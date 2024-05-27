@@ -6,11 +6,11 @@ import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import RenameModal from '@/components/modals/RenameModal';
 import { useEditEntityTextAttribute } from '@/components/modals/useEditEntityTextAttribute';
 import { useCallback, useState } from 'react';
-import { DtoUiComponentProps } from 'dto-stores';
+import { BaseDtoUiProps } from 'dto-stores';
 import { HasId, isNotUndefined } from '@/api/main';
 
 export interface EditTextDeletePopoverProps<T extends HasId>
-  extends DtoUiComponentProps<T> {
+  extends BaseDtoUiProps<T> {
   listenerKey: string;
   textAccessor: (entity: T) => string;
   textSetter: (entity: T, value: string) => T;

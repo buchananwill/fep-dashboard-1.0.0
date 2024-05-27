@@ -27,7 +27,7 @@ export function DtoStoreNumberInput<
   className
 }: DtoStoreNumberInputProps<T, U>) {
   let { entity, dispatchWithoutControl } = useDtoStore<T>({
-    id: entityId,
+    entityId,
     entityClass,
     listenerKey
   });

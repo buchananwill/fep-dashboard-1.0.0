@@ -1,5 +1,5 @@
 import { Control, Controller } from 'react-hook-form';
-import { Select, SelectedItems, SelectProps } from '@nextui-org/react';
+import { Select, SelectProps } from '@nextui-org/react';
 import React from 'react';
 
 export type FormSelectProps = {

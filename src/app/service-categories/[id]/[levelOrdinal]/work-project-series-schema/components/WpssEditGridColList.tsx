@@ -10,7 +10,7 @@ import { EmptyArray } from '@/api/main';
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { DtoComponentArray, useAllDtoComponents } from 'dto-stores';
+import { useAllDtoComponents } from 'dto-stores';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 const initialMap = new Map();

@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { getWeekNumberInt } from '@/app/cycles/_functions/groupCycleSubspansByDay';
 import { Button } from '@nextui-org/button';
-import { DtoComponentWrapperListView } from '@/components/generic/DtoComponentWrapperListView';
+import { DtoUiWrapperListView } from '@/components/generic/DtoUiWrapperListView';
 import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
 import { CycleDayFetcherProps } from '@/app/cycles/_components/CycleDayFetcher';
 
@@ -74,10 +74,10 @@ export default function CycleDayViewer({
         </Button>
       </CardHeader>
       <CardBody className={'gap-1'}>
-        <DtoComponentWrapperListView
+        <DtoUiWrapperListView
           entityList={currentState}
           entityClass={cycleSubspan}
-          eachAs={CycleSubspan}
+          renderAs={CycleSubspan}
         />
       </CardBody>
     </Card>

@@ -20,7 +20,7 @@ function StringAttributeInput<T>({
     <Input
       type="text"
       label={attributeKey as string}
-      value={entity[attributeKey] as string}
+      value={(entity[attributeKey] as string) ?? ''}
       onValueChange={(value) => update(value, attributeKey)}
     />
   );

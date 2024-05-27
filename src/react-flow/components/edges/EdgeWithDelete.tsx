@@ -2,8 +2,7 @@ import {
   BaseEdge,
   EdgeLabelRenderer,
   EdgeProps,
-  getBezierPath,
-  getStraightPath
+  getBezierPath
 } from 'reactflow';
 
 import { TrashIcon } from '@heroicons/react/16/solid';

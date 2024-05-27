@@ -1,5 +1,5 @@
 import { HasId } from '@/api/main';
-import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { getRenameContextKey } from '@/components/modals/nameSetter';

@@ -1,9 +1,6 @@
 'use client';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
-import {
-  DtoComponentWrapper,
-  useDtoStoreDispatchAndListener
-} from 'dto-stores';
+import { DtoUiWrapper, useDtoStore } from 'dto-stores';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
@@ -16,7 +13,6 @@ import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[level
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
-import { useDtoStoreDelete } from 'dto-stores';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { isNotUndefined } from '@/api/main';
 
@@ -33,18 +29,12 @@ export default function BundleItemChooser({
   entityClass,
   referencedItemContextKeys
 }: CollectionItemChooserProps) {
-  const { currentState, dispatchWithoutControl } =
-    useDtoStoreDispatchAndListener<WorkSeriesSchemaBundleDto>(
-      collectionId,
+  const { entity, dispatchWithoutControl, deleted, dispatchDeletion } =
+    useDtoStore<WorkSeriesSchemaBundleDto>({
+      entityId: collectionId,
       entityClass,
-      'itemChooser'
-    );
-
-  const { deleted, dispatchDeletion } = useDtoStoreDelete(
-    entityClass,
-    collectionId,
-    'bundleItemChooser'
-  );
+      listenerKey: 'itemChooser'
+    });
 
   const { itemMap: schemaMap, items } =
     useItemChooserMap<WorkProjectSeriesSchemaDto>(
@@ -57,13 +47,13 @@ export default function BundleItemChooser({
   );
 
   const currentAllocationSum = useMemo(() => {
-    const workProjectSeriesSchemaDtos = currentState.workProjectSeriesSchemaIds
+    const workProjectSeriesSchemaDtos = entity.workProjectSeriesSchemaIds
       .map((id) =>
         schemaMap.get(`${EntityClassMap.workProjectSeriesSchema}:${id}`)
       )
       .filter(isNotUndefined);
     return sumAllSchemas(workProjectSeriesSchemaDtos);
-  }, [currentState, schemaMap]);
+  }, [entity, schemaMap]);
 
   return (
     <div className={'flex flex-col relative'}>
@@ -75,20 +65,14 @@ export default function BundleItemChooser({
         }
       />
       <div className={'grid grid-cols-2 items-baseline mb-2'}>
-        <DtoComponentWrapper<WorkSeriesSchemaBundleDto>
+        <DtoUiWrapper
           entityClass={entityClass}
-          id={collectionId}
-          uiComponent={(props) => {
-            return (
-              <EditTextDeleteEntityPopover
-                classNames={{ button: 'w-full' }}
-                listenerKey={'popover'}
-                textAccessor={nameAccessor}
-                textSetter={nameSetter}
-                {...props}
-              />
-            );
-          }}
+          entityId={collectionId}
+          listenerKey={'popover'}
+          textAccessor={nameAccessor}
+          textSetter={nameSetter}
+          classNames={{ button: 'w-full' }}
+          renderAs={EditTextDeleteEntityPopover<WorkSeriesSchemaBundleDto>}
         />
         <div className={'flex justify-center gap-2'}>
           <Chip size={'sm'} color={'secondary'}>
@@ -99,7 +83,7 @@ export default function BundleItemChooser({
       </div>
       <Listbox
         items={items}
-        selectedKeys={currentState.workProjectSeriesSchemaIds}
+        selectedKeys={entity.workProjectSeriesSchemaIds}
         selectionMode={'multiple'}
         variant={'bordered'}
         aria-label={'Select Collection Items'}

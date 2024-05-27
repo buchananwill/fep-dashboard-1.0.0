@@ -1,5 +1,5 @@
 'use client';
-import { useDtoStoreListener } from 'dto-stores';
+
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   ArrayPlaceholder,
@@ -11,13 +11,14 @@ import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDt
 import { useMemo } from 'react';
 import { Chip } from '@nextui-org/chip';
 import { StringObjectRecord } from '@/api/string-object-record';
+import { useDtoStore } from 'dto-stores';
 
 export default function BundleItemWithInclusionCount({ id }: { id: string }) {
-  const { currentState } = useDtoStoreListener<WorkProjectSeriesSchemaDto>(
-    id,
-    EntityClassMap.workProjectSeriesSchema,
-    'inclusionCounter'
-  );
+  const { entity } = useDtoStore<WorkProjectSeriesSchemaDto>({
+    entityId: id,
+    entityClass: EntityClassMap.workProjectSeriesSchema,
+    listenerKey: 'inclusionCounter'
+  });
 
   const { currentState: bundleIdList } = useGlobalListener<number[]>({
     contextKey: `${EntityClassMap.workSeriesSchemaBundle}:idList`,
@@ -47,7 +48,7 @@ export default function BundleItemWithInclusionCount({ id }: { id: string }) {
 
   return (
     <div className={'flex justify-between'}>
-      <span>{currentState.name}</span>{' '}
+      <span>{entity.name}</span>{' '}
       <Chip
         size={'sm'}
         classNames={{ base: 'py-0.5 h-fit' }}

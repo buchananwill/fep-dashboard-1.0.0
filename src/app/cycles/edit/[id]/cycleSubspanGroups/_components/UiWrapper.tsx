@@ -3,17 +3,17 @@ import CycleSubspanGroupEdit, {
   CycleSubspanGroupEditDto
 } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
 import {
-  DtoComponentWrapperListView,
-  DtoComponentWrapperListViewProps
-} from '@/components/generic/DtoComponentWrapperListView';
+  DtoUiWrapperListView,
+  DtoUiWrapperListViewProps
+} from '@/components/generic/DtoUiWrapperListView';
+import { JSX } from 'react/jsx-runtime';
+import IntrinsicAttributes = JSX.IntrinsicAttributes;
 
 export default function UiWrapper(
   props: Omit<
-    DtoComponentWrapperListViewProps<CycleSubspanGroupEditDto>,
-    'eachAs'
+    DtoUiWrapperListViewProps<CycleSubspanGroupEditDto, IntrinsicAttributes>,
+    'renderAs'
   >
 ) {
-  return (
-    <DtoComponentWrapperListView {...props} eachAs={CycleSubspanGroupEdit} />
-  );
+  return <DtoUiWrapperListView {...props} renderAs={CycleSubspanGroupEdit} />;
 }

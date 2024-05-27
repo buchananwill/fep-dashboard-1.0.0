@@ -17,19 +17,8 @@ import { isNumber } from 'lodash';
 
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import {
-  useLazyDtoDispatchAndListen,
-  useLazyDtoListListener
-} from 'dto-stores';
-
-export interface AllocationSummary {
-  label: string;
-  amount: number;
-}
-export interface AllocationTotal {
-  id: number;
-  amount: number;
-}
+import { useLazyDtoListListener, useLazyDtoStore } from 'dto-stores';
+import { AllocationSummary } from '@/components/react-flow/organization/allocationSummary';
 
 const initialTotalMap = new Map<string, number>();
 
@@ -67,12 +56,11 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   });
 
   const { workSeriesBundleAssignment } = data;
-  const { currentState: schemaBundle } =
-    useLazyDtoDispatchAndListen<WorkSeriesSchemaBundleDto>(
-      workSeriesBundleAssignment.workSeriesSchemaBundleId,
-      EntityClassMap.workSeriesSchemaBundle,
-      listenerKey
-    );
+  const { entity: schemaBundle } = useLazyDtoStore<WorkSeriesSchemaBundleDto>(
+    workSeriesBundleAssignment.workSeriesSchemaBundleId,
+    EntityClassMap.workSeriesSchemaBundle,
+    listenerKey
+  );
 
   const [localTotal, setLocalTotal] = useState(0);
 
@@ -84,7 +72,7 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     );
 
   useEffect(() => {
-    let sum = 0;
+    let sum: number;
 
     sum = sumAllSchemas([...schemaMap.values()]);
     setLocalTotal(sum);

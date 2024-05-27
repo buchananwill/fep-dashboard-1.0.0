@@ -1,7 +1,7 @@
 'use client';
 
 import ContextualLinkToEntityPage from '@/components/generic/ContextualLinkToEntityPage';
-import { DtoComponentArray } from 'dto-stores';
+import { DtoUiArray } from 'dto-stores';
 
 export function ClientLinkComponentWrapper({
   entityClass
@@ -9,9 +9,9 @@ export function ClientLinkComponentWrapper({
   entityClass: string;
 }) {
   return (
-    <DtoComponentArray
+    <DtoUiArray
       entityClass={entityClass}
-      eachAs={ContextualLinkToEntityPage}
+      renderAs={ContextualLinkToEntityPage}
     />
   );
 }
