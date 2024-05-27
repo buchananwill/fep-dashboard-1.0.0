@@ -51,6 +51,10 @@ export default async function page({
         dtoList={carouselGroupDtos}
       />
       <EditAddDeleteDtoControllerArray
+        entityClass={'CarouselOptionState'}
+        dtoList={EmptyArray}
+      />
+      <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.carouselOrder}
         dtoList={carouselOrderList}
       />
