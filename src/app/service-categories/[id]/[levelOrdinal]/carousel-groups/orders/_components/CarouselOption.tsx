@@ -27,10 +27,14 @@ import { WriteAny } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-
 import { produce } from 'immer';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
+import { Badge, BadgeProps } from '@nextui-org/badge';
+import clsx from 'clsx';
+import ClashController from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/ClashController';
 
 export type CarouselOptionStateInterface = {
   id: number;
   carouselOrderAssignees: string[];
+  clashMap: Map<string, CarouselOrderItemDto[]>;
 } & CarouselOptionDto;
 
 export const CarouselOptionState = 'CarouselOptionState';
@@ -90,25 +94,36 @@ export default function CarouselOption({
   const loading = !schema || !workTaskType;
 
   return (
-    <div className={`w-full h-full ${isOver ? ' opacity-50' : ''}`} ref={drop}>
-      {loading ? (
-        <PendingOverlay pending={true} />
-      ) : (
-        <Popover>
-          <PopoverTrigger>
-            <Button
-              className={'w-full h-full'}
-              color={canDrop ? 'primary' : fallBackColor}
-            >
-              {workTaskType.name}: {stateEntity.carouselOrderAssignees.length}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <OrderItemAssigneeList carouselOptionDto={stateEntity} />
-          </PopoverContent>
-        </Popover>
-      )}
-    </div>
+    <ClashBadge
+      show={stateEntity.clashMap.size > 0}
+      content={stateEntity.clashMap.size}
+    >
+      <div
+        className={clsx(
+          'w-full h-full overflow-visible relative',
+          isOver ? ' opacity-50' : ''
+        )}
+        ref={drop}
+      >
+        {loading ? (
+          <PendingOverlay pending={true} />
+        ) : (
+          <Popover>
+            <PopoverTrigger>
+              <Button
+                className={'w-full h-full'}
+                color={canDrop ? 'primary' : fallBackColor}
+              >
+                {workTaskType.name}: {stateEntity.carouselOrderAssignees.length}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <OrderItemAssigneeList carouselOptionDto={stateEntity} />
+            </PopoverContent>
+          </Popover>
+        )}
+      </div>
+    </ClashBadge>
   );
 }
 
@@ -144,5 +159,22 @@ function assignOrderItemToOption(
         ].carouselOptionId = option.id;
       });
     }
+  );
+}
+
+export function ClashBadge({
+  show,
+  className,
+  children,
+  ...otherProps
+}: Omit<BadgeProps, 'color'> & { show: boolean }) {
+  return (
+    <Badge
+      className={clsx(show ? '' : 'hidden')}
+      color={'danger'}
+      {...otherProps}
+    >
+      {children}
+    </Badge>
   );
 }

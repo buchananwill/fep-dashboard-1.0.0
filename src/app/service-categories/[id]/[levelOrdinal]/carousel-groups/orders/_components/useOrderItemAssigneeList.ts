@@ -39,6 +39,7 @@ export function useSingleOptionAssigneeList(
   option: CarouselOptionStateInterface
 ) {
   const orderItemAssigneeList = useOrderItemAssigneeList([option]);
+
   return useMemo(
     () =>
       orderItemAssigneeList

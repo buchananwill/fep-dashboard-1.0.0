@@ -1,5 +1,9 @@
 'use client';
-import { BaseLazyDtoUiProps, NamespacedHooks } from 'dto-stores';
+import {
+  BaseLazyDtoUiProps,
+  getNameSpacedKey,
+  NamespacedHooks
+} from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { SetStateAction, useEffect, useRef } from 'react';
 import { useGlobalReadAny, useGlobalWriteAny } from 'selective-context';
@@ -14,6 +18,8 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { f } from '@nextui-org/slider/dist/use-slider-64459b54';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
+import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
+import { produce } from 'immer';
 
 export interface WriteAny<T> {
   (contextKey: string, proposedUpdate: SetStateAction<T>): void;
@@ -44,8 +50,42 @@ export default function CarouselOrderManager({
 
   useEffect(() => {
     const clashes = checkForClash(entity.carouselOrderItems, optionMap.current);
+    if (clashes.length > 0) {
+      clashes.forEach((clashList) => {
+        clashList.forEach((orderItem) => {
+          dispatchWriteAny(
+            getEntityNamespaceContextKey(
+              CarouselOptionState,
+              orderItem.carouselOptionId
+            ),
+            (state) => {
+              const nextMap = new Map(state.clashMap);
+              nextMap.set(orderItem.carouselOrderId, clashList);
+              return { ...state, clashMap: nextMap };
+            }
+          );
+        });
+      });
+    }
     console.log(clashes);
-  }, [optionMap, entity.carouselOrderItems]);
+    return () => {
+      clashes.forEach((clashList) => {
+        clashList.forEach((orderItem) => {
+          dispatchWriteAny(
+            getEntityNamespaceContextKey(
+              CarouselOptionState,
+              orderItem.carouselOptionId
+            ),
+            (state) => {
+              const nextMap = new Map(state.clashMap);
+              nextMap.delete(orderItem.carouselOrderId);
+              return { ...state, clashMap: nextMap };
+            }
+          );
+        });
+      });
+    };
+  }, [optionMap, entity.carouselOrderItems, dispatchWriteAny]);
 
   return null;
 }

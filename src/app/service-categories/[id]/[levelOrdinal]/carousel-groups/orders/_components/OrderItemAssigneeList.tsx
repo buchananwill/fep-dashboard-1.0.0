@@ -1,5 +1,4 @@
 import { useSingleOptionAssigneeList } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/useOrderItemAssigneeList';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import CarouselOrderItem from './CarouselOrderItem';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 

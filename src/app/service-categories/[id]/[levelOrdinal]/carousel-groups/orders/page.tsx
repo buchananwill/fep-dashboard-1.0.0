@@ -55,7 +55,8 @@ export default async function page({
     carouselDtoList.flatMap((carousel) => {
       return carousel.carouselOptionDtos.map((dto) => ({
         ...dto,
-        carouselOrderAssignees: []
+        carouselOrderAssignees: [],
+        clashMap: new Map()
       }));
     });
 
