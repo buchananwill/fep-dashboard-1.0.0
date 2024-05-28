@@ -32,8 +32,8 @@ function useOptionAssigneeList(optionIdList: number[]) {
   );
   return useMemo(() => {
     return masterList.filter((order) =>
-      order.carouselOrderItems.some((item) =>
-        optionIdList.includes(item.carouselOptionId)
+      Object.values(order.carouselOrderItems).some(
+        (item) => optionIdList.includes(item.carouselOptionId) && item.active
       )
     );
   }, [optionIdList, masterList]);

@@ -3,9 +3,22 @@ import { DtoStoreParams, LazyDtoUiListAll, useDtoStore } from 'dto-stores';
 import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/Carousel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
+import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
+import { useContext } from 'react';
+import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity } = useDtoStore<CarouselGroupDto>(params);
+
+  const mutableRefObject = useContext(
+    SelectiveContextGlobal.latestValueRefContext
+  );
+  const mutableRefObjectListener = useContext(
+    SelectiveContextGlobal.listenersRefContext
+  );
+
+  console.log('values', mutableRefObject);
+  console.log('listeners', mutableRefObjectListener);
 
   if (!entity) return null;
 
@@ -20,6 +33,11 @@ export default function CarouselGroup(params: DtoStoreParams) {
       <LazyDtoUiListAll
         renderAs={Carousel}
         entityClass={EntityClassMap.carousel}
+        whileLoading={() => null}
+      />
+      <LazyDtoUiListAll
+        renderAs={CarouselOrderManager}
+        entityClass={EntityClassMap.carouselOrder}
         whileLoading={() => null}
       />
     </div>

@@ -3,8 +3,6 @@ import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import CarouselOption from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 
 export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
-  console.log(entity);
-
   return (
     <>
       {entity.carouselOptionDtos.map((option) => (

@@ -1,6 +1,6 @@
 import { MutableRefObject } from 'react';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
-import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { handleAddAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/handleAddAssignee';
 import { handleRemoveAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/handleRemoveAssignee';
 import { WriteAny } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
@@ -8,7 +8,7 @@ import { WriteAny } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-
 export function performDiffOnCarouselOrderItem(
   orderItems: MutableRefObject<Record<string, CarouselOrderItemDto>>,
   item: CarouselOrderItemDto,
-  dispatchWriteAny: WriteAny<CarouselOptionState>
+  dispatchWriteAny: WriteAny<CarouselOptionStateInterface>
 ) {
   const prevItem = orderItems.current[item.workProjectSeriesSchemaId];
   const activeMatch = prevItem?.active === item.active;
@@ -23,7 +23,7 @@ export function performDiffOnCarouselOrderItem(
   // match: true false #3
   else if (activeMatch) {
     if (item.active) {
-      handleRemoveAssignee(dispatchWriteAny, prevItem);
+      if (prevItem) handleRemoveAssignee(dispatchWriteAny, prevItem);
       handleAddAssignee(dispatchWriteAny, item);
     }
     // (no action needed if the item WAS and IS inactive, apart from update ref)
@@ -33,7 +33,7 @@ export function performDiffOnCarouselOrderItem(
     handleAddAssignee(dispatchWriteAny, item);
     // No removal action needed for the prevItem, since it wasn't active.
   } else {
-    handleRemoveAssignee(dispatchWriteAny, prevItem);
+    if (prevItem) handleRemoveAssignee(dispatchWriteAny, prevItem);
     // No add action needed for the current item, since it isn't active.
   }
   // finally: update the ref

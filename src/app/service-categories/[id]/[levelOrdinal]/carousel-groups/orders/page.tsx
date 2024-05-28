@@ -42,6 +42,8 @@ export default async function page({
     dto.carousels.map((carousel) => carousel.id)
   );
 
+  const carouselDtoList = await getCarouselByList(carouselIdList);
+
   const carouselOrderList = await getDtoListByExampleList(exampleList);
 
   return (
@@ -54,24 +56,23 @@ export default async function page({
         entityClass={'CarouselOptionState'}
         dtoList={EmptyArray}
       />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.carouselOrder}
-        dtoList={carouselOrderList}
-      />
       <DataFetchingEditDtoControllerArray
         idList={schemaIdList}
         entityClass={EntityClassMap.workProjectSeriesSchema}
         getServerAction={getDtoListByBodyList}
       />
       <DataFetchingEditDtoControllerArray
-        idList={carouselIdList}
-        entityClass={EntityClassMap.carousel}
-        getServerAction={getCarouselByList}
-      />
-      <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
         entityClass={EntityClassMap.workTaskType}
         getServerAction={getWorkTaskTypeByList}
+      />
+      <EditAddDeleteDtoControllerArray
+        dtoList={carouselDtoList}
+        entityClass={EntityClassMap.carousel}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.carouselOrder}
+        dtoList={carouselOrderList}
       />
       <CarouselGroup
         entityClass={EntityClassMap.carouselGroup}
