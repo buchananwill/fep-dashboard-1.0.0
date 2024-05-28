@@ -15,7 +15,7 @@ import { OptionMap } from '@/app/service-categories/[id]/[levelOrdinal]/carousel
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { performDiffOnCarouselOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/performDiffOnCarouselOrderItem';
+import { performDiffOnCarouselOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 
 export interface WriteAny<T> {
@@ -42,7 +42,11 @@ export default function CarouselOrderManager({
   const { dispatchWriteAny } =
     useGlobalWriteAny<CarouselOptionStateInterface>();
 
-  useKeepTrying(dispatchWriteAny, entity, orderItems);
+  useEffect(() => {
+    Object.values(entity.carouselOrderItems).forEach((item) =>
+      performDiffOnCarouselOrderItem(orderItems, item, dispatchWriteAny)
+    );
+  }, [dispatchWriteAny, entity.carouselOrderItems]);
 
   return null;
 }

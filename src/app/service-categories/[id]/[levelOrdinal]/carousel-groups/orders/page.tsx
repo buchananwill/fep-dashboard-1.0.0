@@ -15,6 +15,10 @@ import { getDtoListByBodyList as getCarouselByList } from '@/api/generated-actio
 import { getDtoListByBodyList as getWorkTaskTypeByList } from '@/api/generated-actions/WorkTaskType';
 import CarouselGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
 import { EmptyArray } from '@/api/main';
+import {
+  CarouselOptionState,
+  CarouselOptionStateInterface
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 
 export default async function page({
   params: { levelOrdinal, id }
@@ -46,6 +50,14 @@ export default async function page({
 
   const carouselOrderList = await getDtoListByExampleList(exampleList);
 
+  const optionStateList: CarouselOptionStateInterface[] =
+    carouselDtoList.flatMap((carousel) => {
+      return carousel.carouselOptionDtos.map((dto) => ({
+        ...dto,
+        carouselOrderAssignees: []
+      }));
+    });
+
   return (
     <>
       <EditAddDeleteDtoControllerArray
@@ -53,8 +65,8 @@ export default async function page({
         dtoList={carouselGroupDtos}
       />
       <EditAddDeleteDtoControllerArray
-        entityClass={'CarouselOptionState'}
-        dtoList={EmptyArray}
+        entityClass={CarouselOptionState}
+        dtoList={optionStateList}
       />
       <DataFetchingEditDtoControllerArray
         idList={schemaIdList}

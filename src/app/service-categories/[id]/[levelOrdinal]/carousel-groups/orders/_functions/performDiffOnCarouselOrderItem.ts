@@ -1,8 +1,8 @@
 import { MutableRefObject } from 'react';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { handleAddAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/handleAddAssignee';
-import { handleRemoveAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/handleRemoveAssignee';
+import { handleAddAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/handleAddAssignee';
+import { handleRemoveAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/handleRemoveAssignee';
 import { WriteAny } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
 
 export function performDiffOnCarouselOrderItem(
@@ -22,6 +22,7 @@ export function performDiffOnCarouselOrderItem(
   }
   // match: true false #3
   else if (activeMatch) {
+    console.log('re-assigning item', activeMatch, assignmentMatch, prevItem);
     if (item.active) {
       if (prevItem) handleRemoveAssignee(dispatchWriteAny, prevItem);
       handleAddAssignee(dispatchWriteAny, item);

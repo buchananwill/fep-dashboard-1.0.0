@@ -6,6 +6,8 @@ import { SelectiveContextManagerGlobal } from 'selective-context';
 import React from 'react';
 
 import { MasterChangesTrackWrapper } from '@/components/generic/DtoChangesTracker';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export function LibraryProvidersWrapper({
   children
@@ -17,7 +19,9 @@ export function LibraryProvidersWrapper({
   return (
     <SelectiveContextManagerGlobal>
       <MasterChangesTrackWrapper />
-      <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
+      <DndProvider backend={HTML5Backend}>
+        <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
+      </DndProvider>
     </SelectiveContextManagerGlobal>
   );
 }

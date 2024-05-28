@@ -10,24 +10,21 @@ import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiv
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity } = useDtoStore<CarouselGroupDto>(params);
 
-  const mutableRefObject = useContext(
-    SelectiveContextGlobal.latestValueRefContext
-  );
-  const mutableRefObjectListener = useContext(
-    SelectiveContextGlobal.listenersRefContext
-  );
-
-  console.log('values', mutableRefObject);
-  console.log('listeners', mutableRefObjectListener);
+  // const mutableRefObject = useContext(
+  //   SelectiveContextGlobal.latestValueRefContext
+  // );
+  // const mutableRefObjectListener = useContext(
+  //   SelectiveContextGlobal.listenersRefContext
+  // );
 
   if (!entity) return null;
 
   return (
     <div
-      className={'grid h-[100vh] p-4 gap-2'}
+      className={'grid h-[100vh] p-4 gap-1'}
       style={{
-        gridTemplateColumns: `repeat(${entity.carousels.length}, minmax(0, 1fr))`,
-        gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`
+        gridTemplateColumns: `repeat(${entity.carousels.length}, minmax(0, 1fr))`
+        // gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`
       }}
     >
       <LazyDtoUiListAll
