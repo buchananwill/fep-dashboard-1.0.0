@@ -4,6 +4,7 @@ import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
+import clsx from 'clsx';
 
 export default function CarouselOrderItem({
   entity: orderItem
@@ -26,7 +27,10 @@ export default function CarouselOrderItem({
   return (
     <div
       ref={drag}
-      className={'bg-white rounded-lg odd:bg-sky-300 even:bg-red-300 p-1'}
+      className={clsx(
+        'bg-white rounded-lg odd:bg-sky-300 even:bg-red-300 p-1 cursor-pointer',
+        isDragging && ' opacity-50'
+      )}
     >
       <div className={''}>User: {entity.userRoleId}</div>
     </div>

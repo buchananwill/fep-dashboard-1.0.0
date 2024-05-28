@@ -1,5 +1,10 @@
 'use client';
-import { DtoStoreParams, LazyDtoUiListAll, useDtoStore } from 'dto-stores';
+import {
+  DtoStoreParams,
+  LazyDtoUiListAll,
+  MasterMapController,
+  useDtoStore
+} from 'dto-stores';
 import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/Carousel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
@@ -10,12 +15,13 @@ import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiv
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity } = useDtoStore<CarouselGroupDto>(params);
 
-  // const mutableRefObject = useContext(
-  //   SelectiveContextGlobal.latestValueRefContext
-  // );
+  const mutableRefObject = useContext(
+    SelectiveContextGlobal.latestValueRefContext
+  );
   // const mutableRefObjectListener = useContext(
   //   SelectiveContextGlobal.listenersRefContext
   // );
+  console.log(mutableRefObject);
 
   if (!entity) return null;
 

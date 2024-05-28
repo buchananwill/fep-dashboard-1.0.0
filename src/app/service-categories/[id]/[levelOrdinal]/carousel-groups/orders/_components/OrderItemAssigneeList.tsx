@@ -10,7 +10,7 @@ export default function OrderItemAssigneeList({
 }) {
   const optionAssigneeListMemo = useSingleOptionAssigneeList(carouselOptionDto);
   return (
-    <div className={'grid grid-cols-4 bg-emerald-200 gap-0.5'}>
+    <div className={'grid grid-cols-4 bg-emerald-200 bg-opacity-0 gap-0.5'}>
       {optionAssigneeListMemo.length > 0 ? (
         optionAssigneeListMemo.map((orderItem) => (
           <CarouselOrderItem key={orderItem.id} entity={orderItem} />

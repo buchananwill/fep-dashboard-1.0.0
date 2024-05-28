@@ -1,22 +1,19 @@
 'use client';
-import {
-  BaseDtoUiProps,
-  BaseLazyDtoUiProps,
-  NamespacedHooks
-} from 'dto-stores';
+import { BaseLazyDtoUiProps, NamespacedHooks } from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
-import { MutableRefObject, SetStateAction, useEffect, useRef } from 'react';
-import { EntityClassMap } from '@/api/entity-class-map';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/main';
-import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { useGlobalListener, useGlobalWriteAny } from 'selective-context';
-import { OptionMap } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionMapManager';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
-import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+import { SetStateAction, useEffect, useRef } from 'react';
+import { useGlobalReadAny, useGlobalWriteAny } from 'selective-context';
+import {
+  CarouselOptionState,
+  CarouselOptionStateInterface
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { performDiffOnCarouselOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
+import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { f } from '@nextui-org/slider/dist/use-slider-64459b54';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 
 export interface WriteAny<T> {
   (contextKey: string, proposedUpdate: SetStateAction<T>): void;
@@ -25,19 +22,16 @@ export interface WriteAny<T> {
 export default function CarouselOrderManager({
   entity
 }: BaseLazyDtoUiProps<CarouselOrderDto>) {
-  const orderItemSchemaIdList = useRef(Object.keys(entity.carouselOrderItems));
   const orderItems = useRef({});
+  const optionMap = useRef<Map<string, CarouselOptionDto>>(new Map());
+  const readAny = useGlobalReadAny<
+    Map<string, CarouselOptionDto> | undefined
+  >();
+  optionMap.current =
+    readAny(`${CarouselOptionState}:${KEY_TYPES.MASTER_MAP}`) ??
+    optionMap.current;
 
-  const listenerKey = `orderManager:${entity.id}`;
-  const { currentState: carouselList } = NamespacedHooks.useListen<
-    CarouselDto[]
-  >(EntityClassMap.carousel, KEY_TYPES.MASTER_LIST, listenerKey, EmptyArray);
-
-  const { currentState: optionMap } = useGlobalListener({
-    contextKey: OptionMap,
-    initialValue: initialMap as Map<string, CarouselOptionDto[]>,
-    listenerKey
-  });
+  console.log(optionMap);
 
   const { dispatchWriteAny } =
     useGlobalWriteAny<CarouselOptionStateInterface>();
@@ -48,49 +42,38 @@ export default function CarouselOrderManager({
     );
   }, [dispatchWriteAny, entity.carouselOrderItems]);
 
+  useEffect(() => {
+    const clashes = checkForClash(entity.carouselOrderItems, optionMap.current);
+    console.log(clashes);
+  }, [optionMap, entity.carouselOrderItems]);
+
   return null;
 }
 
-/**
- * 1. Add assignee
- *    i. item is active
- *    ii. list does not contain item
- * 2. Remove assignee
- *    i. item is inactive
- *    ii. item is assigned elsewhere
- * */
-
-function useKeepTrying(
-  dispatchWriteAny: WriteAny<CarouselOptionStateInterface>,
-  entity: CarouselOrderDto,
-  orderItems: MutableRefObject<Record<string, CarouselOrderItemDto>>
+function checkForClash(
+  orderItems: Record<string, CarouselOrderItemDto>,
+  carouselOptionDtoMap: Map<string, CarouselOptionDto>
 ) {
-  const retryTimeout = useRef<number | undefined>();
-
-  useEffect(() => {
-    retryTimeout.current = keepTrying(dispatchWriteAny, entity, orderItems);
-    return () => {
-      if (retryTimeout.current) clearTimeout(retryTimeout.current);
-    };
-  }, [dispatchWriteAny, entity, orderItems]);
-}
-
-function keepTrying(
-  dispatchWriteAny: WriteAny<CarouselOptionStateInterface>,
-  entity: CarouselOrderDto,
-  orderItems: MutableRefObject<Record<string, CarouselOrderItemDto>>
-) {
-  try {
-    console.log('trying');
-    Object.values(entity.carouselOrderItems).forEach((item) =>
-      performDiffOnCarouselOrderItem(orderItems, item, dispatchWriteAny)
-    );
-    return undefined;
-  } catch (e) {
-    console.log('failed!', entity);
-    return window.setTimeout(
-      () => keepTrying(dispatchWriteAny, entity, orderItems),
-      2000
-    );
+  const clashes: CarouselOrderItemDto[][] = [];
+  const itemSet = new Set(Object.values(orderItems));
+  for (let orderItemDto of Object.values(orderItems)) {
+    itemSet.delete(orderItemDto);
+    const filterClashes = [...itemSet].filter((item) => {
+      if (!item.active) return false;
+      const optionA = carouselOptionDtoMap.get(
+        `${CarouselOptionState}:${item.carouselOptionId}`
+      );
+      const optionB = carouselOptionDtoMap.get(
+        `${CarouselOptionState}:${orderItemDto.carouselOptionId}`
+      );
+      return optionA && optionB && optionA?.carouselId === optionB?.carouselId;
+    });
+    if (filterClashes.length > 0) {
+      clashes.push([orderItemDto, ...filterClashes]);
+      filterClashes.forEach((clashingOrderItem) =>
+        itemSet.delete(clashingOrderItem)
+      );
+    }
   }
+  return clashes;
 }

@@ -1,6 +1,7 @@
 'use client';
 import {
   DtoController,
+  NamespacedHooks,
   useDtoStore,
   useDtoStoreDispatch,
   useEffectSyncDeepEqualWithDispatch,
@@ -24,6 +25,8 @@ import OrderItemAssigneeList from '@/app/service-categories/[id]/[levelOrdinal]/
 import { useGlobalWriteAny } from 'selective-context';
 import { WriteAny } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
 import { produce } from 'immer';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 
 export type CarouselOptionStateInterface = {
   id: number;
@@ -54,21 +57,35 @@ export default function CarouselOption({
   );
   const { dispatchWriteAny } = useGlobalWriteAny<CarouselOrderDto>();
 
-  const [{ isOver, canDrop }, drop] = useDrop(() => ({
-    accept: DragTypes.CAROUSEL_ORDER_ITEM,
-    drop: (item, monitor) =>
-      assignOrderItemToOption(
-        item as CarouselOrderItemDto,
-        entity,
-        dispatchWriteAny
-      ),
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop()
-    }),
-    canDrop: (item, monitor) =>
-      canAssignToOrderItem(item as CarouselOrderItemDto, stateEntity)
-  }));
+  const [{ isOver, canDrop, currentItem, currentItemType }, drop] = useDrop(
+    () => ({
+      accept: DragTypes.CAROUSEL_ORDER_ITEM,
+      drop: (item, monitor) =>
+        assignOrderItemToOption(
+          item as CarouselOrderItemDto,
+          entity,
+          dispatchWriteAny
+        ),
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+        currentItem: monitor.getItem(),
+        currentItemType: monitor.getItemType()
+      }),
+      canDrop: (item, monitor) =>
+        canAssignToOrderItem(item as CarouselOrderItemDto, stateEntity)
+    })
+  );
+
+  let fallBackColor: 'default' | 'warning' = 'default';
+  if (currentItem && currentItemType === DragTypes.CAROUSEL_ORDER_ITEM) {
+    const orderItem = currentItem as CarouselOrderItemDto;
+    if (
+      stateEntity.carouselOrderAssignees.includes(orderItem.carouselOrderId) &&
+      entity.workProjectSeriesSchemaId !== orderItem.workProjectSeriesSchemaId
+    )
+      fallBackColor = 'warning';
+  }
 
   const loading = !schema || !workTaskType;
 
@@ -81,7 +98,7 @@ export default function CarouselOption({
           <PopoverTrigger>
             <Button
               className={'w-full h-full'}
-              color={canDrop ? 'primary' : 'default'}
+              color={canDrop ? 'primary' : fallBackColor}
             >
               {workTaskType.name}: {stateEntity.carouselOrderAssignees.length}
             </Button>
@@ -108,7 +125,7 @@ function canAssignToOrderItem(
 ) {
   return (
     option.workProjectSeriesSchemaId === orderItem.workProjectSeriesSchemaId &&
-    orderItem.carouselOptionId !== option.id &&
+    // orderItem.carouselOptionId !== option.id &&
     orderItem.active
   );
 }

@@ -7,7 +7,8 @@ import { PartialDeep } from 'type-fest';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import {
   DataFetchingEditDtoControllerArray,
-  EditAddDeleteDtoControllerArray
+  EditAddDeleteDtoControllerArray,
+  MasterMapController
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
@@ -68,6 +69,7 @@ export default async function page({
         entityClass={CarouselOptionState}
         dtoList={optionStateList}
       />
+      <MasterMapController entityClass={CarouselOptionState} />
       <DataFetchingEditDtoControllerArray
         idList={schemaIdList}
         entityClass={EntityClassMap.workProjectSeriesSchema}
