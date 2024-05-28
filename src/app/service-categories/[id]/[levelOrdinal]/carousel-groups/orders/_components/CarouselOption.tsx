@@ -10,7 +10,7 @@ import OptionAssigneeList from '@/app/service-categories/[id]/[levelOrdinal]/car
 
 export type CarouselOptionState = {
   id: number;
-  assignees: string[];
+  carouselOrderAssignees: string[];
 } & CarouselOptionDto;
 
 export default function CarouselOption({
