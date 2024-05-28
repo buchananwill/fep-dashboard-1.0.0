@@ -44,7 +44,7 @@ export default function CarouselOrderItem({
   }));
 
   return (
-    <ClashBadge show={clashList.length > 0}>
+    <ClashBadge show={clashList.length > 0} content={'!'}>
       <div
         ref={drag}
         className={clsx(
