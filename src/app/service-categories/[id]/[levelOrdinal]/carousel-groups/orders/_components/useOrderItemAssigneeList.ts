@@ -1,11 +1,12 @@
 import { useMemo, useRef } from 'react';
-import { NamespacedHooks } from 'dto-stores';
+import { NamespacedHooks, useLazyDtoListListener } from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray, isNotUndefined } from '@/api/main';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+import { useDtoStoreListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreListener';
 
 export function useOrderItemAssigneeList(
   optionList: CarouselOptionStateInterface[]
@@ -19,7 +20,7 @@ export function useOrderItemAssigneeList(
     listener.current,
     EmptyArray
   );
-  return useMemo(() => {
+  const orderIdListMemo = useMemo(() => {
     return masterList
       .filter((order) =>
         Object.values(order.carouselOrderItems).some(
@@ -30,19 +31,26 @@ export function useOrderItemAssigneeList(
         )
       )
       .map((order) => {
-        return order.carouselOrderItems;
+        return order.id;
       });
   }, [optionList, masterList]);
+  return useLazyDtoListListener<CarouselOrderDto>(
+    orderIdListMemo,
+    EntityClassMap.carouselOrder,
+    listener.current
+  );
 }
 
 export function useSingleOptionAssigneeList(
   option: CarouselOptionStateInterface
 ) {
-  const orderItemAssigneeList = useOrderItemAssigneeList([option]);
+  const { currentState: orderItemAssigneeList } = useOrderItemAssigneeList([
+    option
+  ]);
 
   return useMemo(
     () =>
-      orderItemAssigneeList
+      Object.values(orderItemAssigneeList)
         .map((items) => items[option.workProjectSeriesSchemaId])
         .filter(isNotUndefined),
     [orderItemAssigneeList, option]
