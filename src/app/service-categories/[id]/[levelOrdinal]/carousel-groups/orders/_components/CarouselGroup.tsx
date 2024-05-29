@@ -11,9 +11,16 @@ import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
 import { useContext } from 'react';
 import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
+import { useGlobalController } from 'selective-context';
+import { EmptyArray } from '@/api/main';
 
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity } = useDtoStore<CarouselGroupDto>(params);
+  useGlobalController({
+    contextKey: 'highlightedSubjects',
+    initialValue: EmptyArray,
+    listenerKey: 'controller'
+  });
 
   const mutableRefObject = useContext(
     SelectiveContextGlobal.latestValueRefContext
@@ -27,7 +34,7 @@ export default function CarouselGroup(params: DtoStoreParams) {
 
   return (
     <div
-      className={'grid h-[100vh] p-4 gap-1'}
+      className={'grid p-4 gap-1'}
       style={{
         gridTemplateColumns: `repeat(${entity.carousels.length}, minmax(0, 1fr))`
         // gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`
