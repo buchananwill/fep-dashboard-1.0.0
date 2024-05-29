@@ -31,6 +31,7 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
   });
 
   const readAnyOrder = useGlobalReadAny<CarouselOrderDto>();
+  const readAnyOption = useGlobalReadAny<CarouselOptionStateInterface>();
 
   const { currentState: rotationPrimeList } = useGlobalListener({
     contextKey: 'rotationPrime',
@@ -43,6 +44,10 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
     initialValue: InitialSet as Set<string>,
     listenerKey: listenerKey
   });
+
+  const carouselCanPrime = useMemo(() => {
+    return checkCarouselCanPrime(entity, rotationPrimeList, readAnyOption);
+  }, [entity, readAnyOption, rotationPrimeList]);
 
   const sortedOptionStateList = useMemo(() => {
     return [...group.values()]
@@ -63,15 +68,16 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
       })
       .map((carouselOption) => ({
         entity: carouselOption,
-        canPrime: checkCanPrime(
-          carouselOption,
-          rotationPrimeList,
-          filteredOrders,
-          readAnyOrder,
-          entity
-        )
+        canPrime:
+          (carouselCanPrime &&
+            checkOptionCanPrime(
+              carouselOption,
+              rotationPrimeList,
+              filteredOrders
+            )) ||
+          rotationPrimeList.includes(carouselOption.id)
       }));
-  }, [group, rotationPrimeList, filteredOrders, readAnyOrder, entity]);
+  }, [group, rotationPrimeList, filteredOrders, carouselCanPrime]);
 
   return (
     <div className={'grid grid-cols-1 gap-1'}>
@@ -92,16 +98,41 @@ export function useUuidListenerKey() {
   return useRef(crypto.randomUUID()).current;
 }
 
-function checkCanPrime(
+function checkOptionCanPrime(
   option: CarouselOptionStateInterface,
   rotationPrimeList: number[],
-  filteredOrders: Set<string>,
-  readAnyOrder: SelectiveContextReadAll<CarouselOrderDto>,
-  carousel: CarouselDto
+  filteredOrders: Set<string>
 ) {
   return (
     option.carouselOrderAssignees.length > 0 &&
     (rotationPrimeList.length === 0 ||
       option.carouselOrderAssignees.some((order) => filteredOrders.has(order)))
+  );
+}
+
+function checkCarouselCanPrime(
+  carousel: CarouselDto,
+  rotationPrimeList: number[],
+  readAnyOption: SelectiveContextReadAll<CarouselOptionStateInterface>
+) {
+  return (
+    rotationPrimeList.length === 0 ||
+    rotationPrimeList.some((carouselOptionId) => {
+      const optionOptional = readAnyOption(
+        getEntityNamespaceContextKey(CarouselOptionState, carouselOptionId)
+      );
+      if (!optionOptional || optionOptional.carouselId === carousel.id)
+        return false;
+      return carousel.carouselOptionDtos.some((optionDto) => {
+        const localOption = readAnyOption(
+          getEntityNamespaceContextKey(CarouselOptionState, optionDto.id)
+        );
+        return (
+          (localOption?.carouselOrderAssignees?.length ?? 0) > 0 &&
+          localOption?.workProjectSeriesSchemaId ===
+            optionOptional.workProjectSeriesSchemaId
+        );
+      });
+    })
   );
 }
