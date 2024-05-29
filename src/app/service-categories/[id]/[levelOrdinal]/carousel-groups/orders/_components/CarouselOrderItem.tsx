@@ -45,15 +45,16 @@ export default function CarouselOrderItem({
 
   return (
     <ClashBadge show={clashList.length > 0} content={'!'}>
-      <div
-        ref={drag}
-        className={clsx(
-          'bg-white rounded-lg odd:bg-sky-300 even:bg-red-300 p-1 cursor-pointer',
-          isDragging && ' opacity-50'
-        )}
-      >
-        <div className={''}>User: {entity.userRoleId}</div>
-      </div>
+      {drag(
+        <div
+          className={clsx(
+            'bg-white rounded-lg odd:bg-sky-300 even:bg-red-300 p-1 cursor-pointer',
+            isDragging && ' opacity-50'
+          )}
+        >
+          <div className={''}>User: {entity.userRoleId}</div>
+        </div>
+      )}
     </ClashBadge>
   );
 }

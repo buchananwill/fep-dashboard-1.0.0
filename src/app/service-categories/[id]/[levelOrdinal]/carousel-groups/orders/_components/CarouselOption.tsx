@@ -16,7 +16,7 @@ import { Button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import OptionAssigneeList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionAssigneeList';
 import { useDtoStoreController } from 'dto-stores/dist/hooks/internal/useDtoStoreController';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
@@ -30,25 +30,28 @@ import { initialMap } from '@/components/react-flow/organization/OrganizationDet
 import { Badge, BadgeProps } from '@nextui-org/badge';
 import clsx from 'clsx';
 import ClashController from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/ClashController';
+import { Chip } from '@nextui-org/chip';
 
 export type CarouselOptionStateInterface = {
   id: number;
   carouselOrderAssignees: string[];
   clashMap: Map<string, CarouselOrderItemDto[]>;
+  name?: string;
 } & CarouselOptionDto;
 
 export const CarouselOptionState = 'CarouselOptionState';
 export default function CarouselOption({
   entity
 }: {
-  entity: CarouselOptionDto;
+  entity: CarouselOptionStateInterface;
 }) {
   const { workProjectSeriesSchemaId } = entity;
 
-  const { entity: stateEntity } = useDtoStore<CarouselOptionStateInterface>({
-    entityClass: CarouselOptionState,
-    entityId: entity.id
-  });
+  const { entity: stateEntity, dispatchWithoutControl } =
+    useDtoStore<CarouselOptionStateInterface>({
+      entityClass: CarouselOptionState,
+      entityId: entity.id
+    });
 
   const { entity: schema } = useLazyDtoStore<WorkProjectSeriesSchemaDto>(
     workProjectSeriesSchemaId,
@@ -60,6 +63,14 @@ export default function CarouselOption({
     EntityClassMap.workTaskType
   );
   const { dispatchWriteAny } = useGlobalWriteAny<CarouselOrderDto>();
+
+  useEffect(() => {
+    if (stateEntity?.name !== workTaskType?.name && workTaskType)
+      dispatchWithoutControl((state) => ({
+        ...state,
+        name: workTaskType.name
+      }));
+  }, [stateEntity, workTaskType, dispatchWithoutControl]);
 
   const [{ isOver, canDrop, currentItem, currentItemType }, drop] = useDrop(
     () => ({
@@ -93,45 +104,58 @@ export default function CarouselOption({
 
   const loading = !schema || !workTaskType;
 
+  const assigneeCount = stateEntity.carouselOrderAssignees.length;
+
+  const badgeColor = useMemo(() => {
+    return schema
+      ? getAssigneeCountColor(assigneeCount, schema)
+      : 'bg-gray-300';
+  }, [assigneeCount, schema]);
+
   return (
     <ClashBadge
       show={stateEntity.clashMap.size > 0}
       content={stateEntity.clashMap.size}
     >
-      <div
-        className={clsx(
-          'w-full h-full overflow-visible relative',
-          isOver ? ' opacity-50' : ''
-        )}
-        ref={drop}
-      >
-        {loading ? (
-          <PendingOverlay pending={true} />
-        ) : (
-          <Popover>
-            <PopoverTrigger>
-              <Button
-                className={'w-full h-full'}
-                color={canDrop ? 'primary' : fallBackColor}
-              >
-                {workTaskType.name}: {stateEntity.carouselOrderAssignees.length}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <OrderItemAssigneeList carouselOptionDto={stateEntity} />
-            </PopoverContent>
-          </Popover>
-        )}
-      </div>
+      {drop(
+        <div
+          className={clsx(
+            'w-full h-full overflow-visible relative ',
+            isOver ? ' opacity-50' : ''
+          )}
+        >
+          {loading ? (
+            <PendingOverlay pending={true} />
+          ) : (
+            <Popover>
+              <PopoverTrigger>
+                <Button
+                  className={clsx(
+                    'w-full h-full px-3 flex justify-between',
+                    assigneeCount === 0 && 'text-gray-400'
+                  )}
+                  color={canDrop ? 'primary' : fallBackColor}
+                >
+                  {workTaskType.name}:{' '}
+                  <Chip
+                    className={clsx(
+                      badgeColor,
+                      assigneeCount === 0 && 'text-gray-500'
+                    )}
+                  >
+                    {stateEntity.carouselOrderAssignees.length}
+                  </Chip>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <OrderItemAssigneeList carouselOptionDto={stateEntity} />
+              </PopoverContent>
+            </Popover>
+          )}
+        </div>
+      )}
     </ClashBadge>
   );
-}
-
-function canAssignToOrder(order: CarouselOrderDto, option: CarouselOptionDto) {
-  const carouselOrderItem =
-    order.carouselOrderItems[option.workProjectSeriesSchemaId] ?? false;
-  if (!carouselOrderItem) return false;
-  else return canAssignToOrderItem(carouselOrderItem, option);
 }
 
 function canAssignToOrderItem(
@@ -177,4 +201,17 @@ export function ClashBadge({
       {children}
     </Badge>
   );
+}
+
+function getAssigneeCountColor(
+  count: number,
+  schema: WorkProjectSeriesSchemaDto
+) {
+  if (count === 0) return 'bg-gray-300';
+  const breakpointsPassed = count / schema.userToProviderRatio;
+  if (breakpointsPassed <= 1) return 'bg-emerald-200';
+  if (breakpointsPassed <= 2) return 'bg-yellow-100';
+  if (breakpointsPassed <= 3) return 'bg-orange-200';
+  if (breakpointsPassed <= 4) return 'bg-red-300';
+  else return 'bg-fuchsia-300';
 }
