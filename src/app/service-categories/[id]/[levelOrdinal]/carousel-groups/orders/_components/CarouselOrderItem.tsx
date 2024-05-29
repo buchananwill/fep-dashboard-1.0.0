@@ -43,18 +43,16 @@ export default function CarouselOrderItem({
     item: orderItem
   }));
 
-  return (
-    <ClashBadge show={clashList.length > 0} content={'!'}>
-      {drag(
-        <div
-          className={clsx(
-            'bg-white rounded-lg odd:bg-sky-300 even:bg-red-300 p-1 cursor-pointer',
-            isDragging && ' opacity-50'
-          )}
-        >
-          <div className={''}>User: {entity.userRoleId}</div>
-        </div>
+  return drag(
+    <div
+      className={clsx(
+        'bg-white rounded-lg odd:bg-sky-300 even:bg-red-300 p-1 cursor-pointer',
+        isDragging && ' opacity-50'
       )}
-    </ClashBadge>
+    >
+      <ClashBadge show={clashList.length > 0} content={'!'}>
+        <div className={''}>User: {entity.userRoleId}</div>
+      </ClashBadge>
+    </div>
   );
 }
