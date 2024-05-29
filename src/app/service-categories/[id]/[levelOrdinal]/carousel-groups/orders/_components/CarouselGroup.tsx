@@ -9,18 +9,70 @@ import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-grou
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
-import { useGlobalController } from 'selective-context';
-import { EmptyArray } from '@/api/main';
+import { useGlobalController, useGlobalReadAny } from 'selective-context';
+import { EmptyArray, isNotUndefined } from '@/api/main';
+import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
+import {
+  CarouselOptionState,
+  CarouselOptionStateInterface
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 
+export const ControllerKey = 'controller';
+export const InitialSet = new Set();
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity } = useDtoStore<CarouselGroupDto>(params);
   useGlobalController({
     contextKey: 'highlightedSubjects',
     initialValue: EmptyArray,
-    listenerKey: 'controller'
+    listenerKey: ControllerKey
   });
+  const { currentState: rotationPrimeList } = useGlobalController({
+    contextKey: 'rotationPrime',
+    initialValue: EmptyArray,
+    listenerKey: ControllerKey
+  });
+
+  const { currentState: filteredOrders, dispatch } = useGlobalController<
+    Set<string>
+  >({
+    contextKey: 'filteredOrders',
+    initialValue: InitialSet as Set<string>,
+    listenerKey: ControllerKey
+  });
+
+  const readAnyOption = useGlobalReadAny<CarouselOptionStateInterface>();
+
+  useEffect(() => {
+    const assigneesFilteredList = rotationPrimeList
+      .map((optionId) => readAnyOption(`${CarouselOptionState}:${optionId}`))
+      .filter(isNotUndefined)
+      .map((option) => new Set(option.carouselOrderAssignees)); // Convert each list to a set
+
+    if (assigneesFilteredList.length === 0) {
+      dispatch(InitialSet as Set<string>);
+      return;
+    }
+
+    // Sort sets by their size in ascending order
+    assigneesFilteredList.sort((a, b) => a.size - b.size);
+
+    // Start with the first (smallest) set of assignees
+    let intersectionSet = assigneesFilteredList[0];
+
+    // Intersect with the remaining sets
+    for (let i = 1; i < assigneesFilteredList.length; i++) {
+      intersectionSet = new Set(
+        [...intersectionSet].filter((assignee) =>
+          assigneesFilteredList[i].has(assignee)
+        )
+      );
+    }
+
+    dispatch(intersectionSet);
+  }, [rotationPrimeList, dispatch, readAnyOption]);
 
   const mutableRefObject = useContext(
     SelectiveContextGlobal.latestValueRefContext
