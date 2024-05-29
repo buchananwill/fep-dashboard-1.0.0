@@ -115,7 +115,7 @@ export default function CarouselOption({
   const badgeColor = useMemo(() => {
     return schema
       ? getAssigneeCountColor(assigneeCount, schema)
-      : 'bg-gray-300';
+      : 'bg-default-300';
   }, [assigneeCount, schema]);
 
   return (
@@ -177,7 +177,7 @@ export default function CarouselOption({
                     <Chip
                       className={clsx(
                         badgeColor,
-                        assigneeCount === 0 && 'text-gray-500'
+                        assigneeCount === 0 && 'text-gray-400'
                       )}
                     >
                       {stateEntity.carouselOrderAssignees.length}
