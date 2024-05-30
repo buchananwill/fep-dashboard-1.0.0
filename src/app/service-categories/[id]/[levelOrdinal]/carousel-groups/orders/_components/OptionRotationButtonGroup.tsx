@@ -4,6 +4,7 @@ import { ButtonGroup } from '@nextui-org/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import {
   useGlobalController,
+  useGlobalDispatchAndListener,
   useGlobalListener,
   useGlobalReadAny,
   useGlobalWriteAny
@@ -35,7 +36,10 @@ export default function OptionRotationButtonGroup() {
   const readAnyCarousel = useGlobalReadAny<CarouselDto>();
   const readAnyOption = useGlobalReadAny<CarouselOptionStateInterface>();
   const readAnyOrder = useGlobalReadAny<CarouselOrderDto>();
-  const { currentState: rotationPrimeList } = useGlobalListener({
+  const {
+    currentState: rotationPrimeList,
+    dispatchWithoutControl: dispatchPrimeList
+  } = useGlobalDispatchAndListener({
     contextKey: RotationPrime,
     listenerKey,
     initialValue: EmptyArray as number[]
@@ -56,21 +60,23 @@ export default function OptionRotationButtonGroup() {
       optionA: CarouselOptionStateInterface,
       optionB: CarouselOptionStateInterface
     ) => {
-      const carouselA = readAnyCarousel(
+      const carouselOrdinalA = readAnyCarousel(
         getEntityNamespaceContextKey(
           EntityClassMap.carousel,
           optionA.carouselId
         )
       )?.carouselOrdinal;
-      const carouselB = readAnyCarousel(
+      const carouselOrdinalB = readAnyCarousel(
         getEntityNamespaceContextKey(
           EntityClassMap.carousel,
           optionB.carouselId
         )
       )?.carouselOrdinal;
-      if (!(isNotUndefined(carouselA) && isNotUndefined(carouselB)))
+      if (
+        !(isNotUndefined(carouselOrdinalA) && isNotUndefined(carouselOrdinalB))
+      )
         throw Error('unable to find a carousel');
-      return carouselA - carouselB;
+      return carouselOrdinalA - carouselOrdinalB;
     },
     [readAnyCarousel]
   );
@@ -86,23 +92,31 @@ export default function OptionRotationButtonGroup() {
     if (rotationPrimeList.length !== optionNodeList.length)
       throw Error('Options not found in store.');
     const forwardsList = optionNodeList.toSorted(sortingFunction);
-    const forwardsCycle = findHamiltonianCycle(forwardsList, readAnyCarousel);
+    let forwardsCycle = findHamiltonianCycle(forwardsList, readAnyCarousel);
 
     forwardsCycle?.sort(sortingFunction);
+    const validator = getOptionConnectionValidator(readAnyCarousel);
 
     let backwardsCycle = forwardsCycle?.toReversed();
     if (backwardsCycle) {
-      backwardsCycle = validateHamiltonianCycle(
-        backwardsCycle,
-        getOptionConnectionValidator(readAnyCarousel)
-      )
+      backwardsCycle = validateHamiltonianCycle(backwardsCycle, validator)
         ? backwardsCycle
         : undefined;
     }
 
-    return isEqual(forwardsCycle, backwardsCycle)
-      ? { forwardsCycle, backwardsCycle: undefined }
-      : { forwardsCycle, backwardsCycle };
+    if (forwardsCycle)
+      forwardsCycle = validateHamiltonianCycle(forwardsCycle, validator)
+        ? forwardsCycle
+        : undefined;
+
+    console.log(backwardsCycle, forwardsCycle);
+
+    return (
+      // isEqual(forwardsCycle, backwardsCycle)
+      // ? { forwardsCycle, backwardsCycle: undefined }
+      // :
+      { forwardsCycle, backwardsCycle }
+    );
   }, [rotationPrimeList, readAnyCarousel, readAnyOption, sortingFunction]);
 
   const rotationNextStudent = useCallback(
@@ -141,8 +155,18 @@ export default function OptionRotationButtonGroup() {
         set.delete(orderId);
         return set;
       });
+      if (filteredOrders.size === 1) {
+        dispatchPrimeList([]);
+      }
     },
-    [filteredOrders, readAnyOrder, readAnyCarousel, writeAnyOrder, dispatch]
+    [
+      filteredOrders,
+      readAnyOrder,
+      readAnyCarousel,
+      writeAnyOrder,
+      dispatch,
+      dispatchPrimeList
+    ]
   );
 
   return (

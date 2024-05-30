@@ -78,6 +78,14 @@ export default function CarouselGroup(params: DtoStoreParams) {
     dispatch(intersectionSet);
   }, [rotationPrimeList, dispatch, readAnyOption]);
 
+  const mutableRefObject = useContext(
+    SelectiveContextGlobal.latestValueRefContext
+  );
+  // const mutableRefObjectListener = useContext(
+  //   SelectiveContextGlobal.listenersRefContext
+  // );
+  console.log(mutableRefObject);
+
   if (!entity) return null;
 
   return (

@@ -2,7 +2,10 @@ import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[level
 import { getKnowledgeLevelPartial } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/getLevelPartialAndSchemaList';
 import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/api/generated-actions/KnowledgeLevel';
 import { getDtoListByExampleList as getCarouselGroupsByExampleList } from '@/api/generated-actions/CarouselGroup';
-import { getDtoListByExampleList } from '@/api/generated-actions/CarouselOrder';
+import {
+  getDtoListByExampleList,
+  putList
+} from '@/api/generated-actions/CarouselOrder';
 import { PartialDeep } from 'type-fest';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import {
@@ -91,6 +94,7 @@ export default async function page({
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.carouselOrder}
         dtoList={carouselOrderList}
+        updateServerAction={putList}
       />
       <CarouselGroup
         entityClass={EntityClassMap.carouselGroup}
