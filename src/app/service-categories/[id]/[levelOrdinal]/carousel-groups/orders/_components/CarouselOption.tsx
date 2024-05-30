@@ -1,5 +1,5 @@
 'use client';
-import { useDtoStore, useDtoStoreDispatch, useLazyDtoStore } from 'dto-stores';
+import { useDtoStoreDispatch, useLazyDtoStore } from 'dto-stores';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
@@ -14,13 +14,9 @@ import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import OrderItemAssigneeList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderItemAssigneeList';
 import {
-  useGlobalController,
   useGlobalDispatchAndListener,
-  useGlobalListener,
   useGlobalWriteAny
 } from 'selective-context';
-import { WriteAny } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
-import { produce } from 'immer';
 import { Badge, BadgeProps } from '@nextui-org/badge';
 import clsx from 'clsx';
 import { Chip } from '@nextui-org/chip';
@@ -28,11 +24,7 @@ import { ButtonGroup } from '@nextui-org/react';
 import { AcademicCapIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { AcademicCapIcon as AcademicCapIconFilled } from '@heroicons/react/24/solid';
 import { EmptyArray } from '@/api/main';
-import {
-  ControllerKey,
-  InitialSet
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
-import { b, f } from '@nextui-org/slider/dist/use-slider-64459b54';
+import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/assignOrderItemToOption';
 
 export type CarouselOptionStateInterface = {
   id: number;
@@ -280,23 +272,6 @@ function canAssignToOrderItem(
     option.workProjectSeriesSchemaId === orderItem.workProjectSeriesSchemaId &&
     // orderItem.carouselOptionId !== option.id &&
     orderItem.active
-  );
-}
-
-function assignOrderItemToOption(
-  orderItem: CarouselOrderItemDto,
-  option: CarouselOptionDto,
-  dispatchWrite: WriteAny<CarouselOrderDto>
-) {
-  dispatchWrite(
-    `${EntityClassMap.carouselOrder}:${orderItem.carouselOrderId}`,
-    (state: CarouselOrderDto) => {
-      return produce(state, (draft) => {
-        draft.carouselOrderItems[
-          orderItem.workProjectSeriesSchemaId
-        ].carouselOptionId = option.id;
-      });
-    }
   );
 }
 

@@ -45,9 +45,9 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
     listenerKey: listenerKey
   });
 
-  const carouselCanPrime = useMemo(() => {
-    return checkCarouselCanPrime(entity, rotationPrimeList, readAnyOption);
-  }, [entity, readAnyOption, rotationPrimeList]);
+  // const carouselCanPrime = useMemo(() => {
+  //   return checkCarouselCanPrime(entity, rotationPrimeList, readAnyOption);
+  // }, [entity, readAnyOption, rotationPrimeList]);
 
   const sortedOptionStateList = useMemo(() => {
     return [...group.values()]
@@ -69,15 +69,13 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
       .map((carouselOption) => ({
         entity: carouselOption,
         canPrime:
-          (carouselCanPrime &&
-            checkOptionCanPrime(
-              carouselOption,
-              rotationPrimeList,
-              filteredOrders
-            )) ||
-          rotationPrimeList.includes(carouselOption.id)
+          checkOptionCanPrime(
+            carouselOption,
+            rotationPrimeList,
+            filteredOrders
+          ) || rotationPrimeList.includes(carouselOption.id)
       }));
-  }, [group, rotationPrimeList, filteredOrders, carouselCanPrime]);
+  }, [group, rotationPrimeList, filteredOrders]);
 
   return (
     <div className={'grid grid-cols-1 gap-1'}>

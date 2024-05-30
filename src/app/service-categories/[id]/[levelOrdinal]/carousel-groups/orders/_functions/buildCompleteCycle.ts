@@ -1,6 +1,6 @@
-type DirectedEdgePredicate<T> = (nodeA: T, nodeB: T) => boolean;
+export type DirectedEdgePredicate<T> = (nodeA: T, nodeB: T) => boolean;
 
-function buildCompleteCycle<T>(
+export function buildCompleteCycle<T>(
   nodes: T[],
   isValidConnection: DirectedEdgePredicate<T>,
   visited: Set<T>

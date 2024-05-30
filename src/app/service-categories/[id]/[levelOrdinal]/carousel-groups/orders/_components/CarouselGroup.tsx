@@ -9,7 +9,7 @@ import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-grou
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
-import { useContext, useEffect } from 'react';
+import { memo, useContext, useEffect } from 'react';
 import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 import { useGlobalController, useGlobalReadAny } from 'selective-context';
 import { EmptyArray, isNotUndefined } from '@/api/main';
@@ -19,18 +19,22 @@ import {
   CarouselOptionState,
   CarouselOptionStateInterface
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
+import OptionRotationButtonGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
 
 export const ControllerKey = 'controller';
 export const InitialSet = new Set();
+export const RotationPrime = 'rotationPrime';
+export const HighlightedSubjects = 'highlightedSubjects';
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity } = useDtoStore<CarouselGroupDto>(params);
   useGlobalController({
-    contextKey: 'highlightedSubjects',
+    contextKey: HighlightedSubjects,
     initialValue: EmptyArray,
     listenerKey: ControllerKey
   });
   const { currentState: rotationPrimeList } = useGlobalController({
-    contextKey: 'rotationPrime',
+    contextKey: RotationPrime,
     initialValue: EmptyArray,
     listenerKey: ControllerKey
   });
@@ -74,34 +78,35 @@ export default function CarouselGroup(params: DtoStoreParams) {
     dispatch(intersectionSet);
   }, [rotationPrimeList, dispatch, readAnyOption]);
 
-  const mutableRefObject = useContext(
-    SelectiveContextGlobal.latestValueRefContext
-  );
-  // const mutableRefObjectListener = useContext(
-  //   SelectiveContextGlobal.listenersRefContext
-  // );
-  console.log(mutableRefObject);
-
   if (!entity) return null;
 
   return (
-    <div
-      className={'grid p-4 gap-1'}
-      style={{
-        gridTemplateColumns: `repeat(${entity.carousels.length}, minmax(0, 1fr))`
-        // gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`
-      }}
-    >
-      <LazyDtoUiListAll
-        renderAs={Carousel}
-        entityClass={EntityClassMap.carousel}
-        whileLoading={() => null}
-      />
-      <LazyDtoUiListAll
-        renderAs={CarouselOrderManager}
-        entityClass={EntityClassMap.carouselOrder}
-        whileLoading={() => null}
-      />
-    </div>
+    <Card>
+      <CardHeader className={'flex justify-center'}>
+        <OptionRotationButtonGroup />
+      </CardHeader>
+      <CardBody>
+        <div
+          className={'grid p-4 gap-1'}
+          style={{
+            gridTemplateColumns: `repeat(${entity.carousels.length}, minmax(0, 1fr))`
+            // gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`
+          }}
+        >
+          <LazyDtoUiListAll
+            renderAs={Carousel}
+            entityClass={EntityClassMap.carousel}
+            whileLoading={() => null}
+          />
+          <LazyDtoUiListAll
+            renderAs={MemoOrderManager}
+            entityClass={EntityClassMap.carouselOrder}
+            whileLoading={() => null}
+          />
+        </div>
+      </CardBody>
+    </Card>
   );
 }
+
+const MemoOrderManager = memo(CarouselOrderManager);

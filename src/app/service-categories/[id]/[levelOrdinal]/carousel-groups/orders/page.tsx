@@ -82,7 +82,10 @@ export default async function page({
         getServerAction={getWorkTaskTypeByList}
       />
       <EditAddDeleteDtoControllerArray
-        dtoList={carouselDtoList}
+        dtoList={carouselDtoList.sort(
+          (carouselA, carouselB) =>
+            carouselA.carouselOrdinal - carouselB.carouselOrdinal
+        )}
         entityClass={EntityClassMap.carousel}
       />
       <EditAddDeleteDtoControllerArray

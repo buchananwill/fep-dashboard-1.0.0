@@ -31,8 +31,6 @@ export default function CarouselOrderItem({
     )
   );
 
-  console.log(option);
-
   const clashList = option?.clashMap?.get(orderItem.carouselOrderId) ?? [];
 
   const [{ isDragging }, drag] = useDrag(() => ({

@@ -37,8 +37,6 @@ export default function CarouselOrderManager({
     readAny(`${CarouselOptionState}:${KEY_TYPES.MASTER_MAP}`) ??
     optionMap.current;
 
-  console.log(optionMap);
-
   const { dispatchWriteAny } =
     useGlobalWriteAny<CarouselOptionStateInterface>();
 
@@ -67,7 +65,6 @@ export default function CarouselOrderManager({
         });
       });
     }
-    console.log(clashes);
     return () => {
       clashes.forEach((clashList) => {
         clashList.forEach((orderItem) => {
