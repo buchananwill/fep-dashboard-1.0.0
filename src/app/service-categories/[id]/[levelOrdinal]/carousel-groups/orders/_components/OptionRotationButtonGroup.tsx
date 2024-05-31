@@ -145,39 +145,15 @@ export default function OptionRotationButtonGroup() {
     );
   }, [rotationPrimeList, readAnyCarousel, readAnyOption, sortingFunction]);
 
+  const backwardsCycleRef = useRef(backwardsCycle);
+  const forwardsCycleRef = useRef(forwardsCycle);
+
   const rotationNotFeasible = filteredOrders.size === 0;
   const forwardNotFeasible = forwardsCycle === undefined || rotationNotFeasible;
   const backwardsNotFeasible =
     backwardsCycle === undefined || rotationNotFeasible;
   const backwardsPrimed = optionRotation === 'backwards';
   const forwardsPrimed = optionRotation === 'forwards';
-
-  useEffect(() => {
-    if (
-      // optionRotation !== undefined &&
-      rotationTargetsMap !== rotationTargetsMapRef.current ||
-      rotationPrimeList !== primeListRef.current
-    ) {
-      dispatchConnectionMap(new Map());
-      let updateForMapRef = rotationTargetsMap;
-      if (forwardNotFeasible && backwardsNotFeasible) {
-        updateForMapRef = new Map();
-        dispatchRotationTargets(updateForMapRef);
-      }
-      rotationTargetsMapRef.current = updateForMapRef;
-      primeListRef.current = rotationPrimeList;
-    }
-  }, [
-    forwardNotFeasible,
-    backwardsNotFeasible,
-    dispatchRotationTargets,
-    dispatchConnectionMap,
-    rotationTargetsMapRef,
-    rotationTargetsMap,
-    primeListRef,
-    rotationPrimeList
-    // optionRotation
-  ]);
 
   const calculateNextRotation = useCallback(
     (optionList: CarouselOptionStateInterface[]) => {
@@ -210,6 +186,22 @@ export default function OptionRotationButtonGroup() {
     },
     [filteredOrders, readAnyOrder, readAnyCarousel, dispatchRotationTargets]
   );
+
+  useEffect(() => {
+    if (
+      optionRotation !== undefined &&
+      (forwardsCycleRef.current !== forwardsCycle ||
+        backwardsCycleRef.current !== backwardsCycle)
+    ) {
+      if (optionRotation === 'backwards' && backwardsCycle) {
+        calculateNextRotation(backwardsCycle);
+      } else if (optionRotation === 'forwards' && forwardsCycle) {
+        calculateNextRotation(forwardsCycle);
+      }
+      forwardsCycleRef.current = forwardsCycle;
+      backwardsCycleRef.current = backwardsCycle;
+    }
+  }, [calculateNextRotation, backwardsCycle, forwardsCycle, optionRotation]);
 
   const commitNextRotation = useCallback(
     (targetsMap: Map<number, OptionRotationTarget>) => {
@@ -281,9 +273,12 @@ export default function OptionRotationButtonGroup() {
         className={'min-w-0 px-1'}
         isDisabled={forwardNotFeasible}
         onPress={() => {
-          if (forwardsCycle) {
+          if (forwardsCycle && optionRotation !== 'forwards') {
             calculateNextRotation(forwardsCycle);
             setOptionRotation('forwards');
+          } else {
+            setOptionRotation(undefined);
+            dispatchRotationTargets(new Map());
           }
         }}
       >
