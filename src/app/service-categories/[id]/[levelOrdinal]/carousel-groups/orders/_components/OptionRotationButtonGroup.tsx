@@ -168,7 +168,7 @@ export default function OptionRotationButtonGroup() {
       optionList: CarouselOptionStateInterface[],
       filteredOrderList: string[]
     ) => {
-      console.log('Calculating rotation...', filteredOrders);
+      console.log('Calculating rotation...', filteredOrdersRef.current);
       const orderId = filteredOrderList[0];
 
       const order = readAnyOrder(orderId);
@@ -204,7 +204,7 @@ export default function OptionRotationButtonGroup() {
       }
       return optionRotations;
     },
-    [filteredOrders, readAnyOrder, readAnyCarousel]
+    [filteredOrdersRef, readAnyOrder, readAnyCarousel]
   );
 
   // Update the displayed rotation effect if that is selected.
@@ -224,7 +224,7 @@ export default function OptionRotationButtonGroup() {
 
       if (cycle) {
         const targets = calculateNextRotation(cycle, [
-          ...filteredOrders.values()
+          ...filteredOrdersRef.current.values()
         ]);
         dispatchRotationTargets(targets);
       } else {
