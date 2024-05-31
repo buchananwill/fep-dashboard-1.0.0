@@ -73,12 +73,20 @@ export default function OptionRotationButtonGroup() {
     Map<string, ConnectionVector>
   >(RotationConnectionMap);
 
-  const { currentState: filteredOrders, dispatchWithoutControl: dispatch } =
+  const { currentState, dispatchWithoutControl: dispatchFilteredOrders } =
     useGlobalDispatchAndListener<Set<string>>({
       contextKey: 'filteredOrders',
       initialValue: InitialSet as Set<string>,
       listenerKey
     });
+
+  const filteredOrders = useMemo(() => {
+    return findAssigneeIntersection(rotationPrimeList, readAnyOption);
+  }, [rotationPrimeList, readAnyOption]);
+
+  useEffect(() => {
+    dispatchFilteredOrders(filteredOrders);
+  }, [filteredOrders, dispatchFilteredOrders]);
 
   const {
     currentState: rotationTargetsMap,
@@ -151,14 +159,6 @@ export default function OptionRotationButtonGroup() {
   const backwardsPrimed = optionRotation === 'backwards';
   const forwardsPrimed = optionRotation === 'forwards';
 
-  const assigneeIntersection = useMemo(() => {
-    return findAssigneeIntersection(rotationPrimeList, readAnyOption);
-  }, [rotationPrimeList, readAnyOption]);
-
-  useEffect(() => {
-    dispatch(assigneeIntersection);
-  }, [assigneeIntersection, dispatch]);
-
   const calculateNextRotation = useCallback(
     (
       optionList: CarouselOptionStateInterface[],
@@ -198,33 +198,35 @@ export default function OptionRotationButtonGroup() {
           nextOption
         });
       }
-      dispatchRotationTargets(optionRotations);
-      rotationTargetsMapRef.current = optionRotations;
       return optionRotations;
     },
-    [filteredOrders, readAnyOrder, readAnyCarousel, dispatchRotationTargets]
+    [filteredOrders, readAnyOrder, readAnyCarousel]
   );
 
   // Update the displayed rotation effect if that is selected.
   useEffect(() => {
+    console.log(forwardsCycle, backwardsCycle);
     if (
       optionRotation !== undefined &&
       (forwardsCycleRef.current !== forwardsCycle ||
         backwardsCycleRef.current !== backwardsCycle)
     ) {
-      console.log('effect causing rotation calculation');
-      if (optionRotation === 'backwards' && backwardsCycle) {
-        calculateNextRotation(backwardsCycle, [...filteredOrders.values()]);
-      } else if (optionRotation === 'forwards' && forwardsCycle) {
-        calculateNextRotation(forwardsCycle, [...filteredOrders.values()]);
+      const cycle =
+        optionRotation === 'backwards'
+          ? backwardsCycle
+          : optionRotation === 'forwards'
+            ? forwardsCycle
+            : undefined;
+
+      if (cycle) {
+        const targets = calculateNextRotation(cycle, [
+          ...filteredOrders.values()
+        ]);
+        dispatchRotationTargets(targets);
+      } else {
+        dispatchRotationTargets(new Map());
+        setOptionRotation(undefined);
       }
-    } else if (
-      (backwardsCycle === undefined && forwardsCycle === undefined) ||
-      optionRotation === undefined
-    ) {
-      dispatchRotationTargets(new Map());
-      dispatchConnectionMap(new Map());
-      setOptionRotation(undefined);
     }
     forwardsCycleRef.current = forwardsCycle;
     backwardsCycleRef.current = backwardsCycle;
@@ -234,18 +236,11 @@ export default function OptionRotationButtonGroup() {
     forwardsCycle,
     optionRotation,
     dispatchRotationTargets,
-    dispatchConnectionMap,
     filteredOrders
   ]);
 
   useEffect(() => {
-    console.log('running connection clean up effect');
     dispatchConnectionMap((oldMap) => {
-      console.log(
-        'running connection clean up callback',
-        rotationPrimeList,
-        oldMap
-      );
       if (optionRotation === undefined) return new Map();
       const map = new Map(oldMap);
       const schemaIdList = rotationPrimeList
@@ -271,7 +266,7 @@ export default function OptionRotationButtonGroup() {
       cycleShifts.forEach(({ carouselOrderItem, nextOption }) =>
         assignOrderItemToOption(carouselOrderItem, nextOption, writeAnyOrder)
       );
-      dispatch((orders) => {
+      dispatchFilteredOrders((orders) => {
         const set = new Set(orders);
         set.delete(orderId);
         return set;
@@ -284,7 +279,7 @@ export default function OptionRotationButtonGroup() {
     },
     [
       writeAnyOrder,
-      dispatch,
+      dispatchFilteredOrders,
       dispatchPrimeList,
       filteredOrders.size,
       dispatchRotationTargets,
@@ -313,7 +308,10 @@ export default function OptionRotationButtonGroup() {
         isDisabled={backwardsNotFeasible}
         onPress={() => {
           if (backwardsCycle && optionRotation !== 'backwards') {
-            calculateNextRotation(backwardsCycle, [...filteredOrders.values()]);
+            const nextRotation = calculateNextRotation(backwardsCycle, [
+              ...filteredOrders.values()
+            ]);
+            dispatchRotationTargets(nextRotation);
             setOptionRotation('backwards');
           } else {
             setOptionRotation(undefined);
@@ -340,7 +338,10 @@ export default function OptionRotationButtonGroup() {
         isDisabled={forwardNotFeasible}
         onPress={() => {
           if (forwardsCycle && optionRotation !== 'forwards') {
-            calculateNextRotation(forwardsCycle, [...filteredOrders.values()]);
+            const nextRotation = calculateNextRotation(forwardsCycle, [
+              ...filteredOrders.values()
+            ]);
+            dispatchRotationTargets(nextRotation);
             setOptionRotation('forwards');
           } else {
             setOptionRotation(undefined);

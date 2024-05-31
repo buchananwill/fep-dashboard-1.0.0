@@ -187,9 +187,19 @@ export default function CarouselOption({
           ...currentConnection
         };
         if (isPrimed) {
-          updatedConnection.source = center;
+          updatedConnection.source = { ...center, id: entity.id };
+        } else if (!isPrimed && primeChange) {
+          updatedConnection.source =
+            updatedConnection.source?.id === entity.id
+              ? undefined
+              : updatedConnection.source;
         } else if (isAntiPrimed) {
-          updatedConnection.target = center;
+          updatedConnection.target = { ...center, id: entity.id };
+        } else if (!isAntiPrimed && antiPrimeChange) {
+          updatedConnection.target =
+            updatedConnection.target?.id === entity.id
+              ? undefined
+              : updatedConnection.target;
         }
         map.set(workProjectSeriesSchemaId, updatedConnection);
         return map;

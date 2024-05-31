@@ -5,8 +5,8 @@ import { initialMap } from '@/components/react-flow/organization/OrganizationDet
 import { ControllerKey } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
 
 export interface ConnectionVector {
-  source?: Coordinate;
-  target?: Coordinate;
+  source?: Coordinate & HasId;
+  target?: Coordinate & HasId;
 }
 
 export const RotationConnectionMap = 'rotationConnectionMap';
@@ -26,7 +26,8 @@ export default function RotationConnectionOverlay() {
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { line, curveBasis } from 'd3';
-import { isNotNull, isNotUndefined } from '@/api/main';
+import { HasId, isNotNull, isNotUndefined } from '@/api/main';
+import { Identifier } from 'dto-stores';
 
 const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
