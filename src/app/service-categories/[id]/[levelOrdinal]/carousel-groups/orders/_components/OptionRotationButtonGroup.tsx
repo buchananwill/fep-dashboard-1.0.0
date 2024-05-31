@@ -15,6 +15,7 @@ import {
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import {
   ControllerKey,
+  findAssigneeIntersection,
   InitialSet,
   RotationPrime
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
@@ -72,13 +73,12 @@ export default function OptionRotationButtonGroup() {
     Map<string, ConnectionVector>
   >(RotationConnectionMap);
 
-  const { currentState: filteredOrders, dispatch } = useGlobalController<
-    Set<string>
-  >({
-    contextKey: 'filteredOrders',
-    initialValue: InitialSet as Set<string>,
-    listenerKey
-  });
+  const { currentState: filteredOrders, dispatchWithoutControl: dispatch } =
+    useGlobalDispatchAndListener<Set<string>>({
+      contextKey: 'filteredOrders',
+      initialValue: InitialSet as Set<string>,
+      listenerKey
+    });
 
   const {
     currentState: rotationTargetsMap,
@@ -151,10 +151,22 @@ export default function OptionRotationButtonGroup() {
   const backwardsPrimed = optionRotation === 'backwards';
   const forwardsPrimed = optionRotation === 'forwards';
 
+  const assigneeIntersection = useMemo(() => {
+    return findAssigneeIntersection(rotationPrimeList, readAnyOption);
+  }, [rotationPrimeList, readAnyOption]);
+
+  useEffect(() => {
+    dispatch(assigneeIntersection);
+  }, [assigneeIntersection, dispatch]);
+
   const calculateNextRotation = useCallback(
-    (optionList: CarouselOptionStateInterface[]) => {
-      console.log('Calculating rotation...');
-      const orderId = [...filteredOrders.values()][0];
+    (
+      optionList: CarouselOptionStateInterface[],
+      filteredOrderList: string[]
+    ) => {
+      console.log('Calculating rotation...', filteredOrders);
+      const orderId = filteredOrderList[0];
+
       const order = readAnyOrder(orderId);
       if (order === undefined)
         throw Error(`could not find carousel order: ${orderId}`);
@@ -200,10 +212,11 @@ export default function OptionRotationButtonGroup() {
       (forwardsCycleRef.current !== forwardsCycle ||
         backwardsCycleRef.current !== backwardsCycle)
     ) {
+      console.log('effect causing rotation calculation');
       if (optionRotation === 'backwards' && backwardsCycle) {
-        calculateNextRotation(backwardsCycle);
+        calculateNextRotation(backwardsCycle, [...filteredOrders.values()]);
       } else if (optionRotation === 'forwards' && forwardsCycle) {
-        calculateNextRotation(forwardsCycle);
+        calculateNextRotation(forwardsCycle, [...filteredOrders.values()]);
       }
     } else if (
       (backwardsCycle === undefined && forwardsCycle === undefined) ||
@@ -221,7 +234,8 @@ export default function OptionRotationButtonGroup() {
     forwardsCycle,
     optionRotation,
     dispatchRotationTargets,
-    dispatchConnectionMap
+    dispatchConnectionMap,
+    filteredOrders
   ]);
 
   useEffect(() => {
@@ -284,7 +298,11 @@ export default function OptionRotationButtonGroup() {
         isDisabled={backwardsNotFeasible || forwardsPrimed}
         onPress={() => {
           if (backwardsCycle)
-            commitNextRotation(calculateNextRotation(backwardsCycle));
+            commitNextRotation(
+              calculateNextRotation(backwardsCycle, [
+                ...filteredOrders.values()
+              ])
+            );
         }}
         className={'px-4 min-w-0'}
       >
@@ -295,7 +313,7 @@ export default function OptionRotationButtonGroup() {
         isDisabled={backwardsNotFeasible}
         onPress={() => {
           if (backwardsCycle && optionRotation !== 'backwards') {
-            calculateNextRotation(backwardsCycle);
+            calculateNextRotation(backwardsCycle, [...filteredOrders.values()]);
             setOptionRotation('backwards');
           } else {
             setOptionRotation(undefined);
@@ -322,7 +340,7 @@ export default function OptionRotationButtonGroup() {
         isDisabled={forwardNotFeasible}
         onPress={() => {
           if (forwardsCycle && optionRotation !== 'forwards') {
-            calculateNextRotation(forwardsCycle);
+            calculateNextRotation(forwardsCycle, [...filteredOrders.values()]);
             setOptionRotation('forwards');
           } else {
             setOptionRotation(undefined);
@@ -336,7 +354,9 @@ export default function OptionRotationButtonGroup() {
         isDisabled={forwardNotFeasible || backwardsPrimed}
         onPress={() => {
           if (forwardsCycle)
-            commitNextRotation(calculateNextRotation(forwardsCycle));
+            commitNextRotation(
+              calculateNextRotation(forwardsCycle, [...filteredOrders.values()])
+            );
         }}
         className={'px-4 min-w-0'}
       >
