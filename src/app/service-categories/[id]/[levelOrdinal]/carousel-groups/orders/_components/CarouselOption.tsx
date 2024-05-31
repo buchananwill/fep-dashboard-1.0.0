@@ -26,10 +26,14 @@ import clsx from 'clsx';
 import { Chip } from '@nextui-org/chip';
 import { ButtonGroup } from '@nextui-org/react';
 import { AcademicCapIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
-import { AcademicCapIcon as AcademicCapIconFilled } from '@heroicons/react/24/solid';
+import {
+  AcademicCapIcon as AcademicCapIconFilled,
+  ArrowDownIcon
+} from '@heroicons/react/24/solid';
 import { EmptyArray } from '@/api/main';
 import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/assignOrderItemToOption';
 import { hidden } from 'next/dist/lib/picocolors';
+import { useSineLutContext } from 'react-d3-force-graph';
 
 export type CarouselOptionStateInterface = {
   id: number;
@@ -126,22 +130,6 @@ export default function CarouselOption({
     initialValue: EmptyArray
   });
 
-  // const { currentState: filteredOrders } = useGlobalListener<Set<string>>({
-  //   contextKey: 'filteredOrders',
-  //   initialValue: InitialSet as Set<string>,
-  //   listenerKey: listenerKey
-  // });
-
-  // const canPrime = useMemo(() => {
-  //   return (
-  //     entity.carouselOrderAssignees.length > 0 &&
-  //     (rotationPrimeList.length === 0 ||
-  //       entity.carouselOrderAssignees.some((order) =>
-  //         filteredOrders.has(order)
-  //       ))
-  //   );
-  // }, [entity.carouselOrderAssignees, filteredOrders, rotationPrimeList.length]);
-
   const isPrimed = useMemo(() => {
     return rotationPrimeList.includes(entity.id);
   }, [rotationPrimeList, entity.id]);
@@ -231,13 +219,14 @@ export default function CarouselOption({
                   });
                 }}
               >
-                <ArrowPathIcon
+                <ArrowDownIcon
                   className={clsx(
                     'w-6 py-0.5 px-0',
-                    isPrimed && 'animate-spinner-ease-spin',
+                    isPrimed && 'animate-bounce-less',
                     textFade,
                     !canPrime && 'opacity-0'
                   )}
+                  // style={{ transform: `translateY(${sineLutSync}%)` }}
                 />
               </Button>
               <Popover>

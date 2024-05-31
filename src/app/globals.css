@@ -3,36 +3,49 @@
 @tailwind utilities;
 
 
-
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 .__floater {
-  filter: none !important;
-  will-change: auto !important;
+    filter: none !important;
+    will-change: auto !important;
 }
 
+@keyframes bounce {
+    0%, 100% {
+        transform: none;
+        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+    50% {
+        transform: translateY(-25%);
+        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+}
+
+.animate-bounce-less {
+    animation: bounce 1s infinite;
+}
 
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
 
 @layer components {
-  .no-spinner {
-    -moz-appearance: textfield;
-  }
+    .no-spinner {
+        -moz-appearance: textfield;
+    }
 
-  .no-spinner::-webkit-outer-spin-button,
-  .no-spinner::-webkit-inner-spin-button {
-    margin: 0;
-    -webkit-appearance: none;
-  }
+    .no-spinner::-webkit-outer-spin-button,
+    .no-spinner::-webkit-inner-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+    }
 }

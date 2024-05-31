@@ -8,6 +8,7 @@ import React from 'react';
 import { MasterChangesTrackWrapper } from '@/components/generic/DtoChangesTracker';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import AnimationSyncContextProvider from '@/components/providers/animate-sync-context/AnimationSyncContextProvider';
 
 export function LibraryProvidersWrapper({
   children
@@ -20,7 +21,9 @@ export function LibraryProvidersWrapper({
     <SelectiveContextManagerGlobal>
       <MasterChangesTrackWrapper />
       <DndProvider backend={HTML5Backend}>
-        <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
+        <AnimationSyncContextProvider>
+          <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
+        </AnimationSyncContextProvider>
       </DndProvider>
     </SelectiveContextManagerGlobal>
   );
