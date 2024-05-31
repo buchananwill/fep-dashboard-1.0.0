@@ -23,6 +23,7 @@ import {
   CarouselOptionState,
   CarouselOptionStateInterface
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+import RotationConnectionOverlay from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 
 export default async function page({
   params: { levelOrdinal, id }
@@ -65,6 +66,7 @@ export default async function page({
 
   return (
     <>
+      <RotationConnectionOverlay />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.carouselGroup}
         dtoList={carouselGroupDtos}

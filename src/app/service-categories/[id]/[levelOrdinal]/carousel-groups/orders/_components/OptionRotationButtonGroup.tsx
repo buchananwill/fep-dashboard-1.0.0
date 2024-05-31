@@ -4,6 +4,7 @@ import { ButtonGroup } from '@nextui-org/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import {
   useGlobalController,
+  useGlobalDispatch,
   useGlobalDispatchAndListener,
   useGlobalWriteAny
 } from 'selective-context';
@@ -13,11 +14,12 @@ import {
   CarouselOptionStateInterface
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import {
+  ControllerKey,
   InitialSet,
   RotationPrime
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
 import { EmptyArray, isNotUndefined } from '@/api/main';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   findHamiltonianCycle,
   getOptionConnectionValidator,
@@ -29,8 +31,22 @@ import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrd
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import CarouselOrderList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderList';
+import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
+import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import {
+  ConnectionVector,
+  RotationConnectionMap
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
+
+export interface OptionRotationTarget {
+  carouselOrderItem: CarouselOrderItemDto;
+  nextOption: CarouselOptionDto;
+}
 
 const listenerKey = 'optionRotationButtonGroup';
+export const OptionRotationTargets = 'optionRotationTargets';
 export default function OptionRotationButtonGroup() {
   const readAnyCarousel = useReadAnyDto<CarouselDto>(EntityClassMap.carousel);
   const readAnyOption =
@@ -38,6 +54,9 @@ export default function OptionRotationButtonGroup() {
   const readAnyOrder = useReadAnyDto<CarouselOrderDto>(
     EntityClassMap.carouselOrder
   );
+  const [optionRotation, setOptionRotation] = useState<
+    'forwards' | 'backwards' | undefined
+  >();
   const {
     currentState: rotationPrimeList,
     dispatchWithoutControl: dispatchPrimeList
@@ -46,6 +65,11 @@ export default function OptionRotationButtonGroup() {
     listenerKey,
     initialValue: EmptyArray as number[]
   });
+  const primeListRef = useRef(rotationPrimeList);
+
+  const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
+    Map<string, ConnectionVector>
+  >(RotationConnectionMap);
   const { currentState: filteredOrders, dispatch } = useGlobalController<
     Set<string>
   >({
@@ -53,6 +77,15 @@ export default function OptionRotationButtonGroup() {
     initialValue: InitialSet as Set<string>,
     listenerKey
   });
+  const {
+    currentState: rotationTargetsMap,
+    dispatch: dispatchRotationTargets
+  } = useGlobalController({
+    contextKey: OptionRotationTargets,
+    initialValue: initialMap as Map<number, OptionRotationTarget>,
+    listenerKey: ControllerKey
+  });
+  const rotationTargetsMapRef = useRef(rotationTargetsMap);
 
   const writeAnyOrder = useWriteAnyDto<CarouselOrderDto>(
     EntityClassMap.carouselOrder
@@ -112,13 +145,48 @@ export default function OptionRotationButtonGroup() {
     );
   }, [rotationPrimeList, readAnyCarousel, readAnyOption, sortingFunction]);
 
-  const rotationNextStudent = useCallback(
+  const rotationNotFeasible = filteredOrders.size === 0;
+  const forwardNotFeasible = forwardsCycle === undefined || rotationNotFeasible;
+  const backwardsNotFeasible =
+    backwardsCycle === undefined || rotationNotFeasible;
+  const backwardsPrimed = optionRotation === 'backwards';
+  const forwardsPrimed = optionRotation === 'forwards';
+
+  useEffect(() => {
+    if (
+      // optionRotation !== undefined &&
+      rotationTargetsMap !== rotationTargetsMapRef.current ||
+      rotationPrimeList !== primeListRef.current
+    ) {
+      dispatchConnectionMap(new Map());
+      let updateForMapRef = rotationTargetsMap;
+      if (forwardNotFeasible && backwardsNotFeasible) {
+        updateForMapRef = new Map();
+        dispatchRotationTargets(updateForMapRef);
+      }
+      rotationTargetsMapRef.current = updateForMapRef;
+      primeListRef.current = rotationPrimeList;
+    }
+  }, [
+    forwardNotFeasible,
+    backwardsNotFeasible,
+    dispatchRotationTargets,
+    dispatchConnectionMap,
+    rotationTargetsMapRef,
+    rotationTargetsMap,
+    primeListRef,
+    rotationPrimeList
+    // optionRotation
+  ]);
+
+  const calculateNextRotation = useCallback(
     (optionList: CarouselOptionStateInterface[]) => {
+      console.log('Calculating rotation...');
       const orderId = [...filteredOrders.values()][0];
       const order = readAnyOrder(orderId);
       if (order === undefined)
         throw Error(`could not find carousel order: ${orderId}`);
-      const cycleShifts = [];
+      const optionRotations = new Map<number, OptionRotationTarget>();
       for (let i = 0; i < optionList.length; i++) {
         const carouselOrderItem =
           order.carouselOrderItems[optionList[i].workProjectSeriesSchemaId];
@@ -131,11 +199,24 @@ export default function OptionRotationButtonGroup() {
             carouselOrderItem.workProjectSeriesSchemaId
         );
         if (nextOption === undefined) throw Error(`Could not find option!`);
-        cycleShifts.push({
+        optionRotations.set(nextOption.id, {
           carouselOrderItem,
           nextOption
         });
       }
+      dispatchRotationTargets(optionRotations);
+      rotationTargetsMapRef.current = optionRotations;
+      return optionRotations;
+    },
+    [filteredOrders, readAnyOrder, readAnyCarousel, dispatchRotationTargets]
+  );
+
+  const commitNextRotation = useCallback(
+    (targetsMap: Map<number, OptionRotationTarget>) => {
+      const cycleShifts = [...targetsMap.values()];
+      if (cycleShifts.length < 2)
+        throw Error('Need two targets to rotate orders.');
+      const orderId = cycleShifts[0].carouselOrderItem.carouselOrderId;
       cycleShifts.forEach(({ carouselOrderItem, nextOption }) =>
         assignOrderItemToOption(carouselOrderItem, nextOption, writeAnyOrder)
       );
@@ -146,27 +227,43 @@ export default function OptionRotationButtonGroup() {
       });
       if (filteredOrders.size === 1) {
         dispatchPrimeList([]);
+        dispatchRotationTargets(new Map());
+        dispatchConnectionMap(new Map());
       }
     },
     [
-      filteredOrders,
-      readAnyOrder,
-      readAnyCarousel,
       writeAnyOrder,
       dispatch,
-      dispatchPrimeList
+      dispatchPrimeList,
+      filteredOrders.size,
+      dispatchRotationTargets,
+      dispatchConnectionMap
     ]
   );
 
   return (
     <ButtonGroup>
       <Button
-        isDisabled={backwardsCycle === undefined || filteredOrders.size === 0}
+        isDisabled={backwardsNotFeasible || forwardsPrimed}
         onPress={() => {
-          if (backwardsCycle) rotationNextStudent(backwardsCycle);
+          if (backwardsCycle)
+            commitNextRotation(calculateNextRotation(backwardsCycle));
+        }}
+        className={'px-4 min-w-0'}
+      >
+        <ChevronLeftIcon className={'w-6'} />
+      </Button>
+      <Button
+        className={'min-w-0 px-1'}
+        isDisabled={backwardsNotFeasible}
+        onPress={() => {
+          if (backwardsCycle) {
+            calculateNextRotation(backwardsCycle);
+            setOptionRotation('backwards');
+          }
         }}
       >
-        <ChevronLeftIcon />
+        <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
       <Popover>
         <PopoverTrigger>
@@ -181,12 +278,26 @@ export default function OptionRotationButtonGroup() {
         </PopoverContent>
       </Popover>
       <Button
-        isDisabled={forwardsCycle === undefined || filteredOrders.size === 0}
+        className={'min-w-0 px-1'}
+        isDisabled={forwardNotFeasible}
         onPress={() => {
-          if (forwardsCycle) rotationNextStudent(forwardsCycle);
+          if (forwardsCycle) {
+            calculateNextRotation(forwardsCycle);
+            setOptionRotation('forwards');
+          }
         }}
       >
-        <ChevronRightIcon />
+        <QuestionMarkCircleIcon className={'w-6'} />
+      </Button>
+      <Button
+        isDisabled={forwardNotFeasible || backwardsPrimed}
+        onPress={() => {
+          if (forwardsCycle)
+            commitNextRotation(calculateNextRotation(forwardsCycle));
+        }}
+        className={'px-4 min-w-0'}
+      >
+        <ChevronRightIcon className={'w-6'} />
       </Button>
     </ButtonGroup>
   );

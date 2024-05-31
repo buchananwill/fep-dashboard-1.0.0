@@ -11,14 +11,16 @@ import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDt
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { Button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import OrderItemAssigneeList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderItemAssigneeList';
 import {
+  useGlobalDispatch,
   useGlobalDispatchAndListener,
+  useGlobalListener,
   useGlobalWriteAny
 } from 'selective-context';
 import { Badge, BadgeProps } from '@nextui-org/badge';
@@ -34,6 +36,15 @@ import { EmptyArray } from '@/api/main';
 import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/assignOrderItemToOption';
 import { hidden } from 'next/dist/lib/picocolors';
 import { useSineLutContext } from 'react-d3-force-graph';
+import {
+  ConnectionVector,
+  RotationConnectionMap
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
+import {
+  OptionRotationTarget,
+  OptionRotationTargets
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
+import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 
 export type CarouselOptionStateInterface = {
   id: number;
@@ -51,6 +62,12 @@ export default function CarouselOption({
   canPrime?: boolean;
 }) {
   const { workProjectSeriesSchemaId } = entity;
+  // Chip location calculation condition: primed or anti-primed
+  const assignChipRef = useRef<HTMLDivElement | null>(null);
+  const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
+    Map<string, ConnectionVector>
+  >(RotationConnectionMap);
+  const primeState = useRef({ prime: false, antiPrime: false });
 
   // Highlighting subject section.
   const listenerKey = `${CarouselOptionState}:${entity.id}`;
@@ -133,6 +150,65 @@ export default function CarouselOption({
   const isPrimed = useMemo(() => {
     return rotationPrimeList.includes(entity.id);
   }, [rotationPrimeList, entity.id]);
+
+  // Compute anti-priming behaviour
+  const { currentState: rotationTargetsMap } = useGlobalListener({
+    contextKey: OptionRotationTargets,
+    listenerKey: listenerKey,
+    initialValue: initialMap as Map<number, OptionRotationTarget>
+  });
+
+  const isAntiPrimed = rotationTargetsMap.has(entity.id);
+
+  // Use prime/anti-prime to signal connection location.
+  useEffect(
+    () => {
+      const primeChange = (primeState.current.prime = isPrimed);
+      const antiPrimeChange = (primeState.current.antiPrime = isAntiPrimed);
+
+      if (primeChange || antiPrimeChange) {
+        console.log('prime: ', isPrimed);
+        console.log('antiprime: ', isAntiPrimed);
+        console.log('prime change: ', primeChange);
+        console.log('anti prime change: ', antiPrimeChange);
+      }
+      if (
+        (primeChange || antiPrimeChange) &&
+        assignChipRef.current &&
+        (isPrimed || isAntiPrimed)
+      ) {
+        const { top, left, width, height } =
+          assignChipRef.current.getBoundingClientRect();
+        const center = {
+          x: left + width / 2,
+          y: top + height / 2
+        };
+
+        dispatchConnectionMap((currentMap) => {
+          const map = new Map(currentMap);
+          const currentConnection = map.get(workProjectSeriesSchemaId);
+          const updatedConnection: ConnectionVector = {
+            ...currentConnection
+          };
+          if (isPrimed) {
+            updatedConnection.source = center;
+          } else if (isAntiPrimed) {
+            updatedConnection.target = center;
+          }
+          console.log(`Updated connection:`, updatedConnection);
+          map.set(workProjectSeriesSchemaId, updatedConnection);
+          return map;
+        });
+      }
+    }
+    // [
+    // isPrimed,
+    // isAntiPrimed,
+    // assignChipRef,
+    // workProjectSeriesSchemaId,
+    // dispatchConnectionMap
+    // ]
+  );
 
   // Compute dynamic styling
   let fallBackColor: 'default' | 'warning' = 'default';
@@ -239,7 +315,10 @@ export default function CarouselOption({
                     color={canDrop ? 'primary' : fallBackColor}
                   >
                     <span className={'truncate'}>{workTaskType.name}</span>
-                    <Chip className={clsx(badgeColor, textFade)}>
+                    <Chip
+                      className={clsx(badgeColor, textFade)}
+                      ref={assignChipRef}
+                    >
                       {entity.carouselOrderAssignees.length}
                     </Chip>
                   </Button>

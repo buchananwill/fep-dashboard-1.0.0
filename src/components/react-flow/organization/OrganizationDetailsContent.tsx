@@ -35,7 +35,7 @@ import { produce } from 'immer';
 
 const listenerKey = 'details-content';
 
-export const initialMap = new Map<string, unknown>();
+export const initialMap = new Map<unknown, unknown>();
 
 const whileLoading = () => null;
 export default function OrganizationDetailsContent({

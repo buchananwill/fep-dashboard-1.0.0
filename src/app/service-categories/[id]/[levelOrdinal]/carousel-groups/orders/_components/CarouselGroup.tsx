@@ -19,6 +19,7 @@ import {
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import OptionRotationButtonGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
+import RotationConnectionOverlay from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 
 export const ControllerKey = 'controller';
 export const InitialSet = new Set();
