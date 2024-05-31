@@ -205,8 +205,6 @@ export default function OptionRotationButtonGroup() {
       } else if (optionRotation === 'forwards' && forwardsCycle) {
         calculateNextRotation(forwardsCycle);
       }
-      forwardsCycleRef.current = forwardsCycle;
-      backwardsCycleRef.current = backwardsCycle;
     } else if (
       (backwardsCycle === undefined && forwardsCycle === undefined) ||
       optionRotation === undefined
@@ -215,6 +213,8 @@ export default function OptionRotationButtonGroup() {
       dispatchConnectionMap(new Map());
       setOptionRotation(undefined);
     }
+    forwardsCycleRef.current = forwardsCycle;
+    backwardsCycleRef.current = backwardsCycle;
   }, [
     calculateNextRotation,
     backwardsCycle,
@@ -225,16 +225,23 @@ export default function OptionRotationButtonGroup() {
   ]);
 
   useEffect(() => {
+    console.log('running connection clean up effect');
     dispatchConnectionMap((oldMap) => {
+      console.log(
+        'running connection clean up callback',
+        rotationPrimeList,
+        oldMap
+      );
       if (optionRotation === undefined) return new Map();
       const map = new Map(oldMap);
       const schemaIdList = rotationPrimeList
         .map((primedId) => readAnyOption(primedId))
         .filter(isNotUndefined)
         .map((option) => option.workProjectSeriesSchemaId);
-      for (let schemaId in oldMap) {
-        if (!schemaIdList.includes(schemaId)) {
-          map.delete(schemaId);
+      for (let [idKey, connection] of oldMap.entries()) {
+        if (!schemaIdList.includes(idKey)) {
+          console.log('deleting: ', idKey);
+          map.delete(idKey);
         }
       }
       return map;
