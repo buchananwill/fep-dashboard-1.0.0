@@ -9,16 +9,31 @@ export interface ConnectionVector {
   target?: Coordinate;
 }
 
+export interface ConnectionVectorRefs {
+  source?: HTMLDivElement;
+  target?: HTMLDivElement;
+}
+
 export const RotationConnectionMap = 'rotationConnectionMap';
 export default function RotationConnectionOverlay() {
   const { currentState } = useGlobalController({
-    initialValue: initialMap as Map<string, ConnectionVector>,
+    initialValue: initialMap as Map<string, ConnectionVectorRefs>,
     contextKey: RotationConnectionMap,
     listenerKey: ControllerKey
   });
 
   const connectionVectorList = useMemo(() => {
-    return [...currentState.values()];
+    return [...currentState.values()].map((vectorRefs) => {
+      const { source, target } = vectorRefs;
+      const vector: ConnectionVector = {};
+      if (source) {
+        vector.source = getCenter(source);
+      }
+      if (target) {
+        vector.target = getCenter(target);
+      }
+      return vector;
+    });
   }, [currentState]);
 
   return <CurveOverlay connections={connectionVectorList} />;
@@ -27,6 +42,7 @@ export default function RotationConnectionOverlay() {
 import React, { useState, useEffect, useMemo } from 'react';
 import { line, curveBasis } from 'd3';
 import { isNotNull, isNotUndefined } from '@/api/main';
+import { ReactRef } from '@nextui-org/react-utils';
 
 const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -84,4 +100,12 @@ function connectionVectorToCurve({ source, target }: ConnectionVector) {
   const lineGenerator1 = lineGenerator(data);
   // console.log(lineGenerator1);
   return lineGenerator1;
+}
+
+function getCenter(div: HTMLDivElement) {
+  const { top, left, width, height } = div.getBoundingClientRect();
+  return {
+    x: left + width / 2,
+    y: top + height / 2
+  };
 }
