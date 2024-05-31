@@ -88,9 +88,10 @@ function checkOptionCanPrime(
   rotationPrimeList: number[],
   filteredOrders: Set<string>
 ) {
-  return (
-    option.carouselOrderAssignees.length > 0 &&
-    (rotationPrimeList.length === 0 ||
-      option.carouselOrderAssignees.some((order) => filteredOrders.has(order)))
+  const hasAssignees = option.carouselOrderAssignees.length > 0;
+  const primeListEmpty = rotationPrimeList.length === 0;
+  const matchedAnAssignee = option.carouselOrderAssignees.some((order) =>
+    filteredOrders.has(order)
   );
+  return (hasAssignees && primeListEmpty) || matchedAnAssignee;
 }

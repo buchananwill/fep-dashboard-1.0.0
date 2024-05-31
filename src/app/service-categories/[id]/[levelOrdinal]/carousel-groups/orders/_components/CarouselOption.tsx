@@ -160,55 +160,43 @@ export default function CarouselOption({
 
   const isAntiPrimed = rotationTargetsMap.has(entity.id);
 
-  // Use prime/anti-prime to signal connection location.
-  useEffect(
-    () => {
-      const primeChange = (primeState.current.prime = isPrimed);
-      const antiPrimeChange = (primeState.current.antiPrime = isAntiPrimed);
+  /*
+   *  Use prime/anti-prime to signal connection location.
+   *  CURRENTLY: HAS TO RUN EVERY RENDER, IN CASE THE ORDER OF OPTIONS CHANGED.
+   *  TODO: Track the carousel option order?
+   * */
+  useEffect(() => {
+    const primeChange = primeState.current.prime !== isPrimed;
+    const antiPrimeChange = primeState.current.antiPrime !== isAntiPrimed;
 
-      if (primeChange || antiPrimeChange) {
-        console.log('prime: ', isPrimed);
-        console.log('antiprime: ', isAntiPrimed);
-        console.log('prime change: ', primeChange);
-        console.log('anti prime change: ', antiPrimeChange);
-      }
-      if (
-        (primeChange || antiPrimeChange) &&
-        assignChipRef.current &&
-        (isPrimed || isAntiPrimed)
-      ) {
-        const { top, left, width, height } =
-          assignChipRef.current.getBoundingClientRect();
-        const center = {
-          x: left + width / 2,
-          y: top + height / 2
+    if (
+      assignChipRef.current &&
+      (primeChange || antiPrimeChange || isPrimed || isAntiPrimed)
+    ) {
+      const { top, left, width, height } =
+        assignChipRef.current.getBoundingClientRect();
+      const center = {
+        x: left + width / 2,
+        y: top + height / 2
+      };
+
+      dispatchConnectionMap((currentMap) => {
+        const map = new Map(currentMap);
+        const currentConnection = map.get(workProjectSeriesSchemaId);
+        const updatedConnection: ConnectionVector = {
+          ...currentConnection
         };
-
-        dispatchConnectionMap((currentMap) => {
-          const map = new Map(currentMap);
-          const currentConnection = map.get(workProjectSeriesSchemaId);
-          const updatedConnection: ConnectionVector = {
-            ...currentConnection
-          };
-          if (isPrimed) {
-            updatedConnection.source = center;
-          } else if (isAntiPrimed) {
-            updatedConnection.target = center;
-          }
-          console.log(`Updated connection:`, updatedConnection);
-          map.set(workProjectSeriesSchemaId, updatedConnection);
-          return map;
-        });
-      }
+        if (isPrimed) {
+          updatedConnection.source = center;
+        } else if (isAntiPrimed) {
+          updatedConnection.target = center;
+        }
+        map.set(workProjectSeriesSchemaId, updatedConnection);
+        return map;
+      });
     }
-    // [
-    // isPrimed,
-    // isAntiPrimed,
-    // assignChipRef,
-    // workProjectSeriesSchemaId,
-    // dispatchConnectionMap
-    // ]
-  );
+    primeState.current = { prime: isPrimed, antiPrime: isAntiPrimed };
+  });
 
   // Compute dynamic styling
   let fallBackColor: 'default' | 'warning' = 'default';

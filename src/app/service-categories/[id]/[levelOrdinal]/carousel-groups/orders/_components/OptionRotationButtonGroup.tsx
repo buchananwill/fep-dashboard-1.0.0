@@ -39,6 +39,7 @@ import {
   ConnectionVector,
   RotationConnectionMap
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
+import { d } from '@nextui-org/slider/dist/use-slider-64459b54';
 
 export interface OptionRotationTarget {
   carouselOrderItem: CarouselOrderItemDto;
@@ -161,6 +162,16 @@ export default function OptionRotationButtonGroup() {
       for (let i = 0; i < optionList.length; i++) {
         const carouselOrderItem =
           order.carouselOrderItems[optionList[i].workProjectSeriesSchemaId];
+        // SAFETY CHECK TO UNDERSTAND BUG ...
+        if (carouselOrderItem === undefined) {
+          console.warn(
+            'no order item for ',
+            optionList[i].workProjectSeriesSchemaId
+          );
+          console.log(order);
+          return new Map<number, OptionRotationTarget>();
+        }
+        // ... END SAFETY CHECK
         const nextCarouselId =
           optionList[(i + 1) % optionList.length].carouselId;
         const nextCarousel = readAnyCarousel(nextCarouselId);
@@ -196,8 +207,22 @@ export default function OptionRotationButtonGroup() {
       }
       forwardsCycleRef.current = forwardsCycle;
       backwardsCycleRef.current = backwardsCycle;
+    } else if (
+      (backwardsCycle === undefined && forwardsCycle === undefined) ||
+      optionRotation === undefined
+    ) {
+      dispatchRotationTargets(new Map());
+      dispatchConnectionMap(new Map());
+      setOptionRotation(undefined);
     }
-  }, [calculateNextRotation, backwardsCycle, forwardsCycle, optionRotation]);
+  }, [
+    calculateNextRotation,
+    backwardsCycle,
+    forwardsCycle,
+    optionRotation,
+    dispatchRotationTargets,
+    dispatchConnectionMap
+  ]);
 
   useEffect(() => {
     dispatchConnectionMap((oldMap) => {
@@ -215,28 +240,6 @@ export default function OptionRotationButtonGroup() {
       return map;
     });
   }, [rotationPrimeList, dispatchConnectionMap, readAnyOption, optionRotation]);
-
-  // useEffect(() => {
-  //   dispatchRotationTargets((oldMap) => {
-  //     const map = new Map(oldMap);
-  //     const schemaIdList = rotationPrimeList
-  //       .map((primedId) => readAnyOption(primedId))
-  //       .filter(isNotUndefined)
-  //       .map((option) => option.workProjectSeriesSchemaId);
-  //     for (let [
-  //       optionId,
-  //       {
-  //         nextOption: { workProjectSeriesSchemaId }
-  //       }
-  //     ] of oldMap.entries()) {
-  //       if (!schemaIdList.includes(workProjectSeriesSchemaId)) {
-  //         map.delete(optionId);
-  //       }
-  //     }
-  //
-  //     return map;
-  //   });
-  // }, [rotationPrimeList, dispatchRotationTargets, readAnyOption]);
 
   const commitNextRotation = useCallback(
     (targetsMap: Map<number, OptionRotationTarget>) => {
