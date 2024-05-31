@@ -34,14 +34,33 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
 
   useEffect(() => {
     function updateSize() {
-      setSize({ width: window.innerWidth, height: window.innerHeight });
+      const largestPoint = connections.reduce(
+        (prevPoint, currVec) => ({
+          x: Math.max(
+            currVec.source?.x || 0,
+            currVec.target?.x || 0,
+            prevPoint.x
+          ),
+          y: Math.max(
+            currVec.source?.y || 0,
+            currVec.target?.y || 0,
+            prevPoint.y
+          )
+        }),
+        { x: 0, y: 0 }
+      ); // Initial value for the largest x and y
+
+      setSize({
+        width: Math.max(window.innerWidth, largestPoint.x),
+        height: Math.max(window.innerHeight, largestPoint.y)
+      });
     }
 
     window.addEventListener('resize', updateSize);
     updateSize();
 
     return () => window.removeEventListener('resize', updateSize);
-  }, []);
+  }, [connections]);
 
   return (
     <svg
