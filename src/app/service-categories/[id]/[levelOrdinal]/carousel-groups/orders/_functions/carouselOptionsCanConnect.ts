@@ -11,8 +11,6 @@
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
-import { EntityClassMap } from '@/api/entity-class-map';
 import {
   buildCompleteCycle,
   DirectedEdgePredicate
@@ -28,9 +26,7 @@ export function getOptionConnectionValidator(
     if (optionA.workProjectSeriesSchemaId === optionB.workProjectSeriesSchemaId)
       return false;
     if (optionA.carouselId === optionB.carouselId) return false;
-    const carouselB = readAnyCarousel(
-      getEntityNamespaceContextKey(EntityClassMap.carousel, optionB.carouselId)
-    );
+    const carouselB = readAnyCarousel(optionB.carouselId);
     if (carouselB === undefined)
       throw Error(`Could not find expected Carousel for option ${optionB}`);
     return carouselB.carouselOptionDtos.some(

@@ -5,8 +5,6 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import {
   useGlobalController,
   useGlobalDispatchAndListener,
-  useGlobalListener,
-  useGlobalReadAny,
   useGlobalWriteAny
 } from 'selective-context';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
@@ -25,17 +23,21 @@ import {
   getOptionConnectionValidator,
   validateHamiltonianCycle
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/carouselOptionsCanConnect';
-import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { isEqual } from 'lodash';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/assignOrderItemToOption';
+import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
+import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
+import CarouselOrderList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderList';
 
 const listenerKey = 'optionRotationButtonGroup';
 export default function OptionRotationButtonGroup() {
-  const readAnyCarousel = useGlobalReadAny<CarouselDto>();
-  const readAnyOption = useGlobalReadAny<CarouselOptionStateInterface>();
-  const readAnyOrder = useGlobalReadAny<CarouselOrderDto>();
+  const readAnyCarousel = useReadAnyDto<CarouselDto>(EntityClassMap.carousel);
+  const readAnyOption =
+    useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
+  const readAnyOrder = useReadAnyDto<CarouselOrderDto>(
+    EntityClassMap.carouselOrder
+  );
   const {
     currentState: rotationPrimeList,
     dispatchWithoutControl: dispatchPrimeList
@@ -52,8 +54,9 @@ export default function OptionRotationButtonGroup() {
     listenerKey
   });
 
-  const { dispatchWriteAny: writeAnyOrder } =
-    useGlobalWriteAny<CarouselOrderDto>();
+  const writeAnyOrder = useWriteAnyDto<CarouselOrderDto>(
+    EntityClassMap.carouselOrder
+  );
 
   const sortingFunction = useCallback(
     (
@@ -61,16 +64,10 @@ export default function OptionRotationButtonGroup() {
       optionB: CarouselOptionStateInterface
     ) => {
       const carouselOrdinalA = readAnyCarousel(
-        getEntityNamespaceContextKey(
-          EntityClassMap.carousel,
-          optionA.carouselId
-        )
+        optionA.carouselId
       )?.carouselOrdinal;
       const carouselOrdinalB = readAnyCarousel(
-        getEntityNamespaceContextKey(
-          EntityClassMap.carousel,
-          optionB.carouselId
-        )
+        optionB.carouselId
       )?.carouselOrdinal;
       if (
         !(isNotUndefined(carouselOrdinalA) && isNotUndefined(carouselOrdinalB))
@@ -83,11 +80,7 @@ export default function OptionRotationButtonGroup() {
 
   const { forwardsCycle, backwardsCycle } = useMemo(() => {
     const optionNodeList = rotationPrimeList
-      .map((optionId) =>
-        readAnyOption(
-          getEntityNamespaceContextKey(CarouselOptionState, optionId)
-        )
-      )
+      .map((optionId) => readAnyOption(optionId))
       .filter(isNotUndefined);
     if (rotationPrimeList.length !== optionNodeList.length)
       throw Error('Options not found in store.');
@@ -122,9 +115,7 @@ export default function OptionRotationButtonGroup() {
   const rotationNextStudent = useCallback(
     (optionList: CarouselOptionStateInterface[]) => {
       const orderId = [...filteredOrders.values()][0];
-      const order = readAnyOrder(
-        getEntityNamespaceContextKey(EntityClassMap.carouselOrder, orderId)
-      );
+      const order = readAnyOrder(orderId);
       if (order === undefined)
         throw Error(`could not find carousel order: ${orderId}`);
       const cycleShifts = [];
@@ -133,9 +124,7 @@ export default function OptionRotationButtonGroup() {
           order.carouselOrderItems[optionList[i].workProjectSeriesSchemaId];
         const nextCarouselId =
           optionList[(i + 1) % optionList.length].carouselId;
-        const nextCarousel = readAnyCarousel(
-          getEntityNamespaceContextKey(EntityClassMap.carousel, nextCarouselId)
-        );
+        const nextCarousel = readAnyCarousel(nextCarouselId);
         const nextOption = nextCarousel?.carouselOptionDtos?.find(
           (option) =>
             option.workProjectSeriesSchemaId ===
@@ -179,6 +168,18 @@ export default function OptionRotationButtonGroup() {
       >
         <ChevronLeftIcon />
       </Button>
+      <Popover>
+        <PopoverTrigger>
+          <Button className={'w-12'} isDisabled={filteredOrders.size === 0}>
+            {filteredOrders.size}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <div className={'grid grid-cols-4 gap-1'}>
+            <CarouselOrderList orderIdList={[...filteredOrders.values()]} />
+          </div>
+        </PopoverContent>
+      </Popover>
       <Button
         isDisabled={forwardsCycle === undefined || filteredOrders.size === 0}
         onPress={() => {

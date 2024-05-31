@@ -1,12 +1,10 @@
-import { useDtoStore } from 'dto-stores';
+import { useDtoStore, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import clsx from 'clsx';
-import { useGlobalReadAny } from 'selective-context';
-import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import {
   CarouselOptionState,
   CarouselOptionStateInterface,
@@ -22,14 +20,10 @@ export default function CarouselOrderItem({
     entityId: orderItem.carouselOrderId,
     entityClass: EntityClassMap.carouselOrder
   });
-  const readAny = useGlobalReadAny<CarouselOptionStateInterface>();
+  const readAny =
+    useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
 
-  const option = readAny(
-    getEntityNamespaceContextKey(
-      CarouselOptionState,
-      orderItem.carouselOptionId
-    )
-  );
+  const option = readAny(orderItem.carouselOptionId);
 
   const clashList = option?.clashMap?.get(orderItem.carouselOrderId) ?? [];
 

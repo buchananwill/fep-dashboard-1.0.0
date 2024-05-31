@@ -1,5 +1,9 @@
 'use client';
-import { useDtoStoreDispatch, useLazyDtoStore } from 'dto-stores';
+import {
+  useDtoStoreDispatch,
+  useLazyDtoStore,
+  useWriteAnyDto
+} from 'dto-stores';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
@@ -25,6 +29,7 @@ import { AcademicCapIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { AcademicCapIcon as AcademicCapIconFilled } from '@heroicons/react/24/solid';
 import { EmptyArray } from '@/api/main';
 import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/assignOrderItemToOption';
+import { hidden } from 'next/dist/lib/picocolors';
 
 export type CarouselOptionStateInterface = {
   id: number;
@@ -77,7 +82,9 @@ export default function CarouselOption({
   );
 
   // Get the dispatch for editing any dropped order.
-  const { dispatchWriteAny } = useGlobalWriteAny<CarouselOrderDto>();
+  const dispatchWriteAny = useWriteAnyDto<CarouselOrderDto>(
+    EntityClassMap.carouselOrder
+  );
 
   // Update own state with display name
   useEffect(() => {
@@ -210,11 +217,12 @@ export default function CarouselOption({
                 isIconOnly
                 isDisabled={!canPrime}
                 className={clsx(
-                  'min-w-0 w-fit px-1',
-                  'data-[disabled]:bg-zinc-400',
-                  'data-[disabled]:text-zinc-400'
+                  'min-w-0 w-fit px-1  opacity-100',
+                  !canDrop && 'data-[disabled]:bg-default-300'
                 )}
-                color={canDrop ? 'primary' : fallBackColor}
+                color={
+                  isPrimed ? 'success' : canDrop ? 'primary' : fallBackColor
+                }
                 onPress={() => {
                   dispatchRotationPrime((list) => {
                     if (isPrimed)
@@ -227,7 +235,8 @@ export default function CarouselOption({
                   className={clsx(
                     'w-6 py-0.5 px-0',
                     isPrimed && 'animate-spinner-ease-spin',
-                    textFade
+                    textFade,
+                    !canPrime && 'opacity-0'
                   )}
                 />
               </Button>

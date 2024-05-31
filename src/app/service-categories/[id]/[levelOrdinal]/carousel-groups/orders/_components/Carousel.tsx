@@ -5,17 +5,11 @@ import CarouselOption, {
   CarouselOptionStateInterface
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { memo, useMemo, useRef } from 'react';
-import {
-  useGlobalListener,
-  useGlobalListenerGroup,
-  useGlobalReadAny
-} from 'selective-context';
+import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import { InitialSet } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
 import { EmptyArray } from '@/api/main';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
-import { SelectiveContextReadAll } from 'selective-context/dist/types';
 
 export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
   const listenerKey = useUuidListenerKey();
@@ -30,9 +24,6 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
     initialValue: initialMap as Map<string, CarouselOptionStateInterface>
   });
 
-  const readAnyOrder = useGlobalReadAny<CarouselOrderDto>();
-  const readAnyOption = useGlobalReadAny<CarouselOptionStateInterface>();
-
   const { currentState: rotationPrimeList } = useGlobalListener({
     contextKey: 'rotationPrime',
     listenerKey: listenerKey,
@@ -44,10 +35,6 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
     initialValue: InitialSet as Set<string>,
     listenerKey: listenerKey
   });
-
-  // const carouselCanPrime = useMemo(() => {
-  //   return checkCarouselCanPrime(entity, rotationPrimeList, readAnyOption);
-  // }, [entity, readAnyOption, rotationPrimeList]);
 
   const sortedOptionStateList = useMemo(() => {
     return [...group.values()]
@@ -105,32 +92,5 @@ function checkOptionCanPrime(
     option.carouselOrderAssignees.length > 0 &&
     (rotationPrimeList.length === 0 ||
       option.carouselOrderAssignees.some((order) => filteredOrders.has(order)))
-  );
-}
-
-function checkCarouselCanPrime(
-  carousel: CarouselDto,
-  rotationPrimeList: number[],
-  readAnyOption: SelectiveContextReadAll<CarouselOptionStateInterface>
-) {
-  return (
-    rotationPrimeList.length === 0 ||
-    rotationPrimeList.some((carouselOptionId) => {
-      const optionOptional = readAnyOption(
-        getEntityNamespaceContextKey(CarouselOptionState, carouselOptionId)
-      );
-      if (!optionOptional || optionOptional.carouselId === carousel.id)
-        return false;
-      return carousel.carouselOptionDtos.some((optionDto) => {
-        const localOption = readAnyOption(
-          getEntityNamespaceContextKey(CarouselOptionState, optionDto.id)
-        );
-        return (
-          (localOption?.carouselOrderAssignees?.length ?? 0) > 0 &&
-          localOption?.workProjectSeriesSchemaId ===
-            optionOptional.workProjectSeriesSchemaId
-        );
-      });
-    })
   );
 }

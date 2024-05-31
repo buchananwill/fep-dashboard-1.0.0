@@ -1,13 +1,10 @@
 import { useMemo, useRef } from 'react';
-import { NamespacedHooks } from 'dto-stores';
+import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray, isNotUndefined } from '@/api/main';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { useGlobalReadAny } from 'selective-context';
-import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 
 export function useOrderItemAssigneeList(
   optionList: CarouselOptionStateInterface[]
@@ -30,9 +27,6 @@ export function useOrderItemAssigneeList(
           ) && item.active
       )
     );
-    // .map((order) => {
-    //   return order.carouselOrderItems;
-    // });
   }, [optionList, masterList]);
 }
 
@@ -40,15 +34,11 @@ export function useSingleOptionAssigneeList(
   option: CarouselOptionStateInterface
 ) {
   const orderItemAssigneeList = useOrderItemAssigneeList([option]);
-  const readAny = useGlobalReadAny<CarouselOrderDto>();
+  const readAny = useReadAnyDto<CarouselOrderDto>(EntityClassMap.carouselOrder);
   // return useMemo(
   //   () =>
   return orderItemAssigneeList
-    .map((item) =>
-      readAny(
-        getEntityNamespaceContextKey(EntityClassMap.carouselOrder, item.id)
-      )
-    )
+    .map((optionAssignee) => readAny(optionAssignee.id))
     .filter(isNotUndefined)
     .map((order) => {
       return order.carouselOrderItems;

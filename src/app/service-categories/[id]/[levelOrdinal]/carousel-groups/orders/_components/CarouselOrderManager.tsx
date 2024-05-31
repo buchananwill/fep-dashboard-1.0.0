@@ -1,12 +1,8 @@
 'use client';
-import {
-  BaseLazyDtoUiProps,
-  getNameSpacedKey,
-  NamespacedHooks
-} from 'dto-stores';
+import { BaseLazyDtoUiProps, Identifier, useWriteAnyDto } from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { SetStateAction, useEffect, useRef } from 'react';
-import { useGlobalReadAny, useGlobalWriteAny } from 'selective-context';
+import { useGlobalReadAny } from 'selective-context';
 import {
   CarouselOptionState,
   CarouselOptionStateInterface
@@ -14,15 +10,10 @@ import {
 import { performDiffOnCarouselOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
-import { EntityClassMap } from '@/api/entity-class-map';
-import { f } from '@nextui-org/slider/dist/use-slider-64459b54';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
-import { produce } from 'immer';
+import { KEY_TYPES } from 'dto-stores';
 
-export interface WriteAny<T> {
-  (contextKey: string, proposedUpdate: SetStateAction<T>): void;
+export interface WriteAnyDto<T> {
+  (entityId: Identifier, proposedUpdate: SetStateAction<T>): void;
 }
 
 export default function CarouselOrderManager({
@@ -37,8 +28,8 @@ export default function CarouselOrderManager({
     readAny(`${CarouselOptionState}:${KEY_TYPES.MASTER_MAP}`) ??
     optionMap.current;
 
-  const { dispatchWriteAny } =
-    useGlobalWriteAny<CarouselOptionStateInterface>();
+  const dispatchWriteAny =
+    useWriteAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
 
   useEffect(() => {
     Object.values(entity.carouselOrderItems).forEach((item) =>
@@ -51,34 +42,22 @@ export default function CarouselOrderManager({
     if (clashes.length > 0) {
       clashes.forEach((clashList) => {
         clashList.forEach((orderItem) => {
-          dispatchWriteAny(
-            getEntityNamespaceContextKey(
-              CarouselOptionState,
-              orderItem.carouselOptionId
-            ),
-            (state) => {
-              const nextMap = new Map(state.clashMap);
-              nextMap.set(orderItem.carouselOrderId, clashList);
-              return { ...state, clashMap: nextMap };
-            }
-          );
+          dispatchWriteAny(orderItem.carouselOptionId, (state) => {
+            const nextMap = new Map(state.clashMap);
+            nextMap.set(orderItem.carouselOrderId, clashList);
+            return { ...state, clashMap: nextMap };
+          });
         });
       });
     }
     return () => {
       clashes.forEach((clashList) => {
         clashList.forEach((orderItem) => {
-          dispatchWriteAny(
-            getEntityNamespaceContextKey(
-              CarouselOptionState,
-              orderItem.carouselOptionId
-            ),
-            (state) => {
-              const nextMap = new Map(state.clashMap);
-              nextMap.delete(orderItem.carouselOrderId);
-              return { ...state, clashMap: nextMap };
-            }
-          );
+          dispatchWriteAny(orderItem.carouselOptionId, (state) => {
+            const nextMap = new Map(state.clashMap);
+            nextMap.delete(orderItem.carouselOrderId);
+            return { ...state, clashMap: nextMap };
+          });
         });
       });
     };

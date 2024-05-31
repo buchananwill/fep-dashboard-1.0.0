@@ -3,12 +3,12 @@ import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { handleAddAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/handleAddAssignee';
 import { handleRemoveAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/handleRemoveAssignee';
-import { WriteAny } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
+import { WriteAnyDto } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
 
 export function performDiffOnCarouselOrderItem(
   orderItems: MutableRefObject<Record<string, CarouselOrderItemDto>>,
   item: CarouselOrderItemDto,
-  dispatchWriteAny: WriteAny<CarouselOptionStateInterface>
+  dispatchWriteAny: WriteAnyDto<CarouselOptionStateInterface>
 ) {
   const prevItem = orderItems.current[item.workProjectSeriesSchemaId];
   const activeMatch = prevItem?.active === item.active;

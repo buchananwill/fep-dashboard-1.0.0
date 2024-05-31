@@ -2,8 +2,8 @@
 import {
   DtoStoreParams,
   LazyDtoUiListAll,
-  MasterMapController,
-  useDtoStore
+  useDtoStore,
+  useReadAnyDto
 } from 'dto-stores';
 import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/Carousel';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -11,10 +11,8 @@ import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
 import { memo, useContext, useEffect } from 'react';
 import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
-import { useGlobalController, useGlobalReadAny } from 'selective-context';
+import { useGlobalController } from 'selective-context';
 import { EmptyArray, isNotUndefined } from '@/api/main';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
-import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import {
   CarouselOptionState,
   CarouselOptionStateInterface
@@ -26,6 +24,7 @@ export const ControllerKey = 'controller';
 export const InitialSet = new Set();
 export const RotationPrime = 'rotationPrime';
 export const HighlightedSubjects = 'highlightedSubjects';
+
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity } = useDtoStore<CarouselGroupDto>(params);
   useGlobalController({
@@ -47,11 +46,12 @@ export default function CarouselGroup(params: DtoStoreParams) {
     listenerKey: ControllerKey
   });
 
-  const readAnyOption = useGlobalReadAny<CarouselOptionStateInterface>();
+  const readAnyOption =
+    useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
 
   useEffect(() => {
     const assigneesFilteredList = rotationPrimeList
-      .map((optionId) => readAnyOption(`${CarouselOptionState}:${optionId}`))
+      .map((optionId) => readAnyOption(optionId))
       .filter(isNotUndefined)
       .map((option) => new Set(option.carouselOrderAssignees)); // Convert each list to a set
 
