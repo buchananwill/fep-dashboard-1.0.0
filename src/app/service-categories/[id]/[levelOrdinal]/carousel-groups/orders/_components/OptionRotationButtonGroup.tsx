@@ -70,6 +70,7 @@ export default function OptionRotationButtonGroup() {
   const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
     Map<string, ConnectionVector>
   >(RotationConnectionMap);
+
   const { currentState: filteredOrders, dispatch } = useGlobalController<
     Set<string>
   >({
@@ -77,6 +78,7 @@ export default function OptionRotationButtonGroup() {
     initialValue: InitialSet as Set<string>,
     listenerKey
   });
+
   const {
     currentState: rotationTargetsMap,
     dispatch: dispatchRotationTargets
@@ -135,14 +137,7 @@ export default function OptionRotationButtonGroup() {
         ? forwardsCycle
         : undefined;
 
-    console.log(backwardsCycle, forwardsCycle);
-
-    return (
-      // isEqual(forwardsCycle, backwardsCycle)
-      // ? { forwardsCycle, backwardsCycle: undefined }
-      // :
-      { forwardsCycle, backwardsCycle }
-    );
+    return { forwardsCycle, backwardsCycle };
   }, [rotationPrimeList, readAnyCarousel, readAnyOption, sortingFunction]);
 
   const backwardsCycleRef = useRef(backwardsCycle);
@@ -187,6 +182,7 @@ export default function OptionRotationButtonGroup() {
     [filteredOrders, readAnyOrder, readAnyCarousel, dispatchRotationTargets]
   );
 
+  // Update the displayed rotation effect if that is selected.
   useEffect(() => {
     if (
       optionRotation !== undefined &&
@@ -202,6 +198,45 @@ export default function OptionRotationButtonGroup() {
       backwardsCycleRef.current = backwardsCycle;
     }
   }, [calculateNextRotation, backwardsCycle, forwardsCycle, optionRotation]);
+
+  useEffect(() => {
+    dispatchConnectionMap((oldMap) => {
+      if (optionRotation === undefined) return new Map();
+      const map = new Map(oldMap);
+      const schemaIdList = rotationPrimeList
+        .map((primedId) => readAnyOption(primedId))
+        .filter(isNotUndefined)
+        .map((option) => option.workProjectSeriesSchemaId);
+      for (let schemaId in oldMap) {
+        if (!schemaIdList.includes(schemaId)) {
+          map.delete(schemaId);
+        }
+      }
+      return map;
+    });
+  }, [rotationPrimeList, dispatchConnectionMap, readAnyOption, optionRotation]);
+
+  // useEffect(() => {
+  //   dispatchRotationTargets((oldMap) => {
+  //     const map = new Map(oldMap);
+  //     const schemaIdList = rotationPrimeList
+  //       .map((primedId) => readAnyOption(primedId))
+  //       .filter(isNotUndefined)
+  //       .map((option) => option.workProjectSeriesSchemaId);
+  //     for (let [
+  //       optionId,
+  //       {
+  //         nextOption: { workProjectSeriesSchemaId }
+  //       }
+  //     ] of oldMap.entries()) {
+  //       if (!schemaIdList.includes(workProjectSeriesSchemaId)) {
+  //         map.delete(optionId);
+  //       }
+  //     }
+  //
+  //     return map;
+  //   });
+  // }, [rotationPrimeList, dispatchRotationTargets, readAnyOption]);
 
   const commitNextRotation = useCallback(
     (targetsMap: Map<number, OptionRotationTarget>) => {
@@ -249,9 +284,12 @@ export default function OptionRotationButtonGroup() {
         className={'min-w-0 px-1'}
         isDisabled={backwardsNotFeasible}
         onPress={() => {
-          if (backwardsCycle) {
+          if (backwardsCycle && optionRotation !== 'backwards') {
             calculateNextRotation(backwardsCycle);
             setOptionRotation('backwards');
+          } else {
+            setOptionRotation(undefined);
+            dispatchRotationTargets(new Map());
           }
         }}
       >
