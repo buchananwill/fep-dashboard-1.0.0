@@ -1,7 +1,11 @@
 'use client';
 import { Button } from '@nextui-org/button';
 import { ButtonGroup } from '@nextui-org/react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon
+} from '@heroicons/react/24/solid';
 import {
   useGlobalController,
   useGlobalDispatch,
@@ -34,12 +38,16 @@ import CarouselOrderList from '@/app/service-categories/[id]/[levelOrdinal]/caro
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import {
+  ChevronUpIcon,
+  QuestionMarkCircleIcon
+} from '@heroicons/react/24/outline';
 import {
   ConnectionVector,
   RotationConnectionMap
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 import { d } from '@nextui-org/slider/dist/use-slider-64459b54';
+import clsx from 'clsx';
 
 export interface OptionRotationTarget {
   carouselOrderItem: CarouselOrderItemDto;
@@ -281,7 +289,12 @@ export default function OptionRotationButtonGroup() {
         }}
         className={'px-4 min-w-0'}
       >
-        <ChevronLeftIcon className={'w-6'} />
+        <ChevronLeftIcon
+          className={clsx(
+            'w-6',
+            optionRotation === 'backwards' && 'animate-nudge-left'
+          )}
+        />
       </Button>
       <Button
         className={'min-w-0 px-1'}
@@ -333,7 +346,12 @@ export default function OptionRotationButtonGroup() {
         }}
         className={'px-4 min-w-0'}
       >
-        <ChevronRightIcon className={'w-6'} />
+        <ChevronRightIcon
+          className={clsx(
+            'w-6 ',
+            optionRotation === 'forwards' && 'animate-nudge-right'
+          )}
+        />
       </Button>
     </ButtonGroup>
   );
