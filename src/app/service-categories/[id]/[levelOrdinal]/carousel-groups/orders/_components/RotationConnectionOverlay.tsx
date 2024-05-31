@@ -85,13 +85,18 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
         .map((connection) => connectionVectorToCurve(connection))
         .filter(isNotNull)
         .map((conn, index) => (
-          <path
-            key={index}
-            d={conn}
-            className={
-              'stroke-emerald-400 stroke-2 fill-transparent path dashed'
-            }
-          />
+          <g key={index}>
+            <path
+              d={conn}
+              className={
+                'stroke-emerald-400 fill-transparent  path-dashed-animate'
+              }
+            />
+            <path
+              d={conn}
+              className={'stroke-emerald-400 fill-transparent  dashed'}
+            />
+          </g>
         ))}
     </svg>
   );

@@ -80,13 +80,17 @@ export default function OptionRotationButtonGroup() {
       listenerKey
     });
 
-  const filteredOrders = useMemo(() => {
-    return findAssigneeIntersection(rotationPrimeList, readAnyOption);
-  }, [rotationPrimeList, readAnyOption]);
+  const filteredOrdersRef = useRef(currentState);
+  filteredOrdersRef.current = currentState;
+  const filteredOrders = filteredOrdersRef.current;
 
   useEffect(() => {
-    dispatchFilteredOrders(filteredOrders);
-  }, [filteredOrders, dispatchFilteredOrders]);
+    filteredOrdersRef.current = findAssigneeIntersection(
+      rotationPrimeList,
+      readAnyOption
+    );
+    dispatchFilteredOrders(filteredOrdersRef.current);
+  }, [dispatchFilteredOrders, rotationPrimeList, readAnyOption]);
 
   const {
     currentState: rotationTargetsMap,
@@ -266,24 +270,22 @@ export default function OptionRotationButtonGroup() {
       cycleShifts.forEach(({ carouselOrderItem, nextOption }) =>
         assignOrderItemToOption(carouselOrderItem, nextOption, writeAnyOrder)
       );
-      dispatchFilteredOrders((orders) => {
-        const set = new Set(orders);
-        set.delete(orderId);
-        return set;
-      });
-      if (filteredOrders.size === 1) {
+      filteredOrdersRef.current = new Set(currentState);
+      filteredOrdersRef.current.delete(orderId);
+      dispatchFilteredOrders(filteredOrdersRef.current);
+      if (filteredOrdersRef.current.size === 0) {
         dispatchPrimeList([]);
         dispatchRotationTargets(new Map());
         dispatchConnectionMap(new Map());
       }
     },
     [
-      writeAnyOrder,
       dispatchFilteredOrders,
+      writeAnyOrder,
       dispatchPrimeList,
-      filteredOrders.size,
       dispatchRotationTargets,
-      dispatchConnectionMap
+      dispatchConnectionMap,
+      currentState
     ]
   );
 
