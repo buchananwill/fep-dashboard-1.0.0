@@ -265,34 +265,7 @@ export default function CarouselOption({
                   )}
                 />
               </Button>
-              <Button
-                isIconOnly
-                isDisabled={!canPrime}
-                className={clsx(
-                  'min-w-0 w-fit px-1  opacity-100',
-                  !canDrop && 'data-[disabled]:bg-default-300'
-                )}
-                color={
-                  isPrimed ? 'success' : canDrop ? 'primary' : fallBackColor
-                }
-                onPress={() => {
-                  dispatchRotationPrime((list) => {
-                    if (isPrimed)
-                      return list.filter((idItem) => idItem !== entity.id);
-                    else return [...list, entity.id];
-                  });
-                }}
-              >
-                <ArrowDownIcon
-                  className={clsx(
-                    'w-6 py-0.5 px-0',
-                    isPrimed && 'animate-bounce-less',
-                    textFade,
-                    !canPrime && 'opacity-0'
-                  )}
-                  // style={{ transform: `translateY(${sineLutSync}%)` }}
-                />
-              </Button>
+
               <Popover>
                 <PopoverTrigger>
                   <Button
@@ -321,6 +294,33 @@ export default function CarouselOption({
                   <OrderItemAssigneeList carouselOptionDto={entity} />
                 </PopoverContent>
               </Popover>
+              <Button
+                isIconOnly
+                isDisabled={!canPrime}
+                className={clsx(
+                  'min-w-0 w-fit px-1  opacity-100',
+                  !canDrop && 'data-[disabled]:bg-default-300'
+                )}
+                color={
+                  isPrimed ? 'success' : canDrop ? 'primary' : fallBackColor
+                }
+                onPress={() => {
+                  dispatchRotationPrime((list) => {
+                    if (isPrimed)
+                      return list.filter((idItem) => idItem !== entity.id);
+                    else return [...list, entity.id];
+                  });
+                }}
+              >
+                <ArrowDownIcon
+                  className={clsx(
+                    'w-6 py-0.5 px-0',
+                    isPrimed && 'animate-bounce-less',
+                    textFade,
+                    !canPrime && 'opacity-0'
+                  )}
+                />
+              </Button>
             </ButtonGroup>
           )}
         </div>
