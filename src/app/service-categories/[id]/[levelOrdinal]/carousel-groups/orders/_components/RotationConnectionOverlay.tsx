@@ -3,6 +3,10 @@ import { useGlobalController } from 'selective-context';
 import { Coordinate } from '@/react-flow/types';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import { ControllerKey } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
+import React, { useState, useEffect, useMemo } from 'react';
+import { line, curveBasis, interpolateObject } from 'd3';
+import { HasId, isNotNull, isNotUndefined } from '@/api/main';
+import { Identifier } from 'dto-stores';
 
 export interface ConnectionVector {
   source?: Coordinate & HasId;
@@ -23,11 +27,6 @@ export default function RotationConnectionOverlay() {
 
   return <CurveOverlay connections={connectionVectorList} />;
 }
-
-import React, { useState, useEffect, useMemo } from 'react';
-import { line, curveBasis } from 'd3';
-import { HasId, isNotNull, isNotUndefined } from '@/api/main';
-import { Identifier } from 'dto-stores';
 
 const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
@@ -81,9 +80,7 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
           <path
             key={index}
             d={conn}
-            stroke="black"
-            strokeWidth="2"
-            fill="none"
+            className={'stroke-emerald-400 stroke-2 fill-transparent'}
           />
         ))}
     </svg>
@@ -98,9 +95,28 @@ function connectionVectorToCurve({ source, target }: ConnectionVector) {
     (d: Coordinate) => d.y
   );
 
+  const locationInterpolation = interpolateObject(
+    { x: source.x, y: source.y },
+    { x: target.x, y: target.y }
+  );
+
+  const start = { ...locationInterpolation(0) };
+  const firstQuart = { ...locationInterpolation(0.25) };
+  const midPoint = { ...locationInterpolation(0.5) };
+  const lastQuart = { ...locationInterpolation(0.75) };
+  const end = { ...locationInterpolation(1) };
+
+  const data: Coordinate[] = [
+    { x: start.x, y: source.y },
+    { x: firstQuart.x, y: source.y },
+    { x: midPoint.x, y: midPoint.y },
+    { x: lastQuart.x, y: target.y },
+    { x: end.x, y: target.y }
+  ];
+
   lineGenerator = lineGenerator.curve(curveBasis);
 
-  const data: Coordinate[] = [{ ...source }, { ...target }];
+  // const data: Coordinate[] = [{ ...source }, { ...target }];
   const lineGenerator1 = lineGenerator(data);
   // console.log(lineGenerator1);
   return lineGenerator1;
