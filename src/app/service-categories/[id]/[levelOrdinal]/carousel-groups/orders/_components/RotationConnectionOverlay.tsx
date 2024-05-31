@@ -68,6 +68,14 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
       style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
       className={'z-50 border-emerald-600 border-2'}
     >
+      <defs>
+        <mask id="eraseMask">
+          {/*<!-- White rectangle makes the entire area opaque by default -->*/}
+          <rect width="100%" height="100%" fill="white" />
+          {/*-- Black circle creates the transparent area */}
+          <circle cx="150" cy="50" r="20" fill="black" />
+        </mask>
+      </defs>
       {connections
         .filter(
           (connection) =>
@@ -80,7 +88,9 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
           <path
             key={index}
             d={conn}
-            className={'stroke-emerald-400 stroke-2 fill-transparent'}
+            className={
+              'stroke-emerald-400 stroke-2 fill-transparent path dashed'
+            }
           />
         ))}
     </svg>
