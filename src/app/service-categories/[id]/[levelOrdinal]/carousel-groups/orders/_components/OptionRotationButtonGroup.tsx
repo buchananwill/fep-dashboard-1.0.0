@@ -285,20 +285,23 @@ export default function OptionRotationButtonGroup() {
   );
 
   const toggleRotationOutcomeOverlay = useCallback(
-    (toggleDirection: OptionRotationDirection) => {
+    (
+      toggleDirection: OptionRotationDirection,
+      currentDirection: OptionRotationDirection | undefined
+    ) => {
       const cycle = cycles[toggleDirection];
-      if (cycle && optionRotation !== toggleDirection) {
+      if (cycle && currentDirection !== toggleDirection) {
         const nextRotation = calculateNextRotation(cycle, [
           ...filteredOrders.values()
         ]);
         dispatchRotationTargets(nextRotation);
         setOptionRotation(toggleDirection);
-      } else if (optionRotation === toggleDirection) {
+      } else if (currentDirection === toggleDirection) {
         setOptionRotation(undefined);
         dispatchRotationTargets(new Map());
       }
     },
-    [cycles, calculateNextRotation]
+    [cycles, calculateNextRotation, dispatchRotationTargets, filteredOrders]
   );
 
   return (
@@ -323,7 +326,9 @@ export default function OptionRotationButtonGroup() {
       <Button
         className={'min-w-0 px-1'}
         isDisabled={backwardsNotFeasible}
-        onPress={() => toggleRotationOutcomeOverlay('backwards')}
+        onPress={() =>
+          toggleRotationOutcomeOverlay('backwards', optionRotation)
+        }
       >
         <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
@@ -342,7 +347,7 @@ export default function OptionRotationButtonGroup() {
       <Button
         className={'min-w-0 px-1'}
         isDisabled={forwardNotFeasible}
-        onPress={() => toggleRotationOutcomeOverlay('forwards')}
+        onPress={() => toggleRotationOutcomeOverlay('forwards', optionRotation)}
       >
         <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
