@@ -244,6 +244,34 @@ export default function CarouselOption({
             <PendingOverlay pending={true} />
           ) : (
             <ButtonGroup className={'w-full h-full flex justify-between'}>
+              <Popover>
+                <PopoverTrigger>
+                  <Button
+                    className={clsx(
+                      'w-full pl-2 pr-1 flex justify-between',
+                      textFade
+                    )}
+                    color={canDrop ? 'primary' : fallBackColor}
+                  >
+                    <span className={'truncate'}>{workTaskType.name}</span>
+                    <Chip
+                      className={clsx(badgeColor, textFade)}
+                      ref={assignChipRef}
+                    >
+                      {entity.carouselOrderAssignees.length}
+                    </Chip>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  className={clsx(
+                    !!currentItem && 'opacity-10 ',
+                    'transition-opacity'
+                  )}
+                >
+                  <div></div>
+                  <OrderItemAssigneeList carouselOptionDto={entity} />
+                </PopoverContent>
+              </Popover>
               <Button
                 className={'px-1 min-w-0 w-fit relative'}
                 onPress={() =>
@@ -275,35 +303,6 @@ export default function CarouselOption({
                   )}
                 />
               </Button>
-
-              <Popover>
-                <PopoverTrigger>
-                  <Button
-                    className={clsx(
-                      'w-full pl-1 pr-1 flex justify-between',
-                      textFade
-                    )}
-                    color={canDrop ? 'primary' : fallBackColor}
-                  >
-                    <span className={'truncate'}>{workTaskType.name}</span>
-                    <Chip
-                      className={clsx(badgeColor, textFade)}
-                      ref={assignChipRef}
-                    >
-                      {entity.carouselOrderAssignees.length}
-                    </Chip>
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent
-                  className={clsx(
-                    !!currentItem && 'opacity-10 ',
-                    'transition-opacity'
-                  )}
-                >
-                  <div></div>
-                  <OrderItemAssigneeList carouselOptionDto={entity} />
-                </PopoverContent>
-              </Popover>
               <Button
                 isIconOnly
                 isDisabled={!canPrime}

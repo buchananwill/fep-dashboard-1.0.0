@@ -50,8 +50,8 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
       ); // Initial value for the largest x and y
 
       setSize({
-        width: Math.max(window.innerWidth, largestPoint.x),
-        height: Math.max(window.innerHeight, largestPoint.y)
+        width: largestPoint.x + 20,
+        height: largestPoint.y + 20
       });
     }
 
@@ -68,19 +68,11 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
       style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
       className={'z-50 border-emerald-600 border-2'}
     >
-      <defs>
-        <mask id="eraseMask">
-          {/*<!-- White rectangle makes the entire area opaque by default -->*/}
-          <rect width="100%" height="100%" fill="white" />
-          {/*-- Black circle creates the transparent area */}
-          <circle cx="150" cy="50" r="20" fill="black" />
-        </mask>
-      </defs>
       {connections
         .filter(
           (connection) =>
             isNotUndefined(connection.target) &&
-            isNotUndefined(connection.target)
+            isNotUndefined(connection.source)
         )
         .map((connection) => connectionVectorToCurve(connection))
         .filter(isNotNull)
@@ -88,13 +80,7 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
           <g key={index}>
             <path
               d={conn}
-              className={
-                'stroke-emerald-400 fill-transparent  path-dashed-animate'
-              }
-            />
-            <path
-              d={conn}
-              className={'stroke-emerald-400 fill-transparent  dashed'}
+              className={'carousel-order-pills fill-transparent animate-pills '}
             />
           </g>
         ))}
@@ -104,7 +90,7 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
 
 function connectionVectorToCurve({ source, target }: ConnectionVector) {
   if (source === undefined || target === undefined) return null;
-  console.log(source, target);
+
   let lineGenerator = line(
     (d: Coordinate) => d.x,
     (d: Coordinate) => d.y
@@ -133,6 +119,9 @@ function connectionVectorToCurve({ source, target }: ConnectionVector) {
 
   // const data: Coordinate[] = [{ ...source }, { ...target }];
   const lineGenerator1 = lineGenerator(data);
-  // console.log(lineGenerator1);
+  if (source.y === target.y) {
+    console.log(source, target);
+    console.log(lineGenerator1);
+  }
   return lineGenerator1;
 }
