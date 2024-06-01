@@ -1,28 +1,14 @@
 'use client';
 import { Button } from '@nextui-org/button';
 import { ButtonGroup } from '@nextui-org/react';
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon
-} from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import {
   useGlobalController,
   useGlobalDispatch,
-  useGlobalDispatchAndListener,
-  useGlobalWriteAny
+  useGlobalDispatchAndListener
 } from 'selective-context';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import {
-  CarouselOptionState,
-  CarouselOptionStateInterface
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import {
-  ControllerKey,
-  findAssigneeIntersection,
-  InitialSet,
-  RotationPrime
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
+import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { EmptyArray, isNotUndefined } from '@/api/main';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -32,30 +18,36 @@ import {
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/carouselOptionsCanConnect';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
-import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/assignOrderItemToOption';
+import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/assignOrderItemToOption';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import CarouselOrderList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderList';
-import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import {
-  ChevronUpIcon,
-  QuestionMarkCircleIcon
-} from '@heroicons/react/24/outline';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import {
   ConnectionVector,
   RotationConnectionMap
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
-import { d } from '@nextui-org/slider/dist/use-slider-64459b54';
 import clsx from 'clsx';
+import { ControllerKey, InitialSet } from '@/app/_literals';
+import {
+  FilteredOrders,
+  RotationPrime
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_literals';
+import { findAssigneeIntersection } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/findAssigneeIntersection';
+import {
+  CarouselOptionStateInterface,
+  OptionRotationTarget
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
-export interface OptionRotationTarget {
-  carouselOrderItem: CarouselOrderItemDto;
-  nextOption: CarouselOptionDto;
-}
+export type OptionRotationDirection = 'forwards' | 'backwards';
+type RotationCycle = {
+  [key in keyof OptionRotationDirection]:
+    | CarouselOptionStateInterface[]
+    | undefined;
+};
 
-const listenerKey = 'optionRotationButtonGroup';
 export const OptionRotationTargets = 'optionRotationTargets';
 export default function OptionRotationButtonGroup() {
   const readAnyCarousel = useReadAnyDto<CarouselDto>(EntityClassMap.carousel);
@@ -64,8 +56,9 @@ export default function OptionRotationButtonGroup() {
   const readAnyOrder = useReadAnyDto<CarouselOrderDto>(
     EntityClassMap.carouselOrder
   );
+  const listenerKey = useUuidListenerKey();
   const [optionRotation, setOptionRotation] = useState<
-    'forwards' | 'backwards' | undefined
+    OptionRotationDirection | undefined
   >();
   const {
     currentState: rotationPrimeList,
@@ -75,7 +68,6 @@ export default function OptionRotationButtonGroup() {
     listenerKey,
     initialValue: EmptyArray as number[]
   });
-  const primeListRef = useRef(rotationPrimeList);
 
   const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
     Map<string, ConnectionVector>
@@ -83,7 +75,7 @@ export default function OptionRotationButtonGroup() {
 
   const { currentState, dispatchWithoutControl: dispatchFilteredOrders } =
     useGlobalDispatchAndListener<Set<string>>({
-      contextKey: 'filteredOrders',
+      contextKey: FilteredOrders,
       initialValue: InitialSet as Set<string>,
       listenerKey
     });
@@ -100,15 +92,11 @@ export default function OptionRotationButtonGroup() {
     dispatchFilteredOrders(filteredOrdersRef.current);
   }, [dispatchFilteredOrders, rotationPrimeList, readAnyOption]);
 
-  const {
-    currentState: rotationTargetsMap,
-    dispatch: dispatchRotationTargets
-  } = useGlobalController({
+  const { dispatch: dispatchRotationTargets } = useGlobalController({
     contextKey: OptionRotationTargets,
     initialValue: initialMap as Map<number, OptionRotationTarget>,
     listenerKey: ControllerKey
   });
-  const rotationTargetsMapRef = useRef(rotationTargetsMap);
 
   const writeAnyOrder = useWriteAnyDto<CarouselOrderDto>(
     EntityClassMap.carouselOrder
@@ -134,7 +122,7 @@ export default function OptionRotationButtonGroup() {
     [readAnyCarousel]
   );
 
-  const { forwardsCycle, backwardsCycle } = useMemo(() => {
+  const cycles = useMemo(() => {
     const optionNodeList = rotationPrimeList
       .map((optionId) => readAnyOption(optionId))
       .filter(isNotUndefined);
@@ -158,16 +146,16 @@ export default function OptionRotationButtonGroup() {
         ? forwardsCycle
         : undefined;
 
-    return { forwardsCycle, backwardsCycle };
+    return { forwards: forwardsCycle, backwards: backwardsCycle };
   }, [rotationPrimeList, readAnyCarousel, readAnyOption, sortingFunction]);
+  const { forwards, backwards } = cycles;
 
-  const backwardsCycleRef = useRef(backwardsCycle);
-  const forwardsCycleRef = useRef(forwardsCycle);
+  const backwardsCycleRef = useRef(backwards);
+  const forwardsCycleRef = useRef(forwards);
 
   const rotationNotFeasible = filteredOrders.size === 0;
-  const forwardNotFeasible = forwardsCycle === undefined || rotationNotFeasible;
-  const backwardsNotFeasible =
-    backwardsCycle === undefined || rotationNotFeasible;
+  const forwardNotFeasible = forwards === undefined || rotationNotFeasible;
+  const backwardsNotFeasible = backwards === undefined || rotationNotFeasible;
   const backwardsPrimed = optionRotation === 'backwards';
   const forwardsPrimed = optionRotation === 'forwards';
 
@@ -217,17 +205,17 @@ export default function OptionRotationButtonGroup() {
 
   // Update the displayed rotation effect if that is selected.
   useEffect(() => {
-    console.log(forwardsCycle, backwardsCycle);
+    console.log(forwards, backwards);
     if (
       optionRotation !== undefined &&
-      (forwardsCycleRef.current !== forwardsCycle ||
-        backwardsCycleRef.current !== backwardsCycle)
+      (forwardsCycleRef.current !== forwards ||
+        backwardsCycleRef.current !== backwards)
     ) {
       const cycle =
         optionRotation === 'backwards'
-          ? backwardsCycle
+          ? backwards
           : optionRotation === 'forwards'
-            ? forwardsCycle
+            ? forwards
             : undefined;
 
       if (cycle) {
@@ -240,12 +228,12 @@ export default function OptionRotationButtonGroup() {
         setOptionRotation(undefined);
       }
     }
-    forwardsCycleRef.current = forwardsCycle;
-    backwardsCycleRef.current = backwardsCycle;
+    forwardsCycleRef.current = forwards;
+    backwardsCycleRef.current = backwards;
   }, [
     calculateNextRotation,
-    backwardsCycle,
-    forwardsCycle,
+    backwards,
+    forwards,
     optionRotation,
     dispatchRotationTargets,
     filteredOrders
@@ -259,9 +247,8 @@ export default function OptionRotationButtonGroup() {
         .map((primedId) => readAnyOption(primedId))
         .filter(isNotUndefined)
         .map((option) => option.workProjectSeriesSchemaId);
-      for (let [idKey, connection] of oldMap.entries()) {
+      for (let [idKey] of oldMap.entries()) {
         if (!schemaIdList.includes(idKey)) {
-          console.log('deleting: ', idKey);
           map.delete(idKey);
         }
       }
@@ -297,16 +284,31 @@ export default function OptionRotationButtonGroup() {
     ]
   );
 
+  const toggleRotationOutcomeOverlay = useCallback(
+    (toggleDirection: OptionRotationDirection) => {
+      const cycle = cycles[toggleDirection];
+      if (cycle && optionRotation !== toggleDirection) {
+        const nextRotation = calculateNextRotation(cycle, [
+          ...filteredOrders.values()
+        ]);
+        dispatchRotationTargets(nextRotation);
+        setOptionRotation(toggleDirection);
+      } else if (optionRotation === toggleDirection) {
+        setOptionRotation(undefined);
+        dispatchRotationTargets(new Map());
+      }
+    },
+    [cycles, calculateNextRotation]
+  );
+
   return (
     <ButtonGroup>
       <Button
         isDisabled={backwardsNotFeasible || forwardsPrimed}
         onPress={() => {
-          if (backwardsCycle)
+          if (backwards)
             commitNextRotation(
-              calculateNextRotation(backwardsCycle, [
-                ...filteredOrders.values()
-              ])
+              calculateNextRotation(backwards, [...filteredOrders.values()])
             );
         }}
         className={'px-4 min-w-0'}
@@ -321,18 +323,7 @@ export default function OptionRotationButtonGroup() {
       <Button
         className={'min-w-0 px-1'}
         isDisabled={backwardsNotFeasible}
-        onPress={() => {
-          if (backwardsCycle && optionRotation !== 'backwards') {
-            const nextRotation = calculateNextRotation(backwardsCycle, [
-              ...filteredOrders.values()
-            ]);
-            dispatchRotationTargets(nextRotation);
-            setOptionRotation('backwards');
-          } else {
-            setOptionRotation(undefined);
-            dispatchRotationTargets(new Map());
-          }
-        }}
+        onPress={() => toggleRotationOutcomeOverlay('backwards')}
       >
         <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
@@ -351,27 +342,16 @@ export default function OptionRotationButtonGroup() {
       <Button
         className={'min-w-0 px-1'}
         isDisabled={forwardNotFeasible}
-        onPress={() => {
-          if (forwardsCycle && optionRotation !== 'forwards') {
-            const nextRotation = calculateNextRotation(forwardsCycle, [
-              ...filteredOrders.values()
-            ]);
-            dispatchRotationTargets(nextRotation);
-            setOptionRotation('forwards');
-          } else {
-            setOptionRotation(undefined);
-            dispatchRotationTargets(new Map());
-          }
-        }}
+        onPress={() => toggleRotationOutcomeOverlay('forwards')}
       >
         <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
       <Button
         isDisabled={forwardNotFeasible || backwardsPrimed}
         onPress={() => {
-          if (forwardsCycle)
+          if (forwards)
             commitNextRotation(
-              calculateNextRotation(forwardsCycle, [...filteredOrders.values()])
+              calculateNextRotation(forwards, [...filteredOrders.values()])
             );
         }}
         className={'px-4 min-w-0'}

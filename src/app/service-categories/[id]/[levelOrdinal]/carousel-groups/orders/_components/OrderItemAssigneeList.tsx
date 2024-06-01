@@ -1,6 +1,7 @@
-import { useSingleOptionAssigneeList } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/useOrderItemAssigneeList';
+import { useSingleOptionAssigneeList } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_hooks/useOrderItemAssigneeList';
 import CarouselOrderItem from './CarouselOrderItem';
-import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+
+import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 
 export default function OrderItemAssigneeList({
   carouselOptionDto

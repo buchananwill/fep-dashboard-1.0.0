@@ -2,7 +2,7 @@
 import CollectionChooserTabGroup, {
   CollectionChooserTabGroupProps
 } from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
-import CarouselGroupOptionChooser from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/CarouselGroupOptionChooser';
+import CarouselGroupOptionChooser from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/_components/CarouselGroupOptionChooser';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 import { Button } from '@nextui-org/button';

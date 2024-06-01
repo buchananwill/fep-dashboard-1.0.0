@@ -12,7 +12,7 @@ import { useGlobalController } from 'selective-context';
 
 const listenerKey = `optionMapManager`;
 export const OptionMap = 'optionMap';
-export default function OptionMapManager() {
+export default function _OptionMapManager() {
   const { currentState: carouselList } = NamespacedHooks.useListen<
     CarouselDto[]
   >(EntityClassMap.carousel, KEY_TYPES.MASTER_LIST, listenerKey, EmptyArray);

@@ -7,8 +7,6 @@ export default function CarouselOrderList({
 }: {
   orderIdList: string[];
 }) {
-  // const {currentState: orderMap } = useLazyDtoListListener(orderIdList, EntityClassMap.carouselOrder, 'carousel-order-list');
-
   return orderIdList.map((orderId) => (
     <CarouselOrder
       entityId={orderId}

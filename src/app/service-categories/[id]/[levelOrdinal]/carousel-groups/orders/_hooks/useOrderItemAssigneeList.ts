@@ -4,7 +4,8 @@ import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray, isNotUndefined } from '@/api/main';
-import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+
+import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 
 export function useOrderItemAssigneeList(
   optionList: CarouselOptionStateInterface[]

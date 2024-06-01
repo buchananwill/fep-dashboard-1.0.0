@@ -12,7 +12,7 @@ import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselLeanDto } from '@/api/dtos/CarouselLeanDtoSchema';
-import { produceCarouselGroupOptionsEdit } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/components/produceCarouselGroupOptionsEdit';
+import { produceCarouselGroupOptionsEdit } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/_components/produceCarouselGroupOptionsEdit';
 
 export default function CarouselGroupOptionChooser({
   collectionId,

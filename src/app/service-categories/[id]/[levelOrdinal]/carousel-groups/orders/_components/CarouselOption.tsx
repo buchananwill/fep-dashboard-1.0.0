@@ -4,7 +4,6 @@ import {
   useLazyDtoStore,
   useWriteAnyDto
 } from 'dto-stores';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -20,38 +19,32 @@ import OrderItemAssigneeList from '@/app/service-categories/[id]/[levelOrdinal]/
 import {
   useGlobalDispatch,
   useGlobalDispatchAndListener,
-  useGlobalListener,
-  useGlobalWriteAny
+  useGlobalListener
 } from 'selective-context';
-import { Badge, BadgeProps } from '@nextui-org/badge';
 import clsx from 'clsx';
 import { Chip } from '@nextui-org/chip';
 import { ButtonGroup } from '@nextui-org/react';
-import { AcademicCapIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
+import { AcademicCapIcon } from '@heroicons/react/24/outline';
 import {
   AcademicCapIcon as AcademicCapIconFilled,
   ArrowDownIcon
 } from '@heroicons/react/24/solid';
 import { EmptyArray } from '@/api/main';
-import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/assignOrderItemToOption';
-import { hidden } from 'next/dist/lib/picocolors';
-import { useSineLutContext } from 'react-d3-force-graph';
+import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/assignOrderItemToOption';
 import {
   ConnectionVector,
   RotationConnectionMap
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
-import {
-  OptionRotationTarget,
-  OptionRotationTargets
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
+import { OptionRotationTargets } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-
-export type CarouselOptionStateInterface = {
-  id: number;
-  carouselOrderAssignees: string[];
-  clashMap: Map<string, CarouselOrderItemDto[]>;
-  name?: string;
-} & CarouselOptionDto;
+import {
+  CarouselOptionStateInterface,
+  OptionRotationTarget
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
+import { HighlightedSubjects } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_literals';
+import { canAssignToOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/canAssignOptionToOrderItem';
+import { ClashBadge } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/ClashBadge';
+import { getAssigneeCountColor } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/getAssigneeCountColor';
 
 export const CarouselOptionState = 'CarouselOptionState';
 export default function CarouselOption({
@@ -62,6 +55,7 @@ export default function CarouselOption({
   canPrime?: boolean;
 }) {
   const { workProjectSeriesSchemaId } = entity;
+
   // Chip location calculation condition: primed or anti-primed
   const assignChipRef = useRef<HTMLDivElement | null>(null);
   const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
@@ -75,7 +69,7 @@ export default function CarouselOption({
     currentState: highlightedList,
     dispatchWithoutControl: highlightSubject
   } = useGlobalDispatchAndListener<string[]>({
-    contextKey: 'highlightedSubjects',
+    contextKey: HighlightedSubjects,
     listenerKey: listenerKey,
     initialValue: EmptyArray
   });
@@ -84,7 +78,7 @@ export default function CarouselOption({
     return highlightedList.includes(entity.workProjectSeriesSchemaId);
   }, [highlightedList, entity.workProjectSeriesSchemaId]);
 
-  // Dispatch own state changes.
+  // For dispatching own state changes.
   const { dispatchWithoutListen } =
     useDtoStoreDispatch<CarouselOptionStateInterface>(
       entity.id,
@@ -336,45 +330,4 @@ export default function CarouselOption({
       )}
     </ClashBadge>
   );
-}
-
-function canAssignToOrderItem(
-  orderItem: CarouselOrderItemDto,
-  option: CarouselOptionDto
-) {
-  return (
-    option.workProjectSeriesSchemaId === orderItem.workProjectSeriesSchemaId &&
-    // orderItem.carouselOptionId !== option.id &&
-    orderItem.active
-  );
-}
-
-export function ClashBadge({
-  show,
-  className,
-  children,
-  ...otherProps
-}: Omit<BadgeProps, 'color'> & { show: boolean }) {
-  return (
-    <Badge
-      className={clsx(show ? '' : 'hidden')}
-      color={'danger'}
-      {...otherProps}
-    >
-      {children}
-    </Badge>
-  );
-}
-
-function getAssigneeCountColor(
-  count: number,
-  schema: WorkProjectSeriesSchemaDto
-) {
-  if (count === 0) return 'bg-gray-300';
-  const breakpointsPassed = count / schema.userToProviderRatio;
-  if (breakpointsPassed <= 1) return 'bg-emerald-200';
-  if (breakpointsPassed <= 2) return 'bg-yellow-100';
-  if (breakpointsPassed <= 3) return 'bg-orange-200';
-  if (breakpointsPassed <= 4) return 'bg-red-300';
-  else return 'bg-fuchsia-300';
 }

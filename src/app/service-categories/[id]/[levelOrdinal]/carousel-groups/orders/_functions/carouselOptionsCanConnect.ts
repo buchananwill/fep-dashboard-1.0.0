@@ -10,11 +10,11 @@
  * */
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import {
   buildCompleteCycle,
   DirectedEdgePredicate
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/buildCompleteCycle';
+import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 
 export function getOptionConnectionValidator(
   readAnyCarousel: SelectiveContextReadAll<CarouselDto>
