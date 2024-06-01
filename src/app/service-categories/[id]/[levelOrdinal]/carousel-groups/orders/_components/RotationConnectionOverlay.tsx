@@ -66,7 +66,7 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
       width={size.width}
       height={size.height}
       style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
-      className={'z-50 border-emerald-600 border-2'}
+      className={'z-50'}
     >
       {connections
         .filter(
