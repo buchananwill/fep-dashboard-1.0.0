@@ -38,7 +38,6 @@ import { hidden } from 'next/dist/lib/picocolors';
 import { useSineLutContext } from 'react-d3-force-graph';
 import {
   ConnectionVector,
-  ConnectionVectorRefs,
   RotationConnectionMap
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 import {
@@ -46,7 +45,6 @@ import {
   OptionRotationTargets
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { ReactRef } from '@nextui-org/react-utils';
 
 export type CarouselOptionStateInterface = {
   id: number;
@@ -67,7 +65,7 @@ export default function CarouselOption({
   // Chip location calculation condition: primed or anti-primed
   const assignChipRef = useRef<HTMLDivElement | null>(null);
   const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
-    Map<string, ConnectionVectorRefs>
+    Map<string, ConnectionVector>
   >(RotationConnectionMap);
   const primeState = useRef({ prime: false, antiPrime: false });
 
@@ -170,21 +168,38 @@ export default function CarouselOption({
   useEffect(() => {
     const primeChange = primeState.current.prime !== isPrimed;
     const antiPrimeChange = primeState.current.antiPrime !== isAntiPrimed;
-    const divRef = assignChipRef.current;
+
     if (
-      divRef &&
+      assignChipRef.current &&
       (primeChange || antiPrimeChange || isPrimed || isAntiPrimed)
     ) {
+      const { top, left, width, height } =
+        assignChipRef.current.getBoundingClientRect();
+      const center = {
+        x: left + width / 2,
+        y: top + height / 2
+      };
+
       dispatchConnectionMap((currentMap) => {
         const map = new Map(currentMap);
         const currentConnection = map.get(workProjectSeriesSchemaId);
-        const updatedConnection: ConnectionVectorRefs = {
+        const updatedConnection: ConnectionVector = {
           ...currentConnection
         };
         if (isPrimed) {
-          updatedConnection.source = divRef;
+          updatedConnection.source = { ...center, id: entity.id };
+        } else if (!isPrimed && primeChange) {
+          updatedConnection.source =
+            updatedConnection.source?.id === entity.id
+              ? undefined
+              : updatedConnection.source;
         } else if (isAntiPrimed) {
-          updatedConnection.target = divRef;
+          updatedConnection.target = { ...center, id: entity.id };
+        } else if (!isAntiPrimed && antiPrimeChange) {
+          updatedConnection.target =
+            updatedConnection.target?.id === entity.id
+              ? undefined
+              : updatedConnection.target;
         }
         map.set(workProjectSeriesSchemaId, updatedConnection);
         return map;
@@ -314,7 +329,6 @@ export default function CarouselOption({
                     textFade,
                     !canPrime && 'opacity-0'
                   )}
-                  // style={{ transform: `translateY(${sineLutSync}%)` }}
                 />
               </Button>
             </ButtonGroup>
@@ -364,46 +378,4 @@ function getAssigneeCountColor(
   if (breakpointsPassed <= 3) return 'bg-orange-200';
   if (breakpointsPassed <= 4) return 'bg-red-300';
   else return 'bg-fuchsia-300';
-}
-
-function useConnectionRefStore(
-  primeState,
-  isAntiPrimed,
-  isPrimed,
-  assignChipRef,
-  workProjectSeriesSchemaId,
-  dispatchConnectionMap
-) {
-  useEffect(() => {
-    const primeChange = primeState.current.prime !== isPrimed;
-    const antiPrimeChange = primeState.current.antiPrime !== isAntiPrimed;
-
-    if (
-      assignChipRef.current &&
-      (primeChange || antiPrimeChange || isPrimed || isAntiPrimed)
-    ) {
-      const { top, left, width, height } =
-        assignChipRef.current.getBoundingClientRect();
-      const center = {
-        x: left + width / 2,
-        y: top + height / 2
-      };
-
-      dispatchConnectionMap((currentMap) => {
-        const map = new Map(currentMap);
-        const currentConnection = map.get(workProjectSeriesSchemaId);
-        const updatedConnection: ConnectionVector = {
-          ...currentConnection
-        };
-        if (isPrimed) {
-          updatedConnection.source = center;
-        } else if (isAntiPrimed) {
-          updatedConnection.target = center;
-        }
-        map.set(workProjectSeriesSchemaId, updatedConnection);
-        return map;
-      });
-    }
-    primeState.current = { prime: isPrimed, antiPrime: isAntiPrimed };
-  });
 }

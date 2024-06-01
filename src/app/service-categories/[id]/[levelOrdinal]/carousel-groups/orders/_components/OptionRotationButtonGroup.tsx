@@ -19,6 +19,7 @@ import {
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import {
   ControllerKey,
+  findAssigneeIntersection,
   InitialSet,
   RotationPrime
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
@@ -80,13 +81,24 @@ export default function OptionRotationButtonGroup() {
     Map<string, ConnectionVector>
   >(RotationConnectionMap);
 
-  const { currentState: filteredOrders, dispatch } = useGlobalController<
-    Set<string>
-  >({
-    contextKey: 'filteredOrders',
-    initialValue: InitialSet as Set<string>,
-    listenerKey
-  });
+  const { currentState, dispatchWithoutControl: dispatchFilteredOrders } =
+    useGlobalDispatchAndListener<Set<string>>({
+      contextKey: 'filteredOrders',
+      initialValue: InitialSet as Set<string>,
+      listenerKey
+    });
+
+  const filteredOrdersRef = useRef(currentState);
+  filteredOrdersRef.current = currentState;
+  const filteredOrders = filteredOrdersRef.current;
+
+  useEffect(() => {
+    filteredOrdersRef.current = findAssigneeIntersection(
+      rotationPrimeList,
+      readAnyOption
+    );
+    dispatchFilteredOrders(filteredOrdersRef.current);
+  }, [dispatchFilteredOrders, rotationPrimeList, readAnyOption]);
 
   const {
     currentState: rotationTargetsMap,
@@ -160,9 +172,13 @@ export default function OptionRotationButtonGroup() {
   const forwardsPrimed = optionRotation === 'forwards';
 
   const calculateNextRotation = useCallback(
-    (optionList: CarouselOptionStateInterface[]) => {
-      console.log('Calculating rotation...');
-      const orderId = [...filteredOrders.values()][0];
+    (
+      optionList: CarouselOptionStateInterface[],
+      filteredOrderList: string[]
+    ) => {
+      console.log('Calculating rotation...', filteredOrdersRef.current);
+      const orderId = filteredOrderList[0];
+
       const order = readAnyOrder(orderId);
       if (order === undefined)
         throw Error(`could not find carousel order: ${orderId}`);
@@ -194,42 +210,45 @@ export default function OptionRotationButtonGroup() {
           nextOption
         });
       }
-      dispatchRotationTargets(optionRotations);
-      rotationTargetsMapRef.current = optionRotations;
       return optionRotations;
     },
-    [filteredOrders, readAnyOrder, readAnyCarousel, dispatchRotationTargets]
+    [filteredOrdersRef, readAnyOrder, readAnyCarousel]
   );
 
   // Update the displayed rotation effect if that is selected.
   useEffect(() => {
+    console.log(forwardsCycle, backwardsCycle);
     if (
       optionRotation !== undefined &&
       (forwardsCycleRef.current !== forwardsCycle ||
         backwardsCycleRef.current !== backwardsCycle)
     ) {
-      if (optionRotation === 'backwards' && backwardsCycle) {
-        calculateNextRotation(backwardsCycle);
-      } else if (optionRotation === 'forwards' && forwardsCycle) {
-        calculateNextRotation(forwardsCycle);
+      const cycle =
+        optionRotation === 'backwards'
+          ? backwardsCycle
+          : optionRotation === 'forwards'
+            ? forwardsCycle
+            : undefined;
+
+      if (cycle) {
+        const targets = calculateNextRotation(cycle, [
+          ...filteredOrdersRef.current.values()
+        ]);
+        dispatchRotationTargets(targets);
+      } else {
+        dispatchRotationTargets(new Map());
+        setOptionRotation(undefined);
       }
-      forwardsCycleRef.current = forwardsCycle;
-      backwardsCycleRef.current = backwardsCycle;
-    } else if (
-      (backwardsCycle === undefined && forwardsCycle === undefined) ||
-      optionRotation === undefined
-    ) {
-      dispatchRotationTargets(new Map());
-      dispatchConnectionMap(new Map());
-      setOptionRotation(undefined);
     }
+    forwardsCycleRef.current = forwardsCycle;
+    backwardsCycleRef.current = backwardsCycle;
   }, [
     calculateNextRotation,
     backwardsCycle,
     forwardsCycle,
     optionRotation,
     dispatchRotationTargets,
-    dispatchConnectionMap
+    filteredOrders
   ]);
 
   useEffect(() => {
@@ -240,9 +259,10 @@ export default function OptionRotationButtonGroup() {
         .map((primedId) => readAnyOption(primedId))
         .filter(isNotUndefined)
         .map((option) => option.workProjectSeriesSchemaId);
-      for (let schemaId in oldMap) {
-        if (!schemaIdList.includes(schemaId)) {
-          map.delete(schemaId);
+      for (let [idKey, connection] of oldMap.entries()) {
+        if (!schemaIdList.includes(idKey)) {
+          console.log('deleting: ', idKey);
+          map.delete(idKey);
         }
       }
       return map;
@@ -258,24 +278,22 @@ export default function OptionRotationButtonGroup() {
       cycleShifts.forEach(({ carouselOrderItem, nextOption }) =>
         assignOrderItemToOption(carouselOrderItem, nextOption, writeAnyOrder)
       );
-      dispatch((orders) => {
-        const set = new Set(orders);
-        set.delete(orderId);
-        return set;
-      });
-      if (filteredOrders.size === 1) {
+      filteredOrdersRef.current = new Set(currentState);
+      filteredOrdersRef.current.delete(orderId);
+      dispatchFilteredOrders(filteredOrdersRef.current);
+      if (filteredOrdersRef.current.size === 0) {
         dispatchPrimeList([]);
         dispatchRotationTargets(new Map());
         dispatchConnectionMap(new Map());
       }
     },
     [
+      dispatchFilteredOrders,
       writeAnyOrder,
-      dispatch,
       dispatchPrimeList,
-      filteredOrders.size,
       dispatchRotationTargets,
-      dispatchConnectionMap
+      dispatchConnectionMap,
+      currentState
     ]
   );
 
@@ -285,7 +303,11 @@ export default function OptionRotationButtonGroup() {
         isDisabled={backwardsNotFeasible || forwardsPrimed}
         onPress={() => {
           if (backwardsCycle)
-            commitNextRotation(calculateNextRotation(backwardsCycle));
+            commitNextRotation(
+              calculateNextRotation(backwardsCycle, [
+                ...filteredOrders.values()
+              ])
+            );
         }}
         className={'px-4 min-w-0'}
       >
@@ -301,7 +323,10 @@ export default function OptionRotationButtonGroup() {
         isDisabled={backwardsNotFeasible}
         onPress={() => {
           if (backwardsCycle && optionRotation !== 'backwards') {
-            calculateNextRotation(backwardsCycle);
+            const nextRotation = calculateNextRotation(backwardsCycle, [
+              ...filteredOrders.values()
+            ]);
+            dispatchRotationTargets(nextRotation);
             setOptionRotation('backwards');
           } else {
             setOptionRotation(undefined);
@@ -328,7 +353,10 @@ export default function OptionRotationButtonGroup() {
         isDisabled={forwardNotFeasible}
         onPress={() => {
           if (forwardsCycle && optionRotation !== 'forwards') {
-            calculateNextRotation(forwardsCycle);
+            const nextRotation = calculateNextRotation(forwardsCycle, [
+              ...filteredOrders.values()
+            ]);
+            dispatchRotationTargets(nextRotation);
             setOptionRotation('forwards');
           } else {
             setOptionRotation(undefined);
@@ -342,7 +370,9 @@ export default function OptionRotationButtonGroup() {
         isDisabled={forwardNotFeasible || backwardsPrimed}
         onPress={() => {
           if (forwardsCycle)
-            commitNextRotation(calculateNextRotation(forwardsCycle));
+            commitNextRotation(
+              calculateNextRotation(forwardsCycle, [...filteredOrders.values()])
+            );
         }}
         className={'px-4 min-w-0'}
       >

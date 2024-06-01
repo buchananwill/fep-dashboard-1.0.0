@@ -1,6 +1,7 @@
 'use client';
 import {
   DtoStoreParams,
+  Identifier,
   LazyDtoUiListAll,
   useDtoStore,
   useReadAnyDto
@@ -9,7 +10,7 @@ import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-grou
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
-import { memo, useContext, useEffect } from 'react';
+import { Dispatch, memo, SetStateAction, useContext, useEffect } from 'react';
 import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray, isNotUndefined } from '@/api/main';
@@ -50,34 +51,9 @@ export default function CarouselGroup(params: DtoStoreParams) {
   const readAnyOption =
     useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
 
-  useEffect(() => {
-    const assigneesFilteredList = rotationPrimeList
-      .map((optionId) => readAnyOption(optionId))
-      .filter(isNotUndefined)
-      .map((option) => new Set(option.carouselOrderAssignees)); // Convert each list to a set
-
-    if (assigneesFilteredList.length === 0) {
-      dispatch(InitialSet as Set<string>);
-      return;
-    }
-
-    // Sort sets by their size in ascending order
-    assigneesFilteredList.sort((a, b) => a.size - b.size);
-
-    // Start with the first (smallest) set of assignees
-    let intersectionSet = assigneesFilteredList[0];
-
-    // Intersect with the remaining sets
-    for (let i = 1; i < assigneesFilteredList.length; i++) {
-      intersectionSet = new Set(
-        [...intersectionSet].filter((assignee) =>
-          assigneesFilteredList[i].has(assignee)
-        )
-      );
-    }
-
-    dispatch(intersectionSet);
-  }, [rotationPrimeList, dispatch, readAnyOption]);
+  // useEffect(() => {
+  //   dispatch(findAssigneeIntersection(rotationPrimeList, readAnyOption));
+  // }, [rotationPrimeList, dispatch, readAnyOption]);
 
   const mutableRefObject = useContext(
     SelectiveContextGlobal.latestValueRefContext
@@ -119,3 +95,36 @@ export default function CarouselGroup(params: DtoStoreParams) {
 }
 
 const MemoOrderManager = memo(CarouselOrderManager);
+
+export function findAssigneeIntersection(
+  rotationPrimeList: number[],
+  readAnyOption: (
+    optionID: Identifier
+  ) => CarouselOptionStateInterface | undefined
+) {
+  const assigneesFilteredList = rotationPrimeList
+    .map((optionId) => readAnyOption(optionId))
+    .filter(isNotUndefined)
+    .map((option) => new Set(option.carouselOrderAssignees)); // Convert each list to a set
+
+  if (assigneesFilteredList.length === 0) {
+    return InitialSet as Set<string>;
+  }
+
+  // Sort sets by their size in ascending order
+  assigneesFilteredList.sort((a, b) => a.size - b.size);
+
+  // Start with the first (smallest) set of assignees
+  let intersectionSet = assigneesFilteredList[0];
+
+  // Intersect with the remaining sets
+  for (let i = 1; i < assigneesFilteredList.length; i++) {
+    intersectionSet = new Set(
+      [...intersectionSet].filter((assignee) =>
+        assigneesFilteredList[i].has(assignee)
+      )
+    );
+  }
+
+  return intersectionSet;
+}
