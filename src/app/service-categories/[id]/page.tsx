@@ -1,5 +1,5 @@
 import { EntityClassMap } from '@/api/entity-class-map';
-import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
+import ServiceCategoryCard from '@/app/service-categories/_components/ServiceCategoryCard';
 import {
   deleteIdList,
   getOne,

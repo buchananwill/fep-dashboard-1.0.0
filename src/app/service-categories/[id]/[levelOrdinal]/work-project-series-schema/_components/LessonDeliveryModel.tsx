@@ -38,7 +38,7 @@ export const LessonDeliveryModel = (
 
   return (
     <div className={'grid grid-cols-4 items-center relative'}>
-      {isNotUndefined(dispatchDeletion) && (
+      {dispatchDeletion && (
         <DeletedOverlay
           show={deleted ?? false}
           handleUnDelete={() =>
@@ -48,7 +48,7 @@ export const LessonDeliveryModel = (
       )}
 
       <div className={'flex items-center'}>
-        {isNotUndefined(dispatchDeletion) && (
+        {dispatchDeletion && (
           <TwoStageClick
             standardAppearance={'light'}
             onPress={() => dispatchDeletion((state) => [...state, model.id])}
@@ -86,7 +86,6 @@ export const LessonDeliveryModel = (
             workProjectBandwidth: value
           })}
           numberAccessor={(wpss) => wpss.workProjectBandwidth}
-          listenerKey={'projectBandwidthEdit'}
           className={numberEditClassNames}
         />
         <DtoStoreNumberInput<WorkProjectSeriesSchemaDto, string>
@@ -97,7 +96,6 @@ export const LessonDeliveryModel = (
             userToProviderRatio: value
           })}
           numberAccessor={(wpss) => wpss.userToProviderRatio}
-          listenerKey={'userRatioEdit'}
           className={numberEditClassNames}
         />
       </div>

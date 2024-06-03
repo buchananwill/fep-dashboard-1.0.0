@@ -3,11 +3,11 @@ import React, { useCallback, useMemo } from 'react';
 import { BaseDtoUiProps, DtoUiProps } from 'dto-stores';
 
 import { TransientIdOffset } from '@/api/main';
-import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
+import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/_functions/sum-delivery-allocations';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
-import { AllocationUnitGroup } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/AllocationUnitGroup';
+import { AllocationUnitGroup } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/_components/AllocationUnitGroup';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
-import { DeliveryAllocation } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/components/DeliveryAllocation';
+import { DeliveryAllocation } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/_components/DeliveryAllocation';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
 import { SetOptional } from 'type-fest';

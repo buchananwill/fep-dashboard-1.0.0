@@ -8,7 +8,7 @@ export function getRenameContextKey<T extends HasId>(
   entityClass: string,
   entity: T
 ) {
-  return `${entityClass}:${entity.id}:${RenameContextKey}`;
+  return `${entityClass}:${entity?.id}:${RenameContextKey}`;
 }
 
 export function nameAccessor<T extends HasNameDto>(entity: T) {

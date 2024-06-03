@@ -1,8 +1,8 @@
 'use client';
 
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/AllBundlesTotal';
-import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/WorkSeriesSchemaBundleTabGroup';
+import AllBundlesTotal from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_components/AllBundlesTotal';
+import WorkSeriesSchemaBundleTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_components/WorkSeriesSchemaBundleTabGroup';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Button } from '@nextui-org/button';
 import React, { useCallback, useContext } from 'react';

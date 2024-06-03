@@ -48,7 +48,6 @@ export default function KnowledgeLevelTable({
                 levelOrdinal: value
               })}
               numberAccessor={(entity) => entity.levelOrdinal}
-              listenerKey={'levelOrdinalEdit'}
               className={
                 'no-spinner w-12 rounded-lg p-2 bg-default-100 text-right'
               }

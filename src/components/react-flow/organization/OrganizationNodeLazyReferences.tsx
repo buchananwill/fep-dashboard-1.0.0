@@ -7,7 +7,7 @@ import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { Chip } from '@nextui-org/chip';
 import { EntityClassMap } from '@/api/entity-class-map';
 
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/sum-delivery-allocations';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/_functions/sum-delivery-allocations';
 import {
   ArrayPlaceholder,
   useGlobalDispatch,

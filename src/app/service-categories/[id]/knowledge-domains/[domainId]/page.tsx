@@ -1,38 +1,40 @@
 import {
-  deleteIdList,
-  getOne,
+  getDtoListByBodyList,
   putList
 } from '@/api/generated-actions/KnowledgeDomain';
-import { getOne as getOneServiceCategory } from '@/api/generated-actions/ServiceCategory';
+import { getDtoListByBodyList as getServiceCategoryByIdList } from '@/api/generated-actions/ServiceCategory';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
-  DtoControllerArray,
-  EditAddDeleteDtoControllerArray
+  DataFetchingEditDtoControllerArray,
+  DtoControllerArray
 } from 'dto-stores';
-import KnowledgeDomainCard from '@/app/service-categories/[id]/knowledge-domains/components/KnowledgeDomainCard';
+import KnowledgeDomainCard from '@/app/service-categories/[id]/knowledge-domains/_components/KnowledgeDomainCard';
+import { EmptyArray } from '@/api/main';
 
 export default async function Page({
   params: { id, domainId }
 }: {
   params: { id: string; domainId: string };
 }) {
-  let kDomain = await getOne(parseInt(domainId));
+  const kDomainId = parseInt(domainId);
+  // let kDomain = await getOne(parseInt(domainId));
 
-  const serviceCategory = await getOneServiceCategory(parseInt(id));
+  // const serviceCategory = await getOneServiceCategory(parseInt(id));
 
   return (
     <>
-      <EditAddDeleteDtoControllerArray
+      <DataFetchingEditDtoControllerArray
         entityClass={EntityClassMap.knowledgeDomain}
-        dtoList={[kDomain]}
         updateServerAction={putList}
-        deleteServerAction={deleteIdList}
+        idList={[kDomainId]}
+        getServerAction={getDtoListByBodyList}
       />
-      <DtoControllerArray
-        dtoList={[serviceCategory]}
+      <DataFetchingEditDtoControllerArray
         entityClass={EntityClassMap.serviceCategory}
+        idList={EmptyArray}
+        getServerAction={getServiceCategoryByIdList}
       />
-      <KnowledgeDomainCard id={kDomain.id} />
+      <KnowledgeDomainCard id={kDomainId} />
     </>
   );
 }

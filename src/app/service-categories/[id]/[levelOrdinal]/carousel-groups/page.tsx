@@ -2,7 +2,7 @@ import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/ap
 import { EntityClassMap } from '@/api/entity-class-map';
 import CarouselGroupTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/_components/CarouselGroupTabGroup';
 import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/serviceCategoryRouteParams';
-import { getLevelPartialAndSchemaList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/functions/getLevelPartialAndSchemaList';
+import { getLevelPartialAndSchemaList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/_functions/getLevelPartialAndSchemaList';
 import {
   deleteIdList,
   postList,

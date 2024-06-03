@@ -4,7 +4,7 @@ import {
   putList
 } from '@/api/generated-actions/KnowledgeDomain';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
-import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-domains/components/KnowledgeDomainTable';
+import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-domains/_components/KnowledgeDomainTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getOne } from '@/api/generated-actions/ServiceCategory';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';

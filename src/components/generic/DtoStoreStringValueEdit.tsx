@@ -1,6 +1,8 @@
+'use client';
 import { HasId } from '@/api/main';
 import { useDtoStore } from 'dto-stores';
 import { Input, InputProps } from '@nextui-org/input';
+import { useCallback } from 'react';
 
 interface DtoStoreStringValueEditProps<T extends HasId>
   extends Omit<InputProps, 'onValueChange' & 'value' & 'type'> {
@@ -25,22 +27,24 @@ export function DtoStoreStringValueEdit<T extends HasId>({
     listenerKey
   });
 
-  if (valueAccessor === undefined) {
+  const update = useCallback(
+    (value: string) => {
+      if (dispatchWithoutControl === undefined) {
+        console.error('no dispatch defined!');
+        return;
+      }
+      if (producer === undefined) {
+        console.error('no producer defined!');
+        return;
+      }
+      dispatchWithoutControl((entityState) => producer(value, entityState));
+    },
+    [dispatchWithoutControl, producer]
+  );
+  if (valueAccessor === undefined || entity === undefined) {
     console.error('No value accessor supplied');
     return null;
   }
-
-  const update = (value: string) => {
-    if (dispatchWithoutControl === undefined) {
-      console.error('no dispatch defined!');
-      return;
-    }
-    if (producer === undefined) {
-      console.error('no producer defined!');
-      return;
-    }
-    dispatchWithoutControl((entityState) => producer(value, entityState));
-  };
 
   return (
     <Input

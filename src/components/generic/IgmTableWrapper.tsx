@@ -1,7 +1,10 @@
 'use client';
 import IgmTable from '@/components/generic/IgmTable';
-import { DtoControllerArray } from 'dto-stores';
-import { SubmitTableButton } from '@/app/service-categories/[id]/work-task-types/SubmitTableButton';
+import {
+  DtoControllerArray,
+  EditAddDeleteDtoControllerArray
+} from 'dto-stores';
+import { SubmitTableButton } from '@/components/generic/SubmitTableButton';
 
 import {
   IntersectionGeneratorMatrix,
@@ -31,7 +34,10 @@ export default function IgmTableWrapper<
 } & TableProps) {
   return (
     <>
-      <DtoControllerArray dtoList={tableRows} entityClass={'generatorRow'} />
+      <EditAddDeleteDtoControllerArray
+        dtoList={tableRows}
+        entityClass={'generatorRow'}
+      />
       <IgmTable
         rowEntityClass={rowEntityClass}
         entityList={rows}

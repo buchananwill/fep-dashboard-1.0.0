@@ -4,7 +4,7 @@ import CollectionChooserTabGroup, {
 } from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import BundleItemChooser from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/BundleItemChooser';
+import BundleItemChooser from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_components/BundleItemChooser';
 import { ArrayPlaceholder } from 'selective-context';
 import { NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';

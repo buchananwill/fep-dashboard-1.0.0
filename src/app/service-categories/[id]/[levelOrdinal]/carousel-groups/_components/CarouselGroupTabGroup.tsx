@@ -15,7 +15,7 @@ import {
   NamespacedHooks,
   useMasterListInteraction
 } from 'dto-stores';
-import { DispatchList } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/components/SchemaBundleViewer';
+import { DispatchList } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_components/SchemaBundleViewer';
 import { ArrayPlaceholder } from 'selective-context';
 
 import { KEY_TYPES } from 'dto-stores/dist/literals';

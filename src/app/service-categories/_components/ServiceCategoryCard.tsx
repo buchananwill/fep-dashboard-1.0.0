@@ -31,6 +31,8 @@ function InternalUiComponent(props: BaseDtoUiProps<ServiceCategoryDto>) {
     [dispatchWithoutControl]
   );
 
+  if (!entity) return null;
+
   return (
     <Card className={'relative'}>
       <DeletedOverlay

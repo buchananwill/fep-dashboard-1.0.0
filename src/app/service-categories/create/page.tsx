@@ -1,7 +1,7 @@
 'use client';
 import { EntityClassMap } from '@/api/entity-class-map';
 
-import ServiceCategoryCard from '@/app/service-categories/components/ServiceCategoryCard';
+import ServiceCategoryCard from '@/app/service-categories/_components/ServiceCategoryCard';
 import data from '@/utils/init-json-data/service-categories/ServiceCategory.json';
 import { TransientIdOffset } from '@/api/main';
 import { Button } from '@nextui-org/button';
@@ -38,11 +38,13 @@ export default function Page() {
 
   const selectiveContextReadAll = useGlobalReadAny<ServiceCategoryDto>();
 
+  console.log(data);
+
   return (
     <>
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.serviceCategory}
-        dtoList={data}
+        dtoList={[template]}
       />
       <ServiceCategoryCard id={template.id} />
       <Button

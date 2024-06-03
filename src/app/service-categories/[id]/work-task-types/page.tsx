@@ -1,4 +1,4 @@
-import IgmTableWrapper from '@/app/service-categories/[id]/work-task-types/IgmTableWrapper';
+import IgmTableWrapper from '@/components/generic/IgmTableWrapper';
 import { Card } from '@nextui-org/card';
 import { submitLessonTypeMatrix } from '@/app/service-categories/[id]/work-task-types/submit-lesson-type-matrix';
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
@@ -36,6 +36,8 @@ export default async function Page({
       uid: `${index}`
     }))
   ];
+
+  console.log(tableRows, tableColumns, kLevels, kDomains, rowEntityName);
 
   return (
     <div className={'h-screen p-8'}>

@@ -1,6 +1,11 @@
 import { HasId } from '@/api/main';
 
-import { ChangeEvent, DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import {
+  ChangeEvent,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  useCallback
+} from 'react';
 import { useDtoStore } from 'dto-stores';
 
 interface DtoStoreNumberInputProps<T extends HasId, U extends string | number>
@@ -12,7 +17,6 @@ interface DtoStoreNumberInputProps<T extends HasId, U extends string | number>
   entityClass: string;
   numberUpdater: (entity: T, value: number) => T;
   numberAccessor: (entity: T) => number;
-  listenerKey: string;
 }
 
 export function DtoStoreNumberInput<
@@ -22,25 +26,28 @@ export function DtoStoreNumberInput<
   entityId,
   entityClass,
   numberUpdater,
-  listenerKey,
   numberAccessor,
   className
 }: DtoStoreNumberInputProps<T, U>) {
   let { entity, dispatchWithoutControl } = useDtoStore<T>({
     entityId,
-    entityClass,
-    listenerKey
+    entityClass
   });
 
-  const update = (e: ChangeEvent<HTMLInputElement>) => {
-    if (dispatchWithoutControl === undefined) {
-      console.log('no dispatch defined!');
-      return;
-    }
-    dispatchWithoutControl((entity) =>
-      numberUpdater(entity, parseInt(e.target.value))
-    );
-  };
+  const update = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (dispatchWithoutControl === undefined) {
+        console.log('no dispatch defined!');
+        return;
+      }
+      dispatchWithoutControl((entity) =>
+        numberUpdater(entity, parseInt(e.target.value))
+      );
+    },
+    [dispatchWithoutControl, numberUpdater]
+  );
+
+  if (entity === undefined) return null;
 
   return (
     <input
