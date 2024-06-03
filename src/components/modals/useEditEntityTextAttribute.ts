@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useCallback } from 'react';
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { getRenameContextKey } from '@/components/modals/nameSetter';
 import { useGlobalController } from 'selective-context';
-import { useEffectSyncToMemo } from 'react-d3-force-graph';
+import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
 
 export function useEditEntityTextAttribute<T extends HasId>(
   entityClass: string,

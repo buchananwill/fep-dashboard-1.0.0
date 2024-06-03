@@ -1,6 +1,6 @@
-import { Modal, ModalContent, ModalProps } from "@nextui-org/modal";
+import { Modal, ModalContent, ModalProps } from '@nextui-org/modal';
 
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 import {
   ComponentUndefined,
@@ -8,29 +8,29 @@ import {
   GraphSelectiveContextKeys,
   MemoizedFunction,
   useGraphDispatchAndListener,
-  useGraphListener,
-} from "react-d3-force-graph";
+  useGraphListener
+} from 'react-d3-force-wrapper';
 
 export type NodeDetailsModalProps = Omit<
   ModalProps,
-  "onOpenChange" | "isOpen" | "scrollBehavior" | "children"
+  'onOpenChange' | 'isOpen' | 'scrollBehavior' | 'children'
 >;
 
-const listenerKey = "modal";
+const listenerKey = 'modal';
 export function NodeDetailsModal(nodeDetailsModalProps: NodeDetailsModalProps) {
   const { currentState: isOpen, dispatchWithoutControl: onOpenChange } =
     useGraphDispatchAndListener(
       GraphSelectiveContextKeys.nodeDetailsModalOpen,
       listenerKey,
-      false,
+      false
     );
 
   const {
-    currentState: { memoizedFunction: NodeModalContent },
+    currentState: { memoizedFunction: NodeModalContent }
   } = useGraphListener<MemoizedFunction<{ onClose: () => void }, ReactNode>>(
     GraphSelectiveContextKeys.nodeModalContent,
     listenerKey,
-    fallback,
+    fallback
   );
 
   return (
@@ -38,9 +38,9 @@ export function NodeDetailsModal(nodeDetailsModalProps: NodeDetailsModalProps) {
       {...nodeDetailsModalProps}
       isOpen={isOpen}
       onOpenChange={onOpenChange}
-      scrollBehavior={"inside"}
+      scrollBehavior={'inside'}
     >
-      <ModalContent className={"p-2"}>
+      <ModalContent className={'p-2'}>
         {(onClose) => (
           <>
             {NodeModalContent === undefined ? (

@@ -10,7 +10,7 @@ import {
   useD3ForceSimulationMemo,
   useDirectSimRefEditsDispatch,
   useGraphDispatch
-} from 'react-d3-force-graph';
+} from 'react-d3-force-wrapper';
 
 export const draggingNodeKey = 'dragging-node';
 

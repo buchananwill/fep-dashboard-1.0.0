@@ -11,7 +11,7 @@ import {
   MemoizedFunction,
   undefinedDeleteLinks,
   useGraphListener
-} from 'react-d3-force-graph';
+} from 'react-d3-force-wrapper';
 
 export function EdgeWithDelete({
   id,

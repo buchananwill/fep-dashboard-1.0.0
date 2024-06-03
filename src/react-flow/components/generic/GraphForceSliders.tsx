@@ -1,32 +1,35 @@
-"use client";
+'use client';
 
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
-import { useGlobalReadAny } from "selective-context";
+import { useGlobalReadAny } from 'selective-context';
+
+import { SelectiveContextRangeSlider } from '@/react-flow/components/generic/SelectiveContextRangeSlider';
+import { SelectiveContextReadAll } from 'selective-context/dist/types';
 import {
-  ForceAttributesDto,
   ForceAttributesInitial,
   GraphSelectiveContextKeys,
   useGraphListener,
   useGraphName,
-} from "react-d3-force-graph";
-import { SelectiveContextRangeSlider } from "@/react-flow/components/generic/SelectiveContextRangeSlider";
+  ForceAttributesDto
+} from 'react-d3-force-wrapper';
 
-const listenerKey = "graph-force-adjustment";
+const listenerKey = 'graph-force-adjustment';
 export function GraphForceSliders() {
   const uniqueGraphName = useGraphName();
-  const selectiveContextReadAll = useGlobalReadAny<boolean>();
+  const selectiveContextReadAll: SelectiveContextReadAll<boolean> =
+    useGlobalReadAny<boolean>();
 
   const { currentState: show } = useGraphListener(
     GraphSelectiveContextKeys.showForceEditing,
     listenerKey,
-    false,
+    false
   );
 
   const sliders = useMemo(
     () =>
       Object.entries(ForceAttributesInitial).map((entry) => {
-        if (entry[0] === "id") {
+        if (entry[0] === 'id') {
           return null;
         }
         const showThisSlider = selectiveContextReadAll(`${entry[0]}:show`);
@@ -41,11 +44,11 @@ export function GraphForceSliders() {
             key={`slider:${contextKey}`}
             contextKey={contextKey}
             initialValue={initial}
-            listenerKey={"slider"}
+            listenerKey={'slider'}
           />
         );
       }),
-    [uniqueGraphName, selectiveContextReadAll],
+    [uniqueGraphName, selectiveContextReadAll]
   );
 
   return <>{show ? [...sliders] : []}</>;

@@ -13,7 +13,7 @@ import {
   undefinedEditNodeData,
   useGraphDispatchAndListener,
   useGraphListener
-} from 'react-d3-force-graph';
+} from 'react-d3-force-wrapper';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import {

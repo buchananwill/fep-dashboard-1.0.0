@@ -2,7 +2,7 @@ import {
   ForceGraphPage,
   ForceGraphPageOptions,
   GraphDto
-} from 'react-d3-force-graph';
+} from 'react-d3-force-wrapper';
 import {
   convertClosureDtoListToEdgeList,
   convertDataNodeDtoListToFlowNodeList

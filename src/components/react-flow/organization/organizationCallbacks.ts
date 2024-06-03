@@ -2,7 +2,7 @@
 import { cloneOrganizationNode } from './cloneOrganizationNode';
 import { getGraphUpdaterWithNameDeDuplication } from './getGraphUpdaterWithNameDeDuplication';
 import { putGraph } from '@/api/generated-actions/Organization';
-import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-graph';
+import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import _ from 'lodash';
 

@@ -7,7 +7,7 @@ import { isNotUndefined } from '../main';
 
 import { constructUrl } from './template-base-endpoints';
 import { HasNumberIdDto } from '@/api/dtos/HasNumberIdDtoSchema';
-import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-graph';
+import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
 
 export type DepthOp = '>' | '>=' | '<' | '<=' | '=' | '!=';
 

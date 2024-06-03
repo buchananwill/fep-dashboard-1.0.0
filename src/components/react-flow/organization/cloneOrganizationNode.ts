@@ -1,4 +1,4 @@
-import { DataNode, incrementCloneSuffix } from 'react-d3-force-graph';
+import { DataNode, incrementCloneSuffix } from 'react-d3-force-wrapper';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { TransientIdOffset } from '@/api/main';
 

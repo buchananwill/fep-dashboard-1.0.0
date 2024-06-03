@@ -17,7 +17,7 @@ import {
   useAllEdits,
   useModalContent,
   useNodeEditing
-} from 'react-d3-force-graph';
+} from 'react-d3-force-wrapper';
 import { AllocationTotal } from '@/components/react-flow/organization/allocationTotal';
 import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNodeLazyReferences';
 import {

@@ -4,7 +4,7 @@ import {
   GraphDtoPutRequestBody,
   HasName,
   HasNumberId
-} from 'react-d3-force-graph';
+} from 'react-d3-force-wrapper';
 import _ from 'lodash';
 
 export function getGraphUpdaterWithNameDeDuplication<

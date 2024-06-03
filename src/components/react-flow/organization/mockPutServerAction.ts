@@ -1,7 +1,7 @@
 'use server';
 
 import { HasNumberId } from '@/api/main';
-import { GraphDtoPutRequestBody, HasName } from 'react-d3-force-graph';
+import { GraphDtoPutRequestBody, HasName } from 'react-d3-force-wrapper';
 
 export async function putGraph<T extends HasNumberId & HasName>(
   graphRequest: GraphDtoPutRequestBody<T>

@@ -16,7 +16,7 @@ import {
   useGraphListener,
   useLinkContext,
   useNodeContext
-} from 'react-d3-force-graph';
+} from 'react-d3-force-wrapper';
 import { HasNumberId } from '@/api/main';
 
 const listenerKey = 'layout-flow-with-forces';

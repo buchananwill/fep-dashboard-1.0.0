@@ -4,6 +4,8 @@ import {
   generateNonCyclicGraph
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_tests/generateTestCycles';
 import { shuffle } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/shuffle';
+import { buildCompleteCycle } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/buildCompleteCycle';
+import { stringsCanConnect } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/stringsCanConnect';
 
 interface CycleTestInput {
   testData: string[];

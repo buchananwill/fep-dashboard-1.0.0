@@ -12,18 +12,22 @@ import { usePopoverFix } from '@/react-flow/hooks/usePopoverFix';
 import { TrashIcon } from '@heroicons/react/16/solid';
 import {
   AddNodesParams,
-  GenericDivProps,
   GraphSelectiveContextKeys,
-  HasNumberId,
   MemoizedFunction,
   undefinedAddNodes,
   undefinedDeleteNodes,
   undefinedLabelAccessor,
   useGraphDispatch,
   useGraphListener
-} from 'react-d3-force-graph';
+} from 'react-d3-force-wrapper';
 import React, { useCallback } from 'react';
 import { cloneFunctionWrapper } from '@/components/react-flow/organization/organizationCallbacks';
+import { HasNumberId } from '@/api/main';
+
+export type GenericDivProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;
 
 export function BaseNode<T extends HasNumberId>({
   data,

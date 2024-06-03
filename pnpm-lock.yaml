@@ -43,7 +43,7 @@ importers:
         version: 3.6.0
       dto-stores:
         specifier: file:D:\Coding\dto-stores
-        version: file:../dto-stores(lodash@4.17.21)(react@18.3.1)
+        version: file:../dto-stores(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
       framer-motion:
         specifier: ^11.1.1
         version: 11.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -62,9 +62,9 @@ importers:
       react:
         specifier: ^18.3.1
         version: 18.3.1
-      react-d3-force-graph:
-        specifier: file:D:\Coding\react-d3-force-graph
-        version: file:../react-d3-force-graph(react@18.3.1)
+      react-d3-force-wrapper:
+        specifier: ^0.1.2
+        version: 0.1.2(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
       react-dnd:
         specifier: ^16.0.1
         version: 16.0.1(@types/node@20.12.7)(@types/react@18.2.79)(react@18.3.1)
@@ -90,8 +90,8 @@ importers:
         specifier: ^11.11.3
         version: 11.11.3(@types/react@18.2.79)(immer@10.0.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       selective-context:
-        specifier: file:D:\Coding\selective-context
-        version: file:../selective-context(react@18.3.1)
+        specifier: ^2.0.2
+        version: 2.0.2(react@18.3.1)
       zod:
         specifier: ^3.22.4
         version: 3.23.0
@@ -1877,6 +1877,7 @@ packages:
     peerDependencies:
       lodash: ^4.17.21
       react: ^18.3.1
+      selective-context: ^2.0.2
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -2737,10 +2738,11 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-d3-force-graph@file:../react-d3-force-graph:
-    resolution: {directory: ../react-d3-force-graph, type: directory}
+  react-d3-force-wrapper@0.1.2:
+    resolution: {integrity: sha512-OLOKP5sH6vHBmp+RFP2nRfcsEQdEo2l77z82XUGWfg2voL4R3WKSz8PydrZeaT1blaD25bzYLelJcmG4aK0j2Q==}
     peerDependencies:
       react: ^18.3.1
+      selective-context: ^2.0.2
 
   react-dnd-html5-backend@16.0.1:
     resolution: {integrity: sha512-Wu3dw5aDJmOGw8WjH1I1/yTH+vlXEL4vmjk5p+MHxP8HuHJS1lAGeIdG/hze1AvNeXWo/JgULV87LyQOr+r5jw==}
@@ -2901,8 +2903,8 @@ packages:
   scroll-into-view-if-needed@3.0.10:
     resolution: {integrity: sha512-t44QCeDKAPf1mtQH3fYpWz8IM/DyvHLjs8wUvvwMYxk5moOqCzrMSxK6HQVD0QVmVjXFavoFIPRVrMuJPKAvtg==}
 
-  selective-context@file:../selective-context:
-    resolution: {directory: ../selective-context, type: directory}
+  selective-context@2.0.2:
+    resolution: {integrity: sha512-DXO/pj4cZbWOKAnwTz6YaLty+nE/7gffh65w3noYoBUuKnyTe9QNISasxX/WfyK9aSvvGt5jdvAbNJ8lI0tVJg==}
     peerDependencies:
       react: ^18.3.1
 
@@ -5885,11 +5887,11 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
-  dto-stores@file:../dto-stores(lodash@4.17.21)(react@18.3.1):
+  dto-stores@file:../dto-stores(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
     dependencies:
       lodash: 4.17.21
       react: 18.3.1
-      selective-context: file:../selective-context(react@18.3.1)
+      selective-context: 2.0.2(react@18.3.1)
 
   eastasianwidth@0.2.0: {}
 
@@ -6003,8 +6005,8 @@ snapshots:
       '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.4.5)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.57.0)
       eslint-plugin-react: 7.34.1(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.57.0)
@@ -6022,13 +6024,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0):
+  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       debug: 4.3.4
       enhanced-resolve: 5.16.0
       eslint: 8.57.0
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.3
       is-core-module: 2.13.1
@@ -6039,18 +6041,18 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 6.21.0(eslint@8.57.0)(typescript@5.4.5)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0)
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
@@ -6060,7 +6062,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.21.0(eslint@8.57.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.13.1
       is-glob: 4.0.3
@@ -6829,13 +6831,12 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-d3-force-graph@file:../react-d3-force-graph(react@18.3.1):
+  react-d3-force-wrapper@0.1.2(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
     dependencies:
-      '@types/d3': 7.4.3
       d3: 7.9.0
       lodash: 4.17.21
       react: 18.3.1
-      selective-context: file:../selective-context(react@18.3.1)
+      selective-context: 2.0.2(react@18.3.1)
 
   react-dnd-html5-backend@16.0.1:
     dependencies:
@@ -7017,7 +7018,7 @@ snapshots:
     dependencies:
       compute-scroll-into-view: 3.1.0
 
-  selective-context@file:../selective-context(react@18.3.1):
+  selective-context@2.0.2(react@18.3.1):
     dependencies:
       react: 18.3.1
 

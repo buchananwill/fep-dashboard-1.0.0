@@ -11,7 +11,7 @@ import { getDtoListByBodyList } from '@/api/generated-actions/WorkSeriesBundleAs
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 import { ArrayPlaceholder } from 'selective-context';
-import { ForceGraphPage, ForceGraphPageOptions } from 'react-d3-force-graph';
+import { ForceGraphPage, ForceGraphPageOptions } from 'react-d3-force-wrapper';
 
 export default async function Page() {
   const classGraph = await getGraphByRootId({ rootId: 1446 });

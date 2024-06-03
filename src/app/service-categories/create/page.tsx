@@ -11,7 +11,7 @@ import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 import { postOne } from '@/api/generated-actions/ServiceCategory';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-import { DtoController, EditAddDeleteController } from 'dto-stores';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 
 const entityName = EntityClassMap.serviceCategory;
 
@@ -40,8 +40,10 @@ export default function Page() {
 
   return (
     <>
-      <EditAddDeleteController entityClass={entityName} />
-      <DtoController dto={data[0]} entityClass={entityName} />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.serviceCategory}
+        dtoList={data}
+      />
       <ServiceCategoryCard id={template.id} />
       <Button
         onPress={() => {
