@@ -16,7 +16,7 @@ export const draggingNodeKey = 'dragging-node';
 
 const listenerKey = 'use-layouted-elements';
 
-const UpdateTimeoutConstant = 5000;
+const UpdateTimeoutConstant = 5_000;
 
 export function useForces(): [
   boolean,
@@ -103,7 +103,7 @@ export function useForces(): [
       elapsedSinceUpdate = Date.now() - lastUpdate;
 
       if (elapsedSinceUpdate > UpdateTimeoutConstant) {
-        nodeUpdate = nodeListRef.current.map((node) => ({ ...node }));
+        // nodeUpdate = nodeListRef.current.map((node) => ({ ...node }));
         setNodes(
           scopedNodes.map(
             (node) =>
@@ -114,6 +114,8 @@ export function useForces(): [
           )
         );
         lastUpdate = Date.now();
+        running = !running;
+        dispatchWithoutListen(running);
       }
 
       simulation.tick();
@@ -149,7 +151,7 @@ export function useForces(): [
     draggingNode,
     simRef,
     initialised,
-    fitView,
+    // fitView,
     getNodes,
     setNodes,
     linkListRef,

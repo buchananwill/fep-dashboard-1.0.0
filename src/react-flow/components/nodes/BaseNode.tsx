@@ -3,7 +3,7 @@ import {
   MinusCircleIcon,
   PlusCircleIcon
 } from '@heroicons/react/24/outline';
-import { Button } from '@nextui-org/button';
+import { button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 
 import { Handle, NodeProps, Position } from 'reactflow';
@@ -95,76 +95,75 @@ export function BaseNode<T extends HasNumberId>({
       <div className={className} style={style}>
         <div className={'flex items-center justify-between gap-2'}>
           {labelAccessor([data, type])}
-          <Popover
-            {...fixAddProps}
-            placement={'right'}
-            triggerScaleOnOpen
-            updatePositionDeps={[xPos, yPos]}
-            triggerType={'menu'}
-          >
-            <PopoverTrigger>
-              <Button size={'sm'} className={'p-1.5'} isIconOnly>
-                <PlusCircleIcon />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className={'grid grid-cols-1 gap-1'}>
-                <Button isIconOnly className={'p-1.5'} onPress={addSibling}>
-                  <ArrowDownOnSquareStackIcon className={'-rotate-90'} />
-                </Button>
-                <Button
-                  isIconOnly
-                  className={'p-1.5'}
-                  onPress={() =>
-                    memoizedFunction({
-                      sourceNodeIdList: [`${data.id}`],
-                      relation: 'child'
-                    })
-                  }
-                >
-                  <ArrowDownOnSquareStackIcon />
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
+          {/*<Popover*/}
+          {/*  {...fixAddProps}*/}
+          {/*  placement={'right'}*/}
+          {/*  triggerScaleOnOpen*/}
+          {/*  updatePositionDeps={[xPos, yPos]}*/}
+          {/*  triggerType={'menu'}*/}
+          {/*>*/}
+          {/*  <PopoverTrigger>*/}
+          {/*    <button>*/}
+          {/*      <PlusCircleIcon className={'w-6 h-6'} />*/}
+          {/*    </button>*/}
+          {/*  </PopoverTrigger>*/}
+          {/*  <PopoverContent>*/}
+          {/*    <div className={'grid grid-cols-1 gap-1'}>*/}
+          {/*      <button onClick={addSibling}>*/}
+          {/*        <ArrowDownOnSquareStackIcon*/}
+          {/*          className={'-rotate-90 w-6 h-6'}*/}
+          {/*        />*/}
+          {/*      </button>*/}
+          {/*      <button*/}
+          {/*        className={'p-1.5'}*/}
+          {/*        onClick={() =>*/}
+          {/*          memoizedFunction({*/}
+          {/*            sourceNodeIdList: [`${data.id}`],*/}
+          {/*            relation: 'child'*/}
+          {/*          })*/}
+          {/*        }*/}
+          {/*      >*/}
+          {/*        <ArrowDownOnSquareStackIcon className={'w-6 h-6'} />*/}
+          {/*      </button>*/}
+          {/*    </div>*/}
+          {/*  </PopoverContent>*/}
+          {/*</Popover>*/}
         </div>
         <div className={' flex gap-1'}>
-          <Button
-            size={'sm'}
+          <button
             className={'grow'}
-            onPress={() => {
+            onClick={() => {
               sendNodeData(structuredClone(data));
               toggleDetailsModal((isOpen: boolean) => !isOpen);
             }}
           >
             Details
-          </Button>
-          <Popover
-            {...fixDeleteProps}
-            placement={'right'}
-            triggerScaleOnOpen
-            updatePositionDeps={[xPos, yPos]}
-            triggerType={'menu'}
-          >
-            <PopoverTrigger>
-              <Button size={'sm'} className={'p-1.5'} isIconOnly>
-                <MinusCircleIcon />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className={'grid grid-cols-1 gap-1'}>
-                <Button
-                  isIconOnly
-                  className={'p-2'}
-                  onPress={() => {
-                    memoizedDeleteNodes([`${data.id}`]);
-                  }}
-                >
-                  <TrashIcon />
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
+          </button>
+          {/*<Popover*/}
+          {/*  {...fixDeleteProps}*/}
+          {/*  placement={'right'}*/}
+          {/*  triggerScaleOnOpen*/}
+          {/*  updatePositionDeps={[xPos, yPos]}*/}
+          {/*  triggerType={'menu'}*/}
+          {/*>*/}
+          {/*  <PopoverTrigger>*/}
+          {/*    <button>*/}
+          {/*      <MinusCircleIcon className={'w-6 h-6'} />*/}
+          {/*    </button>*/}
+          {/*  </PopoverTrigger>*/}
+          {/*  <PopoverContent>*/}
+          {/*    <div className={'grid grid-cols-1 gap-1'}>*/}
+          {/*      <button*/}
+          {/*        className={'p-2'}*/}
+          {/*        onClick={() => {*/}
+          {/*          memoizedDeleteNodes([`${data.id}`]);*/}
+          {/*        }}*/}
+          {/*      >*/}
+          {/*        <TrashIcon className={'svg-button'} />*/}
+          {/*      </button>*/}
+          {/*    </div>*/}
+          {/*  </PopoverContent>*/}
+          {/*</Popover>*/}
         </div>
         {children}
       </div>

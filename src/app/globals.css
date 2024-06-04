@@ -78,10 +78,13 @@
     .number-input {
         @apply text-right no-spinner p-2 rounded-xl outline-primary-400 bg-default-100 text-black text-medium w-24 ml-2
     }
+    .svg-button {
+        @apply w-6 h-6
+    }
 }
 
 .react-flow__node:not(.dragging) {
-    transition: transform 5s linear;
+    transition: transform 1s linear;
 }
 
 
