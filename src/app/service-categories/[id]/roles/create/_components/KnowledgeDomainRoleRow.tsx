@@ -6,7 +6,7 @@ import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 export default function KnowledgeDomainRoleRow({
   entity,
   ...otherProps
-}: BaseLazyDtoUiProps<KnowledgeDomainRoleRoleInterface>) {
+}: BaseLazyDtoUiProps<KnowledgeDomainRoleRowInterface>) {
   return (
     <tr>
       <td>{entity.knowledgeDomain.name}</td>
@@ -30,7 +30,7 @@ export default function KnowledgeDomainRoleRow({
   );
 }
 
-export interface KnowledgeDomainRoleRoleInterface {
+export interface KnowledgeDomainRoleRowInterface {
   id: number;
   knowledgeDomain: KnowledgeDomainDto;
   providerRoleCount: number;

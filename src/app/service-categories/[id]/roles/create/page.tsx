@@ -5,6 +5,7 @@ import KnowledgeDomainRoleRow, {
   knowledgeDomainRoleRow
 } from '@/app/service-categories/[id]/roles/create/_components/KnowledgeDomainRoleRow';
 import { getOne } from '@/api/generated-actions/ServiceCategory';
+import { knowledgeDomainRowActionMapper } from '@/app/service-categories/[id]/roles/create/knowledgeDomainRowActionMapper';
 
 export default async function page({
   params: { id }
@@ -28,6 +29,7 @@ export default async function page({
       <EditAddDeleteDtoControllerArray
         entityClass={knowledgeDomainRoleRow}
         dtoList={rowStateInitial}
+        updateServerAction={knowledgeDomainRowActionMapper}
       />
       <thead>
         <tr>

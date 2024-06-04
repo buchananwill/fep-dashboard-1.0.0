@@ -6,7 +6,7 @@ import {
   InputHTMLAttributes,
   useCallback
 } from 'react';
-import { BaseLazyDtoUiProps } from 'dto-stores';
+import { BaseDtoUiProps, BaseLazyDtoUiProps } from 'dto-stores';
 import clsx from 'clsx';
 
 export type NumberPropertyKey<T> = {
@@ -18,13 +18,16 @@ export type BaseDtoStoreNumberInputProps<T extends HasId> = Omit<
   'type' & 'value' & 'onChange'
 > & {
   numberKey: NumberPropertyKey<T>;
-};
+} & Partial<Pick<BaseDtoUiProps<T>, 'dispatchDeletion' | 'deleted'>>;
 
 export function DtoStoreNumberInput<T extends HasId>({
   entity,
   numberKey,
   className,
   dispatchWithoutControl,
+  entityClass,
+  dispatchDeletion,
+  deleted,
   ...inputProps
 }: BaseDtoStoreNumberInputProps<T> & BaseLazyDtoUiProps<T>) {
   const update = useCallback(
