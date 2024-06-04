@@ -3,7 +3,7 @@ import { HasId } from '@/api/main';
 import { BaseLazyDtoUiProps } from 'dto-stores';
 import { Input, InputProps } from '@nextui-org/input';
 import { StringPropertyKey } from '@/types';
-import { useEditTextProperty } from '@/components/generic/useEditTextProperty';
+import { useEditTextProperty } from '@/hooks/useEditTextProperty';
 
 export type BaseDtoStoreStringInputProps<T extends HasId> = Omit<
   InputProps,

@@ -4,14 +4,17 @@ import { DtoUiListAll, EditAddDeleteDtoControllerArray } from 'dto-stores';
 import KnowledgeDomainRoleRow, {
   knowledgeDomainRoleRow
 } from '@/app/service-categories/[id]/roles/create/_components/KnowledgeDomainRoleRow';
+import { getOne } from '@/api/generated-actions/ServiceCategory';
 
 export default async function page({
   params: { id }
 }: {
   params: Pick<ServiceCategoryRouteParams, 'id'>;
 }) {
+  const serviceCategoryId = parseInt(id);
+  const serviceCategory = await getOne(serviceCategoryId);
   const knowledgeDomains = await getDtoListByExampleList([
-    { serviceCategoryId: parseInt(id) }
+    { serviceCategoryId: serviceCategoryId }
   ]);
   const rowStateInitial = knowledgeDomains.map((kd) => ({
     id: kd.id,
@@ -26,6 +29,13 @@ export default async function page({
         entityClass={knowledgeDomainRoleRow}
         dtoList={rowStateInitial}
       />
+      <thead>
+        <tr>
+          <th>{serviceCategory.knowledgeDomainDescriptor}</th>
+          <th>Teachers</th>
+          <th>Rooms</th>
+        </tr>
+      </thead>
       <tbody>
         <DtoUiListAll
           entityClass={knowledgeDomainRoleRow}

@@ -4,7 +4,7 @@ import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-grou
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
-import { memo, useContext } from 'react';
+import React, { memo, useContext } from 'react';
 import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/main';
@@ -16,6 +16,7 @@ import {
   HighlightedSubjects,
   RotationPrime
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_literals';
+import { Skeleton } from '@nextui-org/skeleton';
 
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity } = useDtoStore<CarouselGroupDto>(params);
@@ -68,7 +69,11 @@ export default function CarouselGroup(params: DtoStoreParams) {
           <LazyDtoUiListAll
             renderAs={MemoOrderManager}
             entityClass={EntityClassMap.carouselOrder}
-            whileLoading={() => null}
+            whileLoading={() => (
+              <Skeleton>
+                <div className={'w-12'} />
+              </Skeleton>
+            )}
           />
         </div>
       </CardBody>

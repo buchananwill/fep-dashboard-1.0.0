@@ -2,13 +2,13 @@
 import CycleSubspanGroupEdit, {
   CycleSubspanGroupEditDto
 } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
-import { uiWrapperListViewProps } from '@/components/generic/uiWrapperProps';
 import { JSX } from 'react/jsx-runtime';
 import { DtoUiListSome } from 'dto-stores';
 import { useMemo } from 'react';
 import IntrinsicAttributes = JSX.IntrinsicAttributes;
+import { uiWrapperListViewProps } from '@/types';
 
-export default function UiWrapper({
+export default function CycleSubspanGroupUiWrapper({
   entityList,
   ...props
 }: Omit<

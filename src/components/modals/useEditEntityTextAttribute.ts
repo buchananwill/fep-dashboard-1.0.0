@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { getRenameContextKey } from '@/components/modals/nameSetter';
 import { useGlobalController } from 'selective-context';
-import { useEditTextProperty } from '@/components/generic/useEditTextProperty';
+import { useEditTextProperty } from '@/hooks/useEditTextProperty';
 import { StringPropertyKey } from '@/types';
 
 export function useEditEntityTextAttribute<T extends HasId>(

@@ -10,6 +10,7 @@ import {
   BaseDtoStoreStringInputProps,
   DtoStoreStringInput
 } from '@/components/generic/DtoStoreStringInput';
+import { Skeleton } from '@nextui-org/skeleton';
 
 export function KnowledgeDomainTable({
   data,
@@ -40,7 +41,11 @@ export function KnowledgeDomainTable({
               entityClass={EntityClassMap.knowledgeDomain}
               stringKey={'name'}
               entityId={domain.id}
-              whileLoading={() => null}
+              whileLoading={() => (
+                <Skeleton>
+                  <div className={'w-12'} />
+                </Skeleton>
+              )}
             />
           );
         default:

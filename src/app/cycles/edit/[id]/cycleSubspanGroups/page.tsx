@@ -9,7 +9,7 @@ import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { CycleSubspanGroupEditDto } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { API_V2_URL } from '@/api/main';
-import UiWrapper from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/UiWrapper';
+import CycleSubspanGroupUiWrapper from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupUiWrapper';
 import { putGroupEditAction } from '@/app/cycles/edit/[id]/cycleSubspanGroups/putGroupEditAction';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 
@@ -56,7 +56,7 @@ export default async function Page({
             <CardBody className={''}>
               <table>
                 <tbody>
-                  <UiWrapper
+                  <CycleSubspanGroupUiWrapper
                     entityList={cycleSubspanDtoList}
                     entityClass={entityName}
                   />
