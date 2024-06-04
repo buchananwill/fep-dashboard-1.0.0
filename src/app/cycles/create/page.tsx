@@ -79,9 +79,7 @@ export default function Page() {
             <input
               {...register('cycleLengthInWeeks', { valueAsNumber: true })}
               type={'number'}
-              className={
-                'text-right no-spinner p-2 rounded-xl outline-primary-400 bg-default-100 text-black text-medium w-24 ml-2'
-              }
+              className={'number-input'}
             />
           </label>
         </CardBody>

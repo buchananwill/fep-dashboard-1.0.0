@@ -1,12 +1,39 @@
 import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/serviceCategoryRouteParams';
 import { getDtoListByExampleList } from '@/api/generated-actions/KnowledgeDomain';
+import { DtoUiListAll, EditAddDeleteDtoControllerArray } from 'dto-stores';
+import KnowledgeDomainRoleRow, {
+  knowledgeDomainRoleRow
+} from '@/app/service-categories/[id]/roles/create/_components/KnowledgeDomainRoleRow';
 
 export default async function page({
   params: { id }
 }: {
   params: Pick<ServiceCategoryRouteParams, 'id'>;
 }) {
-  await getDtoListByExampleList([{ serviceCategoryId: parseInt(id) }]);
+  const knowledgeDomains = await getDtoListByExampleList([
+    { serviceCategoryId: parseInt(id) }
+  ]);
+  const rowStateInitial = knowledgeDomains.map((kd) => ({
+    id: kd.id,
+    knowledgeDomain: kd,
+    providerRoleCount: 0,
+    assetRoleCount: 0
+  }));
+
+  return (
+    <table>
+      <EditAddDeleteDtoControllerArray
+        entityClass={knowledgeDomainRoleRow}
+        dtoList={rowStateInitial}
+      />
+      <tbody>
+        <DtoUiListAll
+          entityClass={knowledgeDomainRoleRow}
+          renderAs={KnowledgeDomainRoleRow}
+        />
+      </tbody>
+    </table>
+  );
 }
 
 /*

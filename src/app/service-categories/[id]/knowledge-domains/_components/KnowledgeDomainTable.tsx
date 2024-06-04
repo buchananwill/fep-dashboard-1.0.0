@@ -2,10 +2,14 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { EntityClassMap } from '@/api/entity-class-map';
-import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { DtoTable } from '@/components/generic/DtoTable';
 import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { LazyDtoUiWrapper } from 'dto-stores';
+import {
+  BaseDtoStoreStringInputProps,
+  DtoStoreStringInput
+} from '@/components/generic/DtoStoreStringInput';
 
 export function KnowledgeDomainTable({
   data,
@@ -28,12 +32,15 @@ export function KnowledgeDomainTable({
       switch (columnKey) {
         case 'name':
           return (
-            <DtoStoreStringValueEdit
-              entity={domain}
+            <LazyDtoUiWrapper<
+              KnowledgeDomainDto,
+              BaseDtoStoreStringInputProps<KnowledgeDomainDto>
+            >
+              renderAs={DtoStoreStringInput}
               entityClass={EntityClassMap.knowledgeDomain}
-              listenerKey={`${domain.id}:nameEdit`}
-              valueAccessor={(domain) => domain.name}
-              producer={(name, domain) => ({ ...domain, name })}
+              stringKey={'name'}
+              entityId={domain.id}
+              whileLoading={() => null}
             />
           );
         default:

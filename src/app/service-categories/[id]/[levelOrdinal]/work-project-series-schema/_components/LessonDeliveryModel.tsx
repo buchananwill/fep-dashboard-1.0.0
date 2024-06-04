@@ -1,6 +1,5 @@
 'use client';
 import { BaseDtoUiProps } from 'dto-stores';
-import { isNotUndefined } from '@/api/main';
 import { AdjustAllocation } from './AdjustAllocation';
 
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -9,15 +8,13 @@ import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import React from 'react';
 import RenameModal from '@/components/modals/RenameModal';
 import { Button } from '@nextui-org/button';
-import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
-import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useRenameEntity } from '@/components/modals/nameSetter';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { SetOptional } from 'type-fest';
+import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
+import { DtoStoreStringInput } from '@/components/generic/DtoStoreStringInput';
 
-const numberEditClassNames =
-  'text-right no-spinner rounded-xl px-2 mx-1 bg-default-100 hover:bg-default-200';
 export const LessonDeliveryModel = (
   props: SetOptional<BaseDtoUiProps<WorkProjectSeriesSchemaDto>, 'deleted'>
 ) => {
@@ -71,32 +68,16 @@ export const LessonDeliveryModel = (
         <AdjustAllocation {...props}></AdjustAllocation>
       </div>
       <div className={'grid grid-cols-3'}>
-        <DtoStoreStringValueEdit
-          entity={model}
-          entityClass={entityClass}
-          valueAccessor={(dto) => dto.shortCode || ''}
-          producer={(value, entity) => ({ ...entity, shortCode: value })}
-          listenerKey={`${model.id}:shortCode`}
+        <DtoStoreStringInput {...props} stringKey={'shortCode'} />
+        <DtoStoreNumberInput<WorkProjectSeriesSchemaDto>
+          {...props}
+          numberKey={'workProjectBandwidth'}
+          min={0}
         />
-        <DtoStoreNumberInput<WorkProjectSeriesSchemaDto, string>
-          entityId={model.id}
-          entityClass={entityClass}
-          numberUpdater={(wpss, value) => ({
-            ...wpss,
-            workProjectBandwidth: value
-          })}
-          numberAccessor={(wpss) => wpss.workProjectBandwidth}
-          className={numberEditClassNames}
-        />
-        <DtoStoreNumberInput<WorkProjectSeriesSchemaDto, string>
-          entityId={model.id}
-          entityClass={entityClass}
-          numberUpdater={(wpss, value) => ({
-            ...wpss,
-            userToProviderRatio: value
-          })}
-          numberAccessor={(wpss) => wpss.userToProviderRatio}
-          className={numberEditClassNames}
+        <DtoStoreNumberInput<WorkProjectSeriesSchemaDto>
+          {...props}
+          numberKey={'userToProviderRatio'}
+          min={1}
         />
       </div>
 

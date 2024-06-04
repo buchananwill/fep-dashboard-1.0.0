@@ -6,55 +6,53 @@ import {
   InputHTMLAttributes,
   useCallback
 } from 'react';
-import { useDtoStore } from 'dto-stores';
+import { BaseLazyDtoUiProps } from 'dto-stores';
+import clsx from 'clsx';
 
-interface DtoStoreNumberInputProps<T extends HasId, U extends string | number>
-  extends Omit<
-    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-    'type' & 'value' & 'onChange'
-  > {
-  entityId: U;
-  entityClass: string;
-  numberUpdater: (entity: T, value: number) => T;
-  numberAccessor: (entity: T) => number;
-}
+export type NumberPropertyKey<T> = {
+  [K in keyof T]: T[K] extends number ? K : never;
+}[keyof T];
 
-export function DtoStoreNumberInput<
-  T extends HasId,
-  U extends string | number
->({
-  entityId,
-  entityClass,
-  numberUpdater,
-  numberAccessor,
-  className
-}: DtoStoreNumberInputProps<T, U>) {
-  let { entity, dispatchWithoutControl } = useDtoStore<T>({
-    entityId,
-    entityClass
-  });
+export type BaseDtoStoreNumberInputProps<T extends HasId> = Omit<
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+  'type' & 'value' & 'onChange'
+> & {
+  numberKey: NumberPropertyKey<T>;
+};
 
+export function DtoStoreNumberInput<T extends HasId>({
+  entity,
+  numberKey,
+  className,
+  dispatchWithoutControl,
+  ...inputProps
+}: BaseDtoStoreNumberInputProps<T> & BaseLazyDtoUiProps<T>) {
   const update = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       if (dispatchWithoutControl === undefined) {
         console.log('no dispatch defined!');
         return;
       }
-      dispatchWithoutControl((entity) =>
-        numberUpdater(entity, parseInt(e.target.value))
-      );
+      const numberValue = parseInt(e.target.value);
+      dispatchWithoutControl((entity: T) => {
+        const updated: T = { ...entity };
+        (updated as any)[numberKey] = isNaN(numberValue) ? 0 : numberValue;
+        return updated;
+      });
     },
-    [dispatchWithoutControl, numberUpdater]
+    [dispatchWithoutControl, numberKey]
   );
 
   if (entity === undefined) return null;
 
   return (
     <input
+      {...inputProps}
       type={'number'}
-      value={numberAccessor(entity)}
+      value={entity[numberKey] as number}
       onChange={(e) => update(e)}
-      className={className}
-    ></input>
+      className={clsx(className, 'number-input')}
+      aria-label={inputProps['aria-label'] ?? String(numberKey)}
+    />
   );
 }

@@ -3,17 +3,15 @@
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  StringAttributeInputArray,
-  StringPropertyNames
-} from '@/components/generic/StringAttributeInputArray';
+import { StringAttributeInputArray } from '@/components/generic/StringAttributeInputArray';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useCallback } from 'react';
 import { BaseDtoUiProps, DtoUiProps, useDtoComponent } from 'dto-stores';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
+import { StringPropertyKey } from '@/types';
 
-const serviceCategoryProperties: StringPropertyNames<ServiceCategoryDto>[] = [
+const serviceCategoryProperties: StringPropertyKey<ServiceCategoryDto>[] = [
   'knowledgeDomainDescriptor',
   'knowledgeLevelDescriptor'
 ];
@@ -21,7 +19,7 @@ const serviceCategoryProperties: StringPropertyNames<ServiceCategoryDto>[] = [
 function InternalUiComponent(props: BaseDtoUiProps<ServiceCategoryDto>) {
   const { entity, dispatchWithoutControl, deleted, ...otherProps } = props;
   const update = useCallback(
-    (value: string, attributeKey: StringPropertyNames<ServiceCategoryDto>) => {
+    (value: string, attributeKey: StringPropertyKey<ServiceCategoryDto>) => {
       if (dispatchWithoutControl === undefined) return;
       dispatchWithoutControl((entity) => ({
         ...entity,

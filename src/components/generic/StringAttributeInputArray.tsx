@@ -1,14 +1,11 @@
 // Utility type to filter keys pointing to string values
 import { Input } from '@nextui-org/input';
-
-export type StringPropertyNames<T> = {
-  [K in keyof T]: T[K] extends string ? K : never;
-}[keyof T];
+import { StringPropertyKey } from '@/types';
 
 interface StringAttributeInputProps<T> {
   entity: T;
-  attributeKey: StringPropertyNames<T>;
-  update: (value: string, attributeKey: StringPropertyNames<T>) => void;
+  attributeKey: StringPropertyKey<T>;
+  update: (value: string, attributeKey: StringPropertyKey<T>) => void;
 }
 
 function StringAttributeInput<T>({
@@ -32,8 +29,8 @@ export function StringAttributeInputArray<T>({
   update
 }: {
   entity: T;
-  attributeKeys: StringPropertyNames<T>[];
-  update: (value: string, attributeKey: StringPropertyNames<T>) => void;
+  attributeKeys: StringPropertyKey<T>[];
+  update: (value: string, attributeKey: StringPropertyKey<T>) => void;
 }) {
   return attributeKeys.map((key) => (
     <StringAttributeInput

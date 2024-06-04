@@ -5,13 +5,11 @@ import {
   DtoUiWrapper,
   LazyDtoUiWrapper
 } from 'dto-stores';
-import {
-  StringAttributeInputArray,
-  StringPropertyNames
-} from '@/components/generic/StringAttributeInputArray';
+import { StringAttributeInputArray } from '@/components/generic/StringAttributeInputArray';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
+import { StringPropertyKey } from '@/types';
 
 export default function KnowledgeDomainCard({ id }: { id: number }) {
   return (
@@ -23,9 +21,7 @@ export default function KnowledgeDomainCard({ id }: { id: number }) {
     />
   );
 }
-const knowledgeDomainProps: StringPropertyNames<KnowledgeDomainDto>[] = [
-  'name'
-];
+const knowledgeDomainProps: StringPropertyKey<KnowledgeDomainDto>[] = ['name'];
 
 function InternalUiComponent({
   entity,
@@ -33,7 +29,7 @@ function InternalUiComponent({
 }: BaseLazyDtoUiProps<KnowledgeDomainDto>) {
   const updateStringProps = (
     value: string,
-    attributeKey: StringPropertyNames<KnowledgeDomainDto>
+    attributeKey: StringPropertyKey<KnowledgeDomainDto>
   ) => {
     if (dispatchWithoutControl === undefined) return;
     dispatchWithoutControl((entity) => ({ ...entity, [attributeKey]: value }));

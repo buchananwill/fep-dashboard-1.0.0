@@ -1,13 +1,20 @@
 'use client';
 import React, { useCallback, useMemo } from 'react';
-import { DtoStoreStringValueEdit } from '@/components/generic/DtoStoreStringValueEdit';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
-import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import {
+  BaseDtoStoreNumberInputProps,
+  DtoStoreNumberInput
+} from '@/components/generic/DtoStoreNumberInput';
+import { DtoUiWrapper } from 'dto-stores';
+import {
+  BaseDtoStoreStringInputProps,
+  DtoStoreStringInput
+} from '@/components/generic/DtoStoreStringInput';
 
-const entityType = EntityClassMap.knowledgeLevel;
+const entityClass = EntityClassMap.knowledgeLevel;
 export default function KnowledgeLevelTable({
   data,
   serviceCategory
@@ -30,30 +37,29 @@ export default function KnowledgeLevelTable({
       switch (columnKey) {
         case 'name':
           return (
-            <DtoStoreStringValueEdit
-              entity={level}
-              entityClass={entityType}
-              valueAccessor={(level) => level.name}
-              producer={(name, level) => ({ ...level, name })}
-              listenerKey={`${entityType}${level.id}`}
+            <DtoUiWrapper<
+              KnowledgeLevelDto,
+              BaseDtoStoreStringInputProps<KnowledgeLevelDto>
+            >
+              entityClass={entityClass}
+              entityId={level.id}
+              renderAs={DtoStoreStringInput}
+              stringKey={'name'}
             />
           );
         case 'levelOrdinal':
           return (
-            <DtoStoreNumberInput<KnowledgeLevelDto, number>
+            <DtoUiWrapper<
+              KnowledgeLevelDto,
+              BaseDtoStoreNumberInputProps<KnowledgeLevelDto>
+            >
+              renderAs={DtoStoreNumberInput}
+              entityClass={entityClass}
+              numberKey={'levelOrdinal'}
               entityId={level.id}
-              entityClass={entityType}
-              numberUpdater={(entity, value) => ({
-                ...entity,
-                levelOrdinal: value
-              })}
-              numberAccessor={(entity) => entity.levelOrdinal}
-              className={
-                'no-spinner w-12 rounded-lg p-2 bg-default-100 text-right'
-              }
             />
           );
-        // return <Chip>{level.levelOrdinal}</Chip>;
+
         default:
           return cellValue;
       }

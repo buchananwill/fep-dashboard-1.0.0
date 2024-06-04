@@ -74,7 +74,13 @@
         margin: 0;
         -webkit-appearance: none;
     }
+
+    .number-input {
+        @apply text-right no-spinner p-2 rounded-xl outline-primary-400 bg-default-100 text-black text-medium w-24 ml-2
+    }
 }
+
+
 
 
 @keyframes dash-trace {

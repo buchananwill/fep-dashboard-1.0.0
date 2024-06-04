@@ -2,10 +2,14 @@
 import { DtoTable } from '@/components/generic/DtoTable';
 import React, { useCallback } from 'react';
 import { IntersectionGeneratorRowWithHeader } from '@/api/main';
-
-import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { TableProps } from '@nextui-org/react';
 import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import {
+  BaseDtoStoreNumberInputProps,
+  DtoStoreNumberInput,
+  NumberPropertyKey
+} from '@/components/generic/DtoStoreNumberInput';
+import { DtoUiWrapper } from 'dto-stores';
 
 export default function IgmTable<T extends HasNameDto>({
   rowEntityClass,
@@ -32,25 +36,21 @@ export default function IgmTable<T extends HasNameDto>({
           return entityList[cellValue].name;
         default:
           return (
-            <DtoStoreNumberInput<
+            <DtoUiWrapper<
               IntersectionGeneratorRowWithHeader<T>,
-              string | number
+              BaseDtoStoreNumberInputProps<
+                IntersectionGeneratorRowWithHeader<T>
+              >
             >
               entityClass={'generatorRow'}
-              listenerKey={`${rowWithHeader.id}:${columnKey}`}
               entityId={rowWithHeader.id}
-              numberAccessor={(entity) =>
-                entity[columnKey as keyof IntersectionGeneratorRowWithHeader<T>]
+              renderAs={DtoStoreNumberInput}
+              numberKey={
+                columnKey as NumberPropertyKey<
+                  IntersectionGeneratorRowWithHeader<T>
+                >
               }
-              numberUpdater={(entity, value) => ({
-                ...entity,
-                [columnKey as keyof IntersectionGeneratorRowWithHeader<T>]:
-                  value
-              })}
-              className={
-                'rounded-md py-0.5 px-1 max-w-fit w-8 outline-blue-400 outline-offset-1 no-spinner text-right'
-              }
-            ></DtoStoreNumberInput>
+            />
           );
       }
     },

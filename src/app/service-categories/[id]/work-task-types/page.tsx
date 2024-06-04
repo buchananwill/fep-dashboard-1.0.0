@@ -37,8 +37,6 @@ export default async function Page({
     }))
   ];
 
-  console.log(tableRows, tableColumns, kLevels, kDomains, rowEntityName);
-
   return (
     <div className={'h-screen p-8'}>
       <Card fullWidth={false} className={'max-w-3xl'}>
