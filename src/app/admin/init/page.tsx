@@ -12,10 +12,11 @@ export default function Page() {
     <Card>
       <CardHeader>
         <Button
-          isDisabled={isPending || promiseResult}
+          isDisabled={isPending}
           onPress={async () => {
             startTransition(async () => {
               const promise = await initDefaultTypes();
+              console.log(promise);
               setPromiseResult(promise);
             });
           }}

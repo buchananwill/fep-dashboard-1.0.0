@@ -3,7 +3,7 @@ import { initAssetType } from '@/utils/init-database-functions/initAssetType';
 import { initAssetRoleType } from '@/utils/init-database-functions/initAssetRoleType';
 import { initInteractionBasedValidation } from '@/utils/init-database-functions/initInteractionBasedValidation';
 import { initProviderRoleType } from '@/utils/init-database-functions/initProviderRoleType';
-import { initStudentUserRole } from '@/utils/init-database-functions/initStudentUserRole';
+import { initUserRoleType } from '@/utils/init-database-functions/initUserRoleType';
 
 export async function initDefaultTypes() {
   return Promise.all([
@@ -11,6 +11,6 @@ export async function initDefaultTypes() {
     initAssetType(),
     initInteractionBasedValidation(),
     initProviderRoleType(),
-    initStudentUserRole()
+    initUserRoleType()
   ]);
 }
