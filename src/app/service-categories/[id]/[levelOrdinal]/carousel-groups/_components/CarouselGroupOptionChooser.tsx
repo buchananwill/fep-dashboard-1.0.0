@@ -101,11 +101,7 @@ function InnerChooserComponent(
         }}
       />
       <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
-        <EditTextDeleteEntityPopover
-          {...dtoProps}
-          textAccessor={nameAccessor}
-          textSetter={nameSetter}
-        />
+        <EditTextDeleteEntityPopover {...dtoProps} stringKey={'name'} />
         <div className={'flex justify-center'}>
           <StepperContext.Provider
             value={{

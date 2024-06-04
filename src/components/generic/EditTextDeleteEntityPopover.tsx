@@ -8,10 +8,11 @@ import { useEditEntityTextAttribute } from '@/components/modals/useEditEntityTex
 import { useCallback, useState } from 'react';
 import { BaseDtoUiProps } from 'dto-stores';
 import { HasId, isNotUndefined } from '@/api/main';
+import { StringPropertyKey } from '@/types';
 
 export interface EditTextDeletePopoverProps<T extends HasId> {
-  textAccessor: (entity: T) => string;
-  textSetter: (entity: T, value: string) => T;
+  stringKey: StringPropertyKey<T>;
+
   classNames?: {
     button?: string;
   };
@@ -22,9 +23,9 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   entity,
   dispatchDeletion,
   dispatchWithoutControl,
-  textAccessor,
-  textSetter,
-  classNames
+
+  classNames,
+  stringKey
 }: EditTextDeletePopoverProps<T> & BaseDtoUiProps<T>) {
   const {
     onOpen,
@@ -36,8 +37,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   } = useEditEntityTextAttribute(
     entityClass,
     entity,
-    textAccessor,
-    textSetter,
+    stringKey,
     dispatchWithoutControl
   );
 
@@ -60,7 +60,9 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
       >
         <PopoverTrigger>
           <Button className={`${classNames?.button}`}>
-            <span className={' truncate ...'}>{textAccessor(entity)}</span>
+            <span className={' truncate ...'}>
+              {entity[stringKey] as string}
+            </span>
             <PendingOverlay pending={isOpen} />
           </Button>
         </PopoverTrigger>
@@ -68,7 +70,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
           <div className={'flex gap-2'}>
             <Button
               onPress={() => {
-                dispatchTextChange(textAccessor(entity));
+                dispatchTextChange(entity[stringKey] as string);
                 onOpen();
               }}
               isIconOnly

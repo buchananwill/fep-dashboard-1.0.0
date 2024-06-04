@@ -1,8 +1,9 @@
 import { HasId } from '@/api/main';
-import { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { RenameContextKey } from '@/components/modals/RenameModal';
 import { useEditEntityTextAttribute } from '@/components/modals/useEditEntityTextAttribute';
 import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import { StringPropertyKey } from '@/types';
 
 export function getRenameContextKey<T extends HasId>(
   entityClass: string,
@@ -22,15 +23,12 @@ export function nameSetter<T extends HasNameDto>(entity: T, value: string) {
 export function useRenameEntity<T extends HasNameDto & HasId>(
   entityClass: string,
   entity: T,
-  listenerKey: string,
-  dispatchWithoutControl?: Dispatch<SetStateAction<T>>
+  dispatchWithoutControl?: React.Dispatch<React.SetStateAction<T>>
 ) {
   return useEditEntityTextAttribute(
     entityClass,
     entity,
-    listenerKey,
-    nameAccessor,
-    nameSetter,
+    'name' as StringPropertyKey<T>,
     dispatchWithoutControl
   );
 }

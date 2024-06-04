@@ -50,8 +50,7 @@ function InternalUiComponent(props: BaseDtoUiProps<ServiceCategoryDto>) {
       <CardHeader>
         <EditTextDeleteEntityPopover<ServiceCategoryDto>
           {...props}
-          textAccessor={(ent) => ent.name}
-          textSetter={(ent, value) => ({ ...ent, name: value })}
+          stringKey={'name'}
         />
       </CardHeader>
       <CardBody>

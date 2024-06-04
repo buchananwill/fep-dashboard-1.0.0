@@ -29,7 +29,6 @@ export const LessonDeliveryModel = (
   const renameEntityProps = useRenameEntity(
     entityClass,
     model,
-    'curriculumDeliveryModel',
     dispatchWithoutControl
   );
 

@@ -11,7 +11,10 @@ import { Chip } from '@nextui-org/chip';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
-import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
+import {
+  EditTextDeleteEntityPopover,
+  EditTextDeletePopoverProps
+} from '@/components/generic/EditTextDeleteEntityPopover';
 import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { isNotUndefined } from '@/api/main';
@@ -65,11 +68,13 @@ export default function BundleItemChooser({
         }
       />
       <div className={'grid grid-cols-2 items-baseline mb-2'}>
-        <DtoUiWrapper
+        <DtoUiWrapper<
+          WorkSeriesSchemaBundleDto,
+          EditTextDeletePopoverProps<WorkSeriesSchemaBundleDto>
+        >
           entityClass={entityClass}
           entityId={collectionId}
-          textAccessor={nameAccessor}
-          textSetter={nameSetter}
+          stringKey={'name'}
           classNames={{ button: 'w-full' }}
           renderAs={EditTextDeleteEntityPopover<WorkSeriesSchemaBundleDto>}
         />

@@ -1,9 +1,9 @@
 'use client';
 import { HasId } from '@/api/main';
-import { BaseLazyDtoUiProps, useDtoStore } from 'dto-stores';
+import { BaseLazyDtoUiProps } from 'dto-stores';
 import { Input, InputProps } from '@nextui-org/input';
-import { useCallback } from 'react';
 import { StringPropertyKey } from '@/types';
+import { useEditTextProperty } from '@/components/generic/useEditTextProperty';
 
 export type BaseDtoStoreStringInputProps<T extends HasId> = Omit<
   InputProps,
@@ -18,20 +18,7 @@ export function DtoStoreStringInput<T extends HasId>({
   stringKey,
   ...inputProps
 }: BaseDtoStoreStringInputProps<T> & BaseLazyDtoUiProps<T>) {
-  const update = useCallback(
-    (value: string) => {
-      if (dispatchWithoutControl === undefined) {
-        console.error('no dispatch defined!');
-        return;
-      }
-      dispatchWithoutControl((entityState: T) => {
-        const updated: T = { ...entityState };
-        (updated as any)[stringKey] = value;
-        return updated;
-      });
-    },
-    [dispatchWithoutControl, stringKey]
-  );
+  const update = useEditTextProperty(dispatchWithoutControl, stringKey);
 
   return (
     <Input

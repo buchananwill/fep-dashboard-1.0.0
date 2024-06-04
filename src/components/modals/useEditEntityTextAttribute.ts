@@ -1,17 +1,17 @@
 import { HasId } from '@/api/main';
-import { Dispatch, SetStateAction, useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import { getRenameContextKey } from '@/components/modals/nameSetter';
 import { useGlobalController } from 'selective-context';
-import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
+import { useEditTextProperty } from '@/components/generic/useEditTextProperty';
+import { StringPropertyKey } from '@/types';
 
 export function useEditEntityTextAttribute<T extends HasId>(
   entityClass: string,
   entity: T,
-  textAccessor: (entity: T) => string,
-  textSetter: (entity: T, value: string) => T,
-  dispatchWithoutControl?: Dispatch<SetStateAction<T>>
+  stringKey: StringPropertyKey<T>,
+  dispatchWithoutControl?: React.Dispatch<React.SetStateAction<T>>
 ) {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const contextKey = getRenameContextKey(entityClass, entity);
@@ -19,14 +19,14 @@ export function useEditEntityTextAttribute<T extends HasId>(
     useGlobalController<string>({
       contextKey,
       listenerKey: 'controller',
-      initialValue: textAccessor(entity)
+      initialValue: entity[stringKey] as string
     });
 
+  const update = useEditTextProperty(dispatchWithoutControl, stringKey);
+
   const onConfirm = useCallback(() => {
-    if (dispatchWithoutControl !== undefined) {
-      dispatchWithoutControl((dto) => textSetter(dto, currentState));
-    }
-  }, [currentState, dispatchWithoutControl, textSetter]);
+    update(currentState);
+  }, [currentState, update]);
 
   return {
     contextKey,
