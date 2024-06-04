@@ -26,6 +26,7 @@
         animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
 }
+
 @keyframes nudge-right {
     0%, 100% {
         transform: none;
@@ -36,6 +37,7 @@
         animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
 }
+
 @keyframes nudge-left {
     0%, 100% {
         transform: none;
@@ -50,9 +52,11 @@
 .animate-bounce-less {
     animation: bounce-less 1s infinite;
 }
+
 .animate-nudge-right {
     animation: nudge-right 1s infinite;
 }
+
 .animate-nudge-left {
     animation: nudge-left 1s infinite;
 }
@@ -78,9 +82,26 @@
     .number-input {
         @apply text-right no-spinner p-2 rounded-xl outline-primary-400 bg-default-100 text-black text-medium w-24 ml-2
     }
+
+    .beacon {
+        offset-distance: 0;
+        animation-name: moveAlongPath;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        position: absolute;
+        @apply w-6 h-6 bg-red-400 z-50 rounded-full
+    }
 }
 
-
+@keyframes moveAlongPath {
+    0% {
+        offset-distance: 0
+    }
+    100% {
+        offset-distance: 100%;
+    }
+}
 
 
 @keyframes dash-trace {
