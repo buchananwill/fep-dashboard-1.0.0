@@ -16,7 +16,7 @@ export const draggingNodeKey = 'dragging-node';
 
 const listenerKey = 'use-layouted-elements';
 
-const UpdateTimeoutConstant = 1000;
+const UpdateTimeoutConstant = 5000;
 
 export function useForces(): [
   boolean,

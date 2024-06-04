@@ -81,7 +81,7 @@
 }
 
 .react-flow__node:not(.dragging) {
-    transition: transform 1s linear;
+    transition: transform 5s linear;
 }
 
 
