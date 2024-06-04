@@ -23,5 +23,5 @@ export async function knowledgeDomainRowActionMapper(
     `${BASE_URL}/api/v2/assets/roles/generate/Class%20Room`
   );
 
-  await Promise.all([providerRequest, assetRequest]);
+  await Promise.all([providerPromise, assetPromise]);
 }
