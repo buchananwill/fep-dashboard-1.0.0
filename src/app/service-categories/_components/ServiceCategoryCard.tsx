@@ -7,7 +7,12 @@ import { StringAttributeInputArray } from '@/components/generic/StringAttributeI
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useCallback } from 'react';
-import { BaseDtoUiProps, DtoUiProps, useDtoComponent } from 'dto-stores';
+import {
+  BaseDtoUiProps,
+  DtoUiProps,
+  DtoUiWrapper,
+  useDtoComponent
+} from 'dto-stores';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { StringPropertyKey } from '@/types';
 
@@ -45,7 +50,6 @@ function InternalUiComponent(props: BaseDtoUiProps<ServiceCategoryDto>) {
       <CardHeader>
         <EditTextDeleteEntityPopover<ServiceCategoryDto>
           {...props}
-          listenerKey={'card'}
           textAccessor={(ent) => ent.name}
           textSetter={(ent, value) => ({ ...ent, name: value })}
         />
@@ -62,10 +66,11 @@ function InternalUiComponent(props: BaseDtoUiProps<ServiceCategoryDto>) {
 }
 
 export default function ServiceCategoryCard({ id }: { id: number }) {
-  const DtoComponent = useDtoComponent<ServiceCategoryDto, any>(
-    EntityClassMap.serviceCategory,
-    InternalUiComponent
+  return (
+    <DtoUiWrapper
+      renderAs={InternalUiComponent}
+      entityClass={EntityClassMap.serviceCategory}
+      entityId={id}
+    />
   );
-
-  return <DtoComponent entityId={id} />;
 }

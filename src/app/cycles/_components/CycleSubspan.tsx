@@ -50,7 +50,6 @@ export default function CycleSubspan({
       <EditTextDeleteEntityPopover<CycleSubspanDto>
         classNames={{ button: 'w-24 px-2' }}
         {...props}
-        listenerKey={'popover'}
         textSetter={nameSetter}
         textAccessor={nameAccessor}
         dispatchDeletion={interceptDelete}

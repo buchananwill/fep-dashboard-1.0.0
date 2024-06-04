@@ -9,9 +9,7 @@ import { useCallback, useState } from 'react';
 import { BaseDtoUiProps } from 'dto-stores';
 import { HasId, isNotUndefined } from '@/api/main';
 
-export interface EditTextDeletePopoverProps<T extends HasId>
-  extends BaseDtoUiProps<T> {
-  listenerKey: string;
+export interface EditTextDeletePopoverProps<T extends HasId> {
   textAccessor: (entity: T) => string;
   textSetter: (entity: T, value: string) => T;
   classNames?: {
@@ -24,11 +22,10 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   entity,
   dispatchDeletion,
   dispatchWithoutControl,
-  listenerKey,
   textAccessor,
   textSetter,
   classNames
-}: EditTextDeletePopoverProps<T>) {
+}: EditTextDeletePopoverProps<T> & BaseDtoUiProps<T>) {
   const {
     onOpen,
     dispatchTextChange,
@@ -39,7 +36,6 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   } = useEditEntityTextAttribute(
     entityClass,
     entity,
-    listenerKey,
     textAccessor,
     textSetter,
     dispatchWithoutControl

@@ -9,7 +9,6 @@ import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
 export function useEditEntityTextAttribute<T extends HasId>(
   entityClass: string,
   entity: T,
-  listenerKey: string,
   textAccessor: (entity: T) => string,
   textSetter: (entity: T, value: string) => T,
   dispatchWithoutControl?: Dispatch<SetStateAction<T>>
@@ -36,7 +35,6 @@ export function useEditEntityTextAttribute<T extends HasId>(
     onOpenChange,
     onClose,
     onOpen,
-    listenerKey,
     dispatchTextChange
   };
 }

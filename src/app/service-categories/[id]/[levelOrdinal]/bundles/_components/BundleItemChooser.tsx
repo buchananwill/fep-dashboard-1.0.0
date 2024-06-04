@@ -68,7 +68,6 @@ export default function BundleItemChooser({
         <DtoUiWrapper
           entityClass={entityClass}
           entityId={collectionId}
-          listenerKey={'popover'}
           textAccessor={nameAccessor}
           textSetter={nameSetter}
           classNames={{ button: 'w-full' }}

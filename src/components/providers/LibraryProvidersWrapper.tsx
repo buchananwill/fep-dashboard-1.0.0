@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { SelectiveContextManagerGlobal } from 'selective-context';
 import React from 'react';
 
-import { MasterChangesTrackWrapper } from '@/components/generic/DtoChangesTracker';
+import { MasterChangesTrackWrapper } from '@/components/generic/MasterChangesTrackerWrapper';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AnimationSyncContextProvider from '@/components/providers/animate-sync-context/AnimationSyncContextProvider';

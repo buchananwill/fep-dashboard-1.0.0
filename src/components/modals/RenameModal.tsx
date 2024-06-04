@@ -11,6 +11,7 @@ import {
 import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
 import { useGlobalDispatchAndListener } from 'selective-context';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
 export const RenameContextKey = 'rename';
 export interface ConfirmActionModalProps extends Omit<ModalProps, 'children'> {
@@ -20,25 +21,26 @@ export interface ConfirmActionModalProps extends Omit<ModalProps, 'children'> {
 
 export interface RenameModalProps extends ConfirmActionModalProps {
   contextKey: string;
-  listenerKey: string;
+  listenerKey?: string;
   errorMessage?: string;
   error?: boolean;
 }
 
 export default function RenameModal({
   contextKey,
-  listenerKey,
   error,
   isOpen,
   onCancel,
   onConfirm,
+  listenerKey: lKeyProp,
   errorMessage = 'Please choose unique, non-empty name',
   ...props
 }: RenameModalProps) {
+  const listenerKey = useUuidListenerKey();
   const { currentState, dispatchWithoutControl } =
     useGlobalDispatchAndListener<string>({
       contextKey,
-      listenerKey,
+      listenerKey: lKeyProp ?? listenerKey,
       initialValue: ''
     });
 

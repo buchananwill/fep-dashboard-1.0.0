@@ -1,5 +1,10 @@
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
-import { BaseDtoUiProps, DtoUiProps, useDtoComponent } from 'dto-stores';
+import {
+  BaseDtoUiProps,
+  DtoUiProps,
+  DtoUiWrapper,
+  useDtoComponent
+} from 'dto-stores';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
 import React, { useCallback, useMemo } from 'react';
@@ -19,21 +24,16 @@ export default function CarouselGroupOptionChooser({
   entityClass,
   referencedItemContextKeys
 }: CollectionItemChooserProps) {
-  const DtoComponent = useDtoComponent<CarouselGroupDto, ExtraProps>(
-    entityClass,
-    InnerChooserComponent
-  );
-
   return (
-    <DtoComponent
+    <DtoUiWrapper
+      renderAs={InnerChooserComponent}
+      entityClass={entityClass}
       entityId={collectionId}
       collectionId={collectionId}
       referencedItemContextKeys={referencedItemContextKeys}
     />
   );
 }
-
-type ExtraProps = Omit<CollectionItemChooserProps, 'entityClass'>;
 
 function InnerChooserComponent(
   props: BaseDtoUiProps<CarouselGroupDto> &
@@ -101,7 +101,11 @@ function InnerChooserComponent(
         }}
       />
       <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
-        <CurriedComponent {...dtoProps} />
+        <EditTextDeleteEntityPopover
+          {...dtoProps}
+          textAccessor={nameAccessor}
+          textSetter={nameSetter}
+        />
         <div className={'flex justify-center'}>
           <StepperContext.Provider
             value={{
@@ -137,14 +141,3 @@ function InnerChooserComponent(
     </div>
   );
 }
-
-const CurriedComponent = (props: BaseDtoUiProps<CarouselGroupDto>) => {
-  return (
-    <EditTextDeleteEntityPopover<CarouselGroupDto>
-      listenerKey={'chooser'}
-      textAccessor={nameAccessor}
-      textSetter={nameSetter}
-      {...props}
-    />
-  );
-};
