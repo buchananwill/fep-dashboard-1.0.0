@@ -78,19 +78,11 @@ export function BaseNode<T extends HasNumberId>({
 
   const { id } = data;
   const addSibling = useCallback(() => {
-    console.log(
-      'function in source:',
-      cloneFunctionWrapper.memoizedFunction,
-      'clone node in state:',
-      currentState,
-      'addNodes in state:',
-      memoizedFunction
-    );
     memoizedFunction({
       sourceNodeIdList: [`${id}`],
       relation: 'sibling'
     });
-  }, [memoizedFunction, id, currentState]);
+  }, [memoizedFunction, id]);
 
   return (
     <>

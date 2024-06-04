@@ -80,6 +80,11 @@
     }
 }
 
+.react-flow__node:not(.dragging) {
+    transition: transform 1s linear;
+}
+
+
 
 
 
