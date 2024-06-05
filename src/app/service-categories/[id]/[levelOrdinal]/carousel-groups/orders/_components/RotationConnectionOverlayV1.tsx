@@ -7,7 +7,6 @@ import { line, curveBasis, interpolateObject } from 'd3';
 import { HasId, isNotNull, isNotUndefined } from '@/api/main';
 import { Identifier } from 'dto-stores';
 import { ControllerKey } from '@/app/_literals';
-import { GenericDivProps } from '@/react-flow/components/nodes/BaseNode';
 
 export interface ConnectionVector {
   source?: Coordinate & HasId;
@@ -15,7 +14,7 @@ export interface ConnectionVector {
 }
 
 export const RotationConnectionMap = 'rotationConnectionMap';
-export default function RotationConnectionOverlayV2() {
+export default function RotationConnectionOverlayV1() {
   const { currentState } = useGlobalController({
     initialValue: initialMap as Map<string, ConnectionVector>,
     contextKey: RotationConnectionMap,
@@ -62,25 +61,22 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
     return () => window.removeEventListener('resize', updateSize);
   }, [connections]);
 
-  const curvePaths = useMemo(() => {
-    return connections
-      .filter(
-        (connection) =>
-          isNotUndefined(connection.target) && isNotUndefined(connection.source)
-      )
-      .map((connection) => connectionVectorToCurve(connection))
-      .filter(isNotNull);
-  }, [connections]);
-
   return (
-    <>
-      <svg
-        width={size.width}
-        height={size.height}
-        style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
-        className={'z-50'}
-      >
-        {curvePaths.map((conn, index) => (
+    <svg
+      width={size.width}
+      height={size.height}
+      style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
+      className={'z-50'}
+    >
+      {connections
+        .filter(
+          (connection) =>
+            isNotUndefined(connection.target) &&
+            isNotUndefined(connection.source)
+        )
+        .map((connection) => connectionVectorToCurve(connection))
+        .filter(isNotNull)
+        .map((conn, index) => (
           <g key={index}>
             <path
               d={conn}
@@ -88,17 +84,7 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
             />
           </g>
         ))}
-      </svg>
-      {curvePaths.map((path, index) => (
-        <Beacon
-          key={`beacon:${index}`}
-          className={'beacon'}
-          style={{
-            offsetPath: `path('${path}')`
-          }}
-        />
-      ))}
-    </>
+    </svg>
   );
 };
 
@@ -138,8 +124,4 @@ function connectionVectorToCurve({ source, target }: ConnectionVector) {
     console.log(lineGenerator1);
   }
   return lineGenerator1;
-}
-
-function Beacon(props: GenericDivProps) {
-  return <div {...props}></div>;
 }

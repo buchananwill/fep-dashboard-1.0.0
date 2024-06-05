@@ -19,6 +19,9 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
 import { initKnowledgeDomains } from '@/utils/init-database-functions/initKnowledgeDomains';
 import { initKnowledgeLevels } from '@/utils/init-database-functions/initKnowledgeLevels';
+import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { resolveAppleWebApp } from 'next/dist/lib/metadata/resolvers/resolve-basics';
+import { initOrganizationTypes } from '@/utils/init-database-functions/initOrganizationTypes';
 
 const entityName = EntityClassMap.serviceCategory;
 
@@ -40,7 +43,8 @@ const handleSubmit = async (
     if (serviceCategoryDto) {
       const promiseDomains = initKnowledgeDomains(serviceCategoryDto);
       const promiseLevels = initKnowledgeLevels(serviceCategoryDto);
-      await Promise.all([promiseDomains, promiseLevels]);
+      const orgTypes = initOrganizationTypes(serviceCategoryDto, promiseLevels);
+      await Promise.all([promiseDomains, promiseLevels, orgTypes]);
     }
     return serviceCategoryDto?.id;
   }

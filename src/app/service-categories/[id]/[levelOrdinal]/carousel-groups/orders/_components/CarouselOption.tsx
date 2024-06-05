@@ -34,7 +34,7 @@ import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrd
 import {
   ConnectionVector,
   RotationConnectionMap
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlayV1';
 import { OptionRotationTargets } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import {

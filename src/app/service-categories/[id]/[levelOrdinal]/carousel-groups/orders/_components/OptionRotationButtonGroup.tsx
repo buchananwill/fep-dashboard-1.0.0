@@ -27,7 +27,7 @@ import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import {
   ConnectionVector,
   RotationConnectionMap
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlayV1';
 import clsx from 'clsx';
 import { ControllerKey, InitialSet } from '@/app/_literals';
 import {

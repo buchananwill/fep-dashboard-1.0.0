@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { initWorkProjectSeriesSchemas } from '@/utils/init-database-functions/initWorkProjectSeriesSchemas';
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { PendingOverlay } from '@/components/overlays/pending-overlay';
 
 export default function WorkTaskTypeIgmTable({
   submitTo,
@@ -45,6 +46,7 @@ export default function WorkTaskTypeIgmTable({
 
   return (
     <div className={'w-fit h-fit'}>
+      <PendingOverlay pending={isPending} />
       <IgmTableWrapper
         {...otherProps}
         columns={columns}

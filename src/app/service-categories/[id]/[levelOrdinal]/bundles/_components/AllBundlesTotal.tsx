@@ -3,7 +3,7 @@ import { useGlobalListener, useGlobalReadAny } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 
 import { useMemo } from 'react';
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/_functions/sum-delivery-allocations';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
 import { Chip } from '@nextui-org/chip';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';

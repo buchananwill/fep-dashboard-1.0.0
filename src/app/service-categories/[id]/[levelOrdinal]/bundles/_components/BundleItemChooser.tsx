@@ -5,7 +5,7 @@ import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoS
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_components/BundleItemWithInclusionCount';
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schema/_functions/sum-delivery-allocations';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Chip } from '@nextui-org/chip';
 import { useItemChooserMap } from '@/utils/useItemChooserMap';
