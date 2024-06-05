@@ -8,9 +8,9 @@ import BundleItemWithInclusionCount from '@/app/service-categories/[id]/[levelOr
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Chip } from '@nextui-org/chip';
-import { useItemChooserMap } from '@/utils/useItemChooserMap';
+import { useItemChooserMap } from '@/hooks/useItemChooserMap';
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
-import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
+import { useListboxSelectionChangeCallback } from '@/hooks/useListboxSelectionChangeCallback';
 import {
   EditTextDeleteEntityPopover,
   EditTextDeletePopoverProps

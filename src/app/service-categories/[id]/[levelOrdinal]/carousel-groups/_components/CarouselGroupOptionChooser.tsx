@@ -5,8 +5,8 @@ import {
   DtoUiWrapper,
   useDtoComponent
 } from 'dto-stores';
-import { useItemChooserMap } from '@/utils/useItemChooserMap';
-import { useListboxSelectionChangeCallback } from '@/utils/useListboxSelectionChangeCallback';
+import { useItemChooserMap } from '@/hooks/useItemChooserMap';
+import { useListboxSelectionChangeCallback } from '@/hooks/useListboxSelectionChangeCallback';
 import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { StepperContext } from '@/components/generic/stepperContextCreator';

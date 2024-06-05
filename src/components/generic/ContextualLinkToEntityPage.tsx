@@ -2,7 +2,7 @@
 import { HasId } from '@/api/main';
 import { Link } from '@nextui-org/link';
 import { BaseDtoUiProps } from 'dto-stores';
-import { toKebabCase } from '@/utils/toKebabCase';
+import { toKebabCase } from '@/functions/toKebabCase';
 import pluralize from 'pluralize';
 import { useContext } from 'react';
 import { ResourcePathContext } from '@/components/providers/resource-context/resource-context-creator';
