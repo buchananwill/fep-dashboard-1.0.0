@@ -1,4 +1,3 @@
-import cycle from '../../../../../utils/init-json-data/time/Cycle.json';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   getWeekNumberInt,
@@ -12,9 +11,8 @@ import { API_V2_URL } from '@/api/main';
 import CycleSubspanGroupUiWrapper from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupUiWrapper';
 import { putGroupEditAction } from '@/app/cycles/edit/[id]/cycleSubspanGroups/putGroupEditAction';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-
-const cycleSubspan = EntityClassMap.cycleSubspan;
-const cycleSubspanGroup = EntityClassMap.cycleSubspanGroup;
+import { getOne } from '@/api/generated-actions/Cycle';
+import { parseTen } from '@/api/date-and-time';
 
 const entityName = 'CycleSubspanGroupEdit';
 export default async function Page({
@@ -22,6 +20,7 @@ export default async function Page({
 }: {
   params: { id: string };
 }) {
+  const cycle = await getOne(parseTen(id));
   const groupEditListUrl = `${API_V2_URL}/time/cycleSubspanGroups/cycleSubspanGroupEditList/${id}`;
   const cycleSubspanGroupEditDtos =
     await getWithoutBody<CycleSubspanGroupEditDto[]>(groupEditListUrl);

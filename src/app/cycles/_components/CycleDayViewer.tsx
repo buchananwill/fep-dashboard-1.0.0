@@ -24,6 +24,7 @@ import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import {
   DispatchList,
   DtoUiListSome,
+  Identifier,
   NamespacedHooks,
   useMasterListInteraction
 } from 'dto-stores';
@@ -57,7 +58,7 @@ export default function CycleDayViewer({
   const handleAddCycleSubspan = useCallback(
     (
       dispatchMasterList: DispatchList<CycleSubspanDto>,
-      dispatchAddedList: DispatchList<number>
+      dispatchAddedList: DispatchList<Identifier>
     ) => {
       const transientId =
         TransientIdOffset +
@@ -73,7 +74,7 @@ export default function CycleDayViewer({
         ...csList,
         newCycleSubspan
       ];
-      const addId = (list: number[]) => [...list, transientId];
+      const addId = (list: Identifier[]) => [...list, transientId];
       dispatch(addCycleSubspan);
       dispatchMasterList(addCycleSubspan);
       dispatchAddedList(addId);
@@ -81,14 +82,13 @@ export default function CycleDayViewer({
     [cycleDay.zeroIndexedCycleDay, currentState, cycle.id, dispatch]
   );
 
-  const masterListCallback = useMasterListInteraction(
-    EntityClassMap.cycleSubspan,
-    handleAddCycleSubspan
-  );
-
   const dispatchInitialList = NamespacedHooks.useDispatch<CycleSubspanDto[]>(
     EntityClassMap.cycleSubspan,
     KEY_TYPES.MASTER_LIST
+  );
+  const masterListCallback = useMasterListInteraction(
+    EntityClassMap.cycleSubspan,
+    handleAddCycleSubspan
   );
 
   const cycleSubspanIdList = useMemo(() => {

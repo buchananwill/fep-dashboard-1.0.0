@@ -8,11 +8,12 @@ import {
   BaseDtoStoreNumberInputProps,
   DtoStoreNumberInput
 } from '@/components/generic/DtoStoreNumberInput';
-import { DtoUiWrapper } from 'dto-stores';
+import { DtoUiWrapper, LazyDtoUiWrapper } from 'dto-stores';
 import {
   BaseDtoStoreStringInputProps,
   DtoStoreStringInput
 } from '@/components/generic/DtoStoreStringInput';
+import { PendingOverlay } from '@/components/overlays/pending-overlay';
 
 const entityClass = EntityClassMap.knowledgeLevel;
 export default function KnowledgeLevelTable({
@@ -37,7 +38,7 @@ export default function KnowledgeLevelTable({
       switch (columnKey) {
         case 'name':
           return (
-            <DtoUiWrapper<
+            <LazyDtoUiWrapper<
               KnowledgeLevelDto,
               BaseDtoStoreStringInputProps<KnowledgeLevelDto>
             >
@@ -45,11 +46,12 @@ export default function KnowledgeLevelTable({
               entityId={level.id}
               renderAs={DtoStoreStringInput}
               stringKey={'name'}
+              whileLoading={() => <PendingOverlay pending={true} />}
             />
           );
         case 'levelOrdinal':
           return (
-            <DtoUiWrapper<
+            <LazyDtoUiWrapper<
               KnowledgeLevelDto,
               BaseDtoStoreNumberInputProps<KnowledgeLevelDto>
             >
@@ -57,6 +59,7 @@ export default function KnowledgeLevelTable({
               entityClass={entityClass}
               numberKey={'levelOrdinal'}
               entityId={level.id}
+              whileLoading={() => <PendingOverlay pending={true} />}
             />
           );
 

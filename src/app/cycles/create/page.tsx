@@ -15,6 +15,7 @@ import { Button } from '@nextui-org/button';
 import { TransientIdOffset } from '@/api/main';
 import { CycleDto, CycleDtoSchema } from '@/api/dtos/CycleDtoSchema';
 import { postOne } from '@/api/generated-actions/Cycle';
+import { initCycleSubspans } from '@/utils/init-database-functions/initCycleSubspans';
 
 const dayArray = DayOfWeekArray.map((day) => ({
   value: day.toUpperCase(),
@@ -44,7 +45,8 @@ export default function Page() {
   const onSubmit: SubmitHandler<CycleDto> = async (data) => {
     startTransition(async () => {
       const cycleDto = await postOne(data);
-
+      const cycleSubspans = await initCycleSubspans(cycleDto);
+      console.log(cycleSubspans);
       appRouterInstance.push(`/cycles/edit/${cycleDto.id}/cycleSubspans`);
     });
   };

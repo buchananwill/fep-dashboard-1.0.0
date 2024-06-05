@@ -21,12 +21,12 @@ export default function Page() {
             });
           }}
         >
-          INIT!
+          Begin
         </Button>
       </CardHeader>
       <CardBody>
         {promiseResult &&
-          promiseResult.map((jsonItem: any) => String(jsonItem))}
+          promiseResult.map((jsonItem: any) => JSON.stringify(jsonItem))}
       </CardBody>
     </Card>
   );

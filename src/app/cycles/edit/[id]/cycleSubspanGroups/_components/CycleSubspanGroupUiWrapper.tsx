@@ -3,7 +3,7 @@ import CycleSubspanGroupEdit, {
   CycleSubspanGroupEditDto
 } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
 import { JSX } from 'react/jsx-runtime';
-import { DtoUiListSome } from 'dto-stores';
+import { DtoUiListSome, LazyDtoUiListSome } from 'dto-stores';
 import { useMemo } from 'react';
 import IntrinsicAttributes = JSX.IntrinsicAttributes;
 import { uiWrapperListViewProps } from '@/types';
@@ -20,10 +20,11 @@ export default function CycleSubspanGroupUiWrapper({
   }, [entityList]);
 
   return (
-    <DtoUiListSome
+    <LazyDtoUiListSome
       entityIdList={entityIdList}
       {...props}
       renderAs={CycleSubspanGroupEdit}
+      whileLoading={() => null}
     />
   );
 }

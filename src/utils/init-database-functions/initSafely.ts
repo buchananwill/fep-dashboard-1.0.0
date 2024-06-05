@@ -1,5 +1,3 @@
-import { canAssignToOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/canAssignOptionToOrderItem';
-
 export async function initSafely(
   getAction: () => Promise<any[]>,
   postAction: () => Promise<any>

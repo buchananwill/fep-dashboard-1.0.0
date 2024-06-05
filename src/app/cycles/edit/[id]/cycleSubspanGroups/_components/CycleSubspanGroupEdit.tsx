@@ -1,4 +1,4 @@
-import { BaseDtoUiProps } from 'dto-stores';
+import { BaseDtoUiProps, BaseLazyDtoUiProps } from 'dto-stores';
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { Checkbox } from '@nextui-org/checkbox';
 import { Chip } from '@nextui-org/chip';
@@ -36,7 +36,7 @@ const handleEntityUpdate = (
 export default function CycleSubspanGroupEdit({
   dispatchWithoutControl,
   entity
-}: BaseDtoUiProps<CycleSubspanGroupEditDto>) {
+}: BaseLazyDtoUiProps<CycleSubspanGroupEditDto>) {
   const checkBoxes = useMemo(() => {
     const checkBoxes: React.JSX.Element[] = [];
     for (let i = 1; i <= entity.maxGroupSize; i++) {

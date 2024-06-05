@@ -8,10 +8,17 @@ import { Button } from '@nextui-org/button';
 import { useGlobalReadAny } from 'selective-context';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
-import { postOne } from '@/api/generated-actions/ServiceCategory';
+import {
+  getDtoListByExampleList,
+  postOne
+} from '@/api/generated-actions/ServiceCategory';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { PendingOverlay } from '@/components/overlays/pending-overlay';
+import { initSafely } from '@/utils/init-database-functions/initSafely';
+import { initKnowledgeDomains } from '@/utils/init-database-functions/initKnowledgeDomains';
+import { initKnowledgeLevels } from '@/utils/init-database-functions/initKnowledgeLevels';
 
 const entityName = EntityClassMap.serviceCategory;
 
@@ -22,8 +29,20 @@ const handleSubmit = async (
     `${entityName}:${TransientIdOffset}`
   );
   if (serviceCategory) {
-    const serviceCategoryDto = await postOne(serviceCategory);
-    return serviceCategoryDto.id;
+    const serviceCategoryResponse = await initSafely(
+      () => getDtoListByExampleList([serviceCategory]),
+      () => postOne(serviceCategory)
+    );
+    let serviceCategoryDto: ServiceCategoryDto | undefined = undefined;
+    if (Array.isArray(serviceCategoryResponse)) {
+      serviceCategoryDto = serviceCategoryResponse[0];
+    } else serviceCategoryDto = serviceCategoryResponse;
+    if (serviceCategoryDto) {
+      const promiseDomains = initKnowledgeDomains(serviceCategoryDto);
+      const promiseLevels = initKnowledgeLevels(serviceCategoryDto);
+      await Promise.all([promiseDomains, promiseLevels]);
+    }
+    return serviceCategoryDto?.id;
   }
 };
 
@@ -46,12 +65,18 @@ export default function Page() {
         entityClass={EntityClassMap.serviceCategory}
         dtoList={[template]}
       />
-      <ServiceCategoryCard id={template.id} />
+      <div className={'relative, w-fit h-fit'}>
+        <PendingOverlay pending={pending} />
+        <ServiceCategoryCard id={template.id} />
+      </div>
       <Button
         onPress={() => {
           startTransition(async () => {
             const id = await handleSubmit(selectiveContextReadAll);
-            if (id) appRouterInstance.push(`/service-categories/${id}`);
+            if (id)
+              appRouterInstance.push(
+                `/service-categories/${id}/knowledge-domains`
+              );
           });
         }}
       >

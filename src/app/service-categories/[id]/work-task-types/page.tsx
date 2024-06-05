@@ -1,12 +1,13 @@
 import IgmTableWrapper from '@/components/generic/IgmTableWrapper';
 import { Card } from '@nextui-org/card';
-import { submitLessonTypeMatrix } from '@/app/service-categories/[id]/work-task-types/submit-lesson-type-matrix';
+import { initWorkTaskTypesFromMatrix } from '@/utils/init-database-functions/initWorkTaskTypesFromMatrix';
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
 import { getDtoListByExampleList as getKnowledgeDomainsByExample } from '@/api/generated-actions/KnowledgeDomain';
 import data from '@/utils/init-json-data/service-categories/workTaskTypesIgm.json';
 import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categories/getWorkTaskTypeTableLookUp';
 import { createRows } from '@/components/generic/createRows';
 import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
+import WorkTaskTypeIgmTable from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeIgmTable';
 
 const rowEntityName = 'Lesson Type';
 export default async function Page({
@@ -40,15 +41,16 @@ export default async function Page({
   return (
     <div className={'h-screen p-8'}>
       <Card fullWidth={false} className={'max-w-3xl'}>
-        <IgmTableWrapper
+        <WorkTaskTypeIgmTable
           rowEntityClass={rowEntityName}
+          serviceCategoryId={id}
           rows={kDomains}
           columns={kLevels}
           tableRows={tableRows}
           tableColumns={tableColumns}
-          submitTo={submitLessonTypeMatrix}
+          submitTo={initWorkTaskTypesFromMatrix}
           classNames={{
-            base: 'max-h-[520px] overflow-auto',
+            base: 'max-h-[640px] overflow-auto',
             table: 'min-h-[420px]',
             thead: 'step_table_header'
           }}

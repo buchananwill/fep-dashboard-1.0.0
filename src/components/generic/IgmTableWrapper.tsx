@@ -13,6 +13,18 @@ import {
 import { TableProps } from '@nextui-org/react';
 import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 
+export interface IgmTableWrapperProps<
+  T extends HasNameDto,
+  U extends HasNameDto
+> {
+  rowEntityClass: string;
+  rows: T[];
+  columns: U[];
+  submitTo?: (matrix: IntersectionGeneratorMatrix<T, U>) => Promise<any>;
+  tableRows: IntersectionGeneratorRowWithHeader<T>[];
+  tableColumns: { name: string; uid: string }[];
+}
+
 export default function IgmTableWrapper<
   T extends HasNameDto,
   U extends HasNameDto
@@ -24,14 +36,7 @@ export default function IgmTableWrapper<
   tableRows,
   tableColumns,
   ...tableProps
-}: {
-  rowEntityClass: string;
-  rows: T[];
-  columns: U[];
-  submitTo?: (matrix: IntersectionGeneratorMatrix<T, U>) => Promise<any>;
-  tableRows: IntersectionGeneratorRowWithHeader<T>[];
-  tableColumns: { name: string; uid: string }[];
-} & TableProps) {
+}: IgmTableWrapperProps<T, U> & TableProps) {
   return (
     <>
       <EditAddDeleteDtoControllerArray

@@ -45,6 +45,7 @@ export default function IgmTable<T extends HasNameDto>({
               entityClass={'generatorRow'}
               entityId={rowWithHeader.id}
               renderAs={DtoStoreNumberInput}
+              className={'w-12'}
               numberKey={
                 columnKey as NumberPropertyKey<
                   IntersectionGeneratorRowWithHeader<T>

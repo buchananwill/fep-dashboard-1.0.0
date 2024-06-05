@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { BaseDtoUiProps, BaseLazyDtoUiProps } from 'dto-stores';
 import clsx from 'clsx';
+import { removeLeadingZeroStringConversion } from '@/components/generic/removeLeadingZeroStringConversion';
 
 export type NumberPropertyKey<T> = {
   [K in keyof T]: T[K] extends number ? K : never;
@@ -36,10 +37,12 @@ export function DtoStoreNumberInput<T extends HasId>({
         console.log('no dispatch defined!');
         return;
       }
-      const numberValue = parseInt(e.target.value);
+      let numberValue = parseInt(e.target.value, 10);
+      if (isNaN(numberValue)) numberValue = 0; // Default to 0 if not a number
+
       dispatchWithoutControl((entity: T) => {
         const updated: T = { ...entity };
-        (updated as any)[numberKey] = isNaN(numberValue) ? 0 : numberValue;
+        (updated as any)[numberKey] = numberValue;
         return updated;
       });
     },
@@ -52,7 +55,9 @@ export function DtoStoreNumberInput<T extends HasId>({
     <input
       {...inputProps}
       type={'number'}
-      value={entity[numberKey] as number}
+      inputMode={'numeric'}
+      pattern={'[0-9]'}
+      value={removeLeadingZeroStringConversion(entity[numberKey] as number)}
       onChange={(e) => update(e)}
       className={clsx(className, 'number-input')}
       aria-label={inputProps['aria-label'] ?? String(numberKey)}
