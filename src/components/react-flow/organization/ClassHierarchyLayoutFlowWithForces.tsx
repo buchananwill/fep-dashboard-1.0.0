@@ -13,6 +13,8 @@ import {
 import OrganizationDetailsContent from '@/components/react-flow/organization/OrganizationDetailsContent';
 
 import {
+  DataLink,
+  DataNodeDto,
   NodeModalContentComponent,
   useAllEdits,
   useModalContent,
@@ -26,16 +28,53 @@ import {
   useEffectSyncDeepEqualWithDispatch
 } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
+import { OrganizationTypeDto } from '@/api/dtos/OrganizationTypeDtoSchema';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { useGlobalDispatch } from 'selective-context';
+import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
+import { revalidateOrganizationNode } from '@/components/react-flow/organization/revalidateOrganizationNode';
+import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
+import { convertToReactFlowNode } from '@/react-flow/utils/adaptors';
 
 export function ClassHierarchyLayoutFlowWithForces({
-  children
-}: PropsWithChildren) {
+  children,
+  typeData
+}: PropsWithChildren & { typeData: OrganizationTypeDto }) {
   // 4. Call the hook to set up the layout with forces
   const { flowOverlayProps, reactFlowProps } = useLayoutFlowWithForces();
 
+  const organizationTemplateNode = useMemo(() => {
+    const typedTemplate = {
+      ...TemplateOrganizationNode,
+      data: {
+        ...TemplateOrganizationNode.data,
+        type: typeData,
+        name: typeData.name
+      }
+    };
+    return convertToReactFlowNode(typedTemplate);
+  }, [typeData]);
+
   // Set up the available edit hooks.
-  useNodeEditing(cloneFunctionWrapper, organizationGraphUpdater);
+  const { unsavedChanges, onConfirm } = useNodeEditing(
+    cloneFunctionWrapper,
+    organizationTemplateNode,
+    TemplateOrganizationLink,
+    organizationGraphUpdater,
+    revalidateOrganizationNode
+  );
   useAllEdits();
+
+  const { dispatchWithoutListen: changesDispatch } =
+    useGlobalDispatch('unsavedChanges');
+
+  useHasChangesFlagCallback(
+    onConfirm,
+    unsavedChanges,
+    changesDispatch,
+    `${EntityClassMap.organization}-graph`
+  );
 
   const { nodes } = reactFlowProps;
 
@@ -73,6 +112,7 @@ export function ClassHierarchyLayoutFlowWithForces({
         dtoList={allocationTotalList}
         entityClass={'allocationTotal'}
       />
+      {reactFlowProps.nodes.length === 0 && <AddRootNode />}
       {children}
       {/* 7. Add a background */}
       <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
@@ -97,4 +137,30 @@ const edgeTypes = {
 // 3. Define the content for the Node Details Modal
 const memoizedContentComponent: NodeModalContentComponent = {
   memoizedFunction: OrganizationDetailsContent
+};
+
+const TemplateOrganizationNode: DataNodeDto<OrganizationDto> = {
+  data: {
+    id: 0,
+    name: 'Organization',
+    type: {
+      id: 0,
+      name: 'type name'
+    },
+    workSeriesBundleAssignment: {
+      id: 0,
+      organizationId: 0
+    }
+  },
+  id: 0,
+  distanceFromRoot: 0
+};
+
+const TemplateOrganizationLink: DataLink<OrganizationDto> = {
+  id: '0',
+  closureType: 'OrganizationRelationship',
+  source: 0,
+  target: 0,
+  value: 1,
+  weighting: 1
 };

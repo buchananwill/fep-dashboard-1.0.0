@@ -32,6 +32,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Select } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { produce } from 'immer';
+import { z } from 'zod';
 
 const listenerKey = 'details-content';
 
@@ -66,10 +67,15 @@ export default function OrganizationDetailsContent({
 
   const onCloseDefined = onClose ? onClose : () => {};
 
+  const { workSeriesBundleAssignment } = currentState;
+  const workSeriesSchemaBundleId =
+    workSeriesBundleAssignment?.workSeriesSchemaBundleId;
+
+  const selectedKeys = useMemo(() => {
+    return workSeriesSchemaBundleId ? [workSeriesSchemaBundleId] : [];
+  }, [workSeriesSchemaBundleId]);
   if (currentState === undefined)
     return <ComponentUndefined onClose={onCloseDefined} />;
-
-  const { workSeriesBundleAssignment } = currentState;
 
   return (
     <>
@@ -92,14 +98,23 @@ export default function OrganizationDetailsContent({
               items={bundleList}
               label={'Bundle'}
               placeholder={'Assign a bundle'}
-              selectedKeys={[
-                workSeriesBundleAssignment.workSeriesSchemaBundleId
-              ]}
+              selectedKeys={selectedKeys}
               onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                const newId = e.target.value;
                 dispatchWithoutControl((data) =>
                   produce(data, (draft) => {
-                    draft.workSeriesBundleAssignment.workSeriesSchemaBundleId =
-                      e.target.value;
+                    if (draft.workSeriesBundleAssignment) {
+                      let isId = false;
+                      try {
+                        isId = !!z.string().uuid().parse(newId);
+                      } catch (e) {}
+                      if (isId)
+                        draft.workSeriesBundleAssignment.workSeriesSchemaBundleId =
+                          e.target.value;
+                      else
+                        delete draft.workSeriesBundleAssignment
+                          .workSeriesSchemaBundleId;
+                    }
                     return draft;
                   })
                 );
@@ -145,7 +160,7 @@ function BundleAssignment({
   return (
     <LazyDtoUiWrapper
       renderAs={BundleDetails}
-      entityId={workSeriesSchemaBundleId}
+      entityId={workSeriesSchemaBundleId ?? ''}
       entityClass={EntityClassMap.workSeriesSchemaBundle}
       whileLoading={() => null}
     />

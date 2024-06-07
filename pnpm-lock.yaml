@@ -63,8 +63,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       react-d3-force-wrapper:
-        specifier: ^0.1.2
-        version: 0.1.2(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
+        specifier: file:D:\Coding\react-d3-force-graph
+        version: file:../react-d3-force-graph(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
       react-dnd:
         specifier: ^16.0.1
         version: 16.0.1(@types/node@20.12.7)(@types/react@18.2.79)(react@18.3.1)
@@ -2751,8 +2751,8 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-d3-force-wrapper@0.1.2:
-    resolution: {integrity: sha512-OLOKP5sH6vHBmp+RFP2nRfcsEQdEo2l77z82XUGWfg2voL4R3WKSz8PydrZeaT1blaD25bzYLelJcmG4aK0j2Q==}
+  react-d3-force-wrapper@file:../react-d3-force-graph:
+    resolution: {directory: ../react-d3-force-graph, type: directory}
     peerDependencies:
       react: ^18.3.1
       selective-context: ^2.0.2
@@ -6879,7 +6879,7 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-d3-force-wrapper@0.1.2(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
+  react-d3-force-wrapper@file:../react-d3-force-graph(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
     dependencies:
       d3: 7.9.0
       lodash: 4.17.21

@@ -120,8 +120,6 @@ function connectionVectorToCurve({ source, target }: ConnectionVector) {
   // const data: Coordinate[] = [{ ...source }, { ...target }];
   const lineGenerator1 = lineGenerator(data);
   if (source.y === target.y) {
-    console.log(source, target);
-    console.log(lineGenerator1);
   }
   return lineGenerator1;
 }

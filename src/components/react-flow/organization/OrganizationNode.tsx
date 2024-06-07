@@ -4,7 +4,6 @@ import React, { memo, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { BaseNode } from '@/react-flow/components/nodes/BaseNode';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import { Chip } from '@nextui-org/chip';
 import { EntityClassMap } from '@/api/entity-class-map';
 
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
@@ -57,11 +56,17 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   });
 
   const { workSeriesBundleAssignment } = data;
-  const { entity: schemaBundle } = useLazyDtoStore<WorkSeriesSchemaBundleDto>(
-    workSeriesBundleAssignment.workSeriesSchemaBundleId,
-    EntityClassMap.workSeriesSchemaBundle,
-    listenerKey
-  );
+  const { entity: schemaBundleFromStore } =
+    useLazyDtoStore<WorkSeriesSchemaBundleDto>(
+      workSeriesBundleAssignment?.workSeriesSchemaBundleId ?? '',
+      EntityClassMap.workSeriesSchemaBundle,
+      listenerKey
+    );
+
+  // THIS LINE IS NEEDED TO OVERRIDE THE REFUSAL OF SELECTIVE CONTEXT LISTENER TO RETRIEVE UNDEFINED
+  const replaceWithUndefined =
+    workSeriesBundleAssignment?.workSeriesSchemaBundleId === undefined;
+  const schemaBundle = replaceWithUndefined ? undefined : schemaBundleFromStore;
 
   const [localTotal, setLocalTotal] = useState(0);
 
@@ -75,10 +80,10 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   useEffect(() => {
     let sum: number;
 
-    sum = sumAllSchemas([...schemaMap.values()]);
+    sum = replaceWithUndefined ? 0 : sumAllSchemas([...schemaMap.values()]);
     setLocalTotal(sum);
     dispatchWithoutListen(sum);
-  }, [setLocalTotal, schemaMap, dispatchWithoutListen]);
+  }, [setLocalTotal, schemaMap, dispatchWithoutListen, replaceWithUndefined]);
 
   const inheritedTotal = useMemo(() => {
     return [...currentState.values()].reduce(

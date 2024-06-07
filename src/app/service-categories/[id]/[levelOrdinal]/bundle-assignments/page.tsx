@@ -58,7 +58,7 @@ export default async function Page({
     <ForceGraphPage
       dataNodes={dataNodes}
       dataLinks={dataLinks}
-      graphName={'test-graph'}
+      graphName={'bundle-assignments-graph'}
       options={defaultForceGraphPageOptions}
     >
       <EditAddDeleteDtoControllerArray
@@ -73,7 +73,9 @@ export default async function Page({
       />
 
       <ReactFlowWrapper>
-        <ClassHierarchyLayoutFlowWithForces></ClassHierarchyLayoutFlowWithForces>
+        <ClassHierarchyLayoutFlowWithForces
+          typeData={orgType}
+        ></ClassHierarchyLayoutFlowWithForces>
       </ReactFlowWrapper>
     </ForceGraphPage>
   );

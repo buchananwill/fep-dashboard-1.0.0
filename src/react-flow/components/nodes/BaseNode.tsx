@@ -88,7 +88,7 @@ export function BaseNode<T extends HasNumberId>({
   }, [data, toggleDetailsModal, sendNodeData]);
 
   const deleteNode = useCallback(() => {
-    memoizedDeleteNodes([`${data.id}`]);
+    memoizedDeleteNodes([`${data.id}`]); // converting the data id to a string to match the DataNode id.
   }, [memoizedDeleteNodes, data.id]);
 
   const addChild = useCallback(

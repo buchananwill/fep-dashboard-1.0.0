@@ -26,27 +26,14 @@ const LessonCycleSchema = z.object({
   ...HasNameDtoSchema.shape,
   ...HasUuidDtoSchema.shape
 });
-//
-// export interface GraphDto<T extends HasNumberIdDto> {
-//   nodes: DataNode<T>[];
-//   closureDtos: ClosureDto[];
-// }
-//
-// export interface GraphDtoPutRequestBody<T extends HasNumberIdDto> {
-//   graphDto: GraphDto<T>;
-//   deletedNodeIdList: number[];
-//   deletedClosureIdList: number[];
-// }
-//
-// export type DataNode<T extends HasNumberIdDto> = SimulationNodeDatum & {
-//   id: number;
-//   distanceFromRoot: number;
-//   data: T;
-// };
-// export type DataLink<T extends HasNumberIdDto> = SimulationLinkDatum<
-//   DataNode<T>
-// > &
-//   ClosureDto;
+
+export function createDataNodeDtoSchema<T extends z.ZodTypeAny>(dataSchema: T) {
+  return z.object({
+    id: z.number(),
+    distanceFromRoot: z.number(),
+    data: dataSchema // Use the passed schema here
+  });
+}
 
 export { LessonCycleSchema };
 

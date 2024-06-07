@@ -33,6 +33,7 @@ export function getGraphUpdaterWithNameDeDuplication<
       nodes: nodesWithDataNamesDeDuplicated
     };
     const safeRequest = { ...request, graphDto: safeGraph };
+    console.log(safeRequest);
     return putUpdatedGraph(safeRequest);
   };
 }
