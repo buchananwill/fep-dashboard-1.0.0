@@ -22,10 +22,25 @@ import { isNotUndefined } from '@/api/main';
 const produceBundle = (
   updatedKeys: string[],
   bundle: WorkSeriesSchemaBundleDto
-) => ({
-  ...bundle,
-  workProjectSeriesSchemaIds: updatedKeys
-});
+): WorkSeriesSchemaBundleDto => {
+  const updatedKeySet = new Set(updatedKeys);
+  const idSet = new Set<string>();
+  const updatedItems = [];
+  for (let workSeriesBundleItem of bundle.workSeriesBundleItems) {
+    if (
+      updatedKeySet.has(workSeriesBundleItem.workProjectSeriesSchemaId) &&
+      !idSet.has(workSeriesBundleItem.workProjectSeriesSchemaId)
+    ) {
+      updatedItems.push(workSeriesBundleItem);
+      idSet.add(workSeriesBundleItem.workProjectSeriesSchemaId);
+    }
+  }
+  return {
+    ...bundle,
+    workProjectSeriesSchemaIds: updatedKeys,
+    workSeriesBundleItems: updatedItems
+  };
+};
 
 export default function BundleItemChooser({
   collectionId,
@@ -55,6 +70,7 @@ export default function BundleItemChooser({
         schemaMap.get(`${EntityClassMap.workProjectSeriesSchema}:${id}`)
       )
       .filter(isNotUndefined);
+    console.log(workProjectSeriesSchemaDtos);
     return sumAllSchemas(workProjectSeriesSchemaDtos);
   }, [entity, schemaMap]);
 
