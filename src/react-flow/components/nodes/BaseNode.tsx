@@ -1,15 +1,7 @@
-import {
-  ArrowDownOnSquareStackIcon,
-  MinusCircleIcon,
-  PlusCircleIcon
-} from '@heroicons/react/24/outline';
-import { Button } from '@nextui-org/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-
+'use client';
 import { Handle, NodeProps, Position } from 'reactflow';
 
 import { usePopoverFix } from '@/react-flow/hooks/usePopoverFix';
-import { TrashIcon } from '@heroicons/react/16/solid';
 import {
   AddNodesParams,
   GraphSelectiveContextKeys,
@@ -20,9 +12,9 @@ import {
   useGraphDispatch,
   useGraphListener
 } from 'react-d3-force-wrapper';
-import React, { useCallback } from 'react';
-import { cloneFunctionWrapper } from '@/components/react-flow/organization/organizationCallbacks';
+import React, { useCallback, useMemo } from 'react';
 import { HasNumberId } from '@/api/main';
+import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -84,6 +76,30 @@ export function BaseNode<T extends HasNumberId>({
     });
   }, [memoizedFunction, id]);
 
+  const anyPopoverOpen = fixAddProps.isOpen || fixDeleteProps.isOpen;
+
+  const popoverPos = useMemo(() => {
+    return anyPopoverOpen ? [xPos, yPos] : PopoverDefaultPos;
+  }, [xPos, yPos, anyPopoverOpen]);
+
+  const openDetailsModal = useCallback(() => {
+    sendNodeData(structuredClone(data));
+    toggleDetailsModal((isOpen: boolean) => !isOpen);
+  }, [data, toggleDetailsModal, sendNodeData]);
+
+  const deleteNode = useCallback(() => {
+    memoizedDeleteNodes([`${data.id}`]);
+  }, [memoizedDeleteNodes, data.id]);
+
+  const addChild = useCallback(
+    () =>
+      memoizedFunction({
+        sourceNodeIdList: [`${data.id}`],
+        relation: 'child'
+      }),
+    [memoizedFunction, data.id]
+  );
+
   return (
     <>
       <Handle
@@ -93,79 +109,16 @@ export function BaseNode<T extends HasNumberId>({
         isConnectable={isConnectable}
       />
       <div className={className} style={style}>
-        <div className={'flex items-center justify-between gap-2'}>
-          {labelAccessor([data, type])}
-          <Popover
-            {...fixAddProps}
-            placement={'right'}
-            triggerScaleOnOpen
-            updatePositionDeps={[xPos, yPos]}
-            triggerType={'menu'}
-          >
-            <PopoverTrigger>
-              <Button size={'sm'} className={'p-1.5'} isIconOnly>
-                <PlusCircleIcon />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className={'grid grid-cols-1 gap-1'}>
-                <Button isIconOnly className={'p-1.5'} onPress={addSibling}>
-                  <ArrowDownOnSquareStackIcon className={'-rotate-90'} />
-                </Button>
-                <Button
-                  isIconOnly
-                  className={'p-1.5'}
-                  onPress={() =>
-                    memoizedFunction({
-                      sourceNodeIdList: [`${data.id}`],
-                      relation: 'child'
-                    })
-                  }
-                >
-                  <ArrowDownOnSquareStackIcon />
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div className={' flex gap-1'}>
-          <Button
-            size={'sm'}
-            className={'grow'}
-            onPress={() => {
-              sendNodeData(structuredClone(data));
-              toggleDetailsModal((isOpen: boolean) => !isOpen);
-            }}
-          >
-            Details
-          </Button>
-          <Popover
-            {...fixDeleteProps}
-            placement={'right'}
-            triggerScaleOnOpen
-            updatePositionDeps={[xPos, yPos]}
-            triggerType={'menu'}
-          >
-            <PopoverTrigger>
-              <Button size={'sm'} className={'p-1.5'} isIconOnly>
-                <MinusCircleIcon />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <div className={'grid grid-cols-1 gap-1'}>
-                <Button
-                  isIconOnly
-                  className={'p-2'}
-                  onPress={() => {
-                    memoizedDeleteNodes([`${data.id}`]);
-                  }}
-                >
-                  <TrashIcon />
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
+        <EditClusterMemo
+          addChild={addChild}
+          addSibling={addSibling}
+          label={labelAccessor([data, type])}
+          openDetailsModal={openDetailsModal}
+          deleteNode={deleteNode}
+          fixDeleteProps={fixDeleteProps}
+          fixAddProps={fixAddProps}
+          popoverPos={popoverPos}
+        />
         {children}
       </div>
       <Handle
@@ -179,3 +132,7 @@ export function BaseNode<T extends HasNumberId>({
 }
 
 export const BaseNodeMemo = React.memo(BaseNode);
+
+const EditClusterMemo = React.memo(NodeGraphEditCluster);
+
+export const PopoverDefaultPos = [0, 0];

@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
-import { useEscapeToClose } from "@/react-flow/hooks/useEscapeToClose";
+import { useMemo, useState } from 'react';
+import { useEscapeToClose } from '@/react-flow/hooks/useEscapeToClose';
 
-export function usePopoverFix() {
+export function usePopoverFix(): UsePopoverFixReturn {
   const [popoverVisible, setPopoverVisible] = useState(false);
 
   const shouldCloseOnInteractOutside = useMemo(() => {
@@ -13,10 +13,22 @@ export function usePopoverFix() {
 
   useEscapeToClose(popoverVisible, setPopoverVisible);
 
-  return {
-    isOpen: popoverVisible,
-    onOpenChange: setPopoverVisible,
-    isKeyboardDismissDisabled: false,
-    shouldCloseOnInteractOutside,
+  return useMemo(
+    () => ({
+      isOpen: popoverVisible,
+      onOpenChange: setPopoverVisible,
+      isKeyboardDismissDisabled: false,
+      shouldCloseOnInteractOutside
+    }),
+    [popoverVisible, setPopoverVisible, shouldCloseOnInteractOutside]
+  );
+}
+
+export interface UsePopoverFixReturn {
+  isKeyboardDismissDisabled: boolean;
+  isOpen: boolean;
+  onOpenChange: {
+    (value: false | true | { (prevState: boolean): boolean }): void;
   };
+  shouldCloseOnInteractOutside: () => boolean;
 }
