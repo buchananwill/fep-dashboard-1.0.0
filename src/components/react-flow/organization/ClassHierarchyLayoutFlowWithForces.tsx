@@ -1,6 +1,6 @@
 'use client';
 
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { memo, PropsWithChildren, useMemo } from 'react';
 import ReactFlow, { Background, BackgroundVariant } from 'reactflow';
 
 import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
@@ -19,7 +19,7 @@ import {
   useNodeEditing
 } from 'react-d3-force-wrapper';
 import { AllocationTotal } from '@/components/react-flow/organization/allocationTotal';
-import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNodeLazyReferences';
+import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNode';
 import {
   EditAddDeleteDtoControllerArray,
   NamespacedHooks,
@@ -82,9 +82,11 @@ export function ClassHierarchyLayoutFlowWithForces({
   );
 }
 
+const NodeMemo = memo(OrganizationNode);
+
 // 1. Define the node types and their components
 const nodeTypes = {
-  organization: OrganizationNode
+  organization: NodeMemo
 };
 
 // 2. Define the Edge types and their components

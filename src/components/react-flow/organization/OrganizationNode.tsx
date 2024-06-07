@@ -1,6 +1,6 @@
 import { Edge, NodeProps, useEdges } from 'reactflow';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import { BaseNode } from '@/react-flow/components/nodes/BaseNode';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
@@ -19,6 +19,7 @@ import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDt
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { useLazyDtoListListener, useLazyDtoStore } from 'dto-stores';
 import { AllocationSummary } from '@/components/react-flow/organization/allocationSummary';
+import NodeBundleSummaries from '@/components/react-flow/organization/NodeBundleSummaries';
 
 const initialTotalMap = new Map<string, number>();
 
@@ -103,24 +104,12 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
         dragging ? 'opacity-50' : ''
       )}
     >
-      <ul>
-        {summaries.map(({ label, amount }) => (
-          <li key={label} className={'flex justify-between'}>
-            {label}:{' '}
-            <Chip
-              classNames={{ base: 'h-5' }}
-              color={amount === 0 ? 'default' : 'primary'}
-            >
-              {amount}
-            </Chip>
-          </li>
-        ))}
-      </ul>
+      <NodeBundleSummariesMemo summaries={summaries} />
     </BaseNode>
   );
 }
 
-// export default React.memo(OrganizationNode);
+const NodeBundleSummariesMemo = memo(NodeBundleSummaries);
 
 function getEdgesToParents(edges: Edge[], childId: string) {
   return edges.filter((e) => {
