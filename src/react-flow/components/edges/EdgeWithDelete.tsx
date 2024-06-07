@@ -2,7 +2,8 @@ import {
   BaseEdge,
   EdgeLabelRenderer,
   EdgeProps,
-  getBezierPath
+  getBezierPath,
+  getStraightPath
 } from 'reactflow';
 
 import { TrashIcon } from '@heroicons/react/16/solid';
@@ -28,7 +29,14 @@ export function EdgeWithDelete({
     undefinedDeleteLinks as MemoizedFunction<string[], void>
   );
 
-  const [path, labelX, labelY] = getBezierPath({
+  // const [path, labelX, labelY] = getBezierPath({
+  //   sourceX,
+  //   sourceY,
+  //
+  //   targetX,
+  //   targetY
+  // });
+  const [path, labelX, labelY] = getStraightPath({
     sourceX,
     sourceY,
 

@@ -24,6 +24,7 @@ import {
   EditAddDeleteDtoControllerArray
 } from 'dto-stores';
 import { parseTen } from '@/api/date-and-time';
+import { getGraph } from '@/api/generated-actions/WorkTaskType';
 
 export default async function Page({
   params: { levelOrdinal }
@@ -38,11 +39,14 @@ export default async function Page({
     { knowledgeLevel: { levelOrdinal: parseTen(levelOrdinal) } }
   ]);
 
-  const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
-    constructUrl(
-      `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
-    )
-  );
+  // const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
+  //   constructUrl(
+  //     `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
+  //   )
+  // );
+
+  const classGraph = await getGraph();
+
   const dataNodes = convertDataNodeDtoListToFlowNodeList<OrganizationDto>(
     classGraph.nodes
   );

@@ -33,9 +33,9 @@ export function ClassHierarchyLayoutFlowWithForces({
   // 4. Call the hook to set up the layout with forces
   const { flowOverlayProps, reactFlowProps } = useLayoutFlowWithForces();
 
-  // Set up the available edit hooks.
-  useNodeEditing(cloneFunctionWrapper, organizationGraphUpdater);
-  useAllEdits();
+  // // Set up the available edit hooks.
+  // useNodeEditing(cloneFunctionWrapper, organizationGraphUpdater);
+  // useAllEdits();
 
   const { nodes } = reactFlowProps;
 

@@ -31,68 +31,68 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   );
   const edges = useEdges();
 
-  const ancestorNodeAllocationKeyList = useMemo(() => {
-    const localEdges = getEdgesToParents(edges, nodeProps.id);
-
-    let allEdges = [...localEdges];
-
-    let nextTier = [...localEdges];
-    while (nextTier.length > 0) {
-      const currentTier = [...nextTier];
-      nextTier = [];
-      for (let localEdge of currentTier) {
-        const edgesToParents = getEdgesToParents(edges, localEdge.source);
-        nextTier = [...nextTier, ...edgesToParents];
-        allEdges = [...allEdges, ...edgesToParents];
-      }
-    }
-    const setOfParentIds = new Set(allEdges.map((e) => e.source));
-    return [...setOfParentIds].map((id) => `allocationTotal:${id}`);
-  }, [edges, nodeProps.id]);
-  const { currentState } = useGlobalListenerGroup({
-    contextKeys: ancestorNodeAllocationKeyList,
-    listenerKey: `${data.id}`,
-    initialValue: initialTotalMap
-  });
-
-  const { workSeriesBundleAssignment } = data;
-  const { entity: schemaBundle } = useLazyDtoStore<WorkSeriesSchemaBundleDto>(
-    workSeriesBundleAssignment.workSeriesSchemaBundleId,
-    EntityClassMap.workSeriesSchemaBundle,
-    listenerKey
-  );
-
-  const [localTotal, setLocalTotal] = useState(0);
-
-  const { currentState: schemaMap } =
-    useLazyDtoListListener<WorkProjectSeriesSchemaDto>(
-      schemaBundle?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
-      EntityClassMap.workProjectSeriesSchema,
-      listenerKey
-    );
-
-  useEffect(() => {
-    let sum: number;
-
-    sum = sumAllSchemas([...schemaMap.values()]);
-    setLocalTotal(sum);
-    dispatchWithoutListen(sum);
-  }, [setLocalTotal, schemaMap, dispatchWithoutListen]);
-
-  const inheritedTotal = useMemo(() => {
-    return [...currentState.values()].reduce(
-      (prev, curr) => (isNumber(curr) ? prev + curr : prev),
-      0
-    );
-  }, [currentState]);
-
-  const summaries: AllocationSummary[] = useMemo(() => {
-    return [
-      { label: 'Local', amount: localTotal },
-      { label: 'Inherited', amount: inheritedTotal },
-      { label: 'Total', amount: localTotal + inheritedTotal }
-    ];
-  }, [localTotal, inheritedTotal]);
+  // const ancestorNodeAllocationKeyList = useMemo(() => {
+  //   const localEdges = getEdgesToParents(edges, nodeProps.id);
+  //
+  //   let allEdges = [...localEdges];
+  //
+  //   let nextTier = [...localEdges];
+  //   while (nextTier.length > 0) {
+  //     const currentTier = [...nextTier];
+  //     nextTier = [];
+  //     for (let localEdge of currentTier) {
+  //       const edgesToParents = getEdgesToParents(edges, localEdge.source);
+  //       nextTier = [...nextTier, ...edgesToParents];
+  //       allEdges = [...allEdges, ...edgesToParents];
+  //     }
+  //   }
+  //   const setOfParentIds = new Set(allEdges.map((e) => e.source));
+  //   return [...setOfParentIds].map((id) => `allocationTotal:${id}`);
+  // }, [edges, nodeProps.id]);
+  // const { currentState } = useGlobalListenerGroup({
+  //   contextKeys: ancestorNodeAllocationKeyList,
+  //   listenerKey: `${data.id}`,
+  //   initialValue: initialTotalMap
+  // });
+  //
+  // const { workSeriesBundleAssignment } = data;
+  // const { entity: schemaBundle } = useLazyDtoStore<WorkSeriesSchemaBundleDto>(
+  //   workSeriesBundleAssignment.workSeriesSchemaBundleId,
+  //   EntityClassMap.workSeriesSchemaBundle,
+  //   listenerKey
+  // );
+  //
+  // const [localTotal, setLocalTotal] = useState(0);
+  //
+  // const { currentState: schemaMap } =
+  //   useLazyDtoListListener<WorkProjectSeriesSchemaDto>(
+  //     schemaBundle?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
+  //     EntityClassMap.workProjectSeriesSchema,
+  //     listenerKey
+  //   );
+  //
+  // useEffect(() => {
+  //   let sum: number;
+  //
+  //   sum = sumAllSchemas([...schemaMap.values()]);
+  //   setLocalTotal(sum);
+  //   dispatchWithoutListen(sum);
+  // }, [setLocalTotal, schemaMap, dispatchWithoutListen]);
+  //
+  // const inheritedTotal = useMemo(() => {
+  //   return [...currentState.values()].reduce(
+  //     (prev, curr) => (isNumber(curr) ? prev + curr : prev),
+  //     0
+  //   );
+  // }, [currentState]);
+  //
+  // const summaries: AllocationSummary[] = useMemo(() => {
+  //   return [
+  //     { label: 'Local', amount: localTotal },
+  //     { label: 'Inherited', amount: inheritedTotal },
+  //     { label: 'Total', amount: localTotal + inheritedTotal }
+  //   ];
+  // }, [localTotal, inheritedTotal]);
 
   return (
     <BaseNode
@@ -103,19 +103,19 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
         dragging ? 'opacity-50' : ''
       )}
     >
-      <ul>
-        {summaries.map(({ label, amount }) => (
-          <li key={label} className={'flex justify-between'}>
-            {label}:{' '}
-            <Chip
-              classNames={{ base: 'h-5' }}
-              color={amount === 0 ? 'default' : 'primary'}
-            >
-              {amount}
-            </Chip>
-          </li>
-        ))}
-      </ul>
+      {/*<ul>*/}
+      {/*  {summaries.map(({ label, amount }) => (*/}
+      {/*    <li key={label} className={'flex justify-between'}>*/}
+      {/*      {label}:{' '}*/}
+      {/*      <Chip*/}
+      {/*        classNames={{ base: 'h-5' }}*/}
+      {/*        color={amount === 0 ? 'default' : 'primary'}*/}
+      {/*      >*/}
+      {/*        {amount}*/}
+      {/*      </Chip>*/}
+      {/*    </li>*/}
+      {/*  ))}*/}
+      {/*</ul>*/}
     </BaseNode>
   );
 }
