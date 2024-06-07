@@ -6,6 +6,7 @@ import KnowledgeDomainRoleRow, {
 } from '@/app/service-categories/[id]/roles/create/_components/KnowledgeDomainRoleRow';
 import { getOne } from '@/api/generated-actions/ServiceCategory';
 import { knowledgeDomainRowActionMapper } from '@/app/service-categories/[id]/roles/create/knowledgeDomainRowActionMapper';
+import { sortEntityListOnStringProperty } from '@/functions/sortEntityListOnStringProperty';
 
 export default async function page({
   params: { id }
@@ -17,7 +18,11 @@ export default async function page({
   const knowledgeDomains = await getDtoListByExampleList([
     { serviceCategoryId: serviceCategoryId }
   ]);
-  const rowStateInitial = knowledgeDomains.map((kd) => ({
+  const rowStateInitial = sortEntityListOnStringProperty(
+    knowledgeDomains,
+    'name',
+    'asc'
+  ).map((kd) => ({
     id: kd.id,
     knowledgeDomain: kd,
     providerRoleCount: 0,
