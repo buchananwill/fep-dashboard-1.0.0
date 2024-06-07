@@ -39,14 +39,11 @@ export default async function Page({
     { knowledgeLevel: { levelOrdinal: parseTen(levelOrdinal) } }
   ]);
 
-  // const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
-  //   constructUrl(
-  //     `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
-  //   )
-  // );
-
-  const classGraph = await getGraph();
-
+  const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
+    constructUrl(
+      `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
+    )
+  );
   const dataNodes = convertDataNodeDtoListToFlowNodeList<OrganizationDto>(
     classGraph.nodes
   );

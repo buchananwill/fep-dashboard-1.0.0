@@ -16,8 +16,6 @@ export const draggingNodeKey = 'dragging-node';
 
 const listenerKey = 'use-layouted-elements';
 
-const UpdateTimeoutConstant = 5000;
-
 export function useForces(): [
   boolean,
   (() => void) | undefined,
@@ -69,10 +67,6 @@ export function useForces(): [
       Object.assign(nodeListRef.current[i], nodes[i]);
     }
 
-    let elapsedSinceUpdate = 0;
-    let lastUpdate = Date.now();
-    let nodeUpdate = nodeListRef.current;
-
     // The tick function is called every animation frame while the simulation is
     // running and progresses the simulation one step forward each time.
     const tick = async () => {
@@ -100,28 +94,22 @@ export function useForces(): [
         }
       }
 
-      elapsedSinceUpdate = Date.now() - lastUpdate;
-
-      if (elapsedSinceUpdate > UpdateTimeoutConstant) {
-        nodeUpdate = nodeListRef.current.map((node) => ({ ...node }));
-        setNodes(
-          scopedNodes.map(
-            (node) =>
-              ({
-                ...node,
-                position: { x: node.fx ?? node.x, y: node.fy ?? node.y }
-              }) as FlowNode<any>
-          )
-        );
-        lastUpdate = Date.now();
-      }
-
       simulation.tick();
+
+      setNodes(
+        scopedNodes.map(
+          (node) =>
+            ({
+              ...node,
+              position: { x: node.fx ?? node.x, y: node.fy ?? node.y }
+            }) as FlowNode<any>
+        )
+      );
 
       window.requestAnimationFrame(async () => {
         // Give React and React Flow a chance to update and render the new node
         // positions before we fit the viewport to the new layout.
-        // fitView();
+        fitView();
 
         // If the simulation hasn't been stopped, schedule another tick.
         if (running) await tick();
