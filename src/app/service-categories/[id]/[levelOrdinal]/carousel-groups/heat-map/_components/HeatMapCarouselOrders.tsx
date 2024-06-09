@@ -1,10 +1,14 @@
 'use client';
 // install (please try to align the version of installed @nivo packages)
 // yarn add @nivo/heatmap
-import { HeatMapSerie, ResponsiveHeatMap } from '@nivo/heatmap';
+import {
+  HeatMapSerie,
+  ResponsiveHeatMap,
+  ResponsiveHeatMapCanvas
+} from '@nivo/heatmap';
 import { AnchoredContinuousColorsLegendProps } from '@nivo/legends/dist/types/types';
 import { ContinuousColorScaleConfig } from '@nivo/colors';
-import { AxisProps } from '@nivo/axes/dist/types/types';
+import { AxisProps, CanvasAxisProps } from '@nivo/axes/dist/types/types';
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
@@ -35,7 +39,7 @@ const legends: Omit<
 const colors = {
   type: 'diverging',
   scheme: 'blue_green',
-  divergeAt: 0.5,
+  divergeAt: 0.4,
   minValue: 0,
   maxValue: 60
 };
@@ -44,8 +48,8 @@ const axisLeft = {
   tickPadding: 5,
   tickRotation: 0,
   legend: 'Subject',
-  legendPosition: 'middle',
-  legendOffset: -72,
+  legendPosition: 'start',
+  legendOffset: -100,
   truncateTickAt: 0
 };
 const axisRight: AxisProps = {
@@ -68,7 +72,7 @@ const axisTop = {
 
 const theme = {
   text: {
-    fontSize: 12
+    fontSize: 14
   }
 };
 const margin = { top: 60, right: 0, bottom: 60, left: 130 };
@@ -78,13 +82,15 @@ export default function HeatMapCarouselOrders({
   data: HeatMapDataSeries[];
 }) {
   return (
-    <ResponsiveHeatMap
+    <ResponsiveHeatMapCanvas
       data={data}
+      // enableLabels={false}
       margin={margin}
       axisTop={axisTop}
+      pixelRatio={2}
       theme={theme}
       // axisRight={axisRight as AxisProps}
-      axisLeft={axisLeft as AxisProps}
+      axisLeft={axisLeft as CanvasAxisProps}
       colors={colors as ContinuousColorScaleConfig}
       emptyColor="#555555"
       legends={legends}
