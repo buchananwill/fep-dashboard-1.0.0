@@ -9,6 +9,7 @@ import {
 import { AnchoredContinuousColorsLegendProps } from '@nivo/legends/dist/types/types';
 import { ContinuousColorScaleConfig } from '@nivo/colors';
 import { AxisProps, CanvasAxisProps } from '@nivo/axes/dist/types/types';
+import { Theme } from '@nivo/core';
 
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
@@ -27,7 +28,7 @@ const legends: Omit<
     thickness: 8,
     direction: 'row',
     tickPosition: 'after',
-    tickSize: 3,
+    tickSize: 5,
     tickSpacing: 4,
     tickOverlap: false,
     tickFormat: '>-.2s',
@@ -43,36 +44,51 @@ const colors = {
   minValue: 0,
   maxValue: 60
 };
-const axisLeft = {
-  tickSize: 0,
-  tickPadding: 5,
-  tickRotation: 0,
-  legend: 'Subject',
-  legendPosition: 'start',
-  legendOffset: -100,
-  truncateTickAt: 0
-};
-const axisRight: AxisProps = {
-  tickSize: 0,
-  tickPadding: 5,
-  tickRotation: 0,
-  legend: 'Subject',
-  legendPosition: 'start',
-  legendOffset: 120,
-  truncateTickAt: 0
-};
-const axisTop = {
+const axisLeft: CanvasAxisProps = {
   tickSize: 5,
+  tickPadding: 8,
+  tickRotation: 0,
+  legendOffset: -100,
+  truncateTickAt: 10,
+  ticksPosition: 'after'
+};
+
+const axisTop = {
+  legend: 'Subject',
+  legendPosition: 'start',
+  tickSize: 4,
   tickPadding: 5,
   tickRotation: -90,
-  legend: '',
-  legendOffset: 46,
+  legendOffset: -80,
   truncateTickAt: 0
 };
 
-const theme = {
-  text: {
-    fontSize: 14
+const theme: Theme = {
+  labels: {
+    text: {
+      fontSize: 12,
+      fontFamily: 'monospace',
+      fontWeight: 'bold',
+      textRendering: 'optimizeLegibility',
+      fontSmooth: 'never'
+    }
+  },
+  axis: {
+    legend: {
+      text: {
+        fontWeight: 'bold',
+        fontSize: 16
+      }
+    },
+    ticks: {
+      text: {
+        fontSize: 16,
+        fontFamily: 'Calibri, Helvetica, Arial, sans-serif'
+      },
+      line: {
+        stroke: 'none'
+      }
+    }
   }
 };
 const margin = { top: 120, right: 0, bottom: 60, left: 130 };
@@ -86,10 +102,9 @@ export default function HeatMapCarouselOrders({
       data={data}
       // enableLabels={false}
       margin={margin}
-      axisTop={axisTop}
-      pixelRatio={2}
+      axisTop={axisTop as CanvasAxisProps}
+      pixelRatio={2.5}
       theme={theme}
-      // axisRight={axisRight as AxisProps}
       axisLeft={axisLeft as CanvasAxisProps}
       colors={colors as ContinuousColorScaleConfig}
       emptyColor="#555555"

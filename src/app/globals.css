@@ -16,6 +16,12 @@
     will-change: auto !important;
 }
 
+canvas {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+
 @keyframes bounce-less {
     0%, 100% {
         transform: none;
