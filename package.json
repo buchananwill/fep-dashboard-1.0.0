@@ -47,7 +47,8 @@
     "arrowParens": "always",
     "singleQuote": true,
     "tabWidth": 2,
-    "trailingComma": "none"
+    "trailingComma": "none",
+    "plugins": ["prettier-plugin-tailwindcss"]
   },
   "devDependencies": {
     "@nivo/axes": "^0.87.0",

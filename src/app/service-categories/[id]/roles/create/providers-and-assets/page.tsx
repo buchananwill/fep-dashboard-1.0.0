@@ -3,9 +3,9 @@ import { getDtoListByExampleList } from '@/api/generated-actions/KnowledgeDomain
 import { DtoUiListAll, EditAddDeleteDtoControllerArray } from 'dto-stores';
 import KnowledgeDomainRoleRow, {
   knowledgeDomainRoleRow
-} from '@/app/service-categories/[id]/roles/create/_components/KnowledgeDomainRoleRow';
+} from '@/app/service-categories/[id]/roles/create/providers-and-assets/_components/KnowledgeDomainRoleRow';
 import { getOne } from '@/api/generated-actions/ServiceCategory';
-import { knowledgeDomainRowActionMapper } from '@/app/service-categories/[id]/roles/create/knowledgeDomainRowActionMapper';
+import { knowledgeDomainRowActionMapper } from '@/app/service-categories/[id]/roles/create/providers-and-assets/knowledgeDomainRowActionMapper';
 import { sortEntityListOnStringProperty } from '@/functions/sortEntityListOnStringProperty';
 
 export default async function page({

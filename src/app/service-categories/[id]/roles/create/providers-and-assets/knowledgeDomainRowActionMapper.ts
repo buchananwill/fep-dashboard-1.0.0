@@ -1,5 +1,5 @@
 'use server';
-import { KnowledgeDomainRoleRowInterface } from '@/app/service-categories/[id]/roles/create/_components/KnowledgeDomainRoleRow';
+import { KnowledgeDomainRoleRowInterface } from '@/app/service-categories/[id]/roles/create/providers-and-assets/_components/KnowledgeDomainRoleRow';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 
 import { BASE_URL } from '@/api/literals';

@@ -20,6 +20,9 @@ export type BaseDtoStoreNumberInputProps<T extends HasId> = Omit<
   numberKey: NumberPropertyKey<T>;
 } & Partial<Pick<BaseDtoUiProps<T>, 'dispatchDeletion' | 'deleted'>>;
 
+export type MergedDtoStoreNumberInputProps<T extends HasId> =
+  BaseDtoStoreNumberInputProps<T> & BaseLazyDtoUiProps<T>;
+
 export function DtoStoreNumberInput<T extends HasId>({
   entity,
   numberKey,
@@ -29,7 +32,7 @@ export function DtoStoreNumberInput<T extends HasId>({
   dispatchDeletion,
   deleted,
   ...inputProps
-}: BaseDtoStoreNumberInputProps<T> & BaseLazyDtoUiProps<T>) {
+}: MergedDtoStoreNumberInputProps<T>) {
   const update = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       if (dispatchWithoutControl === undefined) {
