@@ -11,10 +11,17 @@ export function handleAddAssignee(
   if (carouselOrderItem.carouselOptionId === undefined) return;
 
   dispatchWriteAny(carouselOrderItem.carouselOptionId, (state) => {
-    if (state === undefined) return state;
+    if (state === undefined) {
+      return state;
+    }
 
     return produce(state, (draft) => {
-      draft.carouselOrderAssignees.push(carouselOrderItem.carouselOrderId);
+      if (
+        !state.carouselOrderAssignees.includes(
+          carouselOrderItem.carouselOrderId
+        )
+      )
+        draft.carouselOrderAssignees.push(carouselOrderItem.carouselOrderId);
     });
   });
 }

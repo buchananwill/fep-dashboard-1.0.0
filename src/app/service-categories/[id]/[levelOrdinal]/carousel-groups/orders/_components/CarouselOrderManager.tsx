@@ -2,20 +2,27 @@
 import {
   BaseLazyDtoUiProps,
   Identifier,
+  InitialMap,
   KEY_TYPES,
+  NamespacedHooks,
+  useReadAnyDto,
   useWriteAnyDto
 } from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
-import { SetStateAction, useEffect, useRef } from 'react';
+import { SetStateAction, useEffect, useMemo, useRef } from 'react';
 import { useGlobalReadAny } from 'selective-context';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { performDiffOnCarouselOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import { checkForClash } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/checkForClash';
+import { EmptyArray } from '@/api/literals';
 
 export interface WriteAnyDto<T> {
   (entityId: Identifier, proposedUpdate: SetStateAction<T>): void;
+}
+export interface ReadAnyDto<T> {
+  (entityId: Identifier): T | undefined;
 }
 
 export default function CarouselOrderManager({
@@ -26,18 +33,44 @@ export default function CarouselOrderManager({
   const readAny = useGlobalReadAny<
     Map<string, CarouselOptionDto> | undefined
   >();
+  const readAnyCarouselOption =
+    useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
+  const { currentState: subscribedList } = NamespacedHooks.useListen(
+    CarouselOptionState,
+    KEY_TYPES.ID_LIST,
+    entity.id,
+    EmptyArray as number[]
+  );
+
+  const optionMapMemo = useMemo(() => {
+    return subscribedList.map((id) => readAnyCarouselOption(id));
+  }, [subscribedList, readAnyCarouselOption]);
+
   optionMap.current =
     readAny(`${CarouselOptionState}:${KEY_TYPES.MASTER_MAP}`) ??
     optionMap.current;
 
   const dispatchWriteAny =
     useWriteAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
+  const readAnyOption =
+    useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
 
   useEffect(() => {
+    console.log('running diffing effect hook.');
     Object.values(entity.carouselOrderItems).forEach((item) =>
-      performDiffOnCarouselOrderItem(orderItems, item, dispatchWriteAny)
+      performDiffOnCarouselOrderItem(
+        orderItems,
+        item,
+        dispatchWriteAny,
+        readAnyOption
+      )
     );
-  }, [dispatchWriteAny, entity.carouselOrderItems]);
+  }, [
+    entity.carouselOrderItems,
+    subscribedList,
+    dispatchWriteAny,
+    readAnyOption
+  ]);
 
   useEffect(() => {
     const clashes = checkForClash(entity.carouselOrderItems, optionMap.current);
@@ -63,7 +96,7 @@ export default function CarouselOrderManager({
         });
       });
     };
-  }, [optionMap, entity.carouselOrderItems, dispatchWriteAny]);
+  }, [optionMap, entity.carouselOrderItems, dispatchWriteAny, subscribedList]);
 
   return null;
 }

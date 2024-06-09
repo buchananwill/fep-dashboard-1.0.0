@@ -1,9 +1,13 @@
-import { BaseLazyDtoUiProps } from 'dto-stores';
+import {
+  BaseLazyDtoUiProps,
+  NamespacedHooks,
+  useDtoStoreDispatch
+} from 'dto-stores';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import CarouselOption, {
   CarouselOptionState
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
@@ -16,6 +20,8 @@ import {
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { checkOptionCanPrime } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/checkOptionCanPrime';
 import { EmptyArray } from '@/api/literals';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { transformOptionForClientState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/transformOptionForClientState';
 
 function sortCarouselOptionState(
   option1: CarouselOptionStateInterface,
@@ -35,6 +41,26 @@ function sortCarouselOptionState(
 }
 
 export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
+  const initialEntity = useRef(entity);
+  const dispatchOptionMasterList = NamespacedHooks.useDispatch<
+    CarouselOptionStateInterface[]
+  >(CarouselOptionState, KEY_TYPES.MASTER_LIST);
+
+  useEffect(() => {
+    if (entity !== initialEntity.current) {
+      dispatchOptionMasterList((list) => {
+        const optionStates = transformOptionForClientState([entity]);
+        return [...list, ...optionStates];
+      });
+      initialEntity.current = entity;
+    }
+    return () => {
+      dispatchOptionMasterList((list) => {
+        return list.filter((option) => option.carouselId !== entity.id);
+      });
+    };
+  }, [dispatchOptionMasterList, entity]);
+
   const listenerKey = useUuidListenerKey();
   const optionContextKeyList = useMemo(() => {
     console.log('rendering option state key list.');

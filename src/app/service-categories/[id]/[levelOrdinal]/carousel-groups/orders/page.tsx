@@ -43,8 +43,6 @@ export default async function page({
   const carouselDtoList = await getCarouselByList(carouselIdList);
   const optionStateList = transformOptionForClientState(carouselDtoList);
 
-  console.log(carouselOrderList);
-
   return (
     <>
       <RotationConnectionOverlay />
@@ -74,6 +72,7 @@ export default async function page({
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.carouselOrder}
         dtoList={carouselOrderList}
+        mergeInitialWithProp={true}
         updateServerAction={putList}
       />
       <CarouselGroup

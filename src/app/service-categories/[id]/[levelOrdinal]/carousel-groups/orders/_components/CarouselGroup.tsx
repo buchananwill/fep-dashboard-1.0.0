@@ -69,24 +69,16 @@ export default function CarouselGroup(params: DtoStoreParams) {
     EntityClassMap.carouselOrder,
     KEY_TYPES.MASTER_LIST
   );
-  const dispatchCarouselOptions = NamespacedHooks.useDispatch(
-    CarouselOptionState,
-    KEY_TYPES.MASTER_LIST
-  );
   const dispatchCarousels = NamespacedHooks.useDispatch(
     EntityClassMap.carousel,
     KEY_TYPES.MASTER_LIST
   );
   const writeAnyCarousel = useWriteAnyDto<CarouselDto>(EntityClassMap.carousel);
-  const writeAnyOrder = useWriteAnyDto<CarouselOrderDto>(
+  const writeAnyOrder = useWriteAnyDto<CarouselOrderDto | string[]>(
     EntityClassMap.carouselOrder
   );
-  const writeAnyOption =
-    useWriteAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
 
   const [isPending, startTransition] = useTransition();
-  const appRouterInstance = useRouter();
-  const pathname = usePathname();
 
   // TODO: Remove this when finished debugging.
   const mutableRefObject = useContext(
@@ -103,32 +95,28 @@ export default function CarouselGroup(params: DtoStoreParams) {
 
   const handleReset = useCallback(async () => {
     startTransition(async () =>
-      resetAssignmentsAction({ id: entity?.id ?? '' }).then(async (r) => {
-        const carouselDtoList = await getCarouselByList(
-          entity.carousels.map((ar) => ar.id)
-        );
-        const carouselGroup = await getOne(entity?.id);
-        const optionStateList = transformOptionForClientState(carouselDtoList);
-        dispatchWithoutControl(carouselGroup);
-        dispatchCarouselOptions(optionStateList);
-        dispatchCarousels(carouselDtoList);
-        carouselDtoList.forEach((carousel) =>
-          writeAnyCarousel(carousel.id, carousel)
-        );
-        r.forEach((order) => writeAnyOrder(order.id, order));
-        // optionStateList.forEach((option) => writeAnyOption(option.id, option));
-        console.log(optionStateList, carouselDtoList, r);
-        dispatchCarouselOrders(r);
-      })
+      resetAssignmentsAction({ id: entity?.id ?? '' })
+        .then(async (r) => {
+          const carouselDtoList = await getCarouselByList(
+            entity.carousels.map((ar) => ar.id)
+          );
+          dispatchCarousels(carouselDtoList);
+          carouselDtoList.forEach((carousel) =>
+            writeAnyCarousel(carousel.id, carousel)
+          );
+          dispatchCarouselOrders(r);
+          return r;
+        })
+        .then((r) => {
+          r.forEach((order) => writeAnyOrder(order.id, order));
+        })
+        .then(() => writeAnyOrder('changes', []))
     );
   }, [
     writeAnyCarousel,
-    writeAnyOption,
     writeAnyOrder,
-    dispatchWithoutControl,
     entity?.id,
     dispatchCarousels,
-    dispatchCarouselOptions,
     dispatchCarouselOrders,
     entity?.carousels
   ]);
