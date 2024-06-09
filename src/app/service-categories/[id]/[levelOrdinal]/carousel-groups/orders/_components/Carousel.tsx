@@ -37,6 +37,7 @@ function sortCarouselOptionState(
 export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
   const listenerKey = useUuidListenerKey();
   const optionContextKeyList = useMemo(() => {
+    console.log('rendering option state key list.');
     return entity.carouselOptionDtos.map((option) =>
       getEntityNamespaceContextKey(CarouselOptionState, option.id)
     );

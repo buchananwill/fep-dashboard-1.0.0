@@ -2,14 +2,22 @@
 import {
   DtoStoreParams,
   LazyDtoUiListAll,
+  LazyDtoUiListSome,
   NamespacedHooks,
-  useDtoStore
+  useDtoStore,
+  useWriteAnyDto
 } from 'dto-stores';
 import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/Carousel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
-import React, { memo, useCallback, useContext, useTransition } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useContext,
+  useMemo,
+  useTransition
+} from 'react';
 import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 import { useGlobalController } from 'selective-context';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
@@ -26,10 +34,17 @@ import { Button } from '@nextui-org/button';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { useTransform } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { resetAssignmentsAction } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/resetAssignmentsAction';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+import { getDtoListByBodyList as getCarouselByList } from '@/api/generated-actions/Carousel';
+import { transformOptionForClientState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/transformOptionForClientState';
+import { getOne } from '@/api/generated-actions/CarouselGroup';
+import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
+import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
+import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity, dispatchWithoutControl } =
@@ -54,8 +69,24 @@ export default function CarouselGroup(params: DtoStoreParams) {
     EntityClassMap.carouselOrder,
     KEY_TYPES.MASTER_LIST
   );
+  const dispatchCarouselOptions = NamespacedHooks.useDispatch(
+    CarouselOptionState,
+    KEY_TYPES.MASTER_LIST
+  );
+  const dispatchCarousels = NamespacedHooks.useDispatch(
+    EntityClassMap.carousel,
+    KEY_TYPES.MASTER_LIST
+  );
+  const writeAnyCarousel = useWriteAnyDto<CarouselDto>(EntityClassMap.carousel);
+  const writeAnyOrder = useWriteAnyDto<CarouselOrderDto>(
+    EntityClassMap.carouselOrder
+  );
+  const writeAnyOption =
+    useWriteAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
+
   const [isPending, startTransition] = useTransition();
   const appRouterInstance = useRouter();
+  const pathname = usePathname();
 
   // TODO: Remove this when finished debugging.
   const mutableRefObject = useContext(
@@ -66,14 +97,41 @@ export default function CarouselGroup(params: DtoStoreParams) {
   // );
   console.log(mutableRefObject);
 
+  const carouselIdList = useMemo(() => {
+    return entity?.carousels.map((e) => e.id) ?? [];
+  }, [entity?.carousels]);
+
   const handleReset = useCallback(async () => {
-    startTransition(() =>
-      resetAssignmentsAction({ id: entity?.id ?? '' }).then((r) => {
+    startTransition(async () =>
+      resetAssignmentsAction({ id: entity?.id ?? '' }).then(async (r) => {
+        const carouselDtoList = await getCarouselByList(
+          entity.carousels.map((ar) => ar.id)
+        );
+        const carouselGroup = await getOne(entity?.id);
+        const optionStateList = transformOptionForClientState(carouselDtoList);
+        dispatchWithoutControl(carouselGroup);
+        dispatchCarouselOptions(optionStateList);
+        dispatchCarousels(carouselDtoList);
+        carouselDtoList.forEach((carousel) =>
+          writeAnyCarousel(carousel.id, carousel)
+        );
+        r.forEach((order) => writeAnyOrder(order.id, order));
+        // optionStateList.forEach((option) => writeAnyOption(option.id, option));
+        console.log(optionStateList, carouselDtoList, r);
         dispatchCarouselOrders(r);
-        appRouterInstance.refresh();
       })
     );
-  }, [entity?.id, appRouterInstance]);
+  }, [
+    writeAnyCarousel,
+    writeAnyOption,
+    writeAnyOrder,
+    dispatchWithoutControl,
+    entity?.id,
+    dispatchCarousels,
+    dispatchCarouselOptions,
+    dispatchCarouselOrders,
+    entity?.carousels
+  ]);
 
   if (!entity) return null;
 
@@ -100,8 +158,9 @@ export default function CarouselGroup(params: DtoStoreParams) {
             // gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`
           }}
         >
-          <LazyDtoUiListAll
+          <LazyDtoUiListSome
             renderAs={Carousel}
+            entityIdList={carouselIdList}
             entityClass={EntityClassMap.carousel}
             whileLoading={() => null}
           />

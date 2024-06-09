@@ -39,9 +39,8 @@ export default async function page({
     dto.carousels.map((carousel) => carousel.id)
   );
 
-  const carouselDtoList = await getCarouselByList(carouselIdList);
-
   const carouselOrderList = await getDtoListByExampleList(exampleList);
+  const carouselDtoList = await getCarouselByList(carouselIdList);
   const optionStateList = transformOptionForClientState(carouselDtoList);
 
   console.log(carouselOrderList);
