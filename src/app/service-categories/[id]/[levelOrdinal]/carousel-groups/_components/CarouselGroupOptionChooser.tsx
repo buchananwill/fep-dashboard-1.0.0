@@ -1,17 +1,11 @@
 import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
-import {
-  BaseDtoUiProps,
-  DtoUiProps,
-  DtoUiWrapper,
-  useDtoComponent
-} from 'dto-stores';
+import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
 import { useItemChooserMap } from '@/hooks/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/hooks/useListboxSelectionChangeCallback';
 import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
-import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
