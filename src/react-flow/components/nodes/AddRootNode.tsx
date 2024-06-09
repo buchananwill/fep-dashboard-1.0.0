@@ -1,4 +1,3 @@
-import { EmptyArray, HasNumberId } from '@/api/main';
 import {
   AddNodesParams,
   GraphSelectiveContextKeys,
@@ -8,6 +7,8 @@ import {
 } from 'react-d3-force-wrapper';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { Button } from '@nextui-org/button';
+import { HasNumberId } from '@/api/types';
+import { EmptyArray } from '@/api/literals';
 
 export function AddRootNode<T extends HasNumberId>({}: {}) {
   const listenerKey = useUuidListenerKey();

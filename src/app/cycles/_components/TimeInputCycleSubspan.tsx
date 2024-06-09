@@ -2,8 +2,8 @@ import { Time } from '@internationalized/date';
 import { Dispatch, SetStateAction } from 'react';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { TimeSpanDto } from '@/api/dtos/TimeSpanDtoSchema';
-import { TransientIdOffset } from '@/api/main';
 import { TimeInput } from '@nextui-org/date-input';
+import { TransientIdOffset } from '@/api/literals';
 
 export function TimeInputCycleSubspan({
   entity,

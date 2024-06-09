@@ -1,5 +1,4 @@
 import React, { Key } from 'react';
-import { HasId } from '@/api/main';
 import {
   Table,
   TableBody,
@@ -9,6 +8,7 @@ import {
   TableRow
 } from '@nextui-org/table';
 import { TableProps } from '@nextui-org/react';
+import { HasId } from '@/api/types';
 
 export interface ColumnMetaData {
   name: string;

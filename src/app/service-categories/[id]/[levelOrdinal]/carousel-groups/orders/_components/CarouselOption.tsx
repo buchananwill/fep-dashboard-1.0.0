@@ -29,7 +29,6 @@ import {
   AcademicCapIcon as AcademicCapIconFilled,
   ArrowDownIcon
 } from '@heroicons/react/24/solid';
-import { EmptyArray } from '@/api/main';
 import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/assignOrderItemToOption';
 import {
   ConnectionVector,
@@ -45,6 +44,7 @@ import { HighlightedSubjects } from '@/app/service-categories/[id]/[levelOrdinal
 import { canAssignToOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/canAssignOptionToOrderItem';
 import { ClashBadge } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/ClashBadge';
 import { getAssigneeCountColor } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/getAssigneeCountColor';
+import { EmptyArray } from '@/api/literals';
 
 export const CarouselOptionState = 'CarouselOptionState';
 export default function CarouselOption({

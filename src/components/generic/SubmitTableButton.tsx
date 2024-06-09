@@ -1,10 +1,10 @@
 import { useGlobalListener, useGlobalReadAny } from 'selective-context';
+import { Button } from '@nextui-org/button';
 import {
-  EmptyArray,
   IntersectionGeneratorMatrix,
   IntersectionGeneratorRowWithHeader
-} from '@/api/main';
-import { Button } from '@nextui-org/button';
+} from '@/api/types';
+import { EmptyArray } from '@/api/literals';
 
 export function SubmitTableButton<T, U>({
   rows,

@@ -1,5 +1,5 @@
-import { HasId } from '@/api/main';
 import { DtoUiArrayProps } from 'dto-stores';
+import { HasId } from '@/api/types';
 
 export type StringPropertyKey<T> = {
   [K in keyof T]: T[K] extends string ? K : never;

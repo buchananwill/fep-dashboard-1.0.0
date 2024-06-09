@@ -6,12 +6,12 @@ import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { TableProps } from '@nextui-org/react';
 import { useCallback, useTransition } from 'react';
-import { IntersectionGeneratorMatrix } from '@/api/main';
 import { useRouter } from 'next/navigation';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { initWorkProjectSeriesSchemas } from '@/utils/init-database-functions/initWorkProjectSeriesSchemas';
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
+import { IntersectionGeneratorMatrix } from '@/api/types';
 
 export default function WorkTaskTypeIgmTable({
   submitTo,

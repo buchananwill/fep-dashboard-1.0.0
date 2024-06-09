@@ -5,7 +5,8 @@ import {
   DataNodeDto,
   getAnyIdAsString
 } from 'react-d3-force-wrapper';
-import { HasNumberId } from '@/api/main';
+
+import { HasNumberId } from '@/api/types';
 
 const nodeType = 'organization';
 

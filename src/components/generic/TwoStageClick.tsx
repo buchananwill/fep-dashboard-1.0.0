@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { offset, useFloating } from '@floating-ui/react';
 import { Button, ButtonProps } from '@nextui-org/button';
@@ -9,12 +9,14 @@ import { PressEvent } from '@react-types/shared';
 export function TwoStageClick({
   children,
   onPress,
+  timeOutDelayMs = 2000,
   standardAppearance = 'ghost',
   primedAppearance = 'danger',
   primedMessage = 'Confirm delete?',
   className,
   ...props
 }: {
+  timeOutDelayMs?: number;
   standardAppearance?: 'light' | 'ghost';
   primedAppearance?: 'danger' | 'primary';
   primedMessage?: string;
@@ -26,16 +28,22 @@ export function TwoStageClick({
     middleware: [offset({ mainAxis: 10 })]
   });
 
-  const guardClick = (e: PressEvent) => {
-    if (clickPrimed && onPress !== undefined) {
-      onPress(e);
-      setClickPrimed(false);
-      if (timeoutRef.current !== undefined) clearTimeout(timeoutRef.current);
-    } else {
-      setClickPrimed(true);
-      timeoutRef.current = setTimeout(() => setClickPrimed(false), 2000);
-    }
-  };
+  const guardClick = useCallback(
+    (e: PressEvent) => {
+      if (clickPrimed && onPress !== undefined) {
+        onPress(e);
+        setClickPrimed(false);
+        if (timeoutRef.current !== undefined) clearTimeout(timeoutRef.current);
+      } else {
+        setClickPrimed(true);
+        timeoutRef.current = setTimeout(
+          () => setClickPrimed(false),
+          timeOutDelayMs
+        );
+      }
+    },
+    [timeOutDelayMs, onPress, clickPrimed]
+  );
 
   return (
     <div className={'w-fit h-fit inline-block'} ref={refs.setReference}>

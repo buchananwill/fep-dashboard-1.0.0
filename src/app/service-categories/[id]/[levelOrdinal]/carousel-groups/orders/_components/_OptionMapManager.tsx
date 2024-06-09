@@ -5,10 +5,10 @@ import {
 import { useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/main';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { useGlobalController } from 'selective-context';
+import { EmptyArray } from '@/api/literals';
 
 const listenerKey = `optionMapManager`;
 export const OptionMap = 'optionMap';

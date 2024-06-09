@@ -9,7 +9,8 @@ import {
   DtoControllerArray
 } from 'dto-stores';
 import KnowledgeDomainCard from '@/app/service-categories/[id]/knowledge-domains/_components/KnowledgeDomainCard';
-import { EmptyArray } from '@/api/main';
+
+import { EmptyArray } from '@/api/literals';
 
 export default async function Page({
   params: { id, domainId }

@@ -7,8 +7,9 @@ import RenameModal from '@/components/modals/RenameModal';
 import { useEditEntityTextAttribute } from '@/components/modals/useEditEntityTextAttribute';
 import { useCallback, useState } from 'react';
 import { BaseDtoUiProps } from 'dto-stores';
-import { HasId, isNotUndefined } from '@/api/main';
+import { isNotUndefined } from '@/api/main';
 import { StringPropertyKey } from '@/types';
+import { HasId } from '@/api/types';
 
 export interface EditTextDeletePopoverProps<T extends HasId> {
   stringKey: StringPropertyKey<T>;

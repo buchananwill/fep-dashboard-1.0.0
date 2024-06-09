@@ -1,7 +1,6 @@
 import { createCycleDays } from '@/app/cycles/_functions/groupCycleSubspansByDay';
 import { EntityClassMap } from '@/api/entity-class-map';
 
-import { TransientIdOffset } from '@/api/main';
 import CycleDayFetcher from '@/app/cycles/_components/CycleDayFetcher';
 import { ArrayPlaceholder } from 'selective-context';
 import {
@@ -12,6 +11,7 @@ import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { CycleDto } from '@/api/dtos/CycleDtoSchema';
 import { deleteIdList } from '@/api/generated-actions/CycleSubspan';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { TransientIdOffset } from '@/api/literals';
 
 const entityClass = EntityClassMap.cycleSubspan;
 

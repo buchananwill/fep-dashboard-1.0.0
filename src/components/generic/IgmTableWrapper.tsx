@@ -6,12 +6,12 @@ import {
 } from 'dto-stores';
 import { SubmitTableButton } from '@/components/generic/SubmitTableButton';
 
+import { TableProps } from '@nextui-org/react';
+import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 import {
   IntersectionGeneratorMatrix,
   IntersectionGeneratorRowWithHeader
-} from '@/api/main';
-import { TableProps } from '@nextui-org/react';
-import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+} from '@/api/types';
 
 export interface IgmTableWrapperProps<
   T extends HasNameDto,

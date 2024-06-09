@@ -7,7 +7,7 @@ import {
 } from 'selective-context';
 
 import { EntityClassMap } from '@/api/entity-class-map';
-import { isNotUndefined, TransientIdOffset } from '@/api/main';
+import { isNotUndefined } from '@/api/main';
 import { Chip } from '@nextui-org/chip';
 import {
   CycleDay,
@@ -18,6 +18,7 @@ import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { CycleSubspanGroupDto } from '@/api/dtos/CycleSubspanGroupDtoSchema';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { CycleSubspanJoinDto } from '@/api/dtos/CycleSubspanJoinDtoSchema';
+import { TransientIdOffset } from '@/api/literals';
 
 function updateGroupJoins(
   updatedKeys: string[],

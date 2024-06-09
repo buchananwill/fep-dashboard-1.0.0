@@ -14,7 +14,7 @@ import { Button } from '@nextui-org/button';
 import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
 import { CycleDayFetcherProps } from '@/app/cycles/_components/CycleDayFetcher';
 
-import { isNotUndefined, TransientIdOffset } from '@/api/main';
+import { isNotUndefined } from '@/api/main';
 import { useGlobalController, useGlobalDispatch } from 'selective-context';
 import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -29,6 +29,7 @@ import {
   useMasterListInteraction
 } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { TransientIdOffset } from '@/api/literals';
 
 export interface CycleDayViewerProps extends CycleDayFetcherProps {
   cycleSubspanDtos: CycleSubspanDto[];

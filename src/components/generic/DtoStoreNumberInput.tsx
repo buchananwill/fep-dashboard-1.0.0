@@ -1,5 +1,3 @@
-import { HasId } from '@/api/main';
-
 import {
   ChangeEvent,
   DetailedHTMLProps,
@@ -9,6 +7,7 @@ import {
 import { BaseDtoUiProps, BaseLazyDtoUiProps } from 'dto-stores';
 import clsx from 'clsx';
 import { removeLeadingZeroStringConversion } from '@/components/generic/removeLeadingZeroStringConversion';
+import { HasId } from '@/api/types';
 
 export type NumberPropertyKey<T> = {
   [K in keyof T]: T[K] extends number ? K : never;

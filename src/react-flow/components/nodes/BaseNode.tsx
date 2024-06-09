@@ -13,8 +13,8 @@ import {
   useGraphListener
 } from 'react-d3-force-wrapper';
 import React, { useCallback, useMemo } from 'react';
-import { HasNumberId } from '@/api/main';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
+import { HasNumberId } from '@/api/types';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,

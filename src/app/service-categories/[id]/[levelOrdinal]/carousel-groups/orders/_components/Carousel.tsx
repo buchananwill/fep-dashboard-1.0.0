@@ -7,7 +7,6 @@ import { memo, useMemo } from 'react';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { EmptyArray } from '@/api/main';
 import { InitialSet } from '@/app/_literals';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import {
@@ -16,6 +15,7 @@ import {
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { checkOptionCanPrime } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/checkOptionCanPrime';
+import { EmptyArray } from '@/api/literals';
 
 function sortCarouselOptionState(
   option1: CarouselOptionStateInterface,

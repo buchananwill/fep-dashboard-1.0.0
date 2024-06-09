@@ -3,7 +3,6 @@ import { EntityClassMap } from '@/api/entity-class-map';
 
 import ServiceCategoryCard from '@/app/service-categories/_components/ServiceCategoryCard';
 import data from '@/utils/init-json-data/service-categories/ServiceCategory.json';
-import { TransientIdOffset } from '@/api/main';
 import { Button } from '@nextui-org/button';
 import { useGlobalReadAny } from 'selective-context';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
@@ -22,6 +21,7 @@ import { initKnowledgeLevels } from '@/utils/init-database-functions/initKnowled
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { resolveAppleWebApp } from 'next/dist/lib/metadata/resolvers/resolve-basics';
 import { initOrganizationTypes } from '@/utils/init-database-functions/initOrganizationTypes';
+import { TransientIdOffset } from '@/api/literals';
 
 const entityName = EntityClassMap.serviceCategory;
 

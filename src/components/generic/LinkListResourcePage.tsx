@@ -1,7 +1,7 @@
-import { HasId } from '@/api/main';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { Card, CardBody } from '@nextui-org/card';
 import { ClientLinkComponentWrapper } from '@/components/generic/ClientLinkComponentWrapper';
+import { HasId } from '@/api/types';
 
 export function LinkListResourcePage<T extends HasId>({
   entityClass,

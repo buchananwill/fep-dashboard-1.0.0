@@ -1,4 +1,3 @@
-import { HasId } from '@/api/main';
 import React, { useCallback } from 'react';
 
 import { useDisclosure } from '@nextui-org/use-disclosure';
@@ -6,6 +5,7 @@ import { getRenameContextKey } from '@/components/modals/nameSetter';
 import { useGlobalController } from 'selective-context';
 import { useEditTextProperty } from '@/hooks/useEditTextProperty';
 import { StringPropertyKey } from '@/types';
+import { HasId } from '@/api/types';
 
 export function useEditEntityTextAttribute<T extends HasId>(
   entityClass: string,

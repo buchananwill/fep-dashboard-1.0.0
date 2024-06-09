@@ -6,11 +6,11 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/LessonDeliveryModel';
 
-import { EmptyArray } from '@/api/main';
 import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DtoUiListAll, useAllDtoComponents } from 'dto-stores';
+import { EmptyArray } from '@/api/literals';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 const initialMap = new Map();

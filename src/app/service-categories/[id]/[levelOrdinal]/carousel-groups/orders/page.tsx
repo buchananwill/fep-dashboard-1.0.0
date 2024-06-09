@@ -15,11 +15,11 @@ import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesS
 import { getDtoListByBodyList as getCarouselByList } from '@/api/generated-actions/Carousel';
 import { getDtoListByBodyList as getWorkTaskTypeByList } from '@/api/generated-actions/WorkTaskType';
 import CarouselGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
-import { EmptyArray } from '@/api/main';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import RotationConnectionOverlay from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 import { getCarouselGroups } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/getCarouselGroups';
+import { EmptyArray } from '@/api/literals';
+import { transformOptionForClientState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/transformOptionForClientState';
 
 export default async function page({
   params: { levelOrdinal, id }
@@ -42,15 +42,7 @@ export default async function page({
   const carouselDtoList = await getCarouselByList(carouselIdList);
 
   const carouselOrderList = await getDtoListByExampleList(exampleList);
-
-  const optionStateList: CarouselOptionStateInterface[] =
-    carouselDtoList.flatMap((carousel) => {
-      return carousel.carouselOptionDtos.map((dto) => ({
-        ...dto,
-        carouselOrderAssignees: [],
-        clashMap: new Map()
-      }));
-    });
+  const optionStateList = transformOptionForClientState(carouselDtoList);
 
   console.log(carouselOrderList);
 
@@ -77,10 +69,7 @@ export default async function page({
         getServerAction={getWorkTaskTypeByList}
       />
       <EditAddDeleteDtoControllerArray
-        dtoList={carouselDtoList.sort(
-          (carouselA, carouselB) =>
-            carouselA.carouselOrdinal - carouselB.carouselOrdinal
-        )}
+        dtoList={carouselDtoList}
         entityClass={EntityClassMap.carousel}
       />
       <EditAddDeleteDtoControllerArray

@@ -1,7 +1,8 @@
 'use server';
 import { KnowledgeDomainRoleRowInterface } from '@/app/service-categories/[id]/roles/create/_components/KnowledgeDomainRoleRow';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { BASE_URL } from '@/api/main';
+
+import { BASE_URL } from '@/api/literals';
 
 export async function knowledgeDomainRowActionMapper(
   rowList: KnowledgeDomainRoleRowInterface[]

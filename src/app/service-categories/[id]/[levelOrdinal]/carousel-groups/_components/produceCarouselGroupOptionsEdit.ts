@@ -1,5 +1,6 @@
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
-import { TransientIdOffset } from '@/api/main';
+
+import { TransientIdOffset } from '@/api/literals';
 
 export function produceCarouselGroupOptionsEdit(
   updatedKeys: string[],

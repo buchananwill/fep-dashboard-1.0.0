@@ -9,7 +9,7 @@ import {
 } from 'selective-context';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { EmptyArray, isNotUndefined } from '@/api/main';
+import { isNotUndefined } from '@/api/main';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   findHamiltonianCycle,
@@ -40,6 +40,7 @@ import {
   OptionRotationTarget
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
+import { EmptyArray } from '@/api/literals';
 
 export type OptionRotationDirection = 'forwards' | 'backwards';
 type RotationCycle = {

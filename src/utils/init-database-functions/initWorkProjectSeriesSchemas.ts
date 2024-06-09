@@ -6,10 +6,10 @@ import {
   getDtoListByExampleList
 } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { BASE_URL } from '@/api/main';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { PartialDeep } from 'type-fest';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { BASE_URL } from '@/api/literals';
 
 export async function initWorkProjectSeriesSchemas(
   workTaskTypeList: WorkTaskTypeDto[]

@@ -2,7 +2,6 @@ import React, { useCallback, useMemo } from 'react';
 
 import { BaseDtoUiProps, DtoUiProps } from 'dto-stores';
 
-import { TransientIdOffset } from '@/api/main';
 import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import { AllocationUnitGroup } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/AllocationUnitGroup';
@@ -11,6 +10,7 @@ import { DeliveryAllocation } from '@/app/service-categories/[id]/[levelOrdinal]
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
 import { SetOptional } from 'type-fest';
+import { TransientIdOffset } from '@/api/literals';
 
 export const allocationSizes = [1, 2];
 

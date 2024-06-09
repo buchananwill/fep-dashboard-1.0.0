@@ -1,9 +1,9 @@
 'use client';
-import { HasId } from '@/api/main';
 import { BaseLazyDtoUiProps } from 'dto-stores';
 import { Input, InputProps } from '@nextui-org/input';
 import { StringPropertyKey } from '@/types';
 import { useEditTextProperty } from '@/hooks/useEditTextProperty';
+import { HasId } from '@/api/types';
 
 export type BaseDtoStoreStringInputProps<T extends HasId> = Omit<
   InputProps,

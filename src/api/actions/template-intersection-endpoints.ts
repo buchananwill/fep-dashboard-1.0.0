@@ -3,11 +3,11 @@ import {
   postEntitiesWithDifferentReturnType,
   postIntersectionTableRequest
 } from './template-actions';
+import { constructUrl } from './template-base-endpoints';
 import {
   IdReferencedIntersectionTableDto,
   IntersectionRequestParams
-} from '../main';
-import { constructUrl } from './template-base-endpoints';
+} from '@/api/types';
 
 export interface IntersectionEndpoints<T, U, V> {
   getIntersectionTable: (

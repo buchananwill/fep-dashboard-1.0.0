@@ -3,9 +3,10 @@ import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray, isNotUndefined } from '@/api/main';
+import { isNotUndefined } from '@/api/main';
 
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
+import { EmptyArray } from '@/api/literals';
 
 export function useOrderItemAssigneeList(
   optionList: CarouselOptionStateInterface[]

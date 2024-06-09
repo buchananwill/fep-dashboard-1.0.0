@@ -1,9 +1,9 @@
-import { HasId } from '@/api/main';
 import React from 'react';
 import { RenameContextKey } from '@/components/modals/RenameModal';
 import { useEditEntityTextAttribute } from '@/components/modals/useEditEntityTextAttribute';
 import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 import { StringPropertyKey } from '@/types';
+import { HasId } from '@/api/types';
 
 export function getRenameContextKey<T extends HasId>(
   entityClass: string,

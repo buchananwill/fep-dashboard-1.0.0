@@ -9,8 +9,10 @@ import {
   putEntities,
   putEntity
 } from './template-actions';
-import { BASE_URL, HasNumberId, HasUuid, isNotUndefined, Page } from '../main';
+import { isNotUndefined } from '../main';
 import { PartialDeep } from 'type-fest';
+import { BASE_URL } from '@/api/literals';
+import { HasNumberId, HasUuid, Page } from '@/api/types';
 
 export function constructUrl(
   resourceSegments: string[] | string,

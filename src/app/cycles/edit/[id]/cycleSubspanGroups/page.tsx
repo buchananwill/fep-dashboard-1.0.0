@@ -7,12 +7,12 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { CycleSubspanGroupEditDto } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
 import { getWithoutBody } from '@/api/actions/template-actions';
-import { API_V2_URL } from '@/api/main';
 import CycleSubspanGroupUiWrapper from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupUiWrapper';
 import { putGroupEditAction } from '@/app/cycles/edit/[id]/cycleSubspanGroups/putGroupEditAction';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { getOne } from '@/api/generated-actions/Cycle';
 import { parseTen } from '@/api/date-and-time';
+import { API_V2_URL } from '@/api/literals';
 
 const entityName = 'CycleSubspanGroupEdit';
 export default async function Page({

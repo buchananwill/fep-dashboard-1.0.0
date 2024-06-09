@@ -3,7 +3,8 @@ import { NamespacedHooks } from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/main';
+
+import { EmptyArray } from '@/api/literals';
 
 export function useOptionAssigneeList(optionIdList: number[]) {
   const listener = useRef(crypto.randomUUID());

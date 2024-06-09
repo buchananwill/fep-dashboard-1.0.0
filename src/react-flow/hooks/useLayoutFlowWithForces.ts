@@ -17,7 +17,8 @@ import {
   useLinkContext,
   useNodeContext
 } from 'react-d3-force-wrapper';
-import { HasNumberId } from '@/api/main';
+
+import { HasNumberId } from '@/api/types';
 
 const listenerKey = 'layout-flow-with-forces';
 

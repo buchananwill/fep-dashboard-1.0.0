@@ -4,9 +4,10 @@ import { Coordinate } from '@/react-flow/types';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import React, { useState, useEffect, useMemo } from 'react';
 import { line, curveBasis, interpolateObject } from 'd3';
-import { HasId, isNotNull, isNotUndefined } from '@/api/main';
+import { isNotNull, isNotUndefined } from '@/api/main';
 import { Identifier } from 'dto-stores';
 import { ControllerKey } from '@/app/_literals';
+import { HasId } from '@/api/types';
 
 export interface ConnectionVector {
   source?: Coordinate & HasId;

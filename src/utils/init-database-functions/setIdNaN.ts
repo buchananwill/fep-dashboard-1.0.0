@@ -1,4 +1,4 @@
-import { HasNumberId } from '@/api/main';
+import { HasNumberId } from '@/api/types';
 
 export function setIdNaN<T extends HasNumberId>(entity: T) {
   const clone = structuredClone(entity);
