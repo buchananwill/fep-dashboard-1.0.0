@@ -17,6 +17,9 @@
     "@nextui-org/react": "^2.2.10",
     "@nextui-org/system": "^2.1.0",
     "@nextui-org/theme": "^2.2.0",
+    "@nivo/colors": "^0.87.0",
+    "@nivo/heatmap": "^0.87.0",
+    "@nivo/legends": "^0.87.0",
     "@react-types/shared": "^3.22.1",
     "d3": "^7.8.5",
     "date-fns": "^3.3.1",
@@ -46,6 +49,7 @@
     "trailingComma": "none"
   },
   "devDependencies": {
+    "@nivo/axes": "^0.87.0",
     "@tailwindcss/forms": "^0.5.7",
     "@types/d3": "^7.4.3",
     "@types/js-cookie": "^3.0.3",

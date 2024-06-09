@@ -1,7 +1,4 @@
 import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/serviceCategoryRouteParams';
-import { getKnowledgeLevelPartial } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/getLevelPartialAndSchemaList';
-import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/api/generated-actions/KnowledgeLevel';
-import { getDtoListByExampleList as getCarouselGroupsByExampleList } from '@/api/generated-actions/CarouselGroup';
 import {
   getDtoListByExampleList,
   putList
@@ -22,21 +19,14 @@ import { EmptyArray } from '@/api/main';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import RotationConnectionOverlay from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
+import { getCarouselGroups } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/getCarouselGroups';
 
 export default async function page({
   params: { levelOrdinal, id }
 }: {
   params: ServiceCategoryRouteParams;
 }) {
-  const { levelPartial } = getKnowledgeLevelPartial(levelOrdinal, id);
-
-  const kLevelList = await getKnowledgeLevelsByExampleList([levelPartial]);
-
-  const [knowledgeLevel] = kLevelList;
-
-  const carouselGroupDtos = await getCarouselGroupsByExampleList([
-    { knowledgeLevel: knowledgeLevel }
-  ]);
+  const carouselGroupDtos = await getCarouselGroups(levelOrdinal, id);
 
   const exampleList: PartialDeep<CarouselOrderDto>[] = carouselGroupDtos.map(
     (group) => ({ carouselGroupId: group.id })
