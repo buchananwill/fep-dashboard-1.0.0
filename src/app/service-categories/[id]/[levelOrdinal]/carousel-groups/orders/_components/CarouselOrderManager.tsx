@@ -2,14 +2,13 @@
 import {
   BaseLazyDtoUiProps,
   Identifier,
-  InitialMap,
   KEY_TYPES,
   NamespacedHooks,
   useReadAnyDto,
   useWriteAnyDto
 } from 'dto-stores';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
-import { SetStateAction, useEffect, useMemo, useRef } from 'react';
+import { SetStateAction, useEffect, useRef } from 'react';
 import { useGlobalReadAny } from 'selective-context';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { performDiffOnCarouselOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
@@ -33,18 +32,13 @@ export default function CarouselOrderManager({
   const readAny = useGlobalReadAny<
     Map<string, CarouselOptionDto> | undefined
   >();
-  const readAnyCarouselOption =
-    useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
+
   const { currentState: subscribedList } = NamespacedHooks.useListen(
     CarouselOptionState,
     KEY_TYPES.ID_LIST,
     entity.id,
     EmptyArray as number[]
   );
-
-  const optionMapMemo = useMemo(() => {
-    return subscribedList.map((id) => readAnyCarouselOption(id));
-  }, [subscribedList, readAnyCarouselOption]);
 
   optionMap.current =
     readAny(`${CarouselOptionState}:${KEY_TYPES.MASTER_MAP}`) ??
@@ -56,7 +50,6 @@ export default function CarouselOrderManager({
     useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
 
   useEffect(() => {
-    console.log('running diffing effect hook.');
     Object.values(entity.carouselOrderItems).forEach((item) =>
       performDiffOnCarouselOrderItem(
         orderItems,

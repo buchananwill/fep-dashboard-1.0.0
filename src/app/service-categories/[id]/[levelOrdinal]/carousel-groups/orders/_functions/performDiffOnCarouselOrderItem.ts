@@ -21,8 +21,6 @@ export function performDiffOnCarouselOrderItem(
   const currOptionDefined = item && !!readAnyOption(item.carouselOptionId);
   const activeMatch = prevItem?.active === item.active;
   const assignmentMatch = prevItem?.carouselOptionId === item.carouselOptionId;
-  console.log('prev defined:', prevOptionDefined);
-  console.log('curr defined:', currOptionDefined);
   // match: true & true #1
   if (activeMatch && assignmentMatch) return; // no need to update the ref
   // match: false & true #2

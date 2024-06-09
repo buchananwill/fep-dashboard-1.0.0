@@ -24,10 +24,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import CarouselOrderList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderList';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
-import {
-  ConnectionVector,
-  RotationConnectionMap
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlayV1';
+
 import clsx from 'clsx';
 import { ControllerKey, InitialSet } from '@/app/_literals';
 import {
@@ -41,6 +38,10 @@ import {
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
+import {
+  ConnectionVector,
+  RotationConnectionMap
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 
 export type OptionRotationDirection = 'forwards' | 'backwards';
 type RotationCycle = {
@@ -165,7 +166,6 @@ export default function OptionRotationButtonGroup() {
       optionList: CarouselOptionStateInterface[],
       filteredOrderList: string[]
     ) => {
-      console.log('Calculating rotation...', filteredOrdersRef.current);
       const orderId = filteredOrderList[0];
 
       const order = readAnyOrder(orderId);
@@ -181,7 +181,6 @@ export default function OptionRotationButtonGroup() {
             'no order item for ',
             optionList[i].workProjectSeriesSchemaId
           );
-          console.log(order);
           return new Map<number, OptionRotationTarget>();
         }
         // ... END SAFETY CHECK
@@ -201,12 +200,11 @@ export default function OptionRotationButtonGroup() {
       }
       return optionRotations;
     },
-    [filteredOrdersRef, readAnyOrder, readAnyCarousel]
+    [readAnyOrder, readAnyCarousel]
   );
 
   // Update the displayed rotation effect if that is selected.
   useEffect(() => {
-    console.log(forwards, backwards);
     if (
       optionRotation !== undefined &&
       (forwardsCycleRef.current !== forwards ||

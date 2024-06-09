@@ -30,10 +30,7 @@ import {
   ArrowDownIcon
 } from '@heroicons/react/24/solid';
 import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/assignOrderItemToOption';
-import {
-  ConnectionVector,
-  RotationConnectionMap
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlayV1';
+
 import { OptionRotationTargets } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import {
@@ -45,6 +42,10 @@ import { canAssignToOrderItem } from '@/app/service-categories/[id]/[levelOrdina
 import { ClashBadge } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/ClashBadge';
 import { getAssigneeCountColor } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/getAssigneeCountColor';
 import { EmptyArray } from '@/api/literals';
+import {
+  ConnectionVector,
+  RotationConnectionMap
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 
 export const CarouselOptionState = 'CarouselOptionState';
 export default function CarouselOption({

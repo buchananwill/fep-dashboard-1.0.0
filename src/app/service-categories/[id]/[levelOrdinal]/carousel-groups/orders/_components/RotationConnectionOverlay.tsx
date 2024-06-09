@@ -2,10 +2,9 @@
 import { useGlobalController } from 'selective-context';
 import { Coordinate } from '@/react-flow/types';
 import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import React, { useState, useEffect, useMemo } from 'react';
-import { line, curveBasis, interpolateObject } from 'd3';
+import React, { useEffect, useMemo, useState } from 'react';
+import { curveBasis, interpolateObject, line } from 'd3';
 import { isNotNull, isNotUndefined } from '@/api/main';
-import { Identifier } from 'dto-stores';
 import { ControllerKey } from '@/app/_literals';
 import { GenericDivProps } from '@/react-flow/components/nodes/BaseNode';
 import { HasId } from '@/api/types';
@@ -132,13 +131,7 @@ function connectionVectorToCurve({ source, target }: ConnectionVector) {
 
   lineGenerator = lineGenerator.curve(curveBasis);
 
-  // const data: Coordinate[] = [{ ...source }, { ...target }];
-  const lineGenerator1 = lineGenerator(data);
-  if (source.y === target.y) {
-    console.log(source, target);
-    console.log(lineGenerator1);
-  }
-  return lineGenerator1;
+  return lineGenerator(data);
 }
 
 function Beacon(props: GenericDivProps) {
