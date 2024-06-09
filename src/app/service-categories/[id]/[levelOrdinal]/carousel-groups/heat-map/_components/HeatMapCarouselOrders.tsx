@@ -75,7 +75,7 @@ const theme = {
     fontSize: 14
   }
 };
-const margin = { top: 60, right: 0, bottom: 60, left: 130 };
+const margin = { top: 120, right: 0, bottom: 60, left: 130 };
 export default function HeatMapCarouselOrders({
   data /* see data tab */
 }: {

@@ -22,7 +22,7 @@ export default async function page({
   >(carouselGroup, `${API_V2_URL}/carouselGroups/orders/coAppearanceHeatMap`);
 
   return (
-    <div className={'w-[100vw] h-[100vh] p-16'}>
+    <div className={'w-[100vw] h-[100vh] p-8'}>
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
         entityClass={EntityClassMap.workProjectSeriesSchema}
