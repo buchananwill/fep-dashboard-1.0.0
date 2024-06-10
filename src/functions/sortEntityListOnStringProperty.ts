@@ -2,7 +2,7 @@ import { StringPropertyKey } from '@/types';
 
 export type SortDirection = 'asc' | 'desc';
 
-const ascStringPredicate = (entityStringA: string, entityStringB: string) => {
+const ascStringComparator = (entityStringA: string, entityStringB: string) => {
   return entityStringA.localeCompare(entityStringB);
 };
 
@@ -11,12 +11,18 @@ export function sortEntityListOnStringProperty<T>(
   stringPropertyKey: StringPropertyKey<T>,
   direction: SortDirection
 ) {
-  const stringKeyPredicate = (entityA: T, entityB: T) => {
-    return ascStringPredicate(
+  const stringComparator = getEntityStringComparator<T>(stringPropertyKey);
+  const ascSorted = entityList.toSorted(stringComparator);
+  return direction === 'asc' ? ascSorted : ascSorted.reverse();
+}
+
+export function getEntityStringComparator<T>(
+  stringPropertyKey: StringPropertyKey<T>
+) {
+  return (entityA: T, entityB: T) => {
+    return ascStringComparator(
       entityA[stringPropertyKey] as string,
       entityB[stringPropertyKey] as string
     );
   };
-  const ascSorted = entityList.toSorted(stringKeyPredicate);
-  return direction === 'asc' ? ascSorted : ascSorted.reverse();
 }

@@ -11,6 +11,14 @@ import {
   DtoStoreStringInput
 } from '@/components/generic/DtoStoreStringInput';
 import { Skeleton } from '@nextui-org/skeleton';
+import { useKnowledgeDtoTableProps } from '@/app/service-categories/[id]/knowledge-levels/_components/useKnowledgeDtoTableProps';
+import {
+  getEntityStringComparator,
+  sortEntityListOnStringProperty
+} from '@/functions/sortEntityListOnStringProperty';
+import { TransientIdOffset } from '@/api/literals';
+import { Button } from '@nextui-org/button';
+import ChangeStartingOrdinal from '@/app/service-categories/[id]/knowledge-levels/_components/ChangeStartingOrdinal';
 
 export function KnowledgeDomainTable({
   data,
@@ -20,40 +28,77 @@ export function KnowledgeDomainTable({
   serviceCategory: ServiceCategoryDto;
 }) {
   const columns = useMemo(() => {
-    return [
-      { name: 'id', uid: 'id' },
-      { name: serviceCategory.knowledgeDomainDescriptor, uid: 'name' }
-    ];
+    return [{ name: serviceCategory.knowledgeDomainDescriptor, uid: 'name' }];
   }, [serviceCategory]);
+
+  const { sortedRows, handleRemoveRow, masterListInteraction } =
+    useKnowledgeDtoTableProps(
+      serviceCategory,
+      EntityClassMap.knowledgeDomain,
+      domainSort,
+      domainFactory
+    );
 
   const renderCell = useCallback(
     (domain: KnowledgeDomainDto, columnKey: React.Key) => {
-      const cellValue = domain[columnKey as keyof KnowledgeDomainDto];
-
-      switch (columnKey) {
-        case 'name':
-          return (
-            <LazyDtoUiWrapper<
-              KnowledgeDomainDto,
-              BaseDtoStoreStringInputProps<KnowledgeDomainDto>
-            >
-              renderAs={DtoStoreStringInput}
-              entityClass={EntityClassMap.knowledgeDomain}
-              stringKey={'name'}
-              entityId={domain.id}
-              whileLoading={() => (
-                <Skeleton>
-                  <div className={'w-12'} />
-                </Skeleton>
-              )}
-            />
-          );
-        default:
-          return cellValue;
-      }
+      return (
+        <LazyDtoUiWrapper<
+          KnowledgeDomainDto,
+          BaseDtoStoreStringInputProps<KnowledgeDomainDto>
+        >
+          renderAs={DtoStoreStringInput}
+          entityClass={EntityClassMap.knowledgeDomain}
+          stringKey={'name'}
+          entityId={domain.id}
+          whileLoading={() => (
+            <Skeleton>
+              <div className={'w-12'} />
+            </Skeleton>
+          )}
+        />
+      );
     },
     []
   );
 
-  return <DtoTable data={data} columns={columns} renderCell={renderCell} />;
+  return (
+    <DtoTable
+      data={sortedRows}
+      columns={columns}
+      renderCell={renderCell}
+      bottomContent={
+        <div className={'grid grid-cols-3 gap-2'}>
+          <Button onPress={masterListInteraction}>
+            Add {serviceCategory.knowledgeDomainDescriptor}
+          </Button>
+          <Button onPress={handleRemoveRow}>
+            Remove {serviceCategory.knowledgeDomainDescriptor}
+          </Button>
+        </div>
+      }
+    />
+  );
 }
+
+const domainSort = getEntityStringComparator<KnowledgeDomainDto>('name');
+
+const getDomainFactory = () => {
+  let nextId = TransientIdOffset;
+  return function (
+    current: KnowledgeDomainDto[],
+    serviceCategory: ServiceCategoryDto
+  ) {
+    const { knowledgeDomainDescriptor, id } = serviceCategory;
+    const newDomain: KnowledgeDomainDto = {
+      id: nextId,
+      name: `${knowledgeDomainDescriptor} ${nextId}`,
+      serviceCategoryId: id,
+      workTaskTypeCount: 0,
+      knowledgeDomainDescriptor
+    };
+    nextId++;
+    return newDomain;
+  };
+};
+
+const domainFactory = getDomainFactory();
