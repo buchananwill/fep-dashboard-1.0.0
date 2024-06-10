@@ -1,8 +1,4 @@
-import {
-  deleteIdList,
-  getDtoListByExampleList,
-  putList
-} from '@/api/generated-actions/KnowledgeLevel';
+import * as KnowledgeLevelClient from '@/api/generated-actions/KnowledgeLevel';
 import { getOne } from '@/api/generated-actions/ServiceCategory';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -14,7 +10,7 @@ export default async function Page({
 }: {
   params: { id: string };
 }) {
-  const data = await getDtoListByExampleList([
+  const data = await KnowledgeLevelClient.getDtoListByExampleList([
     { serviceCategoryId: parseInt(id) }
   ]);
 
@@ -26,8 +22,9 @@ export default async function Page({
         <EditAddDeleteDtoControllerArray
           dtoList={data}
           entityClass={EntityClassMap.knowledgeLevel}
-          updateServerAction={putList}
-          deleteServerAction={deleteIdList}
+          updateServerAction={KnowledgeLevelClient.putList}
+          deleteServerAction={KnowledgeLevelClient.deleteIdList}
+          postServerAction={KnowledgeLevelClient.postList}
         />
         <KnowledgeLevelTable data={data} serviceCategory={serviceCategoryDto} />
       </ResourceContextProvider>

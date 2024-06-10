@@ -11,8 +11,8 @@ import {
 } from './template-actions';
 import { isNotUndefined } from '../main';
 import { PartialDeep } from 'type-fest';
-import { BASE_URL } from '@/api/literals';
 import { HasNumberId, HasUuid, Page } from '@/api/types';
+import { BASE_URL } from '@/api/BASE_URL';
 
 export function constructUrl(
   resourceSegments: string[] | string,

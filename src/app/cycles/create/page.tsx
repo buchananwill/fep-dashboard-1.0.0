@@ -46,7 +46,7 @@ export default function Page() {
     startTransition(async () => {
       const cycleDto = await postOne(data);
       const cycleSubspans = await initCycleSubspans(cycleDto);
-      console.log(cycleSubspans);
+
       appRouterInstance.push(`/cycles/edit/${cycleDto.id}/cycleSubspans`);
     });
   };

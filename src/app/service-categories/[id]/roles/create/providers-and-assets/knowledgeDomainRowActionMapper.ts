@@ -2,7 +2,7 @@
 import { KnowledgeDomainRoleRowInterface } from '@/app/service-categories/[id]/roles/create/providers-and-assets/_components/KnowledgeDomainRoleRow';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 
-import { BASE_URL } from '@/api/literals';
+import { BASE_URL } from '@/api/BASE_URL';
 
 export async function knowledgeDomainRowActionMapper(
   rowList: KnowledgeDomainRoleRowInterface[]

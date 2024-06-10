@@ -9,7 +9,8 @@ import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-acti
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { PartialDeep } from 'type-fest';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { BASE_URL } from '@/api/literals';
+
+import { BASE_URL } from '@/api/BASE_URL';
 
 export async function initWorkProjectSeriesSchemas(
   workTaskTypeList: WorkTaskTypeDto[]
