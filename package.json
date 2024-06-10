@@ -13,10 +13,10 @@
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.3.4",
     "@internationalized/date": "^3.5.2",
-    "@nextui-org/button": "^2.0.30",
-    "@nextui-org/react": "^2.2.10",
-    "@nextui-org/system": "^2.1.0",
-    "@nextui-org/theme": "^2.2.0",
+    "@nextui-org/button": "^2.0.33",
+    "@nextui-org/react": "^2.4.1",
+    "@nextui-org/system": "^2.2.1",
+    "@nextui-org/theme": "^2.2.5",
     "@nivo/chord": "^0.87.0",
     "@nivo/colors": "^0.87.0",
     "@nivo/heatmap": "^0.87.0",
@@ -48,7 +48,9 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "none",
-    "plugins": ["prettier-plugin-tailwindcss"]
+    "plugins": [
+      "prettier-plugin-tailwindcss"
+    ]
   },
   "devDependencies": {
     "@nivo/axes": "^0.87.0",
