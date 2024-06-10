@@ -1,17 +1,14 @@
 import { getOne } from '@/api/generated-actions/ServiceCategory';
 import { getDtoListByExampleList } from '@/api/generated-actions/KnowledgeLevel';
-import {
-  BaseDtoStoreNumberInputProps,
-  DtoStoreNumberInput,
-  MergedDtoStoreNumberInputProps
-} from '@/components/generic/DtoStoreNumberInput';
+import { BaseDtoStoreNumberInputProps } from '@/components/generic/DtoStoreNumberInput';
 import { DtoUiListAll, EditAddDeleteDtoControllerArray } from 'dto-stores';
 import UserNumberInputRow, {
   UserRowState
 } from '@/app/service-categories/[id]/roles/create/users/_components/UserNumberInputRow';
-import { BaseDtoStoreStringInputProps } from '@/components/generic/DtoStoreStringInput';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { Button } from '@nextui-org/button';
+import GenerateStudentsButton, {
+  UserRowStateClass
+} from './_components/GenerateStudentsButton';
 
 export default async function page({
   params: { id }
@@ -23,9 +20,9 @@ export default async function page({
   const knowledgeLevels = await getDtoListByExampleList([
     { serviceCategoryId: serviceCategoryId }
   ]);
-  const userRows = knowledgeLevels.map((level) => ({
+  const userRows: UserRowState[] = knowledgeLevels.map((level) => ({
     ...level,
-    userCount: 180
+    howMany: 180
   }));
 
   return (
@@ -44,35 +41,21 @@ export default async function page({
       <CardBody>
         <div className={'grid grid-cols-2 gap-2'}>
           <EditAddDeleteDtoControllerArray
-            entityClass={'UserRowState'}
+            entityClass={UserRowStateClass}
             dtoList={userRows}
           />
           <DtoUiListAll<
             UserRowState,
             BaseDtoStoreNumberInputProps<UserRowState>
           >
-            entityClass={'UserRowState'}
+            entityClass={UserRowStateClass}
             renderAs={UserNumberInputRow}
-            numberKey={'userCount'}
+            numberKey={'howMany'}
           />
         </div>
       </CardBody>
       <CardFooter className={'flex justify-center'}>
-        <Button
-          className={
-            'group m-2 h-fit w-fit min-w-fit overflow-visible rounded-lg bg-sky-800 p-0'
-          }
-          disableRipple={true}
-          disableAnimation={true}
-        >
-          <span
-            className={
-              'inline-block -translate-y-1 select-none rounded-lg bg-gradient-to-br from-sky-50 to-blue-200 p-4 transition-transform duration-250 ease-out hover:-translate-y-2 active:-translate-y-0.5'
-            }
-          >
-            Generate
-          </span>
-        </Button>
+        <GenerateStudentsButton />
       </CardFooter>
     </Card>
   );

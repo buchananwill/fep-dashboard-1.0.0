@@ -14,7 +14,7 @@ import { SelectItem } from '@nextui-org/select';
 import { Button } from '@nextui-org/button';
 import { CycleDto, CycleDtoSchema } from '@/api/dtos/CycleDtoSchema';
 import { postOne } from '@/api/generated-actions/Cycle';
-import { initCycleSubspans } from '@/utils/init-database-functions/initCycleSubspans';
+import { initCycleSubspans } from '@/utils/init-database-functions/operations/initCycleSubspans';
 import { TransientIdOffset } from '@/api/literals';
 
 const dayArray = DayOfWeekArray.map((day) => ({
@@ -52,7 +52,7 @@ export default function Page() {
   };
 
   return (
-    <Card className={'w-5/6 md:w-3/4 mt-8'}>
+    <Card className={'mt-8 w-5/6 md:w-3/4'}>
       <PendingOverlay pending={pending} />
       <form
         onSubmit={(event) => {
@@ -60,10 +60,10 @@ export default function Page() {
           handleSubmit(onSubmit)(event);
         }}
       >
-        <CardHeader className={'align-middle items-center justify-center '}>
+        <CardHeader className={'items-center justify-center align-middle '}>
           Create Cycle
         </CardHeader>
-        <CardBody className={'gap-2 justify-center items-center'}>
+        <CardBody className={'items-center justify-center gap-2'}>
           <ControlledSelect
             name={'cycleDayZero'}
             control={control}
@@ -76,7 +76,7 @@ export default function Page() {
               </SelectItem>
             ))}
           </ControlledSelect>
-          <label className={'text-default-500 text-sm'}>
+          <label className={'text-sm text-default-500'}>
             Cycle Length in Weeks:
             <input
               {...register('cycleLengthInWeeks', { valueAsNumber: true })}

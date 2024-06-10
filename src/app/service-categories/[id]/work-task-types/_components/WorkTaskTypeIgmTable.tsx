@@ -8,7 +8,7 @@ import { TableProps } from '@nextui-org/react';
 import { useCallback, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import { initWorkProjectSeriesSchemas } from '@/utils/init-database-functions/initWorkProjectSeriesSchemas';
+import { initWorkProjectSeriesSchemas } from '@/utils/init-database-functions/operations/initWorkProjectSeriesSchemas';
 import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { IntersectionGeneratorMatrix } from '@/api/types';
@@ -45,7 +45,7 @@ export default function WorkTaskTypeIgmTable({
   );
 
   return (
-    <div className={'w-fit h-fit'}>
+    <div className={'h-fit w-fit'}>
       <PendingOverlay pending={isPending} />
       <IgmTableWrapper
         {...otherProps}

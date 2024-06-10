@@ -16,11 +16,11 @@ import { useTransition } from 'react';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
-import { initKnowledgeDomains } from '@/utils/init-database-functions/initKnowledgeDomains';
-import { initKnowledgeLevels } from '@/utils/init-database-functions/initKnowledgeLevels';
+import { initKnowledgeDomains } from '@/utils/init-database-functions/operations/initKnowledgeDomains';
+import { initKnowledgeLevels } from '@/utils/init-database-functions/operations/initKnowledgeLevels';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 import { resolveAppleWebApp } from 'next/dist/lib/metadata/resolvers/resolve-basics';
-import { initOrganizationTypes } from '@/utils/init-database-functions/initOrganizationTypes';
+import { initOrganizationTypes } from '@/utils/init-database-functions/resources/initOrganizationTypes';
 import { TransientIdOffset } from '@/api/literals';
 
 const entityName = EntityClassMap.serviceCategory;
@@ -69,7 +69,7 @@ export default function Page() {
         entityClass={EntityClassMap.serviceCategory}
         dtoList={[template]}
       />
-      <div className={'relative, w-fit h-fit'}>
+      <div className={'relative, h-fit w-fit'}>
         <PendingOverlay pending={pending} />
         <ServiceCategoryCard id={template.id} />
       </div>

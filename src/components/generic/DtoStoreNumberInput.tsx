@@ -33,6 +33,7 @@ export function DtoStoreNumberInput<T extends HasId>({
   deleted,
   ...inputProps
 }: MergedDtoStoreNumberInputProps<T>) {
+  const { max, min } = inputProps;
   const update = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       if (dispatchWithoutControl === undefined) {
@@ -40,15 +41,19 @@ export function DtoStoreNumberInput<T extends HasId>({
         return;
       }
       let numberValue = parseInt(e.target.value, 10);
-      if (isNaN(numberValue)) numberValue = 0; // Default to 0 if not a number
+      const minNum = typeof min === 'number' ? min : parseInt(min ?? '0');
+      const maxNum = typeof max === 'number' ? max : parseInt(max ?? '0');
 
+      if (isNaN(numberValue)) numberValue = 0; // Default to 0 if not a number
+      if (max) numberValue = Math.min(maxNum, numberValue);
+      if (min) numberValue = Math.max(minNum, numberValue);
       dispatchWithoutControl((entity: T) => {
         const updated: T = { ...entity };
         (updated as any)[numberKey] = numberValue;
         return updated;
       });
     },
-    [dispatchWithoutControl, numberKey]
+    [dispatchWithoutControl, numberKey, min, max]
   );
 
   if (entity === undefined) return null;

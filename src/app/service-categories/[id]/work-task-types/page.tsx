@@ -1,6 +1,6 @@
 import IgmTableWrapper from '@/components/generic/IgmTableWrapper';
 import { Card } from '@nextui-org/card';
-import { initWorkTaskTypesFromMatrix } from '@/utils/init-database-functions/initWorkTaskTypesFromMatrix';
+import { initWorkTaskTypesFromMatrix } from '@/utils/init-database-functions/operations/initWorkTaskTypesFromMatrix';
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
 import { getDtoListByExampleList as getKnowledgeDomainsByExample } from '@/api/generated-actions/KnowledgeDomain';
 import data from '@/utils/init-json-data/service-categories/workTaskTypesIgm.json';
