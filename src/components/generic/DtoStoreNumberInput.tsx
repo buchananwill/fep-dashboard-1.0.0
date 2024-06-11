@@ -1,10 +1,17 @@
+'use client';
 import {
   ChangeEvent,
   DetailedHTMLProps,
   InputHTMLAttributes,
   useCallback
 } from 'react';
-import { BaseDtoUiProps, BaseLazyDtoUiProps } from 'dto-stores';
+import {
+  BaseDtoUiProps,
+  BaseLazyDtoUiProps,
+  DtoUiWrapper,
+  DtoUiWrapperProps,
+  Entity
+} from 'dto-stores';
 import clsx from 'clsx';
 import { removeLeadingZeroStringConversion } from '@/components/generic/removeLeadingZeroStringConversion';
 import { HasId } from '@/api/types';
@@ -18,6 +25,7 @@ export type BaseDtoStoreNumberInputProps<T extends HasId> = Omit<
   'type' & 'value' & 'onChange'
 > & {
   numberKey: NumberPropertyKey<T>;
+  allowFloat?: boolean;
 } & Partial<Pick<BaseDtoUiProps<T>, 'dispatchDeletion' | 'deleted'>>;
 
 export type MergedDtoStoreNumberInputProps<T extends HasId> =
@@ -31,6 +39,7 @@ export function DtoStoreNumberInput<T extends HasId>({
   entityClass,
   dispatchDeletion,
   deleted,
+  allowFloat = false,
   ...inputProps
 }: MergedDtoStoreNumberInputProps<T>) {
   const { max, min } = inputProps;
@@ -40,7 +49,9 @@ export function DtoStoreNumberInput<T extends HasId>({
         console.log('no dispatch defined!');
         return;
       }
-      let numberValue = parseInt(e.target.value, 10);
+      let numberValue = allowFloat
+        ? parseFloat(e.target.value)
+        : parseInt(e.target.value, 10);
       const minNum = typeof min === 'number' ? min : parseInt(min ?? '0');
       const maxNum = typeof max === 'number' ? max : parseInt(max ?? '0');
 
@@ -53,7 +64,7 @@ export function DtoStoreNumberInput<T extends HasId>({
         return updated;
       });
     },
-    [dispatchWithoutControl, numberKey, min, max]
+    [dispatchWithoutControl, numberKey, min, max, allowFloat]
   );
 
   if (entity === undefined) return null;
@@ -64,10 +75,24 @@ export function DtoStoreNumberInput<T extends HasId>({
       type={'number'}
       inputMode={'numeric'}
       pattern={'[0-9]'}
-      value={removeLeadingZeroStringConversion(entity[numberKey] as number)}
+      value={removeLeadingZeroStringConversion(
+        entity[numberKey] as number,
+        allowFloat
+      )}
       onChange={(e) => update(e)}
       className={clsx(className, 'number-input')}
       aria-label={inputProps['aria-label'] ?? String(numberKey)}
+    />
+  );
+}
+
+export function DtoStoreNumberInputWrapper<T extends HasId>(
+  props: Omit<DtoUiWrapperProps<T, BaseDtoStoreNumberInputProps<T>>, 'renderAs'>
+) {
+  return (
+    <DtoUiWrapper<T, BaseDtoStoreNumberInputProps<T>>
+      {...props}
+      renderAs={DtoStoreNumberInput}
     />
   );
 }
