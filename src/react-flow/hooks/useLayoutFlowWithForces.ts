@@ -23,14 +23,14 @@ import { HasNumberId } from '@/api/types';
 const listenerKey = 'layout-flow-with-forces';
 
 export function useLayoutFlowWithForces<T extends HasNumberId>() {
-  const { nodes: initialNodes } = useNodeContext();
-  const { links: initialEdges } = useLinkContext();
+  const { nodes: nodesFromContext, dispatch: dispatchNodes } = useNodeContext();
+  const { links: edgesFromContext, dispatch: dispatchEdges } = useLinkContext();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(
-    initialNodes as FlowNode<T>[]
+    nodesFromContext as FlowNode<T>[]
   );
   const [edges, setEdges, onEdgesChange] = useEdgesState(
-    initialEdges as FlowEdge<T>[]
+    edgesFromContext as FlowEdge<T>[]
   );
   const [initialized, toggle] = useForces();
 
@@ -80,9 +80,14 @@ export function useLayoutFlowWithForces<T extends HasNumberId>() {
   );
 
   useEffect(() => {
-    setNodes(initialNodes as FlowNode<T>[]);
-    setEdges(initialEdges as FlowEdge<T>[]);
-  }, [initialNodes, initialEdges, setEdges, setNodes]);
+    console.log(
+      'firing graph syncing hook',
+      nodesFromContext,
+      edgesFromContext
+    );
+    setNodes(nodesFromContext as FlowNode<T>[]);
+    setEdges(edgesFromContext as FlowEdge<T>[]);
+  }, [nodesFromContext, edgesFromContext, setEdges, setNodes]);
 
   return {
     reactFlowProps: {
@@ -99,6 +104,8 @@ export function useLayoutFlowWithForces<T extends HasNumberId>() {
       initialized,
       toggle,
       running
-    }
+    },
+    dispatchNodes,
+    dispatchEdges
   };
 }

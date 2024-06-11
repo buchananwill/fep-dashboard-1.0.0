@@ -3,10 +3,6 @@ import {
   ForceGraphPageOptions,
   GraphDto
 } from 'react-d3-force-wrapper';
-import {
-  convertClosureDtoListToEdgeList,
-  convertDataNodeDtoListToFlowNodeList
-} from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -24,6 +20,7 @@ import {
   EditAddDeleteDtoControllerArray
 } from 'dto-stores';
 import { parseTen } from '@/api/date-and-time';
+import { convertGraphDtoToReactFlowState } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/convertGraphDtoToReactFlowState';
 
 export default async function Page({
   params: { levelOrdinal }
@@ -43,16 +40,7 @@ export default async function Page({
       `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
     )
   );
-  const dataNodes = convertDataNodeDtoListToFlowNodeList<OrganizationDto>(
-    classGraph.nodes
-  );
-  const dataLinks = convertClosureDtoListToEdgeList(
-    classGraph.closureDtos
-  ).filter(
-    (l) =>
-      dataNodes.find((n) => l.target === n.id) &&
-      dataNodes.find((n) => l.source === n.id)
-  );
+  const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(classGraph);
 
   return (
     <ForceGraphPage

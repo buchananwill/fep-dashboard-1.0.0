@@ -39,7 +39,7 @@ export function validateAssignmentDtos(
       ...graphDto,
       nodes: nodesWithDataAssignmentsValidated
     };
-    console.log(safeGraph);
+
     const safeRequest = { ...request, graphDto: safeGraph };
     return putUpdatedGraph(safeRequest);
   };

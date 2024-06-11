@@ -1,7 +1,17 @@
 'use client';
 
-import React, { memo, PropsWithChildren, useMemo } from 'react';
-import ReactFlow, { Background, BackgroundVariant } from 'reactflow';
+import React, {
+  memo,
+  PropsWithChildren,
+  useCallback,
+  useMemo,
+  useTransition
+} from 'react';
+import ReactFlow, {
+  Background,
+  BackgroundVariant,
+  useReactFlow
+} from 'reactflow';
 
 import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
@@ -15,8 +25,11 @@ import OrganizationDetailsContent from '@/components/react-flow/organization/Org
 import {
   DataLink,
   DataNodeDto,
+  GraphDtoPutRequestBody,
+  GraphSelectiveContextKeys,
   NodeModalContentComponent,
   useAllEdits,
+  useGraphDispatch,
   useModalContent,
   useNodeEditing
 } from 'react-d3-force-wrapper';
@@ -36,13 +49,57 @@ import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHas
 import { revalidateOrganizationNode } from '@/components/react-flow/organization/revalidateOrganizationNode';
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { convertToReactFlowNode } from '@/react-flow/utils/adaptors';
+import { convertGraphDtoToReactFlowState } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/convertGraphDtoToReactFlowState';
+import { PendingOverlay } from '@/components/overlays/pending-overlay';
+import { FlowNode } from '@/react-flow/types';
+import { isNotNull } from '@/api/main';
+import { d } from '@nextui-org/slider/dist/use-slider-a94a4c83';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,
   typeData
 }: PropsWithChildren & { typeData: OrganizationTypeDto }) {
   // 4. Call the hook to set up the layout with forces
-  const { flowOverlayProps, reactFlowProps } = useLayoutFlowWithForces();
+  const { flowOverlayProps, reactFlowProps, dispatchNodes, dispatchEdges } =
+    useLayoutFlowWithForces();
+  const [isPending, startTransition] = useTransition();
+  const { fitView } = useReactFlow();
+  const { dispatchWithoutListen: dispatchDeletedLinkIds } = useGraphDispatch(
+    GraphSelectiveContextKeys.deletedLinkIds
+  );
+  const { dispatchWithoutListen: dispatchDeletedNodeIds } = useGraphDispatch(
+    GraphSelectiveContextKeys.deletedNodeIds
+  );
+  const { dispatchWithoutListen: dispatchUnsavedGraph } = useGraphDispatch(
+    GraphSelectiveContextKeys.unsavedNodeData
+  );
+
+  const updateGraphAndSyncUi = useCallback(
+    async (request: GraphDtoPutRequestBody<OrganizationDto>) => {
+      startTransition(async () => {
+        organizationGraphUpdater(request).then((graphDto) => {
+          const { dataNodes, dataLinks } =
+            convertGraphDtoToReactFlowState(graphDto);
+          dispatchNodes(dataNodes);
+          dispatchEdges(() => {
+            return dataLinks.filter((link) => link.value === 1);
+          });
+          dispatchDeletedLinkIds([]);
+          dispatchDeletedNodeIds([]);
+          dispatchUnsavedGraph(false);
+          fitView();
+        });
+      });
+    },
+    [
+      dispatchNodes,
+      dispatchEdges,
+      dispatchDeletedNodeIds,
+      dispatchDeletedLinkIds,
+      dispatchUnsavedGraph,
+      fitView
+    ]
+  );
 
   const organizationTemplateNode = useMemo(() => {
     const typedTemplate = {
@@ -61,7 +118,7 @@ export function ClassHierarchyLayoutFlowWithForces({
     cloneFunctionWrapper,
     organizationTemplateNode,
     TemplateOrganizationLink,
-    organizationGraphUpdater,
+    updateGraphAndSyncUi,
     revalidateOrganizationNode
   );
   useAllEdits();
@@ -108,6 +165,7 @@ export function ClassHierarchyLayoutFlowWithForces({
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
     >
+      <PendingOverlay pending={isPending} />
       <EditAddDeleteDtoControllerArray
         dtoList={allocationTotalList}
         entityClass={'allocationTotal'}
