@@ -37,7 +37,6 @@ export default function SuitabilityTable({
   >({});
 
   useEffect(() => {
-    console.log('firing fetch hook...', selectedWTT);
     ProviderRoleSuitabilityApi.getTriIntersectionTable(
       partyIdList,
       selectedWTT,
@@ -50,8 +49,6 @@ export default function SuitabilityTable({
       setDataResponse(idReferencedIntersectionTableDto);
     });
   }, [dispatchWithoutControl, providerRoleTypeId, partyIdList, selectedWTT]);
-
-  console.log(dataResponse);
 
   return (
     <>
@@ -73,7 +70,7 @@ export default function SuitabilityTable({
                 numberKey={'rating'}
                 min={0}
                 allowFloat={true}
-                className={clsx('m-0 h-10 w-10')}
+                className={clsx('m-0 h-8 w-8')}
                 conditionalValueClassNames={conditionalNumberFormatting}
               />
             </tr>
