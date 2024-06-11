@@ -3,7 +3,8 @@ import {
   ChangeEvent,
   DetailedHTMLProps,
   InputHTMLAttributes,
-  useCallback
+  useCallback,
+  useMemo
 } from 'react';
 import {
   BaseDtoUiProps,
@@ -20,12 +21,18 @@ export type NumberPropertyKey<T> = {
   [K in keyof T]: T[K] extends number ? K : never;
 }[keyof T];
 
+export interface ConditionalNumberClassName {
+  startAt: number;
+  className: string;
+}
+
 export type BaseDtoStoreNumberInputProps<T extends HasId> = Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   'type' & 'value' & 'onChange'
 > & {
   numberKey: NumberPropertyKey<T>;
   allowFloat?: boolean;
+  conditionalValueClassNames?: ConditionalNumberClassName[];
 } & Partial<Pick<BaseDtoUiProps<T>, 'dispatchDeletion' | 'deleted'>>;
 
 export type MergedDtoStoreNumberInputProps<T extends HasId> =
@@ -40,6 +47,7 @@ export function DtoStoreNumberInput<T extends HasId>({
   dispatchDeletion,
   deleted,
   allowFloat = false,
+  conditionalValueClassNames,
   ...inputProps
 }: MergedDtoStoreNumberInputProps<T>) {
   const { max, min } = inputProps;
@@ -67,6 +75,16 @@ export function DtoStoreNumberInput<T extends HasId>({
     [dispatchWithoutControl, numberKey, min, max, allowFloat]
   );
 
+  const currentNumberValue = entity[numberKey] as number;
+  const rangeClassName = useMemo(() => {
+    let conditionalClass = '';
+    if (!conditionalValueClassNames) return conditionalClass;
+    for (let { startAt, className } of conditionalValueClassNames) {
+      if (currentNumberValue >= startAt) conditionalClass = className;
+    }
+    return conditionalClass;
+  }, [conditionalValueClassNames, currentNumberValue]);
+
   if (entity === undefined) return null;
 
   return (
@@ -75,12 +93,9 @@ export function DtoStoreNumberInput<T extends HasId>({
       type={'number'}
       inputMode={'numeric'}
       pattern={'[0-9]'}
-      value={removeLeadingZeroStringConversion(
-        entity[numberKey] as number,
-        allowFloat
-      )}
+      value={removeLeadingZeroStringConversion(currentNumberValue, allowFloat)}
       onChange={(e) => update(e)}
-      className={clsx(className, 'number-input')}
+      className={clsx(className, 'number-input', rangeClassName)}
       aria-label={inputProps['aria-label'] ?? String(numberKey)}
     />
   );
