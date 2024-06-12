@@ -35,8 +35,8 @@ export default async function page({
   return (
     <>
       <Drawer
-        buttonLabel={'Show Table'}
-        className={'fixed right-0  w-fit overflow-x-hidden  rounded-lg p-2'}
+        buttonLabel={'Show Lesson Types Table'}
+        className={'fixed right-0  w-fit overflow-x-hidden rounded-lg p-2'}
         whenClosed={'translate-x-[40rem] overflow-y-hidden'}
         whenOpen={'overflow-y-auto'}
         innerDivProps={{
@@ -51,10 +51,10 @@ export default async function page({
         dtoList={workTaskTypes}
       />
 
-      <SuitabilityTable
-        partyIdList={partyIdList}
-        providerRoleTypeId={providerRoleTypeId}
-      />
+      {/*<SuitabilityTable*/}
+      {/*  partyIdList={partyIdList}*/}
+      {/*  providerRoleTypeId={providerRoleTypeId}*/}
+      {/*/>*/}
     </>
   );
 }

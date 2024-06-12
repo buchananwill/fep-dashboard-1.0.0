@@ -115,23 +115,27 @@ export default function WorkTaskTypeTable({
 
       switch (columnKey) {
         case 'name':
-          return <span>{workTaskTypeDto.name}</span>;
+          return (
+            <span className={'inline-block w-32 truncate'}>
+              {workTaskTypeDto.name}
+            </span>
+          );
         case 'knowledgeDomainName':
           return (
-            <div className="flex flex-col">
-              <p className="text-bold text-small ">{cellValue}</p>
-            </div>
+            <span className="inline-block w-24  text-sm">{cellValue}</span>
           );
         case 'knowledgeLevelName':
           return (
-            <Chip
-              className="capitalize"
-              color={'secondary'}
-              size="sm"
-              variant="flat"
-            >
-              {cellValue}
-            </Chip>
+            <span className={'inline-block w-20'}>
+              <Chip
+                className={'max-w-full truncate'}
+                color={'secondary'}
+                size="sm"
+                variant="flat"
+              >
+                {cellValue}
+              </Chip>
+            </span>
           );
         case 'actions':
           return (
@@ -265,7 +269,6 @@ export default function WorkTaskTypeTable({
           total={pages}
           onChange={setPage}
         />
-        <div className="hidden w-[30%] justify-end gap-2 sm:flex"></div>
       </div>
     );
   }, [selectedSet, page, pages, filteredItems.length, workTaskTypes.length]);
@@ -282,6 +285,7 @@ export default function WorkTaskTypeTable({
       //   wrapper: 'max-h-[32rem] max-w-[40rem]'
       // }}
       selectedKeys={selectedSet}
+      className={'pointer-events-auto'}
       selectionMode="multiple"
       sortDescriptor={sortDescriptor}
       topContent={topContent}

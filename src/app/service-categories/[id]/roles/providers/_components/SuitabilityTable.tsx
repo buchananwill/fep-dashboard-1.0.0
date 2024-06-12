@@ -58,25 +58,31 @@ export default function SuitabilityTable({
         mergeInitialWithProp={true}
         updateServerAction={ProviderRoleSuitabilityApi.putList}
       />
-      <table>
-        <tbody>
-          {Object.entries(dataResponse).map(([partyId, list]) => (
-            <tr key={partyId}>
-              <NumberEditCellList<ProviderRoleTypeWorkTaskTypeSuitabilityDto>
-                cellIdList={list.map((rating) => rating.id)}
-                entityClass={
-                  EntityClassMap.providerRoleTypeWorkTaskTypeSuitability
-                }
-                numberKey={'rating'}
-                min={0}
-                allowFloat={true}
-                className={clsx('m-0 h-8 w-8')}
-                conditionalValueClassNames={conditionalNumberFormatting}
-              />
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div
+        className={
+          'max-h-[75vh] max-w-6xl overflow-y-auto rounded-lg border-4 p-2'
+        }
+      >
+        <table>
+          <tbody>
+            {Object.entries(dataResponse).map(([partyId, list]) => (
+              <tr key={partyId}>
+                <NumberEditCellList<ProviderRoleTypeWorkTaskTypeSuitabilityDto>
+                  cellIdList={list.map((rating) => rating.id)}
+                  entityClass={
+                    EntityClassMap.providerRoleTypeWorkTaskTypeSuitability
+                  }
+                  numberKey={'rating'}
+                  min={0}
+                  allowFloat={true}
+                  className={clsx('m-0 h-8 w-8 text-sm')}
+                  conditionalValueClassNames={conditionalNumberFormatting}
+                />
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 }

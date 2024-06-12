@@ -11,6 +11,7 @@ export default function Drawer({
   innerDivProps,
   whenOpen,
   whenClosed,
+  className,
   ...props
 }: GenericDivProps & {
   buttonLabel: string;
@@ -28,7 +29,7 @@ export default function Drawer({
   }
 
   return (
-    <div {...props}>
+    <div {...props} className={clsx(className, 'pointer-events-none')}>
       <div className={'mb-2 flex justify-end'}>
         <Button
           endContent={
@@ -40,13 +41,18 @@ export default function Drawer({
             />
           }
           onPress={() => setIsOpen((open) => !open)}
+          className={'pointer-events-auto'}
         >
           {buttonLabel}
         </Button>
       </div>
       <div
         {...otherProps}
-        className={clsx(isOpen ? whenOpen : whenClosed, classNameDefined)}
+        className={clsx(
+          isOpen ? whenOpen : whenClosed,
+          classNameDefined,
+          isOpen && 'pointer-events-auto'
+        )}
       >
         {children}
       </div>
