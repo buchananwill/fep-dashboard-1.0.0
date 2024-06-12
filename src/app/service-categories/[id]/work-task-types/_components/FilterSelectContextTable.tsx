@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useCallback, useRef } from 'react';
 import {
   Button,
   Dropdown,
@@ -24,6 +24,11 @@ import { useEntitySelection } from '@/app/service-categories/[id]/work-task-type
 import { Identifier } from 'dto-stores';
 import { Column, StringPropertyKey } from '@/types';
 import { HasId } from '@/api/types';
+import { useGlobalDispatch } from 'selective-context';
+import {
+  TooltipContext,
+  TooltipContextInterface
+} from '@/app/service-categories/[id]/roles/providers/_components/TooltipSingleton';
 
 export default function FilterSelectContextTable<T extends HasId>({
   entities,

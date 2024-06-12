@@ -5,6 +5,7 @@ import { LibraryProvidersWrapper } from '@/components/providers/LibraryProviders
 import React from 'react';
 import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { steps } from '@/components/react-joyride/steps';
+import TooltipSingleton from '@/app/service-categories/[id]/roles/providers/_components/TooltipSingleton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LibraryProvidersWrapper>{children}</LibraryProvidersWrapper>
+        <LibraryProvidersWrapper>
+          {children}
+          <TooltipSingleton />
+        </LibraryProvidersWrapper>
         <JoyrideWrapper steps={steps} />
       </body>
     </html>

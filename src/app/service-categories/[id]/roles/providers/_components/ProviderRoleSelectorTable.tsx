@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   Button,
   Chip,
@@ -14,6 +14,12 @@ import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { useGlobalDispatch } from 'selective-context';
+import {
+  TooltipContext,
+  TooltipContextInterface
+} from '@/app/service-categories/[id]/roles/providers/_components/TooltipSingleton';
+import { offset, useFloating } from '@floating-ui/react';
 
 export default function ProviderRoleSelectorTable({
   providerRoles
@@ -33,9 +39,9 @@ export default function ProviderRoleSelectorTable({
       switch (columnKey) {
         case 'partyName':
           return (
-            <span className={'inline-block w-32 truncate'}>
+            <div className={'inline-block w-32 truncate'}>
               {providerRoleDto.partyName}
-            </span>
+            </div>
           );
         case 'knowledgeDomainName':
           return (
@@ -73,15 +79,18 @@ export default function ProviderRoleSelectorTable({
     },
     []
   );
+
   return (
-    <FilterSelectContextTable
-      entities={providerRoles}
-      initialColumns={ProviderColumnsInitial}
-      filterProperty={'partyName'}
-      renderCell={renderCell}
-      columns={providerColumns}
-      entityClass={EntityClassMap.providerRole}
-    />
+    <>
+      <FilterSelectContextTable
+        entities={providerRoles}
+        initialColumns={ProviderColumnsInitial}
+        filterProperty={'partyName'}
+        renderCell={renderCell}
+        columns={providerColumns}
+        entityClass={EntityClassMap.providerRole}
+      />
+    </>
   );
 }
 

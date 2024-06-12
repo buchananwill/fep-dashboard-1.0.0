@@ -1,5 +1,11 @@
 import { GridChildComponentProps } from 'react-window';
-import React, { memo, ReactElement } from 'react';
+import React, {
+  forwardRef,
+  memo,
+  ReactElement,
+  useCallback,
+  useRef
+} from 'react';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -8,6 +14,13 @@ import { EmptyArray } from '@/api/literals';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
+import { useGlobalDispatch } from 'selective-context';
+import {
+  TooltipContext,
+  TooltipContextInterface
+} from '@/app/service-categories/[id]/roles/providers/_components/TooltipSingleton';
+import { d } from '@nextui-org/slider/dist/use-slider-a94a4c83';
+import { Placement, useFloating } from '@floating-ui/react';
 
 const SyncedRowCell = ({
   style,
@@ -28,13 +41,48 @@ const SyncedRowCell = ({
 
   const name = readAnyWorkTaskType(wttId)?.name ?? 'No Data Found';
 
+  const tooltip = useFloatingTooltip(<TooltipMemo text={name} />, 'bottom');
+
   return (
-    <div style={style} className={'border-x-1 border-y-2 first:border-l-2 '}>
+    <div
+      style={style}
+      className={'border-x-1 border-y-2 first:border-l-2 '}
+      {...tooltip}
+    >
       <InnerCellComponent>{name}</InnerCellComponent>
     </div>
   );
 };
 export const SyncedRowCellMemo = memo(SyncedRowCell);
+
+function useFloatingTooltip(
+  content: ReactElement | string | number,
+  placement: Placement = 'right'
+) {
+  const ref = useRef(null);
+  const { dispatchWithoutListen: dispatchTooltip } =
+    useGlobalDispatch<TooltipContextInterface>(TooltipContext);
+  const onMouseOver = useCallback(() => {
+    dispatchTooltip((state) => {
+      return {
+        ...state,
+        isOpen: true,
+        rootNodeRef: ref,
+        content,
+        placement
+      };
+    });
+  }, [dispatchTooltip, ref, content, placement]);
+  const onMouseOut = useCallback(() => {
+    dispatchTooltip((state) => {
+      return {
+        ...state,
+        isOpen: false
+      };
+    });
+  }, [dispatchTooltip]);
+  return { ref, onMouseOver, onMouseOut };
+}
 
 const SyncedColumnCell = ({
   style,
@@ -54,29 +102,49 @@ const SyncedColumnCell = ({
   const prId = currentState[rowIndex];
 
   const name = readAnyProviderRole(prId)?.partyName ?? 'No Data Found';
+  const tooltip = useFloatingTooltip(<TooltipMemo text={name} />);
 
   return (
-    <div style={style} className={'border-x-1 border-y-2 first:border-l-2 '}>
+    <div
+      style={style}
+      className={'border-x-1 border-y-2 first:border-l-2 '}
+      {...tooltip}
+    >
       <InnerCellComponent>{name}</InnerCellComponent>
     </div>
   );
 };
 export const SyncedColumnCellMemo = memo(SyncedColumnCell);
 
-function InnerCellComponent({
-  children
-}: {
-  children: string | number | ReactElement;
-}) {
+const InnerCellComponent = forwardRef<
+  HTMLDivElement,
+  {
+    children: string | number | ReactElement;
+  }
+>(function InnerCellComponent({ children }, ref) {
   return (
-    <div className={'flex h-full items-center align-middle'}>
-      <span
+    <div ref={ref} className={'relative flex h-full items-center align-middle'}>
+      <div
         className={
-          'mb-auto mt-auto inline-block h-fit w-full overflow-hidden overflow-ellipsis whitespace-nowrap bg-white p-1  text-sm  hover:z-10 hover:w-fit hover:overflow-visible '
+          'mb-auto mt-auto inline-block h-fit w-full overflow-hidden overflow-ellipsis whitespace-nowrap bg-white p-1  text-sm   '
         }
       >
         {children}
-      </span>
+      </div>
+    </div>
+  );
+});
+
+const TooltipMemo = memo(SimpleTooltip);
+
+function SimpleTooltip({ text }: { text: string }) {
+  return (
+    <div
+      className={
+        'rounded-md border border-amber-300 bg-amber-50 p-2 text-black'
+      }
+    >
+      {text}
     </div>
   );
 }
