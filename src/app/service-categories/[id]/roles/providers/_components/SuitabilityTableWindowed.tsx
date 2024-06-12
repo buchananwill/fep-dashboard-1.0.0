@@ -73,7 +73,6 @@ export default function SuitabilityTableWindowed({
   const rowCount = dataResponse?.length ?? 0;
   const columnCount = dataResponse[0]?.length ?? 0;
 
-  console.log(`grid: ${columnCount} cols : ${rowCount} rows`);
   return (
     <>
       <EditAddDeleteDtoControllerArray

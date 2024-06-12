@@ -12,3 +12,9 @@ export type uiWrapperListViewProps<T extends HasId, Props> = DtoUiArrayProps<
 > & { entityList: T[] };
 
 export type DispatchState<T> = Dispatch<SetStateAction<T>>;
+
+export interface Column<T> {
+  name: string;
+  uid: Extract<keyof T, string | number>;
+  sortable?: boolean;
+}

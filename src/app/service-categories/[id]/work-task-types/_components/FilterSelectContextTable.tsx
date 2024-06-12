@@ -1,8 +1,6 @@
-'use client';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   Button,
-  Chip,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -18,45 +16,40 @@ import {
   TableHeader,
   TableRow
 } from '@nextui-org/react';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import {
   ChevronDownIcon,
-  EllipsisHorizontalIcon,
   MagnifyingGlassIcon
 } from '@heroicons/react/24/outline';
 import { useEntitySelection } from '@/app/service-categories/[id]/work-task-types/_components/useEntitySelection';
-import { EntityClassMap } from '@/api/entity-class-map';
+import { Identifier } from 'dto-stores';
+import { Column, StringPropertyKey } from '@/types';
+import { HasId } from '@/api/types';
 
-const INITIAL_VISIBLE_COLUMNS: (keyof WorkTaskTypeDto)[] = [
-  'name',
-  'knowledgeDomainName',
-  'knowledgeLevelName'
-];
-
-const columns: {
-  name: string;
-  uid: keyof WorkTaskTypeDto;
-  sortable?: boolean;
-}[] = [
-  { name: 'Name', uid: 'name', sortable: true },
-  { name: 'Subject', uid: 'knowledgeDomainName', sortable: true },
-  { name: 'Year', uid: 'knowledgeLevelName', sortable: true },
-  { name: 'Validation', uid: 'deliveryValidationTypeName', sortable: true }
-];
-
-export default function WorkTaskTypeTable({
-  workTaskTypes
+export default function FilterSelectContextTable<T extends HasId>({
+  entities,
+  initialColumns,
+  filterProperty,
+  renderCell,
+  columns,
+  entityClass
 }: {
-  workTaskTypes: WorkTaskTypeDto[];
+  entityClass: string;
+  entities: T[];
+  columns: Column<T>[];
+  initialColumns: (keyof T)[];
+  filterProperty: StringPropertyKey<T>;
+  renderCell: (
+    entity: T,
+    columnKey: React.Key
+  ) => string | number | ReactElement;
 }) {
   const [filterValue, setFilterValue] = React.useState('');
 
-  const { handleChange, selectedSet } = useEntitySelection<
-    WorkTaskTypeDto,
-    number
-  >(EntityClassMap.workTaskType);
+  const { handleChange, selectedSet } = useEntitySelection<T, number>(
+    entityClass
+  );
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
-    new Set(INITIAL_VISIBLE_COLUMNS)
+    new Set(initialColumns as Identifier[])
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
@@ -74,19 +67,21 @@ export default function WorkTaskTypeTable({
     return columns.filter((column) =>
       Array.from(visibleColumns).includes(column.uid)
     );
-  }, [visibleColumns]);
+  }, [visibleColumns, columns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredWtt = [...workTaskTypes];
+    let filteredEntities = [...entities];
 
     if (hasSearchFilter) {
-      filteredWtt = filteredWtt.filter((wtt) =>
-        wtt.name.toLowerCase().includes(filterValue.toLowerCase())
+      filteredEntities = filteredEntities.filter((wtt) =>
+        (wtt[filterProperty] as string)
+          .toLowerCase()
+          .includes(filterValue.toLowerCase())
       );
     }
 
-    return filteredWtt;
-  }, [workTaskTypes, filterValue, hasSearchFilter]);
+    return filteredEntities;
+  }, [entities, filterValue, hasSearchFilter]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -98,68 +93,14 @@ export default function WorkTaskTypeTable({
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: WorkTaskTypeDto, b: WorkTaskTypeDto) => {
-      const first = a[sortDescriptor.column as keyof WorkTaskTypeDto] as number;
-      const second = b[
-        sortDescriptor.column as keyof WorkTaskTypeDto
-      ] as number;
+    return [...items].sort((a: T, b: T) => {
+      const first = a[sortDescriptor.column as keyof T] as number;
+      const second = b[sortDescriptor.column as keyof T] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === 'descending' ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
-
-  const renderCell = React.useCallback(
-    (workTaskTypeDto: WorkTaskTypeDto, columnKey: React.Key) => {
-      const cellValue = workTaskTypeDto[columnKey as keyof WorkTaskTypeDto];
-
-      switch (columnKey) {
-        case 'name':
-          return (
-            <span className={'inline-block w-32 truncate'}>
-              {workTaskTypeDto.name}
-            </span>
-          );
-        case 'knowledgeDomainName':
-          return (
-            <span className="inline-block w-24  text-sm">{cellValue}</span>
-          );
-        case 'knowledgeLevelName':
-          return (
-            <span className={'inline-block w-20'}>
-              <Chip
-                className={'max-w-full truncate'}
-                color={'secondary'}
-                size="sm"
-                variant="flat"
-              >
-                {cellValue}
-              </Chip>
-            </span>
-          );
-        case 'actions':
-          return (
-            <div className="relative flex items-center justify-end gap-2">
-              <Dropdown>
-                <DropdownTrigger>
-                  <Button isIconOnly size="sm" variant="light">
-                    <EllipsisHorizontalIcon />
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu>
-                  <DropdownItem>View</DropdownItem>
-                  <DropdownItem>Edit</DropdownItem>
-                  <DropdownItem>Delete</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </div>
-          );
-        default:
-          return cellValue;
-      }
-    },
-    []
-  );
 
   const onRowsPerPageChange = React.useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -225,7 +166,7 @@ export default function WorkTaskTypeTable({
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            Total {workTaskTypes.length} lesson types.
+            Total {entities.length} {entityClass}.
           </span>
           <label className="flex items-center text-small text-default-400">
             Rows per page:
@@ -249,14 +190,14 @@ export default function WorkTaskTypeTable({
     visibleColumns,
     onSearchChange,
     onRowsPerPageChange,
-    workTaskTypes.length
+    entities.length
   ]);
 
   const bottomContent = React.useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
         <span className="w-[30%] text-small text-default-400">
-          {selectedSet.size === workTaskTypes.length
+          {selectedSet.size === entities.length
             ? 'All items selected'
             : `${selectedSet.size} of ${filteredItems.length} selected`}
         </span>
@@ -271,7 +212,7 @@ export default function WorkTaskTypeTable({
         />
       </div>
     );
-  }, [selectedSet, page, pages, filteredItems.length, workTaskTypes.length]);
+  }, [selectedSet, page, pages, filteredItems.length, entities.length]);
 
   console.log(selectedSet);
 

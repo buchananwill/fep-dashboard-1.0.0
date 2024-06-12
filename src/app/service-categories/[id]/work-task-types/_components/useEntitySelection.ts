@@ -45,6 +45,9 @@ export function useEntitySelection<T, U>(
         selected === 'all'
           ? [...idList]
           : ([...new Set(selected).values()] as U[]);
+      if (selected === 'all') {
+        console.log(nextSelection);
+      }
       dispatchSelected(nextSelection.sort());
     },
     [dispatchSelected, idList]

@@ -1,5 +1,6 @@
 export const EntityClassMap = {
   asset: 'Asset',
+  assetRole: 'AssetRole',
   assetRoleTypeWorkTaskTypeSuitability: 'AssetRoleTypeWorkTaskTypeSuitability',
   assetType: 'AssetType',
   carousel: 'Carousel',

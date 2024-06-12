@@ -31,7 +31,6 @@ export default function WorkTaskTypeIgmTable({
         if (submitTo) {
           const workTaskTypes: WorkTaskTypeDto[] = await submitTo(matrix);
           if (workTaskTypes?.length > 0) {
-            console.log(workTaskTypes);
             await initWorkProjectSeriesSchemas(workTaskTypes); // TODO verify the new schemas have been created?
             const levelOrdinal = columns[0]?.levelOrdinal;
             appRouterInstance.push(
