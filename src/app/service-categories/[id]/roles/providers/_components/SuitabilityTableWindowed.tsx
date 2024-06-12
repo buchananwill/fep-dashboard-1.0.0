@@ -118,6 +118,7 @@ const CellComponent = ({
   style: CSSProperties;
   data: ProviderRoleTypeWorkTaskTypeSuitabilityDto[][];
 }) => {
+  console.log('re-rendering cell');
   const datumElement = data[rowIndex][columnIndex];
 
   const id = datumElement?.id;
