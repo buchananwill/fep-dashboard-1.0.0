@@ -1,5 +1,9 @@
 'use client';
-import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
+import {
+  EditAddDeleteDtoControllerArray,
+  NamespacedHooks,
+  useReadAnyDto
+} from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
@@ -10,10 +14,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FixedSizeGrid, GridOnScrollProps } from 'react-window';
 import { CellComponentMemo } from '@/app/service-categories/[id]/roles/providers/_components/CellComponent';
 import { SyncedCellMemo } from '@/app/service-categories/[id]/roles/providers/_components/SyncedCell';
+import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
+import { isNotUndefined } from '@/api/main';
 
 const squareSize = 500;
 export default function SuitabilityTableWindowed({
-  partyIdList,
   providerRoleTypeId
 }: {
   partyIdList: number[];
@@ -26,17 +31,31 @@ export default function SuitabilityTableWindowed({
     listenerKey,
     EmptyArray as number[]
   );
+  const { currentState: selectedProviders } = NamespacedHooks.useListen(
+    EntityClassMap.providerRole,
+    KEY_TYPES.SELECTED,
+    listenerKey,
+    EmptyArray as number[]
+  );
   const { dispatchWithoutControl } = NamespacedHooks.useDispatchAndListen(
     EntityClassMap.providerRoleTypeWorkTaskTypeSuitability,
     KEY_TYPES.MASTER_LIST,
     listenerKey,
     EmptyArray as ProviderRoleTypeWorkTaskTypeSuitabilityDto[]
   );
+
+  const readAnyProvider = useReadAnyDto<ProviderRoleDto>(
+    EntityClassMap.providerRole
+  );
   const [dataResponse, setDataResponse] = useState<
     ProviderRoleTypeWorkTaskTypeSuitabilityDto[][]
   >([]);
 
   useEffect(() => {
+    const partyIdList = selectedProviders
+      .map((pId) => readAnyProvider(pId))
+      .filter(isNotUndefined)
+      .map((pRole) => pRole.partyId);
     ProviderRoleSuitabilityApi.getTriIntersectionTable(
       partyIdList,
       selectedWTT,
@@ -49,7 +68,13 @@ export default function SuitabilityTableWindowed({
 
       setDataResponse(Object.values(idReferencedIntersectionTableDto));
     });
-  }, [dispatchWithoutControl, providerRoleTypeId, partyIdList, selectedWTT]);
+  }, [
+    dispatchWithoutControl,
+    providerRoleTypeId,
+    selectedWTT,
+    readAnyProvider,
+    selectedProviders
+  ]);
 
   const syncedRow = useRef<FixedSizeGrid | null>(null);
   const syncedColumn = useRef<FixedSizeGrid | null>(null);
