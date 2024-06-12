@@ -1,39 +1,15 @@
 'use client';
-import {
-  EditAddDeleteDtoControllerArray,
-  LazyDtoUiWrapper,
-  NamespacedHooks
-} from 'dto-stores';
+import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import NumberEditCellList from '@/app/service-categories/[id]/roles/_components/NumberEditCellList';
 import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
-import clsx from 'clsx';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { ProviderRoleSuitabilityApi } from '@/api/clientApi';
-import {
-  CSSProperties,
-  memo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from 'react';
-import {
-  BaseDtoStoreNumberInputProps,
-  ConditionalNumberClassName,
-  DtoStoreNumberInput,
-  DtoStoreNumberInputWrapper
-} from '@/components/generic/DtoStoreNumberInput';
-import {
-  areEqual,
-  FixedSizeGrid,
-  GridChildComponentProps,
-  GridOnScrollProps
-} from 'react-window';
-import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { FixedSizeGrid, GridOnScrollProps } from 'react-window';
+import { CellComponentMemo } from '@/app/service-categories/[id]/roles/providers/_components/CellComponent';
+import { SyncedCellMemo } from '@/app/service-categories/[id]/roles/providers/_components/SyncedCell';
 
 const squareSize = 500;
 export default function SuitabilityTableWindowed({
@@ -163,67 +139,3 @@ export default function SuitabilityTableWindowed({
     </>
   );
 }
-
-const conditionalNumberFormatting: ConditionalNumberClassName[] = [
-  { startAt: -1, className: 'opacity-50' },
-  { startAt: 0, className: '' },
-  { startAt: 1, className: ' bg-red-100' },
-  { startAt: 2, className: ' bg-amber-100' },
-  { startAt: 3, className: ' bg-yellow-100' },
-  { startAt: 4, className: ' bg-emerald-100' }
-];
-
-const CellComponent = ({
-  columnIndex,
-  rowIndex,
-  style,
-  data
-}: {
-  columnIndex: number;
-  rowIndex: number;
-  style: CSSProperties;
-  data: ProviderRoleTypeWorkTaskTypeSuitabilityDto[][];
-}) => {
-  console.log('re-rendering cell');
-  const datumElement = data[rowIndex][columnIndex];
-
-  const id = datumElement?.id;
-
-  return (
-    <div style={style}>
-      <LazyDtoUiWrapper<
-        ProviderRoleTypeWorkTaskTypeSuitabilityDto,
-        BaseDtoStoreNumberInputProps<ProviderRoleTypeWorkTaskTypeSuitabilityDto>
-      >
-        entityClass={EntityClassMap.providerRoleTypeWorkTaskTypeSuitability}
-        renderAs={DtoStoreNumberInput}
-        whileLoading={() => (
-          <div className={'relative'}>
-            <PendingOverlay pending={true} />
-          </div>
-        )}
-        numberKey={'rating'}
-        min={0}
-        allowFloat={true}
-        onFocus={() => console.log(datumElement)}
-        className={clsx('h-[95%] w-[95%] p-2 text-sm')}
-        conditionalValueClassNames={conditionalNumberFormatting}
-        entityId={id}
-      />
-    </div>
-  );
-};
-
-const CellComponentMemo = React.memo(CellComponent, areEqual);
-
-const SyncedCell = ({ style }: GridChildComponentProps) => (
-  <div style={style}>
-    <div className={'flex h-full items-center align-middle'}>
-      <span className={'mb-auto mt-auto inline-block h-fit w-full truncate'}>
-        Header
-      </span>
-    </div>
-  </div>
-);
-
-const SyncedCellMemo = memo(SyncedCell);
