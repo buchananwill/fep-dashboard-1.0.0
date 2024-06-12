@@ -13,7 +13,10 @@ import { ProviderRoleSuitabilityApi } from '@/api/clientApi';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FixedSizeGrid, GridOnScrollProps } from 'react-window';
 import { CellComponentMemo } from '@/app/service-categories/[id]/roles/providers/_components/CellComponent';
-import { SyncedCellMemo } from '@/app/service-categories/[id]/roles/providers/_components/SyncedCell';
+import {
+  SyncedColumnCellMemo,
+  SyncedRowCellMemo
+} from '@/app/service-categories/[id]/roles/providers/_components/SyncedCell';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { isNotUndefined } from '@/api/main';
 
@@ -125,13 +128,18 @@ export default function SuitabilityTableWindowed({
             rowCount={1}
             width={squareSize}
           >
-            {SyncedCellMemo}
+            {SyncedRowCellMemo}
           </FixedSizeGrid>
         </div>
 
-        <div style={{ gridArea: 'stickyCol' }}>
+        <div
+          style={{ gridArea: 'stickyCol' }}
+          className={'z-20 overflow-visible'}
+        >
           <FixedSizeGrid
-            style={{ overflowY: 'hidden' }}
+            // style={{ overflowY: 'auto', overflowX: 'visible' }}
+            className={'overflow-initial'}
+            // style={{ overflowY: 'hidden', overflowX: 'visible' }}
             ref={syncedColumn}
             columnWidth={100}
             rowHeight={40}
@@ -140,7 +148,7 @@ export default function SuitabilityTableWindowed({
             rowCount={rowCount}
             width={100}
           >
-            {SyncedCellMemo}
+            {SyncedColumnCellMemo}
           </FixedSizeGrid>
         </div>
         <div style={{ gridArea: 'main' }}>

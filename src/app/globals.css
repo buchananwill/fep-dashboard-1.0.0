@@ -83,6 +83,12 @@ canvas {
     }
 }
 
+.overflow-initial {
+    overflow: initial !important;
+    overflow-x: visible !important;
+    overflow-y: hidden !important;
+}
+
 @layer components {
     .no-spinner {
         -moz-appearance: textfield;
