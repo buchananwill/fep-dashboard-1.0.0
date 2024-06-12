@@ -12,17 +12,30 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { ProviderRoleSuitabilityApi } from '@/api/clientApi';
-import { CSSProperties, useCallback, useEffect, useState } from 'react';
+import {
+  CSSProperties,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import {
   BaseDtoStoreNumberInputProps,
   ConditionalNumberClassName,
   DtoStoreNumberInput,
   DtoStoreNumberInputWrapper
 } from '@/components/generic/DtoStoreNumberInput';
-import { areEqual, FixedSizeGrid } from 'react-window';
+import {
+  areEqual,
+  FixedSizeGrid,
+  GridChildComponentProps,
+  GridOnScrollProps
+} from 'react-window';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import React from 'react';
 
+const squareSize = 500;
 export default function SuitabilityTableWindowed({
   partyIdList,
   providerRoleTypeId
@@ -37,13 +50,12 @@ export default function SuitabilityTableWindowed({
     listenerKey,
     EmptyArray as number[]
   );
-  const { currentState: suitabilities, dispatchWithoutControl } =
-    NamespacedHooks.useDispatchAndListen(
-      EntityClassMap.providerRoleTypeWorkTaskTypeSuitability,
-      KEY_TYPES.MASTER_LIST,
-      listenerKey,
-      EmptyArray as ProviderRoleTypeWorkTaskTypeSuitabilityDto[]
-    );
+  const { dispatchWithoutControl } = NamespacedHooks.useDispatchAndListen(
+    EntityClassMap.providerRoleTypeWorkTaskTypeSuitability,
+    KEY_TYPES.MASTER_LIST,
+    listenerKey,
+    EmptyArray as ProviderRoleTypeWorkTaskTypeSuitabilityDto[]
+  );
   const [dataResponse, setDataResponse] = useState<
     ProviderRoleTypeWorkTaskTypeSuitabilityDto[][]
   >([]);
@@ -63,6 +75,25 @@ export default function SuitabilityTableWindowed({
     });
   }, [dispatchWithoutControl, providerRoleTypeId, partyIdList, selectedWTT]);
 
+  const syncedRow = useRef<FixedSizeGrid | null>(null);
+  const syncedColumn = useRef<FixedSizeGrid | null>(null);
+
+  const onScroll = useCallback(
+    ({
+      scrollTop,
+      scrollUpdateWasRequested,
+      scrollLeft
+    }: GridOnScrollProps) => {
+      if (!scrollUpdateWasRequested) {
+        if (syncedColumn.current && syncedRow.current) {
+          syncedColumn.current.scrollTo({ scrollLeft: 0, scrollTop });
+          syncedRow.current.scrollTo({ scrollLeft, scrollTop: 0 });
+        }
+      }
+    },
+    []
+  );
+
   const rowCount = dataResponse?.length ?? 0;
   const columnCount = dataResponse[0]?.length ?? 0;
 
@@ -76,23 +107,58 @@ export default function SuitabilityTableWindowed({
         updateServerAction={ProviderRoleSuitabilityApi.putList}
       />
       <div
-        className={
-          'max-h-[75vh] max-w-6xl overflow-y-auto rounded-lg border-4 p-2'
-        }
+        style={{
+          display: 'grid',
+          gridTemplateAreas: `'. stickyRow' 'stickyCol main'`,
+          gridTemplateRows: '40px 1fr',
+          gridTemplateColumns: '100px 1fr'
+        }}
       >
-        <FixedSizeGrid
-          itemData={dataResponse}
-          overscanRowCount={4}
-          overscanColumnCount={4}
-          columnWidth={40}
-          rowHeight={40}
-          columnCount={columnCount}
-          height={500}
-          rowCount={rowCount}
-          width={500}
-        >
-          {CellComponentMemo}
-        </FixedSizeGrid>
+        <div style={{ gridArea: 'stickyRow' }}>
+          <FixedSizeGrid
+            style={{ overflowX: 'hidden' }}
+            ref={syncedRow}
+            columnWidth={40}
+            rowHeight={40}
+            columnCount={columnCount}
+            height={40}
+            rowCount={1}
+            width={squareSize}
+          >
+            {SyncedCellMemo}
+          </FixedSizeGrid>
+        </div>
+
+        <div style={{ gridArea: 'stickyCol' }}>
+          <FixedSizeGrid
+            style={{ overflowY: 'hidden' }}
+            ref={syncedColumn}
+            columnWidth={100}
+            rowHeight={40}
+            columnCount={1}
+            height={squareSize}
+            rowCount={rowCount}
+            width={100}
+          >
+            {SyncedCellMemo}
+          </FixedSizeGrid>
+        </div>
+        <div style={{ gridArea: 'main' }}>
+          <FixedSizeGrid
+            onScroll={onScroll}
+            itemData={dataResponse}
+            overscanRowCount={4}
+            overscanColumnCount={4}
+            columnWidth={40}
+            rowHeight={40}
+            columnCount={columnCount}
+            height={squareSize}
+            rowCount={rowCount}
+            width={squareSize}
+          >
+            {CellComponentMemo}
+          </FixedSizeGrid>
+        </div>
       </div>
     </>
   );
@@ -149,3 +215,15 @@ const CellComponent = ({
 };
 
 const CellComponentMemo = React.memo(CellComponent, areEqual);
+
+const SyncedCell = ({ style }: GridChildComponentProps) => (
+  <div style={style}>
+    <div className={'flex h-full items-center align-middle'}>
+      <span className={'mb-auto mt-auto inline-block h-fit w-full truncate'}>
+        Header
+      </span>
+    </div>
+  </div>
+);
+
+const SyncedCellMemo = memo(SyncedCell);
