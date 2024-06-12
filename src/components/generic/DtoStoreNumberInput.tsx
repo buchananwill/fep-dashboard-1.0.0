@@ -81,6 +81,7 @@ export function DtoStoreNumberInput<T extends HasId>({
     if (!conditionalValueClassNames) return conditionalClass;
     for (let { startAt, className } of conditionalValueClassNames) {
       if (currentNumberValue >= startAt) conditionalClass = className;
+      else break;
     }
     return conditionalClass;
   }, [conditionalValueClassNames, currentNumberValue]);

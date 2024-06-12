@@ -14,6 +14,7 @@ import { EmptyArray } from '@/api/literals';
 import SuitabilityTable from '@/app/service-categories/[id]/roles/providers/_components/SuitabilityTable';
 import WorkTaskTypeTable from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeTable';
 import Drawer from '@/components/layout/Drawer';
+import SuitabilityTableWindowed from '@/app/service-categories/[id]/roles/providers/_components/SuitabilityTableWindowed';
 
 export default async function page({
   params: { roleTypeId, id }
@@ -55,6 +56,10 @@ export default async function page({
       {/*  partyIdList={partyIdList}*/}
       {/*  providerRoleTypeId={providerRoleTypeId}*/}
       {/*/>*/}
+      <SuitabilityTableWindowed
+        partyIdList={partyIdList}
+        providerRoleTypeId={providerRoleTypeId}
+      />
     </>
   );
 }
