@@ -281,9 +281,9 @@ export default function WorkTaskTypeTable({
       isHeaderSticky
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
-      // classNames={{
-      //   wrapper: 'max-h-[32rem] max-w-[40rem]'
-      // }}
+      classNames={{
+        wrapper: 'h-[26rem] max-w-[40rem]'
+      }}
       selectedKeys={selectedSet}
       className={'pointer-events-auto'}
       selectionMode="multiple"

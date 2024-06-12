@@ -1,20 +1,10 @@
-import {
-  ProviderRoleApi,
-  ProviderRoleSuitabilityApi,
-  WorkTaskTypeApi
-} from '@/api/clientApi';
+import { ProviderRoleApi, WorkTaskTypeApi } from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { ConditionalNumberClassName } from '@/components/generic/DtoStoreNumberInput';
-import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
-import NumberEditCellList from '@/app/service-categories/[id]/roles/_components/NumberEditCellList';
-import clsx from 'clsx';
-import WorkTaskTypeSelector from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeSelector';
-import { EmptyArray } from '@/api/literals';
-import SuitabilityTable from '@/app/service-categories/[id]/roles/providers/_components/SuitabilityTable';
 import WorkTaskTypeTable from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeTable';
-import Drawer from '@/components/layout/Drawer';
 import SuitabilityTableWindowed from '@/app/service-categories/[id]/roles/providers/_components/SuitabilityTableWindowed';
+import { Tab, Tabs } from '@nextui-org/tabs';
+import TabbedSelectorTables from '@/app/service-categories/[id]/roles/providers/_components/TabbedSelectorTables';
 
 export default async function page({
   params: { roleTypeId, id }
@@ -34,32 +24,21 @@ export default async function page({
   ]);
 
   return (
-    <>
-      <Drawer
-        buttonLabel={'Show Lesson Types Table'}
-        className={'fixed right-0  w-fit overflow-x-hidden rounded-lg p-2'}
-        whenClosed={'translate-x-[40rem] overflow-y-hidden'}
-        whenOpen={'overflow-y-auto'}
-        innerDivProps={{
-          className:
-            'transition-transform duration-1000 bg-white max-h-[85vh] border-2 rounded-xl p-4'
-        }}
-      >
-        <WorkTaskTypeTable workTaskTypes={workTaskTypes} />
-      </Drawer>
+    <div className={'flex'}>
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.workTaskType}
         dtoList={workTaskTypes}
       />
-
-      {/*<SuitabilityTable*/}
-      {/*  partyIdList={partyIdList}*/}
-      {/*  providerRoleTypeId={providerRoleTypeId}*/}
-      {/*/>*/}
-      <SuitabilityTableWindowed
-        partyIdList={partyIdList}
-        providerRoleTypeId={providerRoleTypeId}
+      <div className={'mb-auto mt-auto w-[50%] p-4'}>
+        <SuitabilityTableWindowed
+          partyIdList={partyIdList}
+          providerRoleTypeId={providerRoleTypeId}
+        />
+      </div>
+      <TabbedSelectorTables
+        className={'w-[50%] p-4'}
+        workTaskTypes={workTaskTypes}
       />
-    </>
+    </div>
   );
 }
