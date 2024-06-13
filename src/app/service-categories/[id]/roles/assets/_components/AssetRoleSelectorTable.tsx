@@ -20,30 +20,31 @@ import {
   TooltipContextInterface
 } from '@/components/generic/TooltipSingleton';
 import { offset, useFloating } from '@floating-ui/react';
+import { AssetRoleDto } from '@/api/dtos/AssetRoleDtoSchema';
 
-export default function ProviderRoleSelectorTable({
-  providerRoles
+export default function AssetRoleSelectorTable({
+  assetRoles
 }: {
-  providerRoles: ProviderRoleDto[];
+  assetRoles: AssetRoleDto[];
 }) {
-  const renderCell = React.useCallback(
-    (providerRoleDto: ProviderRoleDto, columnKey: React.Key) => {
+  const renderCell = useCallback(
+    (assetRoleDto: AssetRoleDto, columnKey: React.Key) => {
       const cellValue =
-        providerRoleDto[
+        assetRoleDto[
           columnKey as Extract<
-            keyof Omit<ProviderRoleDto, 'type'>,
+            keyof Omit<AssetRoleDto, 'type'>,
             string | number
           >
         ];
 
       switch (columnKey) {
-        case 'partyName':
+        case 'assetName':
           return (
             <div className={'inline-block w-32 truncate'}>
-              {providerRoleDto.partyName}
+              {assetRoleDto.assetName}
             </div>
           );
-        case 'knowledgeDomainName':
+        case 'name':
           return (
             <span className={'inline-block w-20'}>
               <Chip
@@ -52,7 +53,7 @@ export default function ProviderRoleSelectorTable({
                 size="sm"
                 variant="flat"
               >
-                {providerRoleDto.knowledgeDomainName}
+                {assetRoleDto.name}
               </Chip>
             </span>
           );
@@ -66,22 +67,22 @@ export default function ProviderRoleSelectorTable({
   return (
     <>
       <FilterSelectEntityTable
-        entities={providerRoles}
-        initialColumns={ProviderColumnsInitial}
-        filterProperty={'partyName'}
+        entities={assetRoles}
+        initialColumns={AssetRoleColumnsInitial}
+        filterProperty={'assetName'}
         renderCell={renderCell}
-        columns={providerColumns}
-        entityClass={EntityClassMap.providerRole}
+        columns={AssetRoleColumns}
+        entityClass={EntityClassMap.assetRole}
       />
     </>
   );
 }
 
-export const ProviderColumnsInitial: (keyof ProviderRoleDto)[] = [
-  'partyName',
-  'knowledgeDomainName'
+export const AssetRoleColumnsInitial: (keyof AssetRoleDto)[] = [
+  'assetName',
+  'name'
 ];
-export const providerColumns: Column<ProviderRoleDto>[] = [
-  { name: 'Name', uid: 'partyName', sortable: true },
-  { name: 'Main Subject', uid: 'knowledgeDomainName', sortable: true }
+export const AssetRoleColumns: Column<AssetRoleDto>[] = [
+  { name: 'Asset Name', uid: 'assetName', sortable: true },
+  { name: 'Asset Role Name', uid: 'name', sortable: true }
 ];

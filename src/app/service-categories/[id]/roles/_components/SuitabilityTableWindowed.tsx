@@ -1,5 +1,6 @@
 'use client';
 import {
+  CommitServerAction,
   EditAddDeleteDtoControllerArray,
   NamespacedHooks,
   useReadAnyDto
@@ -9,27 +10,89 @@ import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderR
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { ProviderRoleSuitabilityApi } from '@/api/clientApi';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  AssetRoleSuitabilityApi,
+  ProviderRoleSuitabilityApi
+} from '@/api/clientApi';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import { FixedSizeGrid, GridOnScrollProps } from 'react-window';
 import { CellComponentMemo } from '@/app/service-categories/[id]/roles/providers/_components/CellComponent';
 import {
   SyncedColumnCellMemo,
   SyncedRowCellMemo
-} from '@/app/service-categories/[id]/roles/providers/_components/SyncedCell';
+} from '@/app/service-categories/[id]/roles/_components/SyncedCell';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { isNotUndefined } from '@/api/main';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { AssetRoleWorkTaskSuitabilityDto } from '@/api/dtos/AssetRoleWorkTaskSuitabilityDtoSchema';
 
 const DefaultScrollBarSize = 20;
 const defaultSyncColumnWidth = 100;
 const defaultCellSize = 40;
+
+export type SuitabilityTypes = (typeof EntityClassMap)[
+  | 'assetRole'
+  | 'providerRole'];
+
+export type SuitabilityEntityTypes = (typeof EntityClassMap)[
+  | 'assetRoleTypeWorkTaskTypeSuitability'
+  | 'providerRoleTypeWorkTaskTypeSuitability'];
+
+export type SuitabilityEntity =
+  | ProviderRoleTypeWorkTaskTypeSuitabilityDto
+  | AssetRoleWorkTaskSuitabilityDto;
+
+export interface SuitabilityTableProps {
+  suitabilityType: SuitabilityTypes;
+  roleTypeId: number;
+}
+
+export interface SuitabilityConditions {
+  suitabilityEntityType: SuitabilityEntityTypes;
+  suitabilityType: SuitabilityTypes;
+  baseEntityIdAccessor: 'partyId' | 'assetId';
+  displayNameAccessor: 'partyName' | 'assetName';
+  api: (typeof SuitabilityApis)[keyof typeof SuitabilityApis];
+}
+
+const SuitabilityApis = {
+  ProviderRole: ProviderRoleSuitabilityApi,
+  AssetRole: AssetRoleSuitabilityApi
+} as const;
+
+export const AssetSuitabilityCondition: SuitabilityConditions = {
+  suitabilityEntityType: EntityClassMap.assetRoleTypeWorkTaskTypeSuitability,
+  suitabilityType: EntityClassMap.assetRole,
+  baseEntityIdAccessor: 'assetId',
+  displayNameAccessor: 'assetName',
+  api: AssetRoleSuitabilityApi
+} as const;
+export const ProviderSuitabilityCondition: SuitabilityConditions = {
+  suitabilityEntityType: EntityClassMap.providerRoleTypeWorkTaskTypeSuitability,
+  suitabilityType: EntityClassMap.providerRole,
+  baseEntityIdAccessor: 'partyId',
+  displayNameAccessor: 'partyName',
+  api: ProviderRoleSuitabilityApi
+};
+
+const SuitabilityConditionContext = 'suitabilityCondition';
 export default function SuitabilityTableWindowed({
-  providerRoleTypeId
-}: {
-  partyIdList: number[];
-  providerRoleTypeId: number;
-}) {
+  roleTypeId,
+  suitabilityType
+}: SuitabilityTableProps) {
+  const suitabilityCondition =
+    suitabilityType === 'AssetRole'
+      ? AssetSuitabilityCondition
+      : ProviderSuitabilityCondition;
+  const { api, baseEntityIdAccessor, suitabilityEntityType } =
+    suitabilityCondition;
+
   const [scrollBarWidth, setScrollBarWidth] = useState(DefaultScrollBarSize);
 
   const listenerKey = useUuidListenerKey();
@@ -39,49 +102,54 @@ export default function SuitabilityTableWindowed({
     listenerKey,
     EmptyArray as number[]
   );
-  const { currentState: selectedProviders } = NamespacedHooks.useListen(
-    EntityClassMap.providerRole,
+  const { currentState: selectedRoles } = NamespacedHooks.useListen(
+    suitabilityType,
     KEY_TYPES.SELECTED,
     listenerKey,
     EmptyArray as number[]
   );
   const { dispatchWithoutControl } = NamespacedHooks.useDispatchAndListen(
-    EntityClassMap.providerRoleTypeWorkTaskTypeSuitability,
+    suitabilityEntityType,
     KEY_TYPES.MASTER_LIST,
     listenerKey,
-    EmptyArray as ProviderRoleTypeWorkTaskTypeSuitabilityDto[]
+    EmptyArray as SuitabilityEntity[]
   );
 
-  const readAnyProvider = useReadAnyDto<ProviderRoleDto>(
-    EntityClassMap.providerRole
-  );
-  const [dataResponse, setDataResponse] = useState<
-    ProviderRoleTypeWorkTaskTypeSuitabilityDto[][]
-  >([]);
+  const readAnyRole = useReadAnyDto<ProviderRoleDto>(suitabilityType);
+  const [dataResponse, setDataResponse] = useState<SuitabilityEntity[][]>([]);
+
+  const itemData = useMemo(() => {
+    return {
+      dataResponse,
+      suitabilityCondition
+    };
+  }, [dataResponse, suitabilityCondition]);
 
   useEffect(() => {
-    const partyIdList = selectedProviders
-      .map((pId) => readAnyProvider(pId))
+    const baseEntityIdList = selectedRoles
+      .map((eId) => readAnyRole(eId))
       .filter(isNotUndefined)
-      .map((pRole) => pRole.partyId);
-    ProviderRoleSuitabilityApi.getTriIntersectionTable(
-      partyIdList,
-      selectedWTT,
-      providerRoleTypeId
-    ).then((idReferencedIntersectionTableDto) => {
-      const flatList = Object.values(idReferencedIntersectionTableDto).flatMap(
-        (list) => [...list]
+      .map(
+        (role) => role[baseEntityIdAccessor as keyof ProviderRoleDto] as number
       );
-      dispatchWithoutControl(flatList);
+    api
+      .getTriIntersectionTable(baseEntityIdList, selectedWTT, roleTypeId)
+      .then((idReferencedIntersectionTableDto) => {
+        const flatList = Object.values(
+          idReferencedIntersectionTableDto
+        ).flatMap((list) => [...list]);
+        dispatchWithoutControl(flatList);
 
-      setDataResponse(Object.values(idReferencedIntersectionTableDto));
-    });
+        setDataResponse(Object.values(idReferencedIntersectionTableDto));
+      });
   }, [
+    api,
+    baseEntityIdAccessor,
     dispatchWithoutControl,
-    providerRoleTypeId,
+    roleTypeId,
     selectedWTT,
-    readAnyProvider,
-    selectedProviders
+    readAnyRole,
+    selectedRoles
   ]);
 
   const syncedRow = useRef<FixedSizeGrid | null>(null);
@@ -116,12 +184,12 @@ export default function SuitabilityTableWindowed({
         return (
           <>
             <EditAddDeleteDtoControllerArray
-              entityClass={
-                EntityClassMap.providerRoleTypeWorkTaskTypeSuitability
-              }
+              entityClass={suitabilityEntityType}
               dtoList={EmptyArray}
               mergeInitialWithProp={true}
-              updateServerAction={ProviderRoleSuitabilityApi.putList}
+              updateServerAction={
+                api.putList as CommitServerAction<SuitabilityEntity>
+              }
             />
             <div
               style={{
@@ -163,6 +231,7 @@ export default function SuitabilityTableWindowed({
                   height={height - (defaultCellSize + scrollBarWidth)}
                   rowCount={rowCount}
                   width={defaultSyncColumnWidth}
+                  itemData={suitabilityCondition}
                 >
                   {SyncedColumnCellMemo}
                 </FixedSizeGrid>
@@ -174,7 +243,7 @@ export default function SuitabilityTableWindowed({
                 <div className={'h-fit w-fit'}>
                   <FixedSizeGrid
                     onScroll={onScroll}
-                    itemData={dataResponse}
+                    itemData={itemData}
                     overscanRowCount={4}
                     overscanColumnCount={4}
                     columnWidth={defaultCellSize}

@@ -1,9 +1,11 @@
-import { ProviderRoleApi, WorkTaskTypeApi } from '@/api/clientApi';
+import {
+  AssetRoleApi,
+  ProviderRoleApi,
+  WorkTaskTypeApi
+} from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 import SuitabilityTableWindowed from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
-import { Tab, Tabs } from '@nextui-org/tabs';
 import TabbedSelectorTables from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
 
 export default async function page({
@@ -13,10 +15,10 @@ export default async function page({
 }) {
   // List of all work task types to select
   // List of all provider roles of the layer type
-  const providerRoleTypeId = parseInt(roleTypeId, 10);
+  const assetRoleTypeId = parseInt(roleTypeId, 10);
   const serviceCategoryId = parseInt(id, 10);
 
-  const roles = await ProviderRoleApi.getByTypeIdList([providerRoleTypeId]);
+  const roles = await AssetRoleApi.getByTypeIdList([assetRoleTypeId]);
 
   let workTaskTypes = await WorkTaskTypeApi.getDtoListByExampleList([
     { serviceCategoryId }
@@ -29,19 +31,19 @@ export default async function page({
         dtoList={workTaskTypes}
       />
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.providerRole}
+        entityClass={EntityClassMap.assetRole}
         dtoList={roles}
       />
       <div className={'mb-auto mt-auto h-[75vh] w-[50vw]'}>
         <SuitabilityTableWindowed
-          roleTypeId={providerRoleTypeId}
-          suitabilityType={'ProviderRole'}
+          roleTypeId={assetRoleTypeId}
+          suitabilityType={'AssetRole'}
         />
       </div>
       <TabbedSelectorTables
         className={'w-[45vw]'}
         workTaskTypes={workTaskTypes}
-        providerRoles={roles}
+        assetRoles={roles}
       ></TabbedSelectorTables>
     </div>
   );

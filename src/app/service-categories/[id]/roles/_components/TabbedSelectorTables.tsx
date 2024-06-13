@@ -7,6 +7,7 @@ import WorkTaskTypeSelectorTable from '@/app/service-categories/[id]/work-task-t
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { AssetRoleDto } from '@/api/dtos/AssetRoleDtoSchema';
 import ProviderRoleSelectorTable from '@/app/service-categories/[id]/roles/providers/_components/ProviderRoleSelectorTable';
+import AssetRoleSelectorTable from '@/app/service-categories/[id]/roles/assets/_components/AssetRoleSelectorTable';
 
 export default function TabbedSelectorTables({
   workTaskTypes,
@@ -31,7 +32,7 @@ export default function TabbedSelectorTables({
         )}
         {assetRoles && (
           <Tab key={EntityClassMap.assetRole} title={'Assets'}>
-            Assets!
+            <AssetRoleSelectorTable assetRoles={assetRoles} />
           </Tab>
         )}
       </Tabs>

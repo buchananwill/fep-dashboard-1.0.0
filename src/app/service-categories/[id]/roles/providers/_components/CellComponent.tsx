@@ -10,6 +10,11 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import clsx from 'clsx';
 import { areEqual } from 'react-window';
+import { AssetRoleWorkTaskSuitabilityDto } from '@/api/dtos/AssetRoleWorkTaskSuitabilityDtoSchema';
+import {
+  SuitabilityConditions,
+  SuitabilityEntity
+} from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
 
 const conditionalNumberFormatting: ConditionalNumberClassName[] = [
   { startAt: -1, className: 'opacity-50' },
@@ -23,15 +28,21 @@ const CellComponent = ({
   columnIndex,
   rowIndex,
   style,
-  data
+  data: {
+    suitabilityCondition: { suitabilityType, suitabilityEntityType },
+    dataResponse
+  }
 }: {
   columnIndex: number;
   rowIndex: number;
   style: CSSProperties;
-  data: ProviderRoleTypeWorkTaskTypeSuitabilityDto[][];
+  data: {
+    dataResponse: SuitabilityEntity[][];
+    suitabilityCondition: SuitabilityConditions;
+  };
 }) => {
   console.log('re-rendering cell');
-  const datumElement = data[rowIndex][columnIndex];
+  const datumElement = dataResponse[rowIndex][columnIndex];
 
   const id = datumElement?.id;
 
@@ -44,10 +55,10 @@ const CellComponent = ({
       )}
     >
       <LazyDtoUiWrapper<
-        ProviderRoleTypeWorkTaskTypeSuitabilityDto,
-        BaseDtoStoreNumberInputProps<ProviderRoleTypeWorkTaskTypeSuitabilityDto>
+        SuitabilityEntity,
+        BaseDtoStoreNumberInputProps<SuitabilityEntity>
       >
-        entityClass={EntityClassMap.providerRoleTypeWorkTaskTypeSuitability}
+        entityClass={suitabilityEntityType}
         renderAs={DtoStoreNumberInput}
         whileLoading={() => (
           <div className={'relative'}>

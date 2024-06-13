@@ -4,6 +4,8 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { Key, MutableRefObject, useCallback, useMemo } from 'react';
 import { HasId, HasIdClass } from '@/api/types';
+import { getNumberFromStringId } from 'react-d3-force-wrapper';
+import { type } from 'node:os';
 
 export function useEntitySelection<
   T extends HasIdClass<U>,
@@ -49,7 +51,13 @@ export function useEntitySelection<
           selectionSet.clear();
           selected.forEach((item) => selectionSet.add(item as U));
         }
-        return [...selectionSet.values()].sort();
+        const sort = [...selectionSet.values()]
+          .map((id) => {
+            return typeof id === 'number' ? id : getNumberFromStringId(id);
+          })
+          .sort((a, b) => a - b);
+        console.log(sort);
+        return sort as U[];
       });
     },
     [dispatchSelected, visibleItems]

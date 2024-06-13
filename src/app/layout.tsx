@@ -5,7 +5,7 @@ import { LibraryProvidersWrapper } from '@/components/providers/LibraryProviders
 import React from 'react';
 import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { steps } from '@/components/react-joyride/steps';
-import TooltipSingleton from '@/app/service-categories/[id]/roles/providers/_components/TooltipSingleton';
+import TooltipSingleton from '@/components/generic/TooltipSingleton';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -12,20 +12,20 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { useGlobalDispatch } from 'selective-context';
 import {
   TooltipContext,
   TooltipContextInterface
-} from '@/app/service-categories/[id]/roles/providers/_components/TooltipSingleton';
+} from '@/components/generic/TooltipSingleton';
 import { Placement } from '@floating-ui/react';
 import clsx from 'clsx';
+import { SuitabilityConditions } from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
 
 const SyncedRowCell = ({
   style,
   columnIndex
-}: GridChildComponentProps<ProviderRoleTypeWorkTaskTypeSuitabilityDto[][]>) => {
+}: GridChildComponentProps<SuitabilityConditions>) => {
   const uuidListenerKey = useUuidListenerKey();
   const readAnyWorkTaskType = useReadAnyDto<WorkTaskTypeDto>(
     EntityClassMap.workTaskType
@@ -89,22 +89,25 @@ function useFloatingTooltip(
 
 const SyncedColumnCell = ({
   style,
-  rowIndex
-}: GridChildComponentProps<ProviderRoleTypeWorkTaskTypeSuitabilityDto[][]>) => {
+  rowIndex,
+  data: { suitabilityType, displayNameAccessor }
+}: GridChildComponentProps<SuitabilityConditions>) => {
   const uuidListenerKey = useUuidListenerKey();
-  const readAnyProviderRole = useReadAnyDto<ProviderRoleDto>(
-    EntityClassMap.providerRole
-  );
+  const readAnyRole = useReadAnyDto<ProviderRoleDto>(suitabilityType);
   const { currentState } = NamespacedHooks.useListen(
-    EntityClassMap.providerRole,
+    suitabilityType,
     KEY_TYPES.SELECTED,
     uuidListenerKey,
     EmptyArray as number[]
   );
 
-  const prId = currentState[rowIndex];
+  const roleId = currentState[rowIndex];
+  const role = readAnyRole(roleId);
 
-  const name = readAnyProviderRole(prId)?.partyName ?? 'No Data Found';
+  console.log(role, rowIndex, currentState);
+  const name = role
+    ? (role[displayNameAccessor as keyof typeof role] as string)
+    : 'No Data Found';
   const tooltip = useFloatingTooltip(<TooltipMemo text={name} />);
 
   return (

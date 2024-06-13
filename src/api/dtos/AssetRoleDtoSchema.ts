@@ -5,7 +5,7 @@ export const AssetRoleDtoSchema = z.object({
   assetAssetCode: z.string(),
   assetName: z.string(),
   name: z.string(),
-  assetRoleType: AssetRoleTypeDtoSchema,
-  id: z.number(),
+  type: AssetRoleTypeDtoSchema,
+  id: z.number()
 });
 export type AssetRoleDto = z.infer<typeof AssetRoleDtoSchema>;

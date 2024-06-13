@@ -30,3 +30,5 @@ export const EntityClassMap = {
   workSeriesSchemaBundle: 'WorkSeriesSchemaBundle',
   workTaskType: 'WorkTaskType'
 } as const;
+
+export type EntityClass = (typeof EntityClassMap)[keyof typeof EntityClassMap];
