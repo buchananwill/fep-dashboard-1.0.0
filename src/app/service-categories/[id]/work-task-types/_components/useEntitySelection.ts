@@ -1,11 +1,16 @@
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { NamespacedHooks } from 'dto-stores';
+import { Identifier, NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { Key, useCallback, useMemo } from 'react';
+import { Key, MutableRefObject, useCallback, useMemo } from 'react';
+import { HasId, HasIdClass } from '@/api/types';
 
-export function useEntitySelection<T, U>(
+export function useEntitySelection<
+  T extends HasIdClass<U>,
+  U extends Identifier
+>(
   entityClass: string,
+  visibleItems: MutableRefObject<T[]>,
   forceString = true
 ) {
   const listenerKey = useUuidListenerKey();
@@ -40,17 +45,20 @@ export function useEntitySelection<T, U>(
 
   const handleChange = useCallback(
     (selected: 'all' | Set<Key>) => {
-      console.log(selected);
-      const nextSelection =
-        selected === 'all'
-          ? [...idList]
-          : ([...new Set(selected).values()] as U[]);
-      if (selected === 'all') {
-        console.log(nextSelection);
-      }
-      dispatchSelected(nextSelection.sort());
+      dispatchSelected((currentSelection) => {
+        const selectionSet = new Set(currentSelection);
+        if (selected === 'all') {
+          visibleItems.current
+            .map((item) => item.id)
+            .forEach((itemId) => selectionSet.add(itemId));
+        } else {
+          selectionSet.clear();
+          selected.forEach((item) => selectionSet.add(item as U));
+        }
+        return [...selectionSet.values()].sort();
+      });
     },
-    [dispatchSelected, idList]
+    [dispatchSelected, visibleItems]
   );
-  return { currentState, selectedSet, handleChange };
+  return { currentState, selectedSet, handleChange, dispatchSelected };
 }

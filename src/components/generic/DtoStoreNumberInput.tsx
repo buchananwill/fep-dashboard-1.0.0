@@ -50,7 +50,6 @@ export function DtoStoreNumberInput<T extends HasId>({
   conditionalValueClassNames,
   ...inputProps
 }: MergedDtoStoreNumberInputProps<T>) {
-  console.log('rendering number input', entity?.id);
   const { max, min } = inputProps;
   const update = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

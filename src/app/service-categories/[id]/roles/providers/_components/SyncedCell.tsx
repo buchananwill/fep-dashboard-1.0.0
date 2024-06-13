@@ -19,8 +19,8 @@ import {
   TooltipContext,
   TooltipContextInterface
 } from '@/app/service-categories/[id]/roles/providers/_components/TooltipSingleton';
-import { d } from '@nextui-org/slider/dist/use-slider-a94a4c83';
-import { Placement, useFloating } from '@floating-ui/react';
+import { Placement } from '@floating-ui/react';
+import clsx from 'clsx';
 
 const SyncedRowCell = ({
   style,
@@ -46,7 +46,10 @@ const SyncedRowCell = ({
   return (
     <div
       style={style}
-      className={'border-x-1 border-y-2 first:border-l-2 '}
+      className={clsx(
+        'border-x-1 border-y-2 first:border-l-2 ',
+        columnIndex % 2 === 1 ? 'bg-purple-50' : 'bg-sky-50'
+      )}
       {...tooltip}
     >
       <InnerCellComponent>{name}</InnerCellComponent>
@@ -126,7 +129,7 @@ const InnerCellComponent = forwardRef<
     <div ref={ref} className={'relative flex h-full items-center align-middle'}>
       <div
         className={
-          'mb-auto mt-auto inline-block h-fit w-full overflow-hidden overflow-ellipsis whitespace-nowrap bg-white p-1  text-sm   '
+          'mb-auto mt-auto inline-block h-fit w-full overflow-hidden overflow-ellipsis whitespace-nowrap p-1 text-sm   '
         }
       >
         {children}
@@ -141,7 +144,7 @@ function SimpleTooltip({ text }: { text: string }) {
   return (
     <div
       className={
-        'rounded-md border border-amber-300 bg-amber-50 p-2 text-black'
+        'pointer-events-none rounded-md border border-amber-300 bg-amber-50 p-2 text-black'
       }
     >
       {text}

@@ -1,4 +1,10 @@
-import React, { ReactElement, useCallback, useRef } from 'react';
+import React, {
+  ReactElement,
+  useCallback,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import {
   Button,
   Dropdown,
@@ -23,14 +29,11 @@ import {
 import { useEntitySelection } from '@/app/service-categories/[id]/work-task-types/_components/useEntitySelection';
 import { Identifier } from 'dto-stores';
 import { Column, StringPropertyKey } from '@/types';
-import { HasId } from '@/api/types';
-import { useGlobalDispatch } from 'selective-context';
-import {
-  TooltipContext,
-  TooltipContextInterface
-} from '@/app/service-categories/[id]/roles/providers/_components/TooltipSingleton';
+import { HasId, HasIdClass } from '@/api/types';
 
-export default function FilterSelectContextTable<T extends HasId>({
+export default function FilterSelectContextTable<
+  T extends HasIdClass<Identifier>
+>({
   entities,
   initialColumns,
   filterProperty,
@@ -48,25 +51,22 @@ export default function FilterSelectContextTable<T extends HasId>({
     columnKey: React.Key
   ) => string | number | ReactElement;
 }) {
-  const [filterValue, setFilterValue] = React.useState('');
+  const [filterValue, setFilterValue] = useState('');
 
-  const { handleChange, selectedSet } = useEntitySelection<T, number>(
-    entityClass
-  );
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
+  const [visibleColumns, setVisibleColumns] = useState<Selection>(
     new Set(initialColumns as Identifier[])
   );
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: 'name',
     direction: 'ascending'
   });
 
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
 
   const hasSearchFilter = Boolean(filterValue);
 
-  const headerColumns = React.useMemo(() => {
+  const headerColumns = useMemo(() => {
     if (visibleColumns === 'all') return columns;
 
     return columns.filter((column) =>
@@ -74,40 +74,48 @@ export default function FilterSelectContextTable<T extends HasId>({
     );
   }, [visibleColumns, columns]);
 
-  const filteredItems = React.useMemo(() => {
+  const filteredItems = useMemo(() => {
     let filteredEntities = [...entities];
 
     if (hasSearchFilter) {
-      filteredEntities = filteredEntities.filter((wtt) =>
-        (wtt[filterProperty] as string)
+      filteredEntities = filteredEntities.filter((entity) =>
+        (entity[filterProperty] as string)
           .toLowerCase()
           .includes(filterValue.toLowerCase())
       );
     }
 
     return filteredEntities;
-  }, [entities, filterValue, hasSearchFilter]);
+  }, [entities, filterValue, hasSearchFilter, filterProperty]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
-  const items = React.useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-
-    return filteredItems.slice(start, end);
-  }, [page, filteredItems, rowsPerPage]);
-
-  const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: T, b: T) => {
+  const sortedItems = useMemo(() => {
+    return [...filteredItems].sort((a: T, b: T) => {
       const first = a[sortDescriptor.column as keyof T] as number;
       const second = b[sortDescriptor.column as keyof T] as number;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === 'descending' ? -cmp : cmp;
     });
-  }, [sortDescriptor, items]);
+  }, [sortDescriptor, filteredItems]);
 
-  const onRowsPerPageChange = React.useCallback(
+  const visibleItems = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return sortedItems.slice(start, end);
+  }, [page, sortedItems, rowsPerPage]);
+
+  const visibleItemsRef = useRef(visibleItems);
+  visibleItemsRef.current = visibleItems;
+
+  const { handleChange, selectedSet, dispatchSelected } = useEntitySelection<
+    T,
+    Identifier
+  >(entityClass, visibleItemsRef);
+
+  const onRowsPerPageChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       setRowsPerPage(Number(e.target.value));
       setPage(1);
@@ -115,7 +123,7 @@ export default function FilterSelectContextTable<T extends HasId>({
     []
   );
 
-  const onSearchChange = React.useCallback((value?: string) => {
+  const onSearchChange = useCallback((value?: string) => {
     if (value) {
       setFilterValue(value);
       setPage(1);
@@ -124,12 +132,22 @@ export default function FilterSelectContextTable<T extends HasId>({
     }
   }, []);
 
-  const onClear = React.useCallback(() => {
+  const onClear = useCallback(() => {
     setFilterValue('');
     setPage(1);
   }, []);
 
-  const topContent = React.useMemo(() => {
+  const deselectVisible = useCallback(() => {
+    dispatchSelected((selectionList) => {
+      const newSelectionSet = new Set(selectionList);
+      visibleItemsRef.current.forEach((entityItem) =>
+        newSelectionSet.delete(entityItem.id)
+      );
+      return [...newSelectionSet.values()];
+    });
+  }, [dispatchSelected]);
+
+  const topContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex items-end justify-between gap-3">
@@ -139,9 +157,10 @@ export default function FilterSelectContextTable<T extends HasId>({
             placeholder="Search by name..."
             startContent={<MagnifyingGlassIcon className={'h-6 w-6'} />}
             value={filterValue}
-            onClear={() => onClear()}
+            onClear={onClear}
             onValueChange={onSearchChange}
           />
+          <Button onPress={deselectVisible}>Deselect Visible</Button>
           <div className="flex gap-3">
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
@@ -189,6 +208,8 @@ export default function FilterSelectContextTable<T extends HasId>({
       </div>
     );
   }, [
+    columns,
+    entityClass,
     onClear,
     rowsPerPage,
     filterValue,
@@ -198,7 +219,7 @@ export default function FilterSelectContextTable<T extends HasId>({
     entities.length
   ]);
 
-  const bottomContent = React.useMemo(() => {
+  const bottomContent = useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
         <span className="w-[30%] text-small text-default-400">
@@ -250,7 +271,7 @@ export default function FilterSelectContextTable<T extends HasId>({
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={'No users found'} items={sortedItems}>
+      <TableBody emptyContent={'No users found'} items={visibleItems}>
         {(item) => (
           <TableRow key={item.id}>
             {(columnKey) => (
