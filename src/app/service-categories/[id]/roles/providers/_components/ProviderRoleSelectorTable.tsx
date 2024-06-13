@@ -56,23 +56,6 @@ export default function ProviderRoleSelectorTable({
               </Chip>
             </span>
           );
-        case 'actions':
-          return (
-            <div className="relative flex items-center justify-end gap-2">
-              <Dropdown>
-                <DropdownTrigger>
-                  <Button isIconOnly size="sm" variant="light">
-                    <EllipsisHorizontalIcon />
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu>
-                  <DropdownItem>View</DropdownItem>
-                  <DropdownItem>Edit</DropdownItem>
-                  <DropdownItem>Delete</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </div>
-          );
         default:
           return cellValue;
       }
