@@ -160,7 +160,7 @@ export default function FilterSelectContextTable<
             onClear={onClear}
             onValueChange={onSearchChange}
           />
-          <Button onPress={deselectVisible}>Deselect Visible</Button>
+          <Button onPress={deselectVisible}>Deselect Page</Button>
           <div className="flex gap-3">
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
@@ -239,8 +239,6 @@ export default function FilterSelectContextTable<
       </div>
     );
   }, [selectedSet, page, pages, filteredItems.length, entities.length]);
-
-  console.log(selectedSet);
 
   return (
     <Table

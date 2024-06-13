@@ -40,7 +40,7 @@ export default async function page({
         />
       </div>
       <TabbedSelectorTables
-        className={'w-[45vw] p-4'}
+        className={'w-[45vw]'}
         workTaskTypes={workTaskTypes}
         providerRoles={roles}
       ></TabbedSelectorTables>
