@@ -47,7 +47,7 @@ const SyncedRowCell = ({
     <div
       style={style}
       className={clsx(
-        'border-x-1 border-y-2 first:border-l-2 ',
+        'border-x-1 first:border-l-0 ',
         columnIndex % 2 === 1 ? 'bg-purple-50' : 'bg-sky-50'
       )}
       {...tooltip}
@@ -110,7 +110,7 @@ const SyncedColumnCell = ({
   return (
     <div
       style={style}
-      className={'border-x-1 border-y-2 first:border-l-2 '}
+      className={' border-y-1 bg-white first:border-t-0'}
       {...tooltip}
     >
       <InnerCellComponent>{name}</InnerCellComponent>

@@ -24,7 +24,7 @@ export default async function page({
   ]);
 
   return (
-    <div className={'flex'}>
+    <div className={'flex gap-4 p-8'}>
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.workTaskType}
         dtoList={workTaskTypes}
@@ -33,14 +33,14 @@ export default async function page({
         entityClass={EntityClassMap.providerRole}
         dtoList={roles}
       />
-      <div className={'mb-auto mt-auto w-[50%] p-4'}>
+      <div className={'mb-auto mt-auto h-[75vh] w-[50vw]'}>
         <SuitabilityTableWindowed
           partyIdList={partyIdList}
           providerRoleTypeId={providerRoleTypeId}
         />
       </div>
       <TabbedSelectorTables
-        className={'w-[50%] p-4'}
+        className={'w-[45vw] p-4'}
         workTaskTypes={workTaskTypes}
         providerRoles={roles}
       ></TabbedSelectorTables>
