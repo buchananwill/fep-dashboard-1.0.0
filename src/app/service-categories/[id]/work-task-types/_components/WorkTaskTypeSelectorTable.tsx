@@ -10,7 +10,7 @@ import {
   DropdownTrigger
 } from '@nextui-org/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import FilterSelectContextTable from '@/app/service-categories/[id]/work-task-types/_components/FilterSelectContextTable';
+import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 
@@ -65,7 +65,7 @@ export default function WorkTaskTypeSelectorTable({
     []
   );
   return (
-    <FilterSelectContextTable
+    <FilterSelectEntityTable
       entities={workTaskTypes}
       initialColumns={INITIAL_VISIBLE_COLUMNS}
       filterProperty={'name'}

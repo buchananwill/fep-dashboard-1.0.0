@@ -4,7 +4,7 @@ import { HasId } from '@/api/types';
 import { Select, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { StringPropertyKey } from '@/types';
-import { useEntitySelection } from '@/app/service-categories/[id]/work-task-types/_components/useEntitySelection';
+import { useEntitySelection } from '@/hooks/useEntitySelection';
 
 export type EntitySelectorProps<T, U> = {
   entityClass: string;

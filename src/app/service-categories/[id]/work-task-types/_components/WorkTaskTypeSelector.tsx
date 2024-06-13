@@ -1,6 +1,6 @@
 import EntitySelector, {
   EntitySelectorProps
-} from '@/app/service-categories/[id]/work-task-types/_components/EntitySelector';
+} from '@/components/generic/EntitySelector';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 

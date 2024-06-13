@@ -9,7 +9,7 @@ import {
   DropdownTrigger
 } from '@nextui-org/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import FilterSelectContextTable from '@/app/service-categories/[id]/work-task-types/_components/FilterSelectContextTable';
+import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 
 import { Column } from '@/types';
@@ -65,7 +65,7 @@ export default function ProviderRoleSelectorTable({
 
   return (
     <>
-      <FilterSelectContextTable
+      <FilterSelectEntityTable
         entities={providerRoles}
         initialColumns={ProviderColumnsInitial}
         filterProperty={'partyName'}

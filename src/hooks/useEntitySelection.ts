@@ -30,12 +30,6 @@ export function useEntitySelection<
     listenerKey,
     EmptyArray as T[]
   );
-  const { currentState: idList } = NamespacedHooks.useListen(
-    entityClass,
-    KEY_TYPES.ID_LIST,
-    listenerKey,
-    EmptyArray as U[]
-  );
 
   const selectedSet = useMemo(() => {
     return forceString

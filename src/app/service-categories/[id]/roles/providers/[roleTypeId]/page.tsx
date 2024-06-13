@@ -1,7 +1,7 @@
 import { ProviderRoleApi, WorkTaskTypeApi } from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import FilterSelectContextTable from '@/app/service-categories/[id]/work-task-types/_components/FilterSelectContextTable';
+import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 import SuitabilityTableWindowed from '@/app/service-categories/[id]/roles/providers/_components/SuitabilityTableWindowed';
 import { Tab, Tabs } from '@nextui-org/tabs';
 import TabbedSelectorTables from '@/app/service-categories/[id]/roles/providers/_components/TabbedSelectorTables';

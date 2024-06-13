@@ -26,12 +26,12 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon
 } from '@heroicons/react/24/outline';
-import { useEntitySelection } from '@/app/service-categories/[id]/work-task-types/_components/useEntitySelection';
+import { useEntitySelection } from '@/hooks/useEntitySelection';
 import { Identifier } from 'dto-stores';
 import { Column, StringPropertyKey } from '@/types';
 import { HasId, HasIdClass } from '@/api/types';
 
-export default function FilterSelectContextTable<
+export default function FilterSelectEntityTable<
   T extends HasIdClass<Identifier>
 >({
   entities,
