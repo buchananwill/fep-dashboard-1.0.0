@@ -4,13 +4,10 @@ import {
   DtoStoreNumberInput
 } from '@/components/generic/DtoStoreNumberInput';
 import React, { CSSProperties } from 'react';
-import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
 import { LazyDtoUiWrapper } from 'dto-stores';
-import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import clsx from 'clsx';
 import { areEqual } from 'react-window';
-import { AssetRoleWorkTaskSuitabilityDto } from '@/api/dtos/AssetRoleWorkTaskSuitabilityDtoSchema';
 import {
   SuitabilityConditions,
   SuitabilityEntity
