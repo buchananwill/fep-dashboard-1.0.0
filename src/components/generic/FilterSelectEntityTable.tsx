@@ -247,7 +247,7 @@ export default function FilterSelectEntityTable<
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
       classNames={{
-        wrapper: 'h-[26rem] max-w-[40rem]'
+        wrapper: 'h-[55vh] max-w-[45vw] ml-auto mr-auto'
       }}
       selectedKeys={selectedSet}
       className={'pointer-events-auto'}
