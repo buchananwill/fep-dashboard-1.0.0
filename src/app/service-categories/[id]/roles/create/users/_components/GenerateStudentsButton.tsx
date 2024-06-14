@@ -34,7 +34,6 @@ export default function GenerateStudentsButton() {
         }))
         .map((params) => initStudents(params));
       const array = await Promise.all(promises);
-      console.log(array);
     });
   }, [rowIdList, readAnyRow]);
 

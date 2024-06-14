@@ -57,6 +57,7 @@ export function useEntitySelection<
           })
           .sort((a, b) => a - b);
         console.log(sort);
+        console.log(selectionSet);
         return sort as U[];
       });
     },

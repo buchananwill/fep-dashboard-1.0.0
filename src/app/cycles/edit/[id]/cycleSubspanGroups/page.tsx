@@ -32,7 +32,11 @@ export default async function Page({
     );
 
   return (
-    <div className={'grid grid-cols-5 w-fit gap-1'}>
+    <div
+      className={
+        'grid grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 overflow-auto'
+      }
+    >
       <EditAddDeleteDtoControllerArray
         dtoList={cycleSubspanGroupEditDtos}
         entityClass={entityName}
@@ -46,10 +50,10 @@ export default async function Page({
           <Card
             key={cycleDay.zeroIndexedCycleDay}
             classNames={{
-              base: `w-full ${index === 0 ? 'step_edit_cycleSubspanGroups' : ''}`
+              base: `w-fit min-w-full ${index === 0 ? 'step_edit_cycleSubspanGroups' : ''}`
             }}
           >
-            <CardHeader className={'text-center justify-center'}>
+            <CardHeader className={'justify-center text-center'}>
               {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
             </CardHeader>
             <CardBody className={''}>
