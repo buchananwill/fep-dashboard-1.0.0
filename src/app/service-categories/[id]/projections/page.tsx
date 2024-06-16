@@ -4,75 +4,33 @@ import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDt
 import { WorkSeriesBundleItemDto } from '@/api/dtos/WorkSeriesBundleItemDtoSchema';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
-import { WorkTaskTypeApi } from '@/api/clientApi';
-import { isNotUndefined } from '@/api/main';
-import _ from 'lodash';
+import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
 
 const projectionUrl = constructUrl(
-  '/api/v2/workProjectSeriesSchemas/workProjectSeriesProjections'
+  '/api/v2/workProjectSeriesSchemas/knowledgeDomainWorkProjections'
 );
 
 export default async function page() {
-  const projectionData: WorkProjectSeriesProjection[] =
+  const projectionData: KnowledgeDomainWorkProjection[] =
     await getWithoutBody(projectionUrl);
   const allocationProjectionMap = new Map<
     number,
     DeliveryAllocationProjection[]
   >();
-  const flatMap: DeliveryAllocationProjection[] = projectionData.flatMap(
-    ({
-      workProjectSeriesSchema: { deliveryAllocations, workProjectBandwidth },
-      multiplier
-    }) => {
-      return deliveryAllocations.map((devAl) => ({
-        ...devAl,
-        horizontalMultiplier: multiplier,
-        verticalMultiplier: workProjectBandwidth
-      }));
-    }
-  );
-  flatMap.forEach((devAl) => {
-    let devAlProjList = allocationProjectionMap.get(devAl.workTaskTypeId);
-    if (devAlProjList === undefined) {
-      devAlProjList = [];
-      allocationProjectionMap.set(devAl.workTaskTypeId, devAlProjList);
-    }
-    devAlProjList.push(devAl);
-  });
-  const workTaskTypeDtos = await WorkTaskTypeApi.getDtoListByBodyList([
-    ...allocationProjectionMap.keys()
-  ]);
-
-  const groupBy = _.groupBy(workTaskTypeDtos, (wtt) => wtt.knowledgeDomainName);
-
-  const knowledgeDomainNameAndTotalList = Object.entries(groupBy)
-    .map(([knowledgeDomainName, dtoArray]) => {
-      const allTotal =
-        dtoArray
-          ?.map((dto) => allocationProjectionMap.get(dto.id))
-          .filter(isNotUndefined)
-          .map((devAlList) => flattenDevAlListToSum(devAlList))
-          .reduce((prev, curr) => prev + curr, 0) ?? 0;
-      return [knowledgeDomainName, allTotal];
-    })
-    .map((tuple) => [...tuple, (tuple[1] as number) / 58]);
 
   return (
     <ul>
-      {knowledgeDomainNameAndTotalList.map(
-        ([knowledgeLevelName, total, minStack]) => (
-          <li key={knowledgeLevelName}>
-            {knowledgeLevelName} : {total} : min stack:{' '}
-            {Math.ceil(minStack as number)}
+      {projectionData.map(
+        ({ knowledgeDomainDto: { name, id }, totalWork, minimumBandwidth }) => (
+          <li key={id}>
+            {name} : {totalWork} : min stack:{' '}
+            {Math.ceil(minimumBandwidth as number)}
           </li>
         )
       )}
       <li>
         TOTAL:{' '}
-        {knowledgeDomainNameAndTotalList.reduce(
-          (prev, [, sumNext]) => prev + (sumNext as number),
-          0
-        )}
+        {projectionData.reduce((prev, { totalWork }) => prev + totalWork, 0)}
       </li>
     </ul>
   );
@@ -87,26 +45,13 @@ interface WorkProjectSeriesProjection {
   multiplier: number;
 }
 
-type DeliveryAllocationProjection = DeliveryAllocationDto & {
+interface DeliveryAllocationProjection {
+  deliveryAllocation: DeliveryAllocationDto;
   horizontalMultiplier: number;
   verticalMultiplier: number;
-};
-
-function flattenDevAlListToSum(
-  deliveryAllocationProjection: DeliveryAllocationProjection[]
-) {
-  return deliveryAllocationProjection
-    .map(
-      ({
-        horizontalMultiplier,
-        count,
-        deliveryAllocationSize,
-        verticalMultiplier
-      }) =>
-        horizontalMultiplier *
-        count *
-        deliveryAllocationSize *
-        verticalMultiplier
-    )
-    .reduce((prev, curr) => prev + curr, 0);
+}
+interface KnowledgeDomainWorkProjection {
+  knowledgeDomainDto: KnowledgeDomainDto;
+  totalWork: number;
+  minimumBandwidth: number;
 }
