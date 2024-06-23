@@ -75,7 +75,7 @@ export function DtoStoreNumberInput<T extends HasId>({
     [dispatchWithoutControl, numberKey, min, max, allowFloat]
   );
 
-  const currentNumberValue = entity[numberKey] as number;
+  const currentNumberValue = entity ? (entity[numberKey] as number) : 0;
   const rangeClassName = useMemo(() => {
     let conditionalClass = '';
     if (!conditionalValueClassNames) return conditionalClass;
