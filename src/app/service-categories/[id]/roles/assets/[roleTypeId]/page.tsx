@@ -8,6 +8,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import SuitabilityTableWindowed from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
 import TabbedSelectorTables from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
 
+// TODO Fix the state/update interface: the wrong values are getting displayed/sent to the update backend.
 export default async function page({
   params: { roleTypeId, id }
 }: {
