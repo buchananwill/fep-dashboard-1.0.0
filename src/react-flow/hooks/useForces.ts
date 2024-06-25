@@ -16,11 +16,9 @@ export const draggingNodeKey = 'dragging-node';
 
 const listenerKey = 'use-layouted-elements';
 
-export function useForces(): [
-  boolean,
-  (() => void) | undefined,
-  (() => boolean) | undefined
-] {
+export function useForces(
+  applyFitView?: boolean
+): [boolean, (() => void) | undefined, (() => boolean) | undefined] {
   const { getNodes, setNodes, fitView } = useReactFlow();
   const { dispatchWithoutListen } = useGraphDispatch<boolean>(
     GraphSelectiveContextKeys.running
@@ -109,7 +107,7 @@ export function useForces(): [
       window.requestAnimationFrame(async () => {
         // Give React and React Flow a chance to update and render the new node
         // positions before we fit the viewport to the new layout.
-        fitView();
+        if (applyFitView) fitView();
 
         // If the simulation hasn't been stopped, schedule another tick.
         if (running) await tick();
@@ -134,6 +132,7 @@ export function useForces(): [
 
     return [true, toggle, isRunning];
   }, [
+    applyFitView,
     draggingNode,
     simRef,
     initialised,

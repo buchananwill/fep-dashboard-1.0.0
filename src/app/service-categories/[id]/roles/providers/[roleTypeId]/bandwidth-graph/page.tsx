@@ -51,7 +51,19 @@ const bandwidthOptions: ForceGraphPageOptions = {
     manyBody: true,
     forceY: true
   },
+  forceAttributesInitial: {
+    collideStrength: 10,
+    linkDistance: 70,
+    linkStrength: 25,
+    manyBodyStrength: 134,
+    manyBodyMinDistance: 1,
+    manyBodyMaxDistance: 90,
+    forceXStrength: 0,
+    forceYStrength: 106,
+    forceYSpacing: 87
+  },
   normalizationCoefficients: {
-    forceYSpacing: 400
+    forceYSpacing: 1000,
+    manyBodyMaxDistance: 10
   }
 };
