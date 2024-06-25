@@ -1,8 +1,4 @@
-import {
-  ForceGraphPage,
-  ForceGraphPageOptions,
-  GraphDto
-} from 'react-d3-force-wrapper';
+import { ForceGraphPage, GraphDto } from 'react-d3-force-wrapper';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -20,7 +16,9 @@ import {
   EditAddDeleteDtoControllerArray
 } from 'dto-stores';
 import { parseTen } from '@/api/date-and-time';
-import { convertGraphDtoToReactFlowState } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/convertGraphDtoToReactFlowState';
+import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
+import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
+import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/defaultForceGraphPageOptions';
 
 export default async function Page({
   params: { levelOrdinal }
@@ -40,7 +38,10 @@ export default async function Page({
       `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
     )
   );
-  const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(classGraph);
+  const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
+    classGraph,
+    convertToOrganizationNode
+  );
 
   return (
     <ForceGraphPage
@@ -68,18 +69,3 @@ export default async function Page({
     </ForceGraphPage>
   );
 }
-
-const defaultForceGraphPageOptions: ForceGraphPageOptions = {
-  forceSlidersVisibleInitial: {
-    manyBodyTheta: false,
-    forceRadialXRelative: false,
-    forceRadialYRelative: false,
-    centerStrength: false
-  },
-  forceAttributesInitial: {
-    forceYStrength: 50,
-    linkStrength: 50,
-    linkDistance: 150
-  },
-  forces: { manyBody: true, link: true, center: true, forceY: true }
-};

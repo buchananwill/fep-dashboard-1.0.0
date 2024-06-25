@@ -21,7 +21,7 @@ export type GenericDivProps = React.DetailedHTMLProps<
   HTMLDivElement
 >;
 
-export function BaseNode<T extends HasNumberId>({
+export function BaseReadOnlyNode<T extends HasNumberId>({
   data,
   isConnectable,
   xPos,
@@ -40,65 +40,19 @@ export function BaseNode<T extends HasNumberId>({
   );
 
   const {
-    currentState: { memoizedFunction }
-  } = useGraphListener(
-    GraphSelectiveContextKeys.addNodes,
-    listenerKey,
-    undefinedAddNodes as MemoizedFunction<AddNodesParams, void>
-  );
-  const {
-    currentState: { memoizedFunction: memoizedDeleteNodes }
-  } = useGraphListener<MemoizedFunction<string[], void>>(
-    GraphSelectiveContextKeys.deleteNodes,
-    listenerKey,
-    undefinedDeleteNodes
-  );
-  const {
     currentState: { memoizedFunction: labelAccessor }
   } = useGraphListener(
     GraphSelectiveContextKeys.nodeLabelAccessor,
     listenerKey,
     undefinedLabelAccessor as MemoizedFunction<[T, string], string>
   );
-  const fixAddProps = usePopoverFix();
-  const fixDeleteProps = usePopoverFix();
-  const { currentState } = useGraphListener(
-    GraphSelectiveContextKeys.nodeCloneFunction,
-    listenerKey,
-    undefined
-  );
 
   const { id } = data;
-  const addSibling = useCallback(() => {
-    memoizedFunction({
-      sourceNodeIdList: [`${id}`],
-      relation: 'sibling'
-    });
-  }, [memoizedFunction, id]);
-
-  const anyPopoverOpen = fixAddProps.isOpen || fixDeleteProps.isOpen;
-
-  const popoverPos = useMemo(() => {
-    return anyPopoverOpen ? [xPos, yPos] : PopoverDefaultPos;
-  }, [xPos, yPos, anyPopoverOpen]);
 
   const openDetailsModal = useCallback(() => {
     sendNodeData(structuredClone(data));
     toggleDetailsModal((isOpen: boolean) => !isOpen);
   }, [data, toggleDetailsModal, sendNodeData]);
-
-  const deleteNode = useCallback(() => {
-    memoizedDeleteNodes([`${data.id}`]); // converting the data id to a string to match the DataNode id.
-  }, [memoizedDeleteNodes, data.id]);
-
-  const addChild = useCallback(
-    () =>
-      memoizedFunction({
-        sourceNodeIdList: [`${data.id}`],
-        relation: 'child'
-      }),
-    [memoizedFunction, data.id]
-  );
 
   return (
     <>
@@ -109,16 +63,6 @@ export function BaseNode<T extends HasNumberId>({
         isConnectable={isConnectable}
       />
       <div className={className} style={style}>
-        <EditClusterMemo
-          addChild={addChild}
-          addSibling={addSibling}
-          label={labelAccessor([data, type])}
-          openDetailsModal={openDetailsModal}
-          deleteNode={deleteNode}
-          fixDeleteProps={fixDeleteProps}
-          fixAddProps={fixAddProps}
-          popoverPos={popoverPos}
-        />
         {children}
       </div>
       <Handle
@@ -131,8 +75,6 @@ export function BaseNode<T extends HasNumberId>({
   );
 }
 
-export const BaseNodeMemo = React.memo(BaseNode);
-
-const EditClusterMemo = React.memo(NodeGraphEditCluster);
+export const BaseNodeMemo = React.memo(BaseReadOnlyNode);
 
 export const PopoverDefaultPos = [0, 0];

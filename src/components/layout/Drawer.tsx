@@ -1,5 +1,5 @@
 'use client';
-import { GenericDivProps } from '@/react-flow/components/nodes/BaseNode';
+import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { Button } from '@nextui-org/button';

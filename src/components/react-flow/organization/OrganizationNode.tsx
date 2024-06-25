@@ -2,7 +2,7 @@ import { Edge, NodeProps, useEdges } from 'reactflow';
 
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { BaseNode } from '@/react-flow/components/nodes/BaseNode';
+import { BaseEditableNode } from '@/react-flow/components/nodes/BaseEditableNode';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 
@@ -101,16 +101,16 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   }, [localTotal, inheritedTotal]);
 
   return (
-    <BaseNode
+    <BaseEditableNode
       {...nodeProps}
       className={clsx(
-        'relative flex flex-col gap-1 rounded-md border-black p-2 transition-colors-opacity bg-white',
+        'relative flex flex-col gap-1 rounded-md border-black bg-white p-2 transition-colors-opacity',
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}
     >
       <NodeBundleSummariesMemo summaries={summaries} />
-    </BaseNode>
+    </BaseEditableNode>
   );
 }
 

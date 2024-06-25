@@ -6,7 +6,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { curveBasis, interpolateObject, line } from 'd3';
 import { isNotNull, isNotUndefined } from '@/api/main';
 import { ControllerKey } from '@/app/_literals';
-import { GenericDivProps } from '@/react-flow/components/nodes/BaseNode';
+import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
 import { HasId } from '@/api/types';
 
 export interface ConnectionVector {
@@ -84,7 +84,7 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
           <g key={index}>
             <path
               d={conn}
-              className={'carousel-order-pills fill-transparent animate-pills '}
+              className={'carousel-order-pills animate-pills fill-transparent '}
             />
           </g>
         ))}

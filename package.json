@@ -21,6 +21,7 @@
     "@nivo/colors": "^0.87.0",
     "@nivo/heatmap": "^0.87.0",
     "@nivo/legends": "^0.87.0",
+    "@nivo/network": "^0.87.0",
     "@react-types/shared": "^3.22.1",
     "d3": "^7.8.5",
     "date-fns": "^3.3.1",

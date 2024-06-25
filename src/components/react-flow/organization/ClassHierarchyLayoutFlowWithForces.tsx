@@ -48,12 +48,9 @@ import { useGlobalDispatch } from 'selective-context';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
 import { revalidateOrganizationNode } from '@/components/react-flow/organization/revalidateOrganizationNode';
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
-import { convertToReactFlowNode } from '@/react-flow/utils/adaptors';
-import { convertGraphDtoToReactFlowState } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/convertGraphDtoToReactFlowState';
+import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
+import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { FlowNode } from '@/react-flow/types';
-import { isNotNull } from '@/api/main';
-import { d } from '@nextui-org/slider/dist/use-slider-a94a4c83';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,
@@ -78,8 +75,10 @@ export function ClassHierarchyLayoutFlowWithForces({
     async (request: GraphDtoPutRequestBody<OrganizationDto>) => {
       startTransition(async () => {
         organizationGraphUpdater(request).then((graphDto) => {
-          const { dataNodes, dataLinks } =
-            convertGraphDtoToReactFlowState(graphDto);
+          const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
+            graphDto,
+            convertToOrganizationNode
+          );
           dispatchNodes(dataNodes);
           dispatchEdges(() => {
             return dataLinks.filter((link) => link.value === 1);
@@ -110,7 +109,7 @@ export function ClassHierarchyLayoutFlowWithForces({
         name: typeData.name
       }
     };
-    return convertToReactFlowNode(typedTemplate);
+    return convertToOrganizationNode(typedTemplate);
   }, [typeData]);
 
   // Set up the available edit hooks.

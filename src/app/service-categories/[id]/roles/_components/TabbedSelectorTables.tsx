@@ -2,7 +2,7 @@
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import { GenericDivProps } from '@/react-flow/components/nodes/BaseNode';
+import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
 import WorkTaskTypeSelectorTable from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeSelectorTable';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { AssetRoleDto } from '@/api/dtos/AssetRoleDtoSchema';
