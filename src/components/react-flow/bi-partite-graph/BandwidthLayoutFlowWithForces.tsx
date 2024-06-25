@@ -8,6 +8,7 @@ import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import ClassificationNode from '@/components/react-flow/bi-partite-graph/ClassificationNode';
+import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 
 export function BandwidthLayoutFlowWithForces({ children }: PropsWithChildren) {
   // 4. Call the hook to set up the layout with forces
@@ -44,3 +45,9 @@ const nodeTypes = {
 const edgeTypes = {
   default: EdgeWithDelete
 };
+
+export interface WorkTaskTypeProjection {
+  workTaskTypeDto: WorkTaskTypeDto;
+  totalTaskVolume: number;
+  id: number;
+}

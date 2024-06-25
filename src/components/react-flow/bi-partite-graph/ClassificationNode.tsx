@@ -1,9 +1,13 @@
+'use client';
 import { NodeProps } from 'reactflow';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { BaseReadOnlyNode } from '@/react-flow/components/nodes/BaseReadOnlyNode';
 import { HasNumberId } from '@/api/types';
 import { ProviderRoleTypeDto } from '@/api/dtos/ProviderRoleTypeDtoSchema';
+import { useMemo } from 'react';
+import { useLazyDtoListListener } from 'dto-stores';
+import { WorkTaskTypeProjection } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 
 type BaseClassification<T, U> = HasNumberId & {
   hashcode: number;
@@ -58,11 +62,31 @@ function ProviderRoleList({ data }: { data: ProviderRoleClassification }) {
   );
 }
 function WorkTaskTypeList({ data }: { data: WorkTaskTypeClassification }) {
+  const projectionWttIds = useMemo(() => {
+    return data.members.map((wtt) => {
+      return wtt.id;
+    });
+  }, [data]);
+
+  const { currentState } = useLazyDtoListListener<WorkTaskTypeProjection>(
+    projectionWttIds,
+    'workTaskTypeProjection'
+  );
+
+  const projectionTotal = useMemo(() => {
+    return [...currentState.values()]
+      .map((entity) => entity.totalTaskVolume)
+      .reduce((prev, curr) => (prev += curr), 0);
+  }, [currentState]);
+
   return (
-    <ul>
-      {data.members.map((wtt) => (
-        <li key={wtt.id}>{wtt.name}</li>
-      ))}
-    </ul>
+    <div className={'flex flex-col'}>
+      <h3>Total projection: {projectionTotal}</h3>
+      <ul>
+        {data.members.map((wtt) => (
+          <li key={wtt.id}>{wtt.name}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
