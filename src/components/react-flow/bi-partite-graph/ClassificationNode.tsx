@@ -5,41 +5,39 @@ import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { BaseReadOnlyNode } from '@/react-flow/components/nodes/BaseReadOnlyNode';
 import { HasNumberId } from '@/api/types';
 import { ProviderRoleTypeDto } from '@/api/dtos/ProviderRoleTypeDtoSchema';
-import { useMemo } from 'react';
-import { useLazyDtoListListener } from 'dto-stores';
+import React, { memo, useMemo } from 'react';
+import {
+  BaseLazyDtoUiProps,
+  LazyDtoUiWrapper,
+  useLazyDtoListListener
+} from 'dto-stores';
 import { WorkTaskTypeProjection } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { Chip } from '@nextui-org/chip';
+import { Spinner } from '@nextui-org/spinner';
+import { useMaxProjectionListener } from '@/components/react-flow/bi-partite-graph/useMaxProjectionController';
+import { interpolateHsl, rgb } from 'd3';
 
-type BaseClassification<T, U> = HasNumberId & {
+type BaseClassification = HasNumberId & {
   hashcode: number;
   type: string;
-  metaType: U;
-  members: T[];
+  classificationReferenceType: string;
+  classificationReferenceId: number;
+  memberIdList: number[];
   bandwidth: number;
 };
 
 type ProviderRoleClassification = {
   type: 'providerRole';
-} & BaseClassification<ProviderRoleDto, ProviderRoleTypeDto>;
+} & BaseClassification;
 
 type WorkTaskTypeClassification = {
   type: 'workTaskType';
-} & BaseClassification<WorkTaskTypeDto, ProviderRoleTypeDto>;
+} & BaseClassification;
 
 export type Classification =
   | ProviderRoleClassification
   | WorkTaskTypeClassification;
-
-function isProviderRoleClassification(
-  classification: Classification
-): classification is ProviderRoleClassification {
-  return classification.type === 'providerRole';
-}
-
-function isWorkTaskTypeClassification(
-  classification: Classification
-): classification is WorkTaskTypeClassification {
-  return classification.type === 'workTaskType';
-}
 
 export default function ClassificationNode(props: NodeProps<Classification>) {
   const { dragging, data } = props;
@@ -55,22 +53,21 @@ export default function ClassificationNode(props: NodeProps<Classification>) {
 function ProviderRoleList({ data }: { data: ProviderRoleClassification }) {
   return (
     <ul>
-      {data.members.map((pRole) => (
-        <li key={pRole.id}>{pRole.partyName}</li>
+      {data.memberIdList.map((pRole) => (
+        <li key={pRole}>{pRole}</li>
       ))}
     </ul>
   );
 }
+
+export const workTaskTypeProjection = 'workTaskTypeProjection';
+
 function WorkTaskTypeList({ data }: { data: WorkTaskTypeClassification }) {
-  const projectionWttIds = useMemo(() => {
-    return data.members.map((wtt) => {
-      return wtt.id;
-    });
-  }, [data]);
+  const projectionWttIds = data.memberIdList;
 
   const { currentState } = useLazyDtoListListener<WorkTaskTypeProjection>(
     projectionWttIds,
-    'workTaskTypeProjection'
+    workTaskTypeProjection
   );
 
   const projectionTotal = useMemo(() => {
@@ -83,10 +80,53 @@ function WorkTaskTypeList({ data }: { data: WorkTaskTypeClassification }) {
     <div className={'flex flex-col'}>
       <h3>Total projection: {projectionTotal}</h3>
       <ul>
-        {data.members.map((wtt) => (
-          <li key={wtt.id}>{wtt.name}</li>
+        {data.memberIdList.map((wtt) => (
+          <li key={wtt} className={'flex items-center gap-1'}>
+            <LazyDtoUiWrapper
+              renderAs={memoAmount}
+              entityId={wtt}
+              entityClass={workTaskTypeProjection}
+              whileLoading={() => <Spinner size={'sm'} />}
+            />
+            <LazyDtoUiWrapper
+              renderAs={WorkTaskTypeDisplayLabel}
+              entityId={wtt}
+              entityClass={EntityClassMap.workTaskType}
+              whileLoading={() => wtt}
+            />
+          </li>
         ))}
       </ul>
     </div>
   );
 }
+
+function WorkTaskTypeDisplayLabel(props: BaseLazyDtoUiProps<WorkTaskTypeDto>) {
+  return <div className={'inline-block'}>{props.entity.name}</div>;
+}
+
+const memoAmount = memo(WorkTaskTypeProjectionAmount);
+
+function WorkTaskTypeProjectionAmount({
+  entity: { totalTaskVolume }
+}: BaseLazyDtoUiProps<WorkTaskTypeProjection>) {
+  const maxProjection = useMaxProjectionListener();
+  const colorString = useMemo(() => {
+    const rgbString = projectionRatioInterpolator(
+      totalTaskVolume / maxProjection
+    );
+    const rgbColor = rgb(rgbString);
+    rgbColor.opacity = 0.5;
+    return rgbColor.toString();
+  }, [totalTaskVolume, maxProjection]);
+  return (
+    <div
+      className={'w-12 min-w-12 rounded-lg px-2 text-right'}
+      style={{ backgroundColor: colorString }}
+    >
+      {totalTaskVolume}
+    </div>
+  );
+}
+
+const projectionRatioInterpolator = interpolateHsl('chartreuse', 'red');

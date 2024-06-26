@@ -8,13 +8,15 @@ import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import ClassificationNode from '@/components/react-flow/bi-partite-graph/ClassificationNode';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { useMaxProjectionController } from '@/components/react-flow/bi-partite-graph/useMaxProjectionController';
 
 export function BandwidthLayoutFlowWithForces({ children }: PropsWithChildren) {
   // 4. Call the hook to set up the layout with forces
   const { flowOverlayProps, reactFlowProps, dispatchNodes, dispatchEdges } =
     useLayoutFlowWithForces();
   const [isPending, startTransition] = useTransition();
+
+  useMaxProjectionController();
 
   return (
     // 6. Pass the props to the ReactFlow component
@@ -47,7 +49,6 @@ const edgeTypes = {
 };
 
 export interface WorkTaskTypeProjection {
-  workTaskTypeDto: WorkTaskTypeDto;
   totalTaskVolume: number;
   id: number;
 }

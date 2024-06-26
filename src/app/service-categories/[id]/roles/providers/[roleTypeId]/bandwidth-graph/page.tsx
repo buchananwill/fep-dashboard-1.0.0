@@ -12,7 +12,13 @@ import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrap
 import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/defaultForceGraphPageOptions';
 import { BandwidthLayoutFlowWithForces } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import {
+  DataFetchingEditDtoControllerArray,
+  EditAddDeleteDtoControllerArray
+} from 'dto-stores';
+import { EmptyArray } from '@/api/literals';
+import { WorkTaskTypeApi } from '@/api/clientApi';
+import { EntityClassMap } from '@/api/entity-class-map';
 
 const graphUrl = constructUrl(
   '/api/v2/resourceMetrics/bandwidthGraph?providerRoleTypeId='
@@ -27,7 +33,10 @@ export default async function page({
 }: {
   params: { id: string; roleTypeId: string };
 }) {
-  const bandwidthNetwork: GraphDto<Classification> = await getWithoutBody(
+  const {
+    classificationGraph,
+    validationTraversalMap
+  }: ProjectionClassificationValidationGraph = await getWithoutBody(
     `${graphUrl}${roleTypeId}`
   );
   const workTaskTypeProjections: {
@@ -37,7 +46,7 @@ export default async function page({
   }[] = await getWithoutBody(projectionUrl);
 
   const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
-    bandwidthNetwork,
+    classificationGraph,
     convertToClassificationNode
   );
 
@@ -48,6 +57,11 @@ export default async function page({
       graphName={'task-bandwidth-graph'}
       options={bandwidthOptions}
     >
+      <DataFetchingEditDtoControllerArray
+        idList={EmptyArray}
+        getServerAction={WorkTaskTypeApi.getDtoListByBodyList}
+        entityClass={EntityClassMap.workTaskType}
+      />
       <EditAddDeleteDtoControllerArray
         entityClass={'workTaskTypeProjection'}
         dtoList={workTaskTypeProjections}
@@ -82,3 +96,20 @@ const bandwidthOptions: ForceGraphPageOptions = {
     manyBodyMaxDistance: 10
   }
 };
+
+interface ProjectionClassificationValidationGraph {
+  classificationGraph: GraphDto<Classification>;
+  validationTraversalMap: { [Key: string]: BandwidthValidationTraversal };
+}
+
+interface BandwidthValidationLayer {
+  rootClassificationId: number;
+  residualBandwidth: number;
+  taskClassificationIdList: number[];
+  resourceClassificationIdList: number[];
+}
+
+interface BandwidthValidationTraversal {
+  rootClassificationId: number;
+  layers: BandwidthValidationLayer[];
+}
