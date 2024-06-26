@@ -28,7 +28,10 @@ export const EntityClassMap = {
   workProjectSeriesSchema: 'WorkProjectSeriesSchema',
   workSeriesBundleAssignment: 'WorkSeriesBundleAssignment',
   workSeriesSchemaBundle: 'WorkSeriesSchemaBundle',
-  workTaskType: 'WorkTaskType'
+  workTaskType: 'WorkTaskType',
+  bandwidthValidationLayer: 'bandwidthValidationLayer',
+  workTaskTypeProjection: 'workTaskTypeProjection',
+  bandwidthValidationTraversal: 'bandwidthValidationTraversal'
 } as const;
 
 export type EntityClass = (typeof EntityClassMap)[keyof typeof EntityClassMap];

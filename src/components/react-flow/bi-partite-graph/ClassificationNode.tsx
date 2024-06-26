@@ -17,6 +17,11 @@ import { Chip } from '@nextui-org/chip';
 import { Spinner } from '@nextui-org/spinner';
 import { useMaxProjectionListener } from '@/components/react-flow/bi-partite-graph/useMaxProjectionController';
 import { interpolateHsl, rgb } from 'd3';
+import { useGlobalListener } from 'selective-context';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
+import { ObjectPlaceholder } from '@/api/literals';
+import { BandwidthValidationLayer } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/types';
+import clsx from 'clsx';
 
 type BaseClassification = HasNumberId & {
   hashcode: number;
@@ -40,10 +45,28 @@ export type Classification =
   | WorkTaskTypeClassification;
 
 export default function ClassificationNode(props: NodeProps<Classification>) {
-  const { dragging, data } = props;
+  const { dragging, data, selected } = props;
+  const listenerKey = useUuidListenerKey();
+
+  if (selected) console.log('selected:', data);
+
+  const { currentState: bandwidthValidationLayer } = useGlobalListener({
+    contextKey: `${EntityClassMap.bandwidthValidationLayer}:${data.id}`,
+    listenerKey,
+    initialValue: ObjectPlaceholder as BandwidthValidationLayer
+  });
+  if (bandwidthValidationLayer != ObjectPlaceholder)
+    console.log('Validation view active!');
 
   return (
-    <BaseReadOnlyNode {...props}>
+    <BaseReadOnlyNode
+      {...props}
+      className={clsx(
+        'relative flex flex-col gap-1 rounded-md border-black bg-white p-2 transition-colors-opacity',
+        selected ? 'border-2' : 'border',
+        dragging ? 'opacity-50' : ''
+      )}
+    >
       {data.type === 'providerRole' && <ProviderRoleList data={data} />}
       {data.type === 'workTaskType' && <WorkTaskTypeList data={data} />}
     </BaseReadOnlyNode>

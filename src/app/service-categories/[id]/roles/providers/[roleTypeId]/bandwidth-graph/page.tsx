@@ -1,11 +1,6 @@
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getWithoutBody } from '@/api/actions/template-actions';
-import {
-  ForceGraphPage,
-  ForceGraphPageOptions,
-  GraphDto
-} from 'react-d3-force-wrapper';
-import { Classification } from '@/components/react-flow/bi-partite-graph/ClassificationNode';
+import { ForceGraphPage, ForceGraphPageOptions } from 'react-d3-force-wrapper';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { convertToClassificationNode } from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
@@ -19,6 +14,7 @@ import {
 import { EmptyArray } from '@/api/literals';
 import { WorkTaskTypeApi } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { ProjectionClassificationValidationGraph } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/types';
 
 const graphUrl = constructUrl(
   '/api/v2/resourceMetrics/bandwidthGraph?providerRoleTypeId='
@@ -63,8 +59,12 @@ export default async function page({
         entityClass={EntityClassMap.workTaskType}
       />
       <EditAddDeleteDtoControllerArray
-        entityClass={'workTaskTypeProjection'}
+        entityClass={EntityClassMap.workTaskTypeProjection}
         dtoList={workTaskTypeProjections}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.bandwidthValidationTraversal}
+        dtoList={Object.values(validationTraversalMap)}
       />
       <ReactFlowWrapper>
         <BandwidthLayoutFlowWithForces></BandwidthLayoutFlowWithForces>
@@ -96,20 +96,3 @@ const bandwidthOptions: ForceGraphPageOptions = {
     manyBodyMaxDistance: 10
   }
 };
-
-interface ProjectionClassificationValidationGraph {
-  classificationGraph: GraphDto<Classification>;
-  validationTraversalMap: { [Key: string]: BandwidthValidationTraversal };
-}
-
-interface BandwidthValidationLayer {
-  rootClassificationId: number;
-  residualBandwidth: number;
-  taskClassificationIdList: number[];
-  resourceClassificationIdList: number[];
-}
-
-interface BandwidthValidationTraversal {
-  rootClassificationId: number;
-  layers: BandwidthValidationLayer[];
-}

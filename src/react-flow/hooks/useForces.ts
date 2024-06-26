@@ -2,7 +2,7 @@ import { useReactFlow, useStore } from 'reactflow';
 import { MutableRefObject, useMemo } from 'react';
 import { Simulation } from 'd3';
 
-import { useGlobalController } from 'selective-context';
+import { useGlobalController, useGlobalListener } from 'selective-context';
 
 import { FlowNode } from '@/react-flow/types';
 import {
@@ -11,6 +11,8 @@ import {
   useDirectSimRefEditsDispatch,
   useGraphDispatch
 } from 'react-d3-force-wrapper';
+import { ObjectPlaceholder } from '@/api/literals';
+import { InitialSetRef } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 
 export const draggingNodeKey = 'dragging-node';
 
@@ -26,6 +28,11 @@ export function useForces(
   const initialised = useStore((store) =>
     [...store.nodeInternals.values()].every((node) => node.width && node.height)
   );
+  const { currentState: selectionRef } = useGlobalListener({
+    contextKey: 'selectedNodeIdSet',
+    initialValue: InitialSetRef as MutableRefObject<Set<string>>,
+    listenerKey
+  });
 
   useD3ForceSimulationMemo();
   const { currentState: draggingNode } = useGlobalController<
@@ -99,7 +106,8 @@ export function useForces(
           (node) =>
             ({
               ...node,
-              position: { x: node.fx ?? node.x, y: node.fy ?? node.y }
+              position: { x: node.fx ?? node.x, y: node.fy ?? node.y },
+              selected: selectionRef.current.has(node.id)
             }) as FlowNode<any>
         )
       );
