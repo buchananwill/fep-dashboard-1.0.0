@@ -17,7 +17,7 @@ import { Chip } from '@nextui-org/chip';
 import { Spinner } from '@nextui-org/spinner';
 import { useMaxProjectionListener } from '@/components/react-flow/bi-partite-graph/useMaxProjectionController';
 import { interpolateHsl, rgb } from 'd3';
-import { useGlobalListener } from 'selective-context';
+import { useGlobalController, useGlobalListener } from 'selective-context';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { ObjectPlaceholder } from '@/api/literals';
 import { BandwidthValidationLayer } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/types';
@@ -48,15 +48,24 @@ export default function ClassificationNode(props: NodeProps<Classification>) {
   const { dragging, data, selected } = props;
   const listenerKey = useUuidListenerKey();
 
-  if (selected) console.log('selected:', data);
-
-  const { currentState: bandwidthValidationLayer } = useGlobalListener({
+  const { currentState: bandwidthValidationLayer } = useGlobalController({
     contextKey: `${EntityClassMap.bandwidthValidationLayer}:${data.id}`,
     listenerKey,
     initialValue: ObjectPlaceholder as BandwidthValidationLayer
   });
-  if (bandwidthValidationLayer != ObjectPlaceholder)
-    console.log('Validation view active!');
+  const validationElement = useMemo(() => {
+    if (bandwidthValidationLayer !== ObjectPlaceholder) {
+      console.log(bandwidthValidationLayer);
+      return (
+        <div className={'inline-block rounded-lg'}>
+          {bandwidthValidationLayer.residualBandwidth}
+        </div>
+      );
+    } else {
+      console.log(bandwidthValidationLayer);
+      return null;
+    }
+  }, [bandwidthValidationLayer]);
 
   return (
     <BaseReadOnlyNode
@@ -67,6 +76,7 @@ export default function ClassificationNode(props: NodeProps<Classification>) {
         dragging ? 'opacity-50' : ''
       )}
     >
+      {validationElement}
       {data.type === 'providerRole' && <ProviderRoleList data={data} />}
       {data.type === 'workTaskType' && <WorkTaskTypeList data={data} />}
     </BaseReadOnlyNode>
@@ -102,7 +112,7 @@ function WorkTaskTypeList({ data }: { data: WorkTaskTypeClassification }) {
   return (
     <div className={'flex flex-col'}>
       <h3>Total projection: {projectionTotal}</h3>
-      <ul>
+      <ul className={'flex flex-col gap-1'}>
         {data.memberIdList.map((wtt) => (
           <li key={wtt} className={'flex items-center gap-1'}>
             <LazyDtoUiWrapper
