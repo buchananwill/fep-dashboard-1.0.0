@@ -24,18 +24,28 @@ export function SelectionChangeTraversalUpdater() {
   const onChange = useMemo(() => {
     const onChange = ({ nodes, edges }: OnSelectionChangeParams) => {
       const strings = nodes.map((n) => n.id);
+      // remove mappings
       if (nodes.length === 0) {
-        for (let id of selectedSetRef.current.values()) {
-          writeAnyLayer(id, ObjectPlaceholder);
+        if (selectedSetRef.current.size === 1) {
+          const selectedTraversal = readAnyBvt(
+            [...selectedSetRef.current.values()][0]
+          );
+          if (selectedTraversal) {
+            selectedTraversal.layers.forEach((layer) => {
+              [
+                ...layer.taskClassificationIdList,
+                ...layer.resourceClassificationIdList
+              ].forEach((memberId) =>
+                writeAnyLayer(memberId, ObjectPlaceholder)
+              );
+            });
+          }
         }
-        console.log('removing traversal mappings');
-        // remove mappings
       } else if (nodes.length === 1) {
+        // setup traversal mapping
         const node = nodes[0];
-        console.log(node);
         const selectedTraversal = readAnyBvt(node.id);
         if (selectedTraversal !== undefined) {
-          console.log(selectedTraversal);
           selectedTraversal.layers.forEach((layer) => {
             [
               ...layer.taskClassificationIdList,
@@ -43,8 +53,6 @@ export function SelectionChangeTraversalUpdater() {
             ].forEach((memberId) => writeAnyLayer(memberId, layer));
           });
         }
-        console.log('adding traversal mappings');
-        // setup traversal mapping
       } else {
         // do nothing for now. Could possibly try to resolve in the future?
       }
