@@ -101,7 +101,7 @@ function SelectionChangeTraversalUpdater() {
       } else {
         // do nothing for now. Could possibly try to resolve in the future?
       }
-      selectedSetRef.current = new Set(...strings);
+      selectedSetRef.current = new Set(strings);
     };
     return { onChange };
   }, [selectedSetRef]);
