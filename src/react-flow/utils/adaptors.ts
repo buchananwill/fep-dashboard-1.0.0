@@ -1,4 +1,9 @@
-import { Coordinate, FlowEdge, FlowNode } from '@/react-flow/types';
+import {
+  Coordinate,
+  FlowEdge,
+  FlowNode,
+  NodeConvertor
+} from '@/react-flow/types';
 import {
   ClosureDto,
   DataNode,
@@ -10,9 +15,9 @@ import { HasNumberId } from '@/api/types';
 
 const organizationNodeType = 'organization';
 
-// const stringOrNumber = ["string", "number"] as const;
-
-function createNodeConvertor(nodeType: string) {
+function createNodeConvertor<T extends HasNumberId>(
+  nodeType: string
+): NodeConvertor<T> {
   return function convertToReactFlowNode<T extends HasNumberId>(
     dataNode: DataNodeDto<T> & Partial<Coordinate>
   ): FlowNode<T> {

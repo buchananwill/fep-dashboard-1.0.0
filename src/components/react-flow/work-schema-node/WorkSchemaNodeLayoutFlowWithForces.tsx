@@ -1,10 +1,21 @@
 'use client';
 
-import React, { memo, PropsWithChildren, useMemo } from 'react';
-import ReactFlow, { Background, BackgroundVariant } from 'reactflow';
+import React, {
+  memo,
+  PropsWithChildren,
+  useCallback,
+  useMemo,
+  useTransition
+} from 'react';
+import ReactFlow, {
+  Background,
+  BackgroundVariant,
+  useReactFlow
+} from 'reactflow';
 
 import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
+import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
 import {
   cloneFunctionWrapper,
   organizationGraphUpdater
@@ -14,8 +25,13 @@ import OrganizationDetailsContent from '@/components/react-flow/organization/Org
 import {
   DataLink,
   DataNodeDto,
+  GraphDtoPutRequestBody,
+  GraphSelectiveContextKeys,
   NodeModalContentComponent,
-  useModalContent
+  useAllEdits,
+  useGraphDispatch,
+  useModalContent,
+  useNodeEditing
 } from 'react-d3-force-wrapper';
 import { AllocationTotal } from '@/components/react-flow/organization/allocationTotal';
 import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNode';
@@ -28,16 +44,62 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { OrganizationTypeDto } from '@/api/dtos/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { useGlobalDispatch } from 'selective-context';
+import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
 import { revalidateOrganizationNode } from '@/components/react-flow/organization/revalidateOrganizationNode';
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
+import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
 
-export function ClassHierarchyLayoutFlowWithForces({
+export function WorkSchemaNodeLayoutFlowWithForces({
   children,
   typeData
 }: PropsWithChildren & { typeData: OrganizationTypeDto }) {
+  // 4. Call the hook to set up the layout with forces
+  const { flowOverlayProps, reactFlowProps, dispatchNodes, dispatchEdges } =
+    useLayoutFlowWithForces();
+  const [isPending, startTransition] = useTransition();
+  const { fitView } = useReactFlow();
+  const { dispatchWithoutListen: dispatchDeletedLinkIds } = useGraphDispatch(
+    GraphSelectiveContextKeys.deletedLinkIds
+  );
+  const { dispatchWithoutListen: dispatchDeletedNodeIds } = useGraphDispatch(
+    GraphSelectiveContextKeys.deletedNodeIds
+  );
+  const { dispatchWithoutListen: dispatchUnsavedGraph } = useGraphDispatch(
+    GraphSelectiveContextKeys.unsavedNodeData
+  );
+
+  const updateGraphAndSyncUi = useCallback(
+    async (request: GraphDtoPutRequestBody<OrganizationDto>) => {
+      startTransition(async () => {
+        organizationGraphUpdater(request).then((graphDto) => {
+          const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
+            graphDto,
+            convertToOrganizationNode
+          );
+          dispatchNodes(dataNodes);
+          dispatchEdges(() => {
+            return dataLinks.filter((link) => link.value === 1);
+          });
+          dispatchDeletedLinkIds([]);
+          dispatchDeletedNodeIds([]);
+          dispatchUnsavedGraph(false);
+          fitView();
+        });
+      });
+    },
+    [
+      dispatchNodes,
+      dispatchEdges,
+      dispatchDeletedNodeIds,
+      dispatchDeletedLinkIds,
+      dispatchUnsavedGraph,
+      fitView
+    ]
+  );
+
   const organizationTemplateNode = useMemo(() => {
     const typedTemplate = {
       ...TemplateOrganizationNode,
@@ -49,16 +111,26 @@ export function ClassHierarchyLayoutFlowWithForces({
     };
     return convertToOrganizationNode(typedTemplate);
   }, [typeData]);
-  const { flowOverlayProps, reactFlowProps, isPending } =
-    useEditableFlow<OrganizationDto>(
-      cloneFunctionWrapper,
-      organizationTemplateNode,
-      TemplateOrganizationLink,
-      organizationGraphUpdater,
-      convertToOrganizationNode,
-      EntityClassMap.organization,
-      revalidateOrganizationNode
-    );
+
+  // Set up the available edit hooks.
+  const { unsavedChanges, onConfirm } = useNodeEditing(
+    cloneFunctionWrapper,
+    organizationTemplateNode,
+    TemplateOrganizationLink,
+    updateGraphAndSyncUi,
+    revalidateOrganizationNode
+  );
+  useAllEdits();
+
+  const { dispatchWithoutListen: changesDispatch } =
+    useGlobalDispatch('unsavedChanges');
+
+  useHasChangesFlagCallback(
+    onConfirm,
+    unsavedChanges,
+    changesDispatch,
+    `${EntityClassMap.organization}-graph`
+  );
 
   const { nodes } = reactFlowProps;
 

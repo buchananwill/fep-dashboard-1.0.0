@@ -13,6 +13,6 @@ export const organizationGraphUpdater = middlewareCombiner(
   Organization.putGraph
 );
 
-export const OrganizationDatNodeDtoSchema = createDataNodeDtoSchema(
+export const OrganizationDataNodeDtoSchema = createDataNodeDtoSchema(
   OrganizationDtoSchema
 );
