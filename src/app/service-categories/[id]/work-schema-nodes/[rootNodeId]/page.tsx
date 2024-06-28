@@ -1,4 +1,10 @@
 import { Api } from '@/api/clientApi';
+import { ForceGraphPage } from 'react-d3-force-wrapper';
+import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
+import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
+import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
+import { WorkSchemaNodeLayoutFlowWithForces } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
+import { bandwidthOptions } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/bandwidthForceGraphOptions';
 
 export default async function page({
   params: { id, rootNodeId }
@@ -9,5 +15,20 @@ export default async function page({
     rootId: parseInt(rootNodeId, 10)
   });
 
-  console.log(graphDto);
+  const flowData = convertGraphDtoToReactFlowState(
+    graphDto,
+    convertToWorkSchemaFlowNode
+  );
+
+  return (
+    <ForceGraphPage
+      {...flowData}
+      graphName={'workSchemaNode'}
+      options={bandwidthOptions}
+    >
+      <ReactFlowWrapper>
+        <WorkSchemaNodeLayoutFlowWithForces></WorkSchemaNodeLayoutFlowWithForces>
+      </ReactFlowWrapper>
+    </ForceGraphPage>
+  );
 }

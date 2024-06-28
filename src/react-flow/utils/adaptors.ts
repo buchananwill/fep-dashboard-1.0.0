@@ -35,6 +35,9 @@ export const convertToOrganizationNode =
 export const convertToClassificationNode =
   createNodeConvertor('classificationNode');
 
+export const convertToWorkSchemaFlowNode =
+  createNodeConvertor('workSchemaNode');
+
 export function convertToReactFlowEdge<T extends HasNumberId>(
   closureDto: ClosureDto
 ): FlowEdge<T> {

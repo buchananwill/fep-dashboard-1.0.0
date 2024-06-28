@@ -6,7 +6,7 @@ import {
 } from 'react-d3-force-wrapper';
 import { OrganizationDataNodeDtoSchema } from '@/components/react-flow/organization/organizationCallbacks';
 
-export function revalidateOrganizationNode(
+export function convertBackToDataNodeDtoOrganizationNode(
   node: DataNode<OrganizationDto>
 ): DataNodeDto<OrganizationDto> | undefined {
   const remappedNode = reMapNodeIdWithoutValidating(node);

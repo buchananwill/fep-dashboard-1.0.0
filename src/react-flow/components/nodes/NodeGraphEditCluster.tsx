@@ -31,7 +31,7 @@ export default function NodeGraphEditCluster({
   return (
     <>
       <div className={'flex items-center justify-between gap-2'}>
-        {label}
+        {label ? label : <span className={'inline-block'}></span>}
         <Popover
           {...fixAddProps}
           placement={'right'}

@@ -15,7 +15,8 @@ import {
   DataLink,
   DataNodeDto,
   NodeModalContentComponent,
-  useModalContent
+  useModalContent,
+  useNodeLabelController
 } from 'react-d3-force-wrapper';
 import { AllocationTotal } from '@/components/react-flow/organization/allocationTotal';
 import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNode';
@@ -28,7 +29,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { OrganizationTypeDto } from '@/api/dtos/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { revalidateOrganizationNode } from '@/components/react-flow/organization/revalidateOrganizationNode';
+import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
@@ -57,7 +58,7 @@ export function ClassHierarchyLayoutFlowWithForces({
       organizationGraphUpdater,
       convertToOrganizationNode,
       EntityClassMap.organization,
-      revalidateOrganizationNode
+      convertBackToDataNodeDtoOrganizationNode
     );
 
   const { nodes } = reactFlowProps;
@@ -83,6 +84,7 @@ export function ClassHierarchyLayoutFlowWithForces({
 
   // 5. Call the hook to define the modal content
   useModalContent(memoizedContentComponent);
+  useNodeLabelController();
 
   return (
     // 6. Pass the props to the ReactFlow component

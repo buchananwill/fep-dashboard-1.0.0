@@ -1,10 +1,9 @@
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getWithoutBody } from '@/api/actions/template-actions';
-import { ForceGraphPage, ForceGraphPageOptions } from 'react-d3-force-wrapper';
+import { ForceGraphPage } from 'react-d3-force-wrapper';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { convertToClassificationNode } from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
-import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/defaultForceGraphPageOptions';
 import { BandwidthLayoutFlowWithForces } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import {
@@ -16,6 +15,7 @@ import { EmptyArray } from '@/api/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { ProjectionClassificationValidationGraph } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/types';
 import { Api } from '@/api/clientApi';
+import { bandwidthOptions } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/bandwidthForceGraphOptions';
 
 const graphUrl = constructUrl(
   '/api/v2/resourceMetrics/bandwidthGraph?providerRoleTypeId='
@@ -73,27 +73,3 @@ export default async function page({
     </ForceGraphPage>
   );
 }
-
-const bandwidthOptions: ForceGraphPageOptions = {
-  ...defaultForceGraphPageOptions,
-  forces: {
-    link: true,
-    manyBody: true,
-    forceY: true
-  },
-  forceAttributesInitial: {
-    collideStrength: 10,
-    linkDistance: 70,
-    linkStrength: 25,
-    manyBodyStrength: 134,
-    manyBodyMinDistance: 1,
-    manyBodyMaxDistance: 90,
-    forceXStrength: 0,
-    forceYStrength: 106,
-    forceYSpacing: 87
-  },
-  normalizationCoefficients: {
-    forceYSpacing: 1000,
-    manyBodyMaxDistance: 10
-  }
-};
