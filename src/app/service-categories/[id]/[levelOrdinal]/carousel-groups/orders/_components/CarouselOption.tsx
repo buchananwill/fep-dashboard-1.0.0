@@ -32,7 +32,6 @@ import {
 import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/assignOrderItemToOption';
 
 import { OptionRotationTargets } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import {
   CarouselOptionStateInterface,
   OptionRotationTarget
@@ -46,6 +45,7 @@ import {
   ConnectionVector,
   RotationConnectionMap
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
+import { initialMap } from '@/app/_literals';
 
 export const CarouselOptionState = 'CarouselOptionState';
 export default function CarouselOption({
@@ -231,19 +231,19 @@ export default function CarouselOption({
       {drop(
         <div
           className={clsx(
-            'w-full overflow-visible relative ',
+            'relative w-full overflow-visible ',
             isOver ? ' opacity-50' : ''
           )}
         >
           {loading ? (
             <PendingOverlay pending={true} />
           ) : (
-            <ButtonGroup className={'w-full h-full flex justify-between'}>
+            <ButtonGroup className={'flex h-full w-full justify-between'}>
               <Popover>
                 <PopoverTrigger>
                   <Button
                     className={clsx(
-                      'w-full pl-2 pr-1 flex justify-between',
+                      'flex w-full justify-between pl-2 pr-1',
                       textFade
                     )}
                     color={canDrop ? 'primary' : fallBackColor}
@@ -268,7 +268,7 @@ export default function CarouselOption({
                 </PopoverContent>
               </Popover>
               <Button
-                className={'px-1 min-w-0 w-fit relative'}
+                className={'relative w-fit min-w-0 px-1'}
                 onPress={() =>
                   highlightSubject((list) => {
                     if (isHighlighted)
@@ -302,7 +302,7 @@ export default function CarouselOption({
                 isIconOnly
                 isDisabled={!canPrime}
                 className={clsx(
-                  'min-w-0 w-fit px-1  opacity-100',
+                  'w-fit min-w-0 px-1  opacity-100',
                   !canDrop && 'data-[disabled]:bg-default-300'
                 )}
                 color={
@@ -318,7 +318,7 @@ export default function CarouselOption({
               >
                 <ArrowDownIcon
                   className={clsx(
-                    'w-6 py-0.5 px-0',
+                    'w-6 px-0 py-0.5',
                     isPrimed && 'animate-bounce-less',
                     textFade,
                     !canPrime && 'opacity-0'

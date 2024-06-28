@@ -5,10 +5,10 @@ import {
 } from 'dto-stores';
 import { workTaskTypeProjection } from '@/components/react-flow/bi-partite-graph/ClassificationNode';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import { useMemo } from 'react';
 import { useGlobalController, useGlobalListener } from 'selective-context';
 import { WorkTaskTypeProjection } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
+import { initialMap } from '@/app/_literals';
 
 export const maxProjectionContextKey = 'maxProjection';
 

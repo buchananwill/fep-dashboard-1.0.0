@@ -6,7 +6,8 @@ import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDt
 import { Chip } from '@nextui-org/chip';
 import { NamespacedHooks, useDtoStore } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
+
+import { initialMap } from '@/app/_literals';
 
 export default function BundleItemWithInclusionCount({ id }: { id: string }) {
   const { entity } = useDtoStore<WorkProjectSeriesSchemaDto>({

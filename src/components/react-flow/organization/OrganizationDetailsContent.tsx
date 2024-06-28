@@ -31,10 +31,7 @@ import { SelectItem } from '@nextui-org/select';
 import { produce } from 'immer';
 import { z } from 'zod';
 import { WorkNodeAssignmentDto } from '@/api/dtos/WorkNodeAssignmentDtoSchema';
-
-const listenerKey = 'details-content';
-
-export const initialMap = new Map<unknown, unknown>();
+import { listenerKeyDetailsContent } from '@/app/_literals';
 
 const whileLoading = () => null;
 export default function OrganizationDetailsContent({
@@ -44,13 +41,13 @@ export default function OrganizationDetailsContent({
     currentState: { memoizedFunction: commitEdit }
   } = useGraphListener<MemoizedFunction<OrganizationDto, void>>(
     GraphSelectiveContextKeys.editNodeData,
-    listenerKey,
+    listenerKeyDetailsContent,
     undefinedEditNodeData
   );
   const { dispatchWithoutControl, currentState } =
     useGraphDispatchAndListener<OrganizationDto>(
       GraphSelectiveContextKeys.nodeInModal,
-      listenerKey,
+      listenerKeyDetailsContent,
       ObjectPlaceholder as OrganizationDto
     );
 
@@ -59,7 +56,7 @@ export default function OrganizationDetailsContent({
   >(
     EntityClassMap.workSchemaNode,
     KEY_TYPES.MASTER_LIST,
-    listenerKey,
+    listenerKeyDetailsContent,
     ArrayPlaceholder
   );
 

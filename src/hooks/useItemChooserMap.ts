@@ -1,7 +1,8 @@
 import { useGlobalListenerGroup } from 'selective-context';
 import { useMemo } from 'react';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
+
+import { initialMap } from '@/app/_literals';
 
 export function useItemChooserMap<T>(
   referencedItemContextKeys: string[],

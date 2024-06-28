@@ -10,8 +10,7 @@ import CarouselOption, {
 import { memo, useEffect, useMemo, useRef } from 'react';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
-import { InitialSet } from '@/app/_literals';
+import { initialMap, InitialSet } from '@/app/_literals';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import {
   FilteredOrders,

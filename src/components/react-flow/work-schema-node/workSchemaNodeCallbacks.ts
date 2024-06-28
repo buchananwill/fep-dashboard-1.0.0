@@ -19,6 +19,7 @@ import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/or
 import { Api } from '@/api/clientApi';
 import { isNotUndefined } from '@/api/main';
 import { z } from 'zod';
+import { ServerAction } from '@/react-flow/hooks/useEditableFlow';
 
 function cloneWorkSchemaNode(
   templateNode: DataNode<WorkSchemaNodeDto>
@@ -55,6 +56,13 @@ const maxOneOf: (keyof WorkSchemaNodeDto)[] = [
   'workProjectSeriesSchemaId'
 ];
 
+function spyOnRequest<T, U>(currentRequest: ServerAction<T, U>) {
+  return (request: T) => {
+    console.log(request);
+    return currentRequest(request);
+  };
+}
+
 export const workSchemaNodeCloneFunctionWrapper = {
   memoizedFunction: cloneWorkSchemaNode
 };
@@ -62,7 +70,7 @@ export const WorkSchemaNodeDataNodeDtoSchema = createDataNodeDtoSchema(
   WorkSchemaNodeDtoSchema
 );
 export const workSchemaNodeGraphUpdater = middlewareCombiner(
-  [getGraphUpdaterWithNameDeDuplication],
+  [spyOnRequest, getGraphUpdaterWithNameDeDuplication],
   Api.WorkSchemaNode.putGraph
 );
 
@@ -73,7 +81,9 @@ type WorkSchemaNodeDataNodeDto = z.infer<
 export function validateWorkSchemaNodeDataNodeDto(
   dataNode: DataNode<WorkSchemaNodeDto>
 ) {
+  console.log(dataNode);
   const dataNodeDto = reMapNodeIdWithoutValidating(dataNode);
+  console.log(dataNodeDto);
   let parsedNode: WorkSchemaNodeDataNodeDto | undefined = undefined;
   try {
     parsedNode = WorkSchemaNodeDataNodeDtoSchema.parse(dataNodeDto);
@@ -91,5 +101,6 @@ export function validateWorkSchemaNodeDataNodeDto(
       );
     }
   }
+  console.log(parsedNode);
   return parsedNode;
 }

@@ -8,7 +8,8 @@ import { Chip } from '@nextui-org/chip';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
+
+import { initialMap } from '@/app/_literals';
 
 export default function AllBundlesTotal() {
   const { currentState } = useGlobalListener<

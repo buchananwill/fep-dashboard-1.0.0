@@ -1,11 +1,10 @@
 'use client';
 import { useGlobalController } from 'selective-context';
 import { Coordinate } from '@/react-flow/types';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import React, { useEffect, useMemo, useState } from 'react';
 import { curveBasis, interpolateObject, line } from 'd3';
 import { isNotNull, isNotUndefined } from '@/api/main';
-import { ControllerKey } from '@/app/_literals';
+import { ControllerKey, initialMap } from '@/app/_literals';
 import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
 import { HasId } from '@/api/types';
 

@@ -22,11 +22,10 @@ import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrd
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import CarouselOrderList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderList';
-import { initialMap } from '@/components/react-flow/organization/OrganizationDetailsContent';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
 import clsx from 'clsx';
-import { ControllerKey, InitialSet } from '@/app/_literals';
+import { ControllerKey, initialMap, InitialSet } from '@/app/_literals';
 import {
   FilteredOrders,
   RotationPrime
@@ -313,7 +312,7 @@ export default function OptionRotationButtonGroup() {
               calculateNextRotation(backwards, [...filteredOrders.values()])
             );
         }}
-        className={'px-4 min-w-0'}
+        className={'min-w-0 px-4'}
       >
         <ChevronLeftIcon
           className={clsx(
@@ -358,7 +357,7 @@ export default function OptionRotationButtonGroup() {
               calculateNextRotation(forwards, [...filteredOrders.values()])
             );
         }}
-        className={'px-4 min-w-0'}
+        className={'min-w-0 px-4'}
       >
         <ChevronRightIcon
           className={clsx(

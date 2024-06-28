@@ -9,6 +9,7 @@ import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import {
   DataLink,
   DataNodeDto,
+  useModalContent,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
@@ -23,6 +24,7 @@ import {
 } from '@/components/react-flow/work-schema-node/workSchemaNodeCallbacks';
 import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
 import { EntityClassMap } from '@/api/entity-class-map';
+import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/WorkSchemaNodeDetailsContent';
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children
@@ -39,6 +41,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       validateWorkSchemaNodeDataNodeDto
     );
 
+  useModalContent(ModalMemo);
   useNodeLabelController();
 
   return (
@@ -62,6 +65,10 @@ export function WorkSchemaNodeLayoutFlowWithForces({
 }
 
 const NodeMemo = memo(WorkSchemaNode);
+
+const ModalMemo = {
+  memoizedFunction: WorkSchemaNodeDetailsContent
+};
 
 // 1. Define the node types and their components
 const nodeTypes = {
