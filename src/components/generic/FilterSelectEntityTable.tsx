@@ -20,6 +20,7 @@ import {
   TableCell,
   TableColumn,
   TableHeader,
+  TableProps,
   TableRow
 } from '@nextui-org/react';
 import {
@@ -29,7 +30,7 @@ import {
 import { useEntitySelection } from '@/hooks/useEntitySelection';
 import { Identifier } from 'dto-stores';
 import { Column, StringPropertyKey } from '@/types';
-import { HasId, HasIdClass } from '@/api/types';
+import { HasIdClass } from '@/api/types';
 
 export default function FilterSelectEntityTable<
   T extends HasIdClass<Identifier>
@@ -37,11 +38,14 @@ export default function FilterSelectEntityTable<
   entities,
   initialColumns,
   filterProperty,
+  idClass,
   renderCell,
   columns,
-  entityClass
+  entityClass,
+  selectionMode = 'multiple'
 }: {
   entityClass: string;
+  idClass?: 'string' | 'number';
   entities: T[];
   columns: Column<T>[];
   initialColumns: (keyof T)[];
@@ -50,7 +54,7 @@ export default function FilterSelectEntityTable<
     entity: T,
     columnKey: React.Key
   ) => string | number | ReactElement;
-}) {
+} & Pick<TableProps, 'selectionMode'>) {
   const [filterValue, setFilterValue] = useState('');
 
   const [visibleColumns, setVisibleColumns] = useState<Selection>(
@@ -113,7 +117,7 @@ export default function FilterSelectEntityTable<
   const { handleChange, selectedSet, dispatchSelected } = useEntitySelection<
     T,
     Identifier
-  >(entityClass, visibleItemsRef);
+  >(entityClass, visibleItemsRef, idClass);
 
   const onRowsPerPageChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -251,7 +255,7 @@ export default function FilterSelectEntityTable<
       }}
       selectedKeys={selectedSet}
       className={'pointer-events-auto'}
-      selectionMode="multiple"
+      selectionMode={selectionMode}
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"

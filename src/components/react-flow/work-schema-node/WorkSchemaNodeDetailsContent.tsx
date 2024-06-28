@@ -13,6 +13,14 @@ import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
 import { Button } from '@nextui-org/button';
 import React from 'react';
+import { NamespacedHooks } from 'dto-stores';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { EmptyArray } from '@/api/literals';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import WorkProjectSeriesSchemaSelectTable from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/WorkProjectSeriesSchemaSelectTable';
+
+const listenerKey = 'workSchemaNodeModalContent';
 
 export default function WorkSchemaNodeDetailsContent({
   onClose
@@ -33,6 +41,13 @@ export default function WorkSchemaNodeDetailsContent({
       ObjectPlaceholder as WorkSchemaNodeDto
     );
 
+  const { currentState: schemaList } = NamespacedHooks.useListen(
+    EntityClassMap.workProjectSeriesSchema,
+    KEY_TYPES.MASTER_LIST,
+    listenerKey,
+    EmptyArray as WorkProjectSeriesSchemaDto[]
+  );
+
   return (
     <>
       <ModalHeader>
@@ -47,7 +62,12 @@ export default function WorkSchemaNodeDetailsContent({
           {currentState.name ?? ''}
         </FocusToEdit>
       </ModalHeader>
-      <ModalBody>Some details.</ModalBody>
+      <ModalBody>
+        <WorkProjectSeriesSchemaSelectTable
+          entities={schemaList}
+          selectionMode={'single'}
+        />
+      </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>
           Close

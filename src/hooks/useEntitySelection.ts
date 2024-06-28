@@ -3,9 +3,16 @@ import { Identifier, NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { Key, MutableRefObject, useCallback, useMemo } from 'react';
-import { HasId, HasIdClass } from '@/api/types';
+import { HasIdClass } from '@/api/types';
 import { getNumberFromStringId } from 'react-d3-force-wrapper';
-import { type } from 'node:os';
+
+function compareNumbersOrStrings(v1: number | string, v2: number | string) {
+  const v1Type = typeof v1;
+  const v2Type = typeof v2;
+  if (v1Type === 'number' && v2Type === 'number')
+    return (v1 as number) - (v2 as number);
+  else return String(v1).localeCompare(String(v2));
+}
 
 export function useEntitySelection<
   T extends HasIdClass<U>,
@@ -13,6 +20,7 @@ export function useEntitySelection<
 >(
   entityClass: string,
   visibleItems: MutableRefObject<T[]>,
+  idClass?: 'string' | 'number',
   forceString = true
 ) {
   const listenerKey = useUuidListenerKey();
@@ -53,15 +61,19 @@ export function useEntitySelection<
         }
         const sort = [...selectionSet.values()]
           .map((id) => {
-            return typeof id === 'number' ? id : getNumberFromStringId(id);
+            return typeof id === idClass
+              ? id
+              : typeof id === 'string'
+                ? getNumberFromStringId(id)
+                : String(id);
           })
-          .sort((a, b) => a - b);
+          .sort(compareNumbersOrStrings);
         console.log(sort);
         console.log(selectionSet);
         return sort as U[];
       });
     },
-    [dispatchSelected, visibleItems]
+    [idClass, dispatchSelected, visibleItems]
   );
   return { currentState, selectedSet, handleChange, dispatchSelected };
 }
