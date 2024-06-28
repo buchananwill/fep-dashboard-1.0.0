@@ -3,7 +3,7 @@ import { UserRoleTypeDto } from '../dtos/UserRoleTypeDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,10 +15,16 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<UserRoleTypeDto, number>('/api/v2/userRoles/types');
+} = generateBaseEndpointSet<
+  UserRoleTypeDto,
+  number
+>(
+  '/api/v2/userRoles/types'
+);
+
 
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -30,4 +36,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-};
+
+}
+

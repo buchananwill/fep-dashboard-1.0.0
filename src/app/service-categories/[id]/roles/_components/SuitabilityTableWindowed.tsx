@@ -10,10 +10,7 @@ import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderR
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import {
-  AssetRoleSuitabilityApi,
-  ProviderRoleSuitabilityApi
-} from '@/api/clientApi';
+
 import React, {
   useCallback,
   useEffect,
@@ -31,6 +28,7 @@ import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { isNotUndefined } from '@/api/main';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { AssetRoleWorkTaskSuitabilityDto } from '@/api/dtos/AssetRoleWorkTaskSuitabilityDtoSchema';
+import { Api } from '@/api/clientApi';
 
 const DefaultScrollBarSize = 20;
 const defaultSyncColumnWidth = 100;
@@ -62,8 +60,8 @@ export interface SuitabilityConditions {
 }
 
 const SuitabilityApis = {
-  ProviderRole: ProviderRoleSuitabilityApi,
-  AssetRole: AssetRoleSuitabilityApi
+  ProviderRole: Api.ProviderRoleTypeWorkTaskTypeSuitability,
+  AssetRole: Api.AssetRoleTypeWorkTaskTypeSuitability
 } as const;
 
 export const AssetSuitabilityCondition: SuitabilityConditions = {
@@ -71,14 +69,14 @@ export const AssetSuitabilityCondition: SuitabilityConditions = {
   suitabilityType: EntityClassMap.assetRole,
   baseEntityIdAccessor: 'assetId',
   displayNameAccessor: 'assetName',
-  api: AssetRoleSuitabilityApi
+  api: Api.AssetRoleTypeWorkTaskTypeSuitability
 } as const;
 export const ProviderSuitabilityCondition: SuitabilityConditions = {
   suitabilityEntityType: EntityClassMap.providerRoleTypeWorkTaskTypeSuitability,
   suitabilityType: EntityClassMap.providerRole,
   baseEntityIdAccessor: 'partyId',
   displayNameAccessor: 'partyName',
-  api: ProviderRoleSuitabilityApi
+  api: Api.ProviderRoleTypeWorkTaskTypeSuitability
 };
 
 const SuitabilityConditionContext = 'suitabilityCondition';

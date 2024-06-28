@@ -19,13 +19,10 @@ import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import {
   BaseDtoUiProps,
   BaseLazyDtoUiProps,
-  DtoUiProps,
-  LazyDtoUiProps,
   LazyDtoUiWrapper,
   NamespacedHooks
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkSeriesBundleAssignmentDto } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
 import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/LessonDeliveryModel';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -33,6 +30,7 @@ import { Select } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { produce } from 'immer';
 import { z } from 'zod';
+import { WorkNodeAssignmentDto } from '@/api/dtos/WorkNodeAssignmentDtoSchema';
 
 const listenerKey = 'details-content';
 
@@ -56,10 +54,10 @@ export default function OrganizationDetailsContent({
       ObjectPlaceholder as OrganizationDto
     );
 
-  const { currentState: bundleList } = NamespacedHooks.useListen<
+  const { currentState: rootNodeList } = NamespacedHooks.useListen<
     WorkSeriesSchemaBundleDto[]
   >(
-    EntityClassMap.workSeriesSchemaBundle,
+    EntityClassMap.workSchemaNode,
     KEY_TYPES.MASTER_LIST,
     listenerKey,
     ArrayPlaceholder
@@ -68,8 +66,7 @@ export default function OrganizationDetailsContent({
   const onCloseDefined = onClose ? onClose : () => {};
 
   const { workSeriesBundleAssignment } = currentState;
-  const workSeriesSchemaBundleId =
-    workSeriesBundleAssignment?.workSeriesSchemaBundleId;
+  const workSeriesSchemaBundleId = workSeriesBundleAssignment?.workSchemaNodeId;
 
   const selectedKeys = useMemo(() => {
     return workSeriesSchemaBundleId ? [workSeriesSchemaBundleId] : [];
@@ -95,7 +92,7 @@ export default function OrganizationDetailsContent({
         {workSeriesBundleAssignment && (
           <>
             <Select
-              items={bundleList}
+              items={rootNodeList}
               label={'Bundle'}
               placeholder={'Assign a bundle'}
               selectedKeys={selectedKeys}
@@ -106,14 +103,14 @@ export default function OrganizationDetailsContent({
                     if (draft.workSeriesBundleAssignment) {
                       let isId = false;
                       try {
-                        isId = !!z.string().uuid().parse(newId);
+                        isId = !!z.number().parse(newId);
                       } catch (e) {}
                       if (isId)
-                        draft.workSeriesBundleAssignment.workSeriesSchemaBundleId =
-                          e.target.value;
+                        draft.workSeriesBundleAssignment.workSchemaNodeId =
+                          parseInt(e.target.value, 10);
                       else
                         delete draft.workSeriesBundleAssignment
-                          .workSeriesSchemaBundleId;
+                          .workSchemaNodeId;
                     }
                     return draft;
                   })
@@ -128,7 +125,7 @@ export default function OrganizationDetailsContent({
             </Select>
             <BundleAssignment
               entity={workSeriesBundleAssignment}
-              entityClass={EntityClassMap.workSeriesBundleAssignment}
+              entityClass={EntityClassMap.workSchemaNodeAssignment}
               deleted={false}
             />
           </>
@@ -153,15 +150,15 @@ export default function OrganizationDetailsContent({
 }
 
 function BundleAssignment({
-  entity: bundleAssignment
-}: BaseDtoUiProps<WorkSeriesBundleAssignmentDto>) {
-  const { workSeriesSchemaBundleId } = bundleAssignment;
+  entity: rootNodeAssignment
+}: BaseDtoUiProps<WorkNodeAssignmentDto>) {
+  const { workSchemaNodeId } = rootNodeAssignment;
 
   return (
     <LazyDtoUiWrapper
       renderAs={BundleDetails}
-      entityId={workSeriesSchemaBundleId ?? ''}
-      entityClass={EntityClassMap.workSeriesSchemaBundle}
+      entityId={workSchemaNodeId ?? 0}
+      entityClass={EntityClassMap.workSchemaNode}
       whileLoading={() => null}
     />
   );

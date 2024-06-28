@@ -1,5 +1,5 @@
 'use server';
-import { CarouselOptionDto } from '../dtos/CarouselOptionDtoSchema';
+import { WorkNodeAssignmentDto } from '../dtos/WorkNodeAssignmentDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
 
@@ -17,10 +17,10 @@ getPage,
   getDtoListByParamList,
   getDtoListByExampleList
 } = generateBaseEndpointSet<
-  CarouselOptionDto,
+  WorkNodeAssignmentDto,
   number
 >(
-  '/api/v2/carouselGroups/carousels/options'
+  '/api/v2/workProjectSeriesSchemas/bundleAssignments'
 );
 
 
@@ -30,11 +30,11 @@ const {
   getByRowIdList,
   getIntersectionTable
 } = generateIntersectionEndpointSet<
-  CarouselOptionDto,
-  string,
-  string
+  WorkNodeAssignmentDto,
+  number,
+  number
 >(
-  '/api/v2/carouselGroups/carousels/options'
+  '/api/v2/workProjectSeriesSchemas/bundleAssignments'
 );
 
 export {

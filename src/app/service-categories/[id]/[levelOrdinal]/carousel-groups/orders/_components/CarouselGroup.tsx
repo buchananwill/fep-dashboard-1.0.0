@@ -30,20 +30,12 @@ import {
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_literals';
 import { Skeleton } from '@nextui-org/skeleton';
 import { EmptyArray } from '@/api/literals';
-import { Button } from '@nextui-org/button';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
-import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { useTransform } from 'framer-motion';
-import { usePathname, useRouter } from 'next/navigation';
 import { resetAssignmentsAction } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/resetAssignmentsAction';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { getDtoListByBodyList as getCarouselByList } from '@/api/generated-actions/Carousel';
-import { transformOptionForClientState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/transformOptionForClientState';
-import { getOne } from '@/api/generated-actions/CarouselGroup';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 
 export default function CarouselGroup(params: DtoStoreParams) {
@@ -126,7 +118,7 @@ export default function CarouselGroup(params: DtoStoreParams) {
   return (
     <Card>
       <PendingOverlay pending={isPending} />
-      <CardHeader className={'grid-cols-3 grid w-full'}>
+      <CardHeader className={'grid w-full grid-cols-3'}>
         <TwoStageClick
           primedMessage={
             'This will remove all manual assignments and re-calculate the Carousel Options.'
@@ -140,7 +132,7 @@ export default function CarouselGroup(params: DtoStoreParams) {
       </CardHeader>
       <CardBody>
         <div
-          className={'grid p-4 gap-1'}
+          className={'grid gap-1 p-4'}
           style={{
             gridTemplateColumns: `repeat(${entity.carousels.length}, minmax(0, 1fr))`
             // gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`

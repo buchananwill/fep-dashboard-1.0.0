@@ -1,6 +1,7 @@
 'use server';
-import { CycleDto } from '../dtos/CycleDtoSchema';
+import { WorkSchemaNodeDto } from '../dtos/WorkSchemaNodeDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 
 const {
 getPage,
@@ -16,10 +17,20 @@ getPage,
   getDtoListByParamList,
   getDtoListByExampleList
 } = generateBaseEndpointSet<
-  CycleDto,
+  WorkSchemaNodeDto,
   number
 >(
-  '/api/v2/time/cycles'
+  '/api/v2/workSchemaNode'
+);
+
+
+
+const {
+getGraph, getGraphByNodeList, getGraphByRootId, putGraph } =
+ generateGraphEndpointSet<
+  WorkSchemaNodeDto
+>(
+  '/api/v2/workSchemaNode'
 );
 
 
@@ -36,6 +47,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-
+, getGraph, getGraphByNodeList, getGraphByRootId, putGraph
 }
 

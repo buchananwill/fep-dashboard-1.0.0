@@ -27,7 +27,6 @@ export function AdjustAllocation({
         id: TransientIdOffset + size, // TODO improve this transient ID allocation
         count: 0,
         deliveryAllocationSize: size,
-        priority: 1,
         workProjectSeriesSchemaId: workProjectSeriesSchemaDto.id,
         workTaskTypeId: workProjectSeriesSchemaDto.workTaskTypeId
       };
@@ -61,7 +60,7 @@ export function AdjustAllocation({
 
   return (
     <div>
-      <div className=" py-2 flex justify-start align-middle items-center gap-1">
+      <div className=" flex items-center justify-start gap-1 py-2 align-middle">
         {currentAllocations.map((deliveryAllocation, index) => (
           <StepperContext.Provider
             key={index}
@@ -90,7 +89,7 @@ export function AdjustAllocation({
             </div>
           </StepperContext.Provider>
         ))}
-        <h3 className={'px-2 text-sm w-20'}>Total: {totalAllocations}</h3>
+        <h3 className={'w-20 px-2 text-sm'}>Total: {totalAllocations}</h3>
         {currentAllocations.map((delivAl) => (
           <DeliveryAllocation deliveryAllocation={delivAl} key={delivAl.id} />
         ))}

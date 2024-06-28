@@ -1,12 +1,8 @@
-import {
-  AssetRoleApi,
-  ProviderRoleApi,
-  WorkTaskTypeApi
-} from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import SuitabilityTableWindowed from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
 import TabbedSelectorTables from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
+import { Api } from '@/api/clientApi';
 
 // TODO Fix the state/update interface: the wrong values are getting displayed/sent to the update backend.
 export default async function page({
@@ -19,9 +15,9 @@ export default async function page({
   const assetRoleTypeId = parseInt(roleTypeId, 10);
   const serviceCategoryId = parseInt(id, 10);
 
-  const roles = await AssetRoleApi.getByTypeIdList([assetRoleTypeId]);
+  const roles = await Api.AssetRole.getByTypeIdList([assetRoleTypeId]);
 
-  let workTaskTypes = await WorkTaskTypeApi.getDtoListByExampleList([
+  let workTaskTypes = await Api.WorkTaskType.getDtoListByExampleList([
     { serviceCategoryId }
   ]);
 

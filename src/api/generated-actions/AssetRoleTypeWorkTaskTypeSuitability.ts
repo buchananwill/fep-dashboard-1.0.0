@@ -1,10 +1,10 @@
 'use server';
 import { AssetRoleWorkTaskSuitabilityDto } from '../dtos/AssetRoleWorkTaskSuitabilityDtoSchema';
-import { generateBaseEndpointSet } from '@/api/actions/template-base-endpoints';
-import { generateTriIntersectionEndpointSet } from '@/api/actions/template-tri-intersection-endpoints';
+import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { generateTriIntersectionEndpointSet } from '../actions/template-tri-intersection-endpoints';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,15 +16,21 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<AssetRoleWorkTaskSuitabilityDto, number>(
+} = generateBaseEndpointSet<
+  AssetRoleWorkTaskSuitabilityDto,
+  number
+>(
   '/api/v2/workTaskTypes/assetRoleSuitabilities'
 );
+
+
 
 const {
   getByRowIdListAndColumnIdListAndLayerId,
   getByRowIdListAndLayerId,
   getColumnIdListAndLayerId,
   getTriIntersectionTable
+
 } = generateTriIntersectionEndpointSet<
   AssetRoleWorkTaskSuitabilityDto,
   number,
@@ -33,7 +39,7 @@ const {
 >('/api/v2/workTaskTypes/assetRoleSuitabilities');
 
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -44,9 +50,12 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList,
-  getByRowIdListAndColumnIdListAndLayerId,
+  getDtoListByExampleList
+,   getByRowIdListAndColumnIdListAndLayerId,
   getByRowIdListAndLayerId,
   getColumnIdListAndLayerId,
   getTriIntersectionTable
-};
+
+
+}
+

@@ -1,23 +1,30 @@
 'use client';
 import { Identifier } from 'dto-stores';
-import { HasId } from '@/api/types';
+import { HasId, HasIdClass } from '@/api/types';
 import { Select, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { StringPropertyKey } from '@/types';
 import { useEntitySelection } from '@/hooks/useEntitySelection';
+import { MutableRefObject } from 'react';
 
 export type EntitySelectorProps<T, U> = {
   entityClass: string;
+  visibleItems: MutableRefObject<T[]>;
   labelAccessor: StringPropertyKey<T>;
 } & Omit<SelectProps, 'items' | 'selectedKeys' | 'children'>;
 
-export default function EntitySelector<T extends HasId, U extends Identifier>({
+export default function EntitySelector<
+  T extends HasIdClass<U>,
+  U extends Identifier
+>({
   entityClass,
   labelAccessor,
+  visibleItems,
   ...selectProps
 }: EntitySelectorProps<T, U>) {
   const { currentState, selectedSet, handleChange } = useEntitySelection<T, U>(
-    entityClass
+    entityClass,
+    visibleItems
   );
 
   return (

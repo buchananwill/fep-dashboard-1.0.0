@@ -1,9 +1,9 @@
 'use server';
 import { WorkProjectSeriesSchemaDto } from '../dtos/WorkProjectSeriesSchemaDtoSchema';
-import { generateBaseEndpointSet } from '@/api/actions/template-base-endpoints';
+import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,12 +15,16 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<WorkProjectSeriesSchemaDto, string>(
+} = generateBaseEndpointSet<
+  WorkProjectSeriesSchemaDto,
+  string
+>(
   '/api/v2/workProjectSeriesSchemas'
 );
 
+
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -32,4 +36,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-};
+
+}
+

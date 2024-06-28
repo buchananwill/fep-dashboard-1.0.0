@@ -1,11 +1,11 @@
 'use server';
 import { OrganizationDto } from '../dtos/OrganizationDtoSchema';
-import { generateBaseEndpointSet } from '@/api/actions/template-base-endpoints';
-import { generateWithTypeEndpointSet } from '@/api/actions/template-type-endpoints';
-import { generateGraphEndpointSet } from '@/api/actions/template-graph-endpoints';
+import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
+import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -17,17 +17,31 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<OrganizationDto, number>('/api/v2/organizations');
-
-const { getByTypeIdList } = generateWithTypeEndpointSet<OrganizationDto>(
+} = generateBaseEndpointSet<
+  OrganizationDto,
+  number
+>(
   '/api/v2/organizations'
 );
 
-const { getGraph, getGraphByNodeList, getGraphByRootId, putGraph } =
-  generateGraphEndpointSet<OrganizationDto>('/api/v2/organizations');
+
+const {
+getByTypeIdList  } = generateWithTypeEndpointSet<OrganizationDto>(
+  '/api/v2/organizations'
+);
+
+
+const {
+getGraph, getGraphByNodeList, getGraphByRootId, putGraph } =
+ generateGraphEndpointSet<
+  OrganizationDto
+>(
+  '/api/v2/organizations'
+);
+
 
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -38,10 +52,7 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList,
-  getByTypeIdList,
-  getGraph,
-  getGraphByNodeList,
-  getGraphByRootId,
-  putGraph
-};
+  getDtoListByExampleList
+, getByTypeIdList, getGraph, getGraphByNodeList, getGraphByRootId, putGraph
+}
+

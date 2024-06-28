@@ -1,4 +1,4 @@
-import { ProviderRoleApi, WorkTaskTypeApi } from '@/api/clientApi';
+import { Api } from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
@@ -16,9 +16,9 @@ export default async function page({
   const providerRoleTypeId = parseInt(roleTypeId, 10);
   const serviceCategoryId = parseInt(id, 10);
 
-  const roles = await ProviderRoleApi.getByTypeIdList([providerRoleTypeId]);
+  const roles = await Api.ProviderRole.getByTypeIdList([providerRoleTypeId]);
 
-  let workTaskTypes = await WorkTaskTypeApi.getDtoListByExampleList([
+  let workTaskTypes = await Api.WorkTaskType.getDtoListByExampleList([
     { serviceCategoryId }
   ]);
 

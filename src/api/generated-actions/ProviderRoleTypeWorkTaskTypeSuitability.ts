@@ -1,10 +1,10 @@
 'use server';
 import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '../dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
-import { generateBaseEndpointSet } from '@/api/actions/template-base-endpoints';
-import { generateTriIntersectionEndpointSet } from '@/api/actions/template-tri-intersection-endpoints';
+import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { generateTriIntersectionEndpointSet } from '../actions/template-tri-intersection-endpoints';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,15 +16,21 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<ProviderRoleTypeWorkTaskTypeSuitabilityDto, number>(
+} = generateBaseEndpointSet<
+  ProviderRoleTypeWorkTaskTypeSuitabilityDto,
+  number
+>(
   '/api/v2/workTaskType/providerRoleTypeSuitabilities'
 );
+
+
 
 const {
   getByRowIdListAndColumnIdListAndLayerId,
   getByRowIdListAndLayerId,
   getColumnIdListAndLayerId,
   getTriIntersectionTable
+
 } = generateTriIntersectionEndpointSet<
   ProviderRoleTypeWorkTaskTypeSuitabilityDto,
   number,
@@ -33,7 +39,7 @@ const {
 >('/api/v2/workTaskType/providerRoleTypeSuitabilities');
 
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -44,9 +50,12 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList,
-  getByRowIdListAndColumnIdListAndLayerId,
+  getDtoListByExampleList
+,   getByRowIdListAndColumnIdListAndLayerId,
   getByRowIdListAndLayerId,
   getColumnIdListAndLayerId,
   getTriIntersectionTable
-};
+
+
+}
+

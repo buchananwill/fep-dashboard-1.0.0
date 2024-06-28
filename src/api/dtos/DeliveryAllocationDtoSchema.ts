@@ -5,6 +5,5 @@ export const DeliveryAllocationDtoSchema = z.object({
   count: z.number(),
   workProjectSeriesSchemaId: z.string().uuid(),
   workTaskTypeId: z.number(),
-  priority: z.number(),
 });
 export type DeliveryAllocationDto = z.infer<typeof DeliveryAllocationDtoSchema>;

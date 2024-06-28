@@ -1,10 +1,10 @@
 'use server';
 import { CycleSubspanDto } from '../dtos/CycleSubspanDtoSchema';
-import { generateBaseEndpointSet } from '@/api/actions/template-base-endpoints';
-import { generateWithTypeEndpointSet } from '@/api/actions/template-type-endpoints';
+import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,16 +16,21 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<CycleSubspanDto, number>(
+} = generateBaseEndpointSet<
+  CycleSubspanDto,
+  number
+>(
   '/api/v2/time/cycleSubspans'
 );
 
-const { getByTypeIdList } = generateWithTypeEndpointSet<CycleSubspanDto>(
+
+const {
+getByTypeIdList  } = generateWithTypeEndpointSet<CycleSubspanDto>(
   '/api/v2/time/cycleSubspans'
 );
 
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -36,6 +41,7 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList,
-  getByTypeIdList
-};
+  getDtoListByExampleList
+, getByTypeIdList
+}
+

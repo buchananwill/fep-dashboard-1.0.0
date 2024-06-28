@@ -93,7 +93,6 @@ const getDomainFactory = () => {
       id: nextId,
       name: `${knowledgeDomainDescriptor} ${nextId}`,
       serviceCategoryId: id,
-      workTaskTypeCount: 0,
       knowledgeDomainDescriptor
     };
     nextId++;

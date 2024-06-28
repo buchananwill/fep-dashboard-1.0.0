@@ -1,10 +1,10 @@
 'use server';
 import { ProviderRoleTypeDto } from '../dtos/ProviderRoleTypeDtoSchema';
-import { generateBaseEndpointSet } from '@/api/actions/template-base-endpoints';
-import { generateGraphEndpointSet } from '@/api/actions/template-graph-endpoints';
+import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,15 +16,26 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<ProviderRoleTypeDto, number>(
+} = generateBaseEndpointSet<
+  ProviderRoleTypeDto,
+  number
+>(
   '/api/v2/providerRoles/types'
 );
 
-const { getGraph, getGraphByNodeList, getGraphByRootId, putGraph } =
-  generateGraphEndpointSet<ProviderRoleTypeDto>('/api/v2/providerRoles/types');
+
+
+const {
+getGraph, getGraphByNodeList, getGraphByRootId, putGraph } =
+ generateGraphEndpointSet<
+  ProviderRoleTypeDto
+>(
+  '/api/v2/providerRoles/types'
+);
+
 
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -35,9 +46,7 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList,
-  getGraph,
-  getGraphByNodeList,
-  getGraphByRootId,
-  putGraph
-};
+  getDtoListByExampleList
+, getGraph, getGraphByNodeList, getGraphByRootId, putGraph
+}
+

@@ -1,10 +1,9 @@
 'use server';
-
+import { InteractionBasedValidationDto } from '../dtos/InteractionBasedValidationDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { InteractionBasedValidationDto } from '@/api/dtos/InteractionBasedValidationDtoSchema';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,12 +15,16 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<InteractionBasedValidationDto, number>(
+} = generateBaseEndpointSet<
+  InteractionBasedValidationDto,
+  number
+>(
   '/api/v2/interactionBasedValidation'
 );
 
+
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -33,4 +36,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-};
+
+}
+

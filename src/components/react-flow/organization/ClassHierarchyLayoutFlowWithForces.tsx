@@ -206,7 +206,8 @@ const TemplateOrganizationNode: DataNodeDto<OrganizationDto> = {
     },
     workSeriesBundleAssignment: {
       id: 0,
-      organizationId: 0
+      organizationId: 0,
+      workSchemaNodeId: 0
     }
   },
   id: 0,

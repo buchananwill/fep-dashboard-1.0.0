@@ -5,6 +5,6 @@ export const CycleDtoSchema = z.object({
   cycleLengthInDays: z.number(),
   cycleDayZero: zDayOfWeek,
   maxGroupSize: z.number(),
-  cycleLengthInWeeks: z.number()
+  cycleLengthInWeeks: z.number(),
 });
 export type CycleDto = z.infer<typeof CycleDtoSchema>;

@@ -12,9 +12,10 @@ import {
   EditAddDeleteDtoControllerArray
 } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
-import { WorkTaskTypeApi } from '@/api/clientApi';
+
 import { EntityClassMap } from '@/api/entity-class-map';
 import { ProjectionClassificationValidationGraph } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/types';
+import { Api } from '@/api/clientApi';
 
 const graphUrl = constructUrl(
   '/api/v2/resourceMetrics/bandwidthGraph?providerRoleTypeId='
@@ -55,7 +56,7 @@ export default async function page({
     >
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
-        getServerAction={WorkTaskTypeApi.getDtoListByBodyList}
+        getServerAction={Api.WorkTaskType.getDtoListByBodyList}
         entityClass={EntityClassMap.workTaskType}
       />
       <EditAddDeleteDtoControllerArray

@@ -58,14 +58,14 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   const { workSeriesBundleAssignment } = data;
   const { entity: schemaBundleFromStore } =
     useLazyDtoStore<WorkSeriesSchemaBundleDto>(
-      workSeriesBundleAssignment?.workSeriesSchemaBundleId ?? '',
-      EntityClassMap.workSeriesSchemaBundle,
+      workSeriesBundleAssignment?.workSchemaNodeId ?? '',
+      EntityClassMap.workSchemaNode,
       listenerKey
     );
 
   // THIS LINE IS NEEDED TO OVERRIDE THE REFUSAL OF SELECTIVE CONTEXT LISTENER TO RETRIEVE UNDEFINED
   const replaceWithUndefined =
-    workSeriesBundleAssignment?.workSeriesSchemaBundleId === undefined;
+    workSeriesBundleAssignment?.workSchemaNodeId === undefined;
   const schemaBundle = replaceWithUndefined ? undefined : schemaBundleFromStore;
 
   const [localTotal, setLocalTotal] = useState(0);
