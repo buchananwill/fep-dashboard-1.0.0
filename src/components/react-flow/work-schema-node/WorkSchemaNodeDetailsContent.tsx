@@ -18,7 +18,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import WorkProjectSeriesSchemaSelectTable from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/WorkProjectSeriesSchemaSelectTable';
+import WorkSchemaNodeModalTable from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/WorkSchemaNodeModalTable';
 
 const listenerKey = 'workSchemaNodeModalContent';
 
@@ -50,7 +50,7 @@ export default function WorkSchemaNodeDetailsContent({
 
   return (
     <>
-      <ModalHeader>
+      <ModalHeader className={'p-2'}>
         <FocusToEdit
           value={currentState.name ?? ''}
           label={'Node Name'}
@@ -63,14 +63,14 @@ export default function WorkSchemaNodeDetailsContent({
         </FocusToEdit>
       </ModalHeader>
       <ModalBody>
-        <div className={'flex bg-red-200'}>
-          <WorkProjectSeriesSchemaSelectTable
+        <div className={'flex overflow-auto'}>
+          <WorkSchemaNodeModalTable
             entities={schemaList}
             selectionMode={'single'}
           />
         </div>
       </ModalBody>
-      <ModalFooter>
+      <ModalFooter className={'p-2'}>
         <Button color="danger" variant="light" onPress={onClose}>
           Close
         </Button>

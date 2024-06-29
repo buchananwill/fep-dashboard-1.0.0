@@ -1,12 +1,16 @@
-import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
+'use client';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
-import React, { ReactElement } from 'react';
-import { Chip, TableProps } from '@nextui-org/react';
+import React, { ReactElement, useMemo } from 'react';
+import { Chip, Pagination, TableProps } from '@nextui-org/react';
 import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
 import { Column } from '@/types';
+import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect';
+import { FilterSortPaginateTableContent } from '@/components/generic/FilterSortPaginateTableContent';
+import { Input } from '@nextui-org/input';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
-export default function WorkProjectSeriesSchemaSelectTable({
+export default function WorkSchemaNodeModalTable({
   entities,
   selectionMode
 }: { entities: WorkProjectSeriesSchemaDto[] } & Pick<
@@ -59,17 +63,54 @@ export default function WorkProjectSeriesSchemaSelectTable({
     []
   );
 
+  const { tableContentProps, paginationProps, filterProps } =
+    useFilterSortPaginateSelect(
+      INITIAL_VISIBLE_COLUMNS,
+      columns,
+      entities,
+      'name',
+      EntityClassMap.workProjectSeriesSchema,
+      'string',
+      7
+    );
+
+  const bottomContent = useMemo(() => {
+    return (
+      <Pagination
+        isCompact
+        showControls
+        showShadow
+        color="primary"
+        className={'ml-auto mr-auto'}
+        {...paginationProps}
+      />
+    );
+  }, [paginationProps]);
+
   return (
-    <FilterSelectEntityTable
-      entityClass={EntityClassMap.workProjectSeriesSchema}
-      idClass={'string'}
-      entities={entities}
-      columns={columns}
-      initialColumns={INITIAL_VISIBLE_COLUMNS}
-      filterProperty={'name'}
-      renderCell={renderCell}
-      selectionMode={selectionMode}
-    />
+    <div className={'grid w-full grid-cols-2'}>
+      <div className={'flex flex-col p-2'}>
+        <Input
+          isClearable
+          className="grow"
+          placeholder="Search by name..."
+          startContent={<MagnifyingGlassIcon className={'h-6 w-6'} />}
+          {...filterProps}
+        />
+      </div>
+      <div className={''}>
+        <FilterSortPaginateTableContent
+          {...tableContentProps}
+          isHeaderSticky
+          renderCell={renderCell}
+          selectionMode={selectionMode}
+          bottomContent={bottomContent}
+          bottomContentPlacement={'inside'}
+          classNames={{ wrapper: 'ml-auto mr-auto h-[60vh]' }}
+          className={'pointer-events-auto'}
+        />
+      </div>
+    </div>
   );
 }
 

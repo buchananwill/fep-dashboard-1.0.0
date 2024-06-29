@@ -23,5 +23,5 @@ export function useClientSideSorting<T extends HasIdClass<Identifier>>(
       return sortDescriptor.direction === 'descending' ? -cmp : cmp;
     });
   }, [sortDescriptor, sortableItems]);
-  return { sortDescriptor, setSortDescriptor, sortedItems };
+  return { sortDescriptor, onSortChange: setSortDescriptor, sortedItems };
 }

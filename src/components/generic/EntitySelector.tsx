@@ -22,17 +22,17 @@ export default function EntitySelector<
   visibleItems,
   ...selectProps
 }: EntitySelectorProps<T, U>) {
-  const { currentState, selectedSet, handleChange } = useEntitySelection<T, U>(
-    entityClass,
-    visibleItems
-  );
+  const { currentState, selectedKeys, onSelectionChange } = useEntitySelection<
+    T,
+    U
+  >(entityClass, visibleItems);
 
   return (
     <Select
       {...selectProps}
       items={currentState}
-      selectedKeys={selectedSet}
-      onSelectionChange={handleChange}
+      selectedKeys={selectedKeys}
+      onSelectionChange={onSelectionChange}
     >
       {(entity) => (
         <SelectItem

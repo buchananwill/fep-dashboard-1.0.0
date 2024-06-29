@@ -41,13 +41,13 @@ export function useEntitySelection<
     EmptyArray as T[]
   );
 
-  const selectedSet = useMemo(() => {
+  const selectedKeys = useMemo(() => {
     return forceString
       ? new Set<string>(selectedList.map((ident) => String(ident)))
       : new Set(selectedList);
   }, [selectedList, forceString]);
 
-  const handleChange = useCallback(
+  const onSelectionChange = useCallback(
     (selected: 'all' | Set<Key>) => {
       dispatchSelected((currentSelection) => {
         const selectionSet = new Set(currentSelection);
@@ -75,5 +75,5 @@ export function useEntitySelection<
     },
     [idClass, dispatchSelected, visibleItems]
   );
-  return { currentState, selectedSet, handleChange, dispatchSelected };
+  return { currentState, selectedKeys, onSelectionChange, dispatchSelected };
 }
