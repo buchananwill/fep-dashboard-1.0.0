@@ -63,10 +63,12 @@ export default function WorkSchemaNodeDetailsContent({
         </FocusToEdit>
       </ModalHeader>
       <ModalBody>
-        <WorkProjectSeriesSchemaSelectTable
-          entities={schemaList}
-          selectionMode={'single'}
-        />
+        <div className={'flex bg-red-200'}>
+          <WorkProjectSeriesSchemaSelectTable
+            entities={schemaList}
+            selectionMode={'single'}
+          />
+        </div>
       </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>

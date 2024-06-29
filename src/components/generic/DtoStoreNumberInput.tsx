@@ -10,16 +10,12 @@ import {
   BaseDtoUiProps,
   BaseLazyDtoUiProps,
   DtoUiWrapper,
-  DtoUiWrapperProps,
-  Entity
+  DtoUiWrapperProps
 } from 'dto-stores';
 import clsx from 'clsx';
 import { removeLeadingZeroStringConversion } from '@/components/generic/removeLeadingZeroStringConversion';
 import { HasId } from '@/api/types';
-
-export type NumberPropertyKey<T> = {
-  [K in keyof T]: T[K] extends number ? K : never;
-}[keyof T];
+import { NumberPropertyKey } from '@/types';
 
 export interface ConditionalNumberClassName {
   startAt: number;

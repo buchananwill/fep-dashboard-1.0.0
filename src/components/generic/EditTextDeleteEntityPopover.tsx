@@ -61,7 +61,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
       >
         <PopoverTrigger>
           <Button className={`${classNames?.button}`}>
-            <span className={' truncate ...'}>
+            <span className={' ... truncate'}>
               {entity[stringKey] as string}
             </span>
             <PendingOverlay pending={isOpen} />

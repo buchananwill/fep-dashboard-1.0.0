@@ -1,20 +1,8 @@
-import React, {
-  ReactElement,
-  useCallback,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import {
   Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
   Input,
   Pagination,
-  Selection,
-  SortDescriptor,
   Table,
   TableBody,
   TableCell,
@@ -23,14 +11,18 @@ import {
   TableProps,
   TableRow
 } from '@nextui-org/react';
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon
-} from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useEntitySelection } from '@/hooks/useEntitySelection';
 import { Identifier } from 'dto-stores';
 import { Column, StringPropertyKey } from '@/types';
 import { HasIdClass } from '@/api/types';
+import { useClientSidePagination } from '@/hooks/useClientSidePagination';
+import { useDynamicColumnVisibility } from '@/hooks/useDynamicColumnVisibility';
+import { useClientSideFiltering } from '@/hooks/useClientSideFiltering';
+import { useClientFilteredSortedPagination } from '@/hooks/useClientFilteredSortedPagination';
+import { useClientSideSorting } from '@/hooks/useClientSorting';
+import { useDeselectVisible } from '@/hooks/useDeselectVisible';
+import { ColumnDropdown } from '@/components/generic/ColumnDropdown';
 
 export default function FilterSelectEntityTable<
   T extends HasIdClass<Identifier>
@@ -55,101 +47,32 @@ export default function FilterSelectEntityTable<
     columnKey: React.Key
   ) => string | number | ReactElement;
 } & Pick<TableProps, 'selectionMode'>) {
-  const [filterValue, setFilterValue] = useState('');
+  const { rowsPerPage, page, setPage, onRowsPerPageChange } =
+    useClientSidePagination(10);
+  const { visibleColumns, setVisibleColumns, headerColumns } =
+    useDynamicColumnVisibility(initialColumns, columns);
+  const { filterValue, filteredItems, pages, onSearchChange, onClear } =
+    useClientSideFiltering(entities, filterProperty, rowsPerPage, setPage);
 
-  const [visibleColumns, setVisibleColumns] = useState<Selection>(
-    new Set(initialColumns as Identifier[])
-  );
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: 'name',
-    direction: 'ascending'
-  });
-
-  const [page, setPage] = useState(1);
-
-  const hasSearchFilter = Boolean(filterValue);
-
-  const headerColumns = useMemo(() => {
-    if (visibleColumns === 'all') return columns;
-
-    return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid)
+  const { sortDescriptor, setSortDescriptor, sortedItems } =
+    useClientSideSorting(
+      filteredItems,
+      'name' as StringPropertyKey<T>,
+      'ascending'
     );
-  }, [visibleColumns, columns]);
 
-  const filteredItems = useMemo(() => {
-    let filteredEntities = [...entities];
+  const { visibleItems, visibleItemsRef } = useClientFilteredSortedPagination(
+    page,
+    rowsPerPage,
+    sortedItems
+  );
 
-    if (hasSearchFilter) {
-      filteredEntities = filteredEntities.filter((entity) =>
-        (entity[filterProperty] as string)
-          .toLowerCase()
-          .includes(filterValue.toLowerCase())
-      );
-    }
-
-    return filteredEntities;
-  }, [entities, filterValue, hasSearchFilter, filterProperty]);
-
-  const pages = Math.ceil(filteredItems.length / rowsPerPage);
-
-  const sortedItems = useMemo(() => {
-    return [...filteredItems].sort((a: T, b: T) => {
-      const first = a[sortDescriptor.column as keyof T] as number;
-      const second = b[sortDescriptor.column as keyof T] as number;
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
-
-      return sortDescriptor.direction === 'descending' ? -cmp : cmp;
-    });
-  }, [sortDescriptor, filteredItems]);
-
-  const visibleItems = useMemo(() => {
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-
-    return sortedItems.slice(start, end);
-  }, [page, sortedItems, rowsPerPage]);
-
-  const visibleItemsRef = useRef(visibleItems);
-  visibleItemsRef.current = visibleItems;
-
+  // Set up selection
   const { handleChange, selectedSet, dispatchSelected } = useEntitySelection<
     T,
     Identifier
   >(entityClass, visibleItemsRef, idClass);
-
-  const onRowsPerPageChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setRowsPerPage(Number(e.target.value));
-      setPage(1);
-    },
-    []
-  );
-
-  const onSearchChange = useCallback((value?: string) => {
-    if (value) {
-      setFilterValue(value);
-      setPage(1);
-    } else {
-      setFilterValue('');
-    }
-  }, []);
-
-  const onClear = useCallback(() => {
-    setFilterValue('');
-    setPage(1);
-  }, []);
-
-  const deselectVisible = useCallback(() => {
-    dispatchSelected((selectionList) => {
-      const newSelectionSet = new Set(selectionList);
-      visibleItemsRef.current.forEach((entityItem) =>
-        newSelectionSet.delete(entityItem.id)
-      );
-      return [...newSelectionSet.values()];
-    });
-  }, [dispatchSelected]);
+  const deselectVisible = useDeselectVisible(dispatchSelected, visibleItemsRef);
 
   const topContent = useMemo(() => {
     return (
@@ -166,30 +89,11 @@ export default function FilterSelectEntityTable<
           />
           <Button onPress={deselectVisible}>Deselect Page</Button>
           <div className="flex gap-3">
-            <Dropdown>
-              <DropdownTrigger className="hidden sm:flex">
-                <Button
-                  endContent={<ChevronDownIcon className="text-small" />}
-                  variant="flat"
-                >
-                  Columns
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={visibleColumns}
-                selectionMode="multiple"
-                onSelectionChange={setVisibleColumns}
-              >
-                {columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
-                    {column.name}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
+            <ColumnDropdown
+              visibleColumns={visibleColumns}
+              setVisibleColumns={setVisibleColumns}
+              columns={columns}
+            />
           </div>
         </div>
         <div className="flex items-center justify-between">
