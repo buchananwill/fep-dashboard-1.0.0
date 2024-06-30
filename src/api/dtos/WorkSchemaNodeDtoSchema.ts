@@ -1,16 +1,17 @@
 import { z } from 'zod';
 export const WorkSchemaNodeDtoSchema = z.object({
-  workProjectSeriesSchemaId: z.string().uuid().optional(),
-  id: z.number(),
-  name: z.string().optional(),
-  knowledgeLevelId: z.number().optional(),
-  knowledgeDomainId: z.number().optional(),
-  carouselId: z.string().uuid().optional(),
-  carouselGroupId: z.string().uuid().optional(),
+  allowBundle: z.boolean({ message: 'allowBundle missing' }),
+  preferCarousel: z.boolean({ message: 'preferCarousel missing' }),
+  dominanceFactor: z.number({ message: 'dominanceFactor missing' }),
+  priority: z.number({ message: 'priority missing' }),
   workSchemaNodeAssignmentIds: z.array(z.number()),
   carouselOptionId: z.number().optional(),
-  allowBundle: z.boolean(),
-  priority: z.number(),
-  dominanceFactor: z.number()
+  id: z.number(),
+  knowledgeDomainId: z.number().optional(),
+  knowledgeLevelId: z.number().optional(),
+  name: z.string().optional(),
+  carouselGroupId: z.string().uuid().optional(),
+  carouselId: z.string().uuid().optional(),
+  workProjectSeriesSchemaId: z.string().uuid().optional()
 });
 export type WorkSchemaNodeDto = z.infer<typeof WorkSchemaNodeDtoSchema>;

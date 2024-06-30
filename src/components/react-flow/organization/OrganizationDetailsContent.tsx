@@ -23,7 +23,7 @@ import {
   NamespacedHooks
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/LessonDeliveryModel';
+import { WorkProjectSeriesSchemaEditor } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/WorkProjectSeriesSchemaEditor';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Select } from '@nextui-org/react';
@@ -170,7 +170,7 @@ function BundleDetails({
         key={id}
         entityClass={EntityClassMap.workProjectSeriesSchema}
         entityId={id}
-        renderAs={LessonDeliveryModel}
+        renderAs={WorkProjectSeriesSchemaEditor}
         whileLoading={whileLoading}
       />
     ));

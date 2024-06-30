@@ -15,7 +15,7 @@ import { SetOptional } from 'type-fest';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { DtoStoreStringInput } from '@/components/generic/DtoStoreStringInput';
 
-export const LessonDeliveryModel = (
+export const WorkProjectSeriesSchemaEditor = (
   props: SetOptional<BaseDtoUiProps<WorkProjectSeriesSchemaDto>, 'deleted'>
 ) => {
   const {
@@ -33,7 +33,7 @@ export const LessonDeliveryModel = (
   );
 
   return (
-    <div className={'grid grid-cols-4 items-center relative'}>
+    <div className={'relative grid grid-cols-4 items-center'}>
       {dispatchDeletion && (
         <DeletedOverlay
           show={deleted ?? false}
@@ -60,7 +60,7 @@ export const LessonDeliveryModel = (
           className={'px-unit-2'}
           endContent={<PencilSquareIcon className={'p-1.5'} />}
         >
-          <span className={'text-left truncate ...'}>{model.name}</span>
+          <span className={'... truncate text-left'}>{model.name}</span>
         </Button>
       </div>
       <div className={'col-span-2 px-2'}>

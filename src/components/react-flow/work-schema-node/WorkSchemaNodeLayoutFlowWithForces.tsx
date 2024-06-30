@@ -87,6 +87,7 @@ const TemplateWorkSchemaNode: DataNodeDto<WorkSchemaNodeDto> = {
     dominanceFactor: 1,
     priority: 1,
     allowBundle: true,
+    preferCarousel: false,
     workSchemaNodeAssignmentIds: []
   },
   id: 0,

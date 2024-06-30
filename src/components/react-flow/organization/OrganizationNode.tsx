@@ -6,7 +6,7 @@ import { BaseEditableNode } from '@/react-flow/components/nodes/BaseEditableNode
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import {
   ArrayPlaceholder,
   useGlobalDispatch,

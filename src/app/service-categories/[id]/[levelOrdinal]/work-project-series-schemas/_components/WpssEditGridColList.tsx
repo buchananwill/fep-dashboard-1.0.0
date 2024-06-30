@@ -4,9 +4,9 @@ import React, { useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
-import { LessonDeliveryModel } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/LessonDeliveryModel';
+import { WorkProjectSeriesSchemaEditor } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/WorkProjectSeriesSchemaEditor';
 
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DtoUiListAll, useAllDtoComponents } from 'dto-stores';
@@ -43,7 +43,7 @@ export default function WpssEditGridColList() {
       <CardHeader>Lesson Delivery Models.</CardHeader>
       <CardBody>
         <div
-          className={'grid grid-cols-4 text-center border-b-2 mb-2 divide-x'}
+          className={'mb-2 grid grid-cols-4 divide-x border-b-2 text-center'}
         >
           <div>Name</div>
           <div className={'col-span-2'}>
@@ -55,7 +55,10 @@ export default function WpssEditGridColList() {
             <div>Student ratio</div>
           </div>
         </div>
-        <DtoUiListAll entityClass={entityType} renderAs={LessonDeliveryModel} />
+        <DtoUiListAll
+          entityClass={entityType}
+          renderAs={WorkProjectSeriesSchemaEditor}
+        />
       </CardBody>
     </Card>
   );

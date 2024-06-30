@@ -11,6 +11,10 @@ export type NumberPropertyKey<T> = {
   [K in keyof T]: T[K] extends number ? K : never;
 }[keyof T];
 
+export type BooleanPropertyKey<T> = {
+  [K in keyof T]: T[K] extends boolean ? K : never;
+}[keyof T];
+
 export type uiWrapperListViewProps<T extends HasId, Props> = DtoUiArrayProps<
   T,
   Props

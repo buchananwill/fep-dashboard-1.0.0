@@ -5,7 +5,7 @@ import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoS
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { useMemo } from 'react';
 import BundleItemWithInclusionCount from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_components/BundleItemWithInclusionCount';
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sum-delivery-allocations';
+import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Chip } from '@nextui-org/chip';
 import { useItemChooserMap } from '@/hooks/useItemChooserMap';
@@ -75,7 +75,7 @@ export default function BundleItemChooser({
   }, [entity, schemaMap]);
 
   return (
-    <div className={'flex flex-col relative'}>
+    <div className={'relative flex flex-col'}>
       <DeletedOverlay
         classNames={{ overlay: 'rounded-lg' }}
         show={deleted}
@@ -83,7 +83,7 @@ export default function BundleItemChooser({
           dispatchDeletion((list) => list.filter((id) => id !== collectionId))
         }
       />
-      <div className={'grid grid-cols-2 items-baseline mb-2'}>
+      <div className={'mb-2 grid grid-cols-2 items-baseline'}>
         <DtoUiWrapper<
           WorkSeriesSchemaBundleDto,
           EditTextDeletePopoverProps<WorkSeriesSchemaBundleDto>
