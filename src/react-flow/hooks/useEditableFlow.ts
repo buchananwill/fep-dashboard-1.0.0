@@ -32,8 +32,13 @@ export function useEditableFlow<T extends HasNumberId>(
   nodeValidator: NodeValidator<T>
 ) {
   // 4. Call the hook to set up the layout with forces
-  const { flowOverlayProps, reactFlowProps, dispatchNodes, dispatchEdges } =
-    useLayoutFlowWithForces();
+  const {
+    flowOverlayProps,
+    reactFlowProps,
+    dispatchNodes,
+    dispatchEdges,
+    contextData
+  } = useLayoutFlowWithForces<T>();
   const [isPending, startTransition] = useTransition();
   const { fitView } = useReactFlow();
   const { dispatchWithoutListen: dispatchDeletedLinkIds } = useGraphDispatch(
@@ -98,5 +103,12 @@ export function useEditableFlow<T extends HasNumberId>(
     changesDispatch,
     `${entityClass}-graph`
   );
-  return { flowOverlayProps, reactFlowProps, isPending };
+  return {
+    flowOverlayProps,
+    reactFlowProps,
+    isPending,
+    contextData,
+    dispatchNodes,
+    dispatchEdges
+  };
 }

@@ -14,8 +14,8 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
     linkStrength: 120,
     manyBodyStrength: 134,
     manyBodyMinDistance: 1,
-    manyBodyMaxDistance: 116,
-    forceXStrength: 57,
+    manyBodyMaxDistance: 40,
+    forceXStrength: 160,
     forceXSpacing: 77,
     forceYStrength: 0,
     forceYSpacing: 0

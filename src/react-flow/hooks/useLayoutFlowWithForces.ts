@@ -23,8 +23,10 @@ import { HasNumberId } from '@/api/types';
 const listenerKey = 'layout-flow-with-forces';
 
 export function useLayoutFlowWithForces<T extends HasNumberId>() {
-  const { nodes: nodesFromContext, dispatch: dispatchNodes } = useNodeContext();
-  const { links: edgesFromContext, dispatch: dispatchEdges } = useLinkContext();
+  const { nodes: nodesFromContext, dispatch: dispatchNodes } =
+    useNodeContext<T>();
+  const { links: edgesFromContext, dispatch: dispatchEdges } =
+    useLinkContext<T>();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(
     nodesFromContext as FlowNode<T>[]
@@ -104,6 +106,10 @@ export function useLayoutFlowWithForces<T extends HasNumberId>() {
       initialized,
       toggle,
       running
+    },
+    contextData: {
+      nodesFromContext,
+      edgesFromContext
     },
     dispatchNodes,
     dispatchEdges

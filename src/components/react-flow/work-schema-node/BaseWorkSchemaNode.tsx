@@ -17,6 +17,14 @@ import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditClu
 import { HasNumberId } from '@/api/types';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
+import { useReadAnyDto } from 'dto-stores';
+import { EntityClassMap } from '@/api/entity-class-map';
+import {
+  determineLocalAllocation,
+  determineLocalResolution
+} from '@/components/react-flow/work-schema-node/workSchemaNodeCallbacks';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -45,6 +53,17 @@ export function BaseWorkSchemaNode({
     GraphSelectiveContextKeys.nodeInModal
   );
 
+  const readAnySchema = useReadAnyDto<WorkProjectSeriesSchemaDto>(
+    EntityClassMap.workProjectSeriesSchema
+  );
+  const readAnyOption = useReadAnyDto<CarouselOptionDto>(
+    EntityClassMap.carouselOption
+  );
+
+  const totalThisNode = useMemo(() => {
+    return determineLocalAllocation(data, readAnySchema, readAnyOption);
+  }, [readAnyOption, readAnySchema, data]);
+
   const {
     currentState: { memoizedFunction }
   } = useGraphListener(
@@ -59,16 +78,7 @@ export function BaseWorkSchemaNode({
     listenerKey,
     undefinedDeleteNodes
   );
-  // const {
-  //   currentState: { memoizedFunction: labelAccessor }
-  // } = useGraphListener(
-  //   GraphSelectiveContextKeys.nodeLabelAccessor,
-  //   listenerKey,
-  //   undefinedLabelAccessor as MemoizedFunction<
-  //     [WorkSchemaNodeDto, string],
-  //     string
-  //   >
-  // );
+
   const fixAddProps = usePopoverFix();
   const fixDeleteProps = usePopoverFix();
   const { currentState } = useGraphListener(
@@ -125,19 +135,23 @@ export function BaseWorkSchemaNode({
         isConnectable={isConnectable}
       />
       <div className={className} style={style}>
-        <EditClusterMemo
-          showAddChild={canHaveChild}
-          addChild={addChild}
-          showAddSibling={data.resolutionMode !== 'CAROUSEL_OPTION'}
-          addSibling={addSibling}
-          label={label}
-          openDetailsModal={openDetailsModal}
-          showDelete={canDelete}
-          deleteNode={deleteNode}
-          fixDeleteProps={fixDeleteProps}
-          fixAddProps={fixAddProps}
-          popoverPos={popoverPos}
-        />
+        <div className={'flex items-center gap-1'}>
+          {totalThisNode}
+          <EditClusterMemo
+            showAddChild={canHaveChild}
+            addChild={addChild}
+            showAddSibling={data.resolutionMode !== 'CAROUSEL_OPTION'}
+            addSibling={addSibling}
+            label={label}
+            openDetailsModal={openDetailsModal}
+            showDelete={canDelete}
+            deleteNode={deleteNode}
+            fixDeleteProps={fixDeleteProps}
+            fixAddProps={fixAddProps}
+            popoverPos={popoverPos}
+            orientation={'left-to-right'}
+          />
+        </div>
         {children}
       </div>
       {canHaveChild && (

@@ -22,6 +22,10 @@ import { z } from 'zod';
 import { ServerAction } from '@/react-flow/hooks/useEditableFlow';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { FlowNode } from '@/react-flow/types';
+import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { sumDeliveryAllocationList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
 
 function cloneWorkSchemaNode(
   templateNode: FlowNode<WorkSchemaNodeDto>
@@ -60,20 +64,87 @@ const referenceProps: (keyof WorkSchemaNodeDto)[] = [
   'workProjectSeriesSchemaId'
 ];
 
-// const validateWorkSchemaNodes: Middleware<
-//   GraphDtoPutRequestBody<WorkSchemaNodeDto>,
-//   GraphDto<WorkSchemaNodeDto>
-// > = (currentAction) => {
-//   return (request) => {
-//     const parsedNodes = request.graphDto.nodes
-//       .map((node) => validateWorkSchemaNodeDataNodeDto(node))
-//       .filter(isNotUndefined);
-//     return currentAction({
-//       ...request,
-//       graphDto: { ...request.graphDto, nodes: parsedNodes }
-//     });
-//   };
-// };
+export function validateHierarchy(
+  parent: WorkSchemaNodeDto,
+  child: WorkSchemaNodeDto,
+  getCarousel: (id: string) => CarouselDto | undefined
+): boolean {
+  const childResolutionMode = child.resolutionMode;
+  console.log('child resolution:', childResolutionMode);
+  const typeValidation =
+    determinePermittedChildTypes(parent).includes(childResolutionMode);
+  console.log('type validation:', typeValidation);
+  if (!typeValidation) return false;
+
+  // Explicit CarouselGroup and Carousel entities are only allowed to attach to their own explicit children.
+  const carouselGroupId = parent.carouselGroupId;
+  if (carouselGroupId !== undefined) {
+    const carousel = child.carouselId
+      ? getCarousel(child.carouselId)
+      : undefined;
+    console.log(
+      'parent has carouselGroupId',
+      carouselGroupId,
+      carousel,
+      child.carouselId
+    );
+    return (
+      carousel !== undefined && carousel.carouselGroupId === carouselGroupId
+    );
+  }
+
+  const carousel = parent.carouselId
+    ? getCarousel(parent.carouselId)
+    : undefined;
+  if (carousel !== undefined) {
+    const carouselOption = child.carouselOptionId;
+    const checkCarouselOptionBelongsToThisCarousel =
+      carouselOption !== undefined &&
+      carousel.carouselOptionDtos.some(
+        (option) => option.id === carouselOption
+      );
+    console.log(
+      'checked carousel option belongs to this carousel:',
+      carousel,
+      carouselOption,
+      checkCarouselOptionBelongsToThisCarousel
+    );
+    return checkCarouselOptionBelongsToThisCarousel;
+  }
+
+  return true;
+}
+
+export function determineLocalResolution(
+  workSchemaNode: WorkSchemaNodeDto
+): WorkSchemaNodeType {
+  if (workSchemaNode.workProjectSeriesSchemaId !== undefined) return 'LEAF';
+  if (workSchemaNode.carouselOptionId !== undefined) return 'CAROUSEL_OPTION';
+  if (
+    workSchemaNode.carouselId !== undefined ||
+    (workSchemaNode.preferCarousel && !workSchemaNode.allowBundle)
+  )
+    return 'CAROUSEL';
+  if (workSchemaNode.carouselGroupId !== undefined) return 'CAROUSEL_GROUP';
+  if (!workSchemaNode.allowBundle) return 'SERIAL';
+  return 'OPEN';
+}
+
+export function determineLocalAllocation(
+  workSchemaNode: WorkSchemaNodeDto,
+  getSchema: (id: string) => WorkProjectSeriesSchemaDto | undefined,
+  getOption: (id: number) => CarouselOptionDto | undefined
+) {
+  const { workProjectSeriesSchemaId, carouselOptionId } = workSchemaNode;
+  let schema = undefined;
+  if (workProjectSeriesSchemaId) schema = getSchema(workProjectSeriesSchemaId);
+  if (carouselOptionId) {
+    const option = getOption(carouselOptionId);
+    schema = option ? getSchema(option.workProjectSeriesSchemaId) : undefined;
+  }
+  if (schema) return sumDeliveryAllocationList(schema.deliveryAllocations);
+  return 0;
+}
 
 const maxOneOf: (keyof WorkSchemaNodeDto)[] = [
   'carouselGroupId',
@@ -129,4 +200,28 @@ export function validateWorkSchemaNodeDataNodeDto(
   }
   console.log(parsedNode);
   return parsedNode;
+}
+
+function determinePermittedChildTypes(
+  parent: WorkSchemaNodeDto
+): WorkSchemaNodeType[] {
+  switch (parent.resolutionMode) {
+    case 'CAROUSEL_OPTION':
+      return [];
+    case 'LEAF':
+      return [];
+    case 'CAROUSEL':
+      return ['LEAF', 'CAROUSEL_GROUP', 'CAROUSEL_OPTION', 'SERIAL', 'OPEN'];
+    case 'CAROUSEL_GROUP':
+      return ['CAROUSEL'];
+    default:
+      return [
+        'CAROUSEL',
+        'CAROUSEL_OPTION',
+        'CAROUSEL_GROUP',
+        'OPEN',
+        'SERIAL',
+        'LEAF'
+      ];
+  }
 }

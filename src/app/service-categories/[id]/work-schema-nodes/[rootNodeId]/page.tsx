@@ -15,6 +15,7 @@ import { workSchemaNodeForceGraphOptions } from '@/app/service-categories/[id]/w
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import WorkSchemaNodeGraph from '@/app/service-categories/[id]/work-schema-nodes/_components/WorkSchemaNodeGraph';
 
 export default async function page({
   params: { id, rootNodeId }
@@ -39,37 +40,14 @@ export default async function page({
   console.log();
 
   return (
-    <ForceGraphPage
-      {...flowData}
-      graphName={'workSchemaNode'}
-      options={workSchemaNodeForceGraphOptions}
-    >
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        dtoList={schemas}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workSchemaNode}
-        dtoList={unassignedRootList}
-      />
-      <DataFetchingEditDtoControllerArray
-        idList={EmptyArray}
-        getServerAction={Api.CarouselOption.getDtoListByBodyList}
-        entityClass={EntityClassMap.carouselOption}
-      />
-      <DataFetchingEditDtoControllerArray
-        idList={EmptyArray}
-        getServerAction={Api.Carousel.getDtoListByBodyList}
-        entityClass={EntityClassMap.carousel}
-      />
-      <DataFetchingEditDtoControllerArray
-        idList={EmptyArray}
-        getServerAction={Api.CarouselGroup.getDtoListByBodyList}
-        entityClass={EntityClassMap.carouselGroup}
-      />
-      <ReactFlowWrapper>
-        <WorkSchemaNodeLayoutFlowWithForces></WorkSchemaNodeLayoutFlowWithForces>
-      </ReactFlowWrapper>
-    </ForceGraphPage>
+    <WorkSchemaNodeGraph
+      forceGraphPageProps={{
+        ...flowData,
+        graphName: 'workSchemaNode',
+        options: workSchemaNodeForceGraphOptions
+      }}
+      schemas={schemas}
+      unassignedRootList={unassignedRootList}
+    />
   );
 }

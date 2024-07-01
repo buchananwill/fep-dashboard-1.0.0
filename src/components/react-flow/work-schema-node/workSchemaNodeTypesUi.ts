@@ -15,7 +15,7 @@ export const workSchemaNodeTypesUi = {
   OPEN: OpenMemo,
   LEAF: LeafMemo,
   CAROUSEL: CarouselMemo,
-  SERIAL: LeafMemo,
+  SERIAL: OpenMemo,
   CAROUSEL_OPTION: CarouselOptionMemo,
   CAROUSEL_GROUP: CarouselGroupMemo
 } as const;
