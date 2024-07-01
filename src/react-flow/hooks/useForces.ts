@@ -140,6 +140,7 @@ export function useForces(
 
     return [true, toggle, isRunning];
   }, [
+    selectionRef,
     applyFitView,
     draggingNode,
     simRef,
