@@ -20,19 +20,45 @@ import { Api } from '@/api/clientApi';
 import { isNotUndefined } from '@/api/main';
 import { z } from 'zod';
 import { ServerAction } from '@/react-flow/hooks/useEditableFlow';
+import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
+import { FlowNode } from '@/react-flow/types';
 
 function cloneWorkSchemaNode(
-  templateNode: DataNode<WorkSchemaNodeDto>
-): DataNode<WorkSchemaNodeDto> {
+  templateNode: FlowNode<WorkSchemaNodeDto>
+): FlowNode<WorkSchemaNodeDto> {
   const {
     data: { name }
   } = templateNode;
-  let cloneName = incrementCloneSuffix(name);
+  let cloneName = name ? incrementCloneSuffix(name) : undefined;
   const clonedNode = structuredClone(templateNode);
+
   clonedNode.data.workSchemaNodeAssignmentIds = [];
   clonedNode.data.name = cloneName;
+  const parentResolutionMode = templateNode.data.resolutionMode;
+  clonedNode.data.resolutionMode = getChildResolutionMode(parentResolutionMode);
+  referenceProps.forEach((prop) => delete clonedNode.data[prop]);
+  clonedNode.type = clonedNode.data.resolutionMode;
+
   return clonedNode;
 }
+
+export function getChildResolutionMode(
+  parentResolutionMode: WorkSchemaNodeType
+): WorkSchemaNodeType {
+  switch (parentResolutionMode) {
+    case 'CAROUSEL_GROUP':
+      return 'CAROUSEL';
+    default:
+      return 'OPEN';
+  }
+}
+
+const referenceProps: (keyof WorkSchemaNodeDto)[] = [
+  'carouselId',
+  'carouselOptionId',
+  'carouselGroupId',
+  'workProjectSeriesSchemaId'
+];
 
 // const validateWorkSchemaNodes: Middleware<
 //   GraphDtoPutRequestBody<WorkSchemaNodeDto>,

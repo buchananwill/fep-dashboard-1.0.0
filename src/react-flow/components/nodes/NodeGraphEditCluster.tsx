@@ -8,6 +8,7 @@ import {
 import { TrashIcon } from '@heroicons/react/16/solid';
 import React from 'react';
 import { UsePopoverFixReturn } from '@/react-flow/hooks/usePopoverFix';
+import { b } from '@nextui-org/slider/dist/use-slider-a94a4c83';
 
 export default function NodeGraphEditCluster({
   addSibling,
@@ -17,12 +18,18 @@ export default function NodeGraphEditCluster({
   deleteNode,
   fixAddProps,
   popoverPos,
-  fixDeleteProps
+  fixDeleteProps,
+  showAddChild = true,
+  showAddSibling = true,
+  showDelete = true
 }: {
   addChild: () => void;
+  showAddChild?: boolean;
   addSibling: () => void;
-  label: string;
+  showAddSibling?: boolean;
+  label?: string;
   openDetailsModal: () => void;
+  showDelete?: boolean;
   deleteNode: () => void;
   fixAddProps: UsePopoverFixReturn;
   fixDeleteProps: UsePopoverFixReturn;
@@ -31,55 +38,60 @@ export default function NodeGraphEditCluster({
   return (
     <>
       <div className={'flex items-center justify-between gap-2'}>
-        {label ? label : <span className={'inline-block'}></span>}
-        <Popover
-          {...fixAddProps}
-          placement={'right'}
-          triggerScaleOnOpen
-          updatePositionDeps={popoverPos}
-          triggerType={'menu'}
-        >
-          <PopoverTrigger>
-            <Button size={'sm'} className={'p-1.5'} isIconOnly>
-              <PlusCircleIcon />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className={'grid grid-cols-1 gap-1'}>
-              <Button isIconOnly className={'p-1.5'} onPress={addSibling}>
-                <ArrowDownOnSquareStackIcon className={'-rotate-90'} />
+        {showDelete && (
+          <Popover
+            {...fixDeleteProps}
+            placement={'right'}
+            triggerScaleOnOpen
+            updatePositionDeps={popoverPos}
+            triggerType={'menu'}
+          >
+            <PopoverTrigger>
+              <Button size={'sm'} className={'p-1.5'} isIconOnly>
+                <MinusCircleIcon />
               </Button>
-              <Button isIconOnly className={'p-1.5'} onPress={addChild}>
-                <ArrowDownOnSquareStackIcon />
-              </Button>
-            </div>
-          </PopoverContent>
-        </Popover>
-      </div>
-      <div className={' flex gap-1'}>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className={'grid grid-cols-1 gap-1'}>
+                <Button isIconOnly className={'p-2'} onPress={deleteNode}>
+                  <TrashIcon />
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+        )}
         <Button size={'sm'} className={'grow'} onPress={openDetailsModal}>
-          Details
+          {label ?? 'Details'}
         </Button>
-        <Popover
-          {...fixDeleteProps}
-          placement={'right'}
-          triggerScaleOnOpen
-          updatePositionDeps={popoverPos}
-          triggerType={'menu'}
-        >
-          <PopoverTrigger>
-            <Button size={'sm'} className={'p-1.5'} isIconOnly>
-              <MinusCircleIcon />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className={'grid grid-cols-1 gap-1'}>
-              <Button isIconOnly className={'p-2'} onPress={deleteNode}>
-                <TrashIcon />
+        {(showAddSibling || showAddChild) && (
+          <Popover
+            {...fixAddProps}
+            placement={'right'}
+            triggerScaleOnOpen
+            updatePositionDeps={popoverPos}
+            triggerType={'menu'}
+          >
+            <PopoverTrigger>
+              <Button size={'sm'} className={'p-1.5'} isIconOnly>
+                <PlusCircleIcon />
               </Button>
-            </div>
-          </PopoverContent>
-        </Popover>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className={'grid grid-cols-1 gap-1'}>
+                {showAddSibling && (
+                  <Button isIconOnly className={'p-1.5'} onPress={addSibling}>
+                    <ArrowDownOnSquareStackIcon className={'-rotate-90'} />
+                  </Button>
+                )}
+                {showAddChild && (
+                  <Button isIconOnly className={'p-1.5'} onPress={addChild}>
+                    <ArrowDownOnSquareStackIcon />
+                  </Button>
+                )}
+              </div>
+            </PopoverContent>
+          </Popover>
+        )}
       </div>
     </>
   );

@@ -12,21 +12,26 @@ import {
 } from 'react-d3-force-wrapper';
 
 import { HasNumberId } from '@/api/types';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
 
 const organizationNodeType = 'organization';
+
+function convertToReactFlowNode<T extends HasNumberId>(
+  nodeType: string,
+  dataNode: DataNodeDto<T> & Partial<Coordinate>
+): FlowNode<T> {
+  const stringId = getAnyIdAsString(dataNode);
+  const x = dataNode.x || 0;
+  const y = dataNode.y || 0;
+  const position = { x, y: y };
+  return { ...dataNode, id: stringId, position, type: nodeType, x, y };
+}
 
 function createNodeConvertor<T extends HasNumberId>(
   nodeType: string
 ): NodeConvertor<T> {
-  return function convertToReactFlowNode<T extends HasNumberId>(
-    dataNode: DataNodeDto<T> & Partial<Coordinate>
-  ): FlowNode<T> {
-    const stringId = getAnyIdAsString(dataNode);
-    const x = dataNode.x || 0;
-    const y = dataNode.y || 0;
-    const position = { x, y: y };
-    return { ...dataNode, id: stringId, position, type: nodeType, x, y };
-  };
+  return (dataNode: DataNodeDto<T> & Partial<Coordinate>) =>
+    convertToReactFlowNode(nodeType, dataNode);
 }
 
 export const convertToOrganizationNode =
@@ -35,8 +40,9 @@ export const convertToOrganizationNode =
 export const convertToClassificationNode =
   createNodeConvertor('classificationNode');
 
-export const convertToWorkSchemaFlowNode =
-  createNodeConvertor('workSchemaNode');
+export const convertToWorkSchemaFlowNode = (
+  dataNode: DataNodeDto<WorkSchemaNodeDto> & Partial<Coordinate>
+) => convertToReactFlowNode(dataNode.data.resolutionMode, dataNode);
 
 export function convertToReactFlowEdge<T extends HasNumberId>(
   closureDto: ClosureDto

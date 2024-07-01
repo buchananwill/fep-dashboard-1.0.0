@@ -90,6 +90,9 @@ export default function WorkSchemaNodeModalTable({
       />
       <FilterSortPaginateTableContent
         {...tableContentPropsIntercepted}
+        aria-label={
+          'Table to find and select a WorkProjectSeriesSchema to be resolved at this node.'
+        }
         isHeaderSticky
         renderCell={renderWorkSchemaNodeCell}
         selectionMode={selectionMode}

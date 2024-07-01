@@ -4,7 +4,8 @@ import {
   NodeModalContentProps,
   undefinedEditNodeData,
   useGraphDispatchAndListener,
-  useGraphListener
+  useGraphListener,
+  useLinkContext
 } from 'react-d3-force-wrapper';
 import { ObjectPlaceholder } from 'selective-context';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
@@ -12,8 +13,12 @@ import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
 import { Button } from '@nextui-org/button';
-import React from 'react';
-import { LazyDtoUiWrapper, NamespacedHooks } from 'dto-stores';
+import React, { useMemo } from 'react';
+import {
+  BaseLazyDtoUiProps,
+  LazyDtoUiWrapper,
+  NamespacedHooks
+} from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -24,6 +29,8 @@ import WorkProjectionSeriesSchemaSummary from '@/app/service-categories/[id]/[le
 import { Spinner } from '@nextui-org/spinner';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { BooleanPropertyKey, NumberPropertyKey } from '@/types';
+import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
+import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 
 const listenerKey = 'workSchemaNodeModalContent';
 
@@ -45,6 +52,22 @@ export default function WorkSchemaNodeDetailsContent({
       listenerKeyDetailsContent,
       ObjectPlaceholder as WorkSchemaNodeDto
     );
+  const { links } = useLinkContext();
+  const allowSchema = useMemo(() => {
+    return (
+      links.every(
+        (dLink) =>
+          getIdFromLinkReference(dLink.source) !== String(currentState.id)
+      ) &&
+      currentState.carouselOptionId === undefined &&
+      currentState.resolutionMode !== 'CAROUSEL'
+    );
+  }, [
+    links,
+    currentState.id,
+    currentState.carouselOptionId,
+    currentState.resolutionMode
+  ]);
 
   const { currentState: schemaList } = NamespacedHooks.useListen(
     EntityClassMap.workProjectSeriesSchema,
@@ -96,29 +119,42 @@ export default function WorkSchemaNodeDetailsContent({
               </label>
             ))}
           </div>
-          {currentState.workProjectSeriesSchemaId && (
+          {(currentState.workProjectSeriesSchemaId ||
+            currentState.carouselOptionId) && (
             <div
               className={
                 'col-span-2 flex flex-col rounded-lg border-2 p-2 drop-shadow'
               }
             >
               Leaf Content:
-              <LazyDtoUiWrapper
-                renderAs={WorkProjectionSeriesSchemaSummary}
-                entityId={currentState.workProjectSeriesSchemaId}
-                entityClass={EntityClassMap.workProjectSeriesSchema}
-                whileLoading={() => <Spinner />}
-              />
+              {currentState.workProjectSeriesSchemaId && (
+                <LazyDtoUiWrapper
+                  renderAs={WorkProjectionSeriesSchemaSummary}
+                  entityId={currentState.workProjectSeriesSchemaId}
+                  entityClass={EntityClassMap.workProjectSeriesSchema}
+                  whileLoading={() => <Spinner />}
+                />
+              )}
+              {currentState.carouselOptionId && (
+                <LazyDtoUiWrapper
+                  renderAs={CarouselOptionSummary}
+                  entityId={currentState.carouselOptionId}
+                  entityClass={EntityClassMap.carouselOption}
+                  whileLoading={() => <Spinner />}
+                />
+              )}
             </div>
           )}
         </div>
         <div className={'flex overflow-auto'}>
-          <WorkSchemaNodeModalTable
-            workSchemaNode={currentState}
-            entities={schemaList}
-            selectionMode={'single'}
-            dispatchWithoutControl={dispatchWithoutControl}
-          />
+          {allowSchema && (
+            <WorkSchemaNodeModalTable
+              workSchemaNode={currentState}
+              entities={schemaList}
+              selectionMode={'single'}
+              dispatchWithoutControl={dispatchWithoutControl}
+            />
+          )}
         </div>
       </ModalBody>
       <ModalFooter className={'p-2'}>
@@ -148,3 +184,16 @@ const numberProperties: NumberPropertyKey<WorkSchemaNodeDto>[] = [
   'dominanceFactor',
   'priority'
 ];
+
+function CarouselOptionSummary({
+  entity
+}: BaseLazyDtoUiProps<CarouselOptionDto>) {
+  return (
+    <LazyDtoUiWrapper
+      renderAs={WorkProjectionSeriesSchemaSummary}
+      entityId={entity.workProjectSeriesSchemaId}
+      entityClass={EntityClassMap.workProjectSeriesSchema}
+      whileLoading={() => <Spinner />}
+    />
+  );
+}

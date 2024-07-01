@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, PropsWithChildren } from 'react';
+import React, { PropsWithChildren } from 'react';
 import ReactFlow, { Background, BackgroundVariant } from 'reactflow';
 
 import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
@@ -16,7 +16,6 @@ import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
-import WorkSchemaNode from '@/components/react-flow/work-schema-node/WorkSchemaNode';
 import {
   validateWorkSchemaNodeDataNodeDto,
   workSchemaNodeCloneFunctionWrapper,
@@ -25,6 +24,7 @@ import {
 import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/WorkSchemaNodeDetailsContent';
+import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children
@@ -49,7 +49,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     <ReactFlow
       {...reactFlowProps}
       fitView
-      nodeTypes={nodeTypes}
+      nodeTypes={workSchemaNodeTypesUi}
       edgeTypes={edgeTypes}
     >
       <PendingOverlay pending={isPending} />
@@ -64,15 +64,8 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   );
 }
 
-const NodeMemo = memo(WorkSchemaNode);
-
 const ModalMemo = {
   memoizedFunction: WorkSchemaNodeDetailsContent
-};
-
-// 1. Define the node types and their components
-const nodeTypes = {
-  workSchemaNode: NodeMemo
 };
 
 // 2. Define the Edge types and their components
@@ -88,7 +81,8 @@ const TemplateWorkSchemaNode: DataNodeDto<WorkSchemaNodeDto> = {
     priority: 1,
     allowBundle: true,
     preferCarousel: false,
-    workSchemaNodeAssignmentIds: []
+    workSchemaNodeAssignmentIds: [],
+    resolutionMode: 'OPEN'
   },
   id: 0,
   distanceFromRoot: 0

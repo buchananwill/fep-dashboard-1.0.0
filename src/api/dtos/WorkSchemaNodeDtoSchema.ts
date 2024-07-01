@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 export const WorkSchemaNodeDtoSchema = z.object({
   allowBundle: z.boolean({ message: 'allowBundle missing' }),
   preferCarousel: z.boolean({ message: 'preferCarousel missing' }),
@@ -14,4 +15,7 @@ export const WorkSchemaNodeDtoSchema = z.object({
   carouselId: z.string().uuid().optional(),
   workProjectSeriesSchemaId: z.string().uuid().optional()
 });
-export type WorkSchemaNodeDto = z.infer<typeof WorkSchemaNodeDtoSchema>;
+
+export type WorkSchemaNodeDto = z.infer<typeof WorkSchemaNodeDtoSchema> & {
+  resolutionMode: WorkSchemaNodeType;
+};
