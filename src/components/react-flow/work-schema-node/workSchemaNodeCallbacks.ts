@@ -96,7 +96,7 @@ export const WorkSchemaNodeDataNodeDtoSchema = createDataNodeDtoSchema(
   WorkSchemaNodeDtoSchema
 );
 export const workSchemaNodeGraphUpdater = middlewareCombiner(
-  [spyOnRequest, getGraphUpdaterWithNameDeDuplication],
+  [spyOnRequest],
   Api.WorkSchemaNode.putGraph
 );
 

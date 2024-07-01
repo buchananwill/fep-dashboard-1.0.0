@@ -1,7 +1,7 @@
 'use client';
 
-import React, { PropsWithChildren } from 'react';
-import ReactFlow, { Background, BackgroundVariant } from 'reactflow';
+import React, { PropsWithChildren, useCallback } from 'react';
+import ReactFlow, { Background, BackgroundVariant, Panel } from 'reactflow';
 
 import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
@@ -9,6 +9,7 @@ import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import {
   DataLink,
   DataNodeDto,
+  useDirectSimRefEditsDispatch,
   useModalContent,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
@@ -25,6 +26,20 @@ import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/WorkSchemaNodeDetailsContent';
 import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
+import { Button } from '@nextui-org/button';
+import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
+import { Popover } from '@nextui-org/react';
+import {
+  BaseLazyDtoUiProps,
+  DtoUiListSome,
+  LazyDtoUiListSome,
+  NamespacedHooks
+} from 'dto-stores';
+import { EmptyArray } from '@/api/literals';
+import { Spinner } from '@nextui-org/spinner';
+import { useGlobalListener } from 'selective-context';
+import { Api } from '@/api/clientApi';
+import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children
@@ -44,16 +59,38 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   useModalContent(ModalMemo);
   useNodeLabelController();
 
+  const { currentState } = NamespacedHooks.useListen(
+    EntityClassMap.workSchemaNode,
+    'idList',
+    'layout-flow',
+    EmptyArray as number[]
+  );
+
   return (
     // 6. Pass the props to the ReactFlow component
     <ReactFlow
       {...reactFlowProps}
+      minZoom={0.2}
       fitView
       nodeTypes={workSchemaNodeTypesUi}
       edgeTypes={edgeTypes}
     >
       <PendingOverlay pending={isPending} />
-
+      <Panel position={'top-center'}>
+        <Popover>
+          <PopoverTrigger>
+            <Button variant={'light'}>Add Unassigned Root</Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <DtoUiListSome
+              entityIdList={currentState}
+              entityClass={EntityClassMap.workSchemaNode}
+              whileLoading={() => <Spinner />}
+              renderAs={WorkSchemaNodeSummary}
+            />
+          </PopoverContent>
+        </Popover>
+      </Panel>
       {reactFlowProps.nodes.length === 0 && <AddRootNode />}
       {children}
       {/* 7. Add a background */}
@@ -100,3 +137,34 @@ const templateWorkSchemaNodeLink: DataLink<WorkSchemaNodeDto> = {
 const templateWorkSchemaFlowNode = convertToWorkSchemaFlowNode(
   TemplateWorkSchemaNode
 );
+
+export function WorkSchemaNodeSummary({
+  entity
+}: BaseLazyDtoUiProps<WorkSchemaNodeDto>) {
+  const { dispatchNextSimVersion, nodeListRef, linkListRef } =
+    useDirectSimRefEditsDispatch(`unassignedRootNode${entity.id}`);
+
+  const onPress = useCallback(async () => {
+    if (nodeListRef === null || linkListRef === null) return;
+    const graphDto = await Api.WorkSchemaNode.getGraphByRootId({
+      rootId: entity.id
+    });
+
+    graphDto.closureDtos = graphDto.closureDtos.filter(
+      (closure) => closure.value === 1
+    );
+    const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
+      graphDto,
+      convertToWorkSchemaFlowNode
+    );
+    const nodes = [...nodeListRef.current, ...dataNodes];
+    const links = [...linkListRef.current, ...dataLinks];
+    dispatchNextSimVersion(nodes, links);
+  }, [nodeListRef, linkListRef, dispatchNextSimVersion, entity.id]);
+
+  return (
+    <Button onPress={onPress}>
+      WorkSchemaNode: {entity.name ?? entity.id}
+    </Button>
+  );
+}

@@ -13,9 +13,13 @@ export const WorkSchemaNodeDtoSchema = z.object({
   name: z.string().optional(),
   carouselGroupId: z.string().uuid().optional(),
   carouselId: z.string().uuid().optional(),
-  workProjectSeriesSchemaId: z.string().uuid().optional()
+  workProjectSeriesSchemaId: z.string().uuid().optional(),
+  resolutionMode: z.string()
 });
 
-export type WorkSchemaNodeDto = z.infer<typeof WorkSchemaNodeDtoSchema> & {
+export type WorkSchemaNodeDto = Omit<
+  z.infer<typeof WorkSchemaNodeDtoSchema>,
+  'resolutionMode'
+> & {
   resolutionMode: WorkSchemaNodeType;
 };
