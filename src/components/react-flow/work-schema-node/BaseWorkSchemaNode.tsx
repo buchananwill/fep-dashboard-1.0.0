@@ -17,7 +17,7 @@ import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditClu
 import { HasNumberId } from '@/api/types';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import { useReadAnyDto } from 'dto-stores';
+import { Identifier, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   determineLocalAllocation,
@@ -25,6 +25,9 @@ import {
 } from '@/components/react-flow/work-schema-node/workSchemaNodeCallbacks';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { useGlobalController, useGlobalListener } from 'selective-context';
+import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
+import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -53,16 +56,23 @@ export function BaseWorkSchemaNode({
     GraphSelectiveContextKeys.nodeInModal
   );
 
-  const readAnySchema = useReadAnyDto<WorkProjectSeriesSchemaDto>(
-    EntityClassMap.workProjectSeriesSchema
-  );
-  const readAnyOption = useReadAnyDto<CarouselOptionDto>(
-    EntityClassMap.carouselOption
-  );
+  const { currentState: allocationRollup } = useGlobalListener<{
+    id: Identifier;
+    allocationRollup: number[];
+  }>({
+    contextKey: `${AllocationRollupEntityClass}:${data.id}`,
+    initialValue: ObjectPlaceholder as {
+      id: Identifier;
+      allocationRollup: number[];
+    },
+    listenerKey: `baseNode:${data.id}`
+  });
 
   const totalThisNode = useMemo(() => {
-    return determineLocalAllocation(data, readAnySchema, readAnyOption);
-  }, [readAnyOption, readAnySchema, data]);
+    return allocationRollup?.allocationRollup
+      ? allocationRollup.allocationRollup.reduce((prev, curr) => prev + curr, 0)
+      : 0;
+  }, [allocationRollup]);
 
   const {
     currentState: { memoizedFunction }

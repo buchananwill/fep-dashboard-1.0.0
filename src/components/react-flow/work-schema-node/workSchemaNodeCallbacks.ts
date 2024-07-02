@@ -65,10 +65,11 @@ const referenceProps: (keyof WorkSchemaNodeDto)[] = [
 ];
 
 export function validateHierarchy(
-  parent: WorkSchemaNodeDto,
-  child: WorkSchemaNodeDto,
+  parent: WorkSchemaNodeDto | undefined,
+  child: WorkSchemaNodeDto | undefined,
   getCarousel: (id: string) => CarouselDto | undefined
 ): boolean {
+  if (!parent || !child) return false;
   const childResolutionMode = child.resolutionMode;
   console.log('child resolution:', childResolutionMode);
   const typeValidation =
