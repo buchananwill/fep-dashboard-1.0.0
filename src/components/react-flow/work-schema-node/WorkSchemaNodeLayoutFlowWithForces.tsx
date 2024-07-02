@@ -18,7 +18,6 @@ import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 
 import {
   DataLink,
-  DataNode,
   DataNodeDto,
   GraphSelectiveContextKeys,
   MemoizedFunction,
@@ -47,65 +46,25 @@ import { Popover } from '@nextui-org/react';
 import {
   DtoUiListSome,
   EditAddDeleteDtoControllerArray,
-  Identifier,
   InitialMap,
   NamespacedHooks,
-  useReadAnyDto,
-  useWriteAnyDto
+  useReadAnyDto
 } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 import { Spinner } from '@nextui-org/spinner';
-import { FlowEdge, FlowNode } from '@/react-flow/types';
+import { FlowNode } from '@/react-flow/types';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';
-import { HasNumberId } from '@/api/types';
 import { useGlobalController } from 'selective-context';
-import { resolveNodeAllocation } from '@/components/react-flow/work-schema-node/resolveNodeAllocation';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { AllocationRollup } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
-
-function useIdToNodeMapMemo<T extends HasNumberId>(
-  nodesFromContext: DataNode<T>[]
-) {
-  return useMemo(() => {
-    const map = new Map<string, DataNode<T>>();
-    nodesFromContext.forEach((node) =>
-      map.set(node.id, node as FlowNode<WorkSchemaNodeDto>)
-    );
-    return map;
-  }, [nodesFromContext]);
-}
-
-function useIdToEdgeMapMemo<T extends HasNumberId>(
-  edgesFromContext: DataLink<T>[]
-) {
-  return useMemo(() => {
-    const map = new Map<string, DataLink<T>>();
-    edgesFromContext.forEach((edge) => map.set(edge.id, edge as FlowEdge<T>));
-    return map;
-  }, [edgesFromContext]);
-}
-
-function useIdToChildIdMapMemo<T extends HasNumberId>(
-  edgesFromContext: DataLink<T>[]
-) {
-  return useMemo(() => {
-    const responseMap = new Map<string, Set<string>>();
-    edgesFromContext.forEach((edge) => {
-      const sourceId = getIdFromLinkReference(edge.source);
-      const targetId = getIdFromLinkReference(edge.target);
-      const childIdset = responseMap.get(sourceId) ?? new Set<string>();
-      childIdset.add(targetId);
-      responseMap.set(sourceId, childIdset);
-    });
-
-    return responseMap;
-  }, [edgesFromContext]);
-}
+import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
+import { useIdToNodeMapMemo } from '@/react-flow/hooks/useIdToNodeMapMemo';
+import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
+import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
+import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -140,29 +99,12 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     initialValue: InitialMap as Map<string, WorkProjectSeriesSchemaDto>
   });
 
-  const allocationRollupEntities = useMemo(() => {
-    const rootNodes = nodesFromContext.filter(
-      (node) => node.distanceFromRoot === 0
-    );
-    const maps = rootNodes.map((rootNode) => {
-      return resolveNodeAllocation(rootNode, rootNode.data.allowBundle, {
-        readLeafSchema: (id: string) => leafToSchemaMap.get(id),
-        idToChildIdMap,
-        idToNodeMap
-      });
-    });
-    console.log(maps);
-    const allocationEntities = maps
-      .map((allocationMap) =>
-        [...allocationMap.entries()].map(([id, allocationRollup]) => ({
-          id,
-          allocationRollup
-        }))
-      )
-      .reduce((prev, curr) => [...prev, ...curr], []);
-    console.log('in the memo:', allocationEntities);
-    return allocationEntities;
-  }, [idToNodeMap, idToChildIdMap, nodesFromContext, leafToSchemaMap]);
+  const allocationRollupEntities = useWorkSchemaNodeRollupMemo(
+    nodesFromContext,
+    leafToSchemaMap,
+    idToChildIdMap,
+    idToNodeMap
+  );
 
   const { onConnect, ...otherProps } = reactFlowProps;
 
@@ -249,7 +191,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     dispatchWithoutListen(
       (prevFunction: MemoizedFunction<WorkSchemaNodeDto, void>) => {
         const { memoizedFunction } = prevFunction;
-        const interceptToValidateResolutionMode = (
+        const interceptValidateResolutionMode = (
           updatedNode: WorkSchemaNodeDto
         ) => {
           const localResolution = determineLocalResolution(updatedNode);
@@ -263,7 +205,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
           return memoizedFunction(interceptedNode);
         };
 
-        return { memoizedFunction: interceptToValidateResolutionMode };
+        return { memoizedFunction: interceptValidateResolutionMode };
       }
     );
   }, [dispatchWithoutListen]);
@@ -294,7 +236,6 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       <EditAddDeleteDtoControllerArray
         entityClass={AllocationRollupEntityClass}
         dtoList={allocationRollupEntities}
-        // mergeInitialWithProp={true}
       />
       <RollupUpdater allocationRollupEntities={allocationRollupEntities} />
       <PendingOverlay pending={isPending} />
@@ -359,30 +300,3 @@ const templateWorkSchemaNodeLink: DataLink<WorkSchemaNodeDto> = {
 const templateWorkSchemaFlowNode = convertToWorkSchemaFlowNode(
   TemplateWorkSchemaNode
 );
-
-function RollupUpdater({
-  allocationRollupEntities
-}: {
-  allocationRollupEntities: AllocationRollup[];
-}) {
-  const { currentState: rollupIdList } = NamespacedHooks.useListen(
-    AllocationRollupEntityClass,
-    KEY_TYPES.ID_LIST,
-    'rollupUpdater',
-    EmptyArray as Identifier[]
-  );
-
-  const writeAnyAllocationRollup = useWriteAnyDto<AllocationRollup>(
-    AllocationRollupEntityClass
-  );
-
-  useEffect(() => {
-    allocationRollupEntities
-      .filter((entity) => rollupIdList.includes(entity.id))
-      .forEach((value, key) => {
-        writeAnyAllocationRollup(`${value.id}`, value);
-      });
-  }, [allocationRollupEntities, writeAnyAllocationRollup, rollupIdList]);
-
-  return null;
-}

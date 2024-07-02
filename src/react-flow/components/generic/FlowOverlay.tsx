@@ -23,14 +23,6 @@ export function FlowOverlay({
 }) {
   const [showSliders, setShowSliders] = useState(false);
   useEscapeToClose(showSliders, setShowSliders);
-  const rerenderRef = useRef(false);
-
-  useEffect(() => {
-    if (!rerenderRef.current && toggle) {
-      toggle();
-      rerenderRef.current = true;
-    }
-  }, [toggle]);
 
   return (
     <>
