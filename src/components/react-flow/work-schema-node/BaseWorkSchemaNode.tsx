@@ -43,7 +43,7 @@ export type GenericDivProps = React.DetailedHTMLProps<
   HTMLDivElement
 >;
 
-interface AllocationRollup {
+export interface AllocationRollup {
   id: Identifier;
   allocationRollup: number[];
 }

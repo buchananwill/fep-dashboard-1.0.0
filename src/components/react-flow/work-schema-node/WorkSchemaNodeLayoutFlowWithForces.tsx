@@ -65,6 +65,8 @@ import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/U
 import { HasNumberId } from '@/api/types';
 import { useGlobalController } from 'selective-context';
 import { resolveNodeAllocation } from '@/components/react-flow/work-schema-node/resolveNodeAllocation';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { AllocationRollup } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 
 function useIdToNodeMapMemo<T extends HasNumberId>(
   nodesFromContext: DataNode<T>[]
@@ -138,15 +140,6 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     initialValue: InitialMap as Map<string, WorkProjectSeriesSchemaDto>
   });
 
-  console.log('leaf to schema map', leafToSchemaMap);
-
-  const readAnyOption = useReadAnyDto<CarouselOptionDto>(
-    EntityClassMap.carouselOption
-  );
-  const readAnySchema = useReadAnyDto<WorkProjectSeriesSchemaDto>(
-    EntityClassMap.workProjectSeriesSchema
-  );
-
   const allocationRollupEntities = useMemo(() => {
     const rootNodes = nodesFromContext.filter(
       (node) => node.distanceFromRoot === 0
@@ -170,17 +163,6 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     console.log('in the memo:', allocationEntities);
     return allocationEntities;
   }, [idToNodeMap, idToChildIdMap, nodesFromContext, leafToSchemaMap]);
-
-  const writeAnyAllocationRollup = useWriteAnyDto<{
-    id: Identifier;
-    allocationRollup: number[];
-  }>(AllocationRollupEntityClass);
-
-  useEffect(() => {
-    allocationRollupEntities.forEach((value, key) => {
-      writeAnyAllocationRollup(`${value.id}`, value);
-    });
-  }, [allocationRollupEntities, writeAnyAllocationRollup]);
 
   const { onConnect, ...otherProps } = reactFlowProps;
 
@@ -314,6 +296,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         dtoList={allocationRollupEntities}
         // mergeInitialWithProp={true}
       />
+      <RollupUpdater allocationRollupEntities={allocationRollupEntities} />
       <PendingOverlay pending={isPending} />
       <Panel position={'top-center'}>
         <Popover>
@@ -376,3 +359,30 @@ const templateWorkSchemaNodeLink: DataLink<WorkSchemaNodeDto> = {
 const templateWorkSchemaFlowNode = convertToWorkSchemaFlowNode(
   TemplateWorkSchemaNode
 );
+
+function RollupUpdater({
+  allocationRollupEntities
+}: {
+  allocationRollupEntities: AllocationRollup[];
+}) {
+  const { currentState: rollupIdList } = NamespacedHooks.useListen(
+    AllocationRollupEntityClass,
+    KEY_TYPES.ID_LIST,
+    'rollupUpdater',
+    EmptyArray as Identifier[]
+  );
+
+  const writeAnyAllocationRollup = useWriteAnyDto<AllocationRollup>(
+    AllocationRollupEntityClass
+  );
+
+  useEffect(() => {
+    allocationRollupEntities
+      .filter((entity) => rollupIdList.includes(entity.id))
+      .forEach((value, key) => {
+        writeAnyAllocationRollup(`${value.id}`, value);
+      });
+  }, [allocationRollupEntities, writeAnyAllocationRollup, rollupIdList]);
+
+  return null;
+}

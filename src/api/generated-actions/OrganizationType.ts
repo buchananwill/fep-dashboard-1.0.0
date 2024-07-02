@@ -4,7 +4,7 @@ import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {
-getGraph, getGraphByNodeList, getGraphByRootId, putGraph } =
+getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList } =
  generateGraphEndpointSet<
   OrganizationTypeDto
 >(
@@ -35,7 +35,7 @@ getPage,
 
 
 export {
-    getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getPage,
+    getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList, getPage,
   getAll,
   deleteIdList,
   postList,

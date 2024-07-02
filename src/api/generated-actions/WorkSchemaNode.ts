@@ -26,7 +26,7 @@ getPage,
 
 
 const {
-getGraph, getGraphByNodeList, getGraphByRootId, putGraph } =
+getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList } =
  generateGraphEndpointSet<
   WorkSchemaNodeDto
 >(
@@ -47,6 +47,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-, getGraph, getGraphByNodeList, getGraphByRootId, putGraph
+, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
 }
 

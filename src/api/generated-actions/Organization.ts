@@ -32,7 +32,7 @@ getByTypeIdList  } = generateWithTypeEndpointSet<OrganizationDto>(
 
 
 const {
-getGraph, getGraphByNodeList, getGraphByRootId, putGraph } =
+getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList } =
  generateGraphEndpointSet<
   OrganizationDto
 >(
@@ -53,6 +53,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-, getByTypeIdList, getGraph, getGraphByNodeList, getGraphByRootId, putGraph
+, getByTypeIdList, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
 }
 

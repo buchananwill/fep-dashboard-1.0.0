@@ -20,6 +20,7 @@ export interface GraphEndpointSet<T extends HasNumberIdDto> {
     graphRootRequest: ByRootIdGraphRequest
   ) => Promise<GraphDto<T>>;
   getGraphByNodeList: (idList: number[]) => Promise<GraphDto<T>>;
+  getRootNodeList: () => Promise<T[]>;
 }
 
 export interface ByRootIdGraphRequest {
@@ -48,6 +49,12 @@ async function getGraphByNodeList<T extends HasNumberIdDto>(
   );
 }
 
+async function getRootNodeList<T extends HasNumberIdDto>(
+  url: string
+): Promise<T[]> {
+  return getWithoutBody(`${url}/rootNodeList`);
+}
+
 async function putGraph<T extends HasNumberIdDto>(
   graphPutRequestBody: GraphDtoPutRequestBody<T>,
   url: string
@@ -74,6 +81,7 @@ export function generateGraphEndpointSet<T extends HasNumberIdDto>(
     putGraph: (putRequest) => putGraph(putRequest, generatedUrl),
     getGraphByRootId: (byRootRequest) =>
       getGraphByRootId<T>(byRootRequest, generatedUrl),
-    getGraphByNodeList: (idList) => getGraphByNodeList(idList, generatedUrl)
+    getGraphByNodeList: (idList) => getGraphByNodeList(idList, generatedUrl),
+    getRootNodeList: () => getRootNodeList(generatedUrl)
   };
 }
