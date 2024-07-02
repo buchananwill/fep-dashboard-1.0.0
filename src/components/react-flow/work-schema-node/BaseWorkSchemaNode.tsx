@@ -19,6 +19,7 @@ import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import {
   Identifier,
+  NamespacedHooks,
   useDtoStore,
   useLazyDtoStore,
   useReadAnyDto
@@ -37,6 +38,7 @@ import {
 } from 'selective-context';
 import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -57,7 +59,8 @@ export function BaseWorkSchemaNode({
   children,
   className,
   style,
-  label
+  label,
+  id: nodeId
 }: NodeProps<WorkSchemaNodeDto> &
   Pick<GenericDivProps, 'children' | 'className' | 'style'> & {
     label?: string;
@@ -100,11 +103,19 @@ export function BaseWorkSchemaNode({
   );
 
   const { currentState: allocationRollup } =
-    useGlobalListener<AllocationRollup>({
+    useGlobalController<AllocationRollup>({
       contextKey: `${AllocationRollupEntityClass}:${data.id}`,
       initialValue: ObjectPlaceholder as AllocationRollup,
       listenerKey: `baseNode:${data.id}`
     });
+
+  const dispatch = NamespacedHooks.useDispatch<string[]>(
+    AllocationRollupEntityClass,
+    KEY_TYPES.ID_LIST
+  );
+  useEffect(() => {
+    dispatch((list) => (list.includes(nodeId) ? list : [...list, nodeId]));
+  }, [dispatch, nodeId]);
 
   const totalThisNode = useMemo(() => {
     return allocationRollup?.allocationRollup

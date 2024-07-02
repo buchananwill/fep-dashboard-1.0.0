@@ -235,7 +235,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     >
       <EditAddDeleteDtoControllerArray
         entityClass={AllocationRollupEntityClass}
-        dtoList={allocationRollupEntities}
+        dtoList={EmptyArray}
       />
       <RollupUpdater allocationRollupEntities={allocationRollupEntities} />
       <PendingOverlay pending={isPending} />
