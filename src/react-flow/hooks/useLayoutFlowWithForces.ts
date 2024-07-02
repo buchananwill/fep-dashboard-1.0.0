@@ -1,5 +1,11 @@
 'use client';
-import { Connection, Node, useEdgesState, useNodesState } from 'reactflow';
+import {
+  Connection,
+  Node,
+  useEdgesState,
+  useNodesState,
+  useUpdateNodeInternals
+} from 'reactflow';
 import { draggingNodeKey, useForces } from '@/react-flow/hooks/useForces';
 import {
   type MouseEvent as ReactMouseEvent,
@@ -35,6 +41,7 @@ export function useLayoutFlowWithForces<T extends HasNumberId>() {
     edgesFromContext as FlowEdge<T>[]
   );
   const [initialized, toggle] = useForces();
+  const updateNodeInternals = useUpdateNodeInternals();
 
   const { currentState: running } = useGraphListener(
     GraphSelectiveContextKeys.running,
@@ -87,9 +94,17 @@ export function useLayoutFlowWithForces<T extends HasNumberId>() {
       nodesFromContext,
       edgesFromContext
     );
+
+    updateNodeInternals(nodesFromContext.map((n) => n.id));
     setNodes(nodesFromContext as FlowNode<T>[]);
     setEdges(edgesFromContext as FlowEdge<T>[]);
-  }, [nodesFromContext, edgesFromContext, setEdges, setNodes]);
+  }, [
+    nodesFromContext,
+    edgesFromContext,
+    setEdges,
+    setNodes,
+    updateNodeInternals
+  ]);
 
   return {
     reactFlowProps: {
