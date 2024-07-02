@@ -4,9 +4,7 @@ import React, {
   PropsWithChildren,
   useCallback,
   useEffect,
-  useMemo,
-  useState,
-  useTransition
+  useMemo
 } from 'react';
 import ReactFlow, {
   Background,
@@ -24,7 +22,6 @@ import {
   DataNodeDto,
   GraphSelectiveContextKeys,
   MemoizedFunction,
-  useDirectSimRefEditsDispatch,
   useGraphDispatch,
   useModalContent,
   useNodeLabelController
@@ -48,22 +45,16 @@ import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/
 import { Button } from '@nextui-org/button';
 import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Popover } from '@nextui-org/react';
-import {
-  BaseLazyDtoUiProps,
-  DtoUiListSome,
-  NamespacedHooks,
-  useReadAnyDto
-} from 'dto-stores';
+import { DtoUiListSome, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 import { Spinner } from '@nextui-org/spinner';
-import { Api } from '@/api/clientApi';
-import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { FlowEdge, FlowNode } from '@/react-flow/types';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
+import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children
@@ -329,45 +320,3 @@ const templateWorkSchemaNodeLink: DataLink<WorkSchemaNodeDto> = {
 const templateWorkSchemaFlowNode = convertToWorkSchemaFlowNode(
   TemplateWorkSchemaNode
 );
-
-export function UnassignedRootButton({
-  entity
-}: BaseLazyDtoUiProps<WorkSchemaNodeDto>) {
-  const { dispatchNextSimVersion, nodeListRef, linkListRef } =
-    useDirectSimRefEditsDispatch(`unassignedRootNode${entity.id}`);
-  const [loaded, setLoaded] = useState(false);
-  const [pending, startTransition] = useTransition();
-
-  const onPress = useCallback(
-    () =>
-      startTransition(async () => {
-        if (nodeListRef === null || linkListRef === null) return;
-        const graphDto = await Api.WorkSchemaNode.getGraphByRootId({
-          rootId: entity.id
-        });
-
-        graphDto.closureDtos = graphDto.closureDtos.filter(
-          (closure) => closure.value === 1
-        );
-        const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
-          graphDto,
-          convertToWorkSchemaFlowNode
-        );
-        const nodes = [...nodeListRef.current, ...dataNodes];
-        const links = [...linkListRef.current, ...dataLinks];
-        dispatchNextSimVersion(nodes, links);
-        setLoaded(true);
-      }),
-    [nodeListRef, linkListRef, dispatchNextSimVersion, entity.id]
-  );
-
-  return (
-    <Button
-      onPress={onPress}
-      isDisabled={loaded || pending}
-      isLoading={pending}
-    >
-      WorkSchemaNode: {entity.name ?? entity.id}
-    </Button>
-  );
-}
