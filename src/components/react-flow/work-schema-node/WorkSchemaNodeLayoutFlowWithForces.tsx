@@ -48,6 +48,7 @@ import {
   DtoUiListSome,
   EditAddDeleteDtoControllerArray,
   Identifier,
+  InitialMap,
   NamespacedHooks,
   useReadAnyDto,
   useWriteAnyDto
@@ -64,6 +65,7 @@ import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/U
 import { HasNumberId } from '@/api/types';
 import { isNotUndefined } from '@/api/main';
 import { isEqual } from 'lodash';
+import { useGlobalController } from 'selective-context';
 
 function useIdToNodeMapMemo<T extends HasNumberId>(
   nodesFromContext: DataNode<T>[]
@@ -131,6 +133,13 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   const idToNodeMap = useIdToNodeMapMemo(nodesFromContext);
   const idToEdgeMap = useIdToEdgeMapMemo(edgesFromContext);
   const idToChildIdMap = useIdToChildIdMapMemo(edgesFromContext);
+  const { currentState: leafToSchemaMap } = useGlobalController({
+    contextKey: 'leafToSchemaMap',
+    listenerKey: 'controller',
+    initialValue: InitialMap as Map<string, WorkProjectSeriesSchemaDto>
+  });
+
+  console.log('leaf to schema map', leafToSchemaMap);
 
   const readAnyOption = useReadAnyDto<CarouselOptionDto>(
     EntityClassMap.carouselOption
@@ -140,19 +149,18 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   );
 
   const allocationRollupEntities = useMemo(() => {
-    const responseMap = new Map<string, number>();
     const rootNodes = nodesFromContext.filter(
       (node) => node.distanceFromRoot === 0
     );
-    const allocationEntities = rootNodes
-      .map((rootNode) => {
-        return resolveNodeAllocation(rootNode, rootNode.data.allowBundle, {
-          readAnySchema,
-          readAnyOption,
-          idToChildIdMap,
-          idToNodeMap
-        });
-      })
+    const maps = rootNodes.map((rootNode) => {
+      return resolveNodeAllocation(rootNode, rootNode.data.allowBundle, {
+        readLeafSchema: (id: string) => leafToSchemaMap.get(id),
+        idToChildIdMap,
+        idToNodeMap
+      });
+    });
+    console.log(maps);
+    const allocationEntities = maps
       .map((allocationMap) =>
         [...allocationMap.entries()].map(([id, allocationRollup]) => ({
           id,
@@ -162,39 +170,16 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       .reduce((prev, curr) => [...prev, ...curr], []);
     console.log('in the memo:', allocationEntities);
     return allocationEntities;
-  }, [
-    idToNodeMap,
-    idToChildIdMap,
-    nodesFromContext,
-    readAnyOption,
-    readAnySchema
-  ]);
+  }, [idToNodeMap, idToChildIdMap, nodesFromContext, leafToSchemaMap]);
 
   const writeAnyAllocationRollup = useWriteAnyDto<{
     id: Identifier;
     allocationRollup: number[];
   }>(AllocationRollupEntityClass);
 
-  console.log(allocationRollupEntities);
-
   useEffect(() => {
-    console.log(allocationRollupEntities);
     allocationRollupEntities.forEach((value, key) => {
-      writeAnyAllocationRollup(value.id, (prevState) => {
-        const rollupChanged = isEqual(
-          prevState.allocationRollup,
-          value.allocationRollup
-        );
-        console.log(rollupChanged);
-        if (rollupChanged) {
-          const updatedRollup = {
-            ...prevState,
-            allocationRollup: value.allocationRollup
-          };
-          console.log(updatedRollup);
-          return updatedRollup;
-        } else return prevState;
-      });
+      writeAnyAllocationRollup(`${value.id}`, value);
     });
   }, [allocationRollupEntities, writeAnyAllocationRollup]);
 
@@ -328,7 +313,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       <EditAddDeleteDtoControllerArray
         entityClass={AllocationRollupEntityClass}
         dtoList={allocationRollupEntities}
-        mergeInitialWithProp={true}
+        // mergeInitialWithProp={true}
       />
       <PendingOverlay pending={isPending} />
       <Panel position={'top-center'}>
@@ -394,8 +379,7 @@ const templateWorkSchemaFlowNode = convertToWorkSchemaFlowNode(
 );
 
 interface GraphRollupData {
-  readAnySchema: (id: Identifier) => WorkProjectSeriesSchemaDto | undefined;
-  readAnyOption: (id: Identifier) => CarouselOptionDto | undefined;
+  readLeafSchema: (id: string) => WorkProjectSeriesSchemaDto | undefined;
   idToChildIdMap: Map<string, Set<string>>;
   idToNodeMap: Map<string, DataNode<WorkSchemaNodeDto>>;
 }
@@ -405,8 +389,7 @@ function resolveNodeAllocation(
   allowBundle: boolean,
   commonData: GraphRollupData
 ): Map<string, number[]> {
-  const { readAnyOption, readAnySchema, idToChildIdMap, idToNodeMap } =
-    commonData;
+  const { readLeafSchema, idToChildIdMap, idToNodeMap } = commonData;
   const responseMap = new Map<string, number[]>();
   const { data, id } = node;
   const {
@@ -419,11 +402,8 @@ function resolveNodeAllocation(
   let deliveryAllocationTokenList: number[] = [];
 
   // BASE CASES
-  if (workProjectSeriesSchemaId) {
-    schema = readAnySchema(workProjectSeriesSchemaId);
-  } else if (carouselOptionId) {
-    const option = readAnyOption(carouselOptionId);
-    schema = option && readAnySchema(option.workProjectSeriesSchemaId);
+  if (workProjectSeriesSchemaId || carouselOptionId) {
+    schema = readLeafSchema(node.id);
   }
   if (schema) {
     deliveryAllocationTokenList = schema.deliveryAllocations
@@ -435,6 +415,7 @@ function resolveNodeAllocation(
         Array.from({ length: devAl.count }, () => devAl.deliveryAllocationSize)
       )
       .reduce((prev, curr) => [...prev, ...curr], []);
+    console.log(deliveryAllocationTokenList);
   }
 
   function getChildrenRollupMap(
@@ -461,7 +442,7 @@ function resolveNodeAllocation(
   }
 
   const childIdSet = idToChildIdMap.get(id);
-  const propagatedBundlePermission = resolutionMode === 'OPEN';
+  const propagatedBundlePermission = resolutionMode === 'OPEN' && allowBundle;
 
   if (childIdSet) {
     const childIdList = [...childIdSet.values()];
@@ -499,7 +480,6 @@ function resolveNodeAllocation(
       }
     }
   }
-
   responseMap.set(id, deliveryAllocationTokenList);
   return responseMap;
 }

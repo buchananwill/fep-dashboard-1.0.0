@@ -12,12 +12,17 @@ import {
   useGraphDispatch,
   useGraphListener
 } from 'react-d3-force-wrapper';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
 import { HasNumberId } from '@/api/types';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import { Identifier, useReadAnyDto } from 'dto-stores';
+import {
+  Identifier,
+  useDtoStore,
+  useLazyDtoStore,
+  useReadAnyDto
+} from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   determineLocalAllocation,
@@ -25,7 +30,11 @@ import {
 } from '@/components/react-flow/work-schema-node/workSchemaNodeCallbacks';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
-import { useGlobalController, useGlobalListener } from 'selective-context';
+import {
+  useGlobalController,
+  useGlobalDispatch,
+  useGlobalListener
+} from 'selective-context';
 import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 
@@ -33,6 +42,11 @@ export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
+
+interface AllocationRollup {
+  id: Identifier;
+  allocationRollup: number[];
+}
 
 export function BaseWorkSchemaNode({
   data,
@@ -48,6 +62,35 @@ export function BaseWorkSchemaNode({
   Pick<GenericDivProps, 'children' | 'className' | 'style'> & {
     label?: string;
   }) {
+  const { carouselOptionId, workProjectSeriesSchemaId } = data;
+  const { entity: carouselOption } = useDtoStore<CarouselOptionDto>({
+    entityId: carouselOptionId ?? 0,
+    entityClass: EntityClassMap.carouselOption
+  });
+  const { entity: workProjectSeriesSchema } =
+    useDtoStore<WorkProjectSeriesSchemaDto>({
+      entityId:
+        workProjectSeriesSchemaId ??
+        carouselOption?.workProjectSeriesSchemaId ??
+        '',
+      entityClass: EntityClassMap.workProjectSeriesSchema
+    });
+
+  const { dispatchWithoutListen } =
+    useGlobalDispatch<Map<string, WorkProjectSeriesSchemaDto>>(
+      'leafToSchemaMap'
+    );
+
+  useEffect(() => {
+    if (workProjectSeriesSchema) {
+      dispatchWithoutListen((prevState) => {
+        const updateMap = new Map(prevState.entries());
+        updateMap.set(String(data.id), workProjectSeriesSchema);
+        return updateMap;
+      });
+    }
+  }, [workProjectSeriesSchema, dispatchWithoutListen, data.id]);
+
   const { dispatchWithoutListen: toggleDetailsModal } = useGraphDispatch(
     GraphSelectiveContextKeys.nodeDetailsModalOpen
   );
@@ -56,17 +99,12 @@ export function BaseWorkSchemaNode({
     GraphSelectiveContextKeys.nodeInModal
   );
 
-  const { currentState: allocationRollup } = useGlobalListener<{
-    id: Identifier;
-    allocationRollup: number[];
-  }>({
-    contextKey: `${AllocationRollupEntityClass}:${data.id}`,
-    initialValue: ObjectPlaceholder as {
-      id: Identifier;
-      allocationRollup: number[];
-    },
-    listenerKey: `baseNode:${data.id}`
-  });
+  const { currentState: allocationRollup } =
+    useGlobalListener<AllocationRollup>({
+      contextKey: `${AllocationRollupEntityClass}:${data.id}`,
+      initialValue: ObjectPlaceholder as AllocationRollup,
+      listenerKey: `baseNode:${data.id}`
+    });
 
   const totalThisNode = useMemo(() => {
     return allocationRollup?.allocationRollup
