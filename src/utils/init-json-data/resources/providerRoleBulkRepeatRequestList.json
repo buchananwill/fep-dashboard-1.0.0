@@ -1,0 +1,3222 @@
+[
+  {
+    "repeatPostRequestMap": {
+      "English": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "English",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "English",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "English",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "English",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "English",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "English",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "English",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 8
+      },
+      "Drama": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Drama",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Drama",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Drama",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Drama",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Drama",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Drama",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Drama",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 5
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Economics": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Economics",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Economics",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 3
+      },
+      "GP": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "GP",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "GP",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 2
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "PE Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "PE",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "PE",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "PE",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "PE",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "PE",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "PE",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "PE",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "PE as an Option",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "PE as an Option",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "PE as an Option",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "PE as an Option",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "PE as an Option",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "PE as an Option",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "PE as an Option",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Games",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Games",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Games",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Games",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Games",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Games",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Games",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 3
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "RS": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "RS",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "RS",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "RS",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "RS",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "RS",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "RS",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "RS",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 5
+      },
+      "Philosophy": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Philosophy",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Philosophy",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 2
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Classics Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Classical Civ",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Classical Civ",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Latin",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Latin",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Latin",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Latin",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Latin",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Latin",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Latin",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 3
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Maths": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "name": "Maths: 7"
+            },
+            {
+              "name": "Maths: 8"
+            },
+            {
+              "name": "Maths: 9"
+            },
+            {
+              "name": "Maths: 10"
+            },
+            {
+              "name": "Maths: 11"
+            },
+            {
+              "name": "Maths: 12"
+            },
+            {
+              "name": "Maths: 13"
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 15
+      },
+      "Further Maths": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "name": "Further Maths 1: 12"
+            },
+            {
+              "name": "Further Maths 2: 12"
+            },
+            {
+              "name": "Further Maths 1: 13"
+            },
+            {
+              "name": "Further Maths 2: 13"
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 5
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Art Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Art",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Art",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Art",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Art",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Art",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Art",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Art",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 2
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Biology Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Biology",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Biology",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Biology",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Biology",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Biology",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Biology",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Biology",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 8
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Chemistry Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Chemistry",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Chemistry",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Chemistry",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Chemistry",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Chemistry",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Chemistry",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Chemistry",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 7
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Computing Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Computing",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Computing",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Computing",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Computing",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Computing",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Computing",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Computing",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 3
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Design and T Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Design and T",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Design and T",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Design and T",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Design and T",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Design and T",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Design and T",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Design and T",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 4
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "French Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "French",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "French",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "French",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "French",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "French",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "French",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "French",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 3
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Geography Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Geography",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Geography",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Geography",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Geography",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Geography",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Geography",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Geography",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 5
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "German Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "German",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "German",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "German",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "German",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "German",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "German",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "German",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 6
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "History Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "History",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "History",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "History",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "History",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "History",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "History",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "History",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 5
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Music Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Music",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Music",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Music",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Music",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Music",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Music",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Music",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 3
+      }
+    }
+  },
+  {
+    "repeatPostRequestMap": {
+      "Physics Department": {
+        "postRequest": {
+          "providerRoleTypeExample": {
+            "name": "Teacher"
+          },
+          "rating": 4,
+          "workTaskTypeExampleList": [
+            {
+              "knowledgeDomainName": "Physics",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Physics",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Physics",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Physics",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Physics",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Physics",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Physics",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Form Period",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Registration",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Private Study",
+              "knowledgeLevelLevelOrdinal": 13
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 7
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 8
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 9
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 10
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 11
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 12
+            },
+            {
+              "knowledgeDomainName": "Learning Development",
+              "knowledgeLevelLevelOrdinal": 13
+            }
+          ]
+        },
+        "count": 8
+      }
+    }
+  }
+]

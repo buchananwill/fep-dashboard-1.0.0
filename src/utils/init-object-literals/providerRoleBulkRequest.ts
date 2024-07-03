@@ -121,7 +121,7 @@ const standardDepartmentParams: RequestCreationParams[][] = Object.entries(
 const classicsDepartmentPartials = [...classCiv, ...latin];
 
 const classics: RequestCreationParams[] = [
-  ['Classics Department', 2, classicsDepartmentPartials]
+  ['Classics Department', 3, classicsDepartmentPartials]
 ];
 
 const englishAndDrama: RequestCreationParams[] = [
@@ -148,11 +148,28 @@ const rsAndPhilosophy: RequestCreationParams[] = [
 ];
 
 const maths: RequestCreationParams[] = [
-  ['Maths', 15, createWholeSchoolPartials(['Maths'])],
   [
-    'Further Maths 1',
+    'Maths',
+    15,
+    [
+      { name: 'Maths: 7' },
+      { name: 'Maths: 8' },
+      { name: 'Maths: 9' },
+      { name: 'Maths: 10' },
+      { name: 'Maths: 11' },
+      { name: 'Maths: 12' },
+      { name: 'Maths: 13' }
+    ]
+  ],
+  [
+    'Further Maths',
     5,
-    createALevelPartials(['Further Maths 1', 'Further Maths 2'])
+    [
+      { name: 'Further Maths 1: 12' },
+      { name: 'Further Maths 2: 12' },
+      { name: 'Further Maths 1: 13' },
+      { name: 'Further Maths 2: 13' }
+    ]
   ]
 ];
 
@@ -177,31 +194,4 @@ export const bulkPipeline = requestParamsListList
   )
   .map((record) => mapToBulkRepeatRequest(record));
 
-//
-// const englishAndDramaBulkRequestParams = englishAndDrama.reduce(
-//   (acc, params) => ({ ...acc, ...createRequestRecord(params) }),
-//   {}
-// );
-// const englishAndDramaRequest = mapToBulkRepeatRequest(
-//   englishAndDramaBulkRequestParams
-// );
-//
-// const ecoAndGP = economicsGp.reduce(
-//   (acc, params) => ({ ...acc, ...createRequestRecord(params) }),
-//   {}
-// );
-//
-// const economicsBulkRepeatRequest = mapToBulkRepeatRequest(ecoAndGP);
-//
-// const classicsBulkRepeatRequest = mapToBulkRepeatRequest(
-//   classics.reduce(
-//     (acc, params) => ({...acc, ...createRequestRecord(params)}), {})
-// )
-//
-// const mainDepartmentRequests = standardDepartmentParams.map(params => createRequestRecord(params))
-//   .map(record => mapToBulkRepeatRequest(record))
-//
-// const peDepartment = mapToBulkRepeatRequest(peAndGames.reduce((acc, params) => ({...acc, ...createRequestRecord(params)}), {}))
-//
-// export const bulkRequestList: BulkRepeatPostRequest<ProviderRolePostRequest>[] =
-//   [classicsBulkRepeatRequest, englishAndDramaRequest, economicsBulkRepeatRequest, peDepartment, ...mainDepartmentRequests];
+export const pipelineAsJson = JSON.stringify(bulkPipeline);

@@ -3,19 +3,20 @@ import {
   NamespacedHooks,
   useEffectSyncDeepEqualWithDispatch
 } from 'dto-stores';
-import { workTaskTypeProjection } from '@/components/react-flow/bi-partite-graph/ClassificationNode';
+
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useMemo } from 'react';
 import { useGlobalController, useGlobalListener } from 'selective-context';
 import { WorkTaskTypeProjection } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 import { initialMap } from '@/app/_literals';
+import { EntityClassMap } from '@/api/entity-class-map';
 
 export const maxProjectionContextKey = 'maxProjection';
 
 export function useMaxProjectionController() {
   const listenerKey = useUuidListenerKey();
   const { currentState } = NamespacedHooks.useListen(
-    workTaskTypeProjection,
+    EntityClassMap.workTaskTypeProjection,
     KEY_TYPES.MASTER_LIST,
     listenerKey,
     initialMap as Map<string, WorkTaskTypeProjection>
