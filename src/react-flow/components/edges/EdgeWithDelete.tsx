@@ -1,10 +1,4 @@
-import {
-  BaseEdge,
-  EdgeLabelRenderer,
-  EdgeProps,
-  getBezierPath,
-  Position
-} from 'reactflow';
+import { BaseEdge, EdgeLabelRenderer, EdgeProps } from 'reactflow';
 
 import { TrashIcon } from '@heroicons/react/16/solid';
 import {
@@ -16,11 +10,10 @@ import {
 
 export function EdgeWithDelete({
   id,
-  sourceX,
-  sourceY,
-  targetX,
-  targetY
-}: EdgeProps) {
+  path,
+  labelX,
+  labelY
+}: EdgeProps & { path: string; labelX: number; labelY: number }) {
   const {
     currentState: { memoizedFunction }
   } = useGraphListener(
@@ -28,15 +21,6 @@ export function EdgeWithDelete({
     `edge:${id}`,
     undefinedDeleteLinks as MemoizedFunction<string[], void>
   );
-
-  const [path, labelX, labelY] = getBezierPath({
-    sourceX,
-    sourceY,
-    sourcePosition: Position.Right,
-    targetX,
-    targetY,
-    targetPosition: Position.Left
-  });
 
   return (
     <>

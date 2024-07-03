@@ -9,8 +9,12 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
   },
   forceAttributesInitial: {
     forceYStrength: 50,
+    forceYSpacing: 50,
     linkStrength: 50,
     linkDistance: 150
+  },
+  normalizationCoefficients: {
+    forceYSpacing: 1000
   },
   forces: { manyBody: true, link: true, center: true, forceY: true }
 };

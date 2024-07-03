@@ -34,6 +34,7 @@ import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
+import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,
@@ -118,7 +119,7 @@ const nodeTypes = {
 
 // 2. Define the Edge types and their components
 const edgeTypes = {
-  default: EdgeWithDelete
+  default: TopToBottomEdge
 };
 
 // 3. Define the content for the Node Details Modal

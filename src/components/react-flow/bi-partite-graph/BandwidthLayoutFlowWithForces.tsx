@@ -10,6 +10,7 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import ClassificationNode from '@/components/react-flow/bi-partite-graph/ClassificationNode';
 import { useMaxProjectionController } from '@/components/react-flow/bi-partite-graph/useMaxProjectionController';
 import { SelectionChangeTraversalUpdater } from '@/components/react-flow/bi-partite-graph/SelectionChangeTraversalUpdater';
+import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
 
 export function BandwidthLayoutFlowWithForces({ children }: PropsWithChildren) {
   // 4. Call the hook to set up the layout with forces
@@ -47,7 +48,7 @@ const nodeTypes = {
 
 // 2. Define the Edge types and their components
 const edgeTypes = {
-  default: EdgeWithDelete
+  default: TopToBottomEdge
 };
 
 export interface WorkTaskTypeProjection {

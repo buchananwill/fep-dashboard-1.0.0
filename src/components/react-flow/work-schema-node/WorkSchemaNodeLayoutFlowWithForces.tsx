@@ -65,6 +65,7 @@ import { useIdToNodeMapMemo } from '@/react-flow/hooks/useIdToNodeMapMemo';
 import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
+import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -270,7 +271,7 @@ const ModalMemo = {
 
 // 2. Define the Edge types and their components
 const edgeTypes = {
-  default: EdgeWithDelete
+  default: LeftToRightEdge
 };
 
 const TemplateWorkSchemaNode: DataNodeDto<WorkSchemaNodeDto> = {
