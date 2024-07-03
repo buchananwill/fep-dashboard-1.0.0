@@ -1,5 +1,7 @@
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import GeneratorButton from '@/app/admin/init/providerRoles/GeneratorButton';
+import GenerateOneButton, {
+  GenerateAllButton
+} from '@/app/admin/init/providerRoles/GenerateOneButton';
 import {
   bulkPipeline,
   pipelineAsJson
@@ -11,8 +13,9 @@ export default async function page() {
   return (
     <div className={'grid grid-cols-4 gap-4 p-4'}>
       {bulkPipeline.map((request, index) => (
-        <GeneratorButton url={url} requestData={request} key={index} />
+        <GenerateOneButton url={url} requestData={request} key={index} />
       ))}
+      <GenerateAllButton url={url} requestData={bulkPipeline} />
     </div>
   );
 }

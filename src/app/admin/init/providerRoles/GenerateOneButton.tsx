@@ -8,7 +8,7 @@ const getNextItemIndexCounter = (limit: number) => {
   return () => (curr === limit ? -1 : curr++);
 };
 
-export default function GeneratorButton({
+export default function GenerateOneButton({
   url,
   requestData
 }: {
@@ -25,6 +25,30 @@ export default function GeneratorButton({
       }
     >
       {Object.keys(requestData.repeatPostRequestMap)[0]}
+    </Button>
+  );
+}
+
+export function GenerateAllButton({
+  url,
+  requestData
+}: {
+  url: string;
+  requestData: BulkRepeatPostRequest<any>[];
+}) {
+  return (
+    <Button
+      onPress={() => {
+        requestData.forEach((data) =>
+          postEntitiesWithDifferentReturnType(data, url)
+        );
+      }}
+      className={
+        'col-span-4 border-2 border-emerald-500 bg-gradient-to-tl from-red-400 to-emerald-400'
+      }
+      size={'lg'}
+    >
+      Generate All
     </Button>
   );
 }
