@@ -93,14 +93,12 @@ function ProviderRoleList({ data }: { data: ProviderRoleClassification }) {
   );
 }
 
-export const workTaskTypeProjection = 'workTaskTypeProjection';
-
 function WorkTaskTypeList({ data }: { data: WorkTaskTypeClassification }) {
   const projectionWttIds = data.memberIdList;
 
   const { currentState } = useLazyDtoListListener<WorkTaskTypeProjection>(
     projectionWttIds,
-    workTaskTypeProjection
+    EntityClassMap.workTaskTypeProjection
   );
 
   const projectionTotal = useMemo(() => {
@@ -118,7 +116,7 @@ function WorkTaskTypeList({ data }: { data: WorkTaskTypeClassification }) {
             <LazyDtoUiWrapper
               renderAs={memoAmount}
               entityId={wtt}
-              entityClass={workTaskTypeProjection}
+              entityClass={EntityClassMap.workTaskTypeProjection}
               whileLoading={() => <Spinner size={'sm'} />}
             />
             <LazyDtoUiWrapper
