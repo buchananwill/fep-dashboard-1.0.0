@@ -1,5 +1,7 @@
 // Spring Web Pagination interface
 import { StringObjectRecord } from '@/api/string-object-record';
+import { PartialDeep } from 'type-fest';
+import { ProviderRolePostRequest } from '@/api/dtos/ProviderRolePostRequestSchema';
 
 export interface Page<T> {
   content: T[];
@@ -81,3 +83,16 @@ export interface NivoChordMetaData {
   keys: string[];
   entityIds: string[];
 }
+
+export interface RepeatPostRequest<T> {
+  postRequest: T;
+  count: number;
+}
+
+export interface BulkRepeatPostRequest<T> {
+  repeatPostRequestMap: Record<string, RepeatPostRequest<T>>;
+}
+
+export type TemplateRequestOverrides = PartialDeep<
+  RepeatPostRequest<ProviderRolePostRequest>
+>;
