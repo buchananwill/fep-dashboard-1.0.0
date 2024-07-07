@@ -14,9 +14,13 @@ export interface AllocationRollup {
   allocationRollup: number[];
 }
 
-export function useLeafNodeController(data: WorkSchemaNodeDto) {
-  const nodeId = `${data.id}`;
-  const { carouselOptionId, workProjectSeriesSchemaId } = data;
+export function useLeafNodeController({
+  id,
+  carouselOptionId,
+  workProjectSeriesSchemaId
+}: WorkSchemaNodeDto) {
+  const nodeId = `${id}`;
+
   const { entity: carouselOption } = useDtoStore<CarouselOptionDto>({
     entityId: carouselOptionId ?? 0,
     entityClass: EntityClassMap.carouselOption
@@ -34,22 +38,31 @@ export function useLeafNodeController(data: WorkSchemaNodeDto) {
     useGlobalDispatch<Map<string, WorkProjectSeriesSchemaDto>>(
       'leafToSchemaMap'
     );
+  console.log(
+    'carousel option id, carouselOption, schema id, schema',
+    carouselOptionId,
+    carouselOption,
+    workProjectSeriesSchemaId,
+    workProjectSeriesSchema
+  );
 
   useEffect(() => {
     if (workProjectSeriesSchema) {
       dispatchWithoutListen((prevState) => {
+        if (carouselOptionId)
+          console.log('dispatching workProjectSeriesSchema leaf node mapping');
         const updateMap = new Map(prevState.entries());
-        updateMap.set(String(data.id), workProjectSeriesSchema);
+        updateMap.set(String(id), workProjectSeriesSchema);
         return updateMap;
       });
     }
-  }, [workProjectSeriesSchema, dispatchWithoutListen, data.id]);
+  }, [workProjectSeriesSchema, dispatchWithoutListen, id]);
 
   const { currentState: allocationRollup } =
     useGlobalController<AllocationRollup>({
-      contextKey: `${AllocationRollupEntityClass}:${data.id}`,
+      contextKey: `${AllocationRollupEntityClass}:${id}`,
       initialValue: ObjectPlaceholder as AllocationRollup,
-      listenerKey: `baseNode:${data.id}`
+      listenerKey: `baseNode:${id}`
     });
 
   const dispatch = NamespacedHooks.useDispatch<string[]>(

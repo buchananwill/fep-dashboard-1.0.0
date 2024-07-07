@@ -44,7 +44,6 @@ export function resolveNodeAllocation(
           )
         )
         .reduce((prev, curr) => [...prev, ...curr], []);
-      console.log(deliveryAllocationTokenList);
     }
     responseMap.set(node.id, deliveryAllocationTokenList);
     return responseMap;
@@ -83,7 +82,7 @@ export function resolveNodeAllocation(
       propagatedBundlePermission
     );
     childrenRollupMap.forEach((value, key) => responseMap.set(key, value));
-    console.log('children and response so far', childrenRollupMap, responseMap);
+
     // CAROUSEL RECURSION
     if ((preferCarousel && !(allowBundle && preferBundle)) || carouselId) {
       const childNumberLists = childIdList

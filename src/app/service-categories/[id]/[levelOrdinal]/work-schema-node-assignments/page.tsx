@@ -77,6 +77,11 @@ export default async function Page({
         getServerAction={Api.WorkSchemaNode.getDtoListByBodyList}
       />
       <DataFetchingEditDtoControllerArray
+        idList={EmptyArray}
+        entityClass={EntityClassMap.carouselOption}
+        getServerAction={Api.CarouselOption.getDtoListByBodyList}
+      />
+      <DataFetchingEditDtoControllerArray
         idList={ArrayPlaceholder}
         entityClass={EntityClassMap.workProjectSeriesSchema}
         getServerAction={getSchemasByBodyList}
