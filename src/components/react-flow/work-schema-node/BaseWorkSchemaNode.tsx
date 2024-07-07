@@ -8,47 +8,19 @@ import {
   MemoizedFunction,
   undefinedAddNodes,
   undefinedDeleteNodes,
-  undefinedLabelAccessor,
   useGraphDispatch,
   useGraphListener
 } from 'react-d3-force-wrapper';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
-import { HasNumberId } from '@/api/types';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import {
-  Identifier,
-  NamespacedHooks,
-  useDtoStore,
-  useLazyDtoStore,
-  useReadAnyDto
-} from 'dto-stores';
-import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  determineLocalAllocation,
-  determineLocalResolution
-} from '@/components/react-flow/work-schema-node/workSchemaNodeCallbacks';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
-import {
-  useGlobalController,
-  useGlobalDispatch,
-  useGlobalListener
-} from 'selective-context';
-import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
-import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { useLeafNodeController } from '@/components/react-flow/work-schema-node/useLeafNodeController';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
-
-export interface AllocationRollup {
-  id: Identifier;
-  allocationRollup: number[];
-}
 
 export function BaseWorkSchemaNode({
   data,
@@ -59,40 +31,12 @@ export function BaseWorkSchemaNode({
   children,
   className,
   style,
-  label,
-  id: nodeId
+  label
 }: NodeProps<WorkSchemaNodeDto> &
   Pick<GenericDivProps, 'children' | 'className' | 'style'> & {
     label?: string;
   }) {
-  const { carouselOptionId, workProjectSeriesSchemaId } = data;
-  const { entity: carouselOption } = useDtoStore<CarouselOptionDto>({
-    entityId: carouselOptionId ?? 0,
-    entityClass: EntityClassMap.carouselOption
-  });
-  const { entity: workProjectSeriesSchema } =
-    useDtoStore<WorkProjectSeriesSchemaDto>({
-      entityId:
-        workProjectSeriesSchemaId ??
-        carouselOption?.workProjectSeriesSchemaId ??
-        '',
-      entityClass: EntityClassMap.workProjectSeriesSchema
-    });
-
-  const { dispatchWithoutListen } =
-    useGlobalDispatch<Map<string, WorkProjectSeriesSchemaDto>>(
-      'leafToSchemaMap'
-    );
-
-  useEffect(() => {
-    if (workProjectSeriesSchema) {
-      dispatchWithoutListen((prevState) => {
-        const updateMap = new Map(prevState.entries());
-        updateMap.set(String(data.id), workProjectSeriesSchema);
-        return updateMap;
-      });
-    }
-  }, [workProjectSeriesSchema, dispatchWithoutListen, data.id]);
+  const totalThisNode = useLeafNodeController(data);
 
   const { dispatchWithoutListen: toggleDetailsModal } = useGraphDispatch(
     GraphSelectiveContextKeys.nodeDetailsModalOpen
@@ -101,27 +45,6 @@ export function BaseWorkSchemaNode({
   const { dispatchWithoutListen: sendNodeData } = useGraphDispatch(
     GraphSelectiveContextKeys.nodeInModal
   );
-
-  const { currentState: allocationRollup } =
-    useGlobalController<AllocationRollup>({
-      contextKey: `${AllocationRollupEntityClass}:${data.id}`,
-      initialValue: ObjectPlaceholder as AllocationRollup,
-      listenerKey: `baseNode:${data.id}`
-    });
-
-  const dispatch = NamespacedHooks.useDispatch<string[]>(
-    AllocationRollupEntityClass,
-    KEY_TYPES.ID_LIST
-  );
-  useEffect(() => {
-    dispatch((list) => (list.includes(nodeId) ? list : [...list, nodeId]));
-  }, [dispatch, nodeId]);
-
-  const totalThisNode = useMemo(() => {
-    return allocationRollup?.allocationRollup
-      ? allocationRollup.allocationRollup.reduce((prev, curr) => prev + curr, 0)
-      : 0;
-  }, [allocationRollup]);
 
   const {
     currentState: { memoizedFunction }

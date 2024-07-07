@@ -59,13 +59,13 @@ import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/func
 import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';
 import { useGlobalController } from 'selective-context';
-import { AllocationRollup } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
 import { useIdToNodeMapMemo } from '@/react-flow/hooks/useIdToNodeMapMemo';
 import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';
+import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeController';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -238,6 +238,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         entityClass={AllocationRollupEntityClass}
         dtoList={EmptyArray}
       />
+
       <RollupUpdater allocationRollupEntities={allocationRollupEntities} />
       <PendingOverlay pending={isPending} />
       <Panel position={'top-center'}>

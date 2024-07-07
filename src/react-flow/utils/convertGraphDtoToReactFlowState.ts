@@ -14,12 +14,12 @@ export function convertGraphDtoToReactFlowState<T extends HasNumberId>(
     classGraph.nodes,
     convertor
   );
-  const dataLinks = convertClosureDtoListToEdgeList(
-    classGraph.closureDtos
-  ).filter(
-    (l) =>
-      dataNodes.find((n) => l.target === n.id) &&
-      dataNodes.find((n) => l.source === n.id)
-  );
+  const dataLinks = convertClosureDtoListToEdgeList(classGraph.closureDtos)
+    .filter(
+      (l) =>
+        dataNodes.find((n) => l.target === n.id) &&
+        dataNodes.find((n) => l.source === n.id)
+    )
+    .filter((l) => l.value === 1);
   return { dataNodes, dataLinks };
 }

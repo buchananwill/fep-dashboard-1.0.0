@@ -30,7 +30,7 @@ import { Select } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { produce } from 'immer';
 import { z } from 'zod';
-import { WorkNodeAssignmentDto } from '@/api/dtos/WorkNodeAssignmentDtoSchema';
+import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema';
 import { listenerKeyDetailsContent } from '@/app/_literals';
 
 const whileLoading = () => null;
@@ -148,7 +148,7 @@ export default function OrganizationDetailsContent({
 
 function BundleAssignment({
   entity: rootNodeAssignment
-}: BaseDtoUiProps<WorkNodeAssignmentDto>) {
+}: BaseDtoUiProps<WorkSchemaNodeAssignmentDto>) {
   const { workSchemaNodeId } = rootNodeAssignment;
 
   return (

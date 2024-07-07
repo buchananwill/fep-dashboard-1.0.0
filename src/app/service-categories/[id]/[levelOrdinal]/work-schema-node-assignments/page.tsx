@@ -3,7 +3,6 @@ import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrap
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import { getDtoListByExampleList as getBundleListByExampleList } from '@/api/generated-actions/WorkSeriesSchemaBundle';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 import { ArrayPlaceholder } from 'selective-context';
@@ -15,11 +14,17 @@ import {
   DataFetchingEditDtoControllerArray,
   EditAddDeleteDtoControllerArray
 } from 'dto-stores';
-import { parseTen } from '@/api/date-and-time';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
-import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
-import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/defaultForceGraphPageOptions';
+import {
+  convertToOrganizationNode,
+  convertToWorkSchemaFlowNode
+} from '@/react-flow/utils/adaptors';
+import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/defaultForceGraphPageOptions';
 import { Api } from '@/api/clientApi';
+import WorkSchemaNodeManager from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/_components/WorkSchemaNodeManager';
+import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
+import { EmptyArray } from '@/api/literals';
+import React from 'react';
 
 export default async function Page({
   params: { levelOrdinal }
@@ -30,9 +35,24 @@ export default async function Page({
     { name: `Year ${levelOrdinal}` }
   ]);
 
-  // const schemaBundles = await getBundleListByExampleList([
-  //   { knowledgeLevel: { levelOrdinal: parseTen(levelOrdinal) } }
-  // ]);
+  const workSchemaRootNodes = await Api.WorkSchemaNode.getRootNodeList();
+  const rootNodeIdList = workSchemaRootNodes.map((node) => node.id);
+  const graphList = await Promise.all(
+    rootNodeIdList.map((rootNodeId) =>
+      Api.WorkSchemaNode.getGraphByRootId({ rootId: rootNodeId }).then(
+        (response) =>
+          convertGraphDtoToReactFlowState(response, convertToWorkSchemaFlowNode)
+      )
+    )
+  );
+
+  const combinedGraphs = graphList.reduce(
+    (prev, curr) => ({
+      dataNodes: [...prev.dataNodes, ...curr.dataNodes],
+      dataLinks: [...prev.dataLinks, ...curr.dataLinks]
+    }),
+    { dataNodes: [], dataLinks: [] }
+  );
 
   const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
     constructUrl(
@@ -51,20 +71,24 @@ export default async function Page({
       graphName={'bundle-assignments-graph'}
       options={defaultForceGraphPageOptions}
     >
-      {/*<EditAddDeleteDtoControllerArray*/}
-      {/*  dtoList={schemaBundles}*/}
-      {/*  entityClass={EntityClassMap.workSeriesSchemaBundle}*/}
-      {/*/>*/}
-
+      <DataFetchingEditDtoControllerArray
+        idList={rootNodeIdList}
+        entityClass={EntityClassMap.workSchemaNode}
+        getServerAction={Api.WorkSchemaNode.getDtoListByBodyList}
+      />
       <DataFetchingEditDtoControllerArray
         idList={ArrayPlaceholder}
         entityClass={EntityClassMap.workProjectSeriesSchema}
         getServerAction={getSchemasByBodyList}
       />
-      <DataFetchingEditDtoControllerArray
-        idList={ArrayPlaceholder}
-        entityClass={EntityClassMap.workSchemaNode}
-        getServerAction={Api.WorkSchemaNode.getDtoListByBodyList}
+      <EditAddDeleteDtoControllerArray
+        entityClass={AllocationRollupEntityClass}
+        dtoList={EmptyArray}
+      />
+
+      <WorkSchemaNodeManager
+        nodeList={combinedGraphs.dataNodes}
+        linkList={combinedGraphs.dataLinks}
       />
 
       <ReactFlowWrapper>

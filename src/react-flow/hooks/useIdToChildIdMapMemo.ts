@@ -4,11 +4,11 @@ import { useMemo } from 'react';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 
 export function useIdToChildIdMapMemo<T extends HasNumberId>(
-  edgesFromContext: DataLink<T>[]
+  dataLinkList: DataLink<T>[]
 ) {
   return useMemo(() => {
     const responseMap = new Map<string, Set<string>>();
-    edgesFromContext.forEach((edge) => {
+    dataLinkList.forEach((edge) => {
       const sourceId = getIdFromLinkReference(edge.source);
       const targetId = getIdFromLinkReference(edge.target);
       const childIdset = responseMap.get(sourceId) ?? new Set<string>();
@@ -17,5 +17,5 @@ export function useIdToChildIdMapMemo<T extends HasNumberId>(
     });
 
     return responseMap;
-  }, [edgesFromContext]);
+  }, [dataLinkList]);
 }

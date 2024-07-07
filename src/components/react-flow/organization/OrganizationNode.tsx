@@ -10,15 +10,23 @@ import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work
 import {
   ArrayPlaceholder,
   useGlobalDispatch,
+  useGlobalListener,
   useGlobalListenerGroup
 } from 'selective-context';
 import { isNumber } from 'lodash';
 
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import { useLazyDtoListListener, useLazyDtoStore } from 'dto-stores';
+import {
+  useDtoStore,
+  useLazyDtoListListener,
+  useLazyDtoStore
+} from 'dto-stores';
 import { AllocationSummary } from '@/components/react-flow/organization/allocationSummary';
 import NodeBundleSummaries from '@/components/react-flow/organization/NodeBundleSummaries';
+import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
+import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeController';
+import { ObjectPlaceholder } from '@/api/literals';
 
 const initialTotalMap = new Map<string, number>();
 
@@ -56,34 +64,37 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
   });
 
   const { workSeriesBundleAssignment } = data;
-  const { entity: schemaBundleFromStore } =
-    useLazyDtoStore<WorkSeriesSchemaBundleDto>(
-      workSeriesBundleAssignment?.workSchemaNodeId ?? '',
-      EntityClassMap.workSchemaNode,
-      listenerKey
-    );
 
-  // THIS LINE IS NEEDED TO OVERRIDE THE REFUSAL OF SELECTIVE CONTEXT LISTENER TO RETRIEVE UNDEFINED
-  const replaceWithUndefined =
-    workSeriesBundleAssignment?.workSchemaNodeId === undefined;
-  const schemaBundle = replaceWithUndefined ? undefined : schemaBundleFromStore;
+  const { currentState: allocationRollup } = useGlobalListener<number>({
+    contextKey: `rollupTotal:${workSeriesBundleAssignment?.workSchemaNodeId}`,
+    initialValue: 0,
+    listenerKey: listenerKey
+  });
 
-  const [localTotal, setLocalTotal] = useState(0);
-
-  const { currentState: schemaMap } =
-    useLazyDtoListListener<WorkProjectSeriesSchemaDto>(
-      schemaBundle?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
-      EntityClassMap.workProjectSeriesSchema,
-      listenerKey
-    );
+  // const { entity: schemaBundleFromStore } =
+  //   useLazyDtoStore<WorkSeriesSchemaBundleDto>(
+  //     workSeriesBundleAssignment?.workSchemaNodeId ?? '',
+  //     EntityClassMap.workSchemaNode,
+  //     listenerKey
+  //   );
+  //
+  // // THIS LINE IS NEEDED TO OVERRIDE THE REFUSAL OF SELECTIVE CONTEXT LISTENER TO RETRIEVE UNDEFINED
+  // const replaceWithUndefined =
+  //   workSeriesBundleAssignment?.workSchemaNodeId === undefined;
+  // const schemaBundle = replaceWithUndefined ? undefined : schemaBundleFromStore;
+  //
+  // const [localTotal, setLocalTotal] = useState(0);
+  //
+  // const { currentState: schemaMap } =
+  //   useLazyDtoListListener<WorkProjectSeriesSchemaDto>(
+  //     schemaBundle?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
+  //     EntityClassMap.workProjectSeriesSchema,
+  //     listenerKey
+  //   );
 
   useEffect(() => {
-    let sum: number;
-
-    sum = replaceWithUndefined ? 0 : sumAllSchemas([...schemaMap.values()]);
-    setLocalTotal(sum);
-    dispatchWithoutListen(sum);
-  }, [setLocalTotal, schemaMap, dispatchWithoutListen, replaceWithUndefined]);
+    dispatchWithoutListen(allocationRollup);
+  }, [dispatchWithoutListen, allocationRollup]);
 
   const inheritedTotal = useMemo(() => {
     return [...currentState.values()].reduce(
@@ -94,11 +105,11 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
 
   const summaries: AllocationSummary[] = useMemo(() => {
     return [
-      { label: 'Local', amount: localTotal },
+      { label: 'Local', amount: allocationRollup },
       { label: 'Inherited', amount: inheritedTotal },
-      { label: 'Total', amount: localTotal + inheritedTotal }
+      { label: 'Total', amount: allocationRollup + inheritedTotal }
     ];
-  }, [localTotal, inheritedTotal]);
+  }, [allocationRollup, inheritedTotal]);
 
   return (
     <BaseEditableNode

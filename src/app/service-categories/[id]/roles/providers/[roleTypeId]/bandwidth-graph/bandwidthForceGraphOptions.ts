@@ -1,5 +1,5 @@
 import { ForceGraphPageOptions } from 'react-d3-force-wrapper';
-import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/bundle-assignments/defaultForceGraphPageOptions';
+import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/defaultForceGraphPageOptions';
 
 export const bandwidthOptions: ForceGraphPageOptions = {
   ...defaultForceGraphPageOptions,

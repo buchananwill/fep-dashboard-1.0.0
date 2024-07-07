@@ -4,11 +4,11 @@ import { useMemo } from 'react';
 import { FlowEdge } from '@/react-flow/types';
 
 export function useIdToEdgeMapMemo<T extends HasNumberId>(
-  edgesFromContext: DataLink<T>[]
+  dataLinkList: DataLink<T>[]
 ) {
   return useMemo(() => {
     const map = new Map<string, DataLink<T>>();
-    edgesFromContext.forEach((edge) => map.set(edge.id, edge as FlowEdge<T>));
+    dataLinkList.forEach((edge) => map.set(edge.id, edge as DataLink<T>));
     return map;
-  }, [edgesFromContext]);
+  }, [dataLinkList]);
 }

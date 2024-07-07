@@ -1,9 +1,14 @@
-import { AllocationRollup } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
-import { Identifier, NamespacedHooks, useWriteAnyDto } from 'dto-stores';
+import {
+  EditAddDeleteDtoControllerArray,
+  Identifier,
+  NamespacedHooks,
+  useWriteAnyDto
+} from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
+import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeController';
 
 export function RollupUpdater({
   allocationRollupEntities
