@@ -94,7 +94,7 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     <BaseEditableNode
       {...nodeProps}
       className={clsx(
-        'relative flex flex-col gap-1 rounded-md border-black bg-white p-2 transition-colors-opacity',
+        'container-3-cols relative gap-1 rounded-md border-black bg-white p-2 transition-colors-opacity',
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}

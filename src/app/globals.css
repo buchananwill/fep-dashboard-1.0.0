@@ -29,6 +29,10 @@ canvas {
     pointer-events: none;
 }
 
+.container-3-cols {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+}
 
 
 @keyframes bounce-less {

@@ -8,7 +8,7 @@ export default function NodeBundleSummaries({
   summaries: AllocationSummary[];
 }) {
   return (
-    <ul>
+    <ul className={'col-span-3'}>
       {summaries.map(({ label, amount }) => (
         <li key={label} className={'flex justify-between'}>
           {label}:{' '}
