@@ -38,13 +38,17 @@ export function useLeafNodeController({
     useGlobalDispatch<Map<string, WorkProjectSeriesSchemaDto>>(
       'leafToSchemaMap'
     );
-  console.log(
-    'carousel option id, carouselOption, schema id, schema',
-    carouselOptionId,
-    carouselOption,
-    workProjectSeriesSchemaId,
-    workProjectSeriesSchema
-  );
+
+  /**
+   * If I remove this console log, the allocations/rollups don't calculate correctly. Carousel Options don't work.
+   * */
+  // console.log(
+  //   'carousel option id, carouselOption, schema id, schema',
+  //   carouselOptionId,
+  //   carouselOption,
+  //   workProjectSeriesSchemaId,
+  //   workProjectSeriesSchema
+  // );
 
   useEffect(() => {
     if (workProjectSeriesSchema) {
@@ -52,17 +56,17 @@ export function useLeafNodeController({
         if (carouselOptionId)
           console.log('dispatching workProjectSeriesSchema leaf node mapping');
         const updateMap = new Map(prevState.entries());
-        updateMap.set(String(id), workProjectSeriesSchema);
+        updateMap.set(nodeId, workProjectSeriesSchema);
         return updateMap;
       });
     }
-  }, [workProjectSeriesSchema, dispatchWithoutListen, id]);
+  }, [workProjectSeriesSchema, dispatchWithoutListen, nodeId]);
 
   const { currentState: allocationRollup } =
     useGlobalController<AllocationRollup>({
-      contextKey: `${AllocationRollupEntityClass}:${id}`,
+      contextKey: `${AllocationRollupEntityClass}:${nodeId}`,
       initialValue: ObjectPlaceholder as AllocationRollup,
-      listenerKey: `baseNode:${id}`
+      listenerKey: `baseNode:${nodeId}`
     });
 
   const dispatch = NamespacedHooks.useDispatch<string[]>(
