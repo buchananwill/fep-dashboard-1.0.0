@@ -2,6 +2,7 @@ import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import _ from 'lodash';
 import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
 import { WorkSeriesBundleAssignmentDtoSchema } from '@/api/dtos/WorkSeriesBundleAssignmentDtoSchema';
+import { WorkSchemaNodeAssignmentDtoSchema } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema';
 
 export function validateAssignmentDtos(
   putUpdatedGraph: (
@@ -14,12 +15,12 @@ export function validateAssignmentDtos(
     const { nodes } = graphDto;
     const hasNameDtos = nodes.map((dn) => dn.data);
     const dataWithValidatedAssignments = hasNameDtos.map((org) => {
-      const { id, workSeriesBundleAssignment } = org;
+      const { id, workSchemaNodeAssignment } = org;
       const validatedAssignmentDto = {
-        ...workSeriesBundleAssignment,
+        ...workSchemaNodeAssignment,
         organizationId: id
       };
-      const parsedAssignment = WorkSeriesBundleAssignmentDtoSchema.parse(
+      const parsedAssignment = WorkSchemaNodeAssignmentDtoSchema.parse(
         validatedAssignmentDto
       );
       return {

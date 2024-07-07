@@ -12,9 +12,9 @@ export function cloneOrganizationNode(
   let cloneName = incrementCloneSuffix(name);
   const clonedNode = structuredClone(templateNode);
   const {
-    data: { workSeriesBundleAssignment }
+    data: { workSchemaNodeAssignment }
   } = clonedNode;
-  workSeriesBundleAssignment.id = TransientIdOffset + templateNode.data.id;
+  workSchemaNodeAssignment.id = TransientIdOffset + templateNode.data.id;
 
   return {
     ...clonedNode,

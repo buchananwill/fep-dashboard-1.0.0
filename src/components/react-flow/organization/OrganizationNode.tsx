@@ -63,10 +63,10 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     initialValue: initialTotalMap
   });
 
-  const { workSeriesBundleAssignment } = data;
+  const { workSchemaNodeAssignment } = data;
 
   const { currentState: allocationRollup } = useGlobalListener<number>({
-    contextKey: `rollupTotal:${workSeriesBundleAssignment?.workSchemaNodeId}`,
+    contextKey: `rollupTotal:${workSchemaNodeAssignment?.workSchemaNodeId}`,
     initialValue: 0,
     listenerKey: listenerKey
   });

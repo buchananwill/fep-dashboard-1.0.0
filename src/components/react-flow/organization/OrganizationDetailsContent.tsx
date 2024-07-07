@@ -68,8 +68,8 @@ export default function OrganizationDetailsContent({
 
   const onCloseDefined = onClose ? onClose : () => {};
 
-  const { workSeriesBundleAssignment } = currentState;
-  const workSchemaNodeId = workSeriesBundleAssignment?.workSchemaNodeId;
+  const { workSchemaNodeAssignment } = currentState;
+  const workSchemaNodeId = workSchemaNodeAssignment?.workSchemaNodeId;
 
   const selectedKeys = useMemo(() => {
     return workSchemaNodeId ? [`${workSchemaNodeId}`] : [];
@@ -92,7 +92,7 @@ export default function OrganizationDetailsContent({
         </FocusToEdit>
       </ModalHeader>
       <ModalBody>
-        {workSeriesBundleAssignment && (
+        {workSchemaNodeAssignment && (
           <>
             <Select
               items={rootNodeList}
@@ -104,7 +104,7 @@ export default function OrganizationDetailsContent({
                 console.log(newId, typeof newId);
                 dispatchWithoutControl((data) =>
                   produce(data, (draft) => {
-                    if (draft.workSeriesBundleAssignment) {
+                    if (draft.workSchemaNodeAssignment) {
                       let isId = false;
                       try {
                         const intValue = parseInt(newId);
@@ -113,11 +113,10 @@ export default function OrganizationDetailsContent({
                         console.warn('Failed to parse id to number:', newId);
                       }
                       if (isId)
-                        draft.workSeriesBundleAssignment.workSchemaNodeId =
+                        draft.workSchemaNodeAssignment.workSchemaNodeId =
                           parseInt(e.target.value, 10);
                       else
-                        delete draft.workSeriesBundleAssignment
-                          .workSchemaNodeId;
+                        delete draft.workSchemaNodeAssignment.workSchemaNodeId;
                     }
                     return draft;
                   })
@@ -131,7 +130,7 @@ export default function OrganizationDetailsContent({
               )}
             </Select>
             <BundleAssignment
-              entity={workSeriesBundleAssignment}
+              entity={workSchemaNodeAssignment}
               entityClass={EntityClassMap.workSchemaNodeAssignment}
               deleted={false}
             />
