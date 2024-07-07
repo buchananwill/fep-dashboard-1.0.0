@@ -8,7 +8,6 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useEffect } from 'react';
 import { safeFunctionalSplice } from 'dto-stores/dist/functions/safeFunctionalSplice';
 import { useGlobalController } from 'selective-context';
-import { DispatchState } from '@/types';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 
 function useConditionalLazyDtoRequest(
