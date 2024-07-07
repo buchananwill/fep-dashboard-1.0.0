@@ -71,27 +71,6 @@ export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
     listenerKey: listenerKey
   });
 
-  // const { entity: schemaBundleFromStore } =
-  //   useLazyDtoStore<WorkSeriesSchemaBundleDto>(
-  //     workSeriesBundleAssignment?.workSchemaNodeId ?? '',
-  //     EntityClassMap.workSchemaNode,
-  //     listenerKey
-  //   );
-  //
-  // // THIS LINE IS NEEDED TO OVERRIDE THE REFUSAL OF SELECTIVE CONTEXT LISTENER TO RETRIEVE UNDEFINED
-  // const replaceWithUndefined =
-  //   workSeriesBundleAssignment?.workSchemaNodeId === undefined;
-  // const schemaBundle = replaceWithUndefined ? undefined : schemaBundleFromStore;
-  //
-  // const [localTotal, setLocalTotal] = useState(0);
-  //
-  // const { currentState: schemaMap } =
-  //   useLazyDtoListListener<WorkProjectSeriesSchemaDto>(
-  //     schemaBundle?.workProjectSeriesSchemaIds ?? ArrayPlaceholder,
-  //     EntityClassMap.workProjectSeriesSchema,
-  //     listenerKey
-  //   );
-
   useEffect(() => {
     dispatchWithoutListen(allocationRollup);
   }, [dispatchWithoutListen, allocationRollup]);

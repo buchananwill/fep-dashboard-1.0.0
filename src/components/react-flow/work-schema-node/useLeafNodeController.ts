@@ -39,17 +39,6 @@ export function useLeafNodeController({
       'leafToSchemaMap'
     );
 
-  /**
-   * If I remove this console log, the allocations/rollups don't calculate correctly. Carousel Options don't work.
-   * */
-  console.log(
-    'carousel option id, carouselOption, schema id, schema',
-    carouselOptionId,
-    carouselOption,
-    workProjectSeriesSchemaId,
-    workProjectSeriesSchema
-  );
-
   useEffect(() => {
     if (workProjectSeriesSchema) {
       dispatchWithoutListen((prevState) => {

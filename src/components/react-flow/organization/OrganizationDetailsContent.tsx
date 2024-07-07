@@ -1,7 +1,11 @@
 'use client';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
-import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
+import {
+  ArrayPlaceholder,
+  ObjectPlaceholder,
+  useGlobalListener
+} from 'selective-context';
 
 import React, { ChangeEvent, useMemo } from 'react';
 
@@ -32,6 +36,8 @@ import { produce } from 'immer';
 import { z } from 'zod';
 import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema';
 import { listenerKeyDetailsContent } from '@/app/_literals';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
 const whileLoading = () => null;
 export default function OrganizationDetailsContent({
@@ -52,7 +58,7 @@ export default function OrganizationDetailsContent({
     );
 
   const { currentState: rootNodeList } = NamespacedHooks.useListen<
-    WorkSeriesSchemaBundleDto[]
+    WorkSchemaNodeDto[]
   >(
     EntityClassMap.workSchemaNode,
     KEY_TYPES.MASTER_LIST,
@@ -63,11 +69,11 @@ export default function OrganizationDetailsContent({
   const onCloseDefined = onClose ? onClose : () => {};
 
   const { workSeriesBundleAssignment } = currentState;
-  const workSeriesSchemaBundleId = workSeriesBundleAssignment?.workSchemaNodeId;
+  const workSchemaNodeId = workSeriesBundleAssignment?.workSchemaNodeId;
 
   const selectedKeys = useMemo(() => {
-    return workSeriesSchemaBundleId ? [workSeriesSchemaBundleId] : [];
-  }, [workSeriesSchemaBundleId]);
+    return workSchemaNodeId ? [`${workSchemaNodeId}`] : [];
+  }, [workSchemaNodeId]);
   if (currentState === undefined)
     return <ComponentUndefined onClose={onCloseDefined} />;
 
@@ -90,18 +96,22 @@ export default function OrganizationDetailsContent({
           <>
             <Select
               items={rootNodeList}
-              label={'Bundle'}
-              placeholder={'Assign a bundle'}
+              label={'WorkSchemaNode'}
+              placeholder={'Assign a WorkSchemaNode'}
               selectedKeys={selectedKeys}
               onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                 const newId = e.target.value;
+                console.log(newId, typeof newId);
                 dispatchWithoutControl((data) =>
                   produce(data, (draft) => {
                     if (draft.workSeriesBundleAssignment) {
                       let isId = false;
                       try {
-                        isId = !!z.number().parse(newId);
-                      } catch (e) {}
+                        const intValue = parseInt(newId);
+                        isId = !isNaN(intValue);
+                      } catch (e) {
+                        console.warn('Failed to parse id to number:', newId);
+                      }
                       if (isId)
                         draft.workSeriesBundleAssignment.workSchemaNodeId =
                           parseInt(e.target.value, 10);
@@ -114,9 +124,9 @@ export default function OrganizationDetailsContent({
                 );
               }}
             >
-              {(schemaBundle) => (
-                <SelectItem key={schemaBundle.id} value={schemaBundle.id}>
-                  {schemaBundle.name}
+              {(schemaNode) => (
+                <SelectItem key={schemaNode.id} value={schemaNode.id}>
+                  {schemaNode.name}
                 </SelectItem>
               )}
             </Select>
@@ -151,28 +161,22 @@ function BundleAssignment({
 }: BaseDtoUiProps<WorkSchemaNodeAssignmentDto>) {
   const { workSchemaNodeId } = rootNodeAssignment;
 
-  return (
+  return workSchemaNodeId ? (
     <LazyDtoUiWrapper
       renderAs={BundleDetails}
-      entityId={workSchemaNodeId ?? 0}
+      entityId={workSchemaNodeId}
       entityClass={EntityClassMap.workSchemaNode}
       whileLoading={() => null}
     />
-  );
+  ) : null;
 }
 
-function BundleDetails({
-  entity
-}: BaseLazyDtoUiProps<WorkSeriesSchemaBundleDto>) {
-  return useMemo(() => {
-    return entity.workProjectSeriesSchemaIds?.map((id) => (
-      <LazyDtoUiWrapper
-        key={id}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        entityId={id}
-        renderAs={WorkProjectSeriesSchemaEditor}
-        whileLoading={whileLoading}
-      />
-    ));
-  }, [entity]);
+function BundleDetails({ entity }: BaseLazyDtoUiProps<WorkSchemaNodeDto>) {
+  const listenerKey = useUuidListenerKey();
+  const { currentState } = useGlobalListener({
+    contextKey: `rollupTotal:${entity.id}`,
+    initialValue: 0,
+    listenerKey
+  });
+  return currentState;
 }
