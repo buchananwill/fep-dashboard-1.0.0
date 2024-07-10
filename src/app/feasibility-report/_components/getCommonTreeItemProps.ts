@@ -1,6 +1,7 @@
-import { getLabelIcon } from '@/app/test/FeasibilityReport';
-import { StyledTreeItemProps } from '@/app/test/CustomTreeItem';
-import { FeasibilityReportTreeItemProps } from '@/app/test/FeasilbilityReportTreeItem';
+import { getLabelIcon } from '@/app/feasibility-report/_components/FeasibilityReport';
+import { StyledTreeItemProps } from '@/components/CustomTreeItem';
+
+import { FeasibilityReportTreeItemProps } from '@/app/feasibility-report/_components/types';
 
 type CommonTreeItemProps = Pick<
   StyledTreeItemProps,

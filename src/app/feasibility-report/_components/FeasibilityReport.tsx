@@ -6,11 +6,12 @@ import { HasId } from '@/api/types';
 import { BaseDtoUiProps } from 'dto-stores';
 import { PropsWithChildren } from 'react';
 import { getEntityNamespaceKeyWithDto } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceKeyWithDto';
-import { CustomTreeItem } from '@/app/test/CustomTreeItem';
+import { CustomTreeItem } from '@/components/CustomTreeItem';
 import { CheckCircleOutline, HighlightOff } from '@mui/icons-material';
-import FeasibilityReportTreeItem from '@/app/test/FeasilbilityReportTreeItem';
+import FeasibilityReportTreeItem from '@/app/feasibility-report/_components/FeasilbilityReportTreeItem';
+import { getCommonTreeItemProps } from '@/app/feasibility-report/_components/getCommonTreeItemProps';
 
-export const taskTypeClassification = 'taskTypeClassification';
+export const taskTypeClassification = 'TaskTypeClassification';
 export const taskTypeClassificationItem = 'taskTypeClassificationItem';
 export const cycleFeasibility = 'nodeCycleFeasibility';
 export const assignmentFeasibility = 'nodeAssignmentFeasibility';
@@ -24,17 +25,24 @@ export function getLabelIcon({ passes }: { passes: boolean }) {
       HighlightOff;
 }
 
+const classificationFeasibility = 'taskTypeClassificationFeasibility';
 export default function FeasibilityReport({
   report
 }: {
   report: FeasibilityReportFullDto;
 }) {
+  const { itemId, labelIcon, ...colors } = getCommonTreeItemProps({
+    itemType: 'feasibilityFullReport',
+    payload: report
+  });
   return (
     <SimpleTreeView aria-label={'Feasibility Report'}>
       <CustomTreeItem
         itemId={cycleFeasibility}
         label={'WorkSchemaNode Feasibilities'}
         labelIcon={getLabelIcon({ passes: true })}
+        {...colors}
+        forceIconColor={true}
       >
         {report.nodeCycleFeasibilities.map((nodeCycleFeasibility) => (
           <FeasibilityReportTreeItem
@@ -61,47 +69,23 @@ export default function FeasibilityReport({
           </EntityTreeItem>
         ))}
       </TreeItem>
-      <TreeItem
+      <CustomTreeItem
         itemId={taskTypeClassificationFeasibilities}
-        label={'Task Type Feasibility List'}
+        label={'WorkTaskType classification feasibilities'}
+        labelIcon={getLabelIcon(report)}
+        {...colors}
+        forceIconColor={true}
       >
         {report.taskTypeClassificationFeasibilities.map(
           (taskTypeClassificationFeasibility) => (
-            <EntityTreeItem
-              entityClass={taskTypeClassificationFeasibilities}
-              entity={taskTypeClassificationFeasibility}
-              key={getEntityNamespaceKeyWithDto(
-                taskTypeClassificationFeasibilities,
-                taskTypeClassificationFeasibility
-              )}
-            >
-              <ul>
-                {taskTypeClassificationFeasibility.bandwidthFeasibilityLayers.map(
-                  (bandwidthFeasibilityLayer) => (
-                    <li key={bandwidthFeasibilityLayer.id}>
-                      {bandwidthFeasibilityLayer.layerOrdinal}:{' '}
-                      {bandwidthFeasibilityLayer.residual}
-                      <TreeItem
-                        itemId={`layerItems${bandwidthFeasibilityLayer.id}`}
-                      >
-                        {bandwidthFeasibilityLayer.bandwidthFeasibilityLayerItems.map(
-                          (bandwidthFeasibilityLayerItem) => (
-                            <div key={bandwidthFeasibilityLayerItem.id}>
-                              {
-                                bandwidthFeasibilityLayerItem.taskTypeClassificationId
-                              }
-                            </div>
-                          )
-                        )}
-                      </TreeItem>
-                    </li>
-                  )
-                )}
-              </ul>
-            </EntityTreeItem>
+            <FeasibilityReportTreeItem
+              itemType={classificationFeasibility}
+              payload={taskTypeClassificationFeasibility}
+              key={`${classificationFeasibility}:${taskTypeClassificationFeasibility.id}`}
+            />
           )
         )}
-      </TreeItem>
+      </CustomTreeItem>
     </SimpleTreeView>
   );
 }

@@ -1,8 +1,14 @@
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getWithoutBody } from '@/api/actions/template-actions';
-import FeasibilityReport from '@/app/test/FeasibilityReport';
+import FeasibilityReport, {
+  taskTypeClassification
+} from '@/app/feasibility-report/_components/FeasibilityReport';
 import { FeasibilityReportFullDto } from '@/api/dtos/FeasibilityReportFullDtoSchema';
-import { DataFetchingEditDtoControllerArray, EmptyArray } from 'dto-stores';
+import {
+  DataFetchingEditDtoControllerArray,
+  EditAddDeleteDtoControllerArray,
+  EmptyArray
+} from 'dto-stores';
 import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
 import GmailTreeView from '@/app/test/GmailClone';
@@ -25,13 +31,16 @@ export default async function page() {
         getServerAction={Api.WorkSchemaNode.getDtoListByBodyList}
         entityClass={EntityClassMap.workSchemaNode}
       />
+      <EditAddDeleteDtoControllerArray
+        dtoList={feasibilityReportFullDto.taskTypeClassifications}
+        entityClass={taskTypeClassification}
+      />
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
         getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
         entityClass={EntityClassMap.workProjectSeriesSchema}
       />
       <FeasibilityReport report={feasibilityReportFullDto} />
-      <GmailTreeView />
     </>
   );
 }

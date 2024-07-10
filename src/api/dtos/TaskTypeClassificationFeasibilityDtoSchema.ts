@@ -1,6 +1,6 @@
-import { TaskTypeClassificationDtoSchema } from '../generated-dtos/TaskTypeClassificationDtoSchema';
 import { BandwidthFeasibilityLayerDtoSchema } from './BandwidthFeasibilityLayerDtoSchema';
 import { z } from 'zod';
+import { TaskTypeClassificationDtoSchema } from '@/api/dtos/TaskTypeClassificationDtoSchema';
 export const TaskTypeClassificationFeasibilityDtoSchema = z.object({
   id: z.number(),
   feasibilityReportId: z.number(),

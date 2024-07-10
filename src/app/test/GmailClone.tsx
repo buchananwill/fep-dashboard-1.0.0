@@ -11,7 +11,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
-import { CustomTreeItem } from '@/app/test/CustomTreeItem';
+import { CustomTreeItem } from '@/components/CustomTreeItem';
 
 declare module 'react' {
   interface CSSProperties {
