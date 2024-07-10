@@ -13,10 +13,14 @@ import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
 import GmailTreeView from '@/app/test/GmailClone';
 
-export default async function page() {
+export default async function page({
+  params: { id }
+}: {
+  params: { id: string };
+}) {
   const feasibilityReportFullDto: FeasibilityReportFullDto =
     await getWithoutBody(
-      constructUrl('/api/v2/resourceMetrics/feasibilityReport/652')
+      constructUrl(`/api/v2/resourceMetrics/feasibilityReport/${id}`)
     );
 
   return (

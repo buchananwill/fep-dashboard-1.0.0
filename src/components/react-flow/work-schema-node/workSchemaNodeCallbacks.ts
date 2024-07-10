@@ -150,7 +150,6 @@ export function determineLocalAllocation(
 const maxOneOf: (keyof WorkSchemaNodeDto)[] = [
   'carouselGroupId',
   'carouselId',
-  'carouselOptionId',
   'workProjectSeriesSchemaId'
 ];
 
