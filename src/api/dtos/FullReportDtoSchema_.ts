@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { TaskTypeClassificationDtoSchema } from '@/api/dtos/TaskTypeClassificationDtoSchema_';
-import { CycleSubspanGroupSnapshotDtoSchema } from '@/api/generated-dtos/CycleSubspanGroupSnapshotDtoSchema';
+import { CycleSubspanGroupSnapshotDtoSchema } from '@/api/dtos/CycleSubspanGroupSnapshotDtoSchema';
 
 export const FeasibilityReportTreeItemBasePayloadSchema = z.object({
   itemType: z.string(),

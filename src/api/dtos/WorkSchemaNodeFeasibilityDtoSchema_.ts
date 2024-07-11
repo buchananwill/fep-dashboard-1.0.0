@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { CycleSubspanGroupSnapshotDtoSchema } from '@/api/generated-dtos/CycleSubspanGroupSnapshotDtoSchema';
+import { CycleSubspanGroupSnapshotDtoSchema } from '@/api/dtos/CycleSubspanGroupSnapshotDtoSchema';
 
 const BaseWorkSchemaNodeFeasibilityDtoSchema = z.object({
   serialVersionUID: z.number(),

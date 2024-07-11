@@ -3,10 +3,10 @@ import {
   CustomTreeItem,
   StyledTreeItemProps
 } from '@/components/CustomTreeItem';
-import { NodeAssignmentFeasibilityDto } from '@/api/generated-dtos/NodeAssignmentFeasibilityDtoSchema';
+import { NodeAssignmentFeasibilityDto } from '@/api/dtos/NodeAssignmentFeasibilityDtoSchema';
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkSchemaNodeAssignmentDto } from '@/api/generated-dtos/WorkSchemaNodeAssignmentDtoSchema';
+import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema';
 import { NamedEntityLabel } from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 
 function Loading() {

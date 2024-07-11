@@ -6,8 +6,8 @@ import {
 
 import { HasId } from '@/api/types';
 import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-dtos/WorkProjectSeriesSchemaDtoSchema';
-import { HasNameDto } from '@/api/generated-dtos/HasNameDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 
 export function WorkProjectSeriesSchemaLabel({
   entity

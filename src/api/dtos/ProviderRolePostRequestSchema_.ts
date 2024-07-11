@@ -1,5 +1,5 @@
-import { ProviderRoleTypeDtoSchema } from '../generated-dtos/ProviderRoleTypeDtoSchema';
-import { WorkTaskTypeDtoSchema } from '../generated-dtos/WorkTaskTypeDtoSchema';
+import { ProviderRoleTypeDtoSchema } from './ProviderRoleTypeDtoSchema';
+import { WorkTaskTypeDtoSchema } from './WorkTaskTypeDtoSchema';
 import { z } from 'zod';
 export const ProviderRolePostRequestSchema = z.object({
   workTaskTypeExampleList: z.array(WorkTaskTypeDtoSchema.partial()),
