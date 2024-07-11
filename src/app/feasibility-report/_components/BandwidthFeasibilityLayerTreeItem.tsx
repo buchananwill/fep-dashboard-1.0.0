@@ -12,18 +12,31 @@ import { NamedEntityLabel } from '@/app/feasibility-report/_components/WorkProje
 function TaskTypeClassificationSummary({
   entity
 }: BaseLazyDtoUiProps<TaskTypeClassificationDto>) {
-  switch (entity.classificationType) {
-    case 'WORK_TASK_TYPE_TO_PARTY': {
-      return entity.taskTypeClassificationItems.map((wttItem) => (
-        <LazyDtoUiWrapper
-          renderAs={NamedEntityLabel}
-          entityId={wttItem.workTaskTypeId}
-          entityClass={EntityClassMap.workTaskType}
-          whileLoading={() => '...loading'}
-        />
-      ));
+  const children = useMemo(() => {
+    switch (entity.classificationType) {
+      case 'WORK_TASK_TYPE_TO_PARTY': {
+        return entity.taskTypeClassificationItems.map((wttItem) => (
+          <LazyDtoUiWrapper
+            key={wttItem.id}
+            renderAs={NamedEntityLabel}
+            entityId={wttItem.workTaskTypeId}
+            entityClass={EntityClassMap.workTaskType}
+            whileLoading={() => '...loading'}
+          />
+        ));
+      }
+      default:
+        return [];
     }
-  }
+  }, [entity]);
+  return (
+    <div>
+      <div className={'rounded-lg border p-2 text-sm'}>
+        {entity.classificationType.toLowerCase()}: {entity.name}
+      </div>
+      {...children}
+    </div>
+  );
 }
 
 export default function BandwidthFeasibilityLayerTreeItem({

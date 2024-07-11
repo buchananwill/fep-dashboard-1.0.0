@@ -21,6 +21,7 @@ export const TaskTypeClassificationDtoSchema = z.object({
   taskTypeClassificationItems: z.array(TaskTypeClassificationItemDtoSchema),
   partyClassificationItems: z.array(PartyClassificationItemDtoSchema),
   assetClassificationItems: z.array(AssetClassificationItemDtoSchema),
+  name: z.string(),
   classificationType: ClassificationTypeEnum
 });
 export type TaskTypeClassificationDto = z.infer<

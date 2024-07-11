@@ -1,8 +1,13 @@
-import { BaseLazyDtoUiProps } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import {
+  BaseLazyDtoUiProps,
+  LazyDtoUiWrapper,
+  LazyDtoUiWrapperProps
+} from 'dto-stores';
+
 import { HasId } from '@/api/types';
 import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-dtos/WorkProjectSeriesSchemaDtoSchema';
+import { HasNameDto } from '@/api/generated-dtos/HasNameDtoSchema';
 
 export function WorkProjectSeriesSchemaLabel({
   entity
@@ -13,4 +18,19 @@ export function NamedEntityLabel({
   entity
 }: GenericDivProps & BaseLazyDtoUiProps<HasNameDto & HasId>) {
   return <div>{entity.name}</div>;
+}
+
+export function NamedEntityLabelWrapper(
+  props: Omit<
+    LazyDtoUiWrapperProps<HasNameDto & HasId, GenericDivProps>,
+    'renderAs' | 'whileLoading'
+  >
+) {
+  return (
+    <LazyDtoUiWrapper
+      renderAs={NamedEntityLabel}
+      {...props}
+      whileLoading={() => '...loading'}
+    />
+  );
 }

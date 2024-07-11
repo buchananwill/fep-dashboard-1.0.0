@@ -29,7 +29,7 @@ export default function AssignmentFeasibilityTreeItem({
           whileLoading={Loading}
         />
       }
-      labelInfo={`${payload.residual}`}
+      labelInfo={`${payload.cycleSubspanRequirement} | ${payload.residual}`}
     >
       {children}
     </CustomTreeItem>

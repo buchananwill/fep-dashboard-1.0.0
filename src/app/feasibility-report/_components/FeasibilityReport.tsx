@@ -22,7 +22,10 @@ export function getLabelIcon({ passes }: { passes: boolean }) {
 const classificationFeasibility = 'taskTypeClassificationFeasibility';
 export default function FeasibilityReport({ report }: { report: FullReport }) {
   return (
-    <SimpleTreeView aria-label={'Feasibility Report'}>
+    <SimpleTreeView
+      aria-label={'Feasibility Report'}
+      sx={{ flexGrow: 1, maxWidth: 600 }}
+    >
       <FeasibilityReportTreeItem payload={report} />
     </SimpleTreeView>
   );
