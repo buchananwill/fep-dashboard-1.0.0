@@ -100,6 +100,11 @@ export const CustomTreeItem = React.forwardRef(function CustomTreeItem(
       theme.palette.mode !== 'dark' ? bgColor : bgColorForDarkMode
   };
 
+  const { children: labelChildren, sx } = getLabelProps({
+    variant: 'body2',
+    sx: { display: 'flex', fontWeight: 'inherit', flexGrow: 1 }
+  });
+
   return (
     <TreeItem2Provider itemId={itemId}>
       <CustomTreeItemRoot {...getRootProps({ ...other, style })}>
@@ -129,12 +134,7 @@ export const CustomTreeItem = React.forwardRef(function CustomTreeItem(
               color={forceIconColor ? color : 'inherit'}
               sx={{ mr: 1 }}
             />
-            <Typography
-              {...getLabelProps({
-                variant: 'body2',
-                sx: { display: 'flex', fontWeight: 'inherit', flexGrow: 1 }
-              })}
-            />
+            <div style={sx}>{labelChildren}</div>
             <Typography variant="caption" color="inherit">
               {labelInfo}
             </Typography>

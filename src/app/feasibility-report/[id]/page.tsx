@@ -46,6 +46,16 @@ export default async function page({
         getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
         entityClass={EntityClassMap.workProjectSeriesSchema}
       />
+      <DataFetchingEditDtoControllerArray
+        idList={EmptyArray}
+        getServerAction={Api.Organization.getDtoListByBodyList}
+        entityClass={EntityClassMap.organization}
+      />
+      <DataFetchingEditDtoControllerArray
+        idList={EmptyArray}
+        getServerAction={Api.WorkSchemaNodeAssignment.getDtoListByBodyList}
+        entityClass={EntityClassMap.workSchemaNodeAssignment}
+      />
       <FeasibilityReport report={feasibilityReportFullDto} />
     </>
   );
