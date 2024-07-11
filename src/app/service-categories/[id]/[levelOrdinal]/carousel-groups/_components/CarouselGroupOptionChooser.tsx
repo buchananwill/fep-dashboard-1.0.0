@@ -1,4 +1,4 @@
-import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
+import { CollectionItemChooserProps } from '@/components/collectionItemChooserProps';
 import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
 import { useItemChooserMap } from '@/hooks/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/hooks/useListboxSelectionChangeCallback';
@@ -85,7 +85,7 @@ function InnerChooserComponent(
   );
 
   return (
-    <div className={'flex flex-col relative'}>
+    <div className={'relative flex flex-col'}>
       <DeletedOverlay
         show={deleted}
         classNames={{ overlay: 'rounded-xl' }}
@@ -94,7 +94,7 @@ function InnerChooserComponent(
           dispatchDeletion((list) => list.filter((id) => id !== collectionId));
         }}
       />
-      <div className={'grid grid-cols-2 gap-1 items-baseline mb-2'}>
+      <div className={'mb-2 grid grid-cols-2 items-baseline gap-1'}>
         <EditTextDeleteEntityPopover {...dtoProps} stringKey={'name'} />
         <div className={'flex justify-center'}>
           <StepperContext.Provider

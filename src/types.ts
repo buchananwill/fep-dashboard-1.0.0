@@ -1,6 +1,6 @@
 import { DtoUiArrayProps } from 'dto-stores';
 import { HasId } from '@/api/types';
-import { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Selection } from '@nextui-org/react';
 
 export type StringPropertyKey<T> = {
@@ -29,3 +29,4 @@ export interface Column<T> {
 }
 
 export type NextUiSelection = Selection;
+export type DispatchList<T> = React.Dispatch<React.SetStateAction<T[]>>;

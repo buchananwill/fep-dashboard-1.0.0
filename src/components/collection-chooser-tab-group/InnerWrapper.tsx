@@ -1,6 +1,6 @@
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { FC } from 'react';
-import { CollectionItemChooserProps } from '@/app/service-categories/[id]/[levelOrdinal]/bundles/_functions/collectionItemChooserProps';
+import { CollectionItemChooserProps } from '@/components/collectionItemChooserProps';
 import { useGlobalListener } from 'selective-context';
 import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
 import { HasUuid } from '@/api/types';

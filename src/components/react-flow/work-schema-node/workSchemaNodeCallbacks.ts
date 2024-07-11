@@ -1,8 +1,5 @@
 import {
   DataNode,
-  DataNodeDto,
-  GraphDto,
-  GraphDtoPutRequestBody,
   incrementCloneSuffix,
   reMapNodeIdWithoutValidating
 } from 'react-d3-force-wrapper';
@@ -11,11 +8,7 @@ import {
   WorkSchemaNodeDtoSchema
 } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { createDataNodeDtoSchema } from '@/api/zod-mods';
-import {
-  Middleware,
-  middlewareCombiner
-} from '@/react-flow/utils/graphMiddlewareCombiner';
-import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/getGraphUpdaterWithNameDeDuplication';
+import { middlewareCombiner } from '@/react-flow/utils/graphMiddlewareCombiner';
 import { Api } from '@/api/clientApi';
 import { isNotUndefined } from '@/api/main';
 import { z } from 'zod';
