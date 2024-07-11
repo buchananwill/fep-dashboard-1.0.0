@@ -1,7 +1,7 @@
 // Spring Web Pagination interface
 import { StringObjectRecord } from '@/api/string-object-record';
 import { PartialDeep } from 'type-fest';
-import { ProviderRolePostRequest } from '@/api/dtos/ProviderRolePostRequestSchema';
+import { ProviderRolePostRequest } from '@/api/dtos/ProviderRolePostRequestSchema_';
 
 export interface Page<T> {
   content: T[];

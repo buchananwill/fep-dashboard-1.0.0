@@ -7,5 +7,6 @@ export const BandwidthFeasibilityLayerDtoSchema = z.object({
   bandwidthFeasibilityLayerItems: z.array(BandwidthFeasibilityLayerItemDtoSchema),
   residual: z.number(),
   passes: z.boolean(),
+  serialVersionUID: z.number(),
 });
 export type BandwidthFeasibilityLayerDto = z.infer<typeof BandwidthFeasibilityLayerDtoSchema>;

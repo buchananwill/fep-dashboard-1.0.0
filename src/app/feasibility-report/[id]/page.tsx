@@ -3,7 +3,7 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import FeasibilityReport, {
   taskTypeClassification
 } from '@/app/feasibility-report/_components/FeasibilityReport';
-import { FeasibilityReportFullDto } from '@/api/dtos/FeasibilityReportFullDtoSchema';
+
 import {
   DataFetchingEditDtoControllerArray,
   EditAddDeleteDtoControllerArray,
@@ -11,17 +11,19 @@ import {
 } from 'dto-stores';
 import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
-import GmailTreeView from '@/app/test/GmailClone';
+import { FullReportDto } from '@/api/dtos/FullReportDtoSchema';
+import { FullReport } from '@/app/feasibility-report/_components/types';
 
 export default async function page({
   params: { id }
 }: {
   params: { id: string };
 }) {
-  const feasibilityReportFullDto: FeasibilityReportFullDto =
-    await getWithoutBody(
-      constructUrl(`/api/v2/resourceMetrics/feasibilityReport/${id}`)
-    );
+  const feasibilityReportFullDto: FullReport = await getWithoutBody(
+    constructUrl(`/api/v2/resourceMetrics/feasibilityReport/${id}`)
+  );
+
+  console.log(feasibilityReportFullDto);
 
   return (
     <>

@@ -1,46 +1,89 @@
-import { PropsWithChildren } from 'react';
 import { getCommonTreeItemProps } from '@/app/feasibility-report/_components/getCommonTreeItemProps';
 import { FeasibilityReportTreeItemProps } from '@/app/feasibility-report/_components/types';
-import { NodeCycleFeasibilityItem } from '@/app/feasibility-report/_components/NodeCycleFeasibilityItem';
-import BandwidthFeasibilityLayerTreeItem from '@/app/feasibility-report/_components/BandwidthFeasibilityLayerTreeItem';
+import { WorkSchemaNodeFeasibilityItem } from '@/app/feasibility-report/_components/WorkSchemaNodeFeasibilityItem';
 import TaskTypeClassificationFeasibilityTreeItem from '@/app/feasibility-report/_components/TaskTypeClassificationFeasibilityTreeItem';
+import { CustomTreeItem } from '@/components/CustomTreeItem';
+import { useMemo } from 'react';
+import BandwidthFeasibilityLayerTreeItem from '@/app/feasibility-report/_components/BandwidthFeasibilityLayerTreeItem';
+import AssignmentFeasibilityTreeItem from '@/app/feasibility-report/_components/AssignmentFeasibilityTreeItem';
 
 export default function FeasibilityReportTreeItem({
   children,
-  ...props
-}: FeasibilityReportTreeItemProps & PropsWithChildren) {
-  const commonTreeItemProps = getCommonTreeItemProps(props);
-  const { itemType } = props;
+  payload
+}: FeasibilityReportTreeItemProps) {
+  const { itemType } = payload;
+
+  const childrenPayload = useMemo(() => {
+    switch (payload.itemType) {
+      case 'feasibilityFullReport':
+      case 'workSchemaNodeFeasibility':
+      case 'assignmentFeasibilitySummary':
+      case 'taskTypeFeasibilitySummary':
+      case 'workSchemaNodeFeasibilitySummary':
+      case 'taskTypeFeasibility': {
+        return payload.children.map((childPayload) => (
+          <FeasibilityReportTreeItem
+            payload={childPayload}
+            key={`${childPayload.itemType}:${childPayload.id}`}
+          />
+        ));
+      }
+      default:
+        return [];
+    }
+  }, [payload]);
+
+  const commonTreeItemProps = {
+    ...getCommonTreeItemProps(payload),
+    children: [children, ...childrenPayload]
+  };
+
   switch (itemType) {
-    case 'cycleFeasibility': {
-      return <NodeCycleFeasibilityItem {...props} {...commonTreeItemProps} />;
+    case 'feasibilityFullReport': {
+      return (
+        <CustomTreeItem {...commonTreeItemProps} label={'Feasibility Report'} />
+      );
+    }
+    case 'workSchemaNodeFeasibilitySummary':
+    case 'assignmentFeasibilitySummary':
+    case 'taskTypeFeasibilitySummary': {
+      return (
+        <CustomTreeItem
+          {...commonTreeItemProps}
+          label={`${payload.itemType}`}
+        />
+      );
+    }
+    case 'workSchemaNodeFeasibility': {
+      return (
+        <WorkSchemaNodeFeasibilityItem
+          payload={payload}
+          {...commonTreeItemProps}
+        />
+      );
     }
     case 'assignmentFeasibility': {
-      return;
+      return (
+        <AssignmentFeasibilityTreeItem
+          payload={payload}
+          {...commonTreeItemProps}
+        />
+      );
     }
-    case 'taskTypeClassificationFeasibility': {
+    case 'taskTypeFeasibility': {
       return (
         <TaskTypeClassificationFeasibilityTreeItem
-          {...props}
           {...commonTreeItemProps}
-        >
-          {props.payload.bandwidthFeasibilityLayers.map(
-            (bandwidthFeasibilityLayer) => {
-              const moreProps: FeasibilityReportTreeItemProps = {
-                itemType: 'bandwidthFeasibilityLayer',
-                payload: bandwidthFeasibilityLayer
-              };
-              const moreCommonProps = getCommonTreeItemProps(moreProps);
-              return (
-                <BandwidthFeasibilityLayerTreeItem
-                  {...moreCommonProps}
-                  {...moreProps}
-                  key={moreCommonProps.itemId}
-                ></BandwidthFeasibilityLayerTreeItem>
-              );
-            }
-          )}
-        </TaskTypeClassificationFeasibilityTreeItem>
+          payload={payload}
+        />
+      );
+    }
+    case 'bandwidthFeasibilityLayer': {
+      return (
+        <BandwidthFeasibilityLayerTreeItem
+          {...commonTreeItemProps}
+          payload={payload}
+        />
       );
     }
     default:

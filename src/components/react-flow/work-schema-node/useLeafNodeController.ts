@@ -1,5 +1,5 @@
 import { Identifier, NamespacedHooks, useDtoStore } from 'dto-stores';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';

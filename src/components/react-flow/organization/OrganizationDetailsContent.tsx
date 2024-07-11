@@ -36,7 +36,7 @@ import { produce } from 'immer';
 import { z } from 'zod';
 import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema';
 import { listenerKeyDetailsContent } from '@/app/_literals';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
 const whileLoading = () => null;

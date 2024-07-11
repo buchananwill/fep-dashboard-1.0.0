@@ -1,5 +1,5 @@
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { WorkProjectSeriesSchemaLabel } from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';
 

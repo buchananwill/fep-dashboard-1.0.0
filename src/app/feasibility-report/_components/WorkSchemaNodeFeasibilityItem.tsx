@@ -9,24 +9,11 @@ import { WorkSchemaNodeLabel } from '@/app/feasibility-report/_components/WorkSc
 import { EntityClassMap } from '@/api/entity-class-map';
 import FeasibilityReportTreeItem from '@/app/feasibility-report/_components/FeasilbilityReportTreeItem';
 
-export function NodeCycleFeasibilityItem({
-  itemType,
+export function WorkSchemaNodeFeasibilityItem({
   payload,
   children,
   ...props
-}: WorkSchemaNodeItem & StyledTreeItemProps) {
-  const payloadChildren = useMemo(() => {
-    if (itemType === 'cycleFeasibility') {
-      const { children: childrenPayload } = payload;
-      return childrenPayload.map((child) => (
-        <FeasibilityReportTreeItem
-          key={`${child.id}`}
-          itemType={'cycleFeasibility'}
-          payload={child}
-        />
-      ));
-    } else return [];
-  }, [payload, itemType]);
+}: { payload: WorkSchemaNodeItem } & StyledTreeItemProps) {
   return (
     <CustomTreeItem
       {...props}
@@ -41,7 +28,6 @@ export function NodeCycleFeasibilityItem({
       }
       labelInfo={`${payload.cycleSubspanRequirement}`}
     >
-      {...payloadChildren}
       {children}
     </CustomTreeItem>
   );

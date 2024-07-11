@@ -8,7 +8,7 @@ import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect
 import { FilterSortPaginateTableContent } from '@/components/generic/FilterSortPaginateTableContent';
 import { Input } from '@nextui-org/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { renderWorkSchemaNodeCell } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/RenderWorkProjectSeriesSchemaCell';
 
 export default function WorkSchemaNodeModalTable({

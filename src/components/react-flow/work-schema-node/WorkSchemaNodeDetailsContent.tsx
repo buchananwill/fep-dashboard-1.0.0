@@ -8,7 +8,7 @@ import {
   useLinkContext
 } from 'react-d3-force-wrapper';
 import { ObjectPlaceholder } from 'selective-context';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';

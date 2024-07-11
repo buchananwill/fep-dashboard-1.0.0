@@ -1,54 +1,77 @@
-import { HasId } from '@/api/types';
-import { NodeAssignmentFeasibilityDto } from '@/api/dtos/NodeAssignmentFeasibilityDtoSchema';
-import { NodeCycleFeasibilityDto } from '@/api/dtos/NodeCycleFeasibilityDtoSchema';
-import { TaskTypeClassificationFeasibilityDto } from '@/api/dtos/TaskTypeClassificationFeasibilityDtoSchema';
-import { TaskTypeClassificationDto } from '@/api/dtos/TaskTypeClassificationDtoSchema';
-import { BandwidthFeasibilityLayerDto } from '@/api/dtos/BandwidthFeasibilityLayerDtoSchema';
-import { BandwidthFeasibilityLayerItemDto } from '@/api/dtos/BandwidthFeasibilityLayerItemDtoSchema';
-import { FeasibilityReportFullDto } from '@/api/dtos/FeasibilityReportFullDtoSchema';
+import { HasNumberId } from '@/api/types';
+import { NodeAssignmentFeasibilityDto } from '@/api/generated-dtos/NodeAssignmentFeasibilityDtoSchema';
+import { TaskTypeFeasibilityDto } from '@/api/generated-dtos/TaskTypeFeasibilityDtoSchema_';
+import { BandwidthFeasibilityLayerDto } from '@/api/generated-dtos/BandwidthFeasibilityLayerDtoSchema';
+import { FullReportDto } from '@/api/dtos/FullReportDtoSchema';
+import { PropsWithChildren } from 'react';
+import { WorkSchemaNodeFeasibilityDto } from '@/api/dtos/WorkSchemaNodeFeasibilityDtoSchema_';
+import { WorkSchemaNodeFeasibilitySummaryDto } from '@/api/generated-dtos/WorkSchemaNodeFeasibilitySummaryDtoSchema_';
+import { NodeAssignmentFeasibilitySummaryDto } from '@/api/generated-dtos/NodeAssignmentFeasibilitySummaryDtoSchema_';
+import { TaskTypeFeasibilitySummaryDto } from '@/api/generated-dtos/TaskTypeFeasibilitySummaryDtoSchema_';
 
-interface FeasibilityReportTreeItemBaseProps<T extends HasId> {
-  itemType: string;
-  payload: T;
-}
+type FeasibilityReportTreeItemBase = HasNumberId & {
+  // itemType: string;
+  passes: boolean;
+};
 
-export type WorkSchemaNodeItem =
-  FeasibilityReportTreeItemBaseProps<NodeCycleFeasibilityDto> & {
-    itemType: 'cycleFeasibility';
+type NestedItem<T> = {
+  children: T[];
+};
+
+export type WorkSchemaNodeItem = WorkSchemaNodeFeasibilityDto & {
+  itemType: 'workSchemaNodeFeasibility';
+  children: WorkSchemaNodeItem[];
+};
+export type AssignmentItem = NodeAssignmentFeasibilityDto & {
+  itemType: 'assignmentFeasibility';
+};
+
+export type TaskTypeItem = TaskTypeFeasibilityDto &
+  NestedItem<BandwidthFeasibilityLayer> & {
+    itemType: 'taskTypeFeasibility';
   };
-export type AssignmentItem =
-  FeasibilityReportTreeItemBaseProps<NodeAssignmentFeasibilityDto> & {
-    itemType: 'assignmentFeasibility';
+export type WorkSchemaNodeSummary = NestedItem<WorkSchemaNodeItem> &
+  WorkSchemaNodeFeasibilitySummaryDto & {
+    itemType: 'workSchemaNodeFeasibilitySummary';
+  };
+export type AssignmentSummary = NestedItem<AssignmentItem> &
+  NodeAssignmentFeasibilitySummaryDto & {
+    itemType: 'assignmentFeasibilitySummary';
   };
 
-export type TaskTypeItem =
-  FeasibilityReportTreeItemBaseProps<TaskTypeClassificationFeasibilityDto> & {
-    itemType: 'taskTypeClassificationFeasibility';
+export type TaskTypeSummary = NestedItem<TaskTypeItem> &
+  TaskTypeFeasibilitySummaryDto & {
+    itemType: 'taskTypeFeasibilitySummary';
   };
 
-type TaskTypeClassification =
-  FeasibilityReportTreeItemBaseProps<TaskTypeClassificationDto> & {
-    itemType: 'taskTypeClassification';
-  };
-export type BandwidthFeasibilityLayer =
-  FeasibilityReportTreeItemBaseProps<BandwidthFeasibilityLayerDto> & {
-    itemType: 'bandwidthFeasibilityLayer';
-  };
+export type BandwidthFeasibilityLayer = BandwidthFeasibilityLayerDto & {
+  itemType: 'bandwidthFeasibilityLayer';
+};
 
-export type BandwidthLayerItem =
-  FeasibilityReportTreeItemBaseProps<BandwidthFeasibilityLayerItemDto> & {
-    itemType: 'bandwidthFeasibilityLayerItem';
-  };
-export type FullReport =
-  FeasibilityReportTreeItemBaseProps<FeasibilityReportFullDto> & {
+export type FullReport = FullReportDto &
+  NestedItem<WorkSchemaNodeSummary | AssignmentSummary | TaskTypeSummary> & {
     itemType: 'feasibilityFullReport';
   };
 
-export type FeasibilityReportTreeItemProps =
+export const NestedItemTypes = [
+  'taskTypeFeasibilitySummary',
+  'assignmentFeasibilitySummary',
+  'taskTypeFeasibilitySummary',
+  'feasibilityFullReport',
+  'workSchemaNodeFeasibility',
+  'workSchemaNodeFeasibilitySummary'
+];
+
+export type FeasibilityReportTreeItemPayload =
   | FullReport
   | WorkSchemaNodeItem
   | AssignmentItem
   | TaskTypeItem
-  // | TaskTypeClassification
-  | BandwidthFeasibilityLayer;
-// | BandwidthLayerItem;
+  | BandwidthFeasibilityLayer
+  | WorkSchemaNodeSummary
+  | AssignmentSummary
+  | TaskTypeSummary;
+
+export type FeasibilityReportTreeItemProps = {
+  payload: FeasibilityReportTreeItemPayload;
+} & PropsWithChildren;

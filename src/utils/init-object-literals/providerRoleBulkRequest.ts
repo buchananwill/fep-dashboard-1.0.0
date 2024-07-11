@@ -3,7 +3,7 @@ import {
   RepeatPostRequest,
   TemplateRequestOverrides
 } from '@/api/types';
-import { ProviderRolePostRequest } from '@/api/dtos/ProviderRolePostRequestSchema';
+import { ProviderRolePostRequest } from '@/api/dtos/ProviderRolePostRequestSchema_';
 import { ProviderRoleTypeDto } from '@/api/dtos/ProviderRoleTypeDtoSchema';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { merge } from 'lodash';

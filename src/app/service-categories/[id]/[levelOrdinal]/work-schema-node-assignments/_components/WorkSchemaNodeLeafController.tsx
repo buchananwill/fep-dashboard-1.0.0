@@ -1,5 +1,5 @@
 import { DataNode } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 
 import { useLeafNodeController } from '@/components/react-flow/work-schema-node/useLeafNodeController';
 import { Identifier, NamespacedHooks, useDtoStore } from 'dto-stores';

@@ -1,4 +1,4 @@
-import { CycleSubspanGroupSnapshotDtoSchema } from '../generated-dtos/CycleSubspanGroupSnapshotDtoSchema';
+import { CycleSubspanGroupSnapshotDtoSchema } from './CycleSubspanGroupSnapshotDtoSchema';
 import { z } from 'zod';
 export const NodeAssignmentFeasibilityDtoSchema = z.object({
   id: z.number(),
@@ -7,8 +7,7 @@ export const NodeAssignmentFeasibilityDtoSchema = z.object({
   feasibilityReportId: z.number(),
   workSchemaNodeAssignmentId: z.number(),
   cycleSubspanGroupSnapshotDtoList: z.array(CycleSubspanGroupSnapshotDtoSchema),
-  passes: z.boolean()
+  passes: z.boolean(),
+  serialVersionUID: z.number(),
 });
-export type NodeAssignmentFeasibilityDto = z.infer<
-  typeof NodeAssignmentFeasibilityDtoSchema
->;
+export type NodeAssignmentFeasibilityDto = z.infer<typeof NodeAssignmentFeasibilityDtoSchema>;

@@ -6,7 +6,7 @@ import {
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useMemo } from 'react';
-import { TaskTypeClassificationDto } from '@/api/dtos/TaskTypeClassificationDtoSchema';
+import { TaskTypeClassificationDto } from '@/api/dtos/TaskTypeClassificationDtoSchema_';
 import { NamedEntityLabel } from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 
 function TaskTypeClassificationSummary({
@@ -31,7 +31,7 @@ export default function BandwidthFeasibilityLayerTreeItem({
   children,
   itemType,
   ...props
-}: BandwidthFeasibilityLayer & StyledTreeItemProps) {
+}: { payload: BandwidthFeasibilityLayer } & StyledTreeItemProps) {
   const layerItems = useMemo(() => {
     return payload.bandwidthFeasibilityLayerItems.map((item) => (
       <LazyDtoUiWrapper
@@ -52,6 +52,7 @@ export default function BandwidthFeasibilityLayerTreeItem({
       labelInfo={`Residual: ${payload.residual}`}
     >
       {...layerItems}
+      {children}
     </CustomTreeItem>
   );
 }

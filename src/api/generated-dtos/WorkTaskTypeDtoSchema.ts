@@ -1,6 +1,5 @@
 import { z } from 'zod';
 export const WorkTaskTypeDtoSchema = z.object({
-  serialVersionUID: z.number(),
   name: z.string(),
   id: z.number(),
   serviceCategoryId: z.number(),

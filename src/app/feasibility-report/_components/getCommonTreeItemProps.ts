@@ -1,36 +1,34 @@
 import { getLabelIcon } from '@/app/feasibility-report/_components/FeasibilityReport';
 import { StyledTreeItemProps } from '@/components/CustomTreeItem';
 
-import { FeasibilityReportTreeItemProps } from '@/app/feasibility-report/_components/types';
+import { FeasibilityReportTreeItemPayload } from '@/app/feasibility-report/_components/types';
 
 type CommonTreeItemProps = Pick<
   StyledTreeItemProps,
-  'itemId' | 'labelIcon' | 'color' | 'bgColor'
+  'itemId' | 'labelIcon' | 'color' | 'bgColor' | 'forceIconColor'
 >;
 
-export function getCommonTreeItemProps({
-  itemType,
-  payload
-}: FeasibilityReportTreeItemProps): CommonTreeItemProps {
-  const { id } = payload;
+interface BaseReportItem {
+  passes: boolean;
+}
+
+export function getColor(payload: BaseReportItem) {
+  return { color: payload.passes ? '#3c8039' : '#f15865' };
+}
+
+export function getBgColor(payload: BaseReportItem) {
+  return { bgColor: payload.passes ? '#e6f4ea' : '#f4e6e6' };
+}
+
+export function getCommonTreeItemProps(
+  payload: FeasibilityReportTreeItemPayload
+): CommonTreeItemProps {
+  const { id, itemType } = payload;
   return {
     itemId: `${itemType}:${id}`,
-    labelIcon: getLabelIcon(payload),
-    color: payload.passes ? '#3c8039' : '#f15865',
-    bgColor: '#e6f4ea'
+    forceIconColor: true,
+    ...getLabelIcon(payload),
+    ...getColor(payload),
+    ...getBgColor(payload)
   };
-  // switch (itemType) {
-  //   case 'assignmentFeasibility':
-  //     return {
-  //       label: `Node Assignment ${id}`,
-  //       ...commonProps
-  //     };
-  //
-  //   case 'cycleFeasibility':
-  //     return {
-  //       label: `Work Schema Node ${payload.workSchemaNodeId}`,
-  //       labelInfo: `${payload.cycleSubspansRequirement}`,
-  //       ...commonProps
-  //     };
-  // }
 }

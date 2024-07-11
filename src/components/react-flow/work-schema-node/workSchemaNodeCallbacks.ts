@@ -9,7 +9,7 @@ import {
 import {
   WorkSchemaNodeDto,
   WorkSchemaNodeDtoSchema
-} from '@/api/dtos/WorkSchemaNodeDtoSchema';
+} from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { createDataNodeDtoSchema } from '@/api/zod-mods';
 import {
   Middleware,

@@ -5,5 +5,6 @@ export const CycleSubspanGroupSnapshotDtoSchema = z.object({
   size: z.number(),
   ownerId: z.number(),
   ownerType: z.string(),
+  residual: z.number(),
 });
 export type CycleSubspanGroupSnapshotDto = z.infer<typeof CycleSubspanGroupSnapshotDtoSchema>;

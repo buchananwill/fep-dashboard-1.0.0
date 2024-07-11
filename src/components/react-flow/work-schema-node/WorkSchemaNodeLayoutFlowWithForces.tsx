@@ -28,7 +28,7 @@ import {
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import {
   determineLocalResolution,
   validateHierarchy,

@@ -9,18 +9,9 @@ import {
 import BandwidthFeasibilityLayerTreeItem from '@/app/feasibility-report/_components/BandwidthFeasibilityLayerTreeItem';
 
 export default function TaskTypeClassificationFeasibilityTreeItem({
-  payload,
   children,
-  itemType,
+  payload,
   ...props
-}: TaskTypeItem & StyledTreeItemProps) {
-  return (
-    <CustomTreeItem
-      {...props}
-      forceIconColor={true}
-      label={'Bandwidth feasibility layer'}
-    >
-      {children}
-    </CustomTreeItem>
-  );
+}: { payload: TaskTypeItem } & StyledTreeItemProps) {
+  return <CustomTreeItem {...props}>{children}</CustomTreeItem>;
 }

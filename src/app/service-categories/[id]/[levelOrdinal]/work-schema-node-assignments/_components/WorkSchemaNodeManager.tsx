@@ -7,7 +7,7 @@ import { EmptyArray, InitialMap } from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
 import WorkSchemaNodeLeafController from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/_components/WorkSchemaNodeLeafController';
 

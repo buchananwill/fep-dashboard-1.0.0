@@ -12,7 +12,7 @@ import {
 } from 'react-d3-force-wrapper';
 
 import { HasNumberId } from '@/api/types';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 
 const organizationNodeType = 'organization';
 
