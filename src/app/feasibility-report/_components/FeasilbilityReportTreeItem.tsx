@@ -51,6 +51,7 @@ export default function FeasibilityReportTreeItem({
         <CustomTreeItem
           {...commonTreeItemProps}
           label={`${payload.itemType}`}
+          labelInfo={'allocation | residual'}
         />
       );
     }

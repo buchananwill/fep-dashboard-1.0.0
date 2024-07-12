@@ -11,9 +11,7 @@ import {
 } from 'dto-stores';
 import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { FullReportDto } from '@/api/dtos/FullReportDtoSchema_';
 import { FullReport } from '@/app/feasibility-report/_components/types';
-import { Card, CardBody } from '@nextui-org/card';
 
 export default async function page({
   params: { id }
