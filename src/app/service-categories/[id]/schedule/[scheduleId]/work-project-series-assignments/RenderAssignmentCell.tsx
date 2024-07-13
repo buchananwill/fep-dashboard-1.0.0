@@ -1,11 +1,15 @@
 'use client';
 import { GridChildComponentProps } from 'react-window';
-import { useGlobalListener } from 'selective-context';
+import {
+  useGlobalDispatch,
+  useGlobalDispatchAndListener,
+  useGlobalListener
+} from 'selective-context';
 import {
   AssignmentCell,
   GetAssignmentCellContent
 } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CycleSubspanQueryManager';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { MemoizedFunction } from 'react-d3-force-wrapper';
@@ -14,6 +18,8 @@ import { WorkProjectSeriesSchemaCode } from '@/app/feasibility-report/_component
 import { LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Loading } from '@/app/feasibility-report/_components/AssignmentFeasibilityTreeItem';
+import { selectedAssignmentCell } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/AssignmentTable';
+import { EmptyArray } from '@/api/literals';
 
 export default function RenderAssignmentCell({
   rowIndex,
@@ -40,13 +46,33 @@ export default function RenderAssignmentCell({
     return memoizedFunction(assignmentCell);
   }, [memoizedFunction, columnIndex, rowIndex, data]);
 
+  const { dispatchWithoutControl, currentState } = useGlobalDispatchAndListener<
+    number[]
+  >({
+    contextKey: selectedAssignmentCell,
+    listenerKey: `${rowIndex}:${columnIndex}`,
+    initialValue: EmptyArray
+  });
+
+  const handleClick = useCallback(() => {
+    dispatchWithoutControl([rowIndex, columnIndex]);
+  }, [dispatchWithoutControl, rowIndex, columnIndex]);
+
+  const selected =
+    currentState[0] === rowIndex && currentState[1] === columnIndex;
+
   return (
-    <div style={style}>
+    <div
+      style={style}
+      className={clsx(
+        'flex h-full w-full border ',
+        cellData ? 'bg-emerald-400' : 'bg-gray-200 opacity-50',
+        selected ? 'border-sky-400' : 'border-gray-300'
+      )}
+    >
       <div
-        className={clsx(
-          'h-full w-full border border-gray-400',
-          cellData ? 'bg-emerald-400' : 'bg-gray-200 opacity-50'
-        )}
+        onClick={handleClick}
+        className={'mb-auto ml-auto mr-auto mt-auto h-fit w-fit'}
       >
         {cellData ? (
           cellData.length == 1 ? (
@@ -57,7 +83,7 @@ export default function RenderAssignmentCell({
               whileLoading={Loading}
             />
           ) : (
-            'C'
+            'C:' + cellData.length
           )
         ) : (
           ''

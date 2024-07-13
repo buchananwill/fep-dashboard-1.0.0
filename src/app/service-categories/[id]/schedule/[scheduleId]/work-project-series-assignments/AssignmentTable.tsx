@@ -6,7 +6,11 @@ import React, { useMemo } from 'react';
 import { AssignmentCell } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CycleSubspanQueryManager';
 import { FallbackCellMemo } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/FallbackCell';
 import RenderOrganizationCell from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/RenderOrganizationCell';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
+import { useGlobalController } from 'selective-context';
+import { EmptyArray } from '@/api/literals';
 
+export const selectedAssignmentCell = 'selectedAssignmentCell';
 export default function AssignmentTable({
   tableData
 }: {
@@ -15,6 +19,13 @@ export default function AssignmentTable({
   const rowList = Object.keys(
     tableData.organizationToCycleSubspanIdToAssignmentId
   ).map((assId) => parseInt(assId));
+
+  const listenerKey = useUuidListenerKey();
+  useGlobalController<number[]>({
+    contextKey: selectedAssignmentCell,
+    initialValue: EmptyArray,
+    listenerKey
+  });
 
   const columnList = tableData.cycleSubspanDtoList.map((cs) => cs.id);
 

@@ -18,7 +18,11 @@ export function WorkProjectSeriesSchemaLabel({
 export function WorkProjectSeriesSchemaCode({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
-  return entity.shortCode ?? entity.name.substring(0, 4);
+  return entity.shortCode
+    ? entity.shortCode.substring(0, 2)
+    : entity.name
+      ? entity.name.substring(0, 2)
+      : '';
 }
 export function NamedEntityLabel({
   entity
