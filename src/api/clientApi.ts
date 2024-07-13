@@ -18,12 +18,14 @@ import * as CycleSubspanGroup from './generated-actions/CycleSubspanGroup';
 import * as OrganizationType from './generated-actions/OrganizationType';
 import * as ProviderRoleTypeWorkTaskTypeSuitability from './generated-actions/ProviderRoleTypeWorkTaskTypeSuitability';
 import * as Cycle from './generated-actions/Cycle';
+import * as WorkProjectSeries from './generated-actions/WorkProjectSeries';
 import * as AssetRole from './generated-actions/AssetRole';
 import * as AssetType from './generated-actions/AssetType';
 import * as WorkProjectSeriesSchema from './generated-actions/WorkProjectSeriesSchema';
 import * as KnowledgeDomain from './generated-actions/KnowledgeDomain';
 import * as CarouselOrderItem from './generated-actions/CarouselOrderItem';
 import * as UserRole from './generated-actions/UserRole';
+import * as WorkProjectSeriesAssignment from './generated-actions/WorkProjectSeriesAssignment';
 import * as ProviderRoleType from './generated-actions/ProviderRoleType';
 import * as CarouselOption from './generated-actions/CarouselOption';
 import * as Person from './generated-actions/Person';
@@ -49,12 +51,14 @@ CycleSubspanGroup,
 OrganizationType,
 ProviderRoleTypeWorkTaskTypeSuitability,
 Cycle,
+WorkProjectSeries,
 AssetRole,
 AssetType,
 WorkProjectSeriesSchema,
 KnowledgeDomain,
 CarouselOrderItem,
 UserRole,
+WorkProjectSeriesAssignment,
 ProviderRoleType,
 CarouselOption,
 Person,
