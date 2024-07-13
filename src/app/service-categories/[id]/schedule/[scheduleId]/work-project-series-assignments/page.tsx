@@ -15,10 +15,6 @@ export default async function page({
 }: {
   params: { id: string; scheduleId: string };
 }) {
-  const exampleAssignment: PartialDeep<WorkProjectSeriesAssignmentDto> = {
-    workProjectSeries: { scheduleId: parseInt(scheduleId) }
-  };
-
   const workProjectSeriesAssignmentTableDto: WorkProjectSeriesAssignmentTableDto =
     await getWithoutBody(
       constructUrl([
@@ -27,36 +23,22 @@ export default async function page({
       ])
     );
 
-  const data: WorkProjectSeriesAssignmentDto[] =
-    await Api.WorkProjectSeriesAssignment.getAll();
-
-  const groupByOrgId = data.reduce(
-    (prev, curr) => {
-      const next = { ...prev };
-      const currKey = String(curr.organizationId);
-      if (Object.hasOwn(next, curr.organizationId)) {
-        const prevList = next[currKey];
-        next[currKey] = [...prevList, curr];
-      } else {
-        next[currKey] = [curr];
-      }
-      return next;
-    },
-    {} as Record<string, WorkProjectSeriesAssignmentDto[]>
-  );
+  const idList = Object.keys(
+    workProjectSeriesAssignmentTableDto.organizationToCycleSubspanIdToAssignmentId
+  ).map((orgId) => parseInt(orgId));
 
   return (
-    <div className={'h-[75vh] w-[75vw]'}>
-      {/*<div className={'h-full min-h-fit w-full drop-shadow-md '}>*/}
-      {/*  <DataFetchingEditDtoControllerArray*/}
-      {/*    idList={EmptyArray}*/}
-      {/*    getServerAction={Api.Organization.getDtoListByBodyList}*/}
-      {/*    entityClass={EntityClassMap.organization}*/}
-      {/*  />*/}
-      {/*  {workProjectSeriesAssignmentTableDto && (*/}
-      {/*    <JsonTree data={workProjectSeriesAssignmentTableDto} />*/}
-      {/*  )}*/}
-      {/*</div>*/}
+    <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8'}>
+      <DataFetchingEditDtoControllerArray
+        idList={idList}
+        getServerAction={Api.Organization.getDtoListByBodyList}
+        entityClass={EntityClassMap.organization}
+      />
+      <DataFetchingEditDtoControllerArray
+        idList={EmptyArray}
+        getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+      />
       <CycleSubspanQueryManager
         tableData={workProjectSeriesAssignmentTableDto}
       />

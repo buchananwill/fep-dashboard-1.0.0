@@ -9,7 +9,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema';
 import { NamedEntityLabel } from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 
-function Loading() {
+export function Loading() {
   return '...loading';
 }
 

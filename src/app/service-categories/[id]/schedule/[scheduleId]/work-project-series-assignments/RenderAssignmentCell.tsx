@@ -10,6 +10,10 @@ import clsx from 'clsx';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { MemoizedFunction } from 'react-d3-force-wrapper';
 import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';
+import { WorkProjectSeriesSchemaCode } from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
+import { LazyDtoUiWrapper } from 'dto-stores';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { Loading } from '@/app/feasibility-report/_components/AssignmentFeasibilityTreeItem';
 
 export default function RenderAssignmentCell({
   rowIndex,
@@ -21,29 +25,43 @@ export default function RenderAssignmentCell({
   const {
     currentState: { memoizedFunction }
   } = useGlobalListener<
-    MemoizedFunction<AssignmentCell, WorkProjectSeriesAssignmentDto | undefined>
+    MemoizedFunction<
+      AssignmentCell,
+      WorkProjectSeriesAssignmentDto[] | undefined
+    >
   >({
     contextKey: GetAssignmentCellContent,
     initialValue: initialMemoizedFunction,
     listenerKey //: `${rowIndex}:${columnIndex}`
   });
 
-  const isAssigned = useMemo(() => {
+  const cellData = useMemo(() => {
     const assignmentCell = data[rowIndex][columnIndex];
-    const cellData = memoizedFunction(assignmentCell);
-    console.log(cellData);
-    return cellData !== undefined;
+    return memoizedFunction(assignmentCell);
   }, [memoizedFunction, columnIndex, rowIndex, data]);
 
   return (
     <div style={style}>
       <div
         className={clsx(
-          'h-full w-full border-2 border-rose-500',
-          isAssigned ? 'bg-emerald-400' : 'bg-gray-200'
+          'h-full w-full border border-gray-400',
+          cellData ? 'bg-emerald-400' : 'bg-gray-200 opacity-50'
         )}
       >
-        {rowIndex},{columnIndex}
+        {cellData ? (
+          cellData.length == 1 ? (
+            <LazyDtoUiWrapper
+              renderAs={WorkProjectSeriesSchemaCode}
+              entityId={cellData[0].workProjectSeries.workProjectSeriesSchemaId}
+              entityClass={EntityClassMap.workProjectSeriesSchema}
+              whileLoading={Loading}
+            />
+          ) : (
+            'C'
+          )
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

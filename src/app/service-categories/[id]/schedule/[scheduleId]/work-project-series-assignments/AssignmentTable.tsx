@@ -5,16 +5,16 @@ import RenderAssignmentCell from '@/app/service-categories/[id]/schedule/[schedu
 import React, { useMemo } from 'react';
 import { AssignmentCell } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CycleSubspanQueryManager';
 import { FallbackCellMemo } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/FallbackCell';
+import RenderOrganizationCell from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/RenderOrganizationCell';
 
 export default function AssignmentTable({
   tableData
 }: {
   tableData: WorkProjectSeriesAssignmentTableDto;
 }) {
-  console.log(tableData);
-  const rowList = Object.keys(tableData.assignmentIdToDtoMap).map((assId) =>
-    parseInt(assId)
-  );
+  const rowList = Object.keys(
+    tableData.organizationToCycleSubspanIdToAssignmentId
+  ).map((assId) => parseInt(assId));
 
   const columnList = tableData.cycleSubspanDtoList.map((cs) => cs.id);
 
@@ -32,8 +32,6 @@ export default function AssignmentTable({
     return tableLookUp;
   }, [rowList, columnList]);
 
-  console.log(tableLookUp);
-
   return (
     <VirtualizedTableWindowed
       rowIdList={rowList}
@@ -41,9 +39,10 @@ export default function AssignmentTable({
       itemData={tableLookUp}
       renderCell={memoCell}
       renderSyncedRowCell={FallbackCellMemo}
-      renderSyncedColumnCell={FallbackCellMemo}
+      renderSyncedColumnCell={memoOrganizationCell}
     />
   );
 }
 
 const memoCell = React.memo(RenderAssignmentCell);
+const memoOrganizationCell = React.memo(RenderOrganizationCell);
