@@ -8,17 +8,21 @@ import { useGlobalController } from 'selective-context';
 import { useEffectSyncWithDispatch } from 'dto-stores';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
-export const GetAssignmentCellContent = 'getAssignmentCellContent';
+export const GetAssignmentCellContentKey = 'getAssignmentCellContent';
+export type AssignmentCellContent =
+  | WorkProjectSeriesAssignmentDto[]
+  | undefined;
+export type GetAssignmentCellContent = MemoizedFunction<
+  AssignmentCell,
+  AssignmentCellContent
+>;
 export default function CycleSubspanQueryManager({
   tableData
 }: {
   tableData: WorkProjectSeriesAssignmentTableDto;
 }) {
   const listenerKey = useUuidListenerKey();
-  const getCellContent: MemoizedFunction<
-    AssignmentCell,
-    WorkProjectSeriesAssignmentDto[] | undefined
-  > = useMemo(() => {
+  const getCellContent: GetAssignmentCellContent = useMemo(() => {
     const { organizationToCycleSubspanIdToAssignmentId, assignmentIdToDtoMap } =
       tableData;
 
@@ -39,7 +43,7 @@ export default function CycleSubspanQueryManager({
   }, [tableData]);
 
   const { currentState, dispatch } = useGlobalController({
-    contextKey: GetAssignmentCellContent,
+    contextKey: GetAssignmentCellContentKey,
     listenerKey: listenerKey,
     initialValue: getCellContent
   });

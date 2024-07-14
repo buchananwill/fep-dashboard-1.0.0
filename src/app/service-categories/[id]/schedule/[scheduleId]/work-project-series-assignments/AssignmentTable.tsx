@@ -16,9 +16,7 @@ export default function AssignmentTable({
 }: {
   tableData: WorkProjectSeriesAssignmentTableDto;
 }) {
-  const rowList = Object.keys(
-    tableData.organizationToCycleSubspanIdToAssignmentId
-  ).map((assId) => parseInt(assId));
+  const rowList = tableData.organizationList.map((org) => org.id);
 
   const listenerKey = useUuidListenerKey();
   useGlobalController<number[]>({

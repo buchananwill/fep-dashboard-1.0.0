@@ -1,7 +1,11 @@
 import JsonTree from '@/components/generic/JsonTree';
 import { Api } from '@/api/clientApi';
 import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';
-import { DataFetchingEditDtoControllerArray, EmptyArray } from 'dto-stores';
+import {
+  DataFetchingEditDtoControllerArray,
+  EditAddDeleteDtoControllerArray,
+  EmptyArray
+} from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PartialDeep } from 'type-fest';
 import { getWithoutBody } from '@/api/actions/template-actions';
@@ -23,15 +27,10 @@ export default async function page({
       ])
     );
 
-  const idList = Object.keys(
-    workProjectSeriesAssignmentTableDto.organizationToCycleSubspanIdToAssignmentId
-  ).map((orgId) => parseInt(orgId));
-
   return (
     <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8'}>
-      <DataFetchingEditDtoControllerArray
-        idList={idList}
-        getServerAction={Api.Organization.getDtoListByBodyList}
+      <EditAddDeleteDtoControllerArray
+        dtoList={workProjectSeriesAssignmentTableDto.organizationList}
         entityClass={EntityClassMap.organization}
       />
       <DataFetchingEditDtoControllerArray

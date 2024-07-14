@@ -1,11 +1,5 @@
 import { GridChildComponentProps } from 'react-window';
-import React, {
-  forwardRef,
-  memo,
-  ReactElement,
-  useCallback,
-  useRef
-} from 'react';
+import React, { forwardRef, memo, ReactElement } from 'react';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -13,14 +7,9 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
-import { useGlobalDispatch } from 'selective-context';
-import {
-  TooltipContext,
-  TooltipContextInterface
-} from '@/components/generic/TooltipSingleton';
-import { Placement } from '@floating-ui/react';
 import clsx from 'clsx';
 import { SuitabilityConditions } from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
+import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 
 const SyncedRowCell = ({
   style,
@@ -57,35 +46,6 @@ const SyncedRowCell = ({
   );
 };
 export const SyncedRowCellMemo = memo(SyncedRowCell);
-
-function useFloatingTooltip(
-  content: ReactElement | string | number,
-  placement: Placement = 'right'
-) {
-  const ref = useRef(null);
-  const { dispatchWithoutListen: dispatchTooltip } =
-    useGlobalDispatch<TooltipContextInterface>(TooltipContext);
-  const onMouseOver = useCallback(() => {
-    dispatchTooltip((state) => {
-      return {
-        ...state,
-        isOpen: true,
-        rootNodeRef: ref,
-        content,
-        placement
-      };
-    });
-  }, [dispatchTooltip, ref, content, placement]);
-  const onMouseOut = useCallback(() => {
-    dispatchTooltip((state) => {
-      return {
-        ...state,
-        isOpen: false
-      };
-    });
-  }, [dispatchTooltip]);
-  return { ref, onMouseOver, onMouseOut };
-}
 
 const SyncedColumnCell = ({
   style,
