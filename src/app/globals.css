@@ -34,6 +34,11 @@ canvas {
     grid-template-columns: auto 1fr auto;
 }
 
+.sixth-child :nth-child(6n+6) {
+    border-right-color: #393939; /* Or any other style you want */
+}
+
+
 
 @keyframes bounce-less {
     0%, 100% {

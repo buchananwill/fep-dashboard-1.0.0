@@ -65,14 +65,16 @@ export default function RenderAssignmentCell({
 
   const selected =
     currentState[0] === rowIndex && currentState[1] === columnIndex;
+  const lastInDay = (columnIndex + 1) % 6 === 0;
 
   return (
     <div
       style={style}
       className={clsx(
-        'flex h-full w-full border ',
+        ' flex h-full w-full border ',
         cellData ? 'bg-emerald-400' : 'bg-gray-200 opacity-50',
-        selected ? 'border-sky-400' : 'border-gray-300'
+        selected ? 'border-sky-400' : '',
+        lastInDay ? 'border-r-gray-700' : ''
       )}
     >
       <div
