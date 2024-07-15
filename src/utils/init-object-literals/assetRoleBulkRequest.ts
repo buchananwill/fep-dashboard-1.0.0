@@ -1,11 +1,11 @@
-import { RepeatPostRequest, TemplateRequestOverrides } from '@/api/types';
-import { ProviderRolePostRequest } from '@/api/dtos/ProviderRolePostRequestSchema_';
-import { ProviderRoleTypeDto } from '@/api/dtos/ProviderRoleTypeDtoSchema';
+import { RepeatPostRequest } from '@/api/types';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { getTemplateMergingFunction } from '@/utils/init-object-literals/getTemplateMergingFunction';
 import { createWholeSchoolPartials } from '@/utils/init-object-literals/createKnowledgeDomainLevelCrossProduct';
 import { createRequestRecordCombiner } from '@/utils/init-object-literals/createRequestRecordCombiner';
 import {
+  artALevel,
+  artLowerSchool,
   classicsDepartmentPartials,
   dramaWholeSchoolPartials,
   economicsAlevelPartials,
@@ -13,24 +13,27 @@ import {
   govAndPolALevelPartials,
   mathsFurtherWttExamples,
   mathsLowerSchoolWttExamples,
-  peWholeSchoolPartials,
+  musicALevel,
+  musicLowerSchool,
   philosophyALevelPartials,
   rsWholeSchoolPartials,
   singleAlevelMaths
 } from '@/utils/init-object-literals/wttPartials';
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
+import { AssetRoleTypeDto } from '@/api/dtos/AssetRoleTypeDtoSchema';
+import { AssetRolePostRequest } from '@/api/dtos/AssetRolePostRequestSchema_';
 
-const providerRoleTypeExample: Partial<ProviderRoleTypeDto> = {
-  name: 'Teacher'
+const assetRoleTypeExample: Partial<AssetRoleTypeDto> = {
+  name: 'Class Room'
 };
 
-const templateRequest: ProviderRolePostRequest = {
-  providerRoleTypeExample,
+const templateRequest: AssetRolePostRequest = {
+  roleTypeExample: assetRoleTypeExample,
   rating: 4,
   workTaskTypeExampleList: []
 };
 
-const templateRepeatRequest: RepeatPostRequest<ProviderRolePostRequest> = {
+const templateRepeatRequest: RepeatPostRequest<AssetRolePostRequest> = {
   postRequest: templateRequest,
   count: 0
 };
@@ -49,17 +52,15 @@ const globalSuitability = createWholeSchoolPartials([
 const createRequestRecord = createRequestRecordCombiner(globalSuitability);
 
 const standardDepartments: Record<string, number> = {
-  Art: 2,
-  Biology: 8,
-  Chemistry: 7,
+  Biology: 5,
+  Chemistry: 5,
   Computing: 3,
-  'Design and T': 4,
-  French: 3,
+  'Design and T': 3,
+  French: 2,
+  German: 2,
   Geography: 5,
-  German: 6,
   History: 5,
-  Music: 3,
-  Physics: 8
+  Physics: 5
 };
 
 // Request Creation Param Lists
@@ -72,12 +73,25 @@ const standardDepartmentParams: RequestCreationParams[][] = Object.entries(
   ] as [string, number, Partial<WorkTaskTypeDto>[]][];
 });
 
+const languagesShared: RequestCreationParams[] = [
+  ['Languages Shared', 1, createWholeSchoolPartials(['French', 'German'])]
+];
+
 const classics: RequestCreationParams[] = [
-  ['Classics Department', 3, classicsDepartmentPartials]
+  ['Classics Department', 2, classicsDepartmentPartials]
+];
+
+const music: RequestCreationParams[] = [
+  ['Music Department', 2, musicLowerSchool],
+  ['Music Department A Level', 3, musicALevel]
+];
+const art: RequestCreationParams[] = [
+  ['Art Department', 2, artLowerSchool],
+  ['Art Department A Level', 3, artALevel]
 ];
 
 const englishAndDrama: RequestCreationParams[] = [
-  ['English', 8, englishWholeSchoolPartials],
+  ['English', 5, englishWholeSchoolPartials],
   ['Drama', 5, dramaWholeSchoolPartials]
 ];
 
@@ -86,18 +100,42 @@ const economicsGp: RequestCreationParams[] = [
   ['GP', 2, govAndPolALevelPartials]
 ];
 
-const peAndGames: RequestCreationParams[] = [
-  ['PE Department', 3, peWholeSchoolPartials]
+const pe: RequestCreationParams[] = [
+  ['PE Department', 3, createWholeSchoolPartials(['PE', 'PE as an Option'])]
+];
+const games: RequestCreationParams[] = [
+  ['Games Department', 8, createWholeSchoolPartials(['Games'])]
 ];
 
 const rsAndPhilosophy: RequestCreationParams[] = [
-  ['RS', 5, rsWholeSchoolPartials],
-  ['Philosophy', 2, philosophyALevelPartials]
+  ['RS', 3, [...rsWholeSchoolPartials, ...philosophyALevelPartials]]
 ];
 
 const maths: RequestCreationParams[] = [
-  ['Maths', 15, [...mathsLowerSchoolWttExamples, ...singleAlevelMaths]],
-  ['Further Maths', 5, mathsFurtherWttExamples]
+  [
+    'Maths',
+    7,
+    [
+      ...mathsLowerSchoolWttExamples,
+      ...singleAlevelMaths,
+      ...mathsFurtherWttExamples
+    ]
+  ]
+];
+
+const overspillRooms: RequestCreationParams[] = [
+  [
+    'Overspill',
+    6,
+    [
+      ...mathsLowerSchoolWttExamples,
+      ...singleAlevelMaths,
+      ...classicsDepartmentPartials,
+      ...rsWholeSchoolPartials,
+      ...englishWholeSchoolPartials,
+      ...createWholeSchoolPartials(['History', 'Geography', 'German', 'French'])
+    ]
+  ]
 ];
 
 // Converting params to requests
@@ -105,10 +143,15 @@ const maths: RequestCreationParams[] = [
 const requestParamsListList: RequestCreationParams[][] = [
   englishAndDrama,
   economicsGp,
-  peAndGames,
+  pe,
   rsAndPhilosophy,
   classics,
   maths,
+  music,
+  art,
+  languagesShared,
+  games,
+  overspillRooms,
   ...standardDepartmentParams
 ];
 

@@ -1,6 +1,7 @@
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { TemplateRequestOverrides } from '@/api/types';
-import { RequestCreationParams } from '@/utils/init-object-literals/providerRoleBulkRequest';
+
+import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
 
 export function createRequestRecordCombiner(
   globalSuitabilities: Partial<WorkTaskTypeDto>[]

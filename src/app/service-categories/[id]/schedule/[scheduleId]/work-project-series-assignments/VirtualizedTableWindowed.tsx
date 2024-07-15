@@ -2,6 +2,7 @@ import React, {
   ReactElement,
   ReactNode,
   useCallback,
+  useEffect,
   useRef,
   useState
 } from 'react';
@@ -34,9 +35,17 @@ export default function VirtualizedTableWindowed<T>({
   itemData
 }: VirtualizedTableProps<T>) {
   const [scrollBarWidth, setScrollBarWidth] = useState(DefaultScrollBarSize);
+  const [scrollBarStatus, setScrollBarStatus] = useState({
+    vertical: false,
+    horizontal: false
+  });
+  const firstRenderRef = useRef(true);
+
+  console.log(scrollBarStatus);
 
   const syncedRow = useRef<FixedSizeGrid | null>(null);
   const syncedColumn = useRef<FixedSizeGrid | null>(null);
+  const mainContainer = useRef<HTMLDivElement | null>(null);
 
   const onScroll = useCallback(
     ({
@@ -57,6 +66,24 @@ export default function VirtualizedTableWindowed<T>({
   const onResize = useCallback(() => {
     setScrollBarWidth(getScrollbarWidth());
   }, []);
+
+  useEffect(() => {
+    if (firstRenderRef.current && mainContainer.current) {
+      onResize();
+      firstRenderRef.current = false;
+    }
+  }, [onResize]);
+
+  useEffect(() => {
+    if (mainContainer.current) {
+      const { scrollHeight, clientHeight, scrollWidth, clientWidth } =
+        mainContainer.current;
+      setScrollBarStatus({
+        vertical: scrollHeight > clientHeight,
+        horizontal: scrollWidth > clientWidth
+      });
+    }
+  }, [scrollBarWidth]);
 
   const rowCount = rowIdList.length ?? 0;
   const columnCount = columnIdList.length ?? 0;
@@ -88,7 +115,11 @@ export default function VirtualizedTableWindowed<T>({
                   height={defaultCellSize}
                   rowCount={1}
                   itemData={itemData}
-                  width={width - (defaultSyncColumnWidth + scrollBarWidth)}
+                  width={
+                    width -
+                    (defaultSyncColumnWidth +
+                      (scrollBarStatus.horizontal ? scrollBarWidth : 0))
+                  }
                 >
                   {renderSyncedRowCell}
                 </FixedSizeGrid>
@@ -104,7 +135,11 @@ export default function VirtualizedTableWindowed<T>({
                   columnWidth={defaultSyncColumnWidth}
                   rowHeight={defaultCellSize}
                   columnCount={1}
-                  height={height - (defaultCellSize + scrollBarWidth)}
+                  height={
+                    height -
+                    (defaultCellSize +
+                      (scrollBarStatus.horizontal ? scrollBarWidth : 0))
+                  }
                   rowCount={rowCount}
                   itemData={itemData}
                   width={defaultSyncColumnWidth}
@@ -119,8 +154,9 @@ export default function VirtualizedTableWindowed<T>({
                 <div className={'h-fit w-fit'}>
                   <FixedSizeGrid
                     onScroll={onScroll}
-                    overscanRowCount={4}
-                    overscanColumnCount={4}
+                    outerRef={mainContainer}
+                    overscanRowCount={6}
+                    overscanColumnCount={3}
                     columnWidth={defaultCellSize}
                     rowHeight={defaultCellSize}
                     columnCount={columnCount}

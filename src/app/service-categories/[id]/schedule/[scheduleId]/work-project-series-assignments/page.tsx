@@ -27,6 +27,15 @@ export default async function page({
       ])
     );
 
+  const strings: string[] = [
+    ...Object.values(workProjectSeriesAssignmentTableDto.assignmentIdToDtoMap)
+      .map(
+        (assignment) => assignment.workProjectSeries.workProjectSeriesSchemaId
+      )
+      .reduce((prev, curr) => prev.add(curr), new Set<string>())
+      .values()
+  ];
+
   return (
     <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8'}>
       <EditAddDeleteDtoControllerArray
@@ -34,7 +43,7 @@ export default async function page({
         entityClass={EntityClassMap.organization}
       />
       <DataFetchingEditDtoControllerArray
-        idList={EmptyArray}
+        idList={strings}
         getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
         entityClass={EntityClassMap.workProjectSeriesSchema}
       />

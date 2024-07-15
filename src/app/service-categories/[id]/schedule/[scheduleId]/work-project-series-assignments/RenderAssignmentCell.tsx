@@ -72,14 +72,14 @@ export default function RenderAssignmentCell({
       style={style}
       className={clsx(
         ' flex h-full w-full border ',
-        cellData ? 'bg-emerald-400' : 'bg-gray-200 opacity-50',
+        cellData ? '' : 'bg-gray-200 opacity-50',
         selected ? 'border-sky-400' : '',
         lastInDay ? 'border-r-gray-700' : ''
       )}
     >
       <div
         onClick={handleClick}
-        className={'mb-auto ml-auto mr-auto mt-auto h-fit w-fit'}
+        className={'mb-auto ml-auto mr-auto mt-auto h-full w-full'}
         {...tooltip}
       >
         {cellData ? (
@@ -91,7 +91,9 @@ export default function RenderAssignmentCell({
               whileLoading={Loading}
             />
           ) : (
-            'C:' + cellData.length
+            <div className={'flex h-full items-center justify-center'}>
+              C:{cellData.length}
+            </div>
           )
         ) : (
           ''
