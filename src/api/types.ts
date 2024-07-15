@@ -93,6 +93,4 @@ export interface BulkRepeatPostRequest<T> {
   repeatPostRequestMap: Record<string, RepeatPostRequest<T>>;
 }
 
-export type TemplateRequestOverrides = PartialDeep<
-  RepeatPostRequest<ProviderRolePostRequest>
->;
+export type TemplateRequestOverrides<T> = PartialDeep<RepeatPostRequest<T>>;

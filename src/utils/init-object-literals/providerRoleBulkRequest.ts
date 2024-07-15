@@ -1,12 +1,15 @@
-import {
-  BulkRepeatPostRequest,
-  RepeatPostRequest,
-  TemplateRequestOverrides
-} from '@/api/types';
+import { RepeatPostRequest, TemplateRequestOverrides } from '@/api/types';
 import { ProviderRolePostRequest } from '@/api/dtos/ProviderRolePostRequestSchema_';
 import { ProviderRoleTypeDto } from '@/api/dtos/ProviderRoleTypeDtoSchema';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import { merge } from 'lodash';
+import { getTemplateMergingFunction } from '@/utils/init-object-literals/getTemplateMergingFunction';
+import {
+  createALevelPartials,
+  createWholeSchoolPartials
+} from '@/utils/init-object-literals/createKnowledgeDomainLevelCrossProduct';
+import { createRequestRecordCombiner } from '@/utils/init-object-literals/createRequestRecordCombiner';
+
+type ProviderRoleOverrides = TemplateRequestOverrides<ProviderRolePostRequest>;
 
 const providerRoleTypeExample: Partial<ProviderRoleTypeDto> = {
   name: 'Teacher'
@@ -23,47 +26,10 @@ const templateRepeatRequest: RepeatPostRequest<ProviderRolePostRequest> = {
   count: 0
 };
 
-function mapToRepeatPostRequest(
-  overrides: TemplateRequestOverrides,
-  template: RepeatPostRequest<ProviderRolePostRequest>
-): RepeatPostRequest<ProviderRolePostRequest> {
-  const clonedTemplate = structuredClone(template);
-  return merge(clonedTemplate, overrides);
-}
+const providerMergingFunction = getTemplateMergingFunction(
+  templateRepeatRequest
+);
 
-function mapToBulkRepeatRequest(
-  requestMap: Record<string, TemplateRequestOverrides>
-): BulkRepeatPostRequest<ProviderRolePostRequest> {
-  const repeatPostRequestMap = Object.fromEntries(
-    Object.entries(requestMap).map(([key, value]) => [
-      key,
-      mapToRepeatPostRequest(value, templateRepeatRequest)
-    ])
-  );
-  return { repeatPostRequestMap };
-}
-
-function createKnowledgeDomainLevelCrossProduct(
-  domainNames: string[],
-  levels: number[]
-): Partial<WorkTaskTypeDto>[] {
-  return domainNames.flatMap((knowledgeDomainName) =>
-    levels.map((knowledgeLevelLevelOrdinal) => ({
-      knowledgeDomainName,
-      knowledgeLevelLevelOrdinal
-    }))
-  );
-}
-
-function createALevelPartials(domainNames: string[]) {
-  return createKnowledgeDomainLevelCrossProduct(domainNames, [12, 13]);
-}
-function createWholeSchoolPartials(domainNames: string[]) {
-  return createKnowledgeDomainLevelCrossProduct(
-    domainNames,
-    [7, 8, 9, 10, 11, 12, 13]
-  );
-}
 const globalSuitability = createWholeSchoolPartials([
   'Form Period',
   'Registration',
@@ -71,25 +37,13 @@ const globalSuitability = createWholeSchoolPartials([
   'Learning Development'
 ]);
 
-type RequestCreationParams = [string, number, Partial<WorkTaskTypeDto>[]];
+export type RequestCreationParams = [
+  string,
+  number,
+  Partial<WorkTaskTypeDto>[]
+];
 
-function createRequestRecord([
-  name,
-  count,
-  workTaskTypeExampleList
-]: RequestCreationParams) {
-  const response: Record<string, TemplateRequestOverrides> = {};
-  response[name] = {
-    count,
-    postRequest: {
-      workTaskTypeExampleList: [
-        ...workTaskTypeExampleList,
-        ...globalSuitability
-      ]
-    }
-  };
-  return response;
-}
+const createRequestRecord = createRequestRecordCombiner(globalSuitability);
 
 const classCiv = createALevelPartials(['Classical Civ']);
 const latin = createWholeSchoolPartials(['Latin']);
@@ -192,6 +146,6 @@ export const bulkPipeline = requestParamsListList
       {}
     )
   )
-  .map((record) => mapToBulkRepeatRequest(record));
+  .map((record) => providerMergingFunction(record));
 
 export const pipelineAsJson = JSON.stringify(bulkPipeline);
