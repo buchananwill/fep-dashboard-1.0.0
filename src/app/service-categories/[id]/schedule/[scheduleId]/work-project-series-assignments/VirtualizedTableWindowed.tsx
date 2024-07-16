@@ -12,14 +12,15 @@ import {
   GridOnScrollProps
 } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
+import { Identifier } from 'dto-stores';
 
 const DefaultScrollBarSize = 20;
 const defaultSyncColumnWidth = 100;
 const defaultCellSize = 40;
 
 export interface VirtualizedTableProps<T> {
-  rowIdList: number[];
-  columnIdList: number[];
+  rowIdList: Identifier[];
+  columnIdList: Identifier[];
   itemData: T;
   renderCell: (props: GridChildComponentProps<T>) => ReactNode;
   renderSyncedRowCell: (props: GridChildComponentProps<T>) => ReactNode;
@@ -118,7 +119,7 @@ export default function VirtualizedTableWindowed<T>({
                   width={
                     width -
                     (defaultSyncColumnWidth +
-                      (scrollBarStatus.horizontal ? scrollBarWidth : 0))
+                      (scrollBarStatus.vertical ? scrollBarWidth : 0))
                   }
                 >
                   {renderSyncedRowCell}

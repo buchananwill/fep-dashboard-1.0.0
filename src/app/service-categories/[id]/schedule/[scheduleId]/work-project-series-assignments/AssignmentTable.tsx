@@ -1,14 +1,18 @@
 'use client';
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
 import VirtualizedTableWindowed from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/VirtualizedTableWindowed';
-import RenderAssignmentCell from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/RenderAssignmentCell';
 import React, { useMemo } from 'react';
-import { AssignmentCell } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CycleSubspanQueryManager';
+import CellQueryManager, {
+  CellIdReference
+} from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
 import { FallbackCellMemo } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/FallbackCell';
 import RenderOrganizationCell from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/RenderOrganizationCell';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
+import VirtualizedOuterCell from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/VirtualizedCell';
+import AssignmentCell from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/AssignmentCell';
+import { workProjectSeriesDataRetrieval } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/workProjectSeriesDataRetrieval';
 
 export const selectedAssignmentCell = 'selectedAssignmentCell';
 export default function AssignmentTable({
@@ -28,13 +32,13 @@ export default function AssignmentTable({
   const columnList = tableData.cycleSubspanDtoList.map((cs) => cs.id);
 
   const tableLookUp = useMemo(() => {
-    const tableLookUp: AssignmentCell[][] = [];
+    const tableLookUp: CellIdReference[][] = [];
     for (let i = 0; i < rowList.length; i++) {
       tableLookUp.push([]);
       for (let j = 0; j < columnList.length; j++) {
         tableLookUp[i].push({
-          organizationId: rowList[i],
-          cycleSubspanId: columnList[j]
+          rowId: rowList[i],
+          columnId: columnList[j]
         });
       }
     }
@@ -42,16 +46,22 @@ export default function AssignmentTable({
   }, [rowList, columnList]);
 
   return (
-    <VirtualizedTableWindowed
-      rowIdList={rowList}
-      columnIdList={columnList}
-      itemData={tableLookUp}
-      renderCell={memoCell}
-      renderSyncedRowCell={FallbackCellMemo}
-      renderSyncedColumnCell={memoOrganizationCell}
-    />
+    <>
+      <CellQueryManager
+        tableData={tableData}
+        getDataRetrievalMemoizedFunction={workProjectSeriesDataRetrieval}
+      />
+      <VirtualizedTableWindowed
+        rowIdList={rowList}
+        columnIdList={columnList}
+        itemData={tableLookUp}
+        renderCell={memoCell}
+        renderSyncedRowCell={FallbackCellMemo}
+        renderSyncedColumnCell={memoOrganizationCell}
+      />
+    </>
   );
 }
 
-const memoCell = React.memo(RenderAssignmentCell);
+const memoCell = React.memo(AssignmentCell);
 const memoOrganizationCell = React.memo(RenderOrganizationCell);

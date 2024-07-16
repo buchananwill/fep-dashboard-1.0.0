@@ -11,7 +11,7 @@ import { PartialDeep } from 'type-fest';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
-import CycleSubspanQueryManager from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CycleSubspanQueryManager';
+import CellQueryManager from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
 import AssignmentTable from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/AssignmentTable';
 
 export default async function page({
@@ -47,9 +47,7 @@ export default async function page({
         getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
         entityClass={EntityClassMap.workProjectSeriesSchema}
       />
-      <CycleSubspanQueryManager
-        tableData={workProjectSeriesAssignmentTableDto}
-      />
+
       <AssignmentTable tableData={workProjectSeriesAssignmentTableDto} />
     </div>
   );

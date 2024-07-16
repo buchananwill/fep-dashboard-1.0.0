@@ -1,21 +1,10 @@
 'use client';
 import { GridChildComponentProps } from 'react-window';
 import {
-  useGlobalDispatch,
-  useGlobalDispatchAndListener,
-  useGlobalListener
-} from 'selective-context';
-import {
-  AssignmentCell,
   AssignmentCellContent,
-  GetAssignmentCellContent,
-  GetAssignmentCellContentKey
-} from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CycleSubspanQueryManager';
-import React, { memo, useCallback, useMemo } from 'react';
-import clsx from 'clsx';
-import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { MemoizedFunction } from 'react-d3-force-wrapper';
-import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';
+  CellIdReference
+} from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
+import React, { memo, useCallback } from 'react';
 import {
   NamedEntityLabel,
   WorkProjectSeriesSchemaCode
@@ -23,30 +12,25 @@ import {
 import { LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Loading } from '@/app/feasibility-report/_components/AssignmentFeasibilityTreeItem';
+import { useGlobalDispatchAndListener } from 'selective-context';
 import { selectedAssignmentCell } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/AssignmentTable';
 import { EmptyArray } from '@/api/literals';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
+import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';
+import clsx from 'clsx';
+import VirtualizedOuterCell, {
+  CellWrapperProps
+} from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/VirtualizedCell';
 
-export default function RenderAssignmentCell({
+export default function AssignmentCell(props: CellWrapperProps) {
+  return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;
+}
+
+function InnerAssignmentCell({
   rowIndex,
   columnIndex,
-  data,
-  style
-}: GridChildComponentProps<AssignmentCell[][]>) {
-  const listenerKey = useUuidListenerKey();
-  const {
-    currentState: { memoizedFunction }
-  } = useGlobalListener<GetAssignmentCellContent>({
-    contextKey: GetAssignmentCellContentKey,
-    initialValue: initialMemoizedFunction,
-    listenerKey
-  });
-
-  const cellData: WorkProjectSeriesAssignmentDto[] | undefined = useMemo(() => {
-    const assignmentCell = data[rowIndex][columnIndex];
-    return memoizedFunction(assignmentCell);
-  }, [memoizedFunction, columnIndex, rowIndex, data]);
-
+  cellData
+}: InnerCellContent<WorkProjectSeriesAssignmentDto[]>) {
   const { dispatchWithoutControl, currentState } = useGlobalDispatchAndListener<
     number[]
   >({
@@ -69,44 +53,34 @@ export default function RenderAssignmentCell({
 
   return (
     <div
-      style={style}
+      onClick={handleClick}
       className={clsx(
-        ' flex h-full w-full border ',
         cellData ? '' : 'bg-gray-200 opacity-50',
         selected ? 'border-sky-400' : '',
-        lastInDay ? 'border-r-gray-700' : ''
+        lastInDay ? 'border-r-gray-700' : '',
+        'mb-auto ml-auto mr-auto mt-auto h-full w-full'
       )}
+      {...tooltip}
     >
-      <div
-        onClick={handleClick}
-        className={'mb-auto ml-auto mr-auto mt-auto h-full w-full'}
-        {...tooltip}
-      >
-        {cellData ? (
-          cellData.length == 1 ? (
-            <LazyDtoUiWrapper
-              renderAs={WorkProjectSeriesSchemaCode}
-              entityId={cellData[0].workProjectSeries.workProjectSeriesSchemaId}
-              entityClass={EntityClassMap.workProjectSeriesSchema}
-              whileLoading={Loading}
-            />
-          ) : (
-            <div className={'flex h-full items-center justify-center'}>
-              C:{cellData.length}
-            </div>
-          )
+      {cellData ? (
+        cellData.length == 1 ? (
+          <LazyDtoUiWrapper
+            renderAs={WorkProjectSeriesSchemaCode}
+            entityId={cellData[0].workProjectSeries.workProjectSeriesSchemaId}
+            entityClass={EntityClassMap.workProjectSeriesSchema}
+            whileLoading={Loading}
+          />
         ) : (
-          ''
-        )}
-      </div>
+          <div className={'flex h-full items-center justify-center'}>
+            C:{cellData.length}
+          </div>
+        )
+      ) : (
+        ''
+      )}
     </div>
   );
 }
-
-const initialMemoizedFunction = {
-  memoizedFunction: ({ cycleSubspanId, organizationId }: AssignmentCell) =>
-    undefined
-};
 
 function AssignmentTooltip({ content }: { content: AssignmentCellContent }) {
   if (content === undefined) return 'No assignment';
@@ -133,3 +107,7 @@ function AssignmentTooltip({ content }: { content: AssignmentCellContent }) {
 }
 
 const AssignmentTooltipMemo = memo(AssignmentTooltip);
+
+export type InnerCellContent<T = any> = {
+  cellData?: T;
+} & Omit<GridChildComponentProps, 'style'>;

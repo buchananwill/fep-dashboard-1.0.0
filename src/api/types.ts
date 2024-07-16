@@ -94,3 +94,14 @@ export interface BulkRepeatPostRequest<T> {
 }
 
 export type TemplateRequestOverrides<T> = PartialDeep<RepeatPostRequest<T>>;
+
+export interface GenericTableDto<
+  Row extends {},
+  Column extends {},
+  CellContent
+> {
+  columnList: Column[];
+  rowList: Row[];
+  rowColumnCellReferenceMap: { [key: string]: { [key: string]: string } }; // Assuming CellReference is just a string identifier
+  cellIdCellContentMap: { [key: string]: CellContent };
+}
