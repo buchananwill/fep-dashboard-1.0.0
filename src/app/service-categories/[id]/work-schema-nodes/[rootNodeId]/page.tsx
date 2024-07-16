@@ -4,7 +4,7 @@ import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraph
 import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { WorkSchemaNodeLayoutFlowWithForces } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
-import { bandwidthOptions } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/bandwidthForceGraphOptions';
+import { bandwidthOptions } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/bandwidth-graph/bandwidthForceGraphOptions';
 import {
   DataFetchingEditDtoControllerArray,
   EditAddDeleteDtoControllerArray,

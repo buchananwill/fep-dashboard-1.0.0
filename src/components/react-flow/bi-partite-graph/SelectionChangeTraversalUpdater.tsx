@@ -2,7 +2,7 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useMemo, useRef } from 'react';
 import { useGlobalController } from 'selective-context';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
-import { BandwidthValidationTraversal } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/types';
+import { BandwidthValidationTraversal } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/bandwidth-graph/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { OnSelectionChangeParams, useOnSelectionChange } from 'reactflow';
 import { ObjectPlaceholder } from '@/api/literals';

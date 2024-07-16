@@ -19,7 +19,7 @@ import React, {
   useState
 } from 'react';
 import { FixedSizeGrid, GridOnScrollProps } from 'react-window';
-import { CellComponentMemo } from '@/app/service-categories/[id]/roles/providers/_components/CellComponent';
+import { CellComponentMemo } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/_components/CellComponent';
 import {
   SyncedColumnCellMemo,
   SyncedRowCellMemo

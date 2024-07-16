@@ -20,7 +20,7 @@ import { interpolateHsl, rgb } from 'd3';
 import { useGlobalController, useGlobalListener } from 'selective-context';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { ObjectPlaceholder } from '@/api/literals';
-import { BandwidthValidationLayer } from '@/app/service-categories/[id]/roles/providers/[roleTypeId]/bandwidth-graph/types';
+import { BandwidthValidationLayer } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/bandwidth-graph/types';
 import clsx from 'clsx';
 
 type BaseClassification = HasNumberId & {

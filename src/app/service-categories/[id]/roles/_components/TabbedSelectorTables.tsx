@@ -6,8 +6,8 @@ import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode'
 import WorkTaskTypeSelectorTable from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeSelectorTable';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { AssetRoleDto } from '@/api/dtos/AssetRoleDtoSchema';
-import ProviderRoleSelectorTable from '@/app/service-categories/[id]/roles/providers/_components/ProviderRoleSelectorTable';
-import AssetRoleSelectorTable from '@/app/service-categories/[id]/roles/assets/_components/AssetRoleSelectorTable';
+import ProviderRoleSelectorTable from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/_components/ProviderRoleSelectorTable';
+import AssetRoleSelectorTable from '@/app/service-categories/[id]/roles/[roleTypeId]/assets/_components/AssetRoleSelectorTable';
 
 export default function TabbedSelectorTables({
   workTaskTypes,
