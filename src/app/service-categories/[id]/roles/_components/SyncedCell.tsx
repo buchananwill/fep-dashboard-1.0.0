@@ -8,13 +8,17 @@ import { EmptyArray } from '@/api/literals';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import clsx from 'clsx';
-import { SuitabilityConditions } from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
+import {
+  SuitabilityCellData,
+  SuitabilityConditions,
+  SuitabilityEntity
+} from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 
 const SyncedRowCell = ({
   style,
   columnIndex
-}: GridChildComponentProps<SuitabilityConditions>) => {
+}: GridChildComponentProps<SuitabilityCellData>) => {
   const uuidListenerKey = useUuidListenerKey();
   const readAnyWorkTaskType = useReadAnyDto<WorkTaskTypeDto>(
     EntityClassMap.workTaskType
@@ -50,8 +54,10 @@ export const SyncedRowCellMemo = memo(SyncedRowCell);
 const SyncedColumnCell = ({
   style,
   rowIndex,
-  data: { suitabilityType, displayNameAccessor }
-}: GridChildComponentProps<SuitabilityConditions>) => {
+  data: {
+    suitabilityCondition: { suitabilityType, displayNameAccessor }
+  }
+}: GridChildComponentProps<SuitabilityCellData>) => {
   const uuidListenerKey = useUuidListenerKey();
   const readAnyRole = useReadAnyDto<ProviderRoleDto>(suitabilityType);
   const { currentState } = NamespacedHooks.useListen(
@@ -64,7 +70,6 @@ const SyncedColumnCell = ({
   const roleId = currentState[rowIndex];
   const role = readAnyRole(roleId);
 
-  console.log(role, rowIndex, currentState);
   const name = role
     ? (role[displayNameAccessor as keyof typeof role] as string)
     : 'No Data Found';

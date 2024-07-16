@@ -11,7 +11,7 @@ import { areEqual } from 'react-window';
 import {
   SuitabilityConditions,
   SuitabilityEntity
-} from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
+} from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 
 const conditionalNumberFormatting: ConditionalNumberClassName[] = [
   { startAt: -1, className: 'opacity-50' },
@@ -37,14 +37,14 @@ export const CellComponent = ({
     suitabilityCondition: SuitabilityConditions;
   };
 }) => {
-  console.log('re-rendering cell');
   const {
     suitabilityCondition: { suitabilityType, suitabilityEntityType },
     dataResponse
   } = data;
-  const datumElement = dataResponse[rowIndex][columnIndex];
-
-  const id = datumElement?.id;
+  const datumRowOrUndefined = dataResponse[rowIndex];
+  const datumElement = datumRowOrUndefined
+    ? datumRowOrUndefined[columnIndex]
+    : undefined;
 
   return (
     <div
@@ -54,26 +54,31 @@ export const CellComponent = ({
         'flex '
       )}
     >
-      <LazyDtoUiWrapper<
-        SuitabilityEntity,
-        BaseDtoStoreNumberInputProps<SuitabilityEntity>
-      >
-        entityClass={suitabilityEntityType}
-        renderAs={DtoStoreNumberInput}
-        whileLoading={() => (
-          <div className={'relative'}>
-            <PendingOverlay pending={true} />
-          </div>
-        )}
-        numberKey={'rating'}
-        min={0}
-        allowFloat={true}
-        onFocus={() => console.log(datumElement, data)}
-        className={clsx('h-[90%] w-[90%] p-2 text-sm', 'm-auto')}
-        conditionalValueClassNames={conditionalNumberFormatting}
-        entityId={id}
-      />
+      {datumElement ? (
+        <LazyDtoUiWrapper<
+          SuitabilityEntity,
+          BaseDtoStoreNumberInputProps<SuitabilityEntity>
+        >
+          entityClass={suitabilityEntityType}
+          renderAs={DtoStoreNumberInput}
+          whileLoading={() => (
+            <div className={'relative'}>
+              <PendingOverlay pending={true} />
+            </div>
+          )}
+          numberKey={'rating'}
+          min={0}
+          allowFloat={true}
+          onFocus={() => console.log(datumElement, data)}
+          className={clsx('h-[90%] w-[90%] p-2 text-sm', 'm-auto')}
+          conditionalValueClassNames={conditionalNumberFormatting}
+          entityId={datumElement.id}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 };
+
 export const CellComponentMemo = React.memo(CellComponent, areEqual);

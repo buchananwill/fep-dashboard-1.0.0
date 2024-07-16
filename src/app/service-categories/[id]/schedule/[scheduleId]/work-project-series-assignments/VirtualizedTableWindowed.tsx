@@ -42,8 +42,6 @@ export default function VirtualizedTableWindowed<T>({
   });
   const firstRenderRef = useRef(true);
 
-  console.log(scrollBarStatus);
-
   const syncedRow = useRef<FixedSizeGrid | null>(null);
   const syncedColumn = useRef<FixedSizeGrid | null>(null);
   const mainContainer = useRef<HTMLDivElement | null>(null);
@@ -74,20 +72,28 @@ export default function VirtualizedTableWindowed<T>({
       firstRenderRef.current = false;
     }
   }, [onResize]);
+  const rowCount = rowIdList.length ?? 0;
+  const columnCount = columnIdList.length ?? 0;
 
   useEffect(() => {
     if (mainContainer.current) {
       const { scrollHeight, clientHeight, scrollWidth, clientWidth } =
         mainContainer.current;
-      setScrollBarStatus({
-        vertical: scrollHeight > clientHeight,
-        horizontal: scrollWidth > clientWidth
+      const hasVerticalScrollBar = scrollHeight > clientHeight;
+      const hasHorizontalScrollBar = scrollWidth > clientWidth;
+      setScrollBarStatus((status) => {
+        if (
+          status.vertical !== hasVerticalScrollBar ||
+          status.horizontal !== hasHorizontalScrollBar
+        ) {
+          return {
+            vertical: hasVerticalScrollBar,
+            horizontal: hasHorizontalScrollBar
+          };
+        } else return status;
       });
     }
-  }, [scrollBarWidth]);
-
-  const rowCount = rowIdList.length ?? 0;
-  const columnCount = columnIdList.length ?? 0;
+  }, [rowCount, columnCount]);
 
   return (
     <AutoSizer onResize={onResize}>

@@ -1,7 +1,7 @@
 import { Api } from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import SuitabilityTableWindowed from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
+import SuitabilityTable from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import TabbedSelectorTables from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
 import { Button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
@@ -47,7 +47,7 @@ export default async function page({
         </Popover>
       </div>
       <div className={'mb-auto mt-auto h-[90vh] w-[100vw] p-8'}>
-        <SuitabilityTableWindowed
+        <SuitabilityTable
           roleTypeId={providerRoleTypeId}
           suitabilityType={'ProviderRole'}
         />

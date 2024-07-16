@@ -1,6 +1,6 @@
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import SuitabilityTableWindowed from '@/app/service-categories/[id]/roles/_components/SuitabilityTableWindowed';
+import SuitabilityTable from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import TabbedSelectorTables from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
 import { Api } from '@/api/clientApi';
 
@@ -32,7 +32,7 @@ export default async function page({
         dtoList={roles}
       />
       <div className={'mb-auto mt-auto h-[75vh] w-[50vw]'}>
-        <SuitabilityTableWindowed
+        <SuitabilityTable
           roleTypeId={assetRoleTypeId}
           suitabilityType={'AssetRole'}
         />
