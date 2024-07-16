@@ -27,7 +27,7 @@ export type OuterCellProps = GridChildComponentProps<CellIdReference[][]> & {
 
 export type CellWrapperProps = GridChildComponentProps<CellIdReference[][]>;
 
-export default function VirtualizedOuterCell({
+export default function VirtualizedOuterCell<T>({
   rowIndex,
   columnIndex,
   data,
@@ -41,13 +41,13 @@ export default function VirtualizedOuterCell({
   const listenerKey = useUuidListenerKey();
   const {
     currentState: { memoizedFunction }
-  } = useGlobalListener<GetCellContent>({
+  } = useGlobalListener<GetCellContent<T>>({
     contextKey: GetCellContentKey,
     initialValue: initialMemoizedFunction,
     listenerKey
   });
 
-  const cellData: WorkProjectSeriesAssignmentDto[] | undefined = useMemo(() => {
+  const cellData: T | undefined = useMemo(() => {
     const assignmentCell = data[rowIndex][columnIndex];
     return memoizedFunction(assignmentCell);
   }, [memoizedFunction, columnIndex, rowIndex, data]);

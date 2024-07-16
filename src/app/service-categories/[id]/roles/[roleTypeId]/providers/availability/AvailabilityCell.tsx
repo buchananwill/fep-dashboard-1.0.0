@@ -1,35 +1,76 @@
 'use client';
 import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';
 import clsx from 'clsx';
-import { InnerCellContent } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/AssignmentCell';
+import { useGlobalListener } from 'selective-context';
 import { GridChildComponentProps } from 'react-window';
-import VirtualizedOuterCell, {
-  CellWrapperProps
-} from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/VirtualizedCell';
+import { CellIdReference } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
+import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
+import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { ObjectPlaceholder } from '@/api/literals';
 
 function getAvailabilityColor(availabilityCode: number) {
   switch (availabilityCode) {
     case 0:
-      return 'bg-rose-400';
+      return 'bg-rose-200';
     case 1:
-      return 'bg-emerald-400';
+      return 'bg-emerald-200';
     case 2:
-      return 'bg-amber-400';
+      return 'bg-amber-200';
     case 4:
-      return 'bg-gray-400';
+      return 'bg-gray-200';
   }
 }
 
-function InnerAvailabilityCell({
-  cellData
-}: InnerCellContent<ProviderRoleAvailabilityDto>) {
-  if (!cellData) return null;
+const numberOfAvailabilityCodeTypes = 4;
 
-  const bgColor = getAvailabilityColor(cellData.availabilityCode);
+export function AvailabilityCell({
+  data,
+  rowIndex,
+  columnIndex,
+  style
+}: GridChildComponentProps<CellIdReference[][]>) {
+  const referenceElement = data[rowIndex][columnIndex];
 
-  return <div className={clsx(bgColor, 'h-full w-full')}></div>;
+  const { currentState } = useGlobalListener<
+    Record<string, Record<string, string>>
+  >({
+    contextKey: 'cellIdMap',
+    initialValue: ObjectPlaceholder,
+    listenerKey: `${rowIndex}:${columnIndex}`
+  });
+
+  const entityId =
+    currentState[referenceElement.rowId][referenceElement.columnId];
+
+  return (
+    <div style={style} className={'flex h-full w-full'}>
+      {entityId ? (
+        <DtoUiWrapper
+          entityClass={EntityClassMap.providerRoleAvailability}
+          entityId={parseInt(entityId)}
+          renderAs={InnerCell}
+        />
+      ) : (
+        ''
+      )}
+    </div>
+  );
 }
 
-export default function AvailabilityCell(props: CellWrapperProps) {
-  return <VirtualizedOuterCell innerCell={InnerAvailabilityCell} {...props} />;
+function InnerCell(props: BaseDtoUiProps<ProviderRoleAvailabilityDto>) {
+  const availabilityColor = getAvailabilityColor(props.entity.availabilityCode);
+
+  return (
+    <DtoStoreNumberInput<ProviderRoleAvailabilityDto>
+      className={clsx(
+        'mb-auto ml-auto mr-auto mt-auto max-h-[92%] max-w-[92%] text-center',
+        availabilityColor
+      )}
+      numberKey={'availabilityCode'}
+      min={0}
+      max={3}
+      {...props}
+    />
+  );
 }

@@ -122,6 +122,18 @@ canvas {
         position: absolute;
         @apply w-6 h-6 bg-red-400 z-50 rounded-full
     }
+    .center-vertical-with-margin {
+        @apply mt-auto mb-auto
+    }
+
+    .center-horizontal-with-margin {
+        @apply ml-auto mr-auto
+    }
+
+    .center-all-margin {
+        @apply mt-auto mb-auto ml-auto mr-auto
+    }
+
 }
 
 @keyframes moveAlongPath {
@@ -157,11 +169,3 @@ canvas {
     stroke: hsla(160, 84%, 39%, 0.5);
 }
 
-.fill-grid {
-    block-size: 100%;
-}
-
-#root {
-    display: grid;
-    grid-template-columns: auto 1fr;
-}

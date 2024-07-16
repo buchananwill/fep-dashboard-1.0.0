@@ -6,6 +6,8 @@ import { GenericTableDto } from '@/api/types';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { EntityClassMap } from '@/api/entity-class-map';
 
 export default async function page() {
   const providerRoles = await Api.ProviderRole.getDtoListByExampleList([
@@ -13,9 +15,6 @@ export default async function page() {
   ]);
 
   const providerIdList = providerRoles.map((role) => role.id);
-
-  // const intersectionTableDto =
-  //   await Api.ProviderRoleAvailability.getByRowIdList(providerIdList);
 
   const genericTable = await postEntitiesWithDifferentReturnType<
     number[],

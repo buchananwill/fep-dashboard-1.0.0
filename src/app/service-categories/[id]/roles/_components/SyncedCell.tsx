@@ -101,7 +101,7 @@ const InnerCellComponent = forwardRef<
   );
 });
 
-const TooltipMemo = memo(SimpleTooltip);
+export const TooltipMemo = memo(SimpleTooltip);
 
 function SimpleTooltip({ text }: { text: string }) {
   return (
