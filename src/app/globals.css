@@ -156,3 +156,12 @@ canvas {
     stroke-width: 10px;
     stroke: hsla(160, 84%, 39%, 0.5);
 }
+
+.fill-grid {
+    block-size: 100%;
+}
+
+#root {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
