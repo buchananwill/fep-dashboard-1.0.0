@@ -3,7 +3,7 @@ import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
 import { EntityClassMap } from '@/api/entity-class-map';
-import DtoUiWrapperCell from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/availability/DtoUiWrapperCell';
+import DtoUiWrapperCell from '@/app/service-categories/[id]/roles/_components/DtoUiWrapperCell';
 
 function InnerProviderCell(props: BaseDtoUiProps<ProviderRoleDto>) {
   return (

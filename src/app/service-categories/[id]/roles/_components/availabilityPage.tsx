@@ -6,10 +6,13 @@ import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';
 import { AvailabilityTable } from './AvailabilityTable';
+import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/types';
 
-export default async function AvailabilityPage() {
+export default async function AvailabilityPage({
+  params: { roleTypeId }
+}: RolePageProps) {
   const providerRoles = await Api.ProviderRole.getDtoListByExampleList([
-    { type: { id: 1 } }
+    { type: { id: parseInt(roleTypeId) } }
   ]);
 
   const providerIdList = providerRoles.map((role) => role.id);
