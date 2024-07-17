@@ -4,20 +4,18 @@ import {
   GetCellContent
 } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
 import VirtualizedTableWindowed from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/VirtualizedTableWindowed';
-import { AvailabilityCell } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/availability/AvailabilityCell';
-import { FallbackCellMemo } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/FallbackCell';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { GenericTableDto } from '@/api/types';
 import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
-import { useGridSelectionController } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/availability/useGridSelectionCell';
 import { useGlobalController } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Api } from '@/api/clientApi';
-import DtoUiWrapperCell from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/availability/DtoUiWrapperCell';
-import CycleSubspanCell from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/availability/CycleSubspanCell';
-import { ProviderCell } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/availability/ProviderCell';
+import { AvailabilityCell } from '@/app/service-categories/[id]/roles/_components/AvailabilityCell';
+import { ProviderCell } from '@/app/service-categories/[id]/roles/_components/ProviderCell';
+import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
+import { useGridSelectionController } from '@/app/service-categories/[id]/roles/_components/useGridSelectionCell';
 
 export function AvailabilityTable({
   tableData,

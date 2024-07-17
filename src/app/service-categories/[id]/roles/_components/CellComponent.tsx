@@ -4,7 +4,7 @@ import {
   DtoStoreNumberInput
 } from '@/components/generic/DtoStoreNumberInput';
 import React, { CSSProperties } from 'react';
-import { DtoUiWrapper, LazyDtoUiWrapper } from 'dto-stores';
+import { LazyDtoUiWrapper } from 'dto-stores';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import clsx from 'clsx';
 import { areEqual } from 'react-window';
@@ -24,11 +24,11 @@ const conditionalNumberFormatting: ConditionalNumberClassName[] = [
 
 // TODO The use of TransientIdOffset is tricking the table into believing that cells with IDs matching the incoming request data are the same cell. Very subtle bug! Not sure how to fix this within the current architecture.
 export const CellComponent = ({
-  columnIndex,
-  rowIndex,
-  style,
-  data
-}: {
+                                columnIndex,
+                                rowIndex,
+                                style,
+                                data
+                              }: {
   columnIndex: number;
   rowIndex: number;
   style: CSSProperties;
@@ -56,9 +56,9 @@ export const CellComponent = ({
     >
       {datumElement ? (
         <LazyDtoUiWrapper<
-          SuitabilityEntity,
-          BaseDtoStoreNumberInputProps<SuitabilityEntity>
-        >
+            SuitabilityEntity,
+            BaseDtoStoreNumberInputProps<SuitabilityEntity>
+          >
           entityClass={suitabilityEntityType}
           renderAs={DtoStoreNumberInput}
           whileLoading={() => (

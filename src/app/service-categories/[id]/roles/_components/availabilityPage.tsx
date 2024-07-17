@@ -1,15 +1,13 @@
 import { Api } from '@/api/clientApi';
-import { AvailabilityTable } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/availability/AvailabilityTable';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';
-import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { EntityClassMap } from '@/api/entity-class-map';
+import { AvailabilityTable } from './AvailabilityTable';
 
-export default async function page() {
+export default async function AvailabilityPage() {
   const providerRoles = await Api.ProviderRole.getDtoListByExampleList([
     { type: { id: 1 } }
   ]);

@@ -1,0 +1,16 @@
+import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/types';
+import { notFound } from 'next/navigation';
+import SuitabilityPage from '../../../_components/SuitabilityPage';
+
+export default function page(props: RolePageProps) {
+  const {
+    params: { roleAspect, roleCategory }
+  } = props;
+
+  switch (roleAspect) {
+    case 'suitability': {
+      if (roleCategory === 'user') return notFound();
+      else return <SuitabilityPage params={props.params} />;
+    }
+  }
+}

@@ -11,25 +11,17 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
-import { FixedSizeGrid, GridOnScrollProps } from 'react-window';
-import { CellComponentMemo } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/_components/CellComponent';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   SyncedColumnCellMemo,
   SyncedRowCellMemo
 } from '@/app/service-categories/[id]/roles/_components/SyncedCell';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { isNotUndefined } from '@/api/main';
-import AutoSizer from 'react-virtualized-auto-sizer';
 import { AssetRoleWorkTaskSuitabilityDto } from '@/api/dtos/AssetRoleWorkTaskSuitabilityDtoSchema';
 import { Api } from '@/api/clientApi';
 import VirtualizedTableWindowed from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/VirtualizedTableWindowed';
+import { CellComponentMemo } from '@/app/service-categories/[id]/roles/_components/CellComponent';
 
 const DefaultScrollBarSize = 20;
 const defaultSyncColumnWidth = 100;
@@ -37,7 +29,8 @@ const defaultCellSize = 40;
 
 export type SuitabilityTypes = (typeof EntityClassMap)[
   | 'assetRole'
-  | 'providerRole'];
+  | 'providerRole'
+  | 'userRole'];
 
 export type SuitabilityEntityTypes = (typeof EntityClassMap)[
   | 'assetRoleTypeWorkTaskTypeSuitability'

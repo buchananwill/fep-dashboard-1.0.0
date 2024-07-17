@@ -13,9 +13,9 @@ import {
 import { EmptyArray } from '@/api/literals';
 
 import { EntityClassMap } from '@/api/entity-class-map';
-import { ProjectionClassificationValidationGraph } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/bandwidth-graph/types';
+import { ProjectionClassificationValidationGraph } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
 import { Api } from '@/api/clientApi';
-import { bandwidthOptions } from '@/app/service-categories/[id]/roles/[roleTypeId]/providers/bandwidth-graph/bandwidthForceGraphOptions';
+import { bandwidthOptions } from '@/app/service-categories/[id]/roles/bandwidth-graph/bandwidthForceGraphOptions';
 
 const graphUrl = constructUrl(
   '/api/v2/resourceMetrics/bandwidthGraph?providerRoleTypeId='
