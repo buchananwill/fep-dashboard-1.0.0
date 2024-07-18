@@ -19,11 +19,11 @@ export default async function SuitabilityPage(props: RolePageProps) {
   // List of all work task types to select
   // List of all provider roles of the layer type
   const roleEntityKey = `${roleCategory}Role` as keyof typeof EntityClassMap;
-  const providerRoleTypeId = parseInt(roleTypeId, 10);
+  const roleTypeIdInt = parseInt(roleTypeId, 10);
   const serviceCategoryId = parseInt(id, 10);
   const suitabilityType = EntityClassMap[roleEntityKey];
 
-  const roles = await RoleApiByTypeIdList[roleCategory]([providerRoleTypeId]);
+  const roles = await RoleApiByTypeIdList[roleCategory]([roleTypeIdInt]);
 
   let workTaskTypes = await Api.WorkTaskType.getDtoListByExampleList([
     { serviceCategoryId }
@@ -56,7 +56,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
       </div>
       <div className={'mb-auto mt-auto h-[90vh] w-[100vw] p-8'}>
         <SuitabilityTable
-          roleTypeId={providerRoleTypeId}
+          roleTypeId={roleTypeIdInt}
           suitabilityType={suitabilityType as SuitabilityTypes}
         />
       </div>

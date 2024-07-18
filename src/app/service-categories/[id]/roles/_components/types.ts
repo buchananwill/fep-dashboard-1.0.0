@@ -31,5 +31,5 @@ export const RoleApiByTypeIdList: {
 } = {
   user: Api.UserRole.getByTypeIdList,
   provider: Api.ProviderRole.getByTypeIdList,
-  asset: Api.ProviderRole.getByTypeIdList
+  asset: Api.AssetRole.getByTypeIdList
 };

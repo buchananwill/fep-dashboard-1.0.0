@@ -38,9 +38,6 @@ export function AvailabilityTable({
     listenerKey: 'controller'
   });
 
-  console.log(currentState);
-  console.log(tableData);
-
   return (
     <>
       <EditAddDeleteDtoControllerArray

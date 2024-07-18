@@ -6,5 +6,6 @@ export const CycleSubspanDtoSchema = z.object({
   parentCycleId: z.number(),
   name: z.string(),
   zeroIndexedCycleDay: z.number(),
+  dayOrdinal: z.number(),
 });
 export type CycleSubspanDto = z.infer<typeof CycleSubspanDtoSchema>;

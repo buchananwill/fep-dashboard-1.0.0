@@ -24,10 +24,10 @@ function InnerCycleSubspanCell({ entity }: BaseDtoUiProps<CycleSubspanDto>) {
 
   return (
     <span
-      className={'center-vertical-with-margin inline-block truncate'}
+      className={'center-all-margin inline-block truncate'}
       {...floatingTooltip}
     >
-      {entity.name}
+      {entity.zeroIndexedCycleDay}.{entity.dayOrdinal}
     </span>
   );
 }

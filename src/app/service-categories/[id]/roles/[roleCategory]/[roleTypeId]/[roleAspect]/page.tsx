@@ -14,7 +14,8 @@ export default function page(props: RolePageProps) {
       else return <SuitabilityPage params={props.params} />;
     }
     case 'availability': {
-      return <AvailabilityPage {...props} />;
+      if (roleCategory === 'provider') return <AvailabilityPage {...props} />;
+      else return notFound();
     }
   }
 }

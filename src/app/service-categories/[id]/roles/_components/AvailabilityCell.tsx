@@ -12,13 +12,13 @@ import { ObjectPlaceholder } from '@/api/literals';
 function getAvailabilityColor(availabilityCode: number) {
   switch (availabilityCode) {
     case 0:
-      return 'bg-rose-200';
+      return 'bg-gray-200';
     case 1:
-      return 'bg-emerald-200';
+      return 'bg-rose-200';
     case 2:
       return 'bg-amber-200';
-    case 4:
-      return 'bg-gray-200';
+    case 3:
+      return 'bg-emerald-200';
   }
 }
 

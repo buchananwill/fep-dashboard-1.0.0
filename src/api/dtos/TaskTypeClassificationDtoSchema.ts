@@ -1,13 +1,9 @@
 import { TaskTypeClassificationItemDtoSchema } from './TaskTypeClassificationItemDtoSchema';
-import { AssetRoleTypeDtoSchema } from './AssetRoleTypeDtoSchema';
-import { ProviderRoleTypeDtoSchema } from './ProviderRoleTypeDtoSchema';
 import { AssetClassificationItemDtoSchema } from './AssetClassificationItemDtoSchema';
 import { PartyClassificationItemDtoSchema } from './PartyClassificationItemDtoSchema';
 import { z } from 'zod';
 export const TaskTypeClassificationDtoSchema = z.object({
   id: z.number(),
-  providerRoleType: ProviderRoleTypeDtoSchema,
-  assetRoleType: AssetRoleTypeDtoSchema,
   cycleSubspanTotal: z.number(),
   feasibilityReportId: z.number(),
   taskTypeClassificationItems: z.array(TaskTypeClassificationItemDtoSchema),

@@ -93,7 +93,7 @@ export default function VirtualizedTableWindowed<T>({
         } else return status;
       });
     }
-  }, [rowCount, columnCount]);
+  }, [rowCount, columnCount, scrollBarWidth]);
 
   return (
     <AutoSizer onResize={onResize}>
