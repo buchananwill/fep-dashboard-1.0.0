@@ -1,9 +1,9 @@
 import { GridChildComponentProps } from 'react-window';
 import { LazyDtoUiWrapper } from 'dto-stores';
-import { NamedEntityLabel } from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
+import { NamedEntityLabel } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Loading } from '@/app/feasibility-report/_components/AssignmentFeasibilityTreeItem';
-import { CellIdReference } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
+import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
+import { CellIdReference } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
 
 export default function RenderOrganizationCell({
   rowIndex,

@@ -5,8 +5,8 @@ import { HasId } from '@/api/types';
 import { BaseDtoUiProps } from 'dto-stores';
 import { PropsWithChildren } from 'react';
 import { CheckCircleOutline, HighlightOff } from '@mui/icons-material';
-import FeasibilityReportTreeItem from '@/app/feasibility-report/_components/FeasilbilityReportTreeItem';
-import { FullReport } from '@/app/feasibility-report/_components/types';
+import FeasibilityReportTreeItem from '@/app/scheduling/feasibility-report/_components/FeasilbilityReportTreeItem';
+import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';
 
 export const taskTypeClassification = 'TaskTypeClassification';
 export const taskTypeClassificationItem = 'taskTypeClassificationItem';

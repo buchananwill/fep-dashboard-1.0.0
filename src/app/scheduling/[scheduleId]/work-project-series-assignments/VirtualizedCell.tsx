@@ -3,7 +3,7 @@ import {
   CellIdReference,
   GetCellContentKey,
   GetCellContent
-} from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
+} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import {
   useGlobalDispatchAndListener,
@@ -11,15 +11,15 @@ import {
 } from 'selective-context';
 import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';
 import React, { ReactNode, useCallback, useMemo } from 'react';
-import { selectedAssignmentCell } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/AssignmentTable';
+import { selectedAssignmentCell } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
 import { EmptyArray } from '@/api/literals';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import clsx from 'clsx';
 import { LazyDtoUiWrapper } from 'dto-stores';
-import { WorkProjectSeriesSchemaCode } from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
+import { WorkProjectSeriesSchemaCode } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Loading } from '@/app/feasibility-report/_components/AssignmentFeasibilityTreeItem';
-import { InnerCellContent } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/AssignmentCell';
+import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
+import { InnerCellContent } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
 
 export type OuterCellProps = GridChildComponentProps<CellIdReference[][]> & {
   innerCell: (props: InnerCellContent) => ReactNode;

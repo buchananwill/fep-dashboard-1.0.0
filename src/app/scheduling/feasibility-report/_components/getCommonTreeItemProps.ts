@@ -1,7 +1,7 @@
-import { getLabelIcon } from '@/app/feasibility-report/_components/FeasibilityReport';
+import { getLabelIcon } from '@/app/scheduling/feasibility-report/_components/FeasibilityReport';
 import { StyledTreeItemProps } from '@/components/CustomTreeItem';
 
-import { FeasibilityReportTreeItemPayload } from '@/app/feasibility-report/_components/types';
+import { FeasibilityReportTreeItemPayload } from '@/app/scheduling/feasibility-report/_components/types';
 
 type CommonTreeItemProps = Pick<
   StyledTreeItemProps,

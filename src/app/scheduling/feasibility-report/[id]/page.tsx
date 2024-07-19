@@ -2,7 +2,7 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import FeasibilityReport, {
   taskTypeClassification
-} from '@/app/feasibility-report/_components/FeasibilityReport';
+} from '@/app/scheduling/feasibility-report/_components/FeasibilityReport';
 
 import {
   DataFetchingEditDtoControllerArray,
@@ -11,7 +11,8 @@ import {
 } from 'dto-stores';
 import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { FullReport } from '@/app/feasibility-report/_components/types';
+import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';
+import { Link } from '@nextui-org/link';
 
 export default async function page({
   params: { id }
@@ -19,8 +20,12 @@ export default async function page({
   params: { id: string };
 }) {
   const feasibilityReportFullDto: FullReport = await getWithoutBody(
-    constructUrl(`/api/v2/resourceMetrics/feasibilityReport/${id}`)
+    constructUrl(`/api/v2/schedule/feasibilityReport/${id}`)
   );
+
+  if (feasibilityReportFullDto.reportStatus === 'PENDING') {
+    return <Link href={`/scheduling/feasibility-report/${id}`}>Pending</Link>;
+  }
 
   console.log(feasibilityReportFullDto);
 

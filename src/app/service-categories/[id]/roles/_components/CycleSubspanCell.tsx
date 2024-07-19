@@ -1,4 +1,4 @@
-import { CellWrapperProps } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/VirtualizedCell';
+import { CellWrapperProps } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/VirtualizedCell';
 import { BaseDtoUiProps } from 'dto-stores';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -12,6 +12,9 @@ export default function CycleSubspanCell(props: CellWrapperProps) {
       entityClass={EntityClassMap.cycleSubspan}
       InnerCell={InnerCycleSubspanCell}
       idKey={'columnId'}
+      className={
+        (props.columnIndex + 1) % 6 === 0 ? 'border-r border-r-gray-700' : ''
+      }
       {...props}
     />
   );
@@ -27,7 +30,7 @@ function InnerCycleSubspanCell({ entity }: BaseDtoUiProps<CycleSubspanDto>) {
       className={'center-all-margin inline-block truncate'}
       {...floatingTooltip}
     >
-      {entity.zeroIndexedCycleDay}.{entity.dayOrdinal}
+      {entity.zeroIndexedCycleDay + 1}.{entity.dayOrdinal + 1}
     </span>
   );
 }

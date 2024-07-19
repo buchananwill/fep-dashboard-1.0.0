@@ -6,5 +6,6 @@ export const FeasibilityReportDtoSchema = z.object({
   cycleId: z.number(),
   cycleSubspanCountSnapshot: z.number(),
   cycleSubspanGroupSnapshots: z.array(CycleSubspanGroupSnapshotDtoSchema),
+  reportStatus: z.string(),
 });
 export type FeasibilityReportDto = z.infer<typeof FeasibilityReportDtoSchema>;

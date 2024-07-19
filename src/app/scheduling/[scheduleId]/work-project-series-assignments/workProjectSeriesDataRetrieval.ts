@@ -1,5 +1,5 @@
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
-import { CellIdReference } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
+import { CellIdReference } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
 
 export function workProjectSeriesDataRetrieval(
   tableData: WorkProjectSeriesAssignmentTableDto

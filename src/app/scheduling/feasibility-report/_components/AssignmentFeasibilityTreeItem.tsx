@@ -1,4 +1,4 @@
-import { TaskTypeItem } from '@/app/feasibility-report/_components/types';
+import { TaskTypeItem } from '@/app/scheduling/feasibility-report/_components/types';
 import {
   CustomTreeItem,
   StyledTreeItemProps
@@ -7,7 +7,7 @@ import { NodeAssignmentFeasibilityDto } from '@/api/dtos/NodeAssignmentFeasibili
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema';
-import { NamedEntityLabel } from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
+import { NamedEntityLabel } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 
 export function Loading() {
   return '...loading';

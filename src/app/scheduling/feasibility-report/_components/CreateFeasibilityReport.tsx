@@ -1,0 +1,39 @@
+'use client';
+
+import { Button, ButtonProps } from '@nextui-org/button';
+import { PressEvents } from '@react-types/shared';
+import { createFeasibilityReport } from '@/app/scheduling/feasibility-report/createFeasibilityAction';
+import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
+import { FeasibilityReportDto } from '@/api/dtos/FeasibilityReportDtoSchema';
+import { PendingOverlay } from '@/components/overlays/pending-overlay';
+
+export default function CreateFeasibilityReport({
+  cycleId,
+  ...props
+}: EncapsulatedButton & { cycleId: number }) {
+  const appRouterInstance = useRouter();
+  const [isPending, startTransition] = useTransition();
+  return (
+    <Button
+      {...props}
+      onPress={() => {
+        startTransition(async () => {
+          const reportStub: FeasibilityReportDto =
+            await createFeasibilityReport(cycleId);
+          appRouterInstance.push(
+            `/scheduling/feasibility-report/${reportStub.id}`
+          );
+        });
+      }}
+    >
+      <PendingOverlay pending={isPending} />
+      Create Feasibility Report
+    </Button>
+  );
+}
+
+export type EncapsulatedButton = Omit<
+  ButtonProps,
+  keyof PressEvents | 'onClick'
+>;

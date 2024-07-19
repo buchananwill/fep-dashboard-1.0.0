@@ -26,7 +26,8 @@ export const FullReportDtoSchema = z.object({
   cycleSubspanCountSnapshot: z.number(),
   cycleSubspanGroupSnapshotDtoList: z.array(CycleSubspanGroupSnapshotDtoSchema),
   taskTypeClassifications: z.array(TaskTypeClassificationDtoSchema),
-  passes: z.boolean()
+  passes: z.boolean(),
+  reportStatus: z.string()
 });
 
 export type FullReportDto = z.infer<typeof FullReportDtoSchema>;

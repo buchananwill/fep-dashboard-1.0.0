@@ -18,12 +18,10 @@ import { Api } from '@/api/clientApi';
 import { bandwidthOptions } from '@/app/service-categories/[id]/roles/bandwidth-graph/bandwidthForceGraphOptions';
 
 const graphUrl = constructUrl(
-  '/api/v2/resourceMetrics/bandwidthGraph?providerRoleTypeId='
+  '/api/v2/schedule/bandwidthGraph?providerRoleTypeId='
 );
 
-const projectionUrl = constructUrl(
-  '/api/v2/resourceMetrics/workTaskTypeProjection'
-);
+const projectionUrl = constructUrl('/api/v2/schedule/workTaskTypeProjection');
 
 export default async function page({
   params: { roleTypeId, id }
@@ -59,14 +57,14 @@ export default async function page({
         getServerAction={Api.WorkTaskType.getDtoListByBodyList}
         entityClass={EntityClassMap.workTaskType}
       />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workTaskTypeProjection}
-        dtoList={workTaskTypeProjections}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.bandwidthValidationTraversal}
-        dtoList={Object.values(validationTraversalMap)}
-      />
+      {/*<EditAddDeleteDtoControllerArray*/}
+      {/*  entityClass={EntityClassMap.workTaskTypeProjection}*/}
+      {/*  dtoList={workTaskTypeProjections}*/}
+      {/*/>*/}
+      {/*<EditAddDeleteDtoControllerArray*/}
+      {/*  entityClass={EntityClassMap.bandwidthValidationTraversal}*/}
+      {/*  dtoList={Object.values(validationTraversalMap)}*/}
+      {/*/>*/}
       <ReactFlowWrapper>
         <BandwidthLayoutFlowWithForces></BandwidthLayoutFlowWithForces>
       </ReactFlowWrapper>

@@ -3,24 +3,24 @@ import { GridChildComponentProps } from 'react-window';
 import {
   AssignmentCellContent,
   CellIdReference
-} from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/CellQueryManager';
+} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
 import React, { memo, useCallback } from 'react';
 import {
   NamedEntityLabel,
   WorkProjectSeriesSchemaCode
-} from '@/app/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
+} from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 import { LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Loading } from '@/app/feasibility-report/_components/AssignmentFeasibilityTreeItem';
+import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
 import { useGlobalDispatchAndListener } from 'selective-context';
-import { selectedAssignmentCell } from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/AssignmentTable';
+import { selectedAssignmentCell } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
 import { EmptyArray } from '@/api/literals';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';
 import clsx from 'clsx';
 import VirtualizedOuterCell, {
   CellWrapperProps
-} from '@/app/service-categories/[id]/schedule/[scheduleId]/work-project-series-assignments/VirtualizedCell';
+} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/VirtualizedCell';
 
 export default function AssignmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;
@@ -57,7 +57,7 @@ function InnerAssignmentCell({
       className={clsx(
         cellData ? '' : 'bg-gray-200 opacity-50',
         selected ? 'border-sky-400' : '',
-        lastInDay ? 'border-r-gray-700' : '',
+        lastInDay ? 'border-r border-r-gray-700' : '',
         'mb-auto ml-auto mr-auto mt-auto h-full w-full'
       )}
       {...tooltip}
