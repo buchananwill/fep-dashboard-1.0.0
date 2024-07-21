@@ -18,7 +18,7 @@ import {
   useGraphDispatchAndListener,
   useGraphListener
 } from 'react-d3-force-wrapper';
-import { FocusToEdit } from '@/react-flow/components/generic/FocusToEdit';
+import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
 import {
   BaseDtoUiProps,

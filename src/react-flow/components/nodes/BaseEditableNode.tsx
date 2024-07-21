@@ -1,5 +1,5 @@
 'use client';
-import { Handle, NodeProps, Position } from 'reactflow';
+import { Handle, NodeProps, Position } from '@xyflow/react';
 
 import { usePopoverFix } from '@/react-flow/hooks/usePopoverFix';
 import {
@@ -15,22 +15,28 @@ import {
 import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
 import { HasNumberId } from '@/api/types';
+import { NodeBase } from '@/react-flow/types';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
-export function BaseEditableNode<T extends HasNumberId>({
+export function BaseEditableNode<
+  NodeData extends HasNumberId & Record<string, unknown>,
+  NodeType extends string,
+  BaseNodeType extends NodeBase<NodeData, NodeType>
+>({
   data,
   isConnectable,
-  xPos,
-  yPos,
+  positionAbsoluteX,
+  positionAbsoluteY,
   type,
   children,
   className,
   style
-}: NodeProps<T> & Pick<GenericDivProps, 'children' | 'className' | 'style'>) {
+}: NodeProps<BaseNodeType> &
+  Pick<GenericDivProps, 'children' | 'className' | 'style'>) {
   const { dispatchWithoutListen: toggleDetailsModal } = useGraphDispatch(
     GraphSelectiveContextKeys.nodeDetailsModalOpen
   );
@@ -58,7 +64,7 @@ export function BaseEditableNode<T extends HasNumberId>({
   } = useGraphListener(
     GraphSelectiveContextKeys.nodeLabelAccessor,
     listenerKey,
-    undefinedLabelAccessor as MemoizedFunction<[T, string], string>
+    undefinedLabelAccessor as MemoizedFunction<[NodeData, string], string>
   );
   const fixAddProps = usePopoverFix();
   const fixDeleteProps = usePopoverFix();
@@ -79,8 +85,10 @@ export function BaseEditableNode<T extends HasNumberId>({
   const anyPopoverOpen = fixAddProps.isOpen || fixDeleteProps.isOpen;
 
   const popoverPos = useMemo(() => {
-    return anyPopoverOpen ? [xPos, yPos] : PopoverDefaultPos;
-  }, [xPos, yPos, anyPopoverOpen]);
+    return anyPopoverOpen
+      ? [positionAbsoluteX, positionAbsoluteY]
+      : PopoverDefaultPos;
+  }, [positionAbsoluteX, positionAbsoluteY, anyPopoverOpen]);
 
   const openDetailsModal = useCallback(() => {
     sendNodeData(structuredClone(data));
@@ -112,7 +120,7 @@ export function BaseEditableNode<T extends HasNumberId>({
         <EditClusterMemo
           addChild={addChild}
           addSibling={addSibling}
-          label={labelAccessor([data, type])}
+          label={type ? labelAccessor([data, type]) : 'node'}
           openDetailsModal={openDetailsModal}
           deleteNode={deleteNode}
           fixDeleteProps={fixDeleteProps}

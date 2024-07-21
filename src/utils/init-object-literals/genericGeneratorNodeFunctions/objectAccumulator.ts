@@ -11,7 +11,7 @@ export type AccumulatorMap<ReferenceType> = {
   ) => ReferenceType[Property][];
 };
 
-function getObjectsAccumulatorFunction<T extends Object>(
+export function getObjectsAccumulatorFunction<T extends Object>(
   template: T,
   accumulatorMap: AccumulatorMap<T>
 ): MonoFunction<T[], ValueList<T>> {
@@ -35,4 +35,16 @@ function getObjectsAccumulatorFunction<T extends Object>(
     });
     return Object.fromEntries(valueListEntries);
   };
+}
+
+export function deDuplicatePreserveOrder<T>(list: T[]): T[] {
+  const seenSet = new Set<T>();
+  const responseList: T[] = [];
+  list.forEach((tItem) => {
+    if (!seenSet.has(tItem)) {
+      responseList.push(tItem);
+      seenSet.add(tItem);
+    }
+  });
+  return responseList;
 }
