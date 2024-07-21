@@ -1,29 +1,8 @@
 import { isNotUndefined } from '@/api/main';
 import fastCartesian from 'fast-cartesian';
+import { PartialValueList, ValueList } from '@/types';
 
-export type ValueList<ReferenceType> = {
-  [Property in keyof ReferenceType]: ReferenceType[Property][];
-};
-
-export type PartialValueList<T> = Partial<ValueList<T>>;
-
-interface Teacher {
-  name: string;
-  subject: string;
-  yearsExperience: number;
-}
-
-type TeacherValueList = ValueList<Teacher>;
-
-const teacherValueList: TeacherValueList = {
-  name: ['Dave', 'Mike', 'Will'],
-  subject: ['Maths', 'AdvancedMaths'],
-  yearsExperience: [2]
-};
-
-export function mixCrossProduct<T>(
-  valueList: PartialValueList<T>
-): Partial<T>[] {
+export function crossProductFromValueList<T>(valueList: ValueList<T>): T[] {
   const keysThaHaveListItems: (keyof typeof valueList)[] = Object.keys(
     valueList
   )
@@ -42,6 +21,6 @@ export function mixCrossProduct<T>(
   return listProduct.map((list) => {
     return Object.fromEntries(
       keysThaHaveListItems.map((key, index) => [key, list[index]])
-    ) as Partial<T>;
+    ) as T;
   });
 }
