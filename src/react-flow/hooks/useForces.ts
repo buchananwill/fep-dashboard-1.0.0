@@ -1,4 +1,4 @@
-import { useReactFlow, useStore } from '@xyflow/react';
+import { useNodesInitialized, useReactFlow, useStore } from '@xyflow/react';
 import { MutableRefObject, useMemo } from 'react';
 import { Simulation } from 'd3';
 
@@ -24,9 +24,7 @@ export function useForces(
   const { dispatchWithoutListen } = useGraphDispatch<boolean>(
     GraphSelectiveContextKeys.running
   );
-  const initialised = useStore((store) =>
-    [...store.nodeLookup.values()].every((node) => node.width && node.height)
-  );
+  const initialised = useNodesInitialized(); // useStore((store) => [...store.nodeLookup.values()].every((node) => node.width && node.height));
   const { currentState: selectionRef } = useGlobalListener({
     contextKey: 'selectedNodeIdSet',
     initialValue: InitialSetRef as MutableRefObject<Set<string>>,
