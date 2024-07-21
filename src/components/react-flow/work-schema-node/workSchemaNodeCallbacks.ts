@@ -169,7 +169,7 @@ type WorkSchemaNodeDataNodeDto = z.infer<
 >;
 
 export function validateWorkSchemaNodeDataNodeDto(
-  dataNode: DataNode<WorkSchemaNodeDto>
+  dataNode: FlowNode<WorkSchemaNodeDto>
 ) {
   console.log(dataNode);
   const dataNodeDto = reMapNodeIdWithoutValidating(dataNode);

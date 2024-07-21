@@ -1,7 +1,6 @@
 import { HasNumberId } from '@/api/types';
 import { DataLink } from 'react-d3-force-wrapper';
 import { useMemo } from 'react';
-import { FlowEdge } from '@/react-flow/types';
 
 export function useIdToEdgeMapMemo<T extends HasNumberId>(
   dataLinkList: DataLink<T>[]

@@ -9,7 +9,7 @@ import { MasterChangesTrackWrapper } from '@/components/generic/MasterChangesTra
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AnimationSyncContextProvider from '@/components/providers/animate-sync-context/AnimationSyncContextProvider';
-import { ReactFlowProvider } from 'reactflow';
+import { ReactFlowProvider } from '@xyflow/react';
 
 export function LibraryProvidersWrapper({
   children

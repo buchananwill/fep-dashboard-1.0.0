@@ -5,7 +5,7 @@ import {
   useEdgesState,
   useNodesState,
   useUpdateNodeInternals
-} from 'reactflow';
+} from '@xyflow/react';
 import { draggingNodeKey, useForces } from '@/react-flow/hooks/useForces';
 import {
   type MouseEvent as ReactMouseEvent,
@@ -23,12 +23,11 @@ import {
   useLinkContext,
   useNodeContext
 } from 'react-d3-force-wrapper';
-
-import { HasNumberId } from '@/api/types';
+import { NodeDataType } from '@/react-flow/utils/adaptors';
 
 const listenerKey = 'layout-flow-with-forces';
 
-export function useLayoutFlowWithForces<T extends HasNumberId>() {
+export function useLayoutFlowWithForces<T extends NodeDataType>() {
   const { nodes: nodesFromContext, dispatch: dispatchNodes } =
     useNodeContext<T>();
   const { links: edgesFromContext, dispatch: dispatchEdges } =

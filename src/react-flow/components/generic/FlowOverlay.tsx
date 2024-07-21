@@ -1,5 +1,5 @@
 'use client';
-import { Controls, MiniMap, Panel } from 'reactflow';
+import { Controls, MiniMap, Panel } from '@xyflow/react';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import {

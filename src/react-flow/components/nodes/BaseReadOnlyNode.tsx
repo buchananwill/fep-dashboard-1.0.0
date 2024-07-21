@@ -1,5 +1,5 @@
 'use client';
-import { Handle, NodeProps, Position } from 'reactflow';
+import { Handle, NodeProps, Position } from '@xyflow/react';
 
 import { usePopoverFix } from '@/react-flow/hooks/usePopoverFix';
 import {
@@ -15,22 +15,28 @@ import {
 import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
 import { HasNumberId } from '@/api/types';
+import { NodeBase } from '@/react-flow/types';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
-export function BaseReadOnlyNode<T extends HasNumberId>({
+export function BaseReadOnlyNode<
+  NodeData extends HasNumberId & Record<string, unknown>,
+  NodeType extends string,
+  BaseNodeType extends NodeBase<NodeData, NodeType>
+>({
   data,
   isConnectable,
-  xPos,
-  yPos,
+  positionAbsoluteX,
+  positionAbsoluteY,
   type,
   children,
   className,
   style
-}: NodeProps<T> & Pick<GenericDivProps, 'children' | 'className' | 'style'>) {
+}: NodeProps<BaseNodeType> &
+  Pick<GenericDivProps, 'children' | 'className' | 'style'>) {
   const { dispatchWithoutListen: toggleDetailsModal } = useGraphDispatch(
     GraphSelectiveContextKeys.nodeDetailsModalOpen
   );
@@ -44,7 +50,7 @@ export function BaseReadOnlyNode<T extends HasNumberId>({
   } = useGraphListener(
     GraphSelectiveContextKeys.nodeLabelAccessor,
     listenerKey,
-    undefinedLabelAccessor as MemoizedFunction<[T, string], string>
+    undefinedLabelAccessor as MemoizedFunction<[NodeData, string], string>
   );
 
   const { id } = data;

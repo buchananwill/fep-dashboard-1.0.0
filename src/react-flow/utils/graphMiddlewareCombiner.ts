@@ -21,15 +21,3 @@ export function prewareCombiner<T, U>(
       )(v)
     );
 }
-//
-// export type Interceptor<T> = (
-//   currentAction: (input: T) => T
-// ) => (input: T) => T
-//
-// export function prewareCombiner<T, U>(
-//   prewareArguments: Interceptor<T>[],
-//   baseAction: (action: T) => U
-// ) {
-//   const interceptionProcesses = prewareArguments.reduce((prev, curr) => curr(prev), (v: T) => v);
-//   return (input: T) => baseAction(interceptionProcesses(input))
-// }

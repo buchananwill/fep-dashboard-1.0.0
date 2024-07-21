@@ -1,8 +1,6 @@
 import { HasNumberId } from '@/api/types';
 import { DataNode } from 'react-d3-force-wrapper';
 import { useMemo } from 'react';
-import { FlowNode } from '@/react-flow/types';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 
 export function useIdToNodeMapMemo<T extends HasNumberId>(
   dataNodeList: DataNode<T>[]

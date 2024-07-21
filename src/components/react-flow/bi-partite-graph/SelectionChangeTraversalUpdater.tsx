@@ -4,7 +4,7 @@ import { useGlobalController } from 'selective-context';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { BandwidthValidationTraversal } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { OnSelectionChangeParams, useOnSelectionChange } from 'reactflow';
+import { OnSelectionChangeParams, useOnSelectionChange } from '@xyflow/react';
 import { ObjectPlaceholder } from '@/api/literals';
 
 export function SelectionChangeTraversalUpdater() {

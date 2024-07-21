@@ -1,36 +1,24 @@
-import { Edge, NodeProps, useEdges } from 'reactflow';
+import { Edge, NodeProps, useEdges } from '@xyflow/react';
 
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import { BaseEditableNode } from '@/react-flow/components/nodes/BaseEditableNode';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
-import { EntityClassMap } from '@/api/entity-class-map';
-
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import {
-  ArrayPlaceholder,
   useGlobalDispatch,
   useGlobalListener,
   useGlobalListenerGroup
 } from 'selective-context';
 import { isNumber } from 'lodash';
-
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
-import {
-  useDtoStore,
-  useLazyDtoListListener,
-  useLazyDtoStore
-} from 'dto-stores';
 import { AllocationSummary } from '@/components/react-flow/organization/allocationSummary';
 import NodeBundleSummaries from '@/components/react-flow/organization/NodeBundleSummaries';
-import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
-import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeController';
-import { ObjectPlaceholder } from '@/api/literals';
+import { NodeBase } from '@/react-flow/types';
 
 const initialTotalMap = new Map<string, number>();
 
-export function OrganizationNode(nodeProps: NodeProps<OrganizationDto>) {
+export function OrganizationNode(
+  nodeProps: NodeProps<NodeBase<OrganizationDto>>
+) {
   const { selected, dragging, data } = nodeProps;
   const listenerKey = `organizationNode:${data.id}`;
 

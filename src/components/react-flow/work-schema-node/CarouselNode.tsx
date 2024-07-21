@@ -1,12 +1,15 @@
-import { NodeProps } from 'reactflow';
+import { NodeProps } from '@xyflow/react';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import clsx from 'clsx';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
+import { NodeBase } from '@/react-flow/types';
 
-export default function CarouselNode(props: NodeProps<WorkSchemaNodeDto>) {
+export default function CarouselNode(
+  props: NodeProps<NodeBase<WorkSchemaNodeDto>>
+) {
   const { selected, dragging, data } = props;
 
   const { entity } = useLazyDtoStore<CarouselDto>(

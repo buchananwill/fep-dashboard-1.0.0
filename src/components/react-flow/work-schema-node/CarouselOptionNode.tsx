@@ -1,18 +1,15 @@
-import { BaseEditableNode } from '@/react-flow/components/nodes/BaseEditableNode';
-import { NodeProps } from 'reactflow';
+import { NodeProps } from '@xyflow/react';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import clsx from 'clsx';
-import { useLazyDtoStore, useReadAnyDto } from 'dto-stores';
+import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
-import { workProjectSeriesSchemaActionSequence } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/workProjectSeriesSchemaActionSequence';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
-import { useMemo } from 'react';
-import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
+import { NodeBase } from '@/react-flow/types';
 
 export default function CarouselOptionNode(
-  props: NodeProps<WorkSchemaNodeDto>
+  props: NodeProps<NodeBase<WorkSchemaNodeDto>>
 ) {
   const { selected, dragging, data } = props;
 

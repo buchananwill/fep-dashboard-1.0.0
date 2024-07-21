@@ -16,6 +16,7 @@ import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
 import { HasNumberId } from '@/api/types';
 import { NodeBase } from '@/react-flow/types';
+import { NodeDataType } from '@/react-flow/utils/adaptors';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -23,7 +24,7 @@ export type GenericDivProps = React.DetailedHTMLProps<
 >;
 
 export function BaseEditableNode<
-  NodeData extends HasNumberId & Record<string, unknown>,
+  NodeData extends NodeDataType,
   NodeType extends string,
   BaseNodeType extends NodeBase<NodeData, NodeType>
 >({

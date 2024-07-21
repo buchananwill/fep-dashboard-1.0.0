@@ -6,14 +6,13 @@ import React, {
   useEffect,
   useMemo
 } from 'react';
-import ReactFlow, {
+import {
   Background,
   BackgroundVariant,
   Connection,
-  Panel
-} from 'reactflow';
-
-import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
+  Panel,
+  ReactFlow
+} from '@xyflow/react';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 
 import {
@@ -52,7 +51,7 @@ import {
 } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 import { Spinner } from '@nextui-org/spinner';
-import { FlowNode } from '@/react-flow/types';
+import { FlowNode, NodeValidator } from '@/react-flow/types';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
@@ -86,7 +85,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     workSchemaNodeGraphUpdater,
     convertToWorkSchemaFlowNode,
     EntityClassMap.workSchemaNode,
-    validateWorkSchemaNodeDataNodeDto
+    validateWorkSchemaNodeDataNodeDto as NodeValidator<WorkSchemaNodeDto>
   );
 
   const { nodesFromContext, edgesFromContext } = contextData;

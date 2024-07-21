@@ -1,4 +1,4 @@
-import { Edge, Node } from 'reactflow';
+import { Edge, Node } from '@xyflow/react';
 import { HasNumberId } from '@/api/types';
 import { DataLink, DataNode, DataNodeDto } from 'react-d3-force-wrapper';
 import {
@@ -9,8 +9,9 @@ import {
   Position,
   XYPosition
 } from '@xyflow/react';
+import { NodeDataType } from '@/react-flow/utils/adaptors';
 
-export type FlowNode<T extends HasNumberId> = Node & DataNode<T>;
+export type FlowNode<T extends NodeDataType> = NodeBase<T> & DataNode<T>;
 export type FlowEdge<T extends HasNumberId> = Edge & DataLink<T>;
 
 export interface Coordinate {
@@ -18,11 +19,11 @@ export interface Coordinate {
   y: number;
 }
 
-export interface NodeValidator<T extends HasNumberId> {
+export interface NodeValidator<T extends NodeDataType> {
   (node: DataNode<T>): DataNodeDto<T> | undefined;
 }
 
-export interface NodeConvertor<T extends HasNumberId> {
+export interface NodeConvertor<T extends NodeDataType> {
   (dataNodeDto: DataNodeDto<T> & Partial<Coordinate>): FlowNode<T>;
 }
 

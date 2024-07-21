@@ -1,4 +1,4 @@
-import { useReactFlow, useStore } from 'reactflow';
+import { useReactFlow, useStore } from '@xyflow/react';
 import { MutableRefObject, useMemo } from 'react';
 import { Simulation } from 'd3';
 
@@ -11,7 +11,6 @@ import {
   useDirectSimRefEditsDispatch,
   useGraphDispatch
 } from 'react-d3-force-wrapper';
-import { ObjectPlaceholder } from '@/api/literals';
 import { InitialSetRef } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 
 export const draggingNodeKey = 'dragging-node';
@@ -26,7 +25,7 @@ export function useForces(
     GraphSelectiveContextKeys.running
   );
   const initialised = useStore((store) =>
-    [...store.nodeInternals.values()].every((node) => node.width && node.height)
+    [...store.nodeLookup.values()].every((node) => node.width && node.height)
   );
   const { currentState: selectionRef } = useGlobalListener({
     contextKey: 'selectedNodeIdSet',

@@ -1,4 +1,4 @@
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import {
   DataNode,
   DataNodeDto,

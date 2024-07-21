@@ -1,9 +1,7 @@
 'use client';
 
 import React, { memo, PropsWithChildren, useMemo } from 'react';
-import ReactFlow, { Background, BackgroundVariant } from 'reactflow';
-
-import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
+import { Background, BackgroundVariant, ReactFlow } from '@xyflow/react';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import {
   cloneFunctionWrapper,
@@ -14,6 +12,7 @@ import OrganizationDetailsContent from '@/components/react-flow/organization/Org
 import {
   DataLink,
   DataNodeDto,
+  MemoizedFunction,
   NodeModalContentComponent,
   useModalContent,
   useNodeLabelController
@@ -26,7 +25,7 @@ import {
   useEffectSyncDeepEqualWithDispatch
 } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import { OrganizationTypeDto } from '@/api/dtos/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
@@ -35,6 +34,7 @@ import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
 import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
+import { FlowNode } from '@/react-flow/types';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,
@@ -53,7 +53,10 @@ export function ClassHierarchyLayoutFlowWithForces({
   }, [typeData]);
   const { flowOverlayProps, reactFlowProps, isPending } =
     useEditableFlow<OrganizationDto>(
-      cloneFunctionWrapper,
+      cloneFunctionWrapper as MemoizedFunction<
+        FlowNode<OrganizationDto>,
+        FlowNode<OrganizationDto>
+      >,
       organizationTemplateNode,
       TemplateOrganizationLink,
       organizationGraphUpdater,
@@ -135,7 +138,7 @@ const TemplateOrganizationNode: DataNodeDto<OrganizationDto> = {
       id: 0,
       name: 'type name'
     },
-    workSeriesBundleAssignment: {
+    workSchemaNodeAssignment: {
       id: 0,
       organizationId: 0,
       workSchemaNodeId: 0

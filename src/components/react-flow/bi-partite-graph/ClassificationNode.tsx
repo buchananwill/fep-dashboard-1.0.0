@@ -1,10 +1,7 @@
 'use client';
-import { NodeProps } from 'reactflow';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
+import { NodeProps } from '@xyflow/react';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { BaseReadOnlyNode } from '@/react-flow/components/nodes/BaseReadOnlyNode';
-import { HasNumberId } from '@/api/types';
-import { ProviderRoleTypeDto } from '@/api/dtos/ProviderRoleTypeDtoSchema';
 import React, { memo, useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
@@ -13,17 +10,18 @@ import {
 } from 'dto-stores';
 import { WorkTaskTypeProjection } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Chip } from '@nextui-org/chip';
 import { Spinner } from '@nextui-org/spinner';
 import { useMaxProjectionListener } from '@/components/react-flow/bi-partite-graph/useMaxProjectionController';
 import { interpolateHsl, rgb } from 'd3';
-import { useGlobalController, useGlobalListener } from 'selective-context';
+import { useGlobalController } from 'selective-context';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { ObjectPlaceholder } from '@/api/literals';
 import { BandwidthValidationLayer } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
 import clsx from 'clsx';
+import { NodeBase } from '@/react-flow/types';
+import { NodeDataType } from '@/react-flow/utils/adaptors';
 
-type BaseClassification = HasNumberId & {
+type BaseClassification = NodeDataType & {
   hashcode: number;
   type: string;
   classificationReferenceType: string;
@@ -44,12 +42,14 @@ export type Classification =
   | ProviderRoleClassification
   | WorkTaskTypeClassification;
 
-export default function ClassificationNode(props: NodeProps<Classification>) {
+export default function ClassificationNode(
+  props: NodeProps<NodeBase<Classification>>
+) {
   const { dragging, data, selected } = props;
   const listenerKey = useUuidListenerKey();
 
   const { currentState: bandwidthValidationLayer } = useGlobalController({
-    contextKey: `${EntityClassMap.bandwidthValidationLayer}:${data.id}`,
+    contextKey: `${'BandwidthValidationLayer'}:${data.id}`,
     listenerKey,
     initialValue: ObjectPlaceholder as BandwidthValidationLayer
   });
@@ -93,12 +93,14 @@ function ProviderRoleList({ data }: { data: ProviderRoleClassification }) {
   );
 }
 
+const WorkTaskTypeProjectionClassName = 'WorkTaskTypeProjection';
+
 function WorkTaskTypeList({ data }: { data: WorkTaskTypeClassification }) {
   const projectionWttIds = data.memberIdList;
 
   const { currentState } = useLazyDtoListListener<WorkTaskTypeProjection>(
     projectionWttIds,
-    EntityClassMap.workTaskTypeProjection
+    WorkTaskTypeProjectionClassName
   );
 
   const projectionTotal = useMemo(() => {
@@ -116,7 +118,7 @@ function WorkTaskTypeList({ data }: { data: WorkTaskTypeClassification }) {
             <LazyDtoUiWrapper
               renderAs={memoAmount}
               entityId={wtt}
-              entityClass={EntityClassMap.workTaskTypeProjection}
+              entityClass={WorkTaskTypeProjectionClassName}
               whileLoading={() => <Spinner size={'sm'} />}
             />
             <LazyDtoUiWrapper

@@ -1,4 +1,4 @@
-import { BaseEdge, EdgeLabelRenderer, EdgeProps } from 'reactflow';
+import { BaseEdge, EdgeLabelRenderer, EdgeProps } from '@xyflow/react';
 
 import { TrashIcon } from '@heroicons/react/16/solid';
 import {

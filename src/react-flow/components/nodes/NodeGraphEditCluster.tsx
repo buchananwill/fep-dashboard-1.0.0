@@ -8,7 +8,6 @@ import {
 import { TrashIcon } from '@heroicons/react/16/solid';
 import React from 'react';
 import { UsePopoverFixReturn } from '@/react-flow/hooks/usePopoverFix';
-import { b } from '@nextui-org/slider/dist/use-slider-a94a4c83';
 
 export default function NodeGraphEditCluster({
   addSibling,

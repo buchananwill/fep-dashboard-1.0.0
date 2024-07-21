@@ -4,7 +4,6 @@ import {
   GraphDto,
   GraphDtoPutRequestBody,
   GraphSelectiveContextKeys,
-  HasNumberId,
   MemoizedFunction,
   useAllEdits,
   useGraphDispatch,
@@ -13,17 +12,18 @@ import {
 import { FlowNode, NodeConvertor, NodeValidator } from '@/react-flow/types';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
 import { useCallback, useTransition } from 'react';
-import { useReactFlow } from 'reactflow';
+import { useReactFlow } from '@xyflow/react';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { useGlobalDispatch } from 'selective-context';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
+import { NodeDataType } from '@/react-flow/utils/adaptors';
 
 export interface ServerAction<T, U> {
   (request: T): Promise<U>;
 }
 
-export function useEditableFlow<T extends HasNumberId>(
-  cloneFunction: MemoizedFunction<DataNode<T>, DataNode<T>>,
+export function useEditableFlow<T extends NodeDataType>(
+  cloneFunction: MemoizedFunction<FlowNode<T>, FlowNode<T>>,
   templateNode: FlowNode<T>,
   templateLink: DataLink<T>,
   putServerAction: ServerAction<GraphDtoPutRequestBody<T>, GraphDto<T>>,
@@ -86,7 +86,7 @@ export function useEditableFlow<T extends HasNumberId>(
 
   // Set up the available edit hooks.
   const { unsavedChanges, onConfirm } = useNodeEditing(
-    cloneFunction,
+    cloneFunction as MemoizedFunction<DataNode<T>, FlowNode<T>>,
     templateNode,
     templateLink,
     updateGraphAndSyncUi,

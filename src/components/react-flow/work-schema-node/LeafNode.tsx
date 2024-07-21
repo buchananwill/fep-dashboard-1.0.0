@@ -1,13 +1,15 @@
-import { BaseEditableNode } from '@/react-flow/components/nodes/BaseEditableNode';
-import { NodeProps } from 'reactflow';
+import { NodeProps } from '@xyflow/react';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import clsx from 'clsx';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
+import { NodeBase } from '@/react-flow/types';
 
-export default function LeafNode(props: NodeProps<WorkSchemaNodeDto>) {
+export default function LeafNode(
+  props: NodeProps<NodeBase<WorkSchemaNodeDto>>
+) {
   const { selected, dragging, data } = props;
 
   const { entity } = useLazyDtoStore<WorkProjectSeriesSchemaDto>(

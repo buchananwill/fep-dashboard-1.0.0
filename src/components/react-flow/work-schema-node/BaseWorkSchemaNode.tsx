@@ -1,5 +1,5 @@
 'use client';
-import { Handle, NodeProps, Position } from 'reactflow';
+import { Handle, NodeProps, Position } from '@xyflow/react';
 
 import { usePopoverFix } from '@/react-flow/hooks/usePopoverFix';
 import {
@@ -16,6 +16,7 @@ import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditClu
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { useLeafNodeController } from '@/components/react-flow/work-schema-node/useLeafNodeController';
+import { NodeBase } from '@/react-flow/types';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -25,14 +26,14 @@ export type GenericDivProps = React.DetailedHTMLProps<
 export function BaseWorkSchemaNode({
   data,
   isConnectable,
-  xPos,
-  yPos,
+  positionAbsoluteX,
+  positionAbsoluteY,
   type,
   children,
   className,
   style,
   label
-}: NodeProps<WorkSchemaNodeDto> &
+}: NodeProps<NodeBase<WorkSchemaNodeDto>> &
   Pick<GenericDivProps, 'children' | 'className' | 'style'> & {
     label?: string;
   }) {
@@ -63,7 +64,7 @@ export function BaseWorkSchemaNode({
 
   const fixAddProps = usePopoverFix();
   const fixDeleteProps = usePopoverFix();
-  const { currentState } = useGraphListener(
+  useGraphListener(
     GraphSelectiveContextKeys.nodeCloneFunction,
     listenerKey,
     undefined
@@ -80,8 +81,10 @@ export function BaseWorkSchemaNode({
   const anyPopoverOpen = fixAddProps.isOpen || fixDeleteProps.isOpen;
 
   const popoverPos = useMemo(() => {
-    return anyPopoverOpen ? [xPos, yPos] : PopoverDefaultPos;
-  }, [xPos, yPos, anyPopoverOpen]);
+    return anyPopoverOpen
+      ? [positionAbsoluteX, positionAbsoluteY]
+      : PopoverDefaultPos;
+  }, [positionAbsoluteX, positionAbsoluteY, anyPopoverOpen]);
 
   const openDetailsModal = useCallback(() => {
     sendNodeData(structuredClone(data));

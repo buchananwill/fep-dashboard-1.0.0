@@ -1,9 +1,12 @@
-import { NodeProps } from 'reactflow';
+import { NodeProps } from '@xyflow/react';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import clsx from 'clsx';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
+import { NodeBase } from '@/react-flow/types';
 
-export default function OpenNode(props: NodeProps<WorkSchemaNodeDto>) {
+export default function OpenNode(
+  props: NodeProps<NodeBase<WorkSchemaNodeDto>>
+) {
   const { selected, dragging, data } = props;
 
   return (

@@ -19,7 +19,7 @@ import {
   useGraphListener
 } from 'react-d3-force-wrapper';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import {
   BaseDtoUiProps,
   BaseLazyDtoUiProps,
@@ -27,14 +27,11 @@ import {
   NamespacedHooks
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesSchemaEditor } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/WorkProjectSeriesSchemaEditor';
-import { WorkSeriesSchemaBundleDto } from '@/api/dtos/WorkSeriesSchemaBundleDtoSchema';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Select } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { produce } from 'immer';
-import { z } from 'zod';
-import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema';
+import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema_';
 import { listenerKeyDetailsContent } from '@/app/_literals';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';

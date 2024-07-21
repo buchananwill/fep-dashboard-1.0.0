@@ -1,9 +1,7 @@
 'use client';
 
 import React, { memo, PropsWithChildren, useTransition } from 'react';
-import ReactFlow, { Background, BackgroundVariant } from 'reactflow';
-
-import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
+import { Background, BackgroundVariant, ReactFlow } from '@xyflow/react';
 import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';

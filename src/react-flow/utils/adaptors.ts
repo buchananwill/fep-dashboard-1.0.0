@@ -13,21 +13,24 @@ import {
 
 import { HasNumberId } from '@/api/types';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 
 const organizationNodeType = 'organization';
 
-function convertToReactFlowNode<T extends HasNumberId>(
+export type NodeDataType = HasNumberId & Record<string, unknown>;
+
+function convertToReactFlowNode<T extends NodeDataType>(
   nodeType: string,
   dataNode: DataNodeDto<T> & Partial<Coordinate>
 ): FlowNode<T> {
   const stringId = getAnyIdAsString(dataNode);
   const x = dataNode.x || 0;
   const y = dataNode.y || 0;
-  const position = { x, y: y };
+  const position = { x, y };
   return { ...dataNode, id: stringId, position, type: nodeType, x, y };
 }
 
-function createNodeConvertor<T extends HasNumberId>(
+function createNodeConvertor<T extends NodeDataType>(
   nodeType: string
 ): NodeConvertor<T> {
   return (dataNode: DataNodeDto<T> & Partial<Coordinate>) =>
@@ -35,7 +38,7 @@ function createNodeConvertor<T extends HasNumberId>(
 }
 
 export const convertToOrganizationNode =
-  createNodeConvertor(organizationNodeType);
+  createNodeConvertor<OrganizationDto>(organizationNodeType);
 
 export const convertToClassificationNode =
   createNodeConvertor('classificationNode');
@@ -61,7 +64,7 @@ export function getStringIdFromConnection(
   else return `${connection}`;
 }
 
-export function convertDataNodeDtoListToFlowNodeList<T extends HasNumberId>(
+export function convertDataNodeDtoListToFlowNodeList<T extends NodeDataType>(
   list: DataNodeDto<T>[],
   convertor: (node: DataNodeDto<T>) => FlowNode<T>
 ) {
