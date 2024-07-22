@@ -12,15 +12,16 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { getOne } from '@/api/generated-actions/Cycle';
 import { parseTen } from '@/api/date-and-time';
 import { API_V2_URL } from '@/api/literals';
+import { LeafComponentProps } from '@/app/core/navTree';
 
 const entityName = 'CycleSubspanGroupEdit';
-export default async function Page({
-  params: { id }
-}: {
-  params: { id: string };
-}) {
-  const cycle = await getOne(parseTen(id));
-  const groupEditListUrl = `${API_V2_URL}/time/cycleSubspanGroups/cycleSubspanGroupEditList/${id}`;
+export default async function EditCycleSubspanGroups({
+  pathVariables,
+  depth
+}: LeafComponentProps) {
+  const cycleId = pathVariables[depth + 1];
+  const cycle = await getOne(parseTen(cycleId));
+  const groupEditListUrl = `${API_V2_URL}/time/cycleSubspanGroups/cycleSubspanGroupEditList/${cycleId}`;
   const cycleSubspanGroupEditDtos =
     await getWithoutBody<CycleSubspanGroupEditDto[]>(groupEditListUrl);
 

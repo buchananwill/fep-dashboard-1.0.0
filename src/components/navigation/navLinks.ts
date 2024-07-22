@@ -6,7 +6,7 @@ export interface NavLinkList {
 }
 
 export const mainNavLinkList: NavLinkList = Object.keys(navLinkIcons)
-  .map((key) => [key, kebabCase(key)])
+  .map((key) => [key, `/core/${kebabCase(key)}`])
   .reduce((prev, [currKey, currValue]) => {
     prev[currKey] = currValue;
     return prev;

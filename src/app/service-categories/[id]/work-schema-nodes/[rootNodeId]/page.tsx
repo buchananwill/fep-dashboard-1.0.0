@@ -1,16 +1,6 @@
 import { Api } from '@/api/clientApi';
-import { ForceGraphPage } from 'react-d3-force-wrapper';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
-import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
-import { WorkSchemaNodeLayoutFlowWithForces } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
-import { bandwidthOptions } from '@/app/service-categories/[id]/roles/bandwidth-graph/bandwidthForceGraphOptions';
-import {
-  DataFetchingEditDtoControllerArray,
-  EditAddDeleteDtoControllerArray,
-  EmptyArray
-} from 'dto-stores';
-import { EntityClassMap } from '@/api/entity-class-map';
 import { workSchemaNodeForceGraphOptions } from '@/app/service-categories/[id]/work-schema-nodes/[rootNodeId]/workSchemaNodeForceGraphOptions';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
