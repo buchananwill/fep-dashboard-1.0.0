@@ -8,17 +8,17 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
 import AssignmentTable from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
+import { getMatchString, LeafComponentProps } from '@/app/core/navTree';
 
-export default async function page({
-  params: { scheduleId }
-}: {
-  params: { id: string; scheduleId: string };
-}) {
+export default async function WorkProjectSeriesAssignmentsPage({
+  pathVariables,
+  depth
+}: LeafComponentProps) {
   const workProjectSeriesAssignmentTableDto: WorkProjectSeriesAssignmentTableDto =
     await getWithoutBody(
       constructUrl([
         '/api/v2/workProjectSeries/assignments/schedule',
-        scheduleId
+        getMatchString(pathVariables, depth)
       ])
     );
 

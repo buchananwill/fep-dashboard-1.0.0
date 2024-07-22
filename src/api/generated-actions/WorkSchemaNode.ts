@@ -1,10 +1,10 @@
 'use server';
+import { WorkSchemaNodeDto } from '../dtos/WorkSchemaNodeDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,20 +16,26 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<WorkSchemaNodeDto, number>(
+} = generateBaseEndpointSet<
+  WorkSchemaNodeDto,
+  number
+>(
   '/api/v2/workSchemaNode'
 );
 
+
+
 const {
-  getGraph,
-  getGraphByNodeList,
-  getGraphByRootId,
-  putGraph,
-  getRootNodeList
-} = generateGraphEndpointSet<WorkSchemaNodeDto>('/api/v2/workSchemaNode');
+getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList } =
+ generateGraphEndpointSet<
+  WorkSchemaNodeDto
+>(
+  '/api/v2/workSchemaNode'
+);
+
 
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -40,10 +46,7 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList,
-  getGraph,
-  getGraphByNodeList,
-  getGraphByRootId,
-  putGraph,
-  getRootNodeList
-};
+  getDtoListByExampleList
+, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
+}
+

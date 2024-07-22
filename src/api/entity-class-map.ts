@@ -1,5 +1,6 @@
 export const EntityClassMap = {
-   providerRole: 'ProviderRole', 
+   schedule: 'Schedule', 
+ providerRole: 'ProviderRole', 
  assetRole: 'AssetRole', 
  knowledgeDomain: 'KnowledgeDomain', 
  userRole: 'UserRole', 

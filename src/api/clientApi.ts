@@ -26,6 +26,7 @@ import * as KnowledgeDomain from './generated-actions/KnowledgeDomain';
 import * as CarouselOrderItem from './generated-actions/CarouselOrderItem';
 import * as UserRole from './generated-actions/UserRole';
 import * as WorkProjectSeriesAssignment from './generated-actions/WorkProjectSeriesAssignment';
+import * as Schedule from './generated-actions/Schedule';
 import * as ProviderRoleType from './generated-actions/ProviderRoleType';
 import * as CarouselOption from './generated-actions/CarouselOption';
 import * as Person from './generated-actions/Person';
@@ -59,6 +60,7 @@ KnowledgeDomain,
 CarouselOrderItem,
 UserRole,
 WorkProjectSeriesAssignment,
+Schedule,
 ProviderRoleType,
 CarouselOption,
 Person,
