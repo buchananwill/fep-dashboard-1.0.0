@@ -2,12 +2,15 @@ import { Button } from '@nextui-org/button';
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import NavPopoverContent from '@/components/navigation/NavPopoverContent';
-import NavLinkButton from '@/components/navigation/NavLinkButton';
 import clsx from 'clsx';
 
 export default function NavPopoverTrigger() {
   return (
-    <div className={'fixed bottom-8 left-1/2 z-40'}>
+    <div
+      className={
+        'fixed bottom-0 left-1/2 z-40 rounded-t-full bg-white bg-opacity-75 p-2 pb-4'
+      }
+    >
       <Popover>
         <PopoverTrigger>
           <Button

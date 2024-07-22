@@ -1,4 +1,3 @@
-'use client';
 import { homePage, ResolveNavTree } from '@/app/core/navTree';
 import { navTreeData } from '@/app/core/[[...pathVariables]]/navTreeData';
 

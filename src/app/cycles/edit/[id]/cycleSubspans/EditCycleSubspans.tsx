@@ -9,7 +9,7 @@ export default async function EditCycleSubspans({
   pathVariables,
   depth
 }: LeafComponentProps) {
-  const cycleId = parseInt(pathVariables[depth + 1]);
+  const cycleId = parseInt(pathVariables[depth]);
   const cycle = await getOne(cycleId);
 
   return <CycleViewer cycle={cycle} />;

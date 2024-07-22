@@ -1,12 +1,5 @@
 'use client';
-import {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useTransition
-} from 'react';
+import { memo, useCallback, useEffect, useMemo, useTransition } from 'react';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
 import { getWeekNumberInt } from '@/app/cycles/_functions/groupCycleSubspansByDay';
@@ -15,8 +8,7 @@ import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
 import { CycleDayFetcherProps } from '@/app/cycles/_components/CycleDayFetcher';
 
 import { isNotUndefined } from '@/api/main';
-import { useGlobalController, useGlobalDispatch } from 'selective-context';
-import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
+import { useGlobalController } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { templateCycleSubspan } from '@/app/cycles/_components/CycleViewer';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
@@ -41,13 +33,6 @@ export default function CycleDayViewer({
   cycleDay,
   cycle
 }: CycleDayViewerProps) {
-  const mutableRefObject = useContext(
-    SelectiveContextGlobal.latestValueRefContext
-  );
-  const listeners = useContext(SelectiveContextGlobal.listenersRefContext);
-
-  console.log(mutableRefObject, listeners);
-
   const [pending, startTransition] = useTransition();
 
   const { currentState, dispatch } = useGlobalController<CycleSubspanDto[]>({
@@ -104,7 +89,7 @@ export default function CycleDayViewer({
     <Card classNames={{ base: 'w-fit', body: 'w-fit' }}>
       {/*<DtoControllerArray entityClass={cycleSubspan} dtoList={currentState} />*/}
 
-      <CardHeader className={'text-center justify-center gap-2'}>
+      <CardHeader className={'justify-center gap-2 text-center'}>
         {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
         <Button
           size={'sm'}

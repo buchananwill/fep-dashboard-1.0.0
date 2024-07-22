@@ -31,14 +31,12 @@ export default function CycleSubspan({
     [dispatchDeletion, dispatchWithoutListen, entity]
   );
 
-  console.log('rendering cyclesubspan');
-
   if (!entity || entity === ObjectPlaceholder) {
     return null;
   }
 
   return (
-    <div className={'flex items-center gap-2 w-fit relative rounded-lg'}>
+    <div className={'relative flex w-fit items-center gap-2 rounded-lg'}>
       <DeletedOverlay
         classNames={{ overlay: 'rounded-lg' }}
         show={deleted}

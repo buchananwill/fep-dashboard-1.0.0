@@ -40,7 +40,7 @@ export function ResolveNavTree({
   depth: number;
 }) {
   if (navTree.type === 'leaf') {
-    console.log('leaf');
+    console.log('leaf', depth, pathVariables);
     const LeafNode = navTree.component;
     return <LeafNode pathVariables={pathVariables} depth={depth} />;
   } else if (navTree.type === 'branch') {
