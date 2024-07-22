@@ -6,13 +6,13 @@ import {
   putList
 } from '@/api/generated-actions/ServiceCategory';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { LeafComponentProps } from '@/app/core/navTree';
 
-export default async function Page({
-  params: { id }
-}: {
-  params: { id: string };
-}) {
-  let data = await getOne(parseInt(id));
+export default async function ServiceCategory({
+  pathVariables,
+  depth
+}: LeafComponentProps) {
+  let data = await getOne(parseInt(pathVariables[depth - 1]));
 
   return (
     <>

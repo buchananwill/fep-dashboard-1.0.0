@@ -13,9 +13,9 @@ export default async function WorkSchemaNodeRootGraph({
   pathVariables,
   depth
 }: LeafComponentProps) {
-  if (pathVariables.length === depth + 2) notFound();
-  else if (pathVariables.length > depth + 3) notFound();
-  const rootNodeId = pathVariables[depth + 2];
+  console.log('root graph page');
+  if (pathVariables.length > depth + 1) notFound();
+  const rootNodeId = pathVariables[depth];
   const graphDto = await Api.WorkSchemaNode.getGraphByRootId({
     rootId: parseInt(rootNodeId, 10)
   });

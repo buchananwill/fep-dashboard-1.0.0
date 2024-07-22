@@ -4,23 +4,16 @@ import {
 } from '@/api/generated-actions/KnowledgeDomain';
 import { getDtoListByBodyList as getServiceCategoryByIdList } from '@/api/generated-actions/ServiceCategory';
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  DataFetchingEditDtoControllerArray,
-  DtoControllerArray
-} from 'dto-stores';
+import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import KnowledgeDomainCard from '@/app/service-categories/[id]/knowledge-domains/_components/KnowledgeDomainCard';
+import { LeafComponentProps } from '@/app/core/navTree';
+import { parseTen } from '@/api/date-and-time';
 
-import { EmptyArray } from '@/api/literals';
-
-export default async function Page({
-  params: { id, domainId }
-}: {
-  params: { id: string; domainId: string };
-}) {
-  const kDomainId = parseInt(domainId);
-  // let kDomain = await getOne(parseInt(domainId));
-
-  // const serviceCategory = await getOneServiceCategory(parseInt(id));
+export default async function KnowledgeDomainSingle({
+  pathVariables,
+  depth
+}: LeafComponentProps) {
+  const kDomainId = parseTen(pathVariables[depth - 1]);
 
   return (
     <>
@@ -32,7 +25,7 @@ export default async function Page({
       />
       <DataFetchingEditDtoControllerArray
         entityClass={EntityClassMap.serviceCategory}
-        idList={EmptyArray}
+        idList={[parseTen(pathVariables[depth])]}
         getServerAction={getServiceCategoryByIdList}
       />
       <KnowledgeDomainCard id={kDomainId} />

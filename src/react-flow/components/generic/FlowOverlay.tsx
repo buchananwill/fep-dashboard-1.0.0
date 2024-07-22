@@ -28,7 +28,7 @@ export function FlowOverlay({
     <>
       <Controls />
       <MiniMap />
-      <Panel position={'top-left'}>
+      <Panel position={'top-left'} className={'flex gap-1 align-middle'}>
         <Popover
           classNames={{ base: 'w-56' }}
           isOpen={showSliders}
@@ -47,9 +47,6 @@ export function FlowOverlay({
             <GraphForceSliders />
           </PopoverContent>
         </Popover>
-      </Panel>
-      <NodeDetailsModal className={'max-w-6xl'} />
-      <Panel position={'top-right'}>
         {initialized && toggle && (
           <Button
             onPress={toggle}
@@ -66,6 +63,10 @@ export function FlowOverlay({
           </Button>
         )}
       </Panel>
+      <NodeDetailsModal className={'max-w-6xl'} />
+      {/*<Panel position={'top-right'}>*/}
+      {/*  */}
+      {/*</Panel>*/}
     </>
   );
 }

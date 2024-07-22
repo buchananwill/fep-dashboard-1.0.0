@@ -2,16 +2,9 @@ import { Api } from '@/api/clientApi';
 import { Link } from '@nextui-org/link';
 import { LeafComponentProps } from '@/app/core/navTree';
 import WorkSchemaNodeRootGraph from '@/app/service-categories/[id]/work-schema-nodes/WorkSchemaNodeRootGraph';
+import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 
-export default async function WorkSchemaNodesHome({
-  pathVariables,
-  depth
-}: LeafComponentProps) {
-  if (pathVariables.length > depth + 1) {
-    return (
-      <WorkSchemaNodeRootGraph pathVariables={pathVariables} depth={depth} />
-    );
-  }
+async function Home({}: LeafComponentProps) {
   const rootNodeList = await Api.WorkSchemaNode.getRootNodeList();
 
   return (
@@ -22,5 +15,15 @@ export default async function WorkSchemaNodesHome({
         </Link>
       ))}
     </div>
+  );
+}
+
+export default function WorkSchemaNodesHome(props: LeafComponentProps) {
+  return (
+    <PathVariableSplit
+      {...props}
+      homeComponent={Home}
+      subRouteComponent={WorkSchemaNodeRootGraph}
+    />
   );
 }

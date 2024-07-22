@@ -3,12 +3,22 @@ import { cyclesNavTree } from '@/app/cycles/cyclesNavTree';
 import CyclesHome from '@/app/cycles/cyclesHome';
 import { schedulingNavTree } from '@/app/scheduling/schedulingNavTree';
 import { WorkSchemaNodeNavTree } from '@/app/service-categories/[id]/work-schema-nodes/workSchemaNodeNavTree';
+import ServiceCategoriesHome from '@/app/service-categories/ServiceCategoriesHome';
+import KnowledgeDomains from '@/app/service-categories/[id]/knowledge-domains/KnowledgeDomains';
 
 export const navTreeData: NavTree = {
   cycles: { type: 'branch', children: cyclesNavTree, component: CyclesHome },
   scheduling: schedulingNavTree,
-  serviceCategories: { type: 'branch', children: {} },
-  knowledgeDomains: { type: 'branch', children: {} },
+  serviceCategories: {
+    type: 'branch',
+    children: {},
+    component: ServiceCategoriesHome
+  },
+  knowledgeDomains: {
+    type: 'branch',
+    children: {},
+    component: KnowledgeDomains
+  },
   knowledgeLevels: { type: 'branch', children: {} },
   workTaskType: { type: 'branch', children: {} },
   workProjectSeriesSchema: { type: 'branch', children: {} },
