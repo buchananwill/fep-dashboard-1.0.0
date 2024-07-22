@@ -6,6 +6,7 @@ import React from 'react';
 import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { steps } from '@/components/react-joyride/steps';
 import TooltipSingleton from '@/components/generic/TooltipSingleton';
+import NavPopoverTrigger from '@/components/navigation/NavPopoverTrigger';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         <LibraryProvidersWrapper>
           {children}
           <TooltipSingleton />
+          <NavPopoverTrigger />
         </LibraryProvidersWrapper>
         <JoyrideWrapper steps={steps} />
       </body>

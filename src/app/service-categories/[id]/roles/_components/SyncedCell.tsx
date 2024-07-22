@@ -8,12 +8,9 @@ import { EmptyArray } from '@/api/literals';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import clsx from 'clsx';
-import {
-  SuitabilityCellData,
-  SuitabilityConditions,
-  SuitabilityEntity
-} from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
+import { SuitabilityCellData } from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
+import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
 
 const SyncedRowCell = ({
   style,
@@ -105,17 +102,3 @@ const InnerCellComponent = forwardRef<
     </div>
   );
 });
-
-export const TooltipMemo = memo(SimpleTooltip);
-
-function SimpleTooltip({ text }: { text: string }) {
-  return (
-    <div
-      className={
-        'pointer-events-none rounded-md border border-amber-300 bg-amber-50 p-2 text-black'
-      }
-    >
-      {text}
-    </div>
-  );
-}

@@ -1,5 +1,7 @@
-import { SuitabilityTypes } from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import { Api } from '@/api/clientApi';
+import { UserRoleDtoSchema } from '@/api/dtos/UserRoleDtoSchema';
+import { ProviderRoleDtoSchema } from '@/api/dtos/ProviderRoleDtoSchema';
+import { AssetRoleDtoSchema } from '@/api/dtos/AssetRoleDtoSchema';
 
 export type BaseRoleParams = {
   id: string;
@@ -17,9 +19,9 @@ export interface RolePageProps {
 }
 
 export const RoleCategories = {
-  user: {},
-  provider: {},
-  asset: {}
+  user: UserRoleDtoSchema,
+  provider: ProviderRoleDtoSchema,
+  asset: AssetRoleDtoSchema
 } as const;
 
 type RoleAspects = 'suitability' | 'availability';
