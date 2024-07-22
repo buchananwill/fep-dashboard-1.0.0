@@ -1,8 +1,9 @@
 import { NavTree } from '@/app/core/navTree';
 import { cyclesNavTree } from '@/app/cycles/cyclesNavTree';
+import CyclesHome from '@/app/cycles/cyclesHome';
 
 export const navTreeData: NavTree = {
-  cycles: { type: 'branch', children: cyclesNavTree },
+  cycles: { type: 'branch', children: cyclesNavTree, component: CyclesHome },
   scheduling: { type: 'branch', children: {} },
   serviceCategories: { type: 'branch', children: {} },
   knowledgeDomains: { type: 'branch', children: {} },

@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import Home from '@/app/page';
 import { notFound } from 'next/navigation';
 import TestLeaf from '@/app/core/TestLeaf';
+import { ne } from '@faker-js/faker';
 
 export interface LeafComponentProps {
   pathVariables: string[];
@@ -14,12 +15,13 @@ export interface NavTree {
   [key: string]: NavTreeBranch | NavTreeLeaf;
 }
 
-type NavTreeBranch = {
+export type NavTreeBranch = {
   type: 'branch';
   children: NavTree;
+  component?: LeafComponent;
 };
 
-type NavTreeLeaf = {
+export type NavTreeLeaf = {
   type: 'leaf';
   component: LeafComponent;
 };
@@ -33,25 +35,50 @@ export function ResolveNavTree({
   depth,
   pathVariables
 }: {
-  navTree: NavTree;
+  navTree: NavTreeBranch | NavTreeLeaf | NavTree;
   pathVariables: string[];
   depth: number;
 }) {
-  console.log(navTree, depth, pathVariables);
-  if (depth + 1 > pathVariables.length) notFound();
-  const nextRootKey = pathVariables[depth];
-  const navTreeElement = navTree[nextRootKey];
-  if (!navTreeElement) notFound();
-  if (navTreeElement.type === 'leaf') {
-    const LeafNode = navTreeElement.component;
+  if (navTree.type === 'leaf') {
+    console.log('leaf');
+    const LeafNode = navTree.component;
     return <LeafNode pathVariables={pathVariables} depth={depth} />;
+  } else if (navTree.type === 'branch') {
+    console.log('branch');
+    if (pathVariables.length > depth) {
+      const rootKey = pathVariables[depth];
+      // const nextVariable = pathVariables[depth + 1];
+      const nextTree = navTree.children;
+      const nextMatch = nextTree[rootKey];
+      if (nextMatch) {
+        console.log('next match found');
+        return (
+          <ResolveNavTree
+            navTree={nextMatch}
+            pathVariables={pathVariables}
+            depth={depth + 1}
+          />
+        );
+      } else {
+        const Component = navTree.component;
+        if (!Component) notFound();
+        return <Component pathVariables={pathVariables} depth={depth} />;
+      }
+    }
   } else {
-    const branchNode = navTreeElement.children;
+    console.log('tree');
+    if (pathVariables.length <= depth) {
+      console.error('No path variable for this depth');
+      notFound();
+    }
+    const rootKey = pathVariables[depth];
+    const nextTreeNode = navTree[rootKey];
+    if (!nextTreeNode) notFound();
     return (
       <ResolveNavTree
-        depth={depth + 1}
+        navTree={nextTreeNode}
         pathVariables={pathVariables}
-        navTree={branchNode}
+        depth={depth + 1}
       />
     );
   }
