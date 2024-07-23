@@ -13,6 +13,9 @@ import {
   CarouselGroupsAndOrders
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/carouselGroupOrdersPage';
+import WorkSchemaNodeAssignmentsPage, {
+  WorkSchemaNodeAssignmentsHome
+} from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 
 export const navTreeData: NavTree = {
   cycles: { type: 'branch', children: cyclesNavTree, component: CyclesHome },
@@ -39,7 +42,10 @@ export const navTreeData: NavTree = {
     component: WorkProjectSeriesSchemaHome
   },
   workSchemaNodes: WorkSchemaNodeNavTree,
-  workSchemaNodeAssignments: { type: 'branch', children: {} },
+  workSchemaNodeAssignments: {
+    type: 'leaf',
+    component: WorkSchemaNodeAssignmentsHome
+  },
   users: { type: 'branch', children: {} },
   providers: { type: 'branch', children: {} },
   assets: { type: 'branch', children: {} },

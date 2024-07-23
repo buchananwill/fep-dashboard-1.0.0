@@ -6,7 +6,6 @@ import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 import { ArrayPlaceholder } from 'selective-context';
-import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/serviceCategoryRouteParams';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getDtoListByExampleList } from '@/api/generated-actions/OrganizationType';
@@ -25,12 +24,17 @@ import WorkSchemaNodeManager from '@/app/service-categories/[id]/[levelOrdinal]/
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 import { EmptyArray } from '@/api/literals';
 import React from 'react';
+import { LeafComponentProps } from '@/app/core/navTree';
+import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
+import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import { ServiceCategoryLevelLinks } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/ServiceCategoryLevelLinks';
+import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 
-export default async function Page({
-  params: { levelOrdinal }
-}: {
-  params: ServiceCategoryRouteParams;
-}) {
+async function WorkSchemaNodeAssignmentsPage({
+  pathVariables,
+  depth
+}: LeafComponentProps) {
+  const [levelOrdinal] = getLastNVariables(pathVariables, 1);
   const [orgType] = await getDtoListByExampleList([
     { name: `Year ${levelOrdinal}` }
   ]);
@@ -104,3 +108,12 @@ export default async function Page({
     </ForceGraphPage>
   );
 }
+
+const AssignmentLevelLinks = getPathVariableSplitComponent(
+  ServiceCategoryLevelLinks,
+  WorkSchemaNodeAssignmentsPage
+);
+export const WorkSchemaNodeAssignmentsHome = getPathVariableSplitComponent(
+  ServiceCategoryLinks,
+  AssignmentLevelLinks
+);
