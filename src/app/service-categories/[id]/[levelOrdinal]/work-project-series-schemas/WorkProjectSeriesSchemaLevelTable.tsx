@@ -7,7 +7,7 @@ import {
   postList,
   putList
 } from '@/api/generated-actions/WorkProjectSeriesSchema';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 import { ServiceCategoryLevelLinks } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/ServiceCategoryLevelLinks';

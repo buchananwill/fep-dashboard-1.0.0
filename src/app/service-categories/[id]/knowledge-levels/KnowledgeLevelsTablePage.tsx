@@ -4,7 +4,7 @@ import ResourceContextProvider from '@/components/providers/resource-context/Res
 import { EntityClassMap } from '@/api/entity-class-map';
 import KnowledgeLevelTable from '@/app/service-categories/[id]/knowledge-levels/_components/KnowledgeLevelTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 

@@ -6,7 +6,7 @@ import {
   putList
 } from '@/api/generated-actions/ServiceCategory';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 
 export default async function ServiceCategory({
   pathVariables,

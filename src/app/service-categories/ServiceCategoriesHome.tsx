@@ -1,5 +1,5 @@
 import { getPage } from '@/api/generated-actions/ServiceCategory';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import ServiceCategory from '@/app/service-categories/[id]/ServiceCategory';
 import { kebabCase } from 'lodash';

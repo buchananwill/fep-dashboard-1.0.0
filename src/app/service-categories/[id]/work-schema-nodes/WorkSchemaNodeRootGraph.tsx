@@ -6,7 +6,7 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import WorkSchemaNodeGraph from '@/app/service-categories/[id]/work-schema-nodes/_components/WorkSchemaNodeGraph';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import { notFound } from 'next/navigation';
 
 export default async function WorkSchemaNodeRootGraph({

@@ -7,7 +7,7 @@ import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-do
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getOne } from '@/api/generated-actions/ServiceCategory';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import KnowledgeDomainSingle from '@/app/service-categories/[id]/knowledge-domains/[domainId]/KnowledgeDomainSingle';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';

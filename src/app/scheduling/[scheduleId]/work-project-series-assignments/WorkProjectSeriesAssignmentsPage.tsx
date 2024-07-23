@@ -8,8 +8,8 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
 import AssignmentTable from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
-import { LeafComponentProps } from '@/app/core/navTree';
-import { getMatchString } from '@/app/core/ResolveNavTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
+import { getMatchString } from '@/app/core/navigation/ResolveNavTree';
 
 export default async function WorkProjectSeriesAssignmentsPage({
   pathVariables,

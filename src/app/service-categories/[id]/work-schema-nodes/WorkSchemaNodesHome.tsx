@@ -1,6 +1,6 @@
 import { Api } from '@/api/clientApi_';
 import { Link } from '@nextui-org/link';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import WorkSchemaNodeRootGraph from '@/app/service-categories/[id]/work-schema-nodes/WorkSchemaNodeRootGraph';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 

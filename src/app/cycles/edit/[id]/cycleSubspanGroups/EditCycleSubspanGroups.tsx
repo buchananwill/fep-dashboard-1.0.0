@@ -12,7 +12,7 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { getOne } from '@/api/generated-actions/Cycle';
 import { parseTen } from '@/api/date-and-time';
 import { API_V2_URL } from '@/api/literals';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 
 const entityName = 'CycleSubspanGroupEdit';
 export default async function EditCycleSubspanGroups({

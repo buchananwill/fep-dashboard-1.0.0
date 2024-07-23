@@ -1,4 +1,4 @@
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import { parseTen } from '@/api/date-and-time';
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';

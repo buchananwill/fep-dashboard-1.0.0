@@ -1,6 +1,6 @@
 import { LinkProps } from '@nextui-org/link';
 import Link from 'next/link';
-import { LinkTreeElementProps } from '@/app/core/navTree';
+import { LinkTreeElementProps } from '@/app/core/navigation/types';
 
 export function LinkButton({
   href,

@@ -6,7 +6,7 @@ import { getDtoListByBodyList as getServiceCategoryByIdList } from '@/api/genera
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import KnowledgeDomainCard from '@/app/service-categories/[id]/knowledge-domains/_components/KnowledgeDomainCard';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import { parseTen } from '@/api/date-and-time';
 
 export default async function KnowledgeDomainSingle({

@@ -1,7 +1,7 @@
 import { Api } from '@/api/clientApi_';
 import { Link } from '@nextui-org/link';
 import { Button } from '@nextui-org/button';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 
 export default async function SchedulingHome({}: LeafComponentProps) {
   console.log('scheduling home');

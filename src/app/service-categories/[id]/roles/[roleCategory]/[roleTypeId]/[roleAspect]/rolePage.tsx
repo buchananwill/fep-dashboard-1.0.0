@@ -4,7 +4,11 @@ import SuitabilityPage, {
   ServiceCategoryRoleTypeList
 } from '../../../_components/SuitabilityPage';
 import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';
-import { LeafComponentProps, NavTree, NavTreeBranch } from '@/app/core/navTree';
+import {
+  LeafComponentProps,
+  NavTree,
+  NavTreeBranch
+} from '@/app/core/navigation/types';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
 import { startCase } from 'lodash';

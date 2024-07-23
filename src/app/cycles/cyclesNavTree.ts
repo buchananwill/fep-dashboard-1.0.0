@@ -1,4 +1,4 @@
-import { NavTree } from '@/app/core/navTree';
+import { NavTree } from '@/app/core/navigation/types';
 import CreatePage from '@/app/cycles/create/createPage';
 import EditCycleSubspanGroups from '@/app/cycles/edit/[id]/cycleSubspanGroups/EditCycleSubspanGroups';
 import EditCycleSubspans from '@/app/cycles/edit/[id]/cycleSubspans/EditCycleSubspans';

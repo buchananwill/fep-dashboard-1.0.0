@@ -1,4 +1,4 @@
-import { LeafComponent, LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponent, LeafComponentProps } from '@/app/core/navigation/types';
 
 export default function PathVariableSplit({
   pathVariables,

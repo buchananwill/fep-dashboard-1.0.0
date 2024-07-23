@@ -1,4 +1,4 @@
-import { NavTreeBranch } from '@/app/core/navTree';
+import { NavTreeBranch } from '@/app/core/navigation/types';
 import WorkProjectSeriesAssignmentsPage from '@/app/scheduling/[scheduleId]/work-project-series-assignments/WorkProjectSeriesAssignmentsPage';
 import SchedulingHome from '@/app/scheduling/SchedulingHome';
 

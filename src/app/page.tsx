@@ -3,13 +3,11 @@ import { navKeyList, navLinkIcons } from '@/components/navigation/navLinkIcons';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { startCase } from 'lodash';
 import { mainNavLinkList } from '@/components/navigation/navLinks';
-import {
-  createLinksFromNavTree,
-  NavLinkTreeButton,
-  WrappedHeader,
-  WrappedLink
-} from '@/app/core/navTree';
 import { navTreeData } from '@/app/core/[[...pathVariables]]/navTreeData';
+import { createLinksFromNavTree } from '@/app/core/navigation/createLinksFromNavTree';
+import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';
+import { WrappedLink } from '@/app/core/navigation/WrappedLink';
+import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
 
 export default function Home() {
   const linksFromNavTree = createLinksFromNavTree(navTreeData, ['core'], []);

@@ -1,4 +1,4 @@
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';

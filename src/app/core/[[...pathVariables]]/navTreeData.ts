@@ -1,4 +1,4 @@
-import { NavTree } from '@/app/core/navTree';
+import { NavTree } from '@/app/core/navigation/types';
 import { cyclesNavTree } from '@/app/cycles/cyclesNavTree';
 import CyclesHome from '@/app/cycles/cyclesHome';
 import { schedulingNavTree } from '@/app/scheduling/schedulingNavTree';

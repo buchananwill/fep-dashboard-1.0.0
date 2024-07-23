@@ -15,7 +15,7 @@ import {
   RoleEntity,
   RolePageProps
 } from '@/app/service-categories/[id]/roles/_components/types';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { startCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';

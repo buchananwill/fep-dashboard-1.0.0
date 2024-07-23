@@ -1,7 +1,7 @@
 import { EntityClassMap } from '@/api/entity-class-map';
 import CycleViewer from '@/app/cycles/_components/CycleViewer';
 import { getOne } from '@/api/generated-actions/Cycle';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 
 const entityClass = EntityClassMap.cycleSubspan;
 

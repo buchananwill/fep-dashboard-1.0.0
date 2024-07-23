@@ -7,7 +7,7 @@ import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categ
 import { createRows } from '@/components/generic/createRows';
 import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
 import WorkTaskTypeIgmTable from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeIgmTable';
-import { LeafComponentProps } from '@/app/core/navTree';
+import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 
