@@ -98,7 +98,6 @@ export default function OrganizationDetailsContent({
               selectedKeys={selectedKeys}
               onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                 const newId = e.target.value;
-                console.log(newId, typeof newId);
                 dispatchWithoutControl((data) =>
                   produce(data, (draft) => {
                     if (draft.workSchemaNodeAssignment) {

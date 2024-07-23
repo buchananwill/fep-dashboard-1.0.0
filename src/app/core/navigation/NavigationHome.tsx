@@ -8,8 +8,6 @@ import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
 export default function NavigationHome() {
   const linksFromNavTree = createLinksFromNavTree(navTreeData, ['core'], []);
 
-  console.log(linksFromNavTree);
-
   return (
     <div className={' p-4'}>
       <Card>

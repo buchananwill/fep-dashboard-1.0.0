@@ -72,15 +72,6 @@ export default function CarouselGroup(params: DtoStoreParams) {
 
   const [isPending, startTransition] = useTransition();
 
-  // TODO: Remove this when finished debugging.
-  const mutableRefObject = useContext(
-    SelectiveContextGlobal.latestValueRefContext
-  );
-  // const mutableRefObjectListener = useContext(
-  //   SelectiveContextGlobal.listenersRefContext
-  // );
-  console.log(mutableRefObject);
-
   const carouselIdList = useMemo(() => {
     return entity?.carousels.map((e) => e.id) ?? [];
   }, [entity?.carousels]);

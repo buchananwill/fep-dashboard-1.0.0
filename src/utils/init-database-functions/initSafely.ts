@@ -8,6 +8,6 @@ export async function initSafely(
       return postAction();
     } else return array;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

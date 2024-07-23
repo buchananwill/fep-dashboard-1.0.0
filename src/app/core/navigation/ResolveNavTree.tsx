@@ -22,7 +22,6 @@ export function ResolveNavTree({
       const nextMatch =
         nextTree[rootKey as keyof Omit<typeof nextTree, 'component' | 'type'>];
       if (nextMatch) {
-        console.log('next match found');
         return (
           <ResolveNavTree
             navTree={nextMatch}

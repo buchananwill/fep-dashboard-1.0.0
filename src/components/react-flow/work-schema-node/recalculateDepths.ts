@@ -54,10 +54,8 @@ export function recalculateDepths<T extends HasNumberId>(
           modifiedDepthNodes.set(updateNode.id, updateNode)
         );
     });
-    console.log('nodes with new depths', modifiedDepthNodes);
     return prevNodes.map((oldNode) => {
       const updatedDepthNode = modifiedDepthNodes.get(oldNode.id);
-      console.log(updatedDepthNode);
       if (updatedDepthNode) return updatedDepthNode;
       else return oldNode;
     });

@@ -68,8 +68,6 @@ export function useEntitySelection<
                 : String(id);
           })
           .sort(compareNumbersOrStrings);
-        console.log(sort);
-        console.log(selectionSet);
         return sort as U[];
       });
     },

@@ -56,7 +56,7 @@ export default function CreatePage() {
       <PendingOverlay pending={pending} />
       <form
         onSubmit={(event) => {
-          console.log(errors);
+          console.warn(errors);
           handleSubmit(onSubmit)(event);
         }}
       >

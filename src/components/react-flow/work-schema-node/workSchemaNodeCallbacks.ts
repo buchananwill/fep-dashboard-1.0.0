@@ -131,7 +131,6 @@ const maxOneOf: (keyof WorkSchemaNodeDto)[] = [
 
 function spyOnRequest<T, U>(currentRequest: ServerAction<T, U>) {
   return (request: T) => {
-    console.log(request);
     return currentRequest(request);
   };
 }
@@ -154,9 +153,7 @@ type WorkSchemaNodeDataNodeDto = z.infer<
 export function validateWorkSchemaNodeDataNodeDto(
   dataNode: FlowNode<WorkSchemaNodeDto>
 ) {
-  console.log(dataNode);
   const dataNodeDto = reMapNodeIdWithoutValidating(dataNode);
-  console.log(dataNodeDto);
   let parsedNode: WorkSchemaNodeDataNodeDto | undefined = undefined;
   try {
     parsedNode = WorkSchemaNodeDataNodeDtoSchema.parse(dataNodeDto);
@@ -174,7 +171,6 @@ export function validateWorkSchemaNodeDataNodeDto(
       );
     }
   }
-  console.log(parsedNode);
   return parsedNode;
 }
 

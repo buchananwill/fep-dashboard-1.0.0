@@ -30,8 +30,6 @@ export default async function WorkSchemaNodeRootGraph({
     constructUrl('/api/v2/workSchemaNode/rootNodesWithNoAssignments')
   );
 
-  console.log();
-
   return (
     <WorkSchemaNodeGraph
       forceGraphPageProps={{

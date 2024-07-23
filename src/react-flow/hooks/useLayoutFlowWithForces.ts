@@ -88,12 +88,6 @@ export function useLayoutFlowWithForces<T extends NodeDataType>() {
   );
 
   useEffect(() => {
-    console.log(
-      'firing graph syncing hook',
-      nodesFromContext,
-      edgesFromContext
-    );
-
     updateNodeInternals(nodesFromContext.map((n) => n.id));
     setNodes(nodesFromContext as FlowNode<T>[]);
     setEdges(edgesFromContext as FlowEdge<T>[]);

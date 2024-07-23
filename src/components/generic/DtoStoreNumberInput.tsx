@@ -50,7 +50,7 @@ export function DtoStoreNumberInput<T extends HasId>({
   const update = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       if (dispatchWithoutControl === undefined) {
-        console.log('no dispatch defined!');
+        console.warn('no dispatch defined!');
         return;
       }
       let numberValue = allowFloat

@@ -15,8 +15,6 @@ export default function GenerateOneButton({
   url: string;
   requestData: BulkRepeatPostRequest<any>;
 }) {
-  console.log(requestData);
-
   return (
     <Button
       onPress={() => {

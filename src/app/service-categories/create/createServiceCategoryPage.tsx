@@ -61,8 +61,6 @@ export default function CreateServiceCategoryPage() {
 
   const selectiveContextReadAll = useGlobalReadAny<ServiceCategoryDto>();
 
-  console.log(data);
-
   return (
     <>
       <EditAddDeleteDtoControllerArray
