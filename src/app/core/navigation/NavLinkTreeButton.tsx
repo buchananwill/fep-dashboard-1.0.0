@@ -18,7 +18,10 @@ export function NavLinkTreeButton({
   const { link, displayName, children, indexList } = navLinkNode;
   const DisplayLabelElement = (
     <>
-      <span className={'mr-2 font-mono'}>{indexList.join('.')}</span>
+      <span className={'mr-2 font-mono'}>
+        {indexList.join('.')}
+        {indexList.length > 0 ? ':' : ''}
+      </span>
       <span>{displayName}</span>
     </>
   );

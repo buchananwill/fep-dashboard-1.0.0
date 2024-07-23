@@ -12,7 +12,7 @@ import { CarouselGroupsAndOrders } from '@/app/service-categories/[id]/[levelOrd
 import { CarouselGroupOrdersHome } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/carouselGroupOrdersPage';
 import { WorkSchemaNodeAssignmentsHome } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 import { rolePageTree } from '@/app/roles/rolePage';
-import Home from '@/app/page';
+import NavigationHome from '@/app/core/navigation/NavigationHome';
 import CreateServiceCategoryPage from '@/app/service-categories/create/createServiceCategoryPage';
 
 export const navTreeData: NavTree = {
@@ -54,5 +54,5 @@ export const navTreeData: NavTree = {
     children: { orders: { type: 'leaf', component: CarouselGroupOrdersHome } },
     component: CarouselGroupsAndOrders
   },
-  navigation: { type: 'leaf', component: Home }
+  navigation: { type: 'leaf', component: NavigationHome }
 };
