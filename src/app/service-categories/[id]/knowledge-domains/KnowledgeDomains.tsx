@@ -10,11 +10,7 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navTree';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import KnowledgeDomainSingle from '@/app/service-categories/[id]/knowledge-domains/[domainId]/KnowledgeDomainSingle';
-import { Api } from '@/api/clientApi';
-import {
-  getCoreEntityLink,
-  LinkButton
-} from '@/app/service-categories/ServiceCategoriesHome';
+import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 
 async function Home({ pathVariables, depth }: LeafComponentProps) {
   const serviceCategoryId = pathVariables[depth - 1];
@@ -50,26 +46,11 @@ function KnowledgeDomainsWithServiceCategoryId(props: LeafComponentProps) {
   );
 }
 
-async function ServiceCategoryKnowledgeDomainLinks({
-  pathVariables,
-  depth
-}: LeafComponentProps) {
-  const all = await Api.ServiceCategory.getAll();
-  return all.map((serviceCategory) => (
-    <LinkButton
-      href={getCoreEntityLink(pathVariables[0], serviceCategory)}
-      key={serviceCategory.id}
-    >
-      {serviceCategory.name}
-    </LinkButton>
-  ));
-}
-
 export default function KnowledgeDomains(props: LeafComponentProps) {
   return (
     <PathVariableSplit
       {...props}
-      homeComponent={ServiceCategoryKnowledgeDomainLinks}
+      homeComponent={ServiceCategoryLinks}
       subRouteComponent={KnowledgeDomainsWithServiceCategoryId}
     />
   );
