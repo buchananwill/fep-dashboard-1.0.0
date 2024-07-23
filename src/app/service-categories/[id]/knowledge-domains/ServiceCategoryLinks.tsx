@@ -16,7 +16,9 @@ export async function ServiceCategoryLinks({
       <CardBody>
         {all.map((serviceCategory) => (
           <LinkButton
-            href={getCoreEntityLink(pathVariables[0], serviceCategory)}
+            href={getCoreEntityLink(pathVariables.slice(0, depth), [
+              serviceCategory.id
+            ])}
             key={serviceCategory.id}
           >
             {serviceCategory.name}

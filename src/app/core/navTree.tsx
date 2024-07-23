@@ -29,12 +29,14 @@ export const homePage: NavTree = {
   testLeaf: { type: 'leaf', component: TestLeaf }
 };
 
+export type NavTreeNodes = NavTreeBranch | NavTreeLeaf | NavTree;
+
 export function ResolveNavTree({
   navTree,
   depth,
   pathVariables
 }: {
-  navTree: NavTreeBranch | NavTreeLeaf | NavTree;
+  navTree: NavTreeNodes;
   pathVariables: string[];
   depth: number;
 }) {
@@ -48,7 +50,8 @@ export function ResolveNavTree({
       const rootKey = getMatchString(pathVariables, depth);
       // const nextVariable = pathVariables[depth + 1];
       const nextTree = navTree.children;
-      const nextMatch = nextTree[rootKey];
+      const nextMatch =
+        nextTree[rootKey as keyof Omit<typeof nextTree, 'component' | 'type'>];
       if (nextMatch) {
         console.log('next match found');
         return (

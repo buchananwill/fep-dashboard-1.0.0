@@ -20,12 +20,17 @@ import RotationConnectionOverlay from '@/app/service-categories/[id]/[levelOrdin
 import { getCarouselGroups } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/getCarouselGroups';
 import { EmptyArray } from '@/api/literals';
 import { transformOptionForClientState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/transformOptionForClientState';
+import { LeafComponentProps } from '@/app/core/navTree';
+import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
+import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import { ServiceCategoryLevelLinks } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/ServiceCategoryLevelLinks';
+import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 
-export default async function page({
-  params: { levelOrdinal, id }
-}: {
-  params: ServiceCategoryRouteParams;
-}) {
+async function CarouselGroupOrdersPage({
+  depth,
+  pathVariables
+}: LeafComponentProps) {
+  const [id, levelOrdinal] = getLastNVariables(pathVariables, 2);
   const carouselGroupDtos = await getCarouselGroups(levelOrdinal, id);
 
   const exampleList: PartialDeep<CarouselOrderDto>[] = carouselGroupDtos.map(
@@ -82,3 +87,12 @@ export default async function page({
     </>
   );
 }
+
+const CarouselGroupOrderLevelLinks = getPathVariableSplitComponent(
+  ServiceCategoryLevelLinks,
+  CarouselGroupOrdersPage
+);
+export const CarouselGroupOrdersHome = getPathVariableSplitComponent(
+  ServiceCategoryLinks,
+  CarouselGroupOrderLevelLinks
+);

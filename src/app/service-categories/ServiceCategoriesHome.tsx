@@ -13,7 +13,7 @@ async function Home({ pathVariables }: LeafComponentProps) {
     <main className={'p-8'}>
       {dtoPage.content.map((serviceCategory) => (
         <LinkButton
-          href={`${getCoreEntityLink(pathVariables[0])}/${serviceCategory.id}`}
+          href={`${getCoreEntityLink(pathVariables.slice(0, 1), [String(serviceCategory.id)])}`}
           key={serviceCategory.id}
         >
           {serviceCategory.name}
@@ -33,6 +33,9 @@ export default function ServiceCategoriesHome(props: LeafComponentProps) {
   );
 }
 
-export function getCoreEntityLink(entityClass: string, entity?: HasId) {
-  return `/core/${kebabCase(entityClass)}${entity ? `/${entity.id}` : ''}`;
+export function getCoreEntityLink(
+  matchedPaths: string[],
+  variables?: (string | number)[]
+) {
+  return `/core/${matchedPaths.map(kebabCase).join('/')}${variables ? `/${variables.join('/')}` : ''}`;
 }

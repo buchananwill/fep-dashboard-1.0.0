@@ -7,19 +7,23 @@ import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categ
 import { createRows } from '@/components/generic/createRows';
 import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
 import WorkTaskTypeIgmTable from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeIgmTable';
+import { LeafComponentProps } from '@/app/core/navTree';
+import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 
 const rowEntityName = 'Lesson Type';
-export default async function Page({
-  params: { id }
-}: {
-  params: { id: string };
-}) {
+async function WorkTaskTypeTablePage({
+  pathVariables,
+  depth
+}: LeafComponentProps) {
+  const serviceCategoryId = pathVariables[depth - 1];
+  const serviceCategoryIdInt = parseInt(serviceCategoryId);
   const kLevels = await getKnowledgeLevelsByExample([
-    { serviceCategoryId: parseInt(id) }
+    { serviceCategoryId: serviceCategoryIdInt }
   ]).then((r) => r.sort((l1, l2) => l1.levelOrdinal - l2.levelOrdinal));
 
   const kDomains = await getKnowledgeDomainsByExample([
-    { serviceCategoryId: parseInt(id) }
+    { serviceCategoryId: serviceCategoryIdInt }
   ]);
 
   const tableRows = createRows(
@@ -42,7 +46,7 @@ export default async function Page({
       <Card fullWidth={false} className={'max-w-3xl'}>
         <WorkTaskTypeIgmTable
           rowEntityClass={rowEntityName}
-          serviceCategoryId={id}
+          serviceCategoryId={serviceCategoryId}
           rows={kDomains}
           columns={kLevels}
           tableRows={tableRows}
@@ -56,5 +60,15 @@ export default async function Page({
         />
       </Card>
     </div>
+  );
+}
+
+export default function WorkTaskTypeHome(props: LeafComponentProps) {
+  return (
+    <PathVariableSplit
+      {...props}
+      homeComponent={ServiceCategoryLinks}
+      subRouteComponent={WorkTaskTypeTablePage}
+    />
   );
 }

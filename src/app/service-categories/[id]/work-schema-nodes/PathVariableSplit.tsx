@@ -13,3 +13,18 @@ export default function PathVariableSplit({
     return <Sub pathVariables={pathVariables} depth={depth + 1} />;
   } else return <Home pathVariables={pathVariables} depth={depth} />;
 }
+
+export function getPathVariableSplitComponent(
+  home: LeafComponent,
+  sub: LeafComponent
+) {
+  return function PathVariableSplitComponent(props: LeafComponentProps) {
+    return (
+      <PathVariableSplit
+        {...props}
+        homeComponent={home}
+        subRouteComponent={sub}
+      />
+    );
+  };
+}
