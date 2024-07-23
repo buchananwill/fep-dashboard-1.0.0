@@ -1,4 +1,4 @@
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import {
   DataFetchingEditDtoControllerArray,
   EditAddDeleteDtoControllerArray

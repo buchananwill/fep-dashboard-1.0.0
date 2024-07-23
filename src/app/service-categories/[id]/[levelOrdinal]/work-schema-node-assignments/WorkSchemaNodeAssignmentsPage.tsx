@@ -19,7 +19,7 @@ import {
   convertToWorkSchemaFlowNode
 } from '@/react-flow/utils/adaptors';
 import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/defaultForceGraphPageOptions';
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import WorkSchemaNodeManager from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/_components/WorkSchemaNodeManager';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 import { EmptyArray } from '@/api/literals';

@@ -1,13 +1,14 @@
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { UserRoleDtoSchema } from '@/api/dtos/UserRoleDtoSchema';
 import { ProviderRoleDtoSchema } from '@/api/dtos/ProviderRoleDtoSchema';
 import { AssetRoleDtoSchema } from '@/api/dtos/AssetRoleDtoSchema';
+import { RoleAspects } from '@/app/service-categories/[id]/roles/[roleCategory]/[roleTypeId]/[roleAspect]/rolePage';
 
 export type BaseRoleParams = {
   id: string;
   roleTypeId: string;
   roleCategory: keyof typeof RoleCategories;
-  roleAspect: RoleAspects;
+  roleAspect: RoleAspect;
 };
 
 type StringProperties<Type> = {
@@ -18,18 +19,22 @@ export interface RolePageProps {
   params: BaseRoleParams;
 }
 
+export type RoleEntity = keyof typeof RoleCategories;
+
+export function isValidAspect(aspect: string) {
+  return RoleAspects[aspect as RoleAspect] !== undefined;
+}
+
 export const RoleCategories = {
   user: UserRoleDtoSchema,
   provider: ProviderRoleDtoSchema,
   asset: AssetRoleDtoSchema
 } as const;
 
-type RoleAspects = 'suitability' | 'availability';
+export type RoleAspect = keyof typeof RoleAspects;
 
 export const RoleApiByTypeIdList: {
-  [Property in keyof typeof RoleCategories]: (
-    typeIdList: number[]
-  ) => Promise<any>;
+  [Property in RoleEntity]: (typeIdList: number[]) => Promise<any>;
 } = {
   user: Api.UserRole.getByTypeIdList,
   provider: Api.ProviderRole.getByTypeIdList,

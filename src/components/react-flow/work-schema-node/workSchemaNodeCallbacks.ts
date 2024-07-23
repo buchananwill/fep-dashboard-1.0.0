@@ -9,7 +9,7 @@ import {
 } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { createDataNodeDtoSchema } from '@/api/zod-mods';
 import { middlewareCombiner } from '@/react-flow/utils/graphMiddlewareCombiner';
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { isNotUndefined } from '@/api/main';
 import { z } from 'zod';
 import { ServerAction } from '@/react-flow/hooks/useEditableFlow';

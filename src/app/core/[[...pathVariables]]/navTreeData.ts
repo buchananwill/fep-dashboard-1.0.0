@@ -8,14 +8,11 @@ import KnowledgeDomains from '@/app/service-categories/[id]/knowledge-domains/Kn
 import KnowledgeLevelsHome from '@/app/service-categories/[id]/knowledge-levels/KnowledgeLevelsTablePage';
 import WorkTaskTypeHome from '@/app/service-categories/[id]/work-task-types/WorkTaskTypeTablePage';
 import WorkProjectSeriesSchemaHome from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
-import {
-  CarouselGroupHome,
-  CarouselGroupsAndOrders
-} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/CarouselGroupLevelPage';
+import { CarouselGroupsAndOrders } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/carouselGroupOrdersPage';
-import WorkSchemaNodeAssignmentsPage, {
-  WorkSchemaNodeAssignmentsHome
-} from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
+import { WorkSchemaNodeAssignmentsHome } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
+import { rolePageTree } from '@/app/service-categories/[id]/roles/[roleCategory]/[roleTypeId]/[roleAspect]/rolePage';
+import Home from '@/app/page';
 
 export const navTreeData: NavTree = {
   cycles: { type: 'branch', children: cyclesNavTree, component: CyclesHome },
@@ -46,13 +43,13 @@ export const navTreeData: NavTree = {
     type: 'leaf',
     component: WorkSchemaNodeAssignmentsHome
   },
-  users: { type: 'branch', children: {} },
-  providers: { type: 'branch', children: {} },
-  assets: { type: 'branch', children: {} },
+  users: rolePageTree,
+  providers: rolePageTree,
+  assets: rolePageTree,
   carouselGroups: {
     type: 'branch',
     children: { orders: { type: 'leaf', component: CarouselGroupOrdersHome } },
     component: CarouselGroupsAndOrders
   },
-  navigation: { type: 'branch', children: {} }
+  navigation: { type: 'leaf', component: Home }
 };

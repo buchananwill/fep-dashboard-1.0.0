@@ -11,7 +11,7 @@ import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { useGlobalController } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { AvailabilityCell } from '@/app/service-categories/[id]/roles/_components/AvailabilityCell';
 import { ProviderCell } from '@/app/service-categories/[id]/roles/_components/ProviderCell';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';

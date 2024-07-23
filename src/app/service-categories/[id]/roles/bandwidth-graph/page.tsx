@@ -14,7 +14,7 @@ import { EmptyArray } from '@/api/literals';
 
 import { EntityClassMap } from '@/api/entity-class-map';
 import { ProjectionClassificationValidationGraph } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { bandwidthOptions } from '@/app/service-categories/[id]/roles/bandwidth-graph/bandwidthForceGraphOptions';
 
 const graphUrl = constructUrl(

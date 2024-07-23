@@ -2,7 +2,7 @@ import { BaseLazyDtoUiProps } from 'dto-stores';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { useDirectSimRefEditsDispatch } from 'react-d3-force-wrapper';
 import React, { useCallback, useState, useTransition } from 'react';
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
 import { Button } from '@nextui-org/button';

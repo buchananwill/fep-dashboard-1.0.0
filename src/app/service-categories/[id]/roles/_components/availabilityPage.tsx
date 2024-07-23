@@ -1,4 +1,4 @@
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';

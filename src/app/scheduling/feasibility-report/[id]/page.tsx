@@ -9,7 +9,7 @@ import {
   EditAddDeleteDtoControllerArray,
   EmptyArray
 } from 'dto-stores';
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';
 import { Link } from '@nextui-org/link';

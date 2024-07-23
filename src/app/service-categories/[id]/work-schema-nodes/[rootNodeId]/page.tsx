@@ -1,4 +1,4 @@
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
 import { workSchemaNodeForceGraphOptions } from '@/app/service-categories/[id]/work-schema-nodes/[rootNodeId]/workSchemaNodeForceGraphOptions';

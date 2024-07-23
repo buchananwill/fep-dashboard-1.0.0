@@ -7,6 +7,7 @@ import * as TimeDivision from './generated-actions/TimeDivision';
 import * as WorkTaskType from './generated-actions/WorkTaskType';
 import * as AssetRoleTypeWorkTaskTypeSuitability from './generated-actions/AssetRoleTypeWorkTaskTypeSuitability';
 import * as Asset from './generated-actions/Asset';
+import * as AssetRoleType from './generated-actions/AssetRoleType';
 import * as CarouselGroupOption from './generated-actions/CarouselGroupOption';
 import * as WorkSchemaNode from './generated-actions/WorkSchemaNode';
 import * as KnowledgeLevel from './generated-actions/KnowledgeLevel';
@@ -25,6 +26,7 @@ import * as WorkProjectSeriesSchema from './generated-actions/WorkProjectSeriesS
 import * as KnowledgeDomain from './generated-actions/KnowledgeDomain';
 import * as CarouselOrderItem from './generated-actions/CarouselOrderItem';
 import * as UserRole from './generated-actions/UserRole';
+import * as UserRoleType from './generated-actions/UserRoleType';
 import * as WorkProjectSeriesAssignment from './generated-actions/WorkProjectSeriesAssignment';
 import * as Schedule from './generated-actions/Schedule';
 import * as ProviderRoleType from './generated-actions/ProviderRoleType';
@@ -32,42 +34,39 @@ import * as CarouselOption from './generated-actions/CarouselOption';
 import * as Person from './generated-actions/Person';
 import * as CycleSubspan from './generated-actions/CycleSubspan';
 export const Api = {
-Organization,
-ServiceCategory,
-Carousel,
-CarouselOrder,
-ProviderRoleAvailability,
-TimeDivision,
-WorkTaskType,
-AssetRoleTypeWorkTaskTypeSuitability,
-Asset,
-CarouselGroupOption,
-WorkSchemaNode,
-KnowledgeLevel,
-WorkSchemaNodeAssignment,
-ProviderRole,
-InteractionBasedValidation,
-CarouselGroup,
-CycleSubspanGroup,
-OrganizationType,
-ProviderRoleTypeWorkTaskTypeSuitability,
-Cycle,
-WorkProjectSeries,
-AssetRole,
-AssetType,
-WorkProjectSeriesSchema,
-KnowledgeDomain,
-CarouselOrderItem,
-UserRole,
-WorkProjectSeriesAssignment,
-Schedule,
-ProviderRoleType,
-CarouselOption,
-Person,
-CycleSubspan,
-
+  Organization,
+  ServiceCategory,
+  Carousel,
+  CarouselOrder,
+  ProviderRoleAvailability,
+  TimeDivision,
+  WorkTaskType,
+  AssetRoleTypeWorkTaskTypeSuitability,
+  Asset,
+  CarouselGroupOption,
+  WorkSchemaNode,
+  KnowledgeLevel,
+  WorkSchemaNodeAssignment,
+  ProviderRole,
+  InteractionBasedValidation,
+  CarouselGroup,
+  CycleSubspanGroup,
+  OrganizationType,
+  ProviderRoleTypeWorkTaskTypeSuitability,
+  Cycle,
+  WorkProjectSeries,
+  AssetRole,
+  AssetType,
+  WorkProjectSeriesSchema,
+  KnowledgeDomain,
+  CarouselOrderItem,
+  UserRole,
+  UserRoleType,
+  WorkProjectSeriesAssignment,
+  Schedule,
+  ProviderRoleType,
+  AssetRoleType,
+  CarouselOption,
+  Person,
+  CycleSubspan
 } as const;
-export {
-    
-}
-

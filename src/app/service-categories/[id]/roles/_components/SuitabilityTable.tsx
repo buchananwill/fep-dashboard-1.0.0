@@ -19,7 +19,7 @@ import {
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 import { isNotUndefined } from '@/api/main';
 import { AssetRoleWorkTaskSuitabilityDto } from '@/api/dtos/AssetRoleWorkTaskSuitabilityDtoSchema';
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import VirtualizedTableWindowed from '@/app/scheduling/[scheduleId]/work-project-series-assignments/VirtualizedTableWindowed';
 import { CellComponentMemo } from '@/app/service-categories/[id]/roles/_components/CellComponent';
 

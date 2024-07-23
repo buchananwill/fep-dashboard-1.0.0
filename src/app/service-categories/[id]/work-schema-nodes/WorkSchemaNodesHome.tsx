@@ -1,4 +1,4 @@
-import { Api } from '@/api/clientApi';
+import { Api } from '@/api/clientApi_';
 import { Link } from '@nextui-org/link';
 import { LeafComponentProps } from '@/app/core/navTree';
 import WorkSchemaNodeRootGraph from '@/app/service-categories/[id]/work-schema-nodes/WorkSchemaNodeRootGraph';
