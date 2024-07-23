@@ -50,7 +50,7 @@ const handleSubmit = async (
   }
 };
 
-export default function Page() {
+export default function CreateServiceCategoryPage() {
   const [template] = data;
 
   const [pending, startTransition] = useTransition();

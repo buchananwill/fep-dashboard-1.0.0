@@ -2,13 +2,9 @@ import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/t
 import { notFound } from 'next/navigation';
 import SuitabilityPage, {
   ServiceCategoryRoleTypeList
-} from '../../../_components/SuitabilityPage';
+} from '../service-categories/[id]/roles/_components/SuitabilityPage';
 import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';
-import {
-  LeafComponentProps,
-  NavTree,
-  NavTreeBranch
-} from '@/app/core/navigation/types';
+import { LeafComponentProps, NavTreeBranch } from '@/app/core/navigation/types';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
 import { startCase } from 'lodash';

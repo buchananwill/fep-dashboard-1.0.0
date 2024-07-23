@@ -3,22 +3,30 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import ServiceCategory from '@/app/service-categories/[id]/ServiceCategory';
 import { kebabCase } from 'lodash';
-import { HasId } from '@/api/types';
 import { LinkButton } from '@/app/service-categories/LinkButton';
+import { Chip } from '@nextui-org/chip';
 
 async function Home({ pathVariables }: LeafComponentProps) {
   const dtoPage = await getPage({ page: 0, pageSize: 10 });
 
   return (
     <main className={'p-8'}>
-      {dtoPage.content.map((serviceCategory) => (
+      <div className={'flex flex-col gap-1'}>
         <LinkButton
-          href={`${getCoreEntityLink(pathVariables.slice(0, 1), [String(serviceCategory.id)])}`}
-          key={serviceCategory.id}
+          href={getCoreEntityLink(pathVariables, ['create'])}
+          className={'border border-gray-400 p-4'}
         >
-          {serviceCategory.name}
+          Create
         </LinkButton>
-      ))}
+        {dtoPage.content.map((serviceCategory) => (
+          <LinkButton
+            href={`${getCoreEntityLink(pathVariables.slice(0, 1), [String(serviceCategory.id)])}`}
+            key={serviceCategory.id}
+          >
+            {serviceCategory.name}
+          </LinkButton>
+        ))}
+      </div>
     </main>
   );
 }

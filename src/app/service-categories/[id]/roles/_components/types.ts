@@ -2,7 +2,7 @@ import { Api } from '@/api/clientApi_';
 import { UserRoleDtoSchema } from '@/api/dtos/UserRoleDtoSchema';
 import { ProviderRoleDtoSchema } from '@/api/dtos/ProviderRoleDtoSchema';
 import { AssetRoleDtoSchema } from '@/api/dtos/AssetRoleDtoSchema';
-import { RoleAspects } from '@/app/service-categories/[id]/roles/[roleCategory]/[roleTypeId]/[roleAspect]/rolePage';
+import { RoleAspects } from '@/app/roles/rolePage';
 
 export type BaseRoleParams = {
   id: string;

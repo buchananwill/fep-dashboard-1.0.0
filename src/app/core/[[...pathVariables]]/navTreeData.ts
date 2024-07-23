@@ -11,15 +11,18 @@ import WorkProjectSeriesSchemaHome from '@/app/service-categories/[id]/[levelOrd
 import { CarouselGroupsAndOrders } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/carouselGroupOrdersPage';
 import { WorkSchemaNodeAssignmentsHome } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
-import { rolePageTree } from '@/app/service-categories/[id]/roles/[roleCategory]/[roleTypeId]/[roleAspect]/rolePage';
+import { rolePageTree } from '@/app/roles/rolePage';
 import Home from '@/app/page';
+import CreateServiceCategoryPage from '@/app/service-categories/create/createServiceCategoryPage';
 
 export const navTreeData: NavTree = {
   cycles: { type: 'branch', children: cyclesNavTree, component: CyclesHome },
   scheduling: schedulingNavTree,
   serviceCategories: {
     type: 'branch',
-    children: {},
+    children: {
+      create: { type: 'leaf', component: CreateServiceCategoryPage }
+    },
     component: ServiceCategoriesHome
   },
   knowledgeDomains: {
