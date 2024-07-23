@@ -3,10 +3,21 @@ import { navKeyList, navLinkIcons } from '@/components/navigation/navLinkIcons';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { startCase } from 'lodash';
 import { mainNavLinkList } from '@/components/navigation/navLinks';
+import {
+  createLinksFromNavTree,
+  NavLinkTreeButton,
+  WrappedHeader,
+  WrappedLink
+} from '@/app/core/navTree';
+import { navTreeData } from '@/app/core/[[...pathVariables]]/navTreeData';
 
 export default function Home() {
+  const linksFromNavTree = createLinksFromNavTree(navTreeData, ['core'], []);
+
+  console.log(linksFromNavTree);
+
   return (
-    <div className={'h-[100vh] w-[100vw] p-4'}>
+    <div className={' p-4'}>
       <Card className={'center-all-margin w-fit'}>
         {' '}
         <CardHeader>Navigation Links</CardHeader>{' '}
@@ -27,6 +38,13 @@ export default function Home() {
             );
           })}
         </CardBody>
+      </Card>
+      <Card>
+        <NavLinkTreeButton
+          navLinkNode={linksFromNavTree}
+          renderHeaderAs={WrappedHeader}
+          renderLinkAs={WrappedLink}
+        />
       </Card>
     </div>
   );

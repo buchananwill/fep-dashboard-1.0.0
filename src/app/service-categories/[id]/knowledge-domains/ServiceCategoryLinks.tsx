@@ -12,7 +12,9 @@ export async function ServiceCategoryLinks({
   const all = await Api.ServiceCategory.getAll();
   return (
     <Card>
-      <CardHeader>{startCase(pathVariables[depth - 1])}</CardHeader>
+      <CardHeader>
+        {startCase(pathVariables[depth - 1])} - Service Categories
+      </CardHeader>
       <CardBody>
         {all.map((serviceCategory) => (
           <LinkButton

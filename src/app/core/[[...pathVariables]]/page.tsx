@@ -1,5 +1,5 @@
-import { homePage, ResolveNavTree } from '@/app/core/navTree';
 import { navTreeData } from '@/app/core/[[...pathVariables]]/navTreeData';
+import { ResolveNavTree } from '@/app/core/ResolveNavTree';
 
 export default function page({
   params: { pathVariables }

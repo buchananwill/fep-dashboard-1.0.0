@@ -1,6 +1,6 @@
 import { LinkProps } from '@nextui-org/link';
 import Link from 'next/link';
-import { Button } from '@nextui-org/button';
+import { LinkTreeElementProps } from '@/app/core/navTree';
 
 export function LinkButton({
   href,
@@ -15,5 +15,17 @@ export function LinkButton({
     >
       {children}
     </Link>
+  );
+}
+
+export function NoLinkHeader({ displayLabel }: LinkTreeElementProps) {
+  return (
+    <div
+      className={
+        'm-0.5 h-fit w-fit rounded-xl bg-gray-200 bg-transparent p-0.5 px-2 text-black '
+      }
+    >
+      {displayLabel}
+    </div>
   );
 }
