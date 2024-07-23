@@ -4,7 +4,6 @@ import { Button } from '@nextui-org/button';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 
 export default async function SchedulingHome({}: LeafComponentProps) {
-  console.log('scheduling home');
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([
     { status: 'PASS' }
   ]);

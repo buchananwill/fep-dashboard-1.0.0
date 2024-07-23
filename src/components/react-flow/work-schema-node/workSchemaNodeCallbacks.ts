@@ -1,5 +1,4 @@
 import {
-  DataNode,
   incrementCloneSuffix,
   reMapNodeIdWithoutValidating
 } from 'react-d3-force-wrapper';
@@ -64,10 +63,8 @@ export function validateHierarchy(
 ): boolean {
   if (!parent || !child) return false;
   const childResolutionMode = child.resolutionMode;
-  console.log('child resolution:', childResolutionMode);
   const typeValidation =
     determinePermittedChildTypes(parent).includes(childResolutionMode);
-  console.log('type validation:', typeValidation);
   if (!typeValidation) return false;
 
   // Explicit CarouselGroup and Carousel entities are only allowed to attach to their own explicit children.
@@ -76,12 +73,6 @@ export function validateHierarchy(
     const carousel = child.carouselId
       ? getCarousel(child.carouselId)
       : undefined;
-    console.log(
-      'parent has carouselGroupId',
-      carouselGroupId,
-      carousel,
-      child.carouselId
-    );
     return (
       carousel !== undefined && carousel.carouselGroupId === carouselGroupId
     );
@@ -92,18 +83,10 @@ export function validateHierarchy(
     : undefined;
   if (carousel !== undefined) {
     const carouselOption = child.carouselOptionId;
-    const checkCarouselOptionBelongsToThisCarousel =
+    return (
       carouselOption !== undefined &&
-      carousel.carouselOptionDtos.some(
-        (option) => option.id === carouselOption
-      );
-    console.log(
-      'checked carousel option belongs to this carousel:',
-      carousel,
-      carouselOption,
-      checkCarouselOptionBelongsToThisCarousel
+      carousel.carouselOptionDtos.some((option) => option.id === carouselOption)
     );
-    return checkCarouselOptionBelongsToThisCarousel;
   }
 
   return true;

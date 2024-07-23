@@ -1,7 +1,7 @@
 import { Api } from '@/api/clientApi_';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
-import { workSchemaNodeForceGraphOptions } from '@/app/service-categories/[id]/work-schema-nodes/[rootNodeId]/workSchemaNodeForceGraphOptions';
+import { workSchemaNodeForceGraphOptions } from '@/app/service-categories/[id]/work-schema-nodes/workSchemaNodeForceGraphOptions';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
@@ -13,7 +13,6 @@ export default async function WorkSchemaNodeRootGraph({
   pathVariables,
   depth
 }: LeafComponentProps) {
-  console.log('root graph page');
   if (pathVariables.length > depth) notFound();
   const rootNodeId = pathVariables[depth - 1];
   const graphDto = await Api.WorkSchemaNode.getGraphByRootId({

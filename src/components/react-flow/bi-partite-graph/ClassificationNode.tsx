@@ -55,14 +55,12 @@ export default function ClassificationNode(
   });
   const validationElement = useMemo(() => {
     if (bandwidthValidationLayer !== ObjectPlaceholder) {
-      console.log(bandwidthValidationLayer);
       return (
         <div className={'inline-block rounded-lg'}>
           {bandwidthValidationLayer.residualBandwidth}
         </div>
       );
     } else {
-      console.log(bandwidthValidationLayer);
       return null;
     }
   }, [bandwidthValidationLayer]);

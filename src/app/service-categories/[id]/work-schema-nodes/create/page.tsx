@@ -1,5 +1,5 @@
 import WorkSchemaNodeGraph from '@/app/service-categories/[id]/work-schema-nodes/_components/WorkSchemaNodeGraph';
-import { workSchemaNodeForceGraphOptions } from '@/app/service-categories/[id]/work-schema-nodes/[rootNodeId]/workSchemaNodeForceGraphOptions';
+import { workSchemaNodeForceGraphOptions } from '@/app/service-categories/[id]/work-schema-nodes/workSchemaNodeForceGraphOptions';
 import { EmptyArray } from '@/api/literals';
 import { Api } from '@/api/clientApi_';
 import { getWithoutBody } from '@/api/actions/template-actions';

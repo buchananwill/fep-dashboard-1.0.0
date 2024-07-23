@@ -27,8 +27,6 @@ export default async function page({
     return <Link href={`/scheduling/feasibility-report/${id}`}>Pending</Link>;
   }
 
-  console.log(feasibilityReportFullDto);
-
   return (
     <>
       <DataFetchingEditDtoControllerArray
