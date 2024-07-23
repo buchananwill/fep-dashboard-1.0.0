@@ -19,15 +19,13 @@ export function LibraryProvidersWrapper({
   const router = useRouter();
 
   return (
-    <ReactFlowProvider>
-      <SelectiveContextManagerGlobal>
-        <MasterChangesTrackWrapper />
-        <DndProvider backend={HTML5Backend}>
-          <AnimationSyncContextProvider>
-            <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
-          </AnimationSyncContextProvider>
-        </DndProvider>
-      </SelectiveContextManagerGlobal>
-    </ReactFlowProvider>
+    <SelectiveContextManagerGlobal>
+      <MasterChangesTrackWrapper />
+      <DndProvider backend={HTML5Backend}>
+        <AnimationSyncContextProvider>
+          <NextUIProvider navigate={router.push}>{children}</NextUIProvider>
+        </AnimationSyncContextProvider>
+      </DndProvider>
+    </SelectiveContextManagerGlobal>
   );
 }

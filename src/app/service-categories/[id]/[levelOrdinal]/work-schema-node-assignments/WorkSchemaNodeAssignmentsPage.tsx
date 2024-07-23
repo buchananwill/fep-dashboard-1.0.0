@@ -29,6 +29,7 @@ import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLevelLinks } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/ServiceCategoryLevelLinks';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
+import { ReactFlowProvider } from '@xyflow/react';
 
 async function WorkSchemaNodeAssignmentsPage({
   pathVariables,
@@ -99,7 +100,6 @@ async function WorkSchemaNodeAssignmentsPage({
         nodeList={combinedGraphs.dataNodes}
         linkList={combinedGraphs.dataLinks}
       />
-
       <ReactFlowWrapper>
         <ClassHierarchyLayoutFlowWithForces
           typeData={orgType}
