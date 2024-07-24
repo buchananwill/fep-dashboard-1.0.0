@@ -24,7 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <LibraryProvidersWrapper>
-          {children}
+          <div className={'flex'}>
+            <div className={'center-all-margin'}>{children}</div>
+          </div>
           <TooltipSingleton />
           <NavPopoverTrigger />
         </LibraryProvidersWrapper>

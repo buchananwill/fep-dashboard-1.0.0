@@ -237,7 +237,6 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         entityClass={AllocationRollupEntityClass}
         dtoList={EmptyArray}
       />
-
       <RollupUpdater allocationRollupEntities={allocationRollupEntities} />
       <PendingOverlay pending={isPending} />
       <Panel position={'top-center'}>
@@ -257,9 +256,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       </Panel>
       {reactFlowProps.nodes.length === 0 && <AddRootNode />}
       {children}
-      {/* 7. Add a background */}
       <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-      {/* 8. Pass the overlay props */}
       <FlowOverlay {...flowOverlayProps} />
     </ReactFlow>
   );
