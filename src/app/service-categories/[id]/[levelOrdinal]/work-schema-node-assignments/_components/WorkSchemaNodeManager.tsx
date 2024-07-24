@@ -10,6 +10,8 @@ import { DataLink, DataNode } from 'react-d3-force-wrapper';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
 import WorkSchemaNodeLeafController from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/_components/WorkSchemaNodeLeafController';
+import { memo, useMemo, useRef } from 'react';
+import { isEqual } from 'lodash';
 
 export default function WorkSchemaNodeManager({
   nodeList,
@@ -18,9 +20,34 @@ export default function WorkSchemaNodeManager({
   nodeList: DataNode<WorkSchemaNodeDto>[];
   linkList: DataLink<WorkSchemaNodeDto>[];
 }) {
-  const idToNodeMap = useIdToNodeMapMemo(nodeList);
-  const idToEdgeMap = useIdToEdgeMapMemo(linkList);
-  const idToChildIdMap = useIdToChildIdMapMemo(linkList);
+  const nodeListRef = useRef(nodeList);
+  const linkListRef = useRef(linkList);
+
+  const { memoNodes, memoLinks } = useMemo(() => {
+    const nodesMatch = nodeList.every((nodeDto) => {
+      const oldNode = nodeListRef.current.find(
+        (prevNode) => prevNode.id === nodeDto.id
+      );
+      return isEqual(nodeDto, oldNode);
+    });
+    const linksMatch = linkList.every((linkDto) => {
+      const oldLink = linkListRef.current.find(
+        (prevLink) => prevLink.id === linkDto.id
+      );
+      return isEqual(linkDto, oldLink);
+    });
+    if (nodesMatch && linksMatch)
+      return { memoNodes: nodeListRef.current, memoLinks: linkListRef.current };
+    else {
+      nodeListRef.current = nodeList;
+      linkListRef.current = linkList;
+      return { memoNodes: nodeList, memoLinks: linkList };
+    }
+  }, [nodeList, linkList]);
+
+  const idToNodeMap = useIdToNodeMapMemo(memoNodes);
+  const idToEdgeMap = useIdToEdgeMapMemo(memoLinks);
+  const idToChildIdMap = useIdToChildIdMapMemo(memoLinks);
   const { currentState: leafToSchemaMap } = useGlobalController({
     contextKey: 'leafToSchemaMap',
     listenerKey: 'controller',
@@ -28,18 +55,25 @@ export default function WorkSchemaNodeManager({
   });
 
   const allocationRollupEntities = useWorkSchemaNodeRollupMemo(
-    nodeList,
+    memoNodes,
     leafToSchemaMap,
     idToChildIdMap,
     idToNodeMap
   );
 
+  const LeafControllers = useMemo(() => {
+    return memoNodes.map((node) => (
+      <MemoWorkSchemaNodeLeafController node={node} key={node.id} />
+    ));
+  }, [memoNodes]);
+
   return (
     <>
-      {nodeList.map((node) => (
-        <WorkSchemaNodeLeafController node={node} key={node.id} />
-      ))}
-      <RollupUpdater allocationRollupEntities={allocationRollupEntities} />
+      {...LeafControllers}
+      <MemoRollupUpdater allocationRollupEntities={allocationRollupEntities} />
     </>
   );
 }
+
+const MemoRollupUpdater = memo(RollupUpdater);
+const MemoWorkSchemaNodeLeafController = memo(WorkSchemaNodeLeafController);

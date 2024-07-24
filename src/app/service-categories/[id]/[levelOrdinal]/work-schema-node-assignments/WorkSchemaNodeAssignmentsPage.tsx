@@ -70,12 +70,7 @@ async function WorkSchemaNodeAssignmentsPage({
   );
 
   return (
-    <ForceGraphPage
-      dataNodes={dataNodes}
-      dataLinks={dataLinks}
-      graphName={'bundle-assignments-graph'}
-      options={defaultForceGraphPageOptions}
-    >
+    <>
       <DataFetchingEditDtoControllerArray
         idList={rootNodeIdList}
         entityClass={EntityClassMap.workSchemaNode}
@@ -95,17 +90,23 @@ async function WorkSchemaNodeAssignmentsPage({
         entityClass={AllocationRollupEntityClass}
         dtoList={EmptyArray}
       />
-
-      <WorkSchemaNodeManager
-        nodeList={combinedGraphs.dataNodes}
-        linkList={combinedGraphs.dataLinks}
-      />
-      <ReactFlowWrapper>
-        <ClassHierarchyLayoutFlowWithForces
-          typeData={orgType}
-        ></ClassHierarchyLayoutFlowWithForces>
-      </ReactFlowWrapper>
-    </ForceGraphPage>
+      <ForceGraphPage
+        dataNodes={dataNodes}
+        dataLinks={dataLinks}
+        graphName={'work-schema-node-assignments-graph'}
+        options={defaultForceGraphPageOptions}
+      >
+        <WorkSchemaNodeManager
+          nodeList={combinedGraphs.dataNodes}
+          linkList={combinedGraphs.dataLinks}
+        />
+        <ReactFlowWrapper>
+          <ClassHierarchyLayoutFlowWithForces
+            typeData={orgType}
+          ></ClassHierarchyLayoutFlowWithForces>
+        </ReactFlowWrapper>
+      </ForceGraphPage>
+    </>
   );
 }
 

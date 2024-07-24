@@ -7,7 +7,7 @@ import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
 
-export default async function page() {
+export default async function CreateWorkSchemaNode() {
   const schemas = await Api.WorkProjectSeriesSchema.getAll();
 
   const unassignedRootList = await getWithoutBody<WorkSchemaNodeDto[]>(

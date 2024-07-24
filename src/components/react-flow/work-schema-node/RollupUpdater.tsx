@@ -5,11 +5,22 @@ import { useEffect } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeController';
 
+export function getMilliseconds() {
+  return new Date(Date.now()).getMilliseconds();
+}
+
 export function RollupUpdater({
   allocationRollupEntities
 }: {
   allocationRollupEntities: AllocationRollup[];
 }) {
+  // 24/7/24 Currently the entire work schema node archive is fetched from the backend to determine the assignment rollups.
+  console.log(
+    'rendering rollup updater: ',
+    allocationRollupEntities,
+    getMilliseconds()
+  );
+
   const { currentState: rollupIdList } = NamespacedHooks.useListen(
     AllocationRollupEntityClass,
     KEY_TYPES.ID_LIST,

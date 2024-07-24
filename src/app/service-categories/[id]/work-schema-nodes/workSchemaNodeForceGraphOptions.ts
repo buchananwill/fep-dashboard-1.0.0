@@ -11,7 +11,7 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
   forceAttributesInitial: {
     collideStrength: 10,
     linkDistance: 70,
-    linkStrength: 120,
+    linkStrength: 170,
     manyBodyStrength: 134,
     manyBodyMinDistance: 1,
     manyBodyMaxDistance: 40,
