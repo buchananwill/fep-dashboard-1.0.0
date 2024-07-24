@@ -1,10 +1,12 @@
 import { NavTreeBranch } from '@/app/core/navigation/types';
 import WorkProjectSeriesAssignmentsPage from '@/app/scheduling/[scheduleId]/work-project-series-assignments/WorkProjectSeriesAssignmentsPage';
-import SchedulingHome from '@/app/scheduling/SchedulingHome';
+import SchedulingHome, {
+  SchedulingHomeRedirect
+} from '@/app/scheduling/SchedulingHome';
 
 export const schedulingNavTree: NavTreeBranch = {
   type: 'branch',
-  component: SchedulingHome,
+  component: SchedulingHomeRedirect,
   children: {
     workProjectSeriesAssignments: {
       type: 'leaf',

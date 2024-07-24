@@ -15,9 +15,6 @@ import { rolePageTree } from '@/app/roles/rolePage';
 import NavigationHome from '@/app/core/navigation/NavigationHome';
 import CreateServiceCategoryPage from '@/app/service-categories/create/createServiceCategoryPage';
 import BuildSchedulePage from '@/app/scheduling/build/BuildSchedulePage';
-import CreateFeasibilityReportPage from '@/app/scheduling/feasibility-report/CreateFeasibilityReportPage';
-import ViewFeasibilityReportPage from '@/app/scheduling/feasibility-report/[id]/ViewFeasibilityReportPage';
-import { ViewFeasibilityReportHome } from '@/app/scheduling/feasibility-report/[id]/ViewFeasibilityReportHome';
 import { feasibilityBranch } from '@/app/scheduling/feasibility-report/FeasibilityHome';
 
 export const navTreeData: NavTree = {

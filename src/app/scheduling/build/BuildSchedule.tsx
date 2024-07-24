@@ -19,7 +19,7 @@ export default function BuildSchedule({
       onPress={() => {
         startTransition(async () => {
           const scheduleDto = await buildScheduleAction(cycleId);
-          appRouterInstance.push(`/scheduling/${scheduleDto.id}`);
+          appRouterInstance.push(`/core/scheduling/${scheduleDto.id}`);
         });
       }}
     >

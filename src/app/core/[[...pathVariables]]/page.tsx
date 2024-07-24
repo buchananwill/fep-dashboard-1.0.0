@@ -1,4 +1,4 @@
-import { navTreeData } from '@/app/core/[[...pathVariables]]/navTreeData';
+import { navTreeData } from '@/app/core/navigation/navTreeData';
 import { ResolveNavTree } from '@/app/core/navigation/ResolveNavTree';
 
 export default function page({

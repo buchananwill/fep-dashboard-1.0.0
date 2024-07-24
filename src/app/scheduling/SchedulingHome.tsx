@@ -2,6 +2,8 @@ import { Api } from '@/api/clientApi_';
 import { Link } from '@nextui-org/link';
 import { Button } from '@nextui-org/button';
 import { LeafComponentProps } from '@/app/core/navigation/types';
+import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import ScheduleFallbackPage from '@/app/scheduling/[scheduleId]/ScheduleFallbackPage';
 
 export default async function SchedulingHome({}: LeafComponentProps) {
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([
@@ -20,3 +22,8 @@ export default async function SchedulingHome({}: LeafComponentProps) {
     </>
   );
 }
+
+export const SchedulingHomeRedirect = getPathVariableSplitComponent(
+  SchedulingHome,
+  ScheduleFallbackPage
+);
