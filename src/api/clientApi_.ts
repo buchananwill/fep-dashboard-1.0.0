@@ -11,7 +11,7 @@ import * as AssetRoleType from './generated-actions/AssetRoleType';
 import * as CarouselGroupOption from './generated-actions/CarouselGroupOption';
 import * as WorkSchemaNode from './generated-actions/WorkSchemaNode_';
 import * as KnowledgeLevel from './generated-actions/KnowledgeLevel';
-import * as WorkSchemaNodeAssignment from './generated-actions/WorkSchemaNodeAssignment';
+import * as WorkSchemaNodeAssignment from './generated-actions/WorkSchemaNodeAssignment_';
 import * as ProviderRole from './generated-actions/ProviderRole';
 import * as InteractionBasedValidation from './generated-actions/InteractionBasedValidation';
 import * as CarouselGroup from './generated-actions/CarouselGroup';

@@ -1,10 +1,10 @@
 'use server';
-import { WorkSchemaNodeAssignmentDto } from '../dtos/WorkSchemaNodeAssignmentDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
+import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema_';
 
 const {
-getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,16 +16,12 @@ getPage,
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<
-  WorkSchemaNodeAssignmentDto,
-  number
->(
+} = generateBaseEndpointSet<WorkSchemaNodeAssignmentDto, number>(
   '/api/v2/workProjectSeriesSchemas/bundleAssignments'
 );
 
-
 const {
-          getByRowIdListAndColumnIdList,
+  getByRowIdListAndColumnIdList,
   getColumnIdList,
   getByRowIdList,
   getIntersectionTable
@@ -33,12 +29,10 @@ const {
   WorkSchemaNodeAssignmentDto,
   number,
   number
->(
-  '/api/v2/workProjectSeriesSchemas/bundleAssignments'
-);
+>('/api/v2/workProjectSeriesSchemas/bundleAssignments');
 
 export {
-    getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -49,11 +43,9 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList
-,           getByRowIdListAndColumnIdList,
+  getDtoListByExampleList,
+  getByRowIdListAndColumnIdList,
   getColumnIdList,
   getByRowIdList,
   getIntersectionTable
-
-}
-
+};
