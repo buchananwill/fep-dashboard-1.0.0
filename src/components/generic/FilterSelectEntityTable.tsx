@@ -47,7 +47,8 @@ export default function FilterSelectEntityTable<
     rowsPerPageProps,
     deselectVisible,
     selectVisible,
-    filterPropertySelectProps
+    filterPropertySelectProps,
+    filteredItems
   } = useFilterSortPaginateSelect(
     initialColumns,
     columns,
@@ -117,6 +118,8 @@ export default function FilterSelectEntityTable<
       </div>
     );
   }, [
+    filterPropertySelectProps.onChange,
+    filterPropertySelectProps.value,
     dynamicColumns,
     columns,
     selectVisible,
@@ -134,7 +137,7 @@ export default function FilterSelectEntityTable<
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys.size === entities.length
             ? 'All items selected'
-            : `${selectedKeys.size} of ${entities.length} selected`}
+            : `${selectedKeys.size} of ${filteredItems.length} selected`}
         </span>
         <Pagination
           isCompact
@@ -145,7 +148,7 @@ export default function FilterSelectEntityTable<
         />
       </div>
     );
-  }, [paginationProps, selectedKeys, entities.length]);
+  }, [paginationProps, selectedKeys, entities.length, filteredItems]);
 
   return (
     <FilterSortPaginateTableContent

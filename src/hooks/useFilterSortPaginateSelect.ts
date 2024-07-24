@@ -94,6 +94,7 @@ export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
       onChange: onFilterPropertyChange
     },
     deselectVisible,
-    selectVisible
+    selectVisible,
+    filteredItems
   };
 }
