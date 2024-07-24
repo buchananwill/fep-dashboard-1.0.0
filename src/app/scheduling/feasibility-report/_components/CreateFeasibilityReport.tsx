@@ -21,9 +21,7 @@ export default function CreateFeasibilityReport({
         startTransition(async () => {
           const reportStub: FeasibilityReportDto =
             await createFeasibilityReport(cycleId);
-          appRouterInstance.push(
-            `/scheduling/feasibility-report/${reportStub.id}`
-          );
+          appRouterInstance.push(`/core/feasibility/view/${reportStub.id}`);
         });
       }}
     >

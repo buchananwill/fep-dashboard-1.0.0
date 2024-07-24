@@ -12,20 +12,36 @@ import {
 import { Api } from '@/api/clientApi_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';
-import { Link } from '@nextui-org/link';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
+import { LinkButton } from '@/app/service-categories/LinkButton';
+import { ClockIcon } from '@heroicons/react/24/outline';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 export default async function ViewFeasibilityReportPage({
   pathVariables
 }: LeafComponentProps) {
   const [id] = getLastNVariables(pathVariables, 1);
   const feasibilityReportFullDto: FullReport = await getWithoutBody(
-    constructUrl(`/api/v2/schedule/feasibilityReport/${id}`)
+    constructUrl(`/api/v2/schedule/feasibilityReport/${id}/fullReport`)
   );
 
   if (feasibilityReportFullDto.reportStatus === 'PENDING') {
-    return <Link href={`/scheduling/feasibility-report/${id}`}>Pending</Link>;
+    return (
+      <Card>
+        <CardHeader>
+          <LinkButton
+            href={`/core/feasibility/view/${id}`}
+            className={'flex gap-1'}
+          >
+            Pending <ClockIcon className={'h-6'} />
+          </LinkButton>
+        </CardHeader>
+        <CardBody>
+          This report is currently being generate and will be available shortly.
+        </CardBody>
+      </Card>
+    );
   }
 
   return (

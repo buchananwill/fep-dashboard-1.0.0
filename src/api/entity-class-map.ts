@@ -29,6 +29,7 @@ export const EntityClassMap = {
  workProjectSeriesAssignment: 'WorkProjectSeriesAssignment', 
  cycle: 'Cycle', 
  timeSpan: 'TimeSpan', 
+ feasibilityReport: 'FeasibilityReport', 
  person: 'Person', 
  organizationType: 'OrganizationType', 
  assetType: 'AssetType', 

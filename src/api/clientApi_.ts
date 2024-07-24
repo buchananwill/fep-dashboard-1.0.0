@@ -9,7 +9,7 @@ import * as AssetRoleTypeWorkTaskTypeSuitability from './generated-actions/Asset
 import * as Asset from './generated-actions/Asset';
 import * as AssetRoleType from './generated-actions/AssetRoleType';
 import * as CarouselGroupOption from './generated-actions/CarouselGroupOption';
-import * as WorkSchemaNode from './generated-actions/WorkSchemaNode';
+import * as WorkSchemaNode from './generated-actions/WorkSchemaNode_';
 import * as KnowledgeLevel from './generated-actions/KnowledgeLevel';
 import * as WorkSchemaNodeAssignment from './generated-actions/WorkSchemaNodeAssignment';
 import * as ProviderRole from './generated-actions/ProviderRole';
@@ -33,6 +33,8 @@ import * as ProviderRoleType from './generated-actions/ProviderRoleType';
 import * as CarouselOption from './generated-actions/CarouselOption';
 import * as Person from './generated-actions/Person';
 import * as CycleSubspan from './generated-actions/CycleSubspan';
+import * as FeasibilityReport from './generated-actions/FeasibilityReport';
+
 export const Api = {
   Organization,
   ServiceCategory,
@@ -46,6 +48,7 @@ export const Api = {
   CarouselGroupOption,
   WorkSchemaNode,
   KnowledgeLevel,
+  FeasibilityReport,
   WorkSchemaNodeAssignment,
   ProviderRole,
   InteractionBasedValidation,
