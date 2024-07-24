@@ -1,5 +1,11 @@
 import React, { useMemo } from 'react';
-import { Button, Input, Pagination, TableProps } from '@nextui-org/react';
+import {
+  Button,
+  ButtonGroup,
+  Input,
+  Pagination,
+  TableProps
+} from '@nextui-org/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Identifier } from 'dto-stores';
 import { Column, StringPropertyKey } from '@/types';
@@ -37,7 +43,8 @@ export default function FilterSelectEntityTable<
     filterProps,
     tableContentProps,
     rowsPerPageProps,
-    deselectVisible
+    deselectVisible,
+    selectVisible
   } = useFilterSortPaginateSelect(
     initialColumns,
     columns,
@@ -60,7 +67,13 @@ export default function FilterSelectEntityTable<
             startContent={<MagnifyingGlassIcon className={'h-6 w-6'} />}
             {...filterProps}
           />
-          <Button onPress={deselectVisible}>Deselect Page</Button>
+
+          <ButtonGroup>
+            Page:
+            <Button onPress={selectVisible}>Select</Button>
+            <Button onPress={deselectVisible}>Deselect</Button>
+          </ButtonGroup>
+
           <div className="flex gap-3">
             <ColumnDropdown {...columnDropdownProps} />
           </div>
@@ -84,6 +97,7 @@ export default function FilterSelectEntityTable<
       </div>
     );
   }, [
+    selectVisible,
     deselectVisible,
     entityClass,
     filterProps,

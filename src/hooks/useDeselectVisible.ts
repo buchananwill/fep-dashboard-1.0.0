@@ -17,3 +17,17 @@ export function useDeselectVisible<T extends HasIdClass<Identifier>>(
     });
   }, [dispatchSelected, visibleItemsRef]);
 }
+export function useSelectVisible<T extends HasIdClass<Identifier>>(
+  dispatchSelected: DispatchState<Identifier[]>,
+  visibleItemsRef: MutableRefObject<T[]>
+) {
+  return useCallback(() => {
+    dispatchSelected((selectionList) => {
+      const newSelectionSet = new Set(selectionList);
+      visibleItemsRef.current.forEach((entityItem) =>
+        newSelectionSet.add(entityItem.id)
+      );
+      return [...newSelectionSet.values()];
+    });
+  }, [dispatchSelected, visibleItemsRef]);
+}

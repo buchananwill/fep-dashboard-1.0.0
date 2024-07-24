@@ -7,7 +7,10 @@ import { useClientSideFiltering } from '@/hooks/useClientSideFiltering';
 import { useClientSideSorting } from '@/hooks/useClientSorting';
 import { useClientFilteredSortedPagination } from '@/hooks/useClientFilteredSortedPagination';
 import { useEntitySelection } from '@/hooks/useEntitySelection';
-import { useDeselectVisible } from '@/hooks/useDeselectVisible';
+import {
+  useDeselectVisible,
+  useSelectVisible
+} from '@/hooks/useDeselectVisible';
 
 export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
   initialColumns: (keyof T)[],
@@ -22,8 +25,14 @@ export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
     useClientSidePagination(initialRowsPerPage);
   const { visibleColumns, setVisibleColumns, headerColumns } =
     useDynamicColumnVisibility(initialColumns, columns);
-  const { filterValue, filteredItems, pages, onSearchChange, onClear } =
-    useClientSideFiltering(entities, filterProperty, rowsPerPage, setPage);
+  const {
+    filterValue,
+    filteredItems,
+    pages,
+    onSearchChange,
+    onClear,
+    filteredItemsRef
+  } = useClientSideFiltering(entities, filterProperty, rowsPerPage, setPage);
 
   const { sortDescriptor, onSortChange, sortedItems } = useClientSideSorting(
     filteredItems,
@@ -39,8 +48,9 @@ export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
 
   // Set up selection
   const { onSelectionChange, selectedKeys, dispatchSelected } =
-    useEntitySelection<T, Identifier>(entityClass, visibleItemsRef, idClass);
+    useEntitySelection<T, Identifier>(entityClass, filteredItemsRef, idClass);
   const deselectVisible = useDeselectVisible(dispatchSelected, visibleItemsRef);
+  const selectVisible = useSelectVisible(dispatchSelected, visibleItemsRef);
   return {
     tableContentProps: {
       onSelectionChange,
@@ -69,6 +79,7 @@ export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
       value: rowsPerPage,
       onChange: onRowsPerPageChange
     },
-    deselectVisible
+    deselectVisible,
+    selectVisible
   };
 }

@@ -19,7 +19,7 @@ export function useEntitySelection<
   U extends Identifier
 >(
   entityClass: string,
-  visibleItems: MutableRefObject<T[]>,
+  selectableItems: MutableRefObject<T[]>,
   idClass?: 'string' | 'number',
   forceString = true
 ) {
@@ -52,7 +52,7 @@ export function useEntitySelection<
       dispatchSelected((currentSelection) => {
         const selectionSet = new Set(currentSelection);
         if (selected === 'all') {
-          visibleItems.current
+          selectableItems.current
             .map((item) => item.id)
             .forEach((itemId) => selectionSet.add(itemId));
         } else {
@@ -71,7 +71,7 @@ export function useEntitySelection<
         return sort as U[];
       });
     },
-    [idClass, dispatchSelected, visibleItems]
+    [idClass, dispatchSelected, selectableItems]
   );
   return { currentState, selectedKeys, onSelectionChange, dispatchSelected };
 }

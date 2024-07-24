@@ -1,5 +1,5 @@
 import { DispatchState, StringPropertyKey } from '@/types';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { HasId, HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
 
@@ -11,6 +11,7 @@ export function useClientSideFiltering<T extends HasIdClass<Identifier>>(
 ) {
   // Set up filtering
   const [filterValue, setFilterValue] = useState('');
+  const filteredItemsRef = useRef<T[]>([]);
   const hasSearchFilter = Boolean(filterValue);
   const filteredItems = useMemo(() => {
     let filteredEntities = [...entities];
@@ -25,6 +26,7 @@ export function useClientSideFiltering<T extends HasIdClass<Identifier>>(
 
     return filteredEntities;
   }, [entities, filterValue, hasSearchFilter, filterProperty]);
+  filteredItemsRef.current = filteredItems;
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
   const onSearchChange = useCallback(
@@ -43,5 +45,12 @@ export function useClientSideFiltering<T extends HasIdClass<Identifier>>(
     setFilterValue('');
     setPage(1);
   }, [setPage]);
-  return { filterValue, filteredItems, pages, onSearchChange, onClear };
+  return {
+    filterValue,
+    filteredItems,
+    pages,
+    onSearchChange,
+    onClear,
+    filteredItemsRef
+  };
 }
