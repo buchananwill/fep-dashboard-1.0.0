@@ -24,17 +24,22 @@ export default function WorkSchemaNodeManager({
   const linkListRef = useRef(linkList);
 
   const { memoNodes, memoLinks } = useMemo(() => {
+    console.log('Checking lists.');
     const nodesMatch = nodeList.every((nodeDto) => {
       const oldNode = nodeListRef.current.find(
         (prevNode) => prevNode.id === nodeDto.id
       );
-      return isEqual(nodeDto, oldNode);
+      const equal = isEqual(nodeDto, oldNode);
+      if (!equal) console.log('Node changed.');
+      return equal;
     });
     const linksMatch = linkList.every((linkDto) => {
       const oldLink = linkListRef.current.find(
         (prevLink) => prevLink.id === linkDto.id
       );
-      return isEqual(linkDto, oldLink);
+      const equal = isEqual(linkDto, oldLink);
+      if (!equal) console.log('Link changed.');
+      return equal;
     });
     if (nodesMatch && linksMatch)
       return { memoNodes: nodeListRef.current, memoLinks: linkListRef.current };
