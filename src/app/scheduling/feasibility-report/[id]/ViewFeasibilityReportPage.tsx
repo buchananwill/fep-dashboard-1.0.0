@@ -13,12 +13,13 @@ import { Api } from '@/api/clientApi_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';
 import { Link } from '@nextui-org/link';
+import { LeafComponentProps } from '@/app/core/navigation/types';
+import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 
-export default async function page({
-  params: { id }
-}: {
-  params: { id: string };
-}) {
+export default async function ViewFeasibilityReportPage({
+  pathVariables
+}: LeafComponentProps) {
+  const [id] = getLastNVariables(pathVariables, 1);
   const feasibilityReportFullDto: FullReport = await getWithoutBody(
     constructUrl(`/api/v2/schedule/feasibilityReport/${id}`)
   );

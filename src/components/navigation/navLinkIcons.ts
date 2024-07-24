@@ -7,8 +7,10 @@ import {
   CalendarDaysIcon,
   ChartBarIcon,
   ClockIcon,
+  CpuChipIcon,
   GlobeAltIcon,
   ListBulletIcon,
+  NewspaperIcon,
   RectangleGroupIcon,
   RectangleStackIcon,
   ShareIcon,
@@ -18,21 +20,24 @@ import {
   UserGroupIcon
 } from '@heroicons/react/24/outline';
 
+// 16 is a good square number for the core nav menu. One-in-one-out from now on!
 export const navLinkIcons = {
+  navigation: GlobeAltIcon,
   cycles: ClockIcon,
-  scheduling: CalendarDaysIcon,
   serviceCategories: TagIcon,
   knowledgeDomains: AcademicCapIcon,
   knowledgeLevels: ChartBarIcon,
   workTaskType: TableCellsIcon,
   workProjectSeriesSchema: SquaresPlusIcon,
-  workSchemaNodes: ShareIcon,
-  workSchemaNodeAssignments: ArrowUpOnSquareStackIcon,
   users: UserGroupIcon,
   providers: BriefcaseIcon,
   assets: BuildingOfficeIcon,
   carouselGroups: ArrowPathRoundedSquareIcon,
-  navigation: GlobeAltIcon
+  workSchemaNodes: ShareIcon,
+  workSchemaNodeAssignments: ArrowUpOnSquareStackIcon,
+  feasibility: NewspaperIcon,
+  autoSchedule: CpuChipIcon,
+  scheduling: CalendarDaysIcon
 } as const;
 
 export type NavigationType = keyof typeof navLinkIcons;
