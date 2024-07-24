@@ -35,8 +35,10 @@ export function RollupUpdater({
   useEffect(() => {
     allocationRollupEntities
       .filter((entity) => rollupIdList.includes(entity.id))
-      .forEach((value, key) => {
-        writeAnyAllocationRollup(`${value.id}`, value);
+      .forEach((filteredEntity, key) => {
+        const idAsString = `${filteredEntity.id}`;
+        console.log('updating AllocationRollup:', filteredEntity);
+        writeAnyAllocationRollup(idAsString, filteredEntity);
       });
   }, [allocationRollupEntities, writeAnyAllocationRollup, rollupIdList]);
 

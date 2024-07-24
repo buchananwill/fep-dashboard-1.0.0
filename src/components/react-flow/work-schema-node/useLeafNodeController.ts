@@ -3,7 +3,11 @@ import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { useGlobalController, useGlobalDispatch } from 'selective-context';
+import {
+  useGlobalController,
+  useGlobalDispatch,
+  useGlobalListener
+} from 'selective-context';
 import { useEffect, useMemo } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 import { ObjectPlaceholder } from '@/api/literals';
@@ -50,7 +54,7 @@ export function useLeafNodeController({
   }, [workProjectSeriesSchema, dispatchWithoutListen, nodeId]);
 
   const { currentState: allocationRollup } =
-    useGlobalController<AllocationRollup>({
+    useGlobalListener<AllocationRollup>({
       contextKey: `${AllocationRollupEntityClass}:${nodeId}`,
       initialValue: ObjectPlaceholder as AllocationRollup,
       listenerKey: `baseNode:${nodeId}`

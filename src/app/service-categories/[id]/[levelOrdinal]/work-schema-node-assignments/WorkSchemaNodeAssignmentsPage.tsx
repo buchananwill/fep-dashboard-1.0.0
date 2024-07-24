@@ -86,10 +86,7 @@ async function WorkSchemaNodeAssignmentsPage({
         entityClass={EntityClassMap.workProjectSeriesSchema}
         getServerAction={getSchemasByBodyList}
       />
-      <EditAddDeleteDtoControllerArray
-        entityClass={AllocationRollupEntityClass}
-        dtoList={EmptyArray}
-      />
+
       <ForceGraphPage
         dataNodes={dataNodes}
         dataLinks={dataLinks}

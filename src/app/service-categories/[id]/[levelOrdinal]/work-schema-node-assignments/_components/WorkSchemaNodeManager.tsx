@@ -3,15 +3,24 @@ import { useIdToNodeMapMemo } from '@/react-flow/hooks/useIdToNodeMapMemo';
 import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
 import { useGlobalController } from 'selective-context';
-import { EmptyArray, InitialMap } from 'dto-stores';
+import {
+  EditAddDeleteDtoControllerArray,
+  EmptyArray,
+  InitialMap,
+  NamespacedHooks,
+  useEffectSyncDeepEqualWithDispatch,
+  useEffectSyncWithDispatch
+} from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
 import WorkSchemaNodeLeafController from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/_components/WorkSchemaNodeLeafController';
-import { memo, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
 import { isEqual } from 'lodash';
+import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export default function WorkSchemaNodeManager({
   nodeList,
@@ -72,8 +81,23 @@ export default function WorkSchemaNodeManager({
     ));
   }, [memoNodes]);
 
+  // const dispatchMasterList = NamespacedHooks.useDispatch(
+  //   AllocationRollupEntityClass,
+  //   KEY_TYPES.MASTER_LIST
+  // );
+  //
+  // useEffectSyncDeepEqualWithDispatch(
+  //   allocationRollupEntities,
+  //   dispatchMasterList
+  // );
+
   return (
     <>
+      <EditAddDeleteDtoControllerArray
+        entityClass={AllocationRollupEntityClass}
+        dtoList={allocationRollupEntities}
+        mergeInitialWithProp={false}
+      />
       {...LeafControllers}
       <MemoRollupUpdater allocationRollupEntities={allocationRollupEntities} />
     </>
