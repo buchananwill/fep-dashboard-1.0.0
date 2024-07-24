@@ -3,11 +3,7 @@ import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import {
-  useGlobalController,
-  useGlobalDispatch,
-  useGlobalListener
-} from 'selective-context';
+import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { useEffect, useMemo } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 import { ObjectPlaceholder } from '@/api/literals';
@@ -18,7 +14,7 @@ export interface AllocationRollup {
   allocationRollup: number[];
 }
 
-export function useLeafNodeController({
+export function useLeafNodeRollUpListener({
   id,
   carouselOptionId,
   workProjectSeriesSchemaId

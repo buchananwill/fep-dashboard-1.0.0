@@ -64,7 +64,7 @@ import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';
-import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeController';
+import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 

@@ -15,7 +15,7 @@ import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import { useLeafNodeController } from '@/components/react-flow/work-schema-node/useLeafNodeController';
+import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 import { NodeBase } from '@/react-flow/types';
 
 export type GenericDivProps = React.DetailedHTMLProps<
@@ -37,7 +37,7 @@ export function BaseWorkSchemaNode({
   Pick<GenericDivProps, 'children' | 'className' | 'style'> & {
     label?: string;
   }) {
-  const totalThisNode = useLeafNodeController(data);
+  const totalThisNode = useLeafNodeRollUpListener(data);
 
   const { dispatchWithoutListen: toggleDetailsModal } = useGraphDispatch(
     GraphSelectiveContextKeys.nodeDetailsModalOpen

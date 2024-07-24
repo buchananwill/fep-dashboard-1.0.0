@@ -1,7 +1,7 @@
 import { DataNode } from 'react-d3-force-wrapper';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 
-import { useLeafNodeController } from '@/components/react-flow/work-schema-node/useLeafNodeController';
+import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 import { Identifier, NamespacedHooks, useDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -47,7 +47,7 @@ export default function WorkSchemaNodeLeafController({
     EntityClassMap.workProjectSeriesSchema
   );
 
-  const rollupTotal = useLeafNodeController(node.data);
+  const rollupTotal = useLeafNodeRollUpListener(node.data);
 
   const { dispatch: dispatchRollupTotal } = useGlobalController({
     contextKey: `rollupTotal:${node.id}`,

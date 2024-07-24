@@ -3,7 +3,7 @@ import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { useMemo } from 'react';
 import { resolveNodeAllocation } from '@/components/react-flow/work-schema-node/resolveNodeAllocation';
-import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeController';
+import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 
 export function useWorkSchemaNodeRollupMemo(
   nodesFromContext: DataNode<WorkSchemaNodeDto>[],
