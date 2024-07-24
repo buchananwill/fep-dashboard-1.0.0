@@ -21,7 +21,10 @@ export function ColumnDropdown<T extends HasIdClass<Identifier>>({
   columns: Column<T>[];
 }) {
   return (
-    <Dropdown>
+    <Dropdown
+      shouldCloseOnBlur={false}
+      shouldCloseOnInteractOutside={() => false}
+    >
       <DropdownTrigger className="hidden sm:flex">
         <Button
           endContent={<ChevronDownIcon className="text-small" />}
@@ -31,18 +34,30 @@ export function ColumnDropdown<T extends HasIdClass<Identifier>>({
         </Button>
       </DropdownTrigger>
       <DropdownMenu
+        // classNames={{ base: 'pointer-events-none' }}
         disallowEmptySelection
         aria-label="Table Columns"
         closeOnSelect={false}
+        shouldFocusWrap={true}
+        items={columns}
         selectedKeys={visibleColumns}
         selectionMode="multiple"
         onSelectionChange={setVisibleColumns}
       >
-        {columns.map((column) => (
-          <DropdownItem key={column.uid} className="capitalize">
-            {column.name}
+        {/*{columns.map((column) => (*/}
+        {/*  <DropdownItem key={column.uid}>{column.name}</DropdownItem>*/}
+        {/*))}*/}
+        {(item) => (
+          <DropdownItem
+            key={item.uid}
+            // onClick={(event) => {
+            //   event.preventDefault();
+            // }}
+            // onPress={() => {}}
+          >
+            {item.name}
           </DropdownItem>
-        ))}
+        )}
       </DropdownMenu>
     </Dropdown>
   );

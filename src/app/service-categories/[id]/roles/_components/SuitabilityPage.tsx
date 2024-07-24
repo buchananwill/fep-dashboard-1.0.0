@@ -55,7 +55,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
         dtoList={roles}
       />
       <div className={'fixed left-1/2 top-2'}>
-        <Popover>
+        <Popover shouldCloseOnBlur={false}>
           <PopoverTrigger>
             <Button variant={'light'}>Find</Button>
           </PopoverTrigger>

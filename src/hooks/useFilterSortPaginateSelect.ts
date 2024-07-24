@@ -1,9 +1,12 @@
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
-import { Column, StringPropertyKey } from '@/types';
+import { Column, NumberPropertyKey, StringPropertyKey } from '@/types';
 import { useClientSidePagination } from '@/hooks/useClientSidePagination';
 import { useDynamicColumnVisibility } from '@/hooks/useDynamicColumnVisibility';
-import { useClientSideFiltering } from '@/hooks/useClientSideFiltering';
+import {
+  FilterablePropertyKey,
+  useClientSideFiltering
+} from '@/hooks/useClientSideFiltering';
 import { useClientSideSorting } from '@/hooks/useClientSorting';
 import { useClientFilteredSortedPagination } from '@/hooks/useClientFilteredSortedPagination';
 import { useEntitySelection } from '@/hooks/useEntitySelection';
@@ -16,7 +19,7 @@ export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
   initialColumns: (keyof T)[],
   columns: Column<T>[],
   entities: T[],
-  filterProperty: StringPropertyKey<T>,
+  initialFilterProperty: FilterablePropertyKey<T>,
   entityClass: string,
   idClass: 'string' | 'number',
   initialRowsPerPage = 10
@@ -31,8 +34,15 @@ export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
     pages,
     onSearchChange,
     onClear,
-    filteredItemsRef
-  } = useClientSideFiltering(entities, filterProperty, rowsPerPage, setPage);
+    filteredItemsRef,
+    onFilterPropertyChange,
+    currentFilterProperty
+  } = useClientSideFiltering(
+    entities,
+    initialFilterProperty,
+    rowsPerPage,
+    setPage
+  );
 
   const { sortDescriptor, onSortChange, sortedItems } = useClientSideSorting(
     filteredItems,
@@ -78,6 +88,10 @@ export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
     rowsPerPageProps: {
       value: rowsPerPage,
       onChange: onRowsPerPageChange
+    },
+    filterPropertySelectProps: {
+      value: currentFilterProperty,
+      onChange: onFilterPropertyChange
     },
     deselectVisible,
     selectVisible

@@ -27,7 +27,8 @@ export default function FilterSelectEntityTable<
   renderCell,
   columns,
   entityClass,
-  selectionMode = 'multiple'
+  selectionMode = 'multiple',
+  dynamicColumns = false
 }: {
   entityClass: string;
   idClass?: 'string' | 'number';
@@ -36,6 +37,7 @@ export default function FilterSelectEntityTable<
   initialColumns: (keyof T)[];
   filterProperty: StringPropertyKey<T>;
   renderCell: TableCellRenderer<T>;
+  dynamicColumns?: boolean;
 } & Pick<TableProps, 'selectionMode'>) {
   const {
     paginationProps,
@@ -44,7 +46,8 @@ export default function FilterSelectEntityTable<
     tableContentProps,
     rowsPerPageProps,
     deselectVisible,
-    selectVisible
+    selectVisible,
+    filterPropertySelectProps
   } = useFilterSortPaginateSelect(
     initialColumns,
     columns,
@@ -73,15 +76,32 @@ export default function FilterSelectEntityTable<
             <Button onPress={selectVisible}>Select</Button>
             <Button onPress={deselectVisible}>Deselect</Button>
           </ButtonGroup>
-
-          <div className="flex gap-3">
-            <ColumnDropdown {...columnDropdownProps} />
-          </div>
+          {dynamicColumns && (
+            <div className="flex gap-3">
+              <ColumnDropdown {...columnDropdownProps} />
+            </div>
+          )}
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
             Total {entities.length} {entityClass}.
           </span>
+          <label className="flex items-center text-small text-default-400">
+            Filter By:
+            <select
+              className="bg-transparent text-small text-default-400 outline-none"
+              value={[filterPropertySelectProps.value as string]}
+              onChange={filterPropertySelectProps.onChange}
+            >
+              {columns.map((column) => {
+                return (
+                  <option key={column.uid} value={column.uid}>
+                    {column.name}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
           <label className="flex items-center text-small text-default-400">
             Rows per page:
             <select
@@ -97,6 +117,8 @@ export default function FilterSelectEntityTable<
       </div>
     );
   }, [
+    dynamicColumns,
+    columns,
     selectVisible,
     deselectVisible,
     entityClass,

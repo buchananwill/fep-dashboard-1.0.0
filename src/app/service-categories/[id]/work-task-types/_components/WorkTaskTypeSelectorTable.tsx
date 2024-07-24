@@ -17,13 +17,12 @@ import { EntityClassMap } from '@/api/entity-class-map';
 export const INITIAL_VISIBLE_COLUMNS: (keyof WorkTaskTypeDto)[] = [
   'name',
   'knowledgeDomainName',
-  'knowledgeLevelName'
+  'knowledgeLevelLevelOrdinal'
 ];
 export const columns: Column<WorkTaskTypeDto>[] = [
   { name: 'Name', uid: 'name', sortable: true },
   { name: 'Subject', uid: 'knowledgeDomainName', sortable: true },
-  { name: 'Year', uid: 'knowledgeLevelName', sortable: true },
-  { name: 'Validation', uid: 'deliveryValidationTypeName', sortable: true }
+  { name: 'Year', uid: 'knowledgeLevelLevelOrdinal', sortable: true }
 ];
 export default function WorkTaskTypeSelectorTable({
   workTaskTypes

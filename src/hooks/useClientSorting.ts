@@ -3,6 +3,7 @@ import { Identifier } from 'dto-stores';
 import { NumberPropertyKey, StringPropertyKey } from '@/types';
 import { useMemo, useState } from 'react';
 import { SortDescriptor } from '@nextui-org/react';
+import { sortBy } from 'lodash';
 
 export function useClientSideSorting<T extends HasIdClass<Identifier>>(
   sortableItems: T[],
@@ -15,13 +16,21 @@ export function useClientSideSorting<T extends HasIdClass<Identifier>>(
     direction: initialDirection
   });
   const sortedItems = useMemo(() => {
-    return [...sortableItems].sort((a: T, b: T) => {
-      const first = a[sortDescriptor.column as keyof T] as number;
-      const second = b[sortDescriptor.column as keyof T] as number;
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+    const mutableList = [...sortableItems];
+    const sorted = sortBy(mutableList, [sortDescriptor.column]);
+    return (
+      sortDescriptor.direction === 'ascending' ? sorted : sorted.reverse()
+    ) as T[];
 
-      return sortDescriptor.direction === 'descending' ? -cmp : cmp;
-    });
+    // return mutableList.sort((a: T, b: T) => {
+    //   const first = a[sortDescriptor.column as keyof T] as number;
+    //   const second = b[sortDescriptor.column as keyof T] as number;
+    //
+    //   console.log('a:', a, first, 'b:', b, second);
+    //   const cmp = first < second ? -1 : first > second ? 1 : 0;
+    //
+    //   return sortDescriptor.direction === 'descending' ? -cmp : cmp;
+    // });
   }, [sortDescriptor, sortableItems]);
   return { sortDescriptor, onSortChange: setSortDescriptor, sortedItems };
 }
