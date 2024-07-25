@@ -3,8 +3,8 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import JsonTree from '@/components/generic/JsonTree';
 import { ScheduleDto } from '@/api/dtos/ScheduleDtoSchema';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 import WorkProjectSeriesAssignmentsPage from '@/app/scheduling/[scheduleId]/work-project-series-assignments/WorkProjectSeriesAssignmentsPage';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 export default async function ScheduleFallbackPage({
   pathVariables,

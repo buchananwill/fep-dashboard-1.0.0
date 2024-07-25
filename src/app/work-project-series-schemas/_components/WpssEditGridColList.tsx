@@ -4,9 +4,9 @@ import React, { useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
-import { WorkProjectSeriesSchemaEditor } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/WorkProjectSeriesSchemaEditor';
+import { WorkProjectSeriesSchemaEditor } from '@/app/work-project-series-schemas/_components/WorkProjectSeriesSchemaEditor';
 
-import { sumAllSchemas } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
+import { sumAllSchemas } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DtoUiListAll, useAllDtoComponents } from 'dto-stores';

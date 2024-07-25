@@ -28,7 +28,7 @@ export default function FilterSelectEntityTable<
   columns,
   entityClass,
   selectionMode = 'multiple',
-  dynamicColumns = false
+  dynamicColumns = true
 }: {
   entityClass: string;
   idClass?: 'string' | 'number';

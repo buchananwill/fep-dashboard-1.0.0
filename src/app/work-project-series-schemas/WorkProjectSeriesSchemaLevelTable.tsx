@@ -1,6 +1,6 @@
 import { EntityClassMap } from '@/api/entity-class-map';
-import WpssEditGridColList from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/WpssEditGridColList';
-import { workProjectSeriesSchemaActionSequence } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/workProjectSeriesSchemaActionSequence';
+import WpssEditGridColList from '@/app/work-project-series-schemas/_components/WpssEditGridColList';
+import { workProjectSeriesSchemaActionSequence } from '@/app/work-project-series-schemas/_functions/workProjectSeriesSchemaActionSequence';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import {
   deleteIdList,
@@ -10,14 +10,8 @@ import {
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
-import { ServiceCategoryLevelLinks } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/ServiceCategoryLevelLinks';
-
-export function getLastNVariables(pathVariables: string[], nDepth: number) {
-  return pathVariables.slice(
-    pathVariables.length - nDepth,
-    pathVariables.length
-  );
-}
+import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 async function WorkProjectSeriesSchemaLevelTable({
   pathVariables,
@@ -27,7 +21,7 @@ async function WorkProjectSeriesSchemaLevelTable({
 
   const { workProjectSeriesSchemas: wpssData } =
     await workProjectSeriesSchemaActionSequence({
-      levelOrdinal: parseInt(levelOrdinal),
+      knowledgeLevelLevelOrdinal: parseInt(levelOrdinal),
       serviceCategoryId: parseInt(serviceCategoryId)
     });
 

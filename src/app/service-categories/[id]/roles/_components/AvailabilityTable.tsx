@@ -2,8 +2,8 @@
 import {
   CellIdReference,
   GetCellContent
-} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
-import VirtualizedTableWindowed from '@/app/scheduling/[scheduleId]/work-project-series-assignments/VirtualizedTableWindowed';
+} from '@/components/tables/CellQueryManager';
+import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { GenericTableDto } from '@/api/types';
 import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';

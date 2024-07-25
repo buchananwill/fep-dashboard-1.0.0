@@ -22,10 +22,10 @@ import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
 import { notFound } from 'next/navigation';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 import { singular } from 'pluralize';
 import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 export default async function SuitabilityPage(props: RolePageProps) {
   const {

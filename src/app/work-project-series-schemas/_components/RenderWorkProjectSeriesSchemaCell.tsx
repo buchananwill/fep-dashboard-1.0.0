@@ -1,7 +1,7 @@
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import React, { ReactElement } from 'react';
 import { Chip } from '@nextui-org/react';
-import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
+import { sumDeliveryAllocations } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 
 export function renderWorkSchemaNodeCell(
   workProjectSeriesSchema: WorkProjectSeriesSchemaDto,

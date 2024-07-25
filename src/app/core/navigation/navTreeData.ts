@@ -7,7 +7,7 @@ import ServiceCategoriesHome from '@/app/service-categories/ServiceCategoriesHom
 import KnowledgeDomains from '@/app/service-categories/[id]/knowledge-domains/KnowledgeDomains';
 import KnowledgeLevelsHome from '@/app/service-categories/[id]/knowledge-levels/KnowledgeLevelsTablePage';
 import WorkTaskTypeHome from '@/app/service-categories/[id]/work-task-types/WorkTaskTypeTablePage';
-import WorkProjectSeriesSchemaHome from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
+import WorkProjectSeriesSchemaHome from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 import { CarouselGroupsAndOrders } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/carouselGroupOrdersPage';
 import { WorkSchemaNodeAssignmentsHome } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
@@ -16,6 +16,7 @@ import NavigationHome from '@/app/core/navigation/NavigationHome';
 import CreateServiceCategoryPage from '@/app/service-categories/create/createServiceCategoryPage';
 import BuildSchedulePage from '@/app/scheduling/build/BuildSchedulePage';
 import { feasibilityBranch } from '@/app/scheduling/feasibility-report/FeasibilityHome';
+import { StaticAllocationPage } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationPage';
 
 export const navTreeData: NavTree = {
   navigation: { type: 'leaf', component: NavigationHome },
@@ -40,7 +41,9 @@ export const navTreeData: NavTree = {
   workTaskType: { type: 'branch', children: {}, component: WorkTaskTypeHome },
   workProjectSeriesSchema: {
     type: 'branch',
-    children: {},
+    children: {
+      staticAllocations: { type: 'leaf', component: StaticAllocationPage }
+    },
     component: WorkProjectSeriesSchemaHome
   },
   users: rolePageTree,

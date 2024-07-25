@@ -1,16 +1,16 @@
 'use client';
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
-import VirtualizedTableWindowed from '@/app/scheduling/[scheduleId]/work-project-series-assignments/VirtualizedTableWindowed';
+import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import React, { useMemo } from 'react';
 import CellQueryManager, {
   CellIdReference
-} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
-import { FallbackCellMemo } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/FallbackCell';
+} from '@/components/tables/CellQueryManager';
+import { FallbackCellMemo } from '@/components/tables/FallbackCell';
 import RenderOrganizationCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/RenderOrganizationCell';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
-import VirtualizedOuterCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/VirtualizedCell';
+import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
 import AssignmentCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
 import { workProjectSeriesDataRetrieval } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/workProjectSeriesDataRetrieval';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';

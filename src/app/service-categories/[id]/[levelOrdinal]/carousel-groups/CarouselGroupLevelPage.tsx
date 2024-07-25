@@ -1,7 +1,7 @@
 import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/api/generated-actions/KnowledgeLevel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import CarouselGroupTabGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/_components/CarouselGroupTabGroup';
-import { getLevelPartialAndSchemaList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/getLevelPartialAndSchemaList';
+import { getLevelPartialAndSchemaList } from '@/app/work-project-series-schemas/_functions/getLevelPartialAndSchemaList';
 import {
   deleteIdList,
   getDtoListByExampleList as getCarouselGroupsByExampleList,
@@ -9,11 +9,11 @@ import {
   putList
 } from '@/api/generated-actions/CarouselGroup';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { ServiceCategoryLevelLinks } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/ServiceCategoryLevelLinks';
+import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 import { CarouselGroupOrdersHome } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/carouselGroupOrdersPage';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 export default async function CarouselGroupLevelPage({
   depth,

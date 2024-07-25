@@ -1,27 +1,21 @@
 import { getDtoListByExampleList as getWorkTaskTypesByExample } from '@/api/generated-actions/WorkTaskType';
 
 import { getDtoListByExampleList as getWorkProjectSeriesSchemasByExample } from '@/api/generated-actions/WorkProjectSeriesSchema';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import {
+  WorkTaskTypeDto,
+  WorkTaskTypeDtoSchema
+} from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 
-export interface WorkProjectSeriesSchemaFetchParams {
-  levelOrdinal: number;
-  serviceCategoryId: number;
-}
+export type WorkProjectSeriesSchemaFetchParams = Partial<WorkTaskTypeDto>;
 
-export async function workProjectSeriesSchemaActionSequence({
-  levelOrdinal,
-  serviceCategoryId
-}: WorkProjectSeriesSchemaFetchParams): Promise<{
+export async function workProjectSeriesSchemaActionSequence(
+  example: WorkProjectSeriesSchemaFetchParams
+): Promise<{
   workTaskTypes: WorkTaskTypeDto[];
   workProjectSeriesSchemas: WorkProjectSeriesSchemaDto[];
 }> {
-  const workTaskTypes = await getWorkTaskTypesByExample([
-    {
-      knowledgeLevelLevelOrdinal: levelOrdinal,
-      serviceCategoryId: serviceCategoryId
-    }
-  ]);
+  const workTaskTypes = await getWorkTaskTypesByExample([example]);
 
   const workProjectSeriesSchemas = await getWorkProjectSeriesSchemasByExample(
     workTaskTypes.map((wtt) => ({ workTaskTypeId: wtt.id }))

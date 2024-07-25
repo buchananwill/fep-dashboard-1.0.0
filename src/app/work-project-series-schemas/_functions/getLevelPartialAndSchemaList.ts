@@ -1,4 +1,4 @@
-import { workProjectSeriesSchemaActionSequence } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/workProjectSeriesSchemaActionSequence';
+import { workProjectSeriesSchemaActionSequence } from '@/app/work-project-series-schemas/_functions/workProjectSeriesSchemaActionSequence';
 import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
 
 export function getKnowledgeLevelPartial(
@@ -23,7 +23,7 @@ export async function getLevelPartialAndSchemaList(
 
   const { workProjectSeriesSchemas: workProjectSeriesSchemaList } =
     await workProjectSeriesSchemaActionSequence({
-      levelOrdinal: levelOrdinalInt,
+      knowledgeLevelLevelOrdinal: levelOrdinalInt,
       serviceCategoryId: serviceCategoryIdInt
     });
   return { levelPartial, workProjectSeriesSchemaList };

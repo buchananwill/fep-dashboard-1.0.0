@@ -1,5 +1,5 @@
 import { GridChildComponentProps } from 'react-window';
-import { CellIdReference } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
+import { CellIdReference } from '@/components/tables/CellQueryManager';
 import { BaseDtoUiProps, DtoUiWrapper, Entity } from 'dto-stores';
 import { ReactNode } from 'react';
 import clsx from 'clsx';

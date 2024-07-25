@@ -25,11 +25,11 @@ import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema
 import { EmptyArray } from '@/api/literals';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { ServiceCategoryLevelLinks } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/ServiceCategoryLevelLinks';
+import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 import { ReactFlowProvider } from '@xyflow/react';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 async function WorkSchemaNodeAssignmentsPage({
   pathVariables,

@@ -3,7 +3,7 @@ import {
   CellIdReference,
   GetCellContentKey,
   GetCellContent
-} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
+} from '@/components/tables/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import {
   useGlobalDispatchAndListener,

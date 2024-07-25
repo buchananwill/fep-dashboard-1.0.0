@@ -13,10 +13,10 @@ import { Api } from '@/api/clientApi_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 export default async function ViewFeasibilityReportPage({
   pathVariables

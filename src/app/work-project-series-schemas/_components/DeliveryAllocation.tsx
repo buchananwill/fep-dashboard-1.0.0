@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AllocationUnitGroup } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/AllocationUnitGroup';
+import { AllocationUnitGroup } from '@/app/work-project-series-schemas/_components/AllocationUnitGroup';
 import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
 
 export function DeliveryAllocation({

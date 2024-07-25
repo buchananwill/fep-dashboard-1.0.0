@@ -1,4 +1,4 @@
-import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/serviceCategoryRouteParams';
+import { ServiceCategoryRouteParams } from '@/app/work-project-series-schemas/serviceCategoryRouteParams';
 import { getDtoListByExampleList } from '@/api/generated-actions/KnowledgeDomain';
 import { DtoUiListAll, EditAddDeleteDtoControllerArray } from 'dto-stores';
 import KnowledgeDomainRoleRow, {

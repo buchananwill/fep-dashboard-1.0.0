@@ -3,7 +3,7 @@ import { GridChildComponentProps } from 'react-window';
 import {
   AssignmentCellContent,
   CellIdReference
-} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
+} from '@/components/tables/CellQueryManager';
 import React, { memo, useCallback } from 'react';
 import {
   NamedEntityLabel,
@@ -20,7 +20,7 @@ import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssi
 import clsx from 'clsx';
 import VirtualizedOuterCell, {
   CellWrapperProps
-} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/VirtualizedCell';
+} from '@/components/tables/VirtualizedCell';
 
 export default function AssignmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;

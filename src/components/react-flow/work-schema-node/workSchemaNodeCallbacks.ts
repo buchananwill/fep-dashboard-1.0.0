@@ -17,7 +17,7 @@ import { FlowNode } from '@/react-flow/types';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
-import { sumDeliveryAllocationList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
+import { sumDeliveryAllocationList } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 
 function cloneWorkSchemaNode(
   templateNode: FlowNode<WorkSchemaNodeDto>

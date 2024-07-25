@@ -1,4 +1,4 @@
-import { ServiceCategoryRouteParams } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/serviceCategoryRouteParams';
+import { ServiceCategoryRouteParams } from '@/app/work-project-series-schemas/serviceCategoryRouteParams';
 import HeatMapCarouselOrders from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/heat-map/_components/HeatMapCarouselOrders';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -14,7 +14,7 @@ export default async function page({
   const heatMapSeriesList = await getHeatMapSeriesList(levelOrdinal, id);
 
   return (
-    <div className={'w-[100vw] h-[100vh] p-8'}>
+    <div className={'h-[100vh] w-[100vw] p-8'}>
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
         entityClass={EntityClassMap.workProjectSeriesSchema}

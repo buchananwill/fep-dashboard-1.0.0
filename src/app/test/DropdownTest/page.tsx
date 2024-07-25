@@ -64,7 +64,7 @@ export default function Page() {
             items={columns}
             selectedKeys={visibleColumns}
             selectionMode="multiple"
-            onSelectionChange={setVisibleColumns}
+            onSelectionChange={setVisibleColumnsIntercept}
           >
             {(item) => <DropdownItem key={item.uid}>{item.name}</DropdownItem>}
           </DropdownMenu>

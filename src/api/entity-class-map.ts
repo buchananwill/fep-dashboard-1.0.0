@@ -1,5 +1,6 @@
 export const EntityClassMap = {
    schedule: 'Schedule', 
+ staticDeliveryAllocationItem: 'StaticDeliveryAllocationItem', 
  providerRole: 'ProviderRole', 
  assetRole: 'AssetRole', 
  knowledgeDomain: 'KnowledgeDomain', 

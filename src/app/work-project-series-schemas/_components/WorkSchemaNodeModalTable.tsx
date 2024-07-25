@@ -9,7 +9,7 @@ import { FilterSortPaginateTableContent } from '@/components/generic/FilterSortP
 import { Input } from '@nextui-org/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
-import { renderWorkSchemaNodeCell } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/RenderWorkProjectSeriesSchemaCell';
+import { renderWorkSchemaNodeCell } from '@/app/work-project-series-schemas/_components/RenderWorkProjectSeriesSchemaCell';
 
 export default function WorkSchemaNodeModalTable({
   entities,

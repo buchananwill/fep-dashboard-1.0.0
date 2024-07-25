@@ -2,11 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 
 import { BaseDtoUiProps, DtoUiProps } from 'dto-stores';
 
-import { sumDeliveryAllocations } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
+import { sumDeliveryAllocations } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
-import { AllocationUnitGroup } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/AllocationUnitGroup';
+import { AllocationUnitGroup } from '@/app/work-project-series-schemas/_components/AllocationUnitGroup';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
-import { DeliveryAllocation } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_components/DeliveryAllocation';
+import { DeliveryAllocation } from '@/app/work-project-series-schemas/_components/DeliveryAllocation';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
 import { SetOptional } from 'type-fest';

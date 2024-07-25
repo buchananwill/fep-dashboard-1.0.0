@@ -2,7 +2,7 @@ import { BaseLazyDtoUiProps } from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { NumberPropertyKey, StringPropertyKey } from '@/types';
 import { useMemo } from 'react';
-import { sumDeliveryAllocationList } from '@/app/service-categories/[id]/[levelOrdinal]/work-project-series-schemas/_functions/sumDeliveryAllocations';
+import { sumDeliveryAllocationList } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 
 export default function WorkProjectionSeriesSchemaSummary({
   entity

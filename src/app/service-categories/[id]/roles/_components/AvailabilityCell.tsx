@@ -3,7 +3,7 @@ import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailability
 import clsx from 'clsx';
 import { useGlobalListener } from 'selective-context';
 import { GridChildComponentProps } from 'react-window';
-import { CellIdReference } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/CellQueryManager';
+import { CellIdReference } from '@/components/tables/CellQueryManager';
 import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { EntityClassMap } from '@/api/entity-class-map';

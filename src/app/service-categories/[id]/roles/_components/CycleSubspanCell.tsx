@@ -1,4 +1,4 @@
-import { CellWrapperProps } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/VirtualizedCell';
+import { CellWrapperProps } from '@/components/tables/VirtualizedCell';
 import { BaseDtoUiProps } from 'dto-stores';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';

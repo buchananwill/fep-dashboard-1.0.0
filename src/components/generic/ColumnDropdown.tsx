@@ -22,8 +22,8 @@ export function ColumnDropdown<T extends HasIdClass<Identifier>>({
 }) {
   return (
     <Dropdown
-      shouldCloseOnBlur={false}
-      shouldCloseOnInteractOutside={() => false}
+    // shouldCloseOnBlur={false}
+    // shouldCloseOnInteractOutside={() => false}
     >
       <DropdownTrigger className="hidden sm:flex">
         <Button
