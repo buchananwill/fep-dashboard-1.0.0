@@ -13,7 +13,7 @@ import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { MemoWorkProjectSeriesSchemaCell } from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaCell';
 import StaticAllocationCell from '@/app/work-project-series-schemas/static-allocation/StaticAllocationCell';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { useGlobalController } from 'selective-context';
 import { getControllerListenerKey } from 'dto-stores/dist/hooks/internal/getControllerListenerKey';
 
@@ -84,13 +84,17 @@ export default function StaticAllocationTable({
       />
       <VirtualizedTableWindowed
         {...tableProps}
-        renderCell={StaticAllocationCell}
-        renderSyncedRowCell={CycleSubspanCell}
+        renderCell={MemoStaticAllocationCell}
+        renderSyncedRowCell={MemoCycleSubspanCell}
         renderSyncedColumnCell={MemoWorkProjectSeriesSchemaCell}
       />
     </div>
   );
 }
+
+const MemoCycleSubspanCell = memo(CycleSubspanCell);
+
+const MemoStaticAllocationCell = memo(StaticAllocationCell);
 
 export interface Cell<T> {
   id: string;
