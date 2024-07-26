@@ -2,8 +2,7 @@
 import { StaticAllocationTableDto } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationPage';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import CellQueryManager from '@/components/tables/CellQueryManager';
-import { getTableProps } from '@/app/service-categories/[id]/roles/_components/getTableProps';
-import { FallbackCellMemo } from '@/components/tables/FallbackCell';
+import { useTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
 import {
   getCellDataIdOrUndefined,
   getCellDataOrUndefined
@@ -15,7 +14,6 @@ import { MemoWorkProjectSeriesSchemaCell } from '@/app/work-project-series-schem
 import StaticAllocationCell from '@/app/work-project-series-schemas/static-allocation/StaticAllocationCell';
 import { memo, useMemo } from 'react';
 import { useGlobalController } from 'selective-context';
-import { getControllerListenerKey } from 'dto-stores/dist/hooks/internal/getControllerListenerKey';
 
 export const cycleSubspanGroupMap = 'CycleSubspanGroupMap';
 export default function StaticAllocationTable({
@@ -23,7 +21,7 @@ export default function StaticAllocationTable({
 }: {
   tableData: StaticAllocationTableDto;
 }) {
-  const tableProps = getTableProps(tableData.rowList, tableData.columnList);
+  const tableProps = useTableProps(tableData.rowList, tableData.columnList);
 
   // We want two things: some data held in a table, and a function that from this data can create another function that when given a CellIdReference returns either the cell data or undefined.
   const { rowColumnCellReferenceMap, columnList } = tableData;

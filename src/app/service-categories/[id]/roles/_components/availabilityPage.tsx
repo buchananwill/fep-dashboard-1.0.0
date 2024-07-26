@@ -8,7 +8,7 @@ import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailability
 import { AvailabilityTable } from './AvailabilityTable';
 import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/types';
 import { getIdList } from '@/app/service-categories/[id]/roles/_components/getIdList';
-import { getTableProps } from '@/app/service-categories/[id]/roles/_components/getTableProps';
+import { useTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
 
 export default async function AvailabilityPage({
   params: { roleTypeId }
@@ -35,7 +35,7 @@ export default async function AvailabilityPage({
     )
   );
 
-  const tableProps = getTableProps(providerRoles, cycleSubspanList);
+  const tableProps = useTableProps(providerRoles, cycleSubspanList);
 
   return (
     <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8'}>
