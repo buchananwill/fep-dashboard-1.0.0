@@ -18,8 +18,29 @@ import {
   cycleSubspanGroupMap,
   getCellId
 } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
-import { useGlobalListener, useGlobalReadAny } from 'selective-context';
+import { useGlobalListener } from 'selective-context';
 import { ObjectPlaceholder } from '@/api/literals';
+
+function updateStaticAllocationTableCell(
+  writeAnyCell: {
+    (id: string | number, update: unknown): void;
+  },
+  rowId: string | number,
+  cycleSubspanId: number,
+  data: string | undefined
+) {
+  writeAnyCell(
+    getCellId(
+      EntityClassMap.staticDeliveryAllocationItem,
+      rowId,
+      cycleSubspanId
+    ),
+    (cell: Cell<StaticDeliveryAllocationItemDto>) => ({
+      ...cell,
+      data
+    })
+  );
+}
 
 export function StaticAllocationDropZone({
   columnIndex,
@@ -62,61 +83,65 @@ export function StaticAllocationDropZone({
     initialValue: ObjectPlaceholder as Record<string, number[]>
   });
 
+  const localMemoizedUpdater = useCallback(
+    (data: string | undefined, cycleSubspanId: number) => {
+      updateStaticAllocationTableCell(
+        writeAnyCell,
+        rowId,
+        cycleSubspanId,
+        data
+      );
+    },
+    [writeAnyCell, rowId]
+  );
+
+  const dropCallback = useCallback(
+    (
+      item: StaticDeliveryAllocationItemDto,
+      monitor: DropTargetMonitor<StaticDeliveryAllocationItemDto, unknown>
+    ) => {
+      // write to the new cells
+      const newGroupId =
+        cycleSubspan.cycleSubspanJoins[
+          item.staticDeliveryAllocation.deliveryAllocation
+            .deliveryAllocationSize
+        ].cycleSubspanGroupId;
+      cycleSubspanGroupMapCurrent[newGroupId].forEach((cycleSubspanId) => {
+        localMemoizedUpdater(String(item.id), cycleSubspanId);
+      });
+
+      // write to te old cells
+      cycleSubspanGroupMapCurrent[item.cycleSubspanGroupId].forEach(
+        (cycleSubspanId) => {
+          localMemoizedUpdater(undefined, cycleSubspanId);
+        }
+      );
+      // write to the dropped item
+      writeAnyStaticAllocation(
+        item.id,
+        (item: StaticDeliveryAllocationItemDto) => ({
+          ...item,
+          cycleSubspanGroupId:
+            cycleSubspan.cycleSubspanJoins[
+              item.staticDeliveryAllocation.deliveryAllocation
+                .deliveryAllocationSize
+            ].cycleSubspanGroupId
+        })
+      );
+    },
+    [
+      cycleSubspan,
+      localMemoizedUpdater,
+      cycleSubspanGroupMapCurrent,
+      writeAnyStaticAllocation
+    ]
+  );
+
   // Get drag data and functions
   const [{ isOver, canDrop, currentItem, currentItemType }, drop] = useDrop(
     () => ({
       accept: DragTypes.STATIC_ALLOCATION,
-      drop: (item, monitor) => {
-        // write to the new cells
-        const newGroupId =
-          cycleSubspan.cycleSubspanJoins[
-            item.staticDeliveryAllocation.deliveryAllocation
-              .deliveryAllocationSize
-          ].cycleSubspanGroupId;
-        cycleSubspanGroupMapCurrent[newGroupId].forEach((cycleSubspanId) => {
-          writeAnyCell(
-            getCellId(
-              EntityClassMap.staticDeliveryAllocationItem,
-              rowId,
-              cycleSubspanId
-            ),
-            (cell: Cell<StaticDeliveryAllocationItemDto>) => ({
-              ...cell,
-              data: item.id
-            })
-          );
-        });
-
-        // write to te old cells
-        cycleSubspanGroupMapCurrent[item.cycleSubspanGroupId].forEach(
-          (cycleSubspanId) => {
-            writeAnyCell(
-              getCellId(
-                EntityClassMap.staticDeliveryAllocationItem,
-                rowId,
-                cycleSubspanId
-              ),
-              (cell: Cell<StaticDeliveryAllocationItemDto>) => ({
-                ...cell,
-                data: undefined
-              })
-            );
-          }
-        );
-        // write to the dropped item
-        writeAnyStaticAllocation(
-          item.id,
-          (item: StaticDeliveryAllocationItemDto) => ({
-            ...item,
-            cycleSubspanGroupId:
-              cycleSubspan.cycleSubspanJoins[
-                item.staticDeliveryAllocation.deliveryAllocation
-                  .deliveryAllocationSize
-              ].cycleSubspanGroupId
-          })
-        );
-        // write to the old cells
-      },
+      drop: dropCallback,
       collect: (monitor) => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),

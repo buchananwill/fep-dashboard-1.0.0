@@ -25,20 +25,24 @@ export default function StaticAllocationTable({
 
   // We want two things: some data held in a table, and a function that from this data can create another function that when given a CellIdReference returns either the cell data or undefined.
   const { rowColumnCellReferenceMap, columnList } = tableData;
-  const cycleSubspanGroupIdToCycleSubspanIdList = columnList.reduce(
-    (prev, curr) => {
-      const { cycleSubspanJoins } = curr;
-      Object.values(cycleSubspanJoins).forEach((join) => {
-        let list = prev[join.cycleSubspanGroupId];
-        if (list === undefined) {
-          list = [];
-          prev[join.cycleSubspanGroupId] = list;
-        }
-        list.push(curr.id);
-      });
-      return prev;
-    },
-    {} as Record<string, number[]>
+  const cycleSubspanGroupIdToCycleSubspanIdList = useMemo(
+    () =>
+      columnList.reduce(
+        (prev, curr) => {
+          const { cycleSubspanJoins } = curr;
+          Object.values(cycleSubspanJoins).forEach((join) => {
+            let list = prev[join.cycleSubspanGroupId];
+            if (list === undefined) {
+              list = [];
+              prev[join.cycleSubspanGroupId] = list;
+            }
+            list.push(curr.id);
+          });
+          return prev;
+        },
+        {} as Record<string, number[]>
+      ),
+    [columnList]
   );
 
   useGlobalController({
