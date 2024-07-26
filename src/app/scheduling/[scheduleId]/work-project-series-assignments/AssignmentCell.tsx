@@ -18,9 +18,8 @@ import { EmptyArray } from '@/api/literals';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';
 import clsx from 'clsx';
-import VirtualizedOuterCell, {
-  CellWrapperProps
-} from '@/components/tables/VirtualizedCell';
+import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
+import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 
 export default function AssignmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;
@@ -110,4 +109,4 @@ const AssignmentTooltipMemo = memo(AssignmentTooltip);
 
 export type InnerCellContent<T = any> = {
   cellData?: T;
-} & Omit<GridChildComponentProps, 'style'>;
+} & Omit<GridChildComponentProps<CellIdReference[][]>, 'style'>;

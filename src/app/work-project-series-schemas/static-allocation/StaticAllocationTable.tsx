@@ -8,6 +8,8 @@ import { getCellDataOrUndefined } from '@/app/work-project-series-schemas/static
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { MemoWorkProjectSeriesSchemaCell } from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaCell';
+import StaticAllocationCell from '@/app/work-project-series-schemas/static-allocation/StaticAllocationCell';
 
 export default function StaticAllocationTable({
   tableData
@@ -21,15 +23,19 @@ export default function StaticAllocationTable({
         entityClass={EntityClassMap.cycleSubspan}
         dtoList={tableData.columnList}
       />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        dtoList={tableData.rowList}
+      />
       <CellQueryManager
         tableData={tableData}
         getDataRetrievalMemoizedFunction={getCellDataOrUndefined}
       />
       <VirtualizedTableWindowed
         {...tableProps}
-        renderCell={FallbackCellMemo}
+        renderCell={StaticAllocationCell}
         renderSyncedRowCell={CycleSubspanCell}
-        renderSyncedColumnCell={FallbackCellMemo}
+        renderSyncedColumnCell={MemoWorkProjectSeriesSchemaCell}
       />
     </div>
   );

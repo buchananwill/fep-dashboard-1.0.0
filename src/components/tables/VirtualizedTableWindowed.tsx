@@ -14,9 +14,9 @@ import {
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { Identifier } from 'dto-stores';
 
-const DefaultScrollBarSize = 20;
-const defaultSyncColumnWidth = 100;
-const defaultCellSize = 40;
+export const DefaultScrollBarSize = 20;
+export const defaultSyncColumnWidth = 100;
+export const defaultCellSize = 40;
 
 export interface VirtualizedTableProps<T> {
   rowIdList: Identifier[];

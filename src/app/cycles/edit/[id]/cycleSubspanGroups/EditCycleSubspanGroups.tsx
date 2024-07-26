@@ -13,13 +13,14 @@ import { getOne } from '@/api/generated-actions/Cycle';
 import { parseTen } from '@/api/date-and-time';
 import { API_V2_URL } from '@/api/literals';
 import { LeafComponentProps } from '@/app/core/navigation/types';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 const entityName = 'CycleSubspanGroupEdit';
 export default async function EditCycleSubspanGroups({
   pathVariables,
   depth
 }: LeafComponentProps) {
-  const cycleId = pathVariables[depth + 1];
+  const [cycleId] = getLastNVariables(pathVariables, 1);
   const cycle = await getOne(parseTen(cycleId));
   const groupEditListUrl = `${API_V2_URL}/time/cycleSubspanGroups/cycleSubspanGroupEditList/${cycleId}`;
   const cycleSubspanGroupEditDtos =

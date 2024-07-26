@@ -1,31 +1,16 @@
-import { GridChildComponentProps } from 'react-window';
 import {
   CellIdReference,
-  GetCellContentKey,
-  GetCellContent
+  GetCellContent,
+  GetCellContentKey
 } from '@/components/tables/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import {
-  useGlobalDispatchAndListener,
-  useGlobalListener
-} from 'selective-context';
-import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';
-import React, { ReactNode, useCallback, useMemo } from 'react';
-import { selectedAssignmentCell } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
-import { EmptyArray } from '@/api/literals';
-import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
+import { useGlobalListener } from 'selective-context';
+import React, { useMemo } from 'react';
 import clsx from 'clsx';
-import { LazyDtoUiWrapper } from 'dto-stores';
-import { WorkProjectSeriesSchemaCode } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
-import { EntityClassMap } from '@/api/entity-class-map';
-import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
-import { InnerCellContent } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
-
-export type OuterCellProps = GridChildComponentProps<CellIdReference[][]> & {
-  innerCell: (props: InnerCellContent) => ReactNode;
-};
-
-export type CellWrapperProps = GridChildComponentProps<CellIdReference[][]>;
+import {
+  getCellIdReference,
+  OuterCellProps
+} from '@/components/tables/getCellIdReference';
 
 export default function VirtualizedOuterCell<T>({
   rowIndex,
@@ -48,7 +33,7 @@ export default function VirtualizedOuterCell<T>({
   });
 
   const cellData: T | undefined = useMemo(() => {
-    const assignmentCell = data[rowIndex][columnIndex];
+    const assignmentCell = getCellIdReference({ data, rowIndex, columnIndex });
     return memoizedFunction(assignmentCell);
   }, [memoizedFunction, columnIndex, rowIndex, data]);
 

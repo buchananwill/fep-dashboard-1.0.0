@@ -1,10 +1,10 @@
-import { CellWrapperProps } from '@/components/tables/VirtualizedCell';
 import { BaseDtoUiProps } from 'dto-stores';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import DtoUiWrapperCell from './DtoUiWrapperCell';
 import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
+import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 
 export default function CycleSubspanCell(props: CellWrapperProps) {
   return (

@@ -4,6 +4,7 @@ import { BaseDtoUiProps, DtoUiWrapper, Entity } from 'dto-stores';
 import { ReactNode } from 'react';
 import clsx from 'clsx';
 import { GenericDivProps } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
+import { getCellIdReference } from '@/components/tables/getCellIdReference';
 
 export default function DtoUiWrapperCell<T extends Entity>(
   props: GridChildComponentProps<CellIdReference[][]> & {
@@ -22,7 +23,7 @@ export default function DtoUiWrapperCell<T extends Entity>(
     idKey,
     className
   } = props;
-  const cellIdReference = data[rowIndex][columnIndex];
+  const cellIdReference = getCellIdReference({ data, columnIndex, rowIndex });
 
   return (
     <div style={style} className={clsx('flex overflow-hidden', className)}>

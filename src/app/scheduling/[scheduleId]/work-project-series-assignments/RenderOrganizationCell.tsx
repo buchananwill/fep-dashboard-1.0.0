@@ -4,13 +4,14 @@ import { NamedEntityLabel } from '@/app/scheduling/feasibility-report/_component
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
+import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 
 export default function RenderOrganizationCell({
   rowIndex,
   columnIndex,
   data,
   style
-}: GridChildComponentProps<CellIdReference[][]>) {
+}: CellWrapperProps) {
   return (
     <div style={style}>
       <div className={'truncate'}>
