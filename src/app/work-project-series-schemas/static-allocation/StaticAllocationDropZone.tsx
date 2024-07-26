@@ -15,8 +15,11 @@ import {
 } from '@/app/work-project-series-schemas/static-allocation/allocationDropZonePermissions';
 import {
   Cell,
+  cycleSubspanGroupMap,
   getCellId
 } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
+import { useGlobalListener, useGlobalReadAny } from 'selective-context';
+import { ObjectPlaceholder } from '@/api/literals';
 
 export function StaticAllocationDropZone({
   columnIndex,
@@ -29,10 +32,11 @@ export function StaticAllocationDropZone({
     columnIndex
   });
 
+  const listenerKey = `cell:${rowIndex}:${columnIndex}`;
   const { entity: cycleSubspan } = useDtoStore<CycleSubspanWithJoinsListDto>({
     entityId: columnId,
     entityClass: EntityClassMap.cycleSubspan,
-    listenerKey: `cell:${rowIndex}:${columnIndex}`
+    listenerKey: listenerKey
   });
 
   const canDropCallback = useCallback(
@@ -52,23 +56,54 @@ export function StaticAllocationDropZone({
   const writeAnyStaticAllocation = useWriteAnyDto(
     EntityClassMap.staticDeliveryAllocationItem
   );
+  const { currentState: cycleSubspanGroupMapCurrent } = useGlobalListener({
+    contextKey: cycleSubspanGroupMap,
+    listenerKey,
+    initialValue: ObjectPlaceholder as Record<string, number[]>
+  });
 
   // Get drag data and functions
   const [{ isOver, canDrop, currentItem, currentItemType }, drop] = useDrop(
     () => ({
       accept: DragTypes.STATIC_ALLOCATION,
       drop: (item, monitor) => {
-        writeAnyCell(
-          getCellId(
-            EntityClassMap.staticDeliveryAllocationItem,
-            rowId,
-            columnId
-          ),
-          (cell: Cell<StaticDeliveryAllocationItemDto>) => ({
-            ...cell,
-            data: item
-          })
+        // write to the new cells
+        const newGroupId =
+          cycleSubspan.cycleSubspanJoins[
+            item.staticDeliveryAllocation.deliveryAllocation
+              .deliveryAllocationSize
+          ].cycleSubspanGroupId;
+        cycleSubspanGroupMapCurrent[newGroupId].forEach((cycleSubspanId) => {
+          writeAnyCell(
+            getCellId(
+              EntityClassMap.staticDeliveryAllocationItem,
+              rowId,
+              cycleSubspanId
+            ),
+            (cell: Cell<StaticDeliveryAllocationItemDto>) => ({
+              ...cell,
+              data: item.id
+            })
+          );
+        });
+
+        // write to te old cells
+        cycleSubspanGroupMapCurrent[item.cycleSubspanGroupId].forEach(
+          (cycleSubspanId) => {
+            writeAnyCell(
+              getCellId(
+                EntityClassMap.staticDeliveryAllocationItem,
+                rowId,
+                cycleSubspanId
+              ),
+              (cell: Cell<StaticDeliveryAllocationItemDto>) => ({
+                ...cell,
+                data: undefined
+              })
+            );
+          }
         );
+        // write to the dropped item
         writeAnyStaticAllocation(
           item.id,
           (item: StaticDeliveryAllocationItemDto) => ({
@@ -80,6 +115,7 @@ export function StaticAllocationDropZone({
               ].cycleSubspanGroupId
           })
         );
+        // write to the old cells
       },
       collect: (monitor) => ({
         isOver: monitor.isOver(),

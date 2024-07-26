@@ -11,23 +11,23 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { getCellIdReference } from '@/components/tables/getCellIdReference';
 import { useMemo } from 'react';
 import { matchIsFirst } from '@/app/work-project-series-schemas/static-allocation/allocationDropZonePermissions';
+import { getCellId } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 
 export function StaticAllocationDraggable(
-  props: SetRequired<
-    InnerCellContent<StaticDeliveryAllocationItemDto>,
-    'cellData'
-  >
+  props: SetRequired<InnerCellContent<string>, 'cellData'> & {
+    entity: StaticDeliveryAllocationItemDto;
+  }
 ) {
-  const { cellData } = props;
+  const { entity } = props;
   const deliveryAllocationSize =
-    cellData.staticDeliveryAllocation.deliveryAllocation.deliveryAllocationSize;
+    entity.staticDeliveryAllocation.deliveryAllocation.deliveryAllocationSize;
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: DragTypes.STATIC_ALLOCATION,
     collect: (monitor) => ({
       isDragging: monitor.isDragging()
     }),
-    item: props.cellData
+    item: entity
   }));
 
   return drag(
@@ -40,22 +40,25 @@ export function StaticAllocationDraggable(
     ></div>
   );
 }
+const entityClass = EntityClassMap.staticDeliveryAllocationItem;
 
 export function StaticAllocationOccupied(
-  props: SetRequired<
-    InnerCellContent<StaticDeliveryAllocationItemDto>,
-    'cellData'
-  >
+  props: SetRequired<InnerCellContent<string>, 'cellData'>
 ) {
   const { cellData, columnIndex, rowIndex, data } = props;
-  console.log(cellData);
+
+  const { entity } = useDtoStore<StaticDeliveryAllocationItemDto>({
+    entityId: cellData,
+    entityClass,
+    listenerKey: `${getCellId(entityClass, rowIndex, columnIndex)}`
+  });
   const { columnId } = getCellIdReference({
     data,
     rowIndex,
     columnIndex
   });
   const deliveryAllocationSize =
-    cellData.staticDeliveryAllocation.deliveryAllocation.deliveryAllocationSize;
+    entity.staticDeliveryAllocation.deliveryAllocation.deliveryAllocationSize;
 
   const { entity: cycleSubspan } = useDtoStore<CycleSubspanWithJoinsListDto>({
     entityId: columnId,
@@ -68,7 +71,7 @@ export function StaticAllocationOccupied(
   }, [cycleSubspan, deliveryAllocationSize]);
 
   if (isDraggable) {
-    return <StaticAllocationDraggable {...props} />;
+    return <StaticAllocationDraggable entity={entity} {...props} />;
   } else
     return (
       <div

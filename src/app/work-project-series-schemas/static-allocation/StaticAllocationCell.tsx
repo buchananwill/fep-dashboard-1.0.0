@@ -19,7 +19,7 @@ export default function StaticAllocationCell(props: CellWrapperProps) {
 function InnerStaticAllocationCell({
   cellData,
   ...props
-}: InnerCellContent<StaticDeliveryAllocationItemDto | undefined>) {
+}: InnerCellContent<string | undefined>) {
   if (cellData === undefined) return <StaticAllocationDropZone {...props} />;
   else return <StaticAllocationOccupied {...props} cellData={cellData} />;
 }

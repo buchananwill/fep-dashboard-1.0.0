@@ -4,14 +4,20 @@ import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindow
 import CellQueryManager from '@/components/tables/CellQueryManager';
 import { getTableProps } from '@/app/service-categories/[id]/roles/_components/getTableProps';
 import { FallbackCellMemo } from '@/components/tables/FallbackCell';
-import { getCellDataOrUndefined } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
+import {
+  getCellDataIdOrUndefined,
+  getCellDataOrUndefined
+} from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { MemoWorkProjectSeriesSchemaCell } from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaCell';
 import StaticAllocationCell from '@/app/work-project-series-schemas/static-allocation/StaticAllocationCell';
 import { useMemo } from 'react';
+import { useGlobalController } from 'selective-context';
+import { getControllerListenerKey } from 'dto-stores/dist/hooks/internal/getControllerListenerKey';
 
+export const cycleSubspanGroupMap = 'CycleSubspanGroupMap';
 export default function StaticAllocationTable({
   tableData
 }: {
@@ -20,10 +26,31 @@ export default function StaticAllocationTable({
   const tableProps = getTableProps(tableData.rowList, tableData.columnList);
 
   // We want two things: some data held in a table, and a function that from this data can create another function that when given a CellIdReference returns either the cell data or undefined.
-  const { rowColumnCellReferenceMap } = tableData;
+  const { rowColumnCellReferenceMap, columnList } = tableData;
+  const cycleSubspanGroupIdToCycleSubspanIdList = columnList.reduce(
+    (prev, curr) => {
+      const { cycleSubspanJoins } = curr;
+      Object.values(cycleSubspanJoins).forEach((join) => {
+        let list = prev[join.cycleSubspanGroupId];
+        if (list === undefined) {
+          list = [];
+          prev[join.cycleSubspanGroupId] = list;
+        }
+        list.push(curr.id);
+      });
+      return prev;
+    },
+    {} as Record<string, number[]>
+  );
+
+  useGlobalController({
+    contextKey: cycleSubspanGroupMap,
+    initialValue: cycleSubspanGroupIdToCycleSubspanIdList,
+    listenerKey: 'StaticAllocationTableController'
+  });
 
   const flattened = useMemo(() => {
-    const cellDataOrUndefined = getCellDataOrUndefined(tableData);
+    const cellDataOrUndefined = getCellDataIdOrUndefined(tableData);
 
     return tableProps.itemData
       .flatMap((list) => [...list])
