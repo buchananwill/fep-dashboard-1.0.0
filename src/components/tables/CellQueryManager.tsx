@@ -5,7 +5,7 @@ import { useGlobalController } from 'selective-context';
 import { Identifier, useEffectSyncWithDispatch } from 'dto-stores';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
-export const GetCellContentKey = 'getAssignmentCellContent';
+export const GetCellContentKey = 'getCellContent';
 export type AssignmentCellContent =
   | WorkProjectSeriesAssignmentDto[]
   | undefined;

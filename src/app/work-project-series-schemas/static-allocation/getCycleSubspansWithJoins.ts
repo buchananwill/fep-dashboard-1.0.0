@@ -2,7 +2,7 @@
 
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema';
+import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema_';
 
 export async function getCycleSubspansWithJoins(cycleId: number) {
   return getWithoutBody<CycleSubspanWithJoinsListDto>(

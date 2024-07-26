@@ -3,19 +3,20 @@ import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAlloca
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { getCellIdReference } from '@/components/tables/getCellIdReference';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import clsx from 'clsx';
-import { useDtoStore } from 'dto-stores';
+import { useDtoStore, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema';
-
-function matchSize(sizesSet: Map<number, number>, size: number) {
-  return sizesSet.has(size);
-}
-
-function matchIsFirst(sizesSet: Map<number, number>, size: number) {
-  return sizesSet.get(size) === 1;
-}
+import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema_';
+import {
+  matchIsFirst,
+  matchRow,
+  matchSize
+} from '@/app/work-project-series-schemas/static-allocation/allocationDropZonePermissions';
+import {
+  Cell,
+  getCellId
+} from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 
 export function StaticAllocationDropZone({
   columnIndex,
@@ -34,30 +35,52 @@ export function StaticAllocationDropZone({
     listenerKey: `cell:${rowIndex}:${columnIndex}`
   });
 
-  const sizesSet = useMemo(() => {
-    return cycleSubspan.cycleSubspanJoins.reduce(
-      (prev, curr) => prev.set(curr.cycleSubspanGroupSize, curr.joinOrdinal),
-      new Map<number, number>()
-    );
-  }, [cycleSubspan]);
-
   const canDropCallback = useCallback(
     (item: StaticDeliveryAllocationItemDto, monitor: DropTargetMonitor) => {
       const size =
         item.staticDeliveryAllocation.deliveryAllocation.deliveryAllocationSize;
-      const matchesRow = staticAllocationMatchesRow(item, rowId as string);
-      const matchesSize = matchSize(sizesSet, size);
-      const matchesFirst = matchIsFirst(sizesSet, size);
-      return matchesRow && matchesSize && matchesFirst;
+      return (
+        matchRow(item, rowId as string) &&
+        matchSize(cycleSubspan.cycleSubspanJoins, size) &&
+        matchIsFirst(cycleSubspan.cycleSubspanJoins, size)
+      );
     },
-    [rowId, sizesSet]
+    [rowId, cycleSubspan]
+  );
+
+  const writeAnyCell = useWriteAnyDto('Cell');
+  const writeAnyStaticAllocation = useWriteAnyDto(
+    EntityClassMap.staticDeliveryAllocationItem
   );
 
   // Get drag data and functions
   const [{ isOver, canDrop, currentItem, currentItemType }, drop] = useDrop(
     () => ({
       accept: DragTypes.STATIC_ALLOCATION,
-      drop: (item, monitor) => {},
+      drop: (item, monitor) => {
+        writeAnyCell(
+          getCellId(
+            EntityClassMap.staticDeliveryAllocationItem,
+            rowId,
+            columnId
+          ),
+          (cell: Cell<StaticDeliveryAllocationItemDto>) => ({
+            ...cell,
+            data: item
+          })
+        );
+        writeAnyStaticAllocation(
+          item.id,
+          (item: StaticDeliveryAllocationItemDto) => ({
+            ...item,
+            cycleSubspanGroupId:
+              cycleSubspan.cycleSubspanJoins[
+                item.staticDeliveryAllocation.deliveryAllocation
+                  .deliveryAllocationSize
+              ].cycleSubspanGroupId
+          })
+        );
+      },
       collect: (monitor) => ({
         isOver: monitor.isOver(),
         canDrop: monitor.canDrop(),
@@ -75,15 +98,5 @@ export function StaticAllocationDropZone({
         currentItem && (canDrop ? 'bg-emerald-500' : 'bg-rose-500')
       )}
     ></div>
-  );
-}
-
-function staticAllocationMatchesRow(
-  item: StaticDeliveryAllocationItemDto,
-  workProjectSeriesSchemaId: string
-) {
-  return (
-    item.staticDeliveryAllocation.deliveryAllocation
-      .workProjectSeriesSchemaId === workProjectSeriesSchemaId
   );
 }
