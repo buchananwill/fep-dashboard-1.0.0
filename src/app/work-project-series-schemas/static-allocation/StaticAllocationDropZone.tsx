@@ -42,6 +42,11 @@ function updateStaticAllocationTableCell(
   );
 }
 
+function getDeliveryAllocationSize(item: StaticDeliveryAllocationItemDto) {
+  return item.staticDeliveryAllocation.deliveryAllocation
+    .deliveryAllocationSize;
+}
+
 export function StaticAllocationDropZone({
   columnIndex,
   rowIndex,
@@ -102,10 +107,8 @@ export function StaticAllocationDropZone({
     ) => {
       // write to the new cells
       const newGroupId =
-        cycleSubspan.cycleSubspanJoins[
-          item.staticDeliveryAllocation.deliveryAllocation
-            .deliveryAllocationSize
-        ].cycleSubspanGroupId;
+        cycleSubspan.cycleSubspanJoins[getDeliveryAllocationSize(item)]
+          .cycleSubspanGroupId;
       cycleSubspanGroupMapCurrent[newGroupId].forEach((cycleSubspanId) => {
         localMemoizedUpdater(String(item.id), cycleSubspanId);
       });
@@ -122,10 +125,8 @@ export function StaticAllocationDropZone({
         (item: StaticDeliveryAllocationItemDto) => ({
           ...item,
           cycleSubspanGroupId:
-            cycleSubspan.cycleSubspanJoins[
-              item.staticDeliveryAllocation.deliveryAllocation
-                .deliveryAllocationSize
-            ].cycleSubspanGroupId
+            cycleSubspan.cycleSubspanJoins[getDeliveryAllocationSize(item)]
+              .cycleSubspanGroupId
         })
       );
     },

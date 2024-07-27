@@ -4,7 +4,7 @@ export const WorkProjectSeriesSchemaDtoSchema = z.object({
   id: z.string().uuid(),
   name: z.string(),
   workTaskTypeId: z.number(),
-  deliveryAllocations: z.array(DeliveryAllocationDtoSchema),
+  deliveryAllocations: z.record(z.string(), DeliveryAllocationDtoSchema),
   workProjectBandwidth: z.number(),
   userToProviderRatio: z.number(),
   shortCode: z.string(),
