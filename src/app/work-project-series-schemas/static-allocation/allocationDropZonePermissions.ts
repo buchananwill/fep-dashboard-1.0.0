@@ -1,5 +1,5 @@
 import { CycleSubspanJoinNestedDto } from '@/api/dtos/CycleSubspanJoinNestedDtoSchema';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
 
 export function matchSize(
   sizesSet: Record<string, CycleSubspanJoinNestedDto>,

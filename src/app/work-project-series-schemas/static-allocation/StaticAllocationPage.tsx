@@ -4,7 +4,7 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema_';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
 import StaticAllocationTable from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 import {
   EditAddDeleteDtoControllerArray,
@@ -12,6 +12,10 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Api } from '@/api/clientApi_';
+import StaticAllocationAuditor, {
+  allocationCounter
+} from '@/app/work-project-series-schemas/static-allocation/StaticAllocationAuditor';
+import { EmptyArray } from '@/api/literals';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,
@@ -40,9 +44,17 @@ export async function StaticAllocationPage({
         entityClass={EntityClassMap.staticDeliveryAllocationItem}
         dtoList={initialStaticAllocations}
         updateServerAction={Api.StaticDeliveryAllocationItem.putList}
+        deleteServerAction={Api.StaticDeliveryAllocationItem.deleteIdList}
+        postServerAction={Api.StaticDeliveryAllocationItem.postList}
       />
+      <StaticAllocationAuditor />
       <MasterMapController
         entityClass={EntityClassMap.staticDeliveryAllocationItem}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={allocationCounter}
+        dtoList={EmptyArray}
+        mergeInitialWithProp={true}
       />
       <StaticAllocationTable tableData={staticDeliveryTable} />
     </>

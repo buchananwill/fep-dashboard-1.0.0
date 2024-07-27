@@ -1,17 +1,14 @@
-import { SetRequired } from 'type-fest';
-import { InnerCellContent } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import clsx from 'clsx';
 import { defaultCellSize } from '@/components/tables/VirtualizedTableWindowed';
 
-export function StaticAllocationDraggable(
-  props: SetRequired<InnerCellContent<string>, 'cellData'> & {
-    entity: StaticDeliveryAllocationItemDto;
-  }
-) {
-  const { entity } = props;
+export function StaticAllocationDraggable(props: {
+  entity: StaticDeliveryAllocationItemDto;
+  disabled?: boolean;
+}) {
+  const { entity, disabled } = props;
   const deliveryAllocationSize =
     entity.staticDeliveryAllocation.deliveryAllocation.deliveryAllocationSize;
 
@@ -23,13 +20,20 @@ export function StaticAllocationDraggable(
     item: entity
   }));
 
-  return drag(
+  return disabled ? (
     <div
-      className={clsx(
-        'h-[40px] bg-blue-500',
-        isDragging && 'animate-pulse bg-opacity-50'
-      )}
+      className={clsx('h-[40px] bg-gray-500')}
       style={{ width: `${deliveryAllocationSize * defaultCellSize}px` }}
     ></div>
+  ) : (
+    drag(
+      <div
+        className={clsx(
+          'h-[40px] bg-blue-500',
+          isDragging && 'animate-pulse bg-opacity-50'
+        )}
+        style={{ width: `${deliveryAllocationSize * defaultCellSize}px` }}
+      ></div>
+    )
   );
 }

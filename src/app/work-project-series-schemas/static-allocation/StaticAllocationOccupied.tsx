@@ -2,7 +2,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { SetRequired } from 'type-fest';
 import { InnerCellContent } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
 import { useDtoStore } from 'dto-stores';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
 import { getCellId } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 import { getCellIdReference } from '@/components/tables/getCellIdReference';
 import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema_';
@@ -11,6 +11,7 @@ import { matchIsFirst } from '@/app/work-project-series-schemas/static-allocatio
 import clsx from 'clsx';
 import { defaultCellSize } from '@/components/tables/VirtualizedTableWindowed';
 import { StaticAllocationDraggable } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationDraggable';
+import { getDeliveryAllocationSize } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationDropZone';
 
 const entityClass = EntityClassMap.staticDeliveryAllocationItem;
 
@@ -29,8 +30,7 @@ export function StaticAllocationOccupied(
     rowIndex,
     columnIndex
   });
-  const deliveryAllocationSize =
-    entity.staticDeliveryAllocation.deliveryAllocation.deliveryAllocationSize;
+  const deliveryAllocationSize = getDeliveryAllocationSize(entity);
 
   const { entity: cycleSubspan } = useDtoStore<CycleSubspanWithJoinsListDto>({
     entityId: columnId,
