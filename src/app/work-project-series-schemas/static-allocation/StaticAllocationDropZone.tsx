@@ -67,8 +67,7 @@ export function StaticAllocationDropZone({
 
   const canDropCallback = useCallback(
     (item: StaticDeliveryAllocationItemDto, monitor: DropTargetMonitor) => {
-      const size =
-        item.staticDeliveryAllocation.deliveryAllocation.deliveryAllocationSize;
+      const size = getDeliveryAllocationSize(item);
       return (
         matchRow(item, rowId as string) &&
         matchSize(cycleSubspan.cycleSubspanJoins, size) &&
