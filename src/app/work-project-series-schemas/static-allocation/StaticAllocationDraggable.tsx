@@ -22,7 +22,7 @@ export function StaticAllocationDraggable(props: {
 
   return disabled ? (
     <div
-      className={clsx('h-[40px] bg-gray-500')}
+      className={clsx('h-[40px] bg-gray-200')}
       style={{ width: `${deliveryAllocationSize * defaultCellSize}px` }}
     ></div>
   ) : (

@@ -183,7 +183,7 @@ export function StaticAllocationDispensor({
     Map<string, AllocationCounter>
   >({
     contextKey: allocationCounter,
-    listenerKey: 'StaticAllocationDispensor',
+    listenerKey: `StaticAllocationDispensor:${entity.id}`,
     initialValue: InitialMap as Map<string, AllocationCounter>
   });
 
