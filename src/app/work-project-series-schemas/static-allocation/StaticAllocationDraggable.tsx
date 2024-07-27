@@ -20,11 +20,10 @@ export function StaticAllocationDraggable(props: {
     item: entity
   }));
 
+  const style = { width: `${deliveryAllocationSize * defaultCellSize}px` };
+
   return disabled ? (
-    <div
-      className={clsx('h-[40px] bg-gray-200')}
-      style={{ width: `${deliveryAllocationSize * defaultCellSize}px` }}
-    ></div>
+    <div className={clsx('h-[40px] bg-gray-200')} style={style}></div>
   ) : (
     drag(
       <div
@@ -32,7 +31,7 @@ export function StaticAllocationDraggable(props: {
           'h-[40px] bg-blue-500',
           isDragging && 'animate-pulse bg-opacity-50'
         )}
-        style={{ width: `${deliveryAllocationSize * defaultCellSize}px` }}
+        style={style}
       ></div>
     )
   );
