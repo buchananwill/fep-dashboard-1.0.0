@@ -1,6 +1,6 @@
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
-import { Column, NumberPropertyKey, StringPropertyKey } from '@/types';
+import { Column, StringPropertyKey } from '@/types';
 import { useClientSidePagination } from '@/hooks/useClientSidePagination';
 import { useDynamicColumnVisibility } from '@/hooks/useDynamicColumnVisibility';
 import {

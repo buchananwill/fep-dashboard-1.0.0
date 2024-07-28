@@ -32,7 +32,7 @@ export function resolveNodeAllocation(
   if (workProjectSeriesSchemaId || carouselOptionId) {
     schema = readLeafSchema(node.id);
     if (schema) {
-      deliveryAllocationTokenList = schema.deliveryAllocations
+      deliveryAllocationTokenList = Object.values(schema.deliveryAllocations)
         .toSorted(
           (dev1, dev2) =>
             dev2.deliveryAllocationSize - dev1.deliveryAllocationSize

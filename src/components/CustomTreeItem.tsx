@@ -16,7 +16,6 @@ import clsx from 'clsx';
 import { TreeItem2Icon } from '@mui/x-tree-view/TreeItem2Icon';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { ReactElement } from 'react';
 
 export interface StyledTreeItemProps
   extends Omit<UseTreeItem2Parameters, 'rootRef'>,

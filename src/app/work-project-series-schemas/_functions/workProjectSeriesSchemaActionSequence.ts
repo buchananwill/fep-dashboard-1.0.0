@@ -1,10 +1,7 @@
 import { getDtoListByExampleList as getWorkTaskTypesByExample } from '@/api/generated-actions/WorkTaskType';
 
 import { getDtoListByExampleList as getWorkProjectSeriesSchemasByExample } from '@/api/generated-actions/WorkProjectSeriesSchema';
-import {
-  WorkTaskTypeDto,
-  WorkTaskTypeDtoSchema
-} from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 
 export type WorkProjectSeriesSchemaFetchParams = Partial<WorkTaskTypeDto>;

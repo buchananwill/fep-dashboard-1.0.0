@@ -1,8 +1,7 @@
 import { DispatchState, NumberPropertyKey, StringPropertyKey } from '@/types';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { HasId, HasIdClass } from '@/api/types';
+import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
-import { camelCase } from 'lodash';
 
 export type FilterablePropertyKey<T> =
   | StringPropertyKey<T>

@@ -6,10 +6,7 @@ import { convertToClassificationNode } from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { BandwidthLayoutFlowWithForces } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import {
-  DataFetchingEditDtoControllerArray,
-  EditAddDeleteDtoControllerArray
-} from 'dto-stores';
+import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 
 import { EntityClassMap } from '@/api/entity-class-map';

@@ -3,9 +3,12 @@ import { useMemo, useRef } from 'react';
 import { useGlobalController } from 'selective-context';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { BandwidthValidationTraversal } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
-import { EntityClassMap } from '@/api/entity-class-map';
 import { OnSelectionChangeParams, useOnSelectionChange } from '@xyflow/react';
 import { ObjectPlaceholder } from '@/api/literals';
+
+const bandwidthValidationTraversal = 'bandwidthValidationTraversal';
+
+const bandwidthValidationLayer = 'bandwidthValidationLayer';
 
 export function SelectionChangeTraversalUpdater() {
   const listenerKey = useUuidListenerKey();
@@ -16,9 +19,9 @@ export function SelectionChangeTraversalUpdater() {
     initialValue: selectedSetRef
   });
   const readAnyBvt = useReadAnyDto<BandwidthValidationTraversal>(
-    EntityClassMap.bandwidthValidationTraversal
+    bandwidthValidationTraversal
   );
-  const writeAnyLayer = useWriteAnyDto(EntityClassMap.bandwidthValidationLayer);
+  const writeAnyLayer = useWriteAnyDto(bandwidthValidationLayer);
 
   // the passed handler has to be memoized, otherwise the hook will not work correctly
   const onChange = useMemo(() => {

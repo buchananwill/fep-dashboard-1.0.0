@@ -1,5 +1,3 @@
-import { shuffle } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/shuffle';
-
 export function generateHamiltonianStringCycle(cycleSize: number) {
   if (cycleSize < 2)
     throw Error('At least two nodes needed to form a non-trivial cycle.');

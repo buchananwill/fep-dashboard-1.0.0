@@ -7,12 +7,7 @@ import { StringAttributeInputArray } from '@/components/generic/StringAttributeI
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useCallback } from 'react';
-import {
-  BaseDtoUiProps,
-  DtoUiProps,
-  DtoUiWrapper,
-  useDtoComponent
-} from 'dto-stores';
+import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { StringPropertyKey } from '@/types';
 

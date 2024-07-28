@@ -7,24 +7,13 @@ import {
   cloneFunctionWrapper,
   organizationGraphUpdater
 } from '@/components/react-flow/organization/organizationCallbacks';
-import OrganizationDetailsContent from '@/components/react-flow/organization/OrganizationDetailsContent';
 
 import {
   DataLink,
   DataNodeDto,
   MemoizedFunction,
-  NodeModalContentComponent,
-  useModalContent,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
-import { AllocationTotal } from '@/components/react-flow/organization/allocationTotal';
-import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNode';
-import {
-  EditAddDeleteDtoControllerArray,
-  NamespacedHooks,
-  useEffectSyncDeepEqualWithDispatch
-} from 'dto-stores';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import { OrganizationTypeDto } from '@/api/dtos/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -33,7 +22,6 @@ import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
-import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
 import { FlowNode } from '@/react-flow/types';
 import InputValueListNode from '@/components/react-flow/generator-graph/InputValueListNode';
 import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';

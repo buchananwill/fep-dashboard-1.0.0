@@ -1,4 +1,6 @@
 import {
+  GraphDto,
+  GraphDtoPutRequestBody,
   incrementCloneSuffix,
   reMapNodeIdWithoutValidating
 } from 'react-d3-force-wrapper';
@@ -7,7 +9,10 @@ import {
   WorkSchemaNodeDtoSchema
 } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { createDataNodeDtoSchema } from '@/api/zod-mods';
-import { middlewareCombiner } from '@/react-flow/utils/graphMiddlewareCombiner';
+import {
+  Middleware,
+  middlewareCombiner
+} from '@/react-flow/utils/graphMiddlewareCombiner';
 import { Api } from '@/api/clientApi_';
 import { isNotUndefined } from '@/api/main';
 import { z } from 'zod';
@@ -15,9 +20,7 @@ import { ServerAction } from '@/react-flow/hooks/useEditableFlow';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { FlowNode } from '@/react-flow/types';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
-import { sumDeliveryAllocationList } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
+import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/getGraphUpdaterWithNameDeDuplication';
 
 function cloneWorkSchemaNode(
   templateNode: FlowNode<WorkSchemaNodeDto>
@@ -107,22 +110,6 @@ export function determineLocalResolution(
   return 'OPEN';
 }
 
-export function determineLocalAllocation(
-  workSchemaNode: WorkSchemaNodeDto,
-  getSchema: (id: string) => WorkProjectSeriesSchemaDto | undefined,
-  getOption: (id: number) => CarouselOptionDto | undefined
-) {
-  const { workProjectSeriesSchemaId, carouselOptionId } = workSchemaNode;
-  let schema = undefined;
-  if (workProjectSeriesSchemaId) schema = getSchema(workProjectSeriesSchemaId);
-  if (carouselOptionId) {
-    const option = getOption(carouselOptionId);
-    schema = option ? getSchema(option.workProjectSeriesSchemaId) : undefined;
-  }
-  if (schema) return sumDeliveryAllocationList(schema.deliveryAllocations);
-  return 0;
-}
-
 const maxOneOf: (keyof WorkSchemaNodeDto)[] = [
   'carouselGroupId',
   'carouselId',
@@ -141,8 +128,16 @@ export const workSchemaNodeCloneFunctionWrapper = {
 export const WorkSchemaNodeDataNodeDtoSchema = createDataNodeDtoSchema(
   WorkSchemaNodeDtoSchema
 );
-export const workSchemaNodeGraphUpdater = middlewareCombiner(
-  [spyOnRequest],
+export const workSchemaNodeGraphUpdater = middlewareCombiner<
+  GraphDtoPutRequestBody<WorkSchemaNodeDto>,
+  Promise<GraphDto<WorkSchemaNodeDto>>
+>(
+  [
+    getGraphUpdaterWithNameDeDuplication as Middleware<
+      GraphDtoPutRequestBody<WorkSchemaNodeDto>,
+      Promise<GraphDto<WorkSchemaNodeDto>>
+    >
+  ],
   Api.WorkSchemaNode.putGraph
 );
 

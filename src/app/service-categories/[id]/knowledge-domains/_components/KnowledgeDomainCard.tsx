@@ -1,10 +1,5 @@
 'use client';
-import {
-  BaseDtoUiProps,
-  BaseLazyDtoUiProps,
-  DtoUiWrapper,
-  LazyDtoUiWrapper
-} from 'dto-stores';
+import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { StringAttributeInputArray } from '@/components/generic/StringAttributeInputArray';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { EntityClassMap } from '@/api/entity-class-map';

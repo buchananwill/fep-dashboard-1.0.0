@@ -2,10 +2,7 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import GenerateOneButton, {
   GenerateAllButton
 } from '@/app/admin/init/providerRoles/GenerateOneButton';
-import {
-  bulkPipeline,
-  pipelineAsJson
-} from '@/utils/init-object-literals/providerRoleBulkRequest';
+import { bulkPipeline } from '@/utils/init-object-literals/providerRoleBulkRequest';
 
 export default async function page() {
   const url = constructUrl('/api/v2/generate/providerRoles');

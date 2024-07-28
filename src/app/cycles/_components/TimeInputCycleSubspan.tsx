@@ -1,9 +1,10 @@
-import { Time } from '@internationalized/date';
 import { Dispatch, SetStateAction } from 'react';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { TimeSpanDto } from '@/api/dtos/TimeSpanDtoSchema';
 import { TimeInput } from '@nextui-org/date-input';
 import { TransientIdOffset } from '@/api/literals';
+import { Time } from '@internationalized/date';
+import { TimeValue } from '@react-types/datepicker';
 
 export function TimeInputCycleSubspan({
   entity,
@@ -18,6 +19,7 @@ export function TimeInputCycleSubspan({
     <TimeInput
       hourCycle={24}
       size={'sm'}
+      granularity={'minute'}
       aria-label={`${entity.name} ${boundary} time`}
       label={boundary}
       value={timeFromZTimeOnly(
@@ -33,15 +35,16 @@ export function TimeInputCycleSubspan({
   );
 }
 
-function timeFromZTimeOnly(timeOnly: string): Time {
+function timeFromZTimeOnly(timeOnly: string): TimeValue {
   const [hour, minute, second] = timeOnly
     .split(':')
     .map((part) => parseInt(part, 10));
-  return new Time(hour, minute, second);
+
+  return new Time(hour, minute, second) as unknown as TimeValue;
 }
 
 function handleTimeChange(
-  time: Time,
+  time: TimeValue,
   target: 'Start' | 'End',
   dispatcher?: Dispatch<SetStateAction<CycleSubspanDto>>
 ) {

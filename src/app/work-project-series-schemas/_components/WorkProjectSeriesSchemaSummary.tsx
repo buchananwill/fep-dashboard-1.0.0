@@ -8,7 +8,7 @@ export default function WorkProjectionSeriesSchemaSummary({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
   const allocationTotal = useMemo(() => {
-    return sumDeliveryAllocationList(entity.deliveryAllocations);
+    return sumDeliveryAllocationList(Object.values(entity.deliveryAllocations));
   }, [entity.deliveryAllocations]);
 
   return (

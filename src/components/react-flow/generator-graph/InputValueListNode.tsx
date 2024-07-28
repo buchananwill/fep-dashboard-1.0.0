@@ -1,7 +1,5 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Handle, Node, NodeProps, Position } from '@xyflow/react';
-import { NodeBase } from '@/react-flow/types';
-import { TV } from '@nextui-org/react';
 import { NodeDataType } from '@/react-flow/utils/adaptors';
 
 const handleStyle = { left: 10 };

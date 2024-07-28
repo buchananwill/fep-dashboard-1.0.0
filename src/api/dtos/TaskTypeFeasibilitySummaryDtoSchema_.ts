@@ -1,4 +1,3 @@
-import { TaskTypeFeasibilityDtoSchema } from './TaskTypeFeasibilityDtoSchema_';
 import { z } from 'zod';
 export const TaskTypeFeasibilitySummaryDtoSchema = z.object({
   passes: z.boolean(),

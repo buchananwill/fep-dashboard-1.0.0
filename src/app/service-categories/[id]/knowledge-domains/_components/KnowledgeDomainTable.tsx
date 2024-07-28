@@ -12,13 +12,9 @@ import {
 } from '@/components/generic/DtoStoreStringInput';
 import { Skeleton } from '@nextui-org/skeleton';
 import { useKnowledgeDtoTableProps } from '@/app/service-categories/[id]/knowledge-levels/_components/useKnowledgeDtoTableProps';
-import {
-  getEntityStringComparator,
-  sortEntityListOnStringProperty
-} from '@/functions/sortEntityListOnStringProperty';
+import { getEntityStringComparator } from '@/functions/sortEntityListOnStringProperty';
 import { TransientIdOffset } from '@/api/literals';
 import { Button } from '@nextui-org/button';
-import ChangeStartingOrdinal from '@/app/service-categories/[id]/knowledge-levels/_components/ChangeStartingOrdinal';
 
 export function KnowledgeDomainTable({
   data,

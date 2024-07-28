@@ -1,5 +1,4 @@
 import { TaskTypeClassificationDtoSchema } from './TaskTypeClassificationDtoSchema';
-import { BandwidthFeasibilityLayerDtoSchema } from './BandwidthFeasibilityLayerDtoSchema';
 import { z } from 'zod';
 export const TaskTypeFeasibilityDtoSchema = z.object({
   id: z.number(),

@@ -1,4 +1,3 @@
-import { ServiceCategoryRouteParams } from '@/app/work-project-series-schemas/serviceCategoryRouteParams';
 import {
   getDtoListByExampleList,
   putList

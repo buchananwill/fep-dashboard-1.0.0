@@ -1,6 +1,6 @@
 'use client';
 import { Identifier } from 'dto-stores';
-import { HasId, HasIdClass } from '@/api/types';
+import { HasIdClass } from '@/api/types';
 import { Select, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { StringPropertyKey } from '@/types';

@@ -27,7 +27,8 @@ export const templateCycleSubspan: CycleSubspanDto = {
     startTimeDivisionId: TransientIdOffset,
     endTimeDivisionId: TransientIdOffset,
     name: 'New Timespan'
-  }
+  },
+  dayOrdinal: 1
 };
 
 export default function CycleViewer({ cycle }: { cycle: CycleDto }) {
@@ -36,7 +37,7 @@ export default function CycleViewer({ cycle }: { cycle: CycleDto }) {
   return (
     <div
       className={
-        'p-8 grid grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 min-w-fit'
+        'grid min-w-fit grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 p-8'
       }
     >
       <EditAddDeleteDtoControllerArray

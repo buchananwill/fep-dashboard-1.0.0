@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { BaseDtoUiProps, DtoUiProps } from 'dto-stores';
+import { BaseDtoUiProps } from 'dto-stores';
 
 import { sumDeliveryAllocations } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
@@ -20,9 +20,10 @@ export function AdjustAllocation({
 }: SetOptional<BaseDtoUiProps<WorkProjectSeriesSchemaDto>, 'deleted'>) {
   const currentAllocations = useMemo(() => {
     return allocationSizes.map((size: number) => {
-      const found = workProjectSeriesSchemaDto?.deliveryAllocations?.find(
-        (da) => da.deliveryAllocationSize === size
-      );
+      const allocations = workProjectSeriesSchemaDto
+        ? workProjectSeriesSchemaDto.deliveryAllocations
+        : {};
+      const found = allocations[String(size)];
       const nullAllocation: DeliveryAllocationDto = {
         id: TransientIdOffset + size, // TODO improve this transient ID allocation
         count: 0,
@@ -30,7 +31,7 @@ export function AdjustAllocation({
         workProjectSeriesSchemaId: workProjectSeriesSchemaDto.id,
         workTaskTypeId: workProjectSeriesSchemaDto.workTaskTypeId
       };
-      return found || nullAllocation;
+      return found ?? nullAllocation;
     });
   }, [workProjectSeriesSchemaDto]);
 
@@ -49,9 +50,16 @@ export function AdjustAllocation({
           return { ...allocation, count: newCount };
         } else return allocation;
       });
+      const updatedRecord = updatedDevAlloc.reduce(
+        (prev, curr) => {
+          prev[String(curr.deliveryAllocationSize)] = curr;
+          return prev;
+        },
+        {} as Record<string, DeliveryAllocationDto>
+      );
       const updatedSchema: WorkProjectSeriesSchemaDto = {
         ...workProjectSeriesSchemaDto,
-        deliveryAllocations: updatedDevAlloc
+        deliveryAllocations: updatedRecord
       };
       dispatchWithoutControl(updatedSchema);
     },

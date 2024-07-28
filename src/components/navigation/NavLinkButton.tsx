@@ -1,5 +1,4 @@
 'use client';
-import { Button, ButtonProps } from '@nextui-org/button';
 import { PropsWithChildren } from 'react';
 import clsx from 'clsx';
 import {
@@ -15,8 +14,8 @@ import Link, { LinkProps } from 'next/link';
 export default function NavLinkButton({
   className,
   navigationType
-}: { navigationType: NavigationType; className: string } & PropsWithChildren &
-  LinkProps) {
+}: { navigationType: NavigationType; className?: string } & PropsWithChildren &
+  Omit<LinkProps, 'href'>) {
   const rotate = navigationType === 'workSchemaNodeAssignments';
   const Icon = navLinkIcons[navigationType];
   const label = startCase(navigationType);

@@ -1,9 +1,9 @@
 import {
-  deDuplicateNames,
   GraphDto,
   GraphDtoPutRequestBody,
   HasName,
-  HasNumberId
+  HasNumberId,
+  incrementCloneSuffix
 } from 'react-d3-force-wrapper';
 import _ from 'lodash';
 
@@ -11,15 +11,15 @@ export function getGraphUpdaterWithNameDeDuplication<
   T extends HasNumberId & HasName
 >(
   putUpdatedGraph: (
-    // eslint-disable-next-line no-unused-vars
-    request: GraphDtoPutRequestBody<T>
+    incomingRequest: GraphDtoPutRequestBody<T>
   ) => Promise<GraphDto<T>>
-) {
-  return (request: GraphDtoPutRequestBody<T>) => {
-    const { graphDto } = request;
+): (interceptedRequest: GraphDtoPutRequestBody<T>) => Promise<GraphDto<T>> {
+  return (requestToBeIntercepted: GraphDtoPutRequestBody<T>) => {
+    const { graphDto } = requestToBeIntercepted;
     const { nodes } = graphDto;
     const hasNameDtos = nodes.map((dn) => dn.data);
-    const dtosWithNamesDeDuplicated = deDuplicateNames(hasNameDtos);
+    const dtosWithNamesDeDuplicated =
+      deDuplicateNameAllowUndefined(hasNameDtos);
     const nodesWithDataNamesDeDuplicated = nodes.map((dn, index) => {
       const replacementData = dtosWithNamesDeDuplicated[index];
       if (replacementData.id !== dn.id)
@@ -32,7 +32,23 @@ export function getGraphUpdaterWithNameDeDuplication<
       ...graphDto,
       nodes: nodesWithDataNamesDeDuplicated
     };
-    const safeRequest = { ...request, graphDto: safeGraph };
+    const safeRequest = { ...requestToBeIntercepted, graphDto: safeGraph };
     return putUpdatedGraph(safeRequest);
   };
+}
+
+export function deDuplicateNameAllowUndefined<T extends HasName>(
+  listOfNamedEntities: T[]
+) {
+  const set = new Set<string>();
+  return listOfNamedEntities.map((entity) => {
+    let name = entity.name;
+    while (name !== undefined && set.has(name)) {
+      name = incrementCloneSuffix(name);
+    }
+    set.add(name);
+    const clonedEntity = _.cloneDeep(entity);
+    clonedEntity.name = name;
+    return clonedEntity;
+  });
 }

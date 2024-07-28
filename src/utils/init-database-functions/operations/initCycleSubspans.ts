@@ -13,7 +13,11 @@ export async function initCycleSubspans(cycle: CycleDto) {
     .filter(
       (cycleSubspan) => cycleSubspan.zeroIndexedCycleDay < cycleLengthInDays
     )
-    .map((cycleSubspan) => ({ ...cycleSubspan, parentCycleId: cycle.id }));
+    .map((cycleSubspan) => ({
+      ...cycleSubspan,
+      parentCycleId: cycle.id,
+      dayOrdinal: NaN
+    }));
   return initSafely(
     () => getDtoListByExampleList(daysWithinNewCycle),
     () => postList(daysWithinNewCycle)

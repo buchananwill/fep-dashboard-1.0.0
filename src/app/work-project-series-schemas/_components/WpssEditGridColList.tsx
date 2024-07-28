@@ -9,7 +9,7 @@ import { WorkProjectSeriesSchemaEditor } from '@/app/work-project-series-schemas
 import { sumAllSchemas } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { DtoUiListAll, useAllDtoComponents } from 'dto-stores';
+import { DtoUiListAll } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;

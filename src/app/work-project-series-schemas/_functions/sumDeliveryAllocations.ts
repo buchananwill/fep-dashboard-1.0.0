@@ -8,7 +8,9 @@ function flattenAllocation(da: DeliveryAllocationDto) {
 export function sumDeliveryAllocations(
   schema: WorkProjectSeriesSchemaDto
 ): number {
-  return schema ? sumDeliveryAllocationList(schema.deliveryAllocations) : 0;
+  return schema
+    ? sumDeliveryAllocationList(Object.values(schema.deliveryAllocations))
+    : 0;
 }
 
 export function sumAllSchemas(

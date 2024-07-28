@@ -1,10 +1,7 @@
 'use server';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
 import data from '@/utils/init-json-data/work-project-series-schema/LessonAllocations.json';
-import {
-  getAll,
-  getDtoListByExampleList
-} from '@/api/generated-actions/WorkProjectSeriesSchema';
+import { getDtoListByExampleList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { PartialDeep } from 'type-fest';

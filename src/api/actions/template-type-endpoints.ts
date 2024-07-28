@@ -1,4 +1,3 @@
-import { ActionResponsePromise } from './actionResponse';
 import { getWithoutBody } from './template-actions';
 import { constructUrl } from './template-base-endpoints';
 

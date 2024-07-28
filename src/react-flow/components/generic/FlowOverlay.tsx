@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { GraphForceSliders } from '@/react-flow/components/generic/GraphForceSliders';
 import { NodeDetailsModal } from '@/react-flow/components/nodes/NodeDetailsModal';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useEscapeToClose } from '@/react-flow/hooks/useEscapeToClose';
 
 export function FlowOverlay({

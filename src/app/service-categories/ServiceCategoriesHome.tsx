@@ -4,7 +4,6 @@ import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/P
 import ServiceCategory from '@/app/service-categories/[id]/ServiceCategory';
 import { kebabCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';
-import { Chip } from '@nextui-org/chip';
 
 async function Home({ pathVariables }: LeafComponentProps) {
   const dtoPage = await getPage({ page: 0, pageSize: 10 });

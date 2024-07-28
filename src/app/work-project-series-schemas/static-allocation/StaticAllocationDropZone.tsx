@@ -91,7 +91,7 @@ export function StaticAllocationDropZone({
   const dropCallback = useCallback(
     (
       item: StaticDeliveryAllocationItemDto,
-      monitor: DropTargetMonitor<StaticDeliveryAllocationItemDto, unknown>
+      monitor: DropTargetMonitor<StaticDeliveryAllocationItemDto>
     ) => {
       // write to the new cells
       const newGroupId =

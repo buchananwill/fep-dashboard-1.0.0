@@ -4,7 +4,7 @@ import React from 'react';
 
 export type FormSelectProps = {
   name: string;
-  control: Control<any, any>;
+  control: Control<any>;
 } & SelectProps;
 
 export const ControlledSelect: React.FC<FormSelectProps> = ({

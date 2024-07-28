@@ -1,8 +1,4 @@
-import {
-  CellIdReference,
-  GetCellContent,
-  GetCellContentKey
-} from '@/components/tables/CellQueryManager';
+import { CellIdReference } from '@/components/tables/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalListener } from 'selective-context';
 import React, { useMemo } from 'react';

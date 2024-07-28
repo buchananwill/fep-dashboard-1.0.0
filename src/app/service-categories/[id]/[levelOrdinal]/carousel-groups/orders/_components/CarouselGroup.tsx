@@ -11,14 +11,7 @@ import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-grou
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
-import React, {
-  memo,
-  useCallback,
-  useContext,
-  useMemo,
-  useTransition
-} from 'react';
-import { SelectiveContextGlobal } from 'selective-context/dist/creators/selectiveContextCreatorGlobal';
+import React, { memo, useCallback, useMemo, useTransition } from 'react';
 import { useGlobalController } from 'selective-context';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import OptionRotationButtonGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OptionRotationButtonGroup';

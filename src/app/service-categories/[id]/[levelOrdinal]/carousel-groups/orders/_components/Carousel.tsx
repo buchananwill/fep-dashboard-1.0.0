@@ -1,8 +1,4 @@
-import {
-  BaseLazyDtoUiProps,
-  NamespacedHooks,
-  useDtoStoreDispatch
-} from 'dto-stores';
+import { BaseLazyDtoUiProps, NamespacedHooks } from 'dto-stores';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
 import CarouselOption, {
   CarouselOptionState

@@ -1,4 +1,4 @@
-import { BaseDtoUiProps, BaseLazyDtoUiProps } from 'dto-stores';
+import { BaseLazyDtoUiProps } from 'dto-stores';
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { Checkbox } from '@nextui-org/checkbox';
 import { Chip } from '@nextui-org/chip';

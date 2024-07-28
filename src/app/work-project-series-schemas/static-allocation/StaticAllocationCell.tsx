@@ -1,6 +1,5 @@
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import { InnerCellContent } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
 import { StaticAllocationDropZone } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationDropZone';
 import VirtualizedOuterCellV2 from '@/components/tables/VirtualizedCellV2';
 import { EntityClassMap } from '@/api/entity-class-map';

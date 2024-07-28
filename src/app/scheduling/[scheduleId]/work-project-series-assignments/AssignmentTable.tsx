@@ -5,12 +5,10 @@ import React, { useMemo } from 'react';
 import CellQueryManager, {
   CellIdReference
 } from '@/components/tables/CellQueryManager';
-import { FallbackCellMemo } from '@/components/tables/FallbackCell';
 import RenderOrganizationCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/RenderOrganizationCell';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
-import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
 import AssignmentCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
 import { workProjectSeriesDataRetrieval } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/workProjectSeriesDataRetrieval';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';

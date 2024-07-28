@@ -1,6 +1,5 @@
 'use client';
 import {
-  EditAddDeleteDtoControllerArray,
   NamespacedHooks,
   useEffectSyncDeepEqualWithDispatch
 } from 'dto-stores';
@@ -44,7 +43,7 @@ export default function StaticAllocationAuditor() {
   console.log(currentState);
 
   const staticAllocationCounters = useMemo(() => {
-    const map = currentState.reduce((prev, curr) => {
+    return currentState.reduce((prev, curr) => {
       const allocationCounterId = getAllocationCounterId(
         getWorkProjectSeriesSchemaId(curr),
         getDeliveryAllocationSize(curr)
@@ -64,7 +63,6 @@ export default function StaticAllocationAuditor() {
 
       return prev;
     }, new Map<string, AllocationCounter>());
-    return map;
   }, [currentState]);
 
   console.log(staticAllocationCounters);

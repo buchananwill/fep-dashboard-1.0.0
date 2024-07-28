@@ -1,4 +1,3 @@
-import { TaskTypeItem } from '@/app/scheduling/feasibility-report/_components/types';
 import {
   CustomTreeItem,
   StyledTreeItemProps
@@ -39,6 +38,7 @@ export default function AssignmentFeasibilityTreeItem({
 function NodeAssignmentSummary({
   entity
 }: BaseLazyDtoUiProps<WorkSchemaNodeAssignmentDto>) {
+  if (entity.workSchemaNodeId === undefined) return null;
   return (
     <>
       <LazyDtoUiWrapper

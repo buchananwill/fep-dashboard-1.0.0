@@ -9,14 +9,15 @@ import { useMemo } from 'react';
 import { useGlobalController, useGlobalListener } from 'selective-context';
 import { WorkTaskTypeProjection } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 import { initialMap } from '@/app/_literals';
-import { EntityClassMap } from '@/api/entity-class-map';
 
 export const maxProjectionContextKey = 'maxProjection';
+
+const workTaskTypeProjection = 'workTaskTypeProjection';
 
 export function useMaxProjectionController() {
   const listenerKey = useUuidListenerKey();
   const { currentState } = NamespacedHooks.useListen(
-    EntityClassMap.workTaskTypeProjection,
+    workTaskTypeProjection,
     KEY_TYPES.MASTER_LIST,
     listenerKey,
     initialMap as Map<string, WorkTaskTypeProjection>

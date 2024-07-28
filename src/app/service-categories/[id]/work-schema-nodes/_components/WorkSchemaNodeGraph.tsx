@@ -10,7 +10,6 @@ import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrap
 import { WorkSchemaNodeLayoutFlowWithForces } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { ReactFlowProvider } from '@xyflow/react';
 import React from 'react';
 
 export default function WorkSchemaNodeGraph({

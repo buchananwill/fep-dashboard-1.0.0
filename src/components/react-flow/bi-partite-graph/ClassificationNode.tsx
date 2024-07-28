@@ -49,7 +49,7 @@ export default function ClassificationNode(
   const listenerKey = useUuidListenerKey();
 
   const { currentState: bandwidthValidationLayer } = useGlobalController({
-    contextKey: `${'BandwidthValidationLayer'}:${data.id}`,
+    contextKey: `BandwidthValidationLayer:${data.id}`,
     listenerKey,
     initialValue: ObjectPlaceholder as BandwidthValidationLayer
   });

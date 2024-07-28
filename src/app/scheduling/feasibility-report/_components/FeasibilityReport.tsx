@@ -1,9 +1,6 @@
 'use client';
 
-import { SimpleTreeView, TreeItem } from '@mui/x-tree-view';
-import { HasId } from '@/api/types';
-import { BaseDtoUiProps } from 'dto-stores';
-import { PropsWithChildren } from 'react';
+import { SimpleTreeView } from '@mui/x-tree-view';
 import { CheckCircleOutline, HighlightOff } from '@mui/icons-material';
 import FeasibilityReportTreeItem from '@/app/scheduling/feasibility-report/_components/FeasilbilityReportTreeItem';
 import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';

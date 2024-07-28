@@ -1,8 +1,5 @@
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { WorkSeriesBundleItemDto } from '@/api/dtos/WorkSeriesBundleItemDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
 import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
 import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
 
@@ -34,15 +31,6 @@ export default async function page() {
       </li>
     </ul>
   );
-}
-
-interface WorkProjectSeriesProjection {
-  workProjectSeriesSchema: WorkProjectSeriesSchemaDto;
-  bundleItemDtoList: WorkSeriesBundleItemDto[];
-  bundleItemAssignmentList: Record<number, number[]>;
-  carouselOptionDtoMap: CarouselOptionDto[];
-  carouselOrderItemAssigneeMap: Record<number, number[]>;
-  multiplier: number;
 }
 
 interface DeliveryAllocationProjection {

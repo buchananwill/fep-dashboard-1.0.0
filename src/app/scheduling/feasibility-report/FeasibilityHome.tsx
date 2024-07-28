@@ -1,5 +1,4 @@
 import { LinkButton } from '@/app/service-categories/LinkButton';
-import { navTreeData } from '@/app/core/navigation/navTreeData';
 import CreateFeasibilityReportPage from '@/app/scheduling/feasibility-report/CreateFeasibilityReportPage';
 import { ViewFeasibilityReportHome } from '@/app/scheduling/feasibility-report/[id]/ViewFeasibilityReportHome';
 import { NavTreeBranch } from '@/app/core/navigation/types';

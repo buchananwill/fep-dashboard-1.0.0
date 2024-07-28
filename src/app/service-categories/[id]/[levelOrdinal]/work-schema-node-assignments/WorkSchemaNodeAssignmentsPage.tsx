@@ -9,10 +9,7 @@ import { ArrayPlaceholder } from 'selective-context';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getDtoListByExampleList } from '@/api/generated-actions/OrganizationType';
-import {
-  DataFetchingEditDtoControllerArray,
-  EditAddDeleteDtoControllerArray
-} from 'dto-stores';
+import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import {
   convertToOrganizationNode,
@@ -21,14 +18,12 @@ import {
 import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/defaultForceGraphPageOptions';
 import { Api } from '@/api/clientApi_';
 import WorkSchemaNodeManager from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/_components/WorkSchemaNodeManager';
-import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 import { EmptyArray } from '@/api/literals';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
-import { ReactFlowProvider } from '@xyflow/react';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 async function WorkSchemaNodeAssignmentsPage({

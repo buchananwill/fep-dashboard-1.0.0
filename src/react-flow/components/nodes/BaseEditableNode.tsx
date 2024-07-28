@@ -14,7 +14,6 @@ import {
 } from 'react-d3-force-wrapper';
 import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
-import { HasNumberId } from '@/api/types';
 import { NodeBase } from '@/react-flow/types';
 import { NodeDataType } from '@/react-flow/utils/adaptors';
 

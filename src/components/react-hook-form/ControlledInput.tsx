@@ -1,9 +1,9 @@
-import { Control, Controller } from "react-hook-form";
-import { Input, InputProps } from "@nextui-org/input";
+import { Control, Controller } from 'react-hook-form';
+import { Input, InputProps } from '@nextui-org/input';
 
 export type FormInputProps = {
   name: string;
-  control: Control<any, any>;
+  control: Control<any>;
 } & InputProps;
 
 export const ControlledInput: React.FC<FormInputProps> = ({

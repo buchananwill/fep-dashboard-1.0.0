@@ -10,7 +10,6 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useCallback, useMemo } from 'react';
 import { DispatchState } from '@/types';
-import { EntityClassMap } from '@/api/entity-class-map';
 
 export function useKnowledgeDtoTableProps<T extends Entity>(
   serviceCategory: ServiceCategoryDto,

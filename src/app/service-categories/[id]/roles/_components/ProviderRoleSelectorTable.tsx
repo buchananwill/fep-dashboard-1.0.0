@@ -1,25 +1,11 @@
 'use client';
-import React, { useCallback, useRef } from 'react';
-import {
-  Button,
-  Chip,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger
-} from '@nextui-org/react';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import React from 'react';
+import { Chip } from '@nextui-org/react';
 import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { useGlobalDispatch } from 'selective-context';
-import {
-  TooltipContext,
-  TooltipContextInterface
-} from '@/components/generic/TooltipSingleton';
-import { offset, useFloating } from '@floating-ui/react';
 
 export default function ProviderRoleSelectorTable({
   providerRoles

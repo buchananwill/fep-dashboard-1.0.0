@@ -1,4 +1,4 @@
-import { BaseDtoUiProps, DtoUiProps } from 'dto-stores';
+import { BaseDtoUiProps } from 'dto-stores';
 
 import {
   ArrayPlaceholder,

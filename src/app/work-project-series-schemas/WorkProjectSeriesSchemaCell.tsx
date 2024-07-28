@@ -3,7 +3,6 @@ import {
   DtoUiWrapper,
   InitialMap,
   NamespacedHooks,
-  useLazyDtoListListener,
   useWriteAnyDto
 } from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
@@ -49,7 +48,7 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
   const canDropCallback = useCallback(
     (
       item: StaticDeliveryAllocationItemDto,
-      monitor: DropTargetMonitor<StaticDeliveryAllocationItemDto, unknown>
+      monitor: DropTargetMonitor<StaticDeliveryAllocationItemDto>
     ) => {
       return true;
     },
@@ -77,7 +76,7 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
   const dropCallback = useCallback(
     (
       item: StaticDeliveryAllocationItemDto,
-      monitor: DropTargetMonitor<StaticDeliveryAllocationItemDto, unknown>
+      monitor: DropTargetMonitor<StaticDeliveryAllocationItemDto>
     ) => {
       const cycleSubspanIdList =
         cycleSubspanGroupMapCurrent[item.cycleSubspanGroupId];

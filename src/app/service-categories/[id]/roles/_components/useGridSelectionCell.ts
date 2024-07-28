@@ -47,5 +47,5 @@ export function useGridSelectionCell(rowIndex: number, columnIndex: number) {
       columnIndex >= currentState.fromColumnInc &&
       columnIndex < currentState.toColumnEx;
     return { isSelected, handleClick };
-  }, [currentState, columnIndex, rowIndex]);
+  }, [currentState, columnIndex, rowIndex, handleClick]);
 }

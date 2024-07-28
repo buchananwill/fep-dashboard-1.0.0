@@ -1,9 +1,6 @@
 'use client';
 import IgmTable from '@/components/generic/IgmTable';
-import {
-  DtoControllerArray,
-  EditAddDeleteDtoControllerArray
-} from 'dto-stores';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { SubmitTableButton } from '@/components/generic/SubmitTableButton';
 
 import { TableProps } from '@nextui-org/react';

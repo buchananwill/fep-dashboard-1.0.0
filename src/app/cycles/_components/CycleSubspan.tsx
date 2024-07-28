@@ -5,7 +5,6 @@ import { BaseDtoUiProps, Identifier } from 'dto-stores';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { TimeInputCycleSubspan } from '@/app/cycles/_components/TimeInputCycleSubspan';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
-import { nameAccessor, nameSetter } from '@/components/modals/nameSetter';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { ObjectPlaceholder, useGlobalDispatch } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';

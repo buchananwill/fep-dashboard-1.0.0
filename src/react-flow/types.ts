@@ -1,4 +1,4 @@
-import { Edge, Node } from '@xyflow/react';
+import { Edge } from '@xyflow/react';
 import { HasNumberId } from '@/api/types';
 import { DataLink, DataNode, DataNodeDto } from 'react-d3-force-wrapper';
 import {
