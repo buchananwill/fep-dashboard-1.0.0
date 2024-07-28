@@ -18,7 +18,8 @@ export default function FeasibilityReportTreeItem({
       case 'feasibilityFullReport':
       case 'workSchemaNodeFeasibility':
       case 'assignmentFeasibilitySummary':
-      case 'taskTypeFeasibilitySummary':
+      case 'AssetFeasibilities':
+      case 'PartyFeasibilities':
       case 'workSchemaNodeFeasibilitySummary':
       case 'taskTypeFeasibility': {
         return payload.children.map((childPayload) => (
@@ -46,7 +47,8 @@ export default function FeasibilityReportTreeItem({
     }
     case 'workSchemaNodeFeasibilitySummary':
     case 'assignmentFeasibilitySummary':
-    case 'taskTypeFeasibilitySummary': {
+    case 'PartyFeasibilities':
+    case 'AssetFeasibilities': {
       return (
         <CustomTreeItem
           {...commonTreeItemProps}

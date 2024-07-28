@@ -39,9 +39,13 @@ export type AssignmentSummary = NestedItem<AssignmentItem> &
     itemType: 'assignmentFeasibilitySummary';
   };
 
-export type TaskTypeSummary = NestedItem<TaskTypeItem> &
+export type AssetTaskTypeSummary = NestedItem<TaskTypeItem> &
   TaskTypeFeasibilitySummaryDto & {
-    itemType: 'taskTypeFeasibilitySummary';
+    itemType: 'AssetFeasibilities';
+  };
+export type PartyTaskTypeSummary = NestedItem<TaskTypeItem> &
+  TaskTypeFeasibilitySummaryDto & {
+    itemType: 'PartyFeasibilities';
   };
 
 export type BandwidthFeasibilityLayer = BandwidthFeasibilityLayerDto & {
@@ -49,7 +53,12 @@ export type BandwidthFeasibilityLayer = BandwidthFeasibilityLayerDto & {
 };
 
 export type FullReport = FullReportDto &
-  NestedItem<WorkSchemaNodeSummary | AssignmentSummary | TaskTypeSummary> & {
+  NestedItem<
+    | WorkSchemaNodeSummary
+    | AssignmentSummary
+    | AssetTaskTypeSummary
+    | PartyTaskTypeSummary
+  > & {
     itemType: 'feasibilityFullReport';
   };
 
@@ -70,7 +79,8 @@ export type FeasibilityReportTreeItemPayload =
   | BandwidthFeasibilityLayer
   | WorkSchemaNodeSummary
   | AssignmentSummary
-  | TaskTypeSummary;
+  | AssetTaskTypeSummary
+  | PartyTaskTypeSummary;
 
 export type FeasibilityReportTreeItemProps = {
   payload: FeasibilityReportTreeItemPayload;
