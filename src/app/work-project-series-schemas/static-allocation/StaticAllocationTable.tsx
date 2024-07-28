@@ -79,6 +79,7 @@ export default function StaticAllocationTable({
     KEY_TYPES.MASTER_LIST
   );
 
+  // Can this somehow be made to always be able to recall the relevant cell ID reference, even for transient cell data?
   const flattened = useMemo(() => {
     const cellDataOrUndefined = getCellDataIdOrUndefined(tableData);
     console.log(cellDataOrUndefined);
