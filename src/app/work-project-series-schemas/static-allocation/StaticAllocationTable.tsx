@@ -11,7 +11,8 @@ import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/Cy
 import {
   EditAddDeleteDtoControllerArray,
   Identifier,
-  NamespacedHooks
+  NamespacedHooks,
+  useEffectSyncWithDispatch
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { MemoWorkProjectSeriesSchemaCell } from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaCell';
@@ -28,6 +29,7 @@ export default function StaticAllocationTable({
 }: {
   tableData: StaticAllocationTableDto;
 }) {
+  console.log('table data:', tableData);
   const { rowList, columnList } = tableData;
   const { currentState } = NamespacedHooks.useListen(
     EntityClassMap.workProjectSeriesSchema,
@@ -44,7 +46,7 @@ export default function StaticAllocationTable({
     };
   }, [currentState, tableData, rowList]);
 
-  const tableProps = useTableProps(rowList, columnList);
+  const tableProps = useTableProps(tableDataFiltered.rowList, columnList);
 
   const cycleSubspanGroupIdToCycleSubspanIdList = useMemo(
     () =>
@@ -72,9 +74,14 @@ export default function StaticAllocationTable({
     listenerKey: 'StaticAllocationTableController'
   });
 
+  const dispatchCells = NamespacedHooks.useDispatch(
+    'Cell',
+    KEY_TYPES.MASTER_LIST
+  );
+
   const flattened = useMemo(() => {
     const cellDataOrUndefined = getCellDataIdOrUndefined(tableData);
-
+    console.log(cellDataOrUndefined);
     return tableProps.itemData
       .flatMap((list) => [...list])
       .map(({ rowId, columnId }) =>
@@ -85,23 +92,15 @@ export default function StaticAllocationTable({
           cellDataOrUndefined.memoizedFunction({ rowId, columnId })
         )
       );
-  }, [tableProps.itemData, tableDataFiltered]);
+  }, [tableProps.itemData, tableData]);
+  console.log('Cell list:', flattened);
+
+  useEffectSyncWithDispatch(flattened, dispatchCells);
 
   return (
     <div className={'h-[90vh] w-[90vw] p-8 pt-12'}>
       <FinderTableButton workProjectSeriesSchemas={rowList} />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.cycleSubspan}
-        dtoList={columnList}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        dtoList={rowList}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={'Cell'}
-        dtoList={flattened}
-      />
+
       <CellQueryManager
         tableData={tableData}
         getDataRetrievalMemoizedFunction={getCellDataOrUndefined}

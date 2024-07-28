@@ -47,6 +47,18 @@ export async function StaticAllocationPage({
         deleteServerAction={Api.StaticDeliveryAllocationItem.deleteIdList}
         postServerAction={Api.StaticDeliveryAllocationItem.postList}
       />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.cycleSubspan}
+        dtoList={staticDeliveryTable.columnList}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        dtoList={staticDeliveryTable.rowList}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={'Cell'}
+        dtoList={EmptyArray}
+      />
       <StaticAllocationAuditor />
       <MasterMapController
         entityClass={EntityClassMap.staticDeliveryAllocationItem}

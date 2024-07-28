@@ -24,13 +24,12 @@ export function getCellDataIdOrUndefined<T>(
   tableData: GenericTableDto<any, any, T>
 ): MemoizedFunction<CellIdReference, string | undefined> {
   const { rowColumnCellReferenceMap } = tableData;
-
+  console.log('map to read from:', rowColumnCellReferenceMap, tableData);
   return {
     memoizedFunction: ({ rowId, columnId }: CellIdReference) => {
-      const cycleSubspanIdToAssignmentIdElement =
-        rowColumnCellReferenceMap[`${rowId}`];
-      return cycleSubspanIdToAssignmentIdElement
-        ? cycleSubspanIdToAssignmentIdElement[`${columnId}`]
+      const columnIdToCellIdElement = rowColumnCellReferenceMap[`${rowId}`];
+      return columnIdToCellIdElement
+        ? columnIdToCellIdElement[`${columnId}`]
         : undefined;
     }
   };
