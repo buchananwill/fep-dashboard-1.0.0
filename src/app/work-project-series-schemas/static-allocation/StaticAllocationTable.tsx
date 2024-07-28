@@ -14,6 +14,7 @@ import { MemoWorkProjectSeriesSchemaCell } from '@/app/work-project-series-schem
 import StaticAllocationCell from '@/app/work-project-series-schemas/static-allocation/StaticAllocationCell';
 import { memo, useMemo } from 'react';
 import { useGlobalController } from 'selective-context';
+import FinderTableButton from '@/components/tables/FinderTableButton';
 
 export const cycleSubspanGroupMap = 'CycleSubspanGroupMap';
 export default function StaticAllocationTable({
@@ -67,7 +68,8 @@ export default function StaticAllocationTable({
   }, [tableProps.itemData, tableData]);
 
   return (
-    <div className={'h-[90vh] w-[90vw]'}>
+    <div className={'h-[90vh] w-[90vw] p-8 pt-12'}>
+      <FinderTableButton workProjectSeriesSchemas={tableData.rowList} />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.cycleSubspan}
         dtoList={tableData.columnList}

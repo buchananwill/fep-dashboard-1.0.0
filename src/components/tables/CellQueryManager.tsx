@@ -26,7 +26,7 @@ export default function CellQueryManager<T, U>({
     return getDataRetrievalMemoizedFunction(tableData);
   }, [tableData, getDataRetrievalMemoizedFunction]);
 
-  const { currentState, dispatch } = useGlobalController({
+  const { dispatch } = useGlobalController({
     contextKey: GetCellContentKey,
     listenerKey: listenerKey,
     initialValue: getCellContent

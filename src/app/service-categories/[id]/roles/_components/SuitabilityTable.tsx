@@ -23,10 +23,6 @@ import { Api } from '@/api/clientApi_';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import { CellComponentMemo } from '@/app/service-categories/[id]/roles/_components/CellComponent';
 
-const DefaultScrollBarSize = 20;
-const defaultSyncColumnWidth = 100;
-const defaultCellSize = 40;
-
 export type SuitabilityTypes = (typeof EntityClassMap)[
   | 'assetRole'
   | 'providerRole'

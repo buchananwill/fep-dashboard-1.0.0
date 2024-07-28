@@ -26,6 +26,7 @@ import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-do
 import { singular } from 'pluralize';
 import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import FinderTableButton from '@/components/tables/FinderTableButton';
 
 export default async function SuitabilityPage(props: RolePageProps) {
   const {
@@ -54,21 +55,11 @@ export default async function SuitabilityPage(props: RolePageProps) {
         entityClass={suitabilityType}
         dtoList={roles}
       />
-      <div className={'fixed left-1/2 top-2'}>
-        <Popover shouldCloseOnBlur={false}>
-          <PopoverTrigger>
-            <Button variant={'light'}>Find</Button>
-          </PopoverTrigger>
-          <PopoverContent className={'p-4'}>
-            <TabbedSelectorTables
-              className={'w-[45vw]'}
-              workTaskTypes={workTaskTypes}
-              providerRoles={roleCategory === 'provider' ? roles : undefined}
-              assetRoles={roleCategory === 'asset' ? roles : undefined}
-            ></TabbedSelectorTables>
-          </PopoverContent>
-        </Popover>
-      </div>
+      <FinderTableButton
+        providerRoles={roleCategory === 'provider' ? roles : undefined}
+        assetRoles={roleCategory === 'asset' ? roles : undefined}
+        workTaskTypes={workTaskTypes}
+      />
       <div className={'mb-auto mt-auto h-[90vh] w-[100vw] p-8'}>
         <SuitabilityTable
           roleTypeId={roleTypeIdInt}

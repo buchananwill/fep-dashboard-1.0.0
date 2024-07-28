@@ -40,7 +40,3 @@ export default function VirtualizedOuterCellV2<T>({
     </div>
   );
 }
-
-const initialMemoizedFunction = {
-  memoizedFunction: ({ columnId, rowId }: CellIdReference) => undefined
-};
