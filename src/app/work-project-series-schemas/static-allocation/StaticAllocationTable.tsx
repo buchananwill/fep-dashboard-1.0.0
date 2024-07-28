@@ -8,13 +8,19 @@ import {
   getCellDataOrUndefined
 } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
-import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
+import {
+  EditAddDeleteDtoControllerArray,
+  Identifier,
+  NamespacedHooks
+} from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { MemoWorkProjectSeriesSchemaCell } from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaCell';
 import StaticAllocationCell from '@/app/work-project-series-schemas/static-allocation/StaticAllocationCell';
 import { memo, useMemo } from 'react';
 import { useGlobalController } from 'selective-context';
 import FinderTableButton from '@/components/tables/FinderTableButton';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { EmptyArray } from '@/api/literals';
 
 export const cycleSubspanGroupMap = 'CycleSubspanGroupMap';
 export default function StaticAllocationTable({
@@ -22,10 +28,24 @@ export default function StaticAllocationTable({
 }: {
   tableData: StaticAllocationTableDto;
 }) {
-  const tableProps = useTableProps(tableData.rowList, tableData.columnList);
+  const { rowList, columnList } = tableData;
+  const { currentState } = NamespacedHooks.useListen(
+    EntityClassMap.workProjectSeriesSchema,
+    KEY_TYPES.SELECTED,
+    'staticAllocationTable',
+    EmptyArray as string[]
+  );
 
-  // We want two things: some data held in a table, and a function that from this data can create another function that when given a CellIdReference returns either the cell data or undefined.
-  const { rowColumnCellReferenceMap, columnList } = tableData;
+  const tableDataFiltered = useMemo(() => {
+    const selectedWpssIdList = new Set(currentState);
+    return {
+      ...tableData,
+      rowList: rowList.filter((wpss) => selectedWpssIdList.has(wpss.id))
+    };
+  }, [currentState, tableData, rowList]);
+
+  const tableProps = useTableProps(rowList, columnList);
+
   const cycleSubspanGroupIdToCycleSubspanIdList = useMemo(
     () =>
       columnList.reduce(
@@ -65,18 +85,18 @@ export default function StaticAllocationTable({
           cellDataOrUndefined.memoizedFunction({ rowId, columnId })
         )
       );
-  }, [tableProps.itemData, tableData]);
+  }, [tableProps.itemData, tableDataFiltered]);
 
   return (
     <div className={'h-[90vh] w-[90vw] p-8 pt-12'}>
-      <FinderTableButton workProjectSeriesSchemas={tableData.rowList} />
+      <FinderTableButton workProjectSeriesSchemas={rowList} />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.cycleSubspan}
-        dtoList={tableData.columnList}
+        dtoList={columnList}
       />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.workProjectSeriesSchema}
-        dtoList={tableData.rowList}
+        dtoList={rowList}
       />
       <EditAddDeleteDtoControllerArray
         entityClass={'Cell'}

@@ -35,12 +35,6 @@ export default function StaticAllocationAuditor() {
     'StaticAllocationAuditor',
     EmptyArray
   );
-  const dispatchMasterAllocationCounterList = NamespacedHooks.useDispatch(
-    allocationCounter,
-    KEY_TYPES.MASTER_LIST
-  );
-
-  console.log(currentState);
 
   const staticAllocationCounters = useMemo(() => {
     return currentState.reduce((prev, curr) => {
@@ -57,15 +51,11 @@ export default function StaticAllocationAuditor() {
         };
         prev.set(allocationCounterId, counter);
       }
-      console.log('count before:', counter.count);
       counter.count = counter.count + 1;
-      console.log('count after:', counter.count);
 
       return prev;
     }, new Map<string, AllocationCounter>());
   }, [currentState]);
-
-  console.log(staticAllocationCounters);
 
   const { dispatch } = useGlobalController({
     contextKey: allocationCounter,

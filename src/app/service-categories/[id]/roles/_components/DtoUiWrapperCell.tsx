@@ -23,6 +23,7 @@ export default function DtoUiWrapperCell<T extends Entity>(
     idKey,
     className
   } = props;
+  if (data.length === 0) return null;
   const cellIdReference = getCellIdReference({ data, columnIndex, rowIndex });
 
   return (

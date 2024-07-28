@@ -14,14 +14,12 @@ export function useDynamicColumnVisibility<T>(
 
   const setVisibleColumnsIntercept: DispatchState<Selection> = useCallback(
     (selectionDispatch: SetStateAction<Selection>) => {
-      console.log('Using callback: ', selectionDispatch);
       setVisibleColumns(selectionDispatch);
     },
     []
   );
 
   const headerColumns = useMemo(() => {
-    console.log('setting visible columns:', visibleColumns);
     if (visibleColumns === 'all') return columns;
 
     return columns.filter((column) => visibleColumns.has(column.uid));

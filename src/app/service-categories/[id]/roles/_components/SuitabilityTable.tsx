@@ -106,15 +106,6 @@ export default function SuitabilityTable({
   );
 
   const readAnyRole = useReadAnyDto<ProviderRoleDto>(suitabilityType);
-  const [dataResponse, setDataResponse] = useState<SuitabilityEntity[][]>([]);
-
-  const itemData = useMemo(() => {
-    return {
-      dataResponse,
-      suitabilityCondition
-    };
-  }, [dataResponse, suitabilityCondition]);
-
   const baseEntityIdList = useMemo(() => {
     return selectedRoles
       .map((eId) => readAnyRole(eId))
@@ -124,6 +115,7 @@ export default function SuitabilityTable({
       );
   }, [selectedRoles, baseEntityIdAccessor, readAnyRole]);
 
+  const [dataResponse, setDataResponse] = useState<SuitabilityEntity[][]>([]);
   useEffect(() => {
     api
       .getTriIntersectionTable(baseEntityIdList, selectedWTT, roleTypeId)
@@ -143,6 +135,13 @@ export default function SuitabilityTable({
     roleTypeId,
     selectedWTT
   ]);
+
+  const itemData = useMemo(() => {
+    return {
+      dataResponse,
+      suitabilityCondition
+    };
+  }, [dataResponse, suitabilityCondition]);
 
   return (
     <>

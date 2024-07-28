@@ -91,7 +91,7 @@ export default function FilterSelectEntityTable<
             Filter By:
             <select
               className="bg-transparent text-small text-default-400 outline-none"
-              value={[filterPropertySelectProps.value as string]}
+              value={filterPropertySelectProps.value as string}
               onChange={filterPropertySelectProps.onChange}
             >
               {columns.map((column) => {
