@@ -3,6 +3,9 @@ import { NonRecursiveType } from 'type-fest/source/internal';
 import { GetFieldType } from '@/functions/allowingNestedFiltering';
 import { extendDefaultTheme } from '@nivo/core';
 import { StringPropertyKey } from '@/types';
+import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { Example } from '@/functions/chatGptTriesToStringPath';
 
 interface TestInterface {
   first: string;
@@ -10,7 +13,7 @@ interface TestInterface {
     second: number;
     third: string;
     doubleNested: {
-      fourth: string;
+      fourth: number;
     };
   };
 }
@@ -34,7 +37,21 @@ export type StringPaths<TType> = Extract<
   StringPropertyKey<PropertyTypes<TType>>
 >;
 
+export type MoreStringPaths<TType> =
+  Paths<TType> extends infer P
+    ? P extends string
+      ? Get<TType, P> extends string | undefined
+        ? P
+        : never
+      : never
+    : never;
+
+type MoreTestStringPaths = MoreStringPaths<TestInterface>;
+type OrganizationStringPaths = MoreStringPaths<WorkProjectSeriesSchemaDto>;
+
 type TestStringPaths = StringPaths<TestInterface>;
+
+type ExampleStringPaths = MoreStringPaths<Example>;
 
 export type StringPath<TType, TPath extends string | string[]> =
   Get<TType, TPath> extends string ? string : never;

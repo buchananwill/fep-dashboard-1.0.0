@@ -6,7 +6,8 @@ import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import { getValue } from '@/functions/allowingNestedFiltering';
-import { StringPaths } from '@/functions/narrowPathsToStrings';
+import { StringPathsNoDeepOptionals } from '@/functions/chatGptTriesToStringPath';
+import { MoreStringPaths } from '@/functions/narrowPathsToStrings';
 
 export default function OrganizationSelectorTable({
   organizations
@@ -23,7 +24,8 @@ export default function OrganizationSelectorTable({
           >
         ];
 
-      const entityKey = columnKey as StringPaths<OrganizationDto>;
+      const entityKey =
+        columnKey as StringPathsNoDeepOptionals<OrganizationDto>;
 
       switch (columnKey) {
         case 'name':
@@ -61,12 +63,10 @@ export default function OrganizationSelectorTable({
   );
 }
 
-export const OrganizationColumnsInitial: StringPaths<OrganizationDto>[] = [
-  'name',
-  'type.name'
-];
+export const OrganizationColumnsInitial: StringPathsNoDeepOptionals<OrganizationDto>[] =
+  ['name', 'type.name'];
 
-type OrganizationStringPaths = StringPaths<OrganizationDto>;
+type OrganizationStringPaths = MoreStringPaths<OrganizationDto>;
 
 export const OrganizationColumns: Column<OrganizationDto>[] = [
   { name: 'Name', uid: 'name', sortable: true },
