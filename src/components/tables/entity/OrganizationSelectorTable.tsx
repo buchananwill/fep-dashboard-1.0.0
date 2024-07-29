@@ -65,6 +65,9 @@ export const OrganizationColumnsInitial: StringPaths<OrganizationDto>[] = [
   'name',
   'type.name'
 ];
+
+type OrganizationStringPaths = StringPaths<OrganizationDto>;
+
 export const OrganizationColumns: Column<OrganizationDto>[] = [
   { name: 'Name', uid: 'name', sortable: true },
   { name: 'Type', uid: 'type.name', sortable: true }
