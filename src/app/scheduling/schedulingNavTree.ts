@@ -1,5 +1,5 @@
 import { NavTreeBranch } from '@/app/core/navigation/types';
-import WorkProjectSeriesAssignmentsPage from '@/app/scheduling/[scheduleId]/work-project-series-assignments/WorkProjectSeriesAssignmentsPage';
+import { WorkProjectSeriesAssignmentsPage } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/WorkProjectSeriesAssignmentsPage';
 import { SchedulingHomeRedirect } from '@/app/scheduling/SchedulingHome';
 
 export const schedulingNavTree: NavTreeBranch = {

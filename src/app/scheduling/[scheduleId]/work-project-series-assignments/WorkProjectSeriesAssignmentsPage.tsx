@@ -10,16 +10,20 @@ import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSerie
 import AssignmentTable from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getMatchString } from '@/app/core/navigation/ResolveNavTree';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import SchedulingHome from '@/app/scheduling/SchedulingHome';
 
-export default async function WorkProjectSeriesAssignmentsPage({
+async function WorkProjectSeriesAssignmentsForSchedule({
   pathVariables,
   depth
 }: LeafComponentProps) {
+  const [scheduleId] = getLastNVariables(pathVariables, 1);
   const workProjectSeriesAssignmentTableDto: WorkProjectSeriesAssignmentTableDto =
     await getWithoutBody(
       constructUrl([
-        '/api/v2/workProjectSeries/assignments/schedule',
-        getMatchString(pathVariables, depth)
+        '/api/v2/workProjectSeries/assignments/schedule/',
+        scheduleId
       ])
     );
 
@@ -48,3 +52,8 @@ export default async function WorkProjectSeriesAssignmentsPage({
     </div>
   );
 }
+
+export const WorkProjectSeriesAssignmentsPage = getPathVariableSplitComponent(
+  SchedulingHome,
+  WorkProjectSeriesAssignmentsForSchedule
+);

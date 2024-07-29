@@ -9,6 +9,9 @@ export default async function SchedulingHome({}: LeafComponentProps) {
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([
     { status: 'PASS' }
   ]);
+  if (passingSchedules.length === 0)
+    return 'No successfully completed schedules available.';
+
   return (
     <>
       {passingSchedules.map((passingSchedule) => (
