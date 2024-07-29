@@ -2,20 +2,24 @@ import { DispatchState, NumberPropertyKey, StringPropertyKey } from '@/types';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
+import { GetFieldType, getValue } from '@/hooks/allowingNestedFiltering';
 
 export type FilterablePropertyKey<T> =
   | StringPropertyKey<T>
   | NumberPropertyKey<T>;
 
-export function useClientSideFiltering<T extends HasIdClass<Identifier>>(
+export function useClientSideFiltering<
+  T extends HasIdClass<Identifier>,
+  TPath extends GetFieldType<T, TPath> extends string ? string : never
+>(
   entities: T[],
-  initialFilterProperty: FilterablePropertyKey<T>,
+  initialFilterProperty: TPath, //FilterablePropertyKey<T>,
   rowsPerPage: number,
   setPage: DispatchState<number>
 ) {
   // Set up filtering
   const [filterValue, setFilterValue] = useState('');
-  const [currentFilterProperty, setCurrentFilterProperty] = useState(
+  const [currentFilterProperty, setCurrentFilterProperty] = useState<TPath>(
     initialFilterProperty
   );
   const filteredItemsRef = useRef<T[]>([]);
@@ -24,11 +28,14 @@ export function useClientSideFiltering<T extends HasIdClass<Identifier>>(
     let filteredEntities = [...entities];
 
     if (hasSearchFilter) {
-      filteredEntities = filteredEntities.filter((entity) =>
-        String(entity[currentFilterProperty])
-          .toLowerCase()
-          .includes(filterValue.toLowerCase())
-      );
+      filteredEntities = filteredEntities.filter((entity) => {
+        const value = String(
+          getValue(entity, currentFilterProperty)
+        ).toLowerCase() as string;
+        console.log(value, currentFilterProperty, filterValue);
+        // getValue(entity, currentFilterProperty, '')
+        return value.toLowerCase().includes(filterValue.toLowerCase());
+      });
     }
 
     return filteredEntities;
@@ -55,7 +62,7 @@ export function useClientSideFiltering<T extends HasIdClass<Identifier>>(
 
   const onFilterPropertyChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setCurrentFilterProperty(e.target.value as FilterablePropertyKey<T>);
+      setCurrentFilterProperty(e.target.value as TPath);
     },
     []
   );

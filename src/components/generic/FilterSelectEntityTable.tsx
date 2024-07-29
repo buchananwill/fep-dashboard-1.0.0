@@ -16,9 +16,11 @@ import {
   FilterSortPaginateTableContent,
   TableCellRenderer
 } from '@/components/generic/FilterSortPaginateTableContent';
+import { GetFieldType } from '@/hooks/allowingNestedFiltering';
 
 export default function FilterSelectEntityTable<
-  T extends HasIdClass<Identifier>
+  T extends HasIdClass<Identifier>,
+  TPath extends GetFieldType<T, TPath> extends string ? string : never
 >({
   entities,
   initialColumns,
@@ -35,7 +37,7 @@ export default function FilterSelectEntityTable<
   entities: T[];
   columns: Column<T>[];
   initialColumns: (keyof T)[];
-  filterProperty: StringPropertyKey<T>;
+  filterProperty: TPath;
   renderCell: TableCellRenderer<T>;
   dynamicColumns?: boolean;
 } & Pick<TableProps, 'selectionMode'>) {

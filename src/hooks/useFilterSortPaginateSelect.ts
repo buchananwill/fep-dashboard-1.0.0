@@ -14,12 +14,16 @@ import {
   useDeselectVisible,
   useSelectVisible
 } from '@/hooks/useDeselectVisible';
+import { GetFieldType } from '@/hooks/allowingNestedFiltering';
 
-export function useFilterSortPaginateSelect<T extends HasIdClass<Identifier>>(
+export function useFilterSortPaginateSelect<
+  T extends HasIdClass<Identifier>,
+  TPath extends GetFieldType<T, TPath> extends string ? string : never
+>(
   initialColumns: (keyof T)[],
   columns: Column<T>[],
   entities: T[],
-  initialFilterProperty: FilterablePropertyKey<T>,
+  initialFilterProperty: TPath,
   entityClass: string,
   idClass: 'string' | 'number',
   initialRowsPerPage = 10

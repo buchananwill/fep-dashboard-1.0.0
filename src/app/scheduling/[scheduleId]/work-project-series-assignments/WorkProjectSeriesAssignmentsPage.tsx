@@ -13,6 +13,7 @@ import { getMatchString } from '@/app/core/navigation/ResolveNavTree';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import SchedulingHome from '@/app/scheduling/SchedulingHome';
+import FinderTableButton from '@/components/tables/FinderTableButton';
 
 async function WorkProjectSeriesAssignmentsForSchedule({
   pathVariables,
@@ -22,7 +23,7 @@ async function WorkProjectSeriesAssignmentsForSchedule({
   const workProjectSeriesAssignmentTableDto: WorkProjectSeriesAssignmentTableDto =
     await getWithoutBody(
       constructUrl([
-        '/api/v2/workProjectSeries/assignments/schedule/',
+        '/api/v2/workProjectSeries/assignments/schedule',
         scheduleId
       ])
     );
@@ -37,7 +38,10 @@ async function WorkProjectSeriesAssignmentsForSchedule({
   ];
 
   return (
-    <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8'}>
+    <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8 pt-16'}>
+      <FinderTableButton
+        organizations={workProjectSeriesAssignmentTableDto.organizationList}
+      />
       <EditAddDeleteDtoControllerArray
         dtoList={workProjectSeriesAssignmentTableDto.organizationList}
         entityClass={EntityClassMap.organization}
