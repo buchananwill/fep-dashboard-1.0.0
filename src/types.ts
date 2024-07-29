@@ -2,6 +2,7 @@ import { DtoUiArrayProps } from 'dto-stores';
 import { HasId } from '@/api/types';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Selection } from '@nextui-org/react';
+import { StringPaths } from '@/functions/narrowPathsToStrings';
 
 export type StringPropertyKey<T> = {
   [K in keyof T]: T[K] extends string ? K : never;
@@ -26,7 +27,7 @@ export type DispatchState<T> = Dispatch<SetStateAction<T>>;
 
 export interface Column<T> {
   name: string;
-  uid: Extract<keyof T, string | number>;
+  uid: Extract<keyof T, string | number> | StringPaths<T>;
   sortable?: boolean;
 }
 

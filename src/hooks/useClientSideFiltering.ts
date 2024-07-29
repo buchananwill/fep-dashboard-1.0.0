@@ -2,7 +2,7 @@ import { DispatchState, NumberPropertyKey, StringPropertyKey } from '@/types';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
-import { GetFieldType, getValue } from '@/hooks/allowingNestedFiltering';
+import { GetFieldType, getValue } from '@/functions/allowingNestedFiltering';
 
 export type FilterablePropertyKey<T> =
   | StringPropertyKey<T>

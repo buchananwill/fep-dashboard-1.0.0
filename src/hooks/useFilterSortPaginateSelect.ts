@@ -14,7 +14,7 @@ import {
   useDeselectVisible,
   useSelectVisible
 } from '@/hooks/useDeselectVisible';
-import { GetFieldType } from '@/hooks/allowingNestedFiltering';
+import { GetFieldType } from '@/functions/allowingNestedFiltering';
 
 export function useFilterSortPaginateSelect<
   T extends HasIdClass<Identifier>,

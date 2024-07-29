@@ -1,14 +1,12 @@
 'use client';
 import React, { useCallback } from 'react';
-import { Chip } from '@nextui-org/react';
 import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { AssetRoleDto } from '@/api/dtos/AssetRoleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
-import { getValue } from '@/hooks/allowingNestedFiltering';
+import { getValue } from '@/functions/allowingNestedFiltering';
+import { StringPaths } from '@/functions/narrowPathsToStrings';
 
 export default function OrganizationSelectorTable({
   organizations
@@ -25,10 +23,7 @@ export default function OrganizationSelectorTable({
           >
         ];
 
-      const entityKey = columnKey as Extract<
-        keyof Omit<OrganizationDto, 'workSchemaNodeAssignment'>,
-        string | number
-      >;
+      const entityKey = columnKey as StringPaths<OrganizationDto>;
 
       switch (columnKey) {
         case 'name':
@@ -66,7 +61,7 @@ export default function OrganizationSelectorTable({
   );
 }
 
-export const OrganizationColumnsInitial: (keyof OrganizationDto)[] = [
+export const OrganizationColumnsInitial: StringPaths<OrganizationDto>[] = [
   'name',
   'type.name'
 ];
