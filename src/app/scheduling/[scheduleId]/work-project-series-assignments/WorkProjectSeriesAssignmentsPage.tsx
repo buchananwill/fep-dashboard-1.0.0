@@ -7,13 +7,19 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
-import AssignmentTable from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
+import AssignmentTable, {
+  AssignmentTableRowClassName
+} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import SchedulingHome from '@/app/scheduling/SchedulingHome';
 import FinderTableButton from '@/components/tables/FinderTableButton';
-import { GenericTableDto } from '@/api/types';
+import {
+  AssignmentTableRow,
+  GenericTableDto,
+  OrganizationRow
+} from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
@@ -26,10 +32,10 @@ async function WorkProjectSeriesAssignmentsForSchedule({
 }: LeafComponentProps) {
   const [scheduleId] = getLastNVariables(pathVariables, 1);
   const workProjectSeriesAssignmentTableDto: GenericTableDto<
-    OrganizationDto,
+    AssignmentTableRow,
     CycleSubspanDto,
     WorkProjectSeriesAssignmentDto,
-    number[]
+    number
   > = await getWithoutBody(
     constructUrl(['/api/v2/workProjectSeries/assignments/schedule', scheduleId])
   );
@@ -43,10 +49,18 @@ async function WorkProjectSeriesAssignmentsForSchedule({
       .values()
   ];
 
+  const organizationList = workProjectSeriesAssignmentTableDto.rowList
+    .filter((row) => row.entityClass === 'Organization')
+    .map((row) => row.data as OrganizationDto);
+
   return (
     <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8 pt-16'}>
       <EditAddDeleteDtoControllerArray
         dtoList={workProjectSeriesAssignmentTableDto.rowList}
+        entityClass={AssignmentTableRowClassName}
+      />
+      <EditAddDeleteDtoControllerArray
+        dtoList={organizationList}
         entityClass={EntityClassMap.organization}
       />
       <DataFetchingEditDtoControllerArray
@@ -55,7 +69,10 @@ async function WorkProjectSeriesAssignmentsForSchedule({
         entityClass={EntityClassMap.workProjectSeriesSchema}
       />
 
-      <AssignmentTable tableData={workProjectSeriesAssignmentTableDto} />
+      <AssignmentTable
+        tableData={workProjectSeriesAssignmentTableDto}
+        organizations={organizationList}
+      />
     </div>
   );
 }

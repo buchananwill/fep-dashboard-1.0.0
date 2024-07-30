@@ -1,6 +1,6 @@
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
-import { GenericTableDto } from '@/api/types';
+import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
@@ -9,10 +9,10 @@ import {
 
 export function workProjectSeriesDataRetrieval(
   tableData: GenericTableDto<
-    OrganizationDto,
+    AssignmentTableRow,
     CycleSubspanDto,
     WorkProjectSeriesAssignmentDto,
-    number[]
+    number
   >
 ) {
   const { rowColumnCellReferenceMap, cellIdCellContentMap } = tableData;
@@ -25,7 +25,7 @@ export function workProjectSeriesDataRetrieval(
         ? cycleSubspanIdToAssignmentIdElement[`${columnId}`]
         : undefined;
       return assignmentIdElement
-        ? assignmentIdElement.map((itemId) => cellIdCellContentMap[`${itemId}`])
+        ? cellIdCellContentMap[`${assignmentIdElement}`]
         : undefined;
     }
   };

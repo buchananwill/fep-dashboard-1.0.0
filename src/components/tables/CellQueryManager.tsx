@@ -6,9 +6,7 @@ import { Identifier, useEffectSyncWithDispatch } from 'dto-stores';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
 export const GetCellContentKey = 'getCellContent';
-export type AssignmentCellContent =
-  | WorkProjectSeriesAssignmentDto[]
-  | undefined;
+export type AssignmentCellContent = WorkProjectSeriesAssignmentDto | undefined;
 export type GetCellContent<T> = MemoizedFunction<
   CellIdReference,
   T | undefined

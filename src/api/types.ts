@@ -1,6 +1,11 @@
 // Spring Web Pagination interface
 import { StringObjectRecord } from '@/api/string-object-record';
 import { PartialDeep } from 'type-fest';
+import {
+  OrganizationDto,
+  WorkProjectSeriesAssignmentDto,
+  WorkSchemaNodeAssignmentDto
+} from '@/api/generated-types/generated-types';
 
 export interface Page<T> {
   content: T[];
@@ -107,3 +112,21 @@ export interface GenericTableDto<
   }; // Assuming CellReference is just a string identifier
   cellIdCellContentMap: { [key: string]: CellContent };
 }
+
+interface GenericRow<T> {
+  id: string;
+  data: T;
+}
+
+export interface OrganizationRow extends GenericRow<OrganizationDto> {
+  entityClass: 'Organization';
+}
+
+export interface WorkProjectSeriesAssignmentRow
+  extends GenericRow<WorkProjectSeriesAssignmentDto> {
+  entityClass: 'WorkProjectSeriesAssignment';
+}
+
+export type AssignmentTableRow =
+  | OrganizationRow
+  | WorkProjectSeriesAssignmentRow;

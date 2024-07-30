@@ -30,7 +30,7 @@ function InnerAssignmentCell({
   rowIndex,
   columnIndex,
   cellData
-}: InnerCellContent<WorkProjectSeriesAssignmentDto[]>) {
+}: InnerCellContent<WorkProjectSeriesAssignmentDto>) {
   const { dispatchWithoutControl, currentState } = useGlobalDispatchAndListener<
     number[]
   >({
@@ -40,15 +40,15 @@ function InnerAssignmentCell({
   });
   const listenerKey = `assignmentCell:${rowIndex}:${columnIndex}`;
 
-  const schemaIdSet = useMemo(() => {
-    return cellData
-      ? cellData.reduce(
-          (prev, curr) =>
-            prev.add(curr.workProjectSeries.workProjectSeriesSchemaId),
-          new Set<string>()
-        )
-      : new Set<string>();
-  }, [cellData]);
+  // const schemaIdSet = useMemo(() => {
+  //   return cellData
+  //     ? cellData.reduce(
+  //         (prev, curr) =>
+  //           prev.add(curr.workProjectSeries.workProjectSeriesSchemaId),
+  //         new Set<string>()
+  //       )
+  //     : new Set<string>();
+  // }, [cellData]);
 
   const selectSchemaIdList = NamespacedHooks.useListen(
     EntityClassMap.workProjectSeriesSchema,
@@ -60,9 +60,12 @@ function InnerAssignmentCell({
   const showCell = useMemo(() => {
     return (
       selectSchemaIdList.currentState.length === 0 ||
-      selectSchemaIdList.currentState.some((someId) => schemaIdSet.has(someId))
+      selectSchemaIdList.currentState.some(
+        (someId) =>
+          someId === cellData?.workProjectSeries.workProjectSeriesSchemaId
+      )
     );
-  }, [schemaIdSet, selectSchemaIdList]);
+  }, [cellData, selectSchemaIdList]);
 
   const handleClick = useCallback(() => {
     dispatchWithoutControl([rowIndex, columnIndex]);
@@ -89,22 +92,24 @@ function InnerAssignmentCell({
       )}
       {...tooltip}
     >
-      {cellData ? (
-        cellData.length == 1 ? (
+      {
+        cellData && (
+          // cellData.length == 1 ? (
           <LazyDtoUiWrapper
             renderAs={WorkProjectSeriesSchemaCode}
-            entityId={cellData[0].workProjectSeries.workProjectSeriesSchemaId}
+            entityId={cellData.workProjectSeries.workProjectSeriesSchemaId}
             entityClass={EntityClassMap.workProjectSeriesSchema}
             whileLoading={Loading}
           />
-        ) : (
-          <div className={'flex h-full items-center justify-center'}>
-            C:{cellData.length}
-          </div>
         )
-      ) : (
-        ''
-      )}
+        //   : (
+        //     <div className={'flex h-full items-center justify-center'}>
+        //       C:{cellData.length}
+        //     </div>
+        //   )
+        // ) : (
+        //   ''
+      }
     </div>
   );
 }
@@ -118,17 +123,13 @@ function AssignmentTooltip({ content }: { content: AssignmentCellContent }) {
         'pointer-events-none flex flex-col rounded-md border border-amber-300 bg-amber-50 p-2 text-black'
       }
     >
-      {content.map((assignment) => {
-        return (
-          <LazyDtoUiWrapper
-            key={assignment.id}
-            renderAs={NamedEntityLabel}
-            entityId={assignment.workProjectSeries.workProjectSeriesSchemaId}
-            entityClass={EntityClassMap.workProjectSeriesSchema}
-            whileLoading={Loading}
-          />
-        );
-      })}
+      <LazyDtoUiWrapper
+        key={content.id}
+        renderAs={NamedEntityLabel}
+        entityId={content.workProjectSeries.workProjectSeriesSchemaId}
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        whileLoading={Loading}
+      />
     </div>
   );
 }

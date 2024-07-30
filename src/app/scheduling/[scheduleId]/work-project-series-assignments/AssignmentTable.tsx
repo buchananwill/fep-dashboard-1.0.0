@@ -15,7 +15,7 @@ import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/Cy
 import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
-import { GenericTableDto } from '@/api/types';
+import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
@@ -24,19 +24,25 @@ import {
 } from '@/api/generated-types/generated-types';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import AssignmentRowCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentRowCell';
 
 export const selectedAssignmentCell = 'selectedAssignmentCell';
+export const AssignmentTableRowClassName = 'AssignmentTableRow';
 export default function AssignmentTable({
-  tableData
+  tableData,
+  organizations
 }: {
   tableData: GenericTableDto<
-    OrganizationDto,
+    AssignmentTableRow,
     CycleSubspanDto,
     WorkProjectSeriesAssignmentDto,
-    number[]
+    number
   >;
+  organizations: OrganizationDto[];
 }) {
-  const rowIdList = tableData.rowList.map((org) => org.id);
+  // const rowIdList = tableData.rowList.map(
+  //   (assignmentTableRow) => assignmentTableRow.id
+  // );
 
   const { currentState: workProjectSeriesSchemas } = NamespacedHooks.useListen(
     EntityClassMap.workProjectSeriesSchema,
@@ -52,32 +58,33 @@ export default function AssignmentTable({
     listenerKey
   });
 
-  const columnIdList = tableData.columnList.map((cs) => cs.id);
+  // const columnIdList = tableData.columnList.map((cs) => cs.id);
   const tableProps = useFilteredRows(
     tableData,
     tableData.rowList,
     tableData.columnList,
-    EntityClassMap.organization
+    EntityClassMap.organization,
+    filterFunctionCreator
   );
 
-  const tableLookUp = useMemo(() => {
-    const tableLookUp: CellIdReference[][] = [];
-    for (let i = 0; i < rowIdList.length; i++) {
-      tableLookUp.push([]);
-      for (let j = 0; j < columnIdList.length; j++) {
-        tableLookUp[i].push({
-          rowId: rowIdList[i],
-          columnId: columnIdList[j]
-        });
-      }
-    }
-    return tableLookUp;
-  }, [rowIdList, columnIdList]);
+  // const tableLookUp = useMemo(() => {
+  //   const tableLookUp: CellIdReference[][] = [];
+  //   for (let i = 0; i < rowIdList.length; i++) {
+  //     tableLookUp.push([]);
+  //     for (let j = 0; j < columnIdList.length; j++) {
+  //       tableLookUp[i].push({
+  //         rowId: rowIdList[i],
+  //         columnId: columnIdList[j]
+  //       });
+  //     }
+  //   }
+  //   return tableLookUp;
+  // }, [rowIdList, columnIdList]);
 
   return (
     <>
       <FinderTableButton
-        organizations={tableData.rowList}
+        organizations={organizations}
         workProjectSeriesSchemas={workProjectSeriesSchemas}
       />
       <CellQueryManager
@@ -99,4 +106,13 @@ export default function AssignmentTable({
 }
 
 const memoCell = React.memo(AssignmentCell);
-const memoOrganizationCell = React.memo(RenderOrganizationCell);
+const memoOrganizationCell = React.memo(AssignmentRowCell);
+
+function filterFunctionCreator(idSet: Set<number | string>) {
+  return (entity: AssignmentTableRow) => {
+    if (entity.entityClass === 'Organization') return idSet.has(entity.data.id);
+    else if (entity.entityClass === 'WorkProjectSeriesAssignment')
+      return idSet.has(entity.data.organizationId);
+    else return false;
+  };
+}

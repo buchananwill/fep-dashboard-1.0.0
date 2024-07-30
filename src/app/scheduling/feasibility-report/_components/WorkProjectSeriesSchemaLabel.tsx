@@ -17,25 +17,34 @@ export function WorkProjectSeriesSchemaLabel({
 }
 
 const shortCodes = [
-  'Gg',
-  'Mu',
   'Ar',
-  'El',
-  'Dr',
-  'Ph',
-  'PE',
-  'Ch',
-  'Fr',
-  'Ge',
-  'La',
   'Bi',
-  'Hi',
-  'Rs',
+  'Cc',
+  'Ch',
   'Cm',
-  'Mm',
+  'Dr',
   'Dt',
+  'Ec',
+  'El',
+  'Fp',
+  'Fr',
   'Ga',
-  'Ps'
+  'Ge',
+  'Gg',
+  'Gp',
+  'Hi',
+  'La',
+  'Ld',
+  'Mf',
+  'Mm',
+  'Mp',
+  'Mu',
+  'PE',
+  'Pe',
+  'Ph',
+  'Ps',
+  'Py',
+  'Rs'
 ];
 
 const bgColorString = [
