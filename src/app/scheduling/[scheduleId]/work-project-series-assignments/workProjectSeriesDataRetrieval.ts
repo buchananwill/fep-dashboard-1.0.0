@@ -1,21 +1,31 @@
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
+import { GenericTableDto } from '@/api/types';
+import {
+  CycleSubspanDto,
+  OrganizationDto,
+  WorkProjectSeriesAssignmentDto
+} from '@/api/generated-types/generated-types';
 
 export function workProjectSeriesDataRetrieval(
-  tableData: WorkProjectSeriesAssignmentTableDto
+  tableData: GenericTableDto<
+    OrganizationDto,
+    CycleSubspanDto,
+    WorkProjectSeriesAssignmentDto,
+    number[]
+  >
 ) {
-  const { organizationToCycleSubspanIdToAssignmentId, assignmentIdToDtoMap } =
-    tableData;
+  const { rowColumnCellReferenceMap, cellIdCellContentMap } = tableData;
 
   return {
     memoizedFunction: ({ rowId, columnId }: CellIdReference) => {
       const cycleSubspanIdToAssignmentIdElement =
-        organizationToCycleSubspanIdToAssignmentId[`${rowId}`];
+        rowColumnCellReferenceMap[`${rowId}`];
       const assignmentIdElement = cycleSubspanIdToAssignmentIdElement
         ? cycleSubspanIdToAssignmentIdElement[`${columnId}`]
         : undefined;
       return assignmentIdElement
-        ? assignmentIdElement.map((itemId) => assignmentIdToDtoMap[`${itemId}`])
+        ? assignmentIdElement.map((itemId) => cellIdCellContentMap[`${itemId}`])
         : undefined;
     }
   };

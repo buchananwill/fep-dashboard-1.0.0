@@ -97,10 +97,13 @@ export type TemplateRequestOverrides<T> = PartialDeep<RepeatPostRequest<T>>;
 export interface GenericTableDto<
   Row extends {},
   Column extends {},
-  CellContent
+  CellContent,
+  CellContentReference
 > {
   columnList: Column[];
   rowList: Row[];
-  rowColumnCellReferenceMap: { [key: string]: { [key: string]: string } }; // Assuming CellReference is just a string identifier
+  rowColumnCellReferenceMap: {
+    [key: string]: { [key: string]: CellContentReference };
+  }; // Assuming CellReference is just a string identifier
   cellIdCellContentMap: { [key: string]: CellContent };
 }

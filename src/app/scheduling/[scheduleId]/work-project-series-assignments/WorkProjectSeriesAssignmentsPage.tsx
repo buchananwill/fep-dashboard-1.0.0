@@ -9,27 +9,33 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
 import AssignmentTable from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getMatchString } from '@/app/core/navigation/ResolveNavTree';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import SchedulingHome from '@/app/scheduling/SchedulingHome';
 import FinderTableButton from '@/components/tables/FinderTableButton';
+import { GenericTableDto } from '@/api/types';
+import {
+  CycleSubspanDto,
+  OrganizationDto,
+  WorkProjectSeriesAssignmentDto
+} from '@/api/generated-types/generated-types';
 
 async function WorkProjectSeriesAssignmentsForSchedule({
   pathVariables,
   depth
 }: LeafComponentProps) {
   const [scheduleId] = getLastNVariables(pathVariables, 1);
-  const workProjectSeriesAssignmentTableDto: WorkProjectSeriesAssignmentTableDto =
-    await getWithoutBody(
-      constructUrl([
-        '/api/v2/workProjectSeries/assignments/schedule',
-        scheduleId
-      ])
-    );
+  const workProjectSeriesAssignmentTableDto: GenericTableDto<
+    OrganizationDto,
+    CycleSubspanDto,
+    WorkProjectSeriesAssignmentDto,
+    number[]
+  > = await getWithoutBody(
+    constructUrl(['/api/v2/workProjectSeries/assignments/schedule', scheduleId])
+  );
 
   const strings: string[] = [
-    ...Object.values(workProjectSeriesAssignmentTableDto.assignmentIdToDtoMap)
+    ...Object.values(workProjectSeriesAssignmentTableDto.cellIdCellContentMap)
       .map(
         (assignment) => assignment.workProjectSeries.workProjectSeriesSchemaId
       )
@@ -39,11 +45,8 @@ async function WorkProjectSeriesAssignmentsForSchedule({
 
   return (
     <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8 pt-16'}>
-      <FinderTableButton
-        organizations={workProjectSeriesAssignmentTableDto.organizationList}
-      />
       <EditAddDeleteDtoControllerArray
-        dtoList={workProjectSeriesAssignmentTableDto.organizationList}
+        dtoList={workProjectSeriesAssignmentTableDto.rowList}
         entityClass={EntityClassMap.organization}
       />
       <DataFetchingEditDtoControllerArray

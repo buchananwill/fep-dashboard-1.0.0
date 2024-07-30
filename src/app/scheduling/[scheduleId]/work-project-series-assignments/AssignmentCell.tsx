@@ -4,12 +4,12 @@ import {
   AssignmentCellContent,
   CellIdReference
 } from '@/components/tables/CellQueryManager';
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import {
   NamedEntityLabel,
   WorkProjectSeriesSchemaCode
 } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
-import { LazyDtoUiWrapper } from 'dto-stores';
+import { LazyDtoUiWrapper, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
 import { useGlobalDispatchAndListener } from 'selective-context';
@@ -20,6 +20,7 @@ import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssi
 import clsx from 'clsx';
 import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export default function AssignmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;
@@ -37,6 +38,31 @@ function InnerAssignmentCell({
     listenerKey: `${rowIndex}:${columnIndex}`,
     initialValue: EmptyArray
   });
+  const listenerKey = `assignmentCell:${rowIndex}:${columnIndex}`;
+
+  const schemaIdSet = useMemo(() => {
+    return cellData
+      ? cellData.reduce(
+          (prev, curr) =>
+            prev.add(curr.workProjectSeries.workProjectSeriesSchemaId),
+          new Set<string>()
+        )
+      : new Set<string>();
+  }, [cellData]);
+
+  const selectSchemaIdList = NamespacedHooks.useListen(
+    EntityClassMap.workProjectSeriesSchema,
+    KEY_TYPES.SELECTED,
+    listenerKey,
+    EmptyArray as string[]
+  );
+
+  const showCell = useMemo(() => {
+    return (
+      selectSchemaIdList.currentState.length === 0 ||
+      selectSchemaIdList.currentState.some((someId) => schemaIdSet.has(someId))
+    );
+  }, [schemaIdSet, selectSchemaIdList]);
 
   const handleClick = useCallback(() => {
     dispatchWithoutControl([rowIndex, columnIndex]);
@@ -49,6 +75,8 @@ function InnerAssignmentCell({
   const selected =
     currentState[0] === rowIndex && currentState[1] === columnIndex;
   const lastInDay = (columnIndex + 1) % 6 === 0;
+
+  if (!showCell) return null;
 
   return (
     <div

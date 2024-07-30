@@ -2,14 +2,12 @@
 import { StaticAllocationTableDto } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationPage';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import CellQueryManager from '@/components/tables/CellQueryManager';
-import { useTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
 import {
   getCellDataIdOrUndefined,
   getCellDataOrUndefined
 } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 import {
-  EditAddDeleteDtoControllerArray,
   Identifier,
   NamespacedHooks,
   useEffectSyncWithDispatch
@@ -21,32 +19,22 @@ import { memo, useMemo } from 'react';
 import { useGlobalController } from 'selective-context';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
 
 export const cycleSubspanGroupMap = 'CycleSubspanGroupMap';
+
 export default function StaticAllocationTable({
   tableData
 }: {
   tableData: StaticAllocationTableDto;
 }) {
-  console.log('table data:', tableData);
   const { rowList, columnList } = tableData;
-  const { currentState } = NamespacedHooks.useListen(
-    EntityClassMap.workProjectSeriesSchema,
-    KEY_TYPES.SELECTED,
-    'staticAllocationTable',
-    EmptyArray as string[]
+  const tableProps = useFilteredRows(
+    tableData,
+    rowList,
+    columnList,
+    EntityClassMap.workProjectSeriesSchema
   );
-
-  const tableDataFiltered = useMemo(() => {
-    const selectedWpssIdList = new Set(currentState);
-    return {
-      ...tableData,
-      rowList: rowList.filter((wpss) => selectedWpssIdList.has(wpss.id))
-    };
-  }, [currentState, tableData, rowList]);
-
-  const tableProps = useTableProps(tableDataFiltered.rowList, columnList);
 
   const cycleSubspanGroupIdToCycleSubspanIdList = useMemo(
     () =>
@@ -82,7 +70,6 @@ export default function StaticAllocationTable({
   // Can this somehow be made to always be able to recall the relevant cell ID reference, even for transient cell data?
   const flattened = useMemo(() => {
     const cellDataOrUndefined = getCellDataIdOrUndefined(tableData);
-    console.log(cellDataOrUndefined);
     return tableProps.itemData
       .flatMap((list) => [...list])
       .map(({ rowId, columnId }) =>
@@ -94,7 +81,6 @@ export default function StaticAllocationTable({
         )
       );
   }, [tableProps.itemData, tableData]);
-  console.log('Cell list:', flattened);
 
   useEffectSyncWithDispatch(flattened, dispatchCells);
 
