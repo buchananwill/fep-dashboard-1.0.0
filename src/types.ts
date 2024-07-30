@@ -2,7 +2,7 @@ import { DtoUiArrayProps } from 'dto-stores';
 import { HasId } from '@/api/types';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Selection } from '@nextui-org/react';
-import { StringPaths } from '@/functions/narrowPathsToStrings';
+import { Paths } from 'type-fest';
 
 export type StringPropertyKey<T> = {
   [K in keyof T]: T[K] extends string ? K : never;
@@ -16,6 +16,10 @@ export type BooleanPropertyKey<T> = {
   [K in keyof T]: T[K] extends boolean ? K : never;
 }[keyof T];
 
+export type TypePropertyKey<T, PType> = {
+  [K in keyof T]: T[K] extends PType ? K : never;
+}[keyof T];
+
 export type uiWrapperListViewProps<T extends HasId, Props> = DtoUiArrayProps<
   T,
   Props
@@ -27,7 +31,7 @@ export type DispatchState<T> = Dispatch<SetStateAction<T>>;
 
 export interface Column<T> {
   name: string;
-  uid: Extract<keyof T, string | number> | StringPaths<T>;
+  uid: Extract<keyof T, string | number> | Paths<T>;
   sortable?: boolean;
 }
 

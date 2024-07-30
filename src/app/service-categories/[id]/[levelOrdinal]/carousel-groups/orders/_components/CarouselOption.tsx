@@ -7,7 +7,6 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { Button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { useEffect, useMemo, useRef } from 'react';
@@ -46,6 +45,7 @@ import {
   RotationConnectionMap
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 import { initialMap } from '@/app/_literals';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 export const CarouselOptionState = 'CarouselOptionState';
 export default function CarouselOption({

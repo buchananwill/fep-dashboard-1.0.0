@@ -8,7 +8,7 @@ import {
 } from '@nextui-org/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Identifier } from 'dto-stores';
-import { Column, StringPropertyKey } from '@/types';
+import { Column } from '@/types';
 import { HasIdClass } from '@/api/types';
 import { ColumnDropdown } from '@/components/generic/ColumnDropdown';
 import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect';
@@ -17,7 +17,7 @@ import {
   TableCellRenderer
 } from '@/components/generic/FilterSortPaginateTableContent';
 import { GetFieldType } from '@/functions/allowingNestedFiltering';
-import { StringPaths } from '@/functions/narrowPathsToStrings';
+import { Paths } from 'type-fest';
 
 export default function FilterSelectEntityTable<
   T extends HasIdClass<Identifier>,
@@ -37,7 +37,7 @@ export default function FilterSelectEntityTable<
   idClass?: 'string' | 'number';
   entities: T[];
   columns: Column<T>[];
-  initialColumns: StringPaths<T>[];
+  initialColumns: Paths<T>[];
   filterProperty: TPath;
   renderCell: TableCellRenderer<T>;
   dynamicColumns?: boolean;

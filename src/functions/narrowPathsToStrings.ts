@@ -2,10 +2,11 @@ import { Get, PartialDeep, Paths, Simplify } from 'type-fest';
 import { NonRecursiveType } from 'type-fest/source/internal';
 import { GetFieldType } from '@/functions/allowingNestedFiltering';
 import { extendDefaultTheme } from '@nivo/core';
-import { StringPropertyKey } from '@/types';
+import { StringPropertyKey, TypePropertyKey } from '@/types';
 import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { Example } from '@/functions/chatGptTriesToStringPath';
+import { infer } from 'zod';
 
 interface TestInterface {
   first: string;
@@ -37,6 +38,15 @@ export type StringPaths<TType> = Extract<
   StringPropertyKey<PropertyTypes<TType>>
 >;
 
+export type TypedPaths<TType, PType> =
+  Paths<TType> extends infer P
+    ? P extends string
+      ? Get<TType, P> extends PType
+        ? P
+        : never
+      : never
+    : never;
+
 export type MoreStringPaths<TType> =
   Paths<TType> extends infer P
     ? P extends string
@@ -48,8 +58,6 @@ export type MoreStringPaths<TType> =
 
 type MoreTestStringPaths = MoreStringPaths<TestInterface>;
 type OrganizationStringPaths = MoreStringPaths<WorkProjectSeriesSchemaDto>;
-
-type TestStringPaths = StringPaths<TestInterface>;
 
 type ExampleStringPaths = MoreStringPaths<Example>;
 
