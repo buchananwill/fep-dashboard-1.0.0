@@ -6,11 +6,8 @@ import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getValue } from '@/functions/allowingNestedFiltering';
 import { StringPathsNoDeepOptionals } from '@/functions/chatGptTriesToStringPath';
-import { MoreStringPaths, TypedPaths } from '@/functions/narrowPathsToStrings';
-import {
-  OrganizationDto,
-  OrganizationTypeDto
-} from '@/api/generated-types/generated-types';
+import { TypedPaths } from '@/functions/typePaths';
+import { OrganizationDto } from '@/api/generated-types/generated-types';
 
 export default function OrganizationSelectorTable({
   organizations
@@ -70,10 +67,6 @@ export default function OrganizationSelectorTable({
 
 export const OrganizationColumnsInitial: StringPathsNoDeepOptionals<OrganizationDto>[] =
   ['name', 'type.name'];
-
-type OrganizationStringPaths = MoreStringPaths<OrganizationDto>;
-
-type OrgNumberKeys = TypedPaths<OrganizationDto, number>;
 
 export const OrganizationColumns: Column<OrganizationDto>[] = [
   { name: 'Name', uid: 'name', sortable: true },
