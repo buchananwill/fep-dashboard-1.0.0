@@ -3,7 +3,7 @@ import { StaticAllocationTableDto } from '@/app/work-project-series-schemas/stat
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import CellQueryManager from '@/components/tables/CellQueryManager';
 import {
-  getCellDataIdOrUndefined,
+  getCellDataIdReferenceOrUndefined,
   getCellDataOrUndefined
 } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
@@ -31,8 +31,6 @@ export default function StaticAllocationTable({
   const { rowList, columnList } = tableData;
   const tableProps = useFilteredRows(
     tableData,
-    rowList,
-    columnList,
     EntityClassMap.workProjectSeriesSchema
   );
 
@@ -69,7 +67,7 @@ export default function StaticAllocationTable({
 
   // Can this somehow be made to always be able to recall the relevant cell ID reference, even for transient cell data?
   const flattened = useMemo(() => {
-    const cellDataOrUndefined = getCellDataIdOrUndefined(tableData);
+    const cellDataOrUndefined = getCellDataIdReferenceOrUndefined(tableData);
     return tableProps.itemData
       .flatMap((list) => [...list])
       .map(({ rowId, columnId }) =>
@@ -102,7 +100,7 @@ export default function StaticAllocationTable({
   );
 }
 
-const MemoCycleSubspanCell = memo(CycleSubspanCell);
+export const MemoCycleSubspanCell = memo(CycleSubspanCell);
 
 const MemoStaticAllocationCell = memo(StaticAllocationCell);
 

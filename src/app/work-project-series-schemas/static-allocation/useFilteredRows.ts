@@ -7,8 +7,6 @@ import { useTableProps } from '@/app/service-categories/[id]/roles/_components/u
 
 export function useFilteredRows<T extends Entity, U extends Entity, V, W>(
   tableData: GenericTableDto<T, U, V, W>,
-  rowList: T[],
-  columnList: U[],
   entityClass: string,
   filterFunctionCreator?: (
     idSet: Set<string | number>
@@ -21,6 +19,7 @@ export function useFilteredRows<T extends Entity, U extends Entity, V, W>(
     EmptyArray as (string | number)[]
   );
 
+  const { columnList, rowList } = tableData;
   const tableDataFiltered = useMemo(() => {
     if (currentState.length === 0) return tableData;
     const selectedRowIdSet = new Set(currentState);
@@ -32,7 +31,7 @@ export function useFilteredRows<T extends Entity, U extends Entity, V, W>(
       ...tableData,
       rowList: rowList.filter(predicate)
     };
-  }, [currentState, tableData, rowList, filterFunctionCreator]);
+  }, [currentState, rowList, tableData, filterFunctionCreator]);
 
   return useTableProps(tableDataFiltered.rowList, columnList);
 }

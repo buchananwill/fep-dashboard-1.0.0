@@ -40,10 +40,6 @@ export default function AssignmentTable({
   >;
   organizations: OrganizationDto[];
 }) {
-  // const rowIdList = tableData.rowList.map(
-  //   (assignmentTableRow) => assignmentTableRow.id
-  // );
-
   const { currentState: workProjectSeriesSchemas } = NamespacedHooks.useListen(
     EntityClassMap.workProjectSeriesSchema,
     KEY_TYPES.MASTER_LIST,
@@ -58,28 +54,11 @@ export default function AssignmentTable({
     listenerKey
   });
 
-  // const columnIdList = tableData.columnList.map((cs) => cs.id);
   const tableProps = useFilteredRows(
     tableData,
-    tableData.rowList,
-    tableData.columnList,
     EntityClassMap.organization,
     filterFunctionCreator
   );
-
-  // const tableLookUp = useMemo(() => {
-  //   const tableLookUp: CellIdReference[][] = [];
-  //   for (let i = 0; i < rowIdList.length; i++) {
-  //     tableLookUp.push([]);
-  //     for (let j = 0; j < columnIdList.length; j++) {
-  //       tableLookUp[i].push({
-  //         rowId: rowIdList[i],
-  //         columnId: columnIdList[j]
-  //       });
-  //     }
-  //   }
-  //   return tableLookUp;
-  // }, [rowIdList, columnIdList]);
 
   return (
     <>
