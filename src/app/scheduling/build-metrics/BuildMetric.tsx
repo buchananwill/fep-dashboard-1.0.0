@@ -3,6 +3,7 @@ import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVar
 import { Api } from '@/api/clientApi_';
 import { parseTen } from '@/api/date-and-time';
 import JsonTree from '@/components/generic/JsonTree';
+import BuildMetricQueueTreeGraph from '@/app/scheduling/build-metrics/BuildMetricQueueTreeGraph';
 
 export default async function BuildMetric({
   pathVariables
@@ -12,5 +13,5 @@ export default async function BuildMetric({
     { scheduleId: parseTen(scheduleId) }
   ]);
 
-  return <JsonTree data={buildMetric} />;
+  return <BuildMetricQueueTreeGraph data={buildMetric} />;
 }
