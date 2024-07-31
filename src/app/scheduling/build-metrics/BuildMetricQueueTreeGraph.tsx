@@ -51,7 +51,7 @@ export default function BuildMetricQueueTreeGraph({
           tickPadding: 5,
           tickRotation: 0,
           legend: 'count',
-          legendOffset: -40,
+          legendOffset: -50,
           legendPosition: 'middle',
           truncateTickAt: 0
         }}
