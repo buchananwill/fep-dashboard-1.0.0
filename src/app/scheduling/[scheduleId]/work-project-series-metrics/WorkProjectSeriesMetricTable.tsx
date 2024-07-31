@@ -43,10 +43,11 @@ export default function WorkProjectSeriesMetricTable({
         {...tableProps}
         renderCell={MemoCell}
         renderSyncedRowCell={MemoCycleSubspanCell}
-        renderSyncedColumnCell={WorkProjectSeriesCell}
+        renderSyncedColumnCell={MemoRowCell}
       />
     </div>
   );
 }
 
 const MemoCell = memo(WorkProjectSeriesBuildMetricCell);
+const MemoRowCell = memo(WorkProjectSeriesCell);

@@ -35,6 +35,12 @@ export async function WorkProjectSeriesMetricsPage({
       scheduleId
     ])
   );
+
+  const workProjectSeriesSchemaIds = metricTableDto.rowList.reduce(
+    (prev, curr) => prev.add(curr.workProjectSeriesSchemaId),
+    new Set<string>()
+  );
+
   return (
     <>
       <EditAddDeleteDtoControllerArray
@@ -47,7 +53,7 @@ export async function WorkProjectSeriesMetricsPage({
       />
       <DataFetchingEditDtoControllerArray
         entityClass={EntityClassMap.workProjectSeriesSchema}
-        idList={EmptyArray}
+        idList={[...workProjectSeriesSchemaIds.values()]}
         getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
       />
       <EditAddDeleteDtoControllerArray
