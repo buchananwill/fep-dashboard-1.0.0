@@ -1,5 +1,5 @@
 'use server';
-import { StaticDeliveryAllocationItemDto } from '../dtos/StaticDeliveryAllocationItemDtoSchema';
+import { BuildMetricDto } from '../dtos/BuildMetricDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {
@@ -16,10 +16,10 @@ getPage,
   getDtoListByParamList,
   getDtoListByExampleList
 } = generateBaseEndpointSet<
-  StaticDeliveryAllocationItemDto,
-  number
+  BuildMetricDto,
+  string
 >(
-  '/api/v2/staticDeliveryAllocationItems'
+  '/api/v2/schedule/buildMetric'
 );
 
 

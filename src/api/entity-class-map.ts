@@ -1,5 +1,6 @@
 export const EntityClassMap = {
-   schedule: 'Schedule', 
+   buildMetric: 'BuildMetric', 
+ schedule: 'Schedule', 
  staticDeliveryAllocationItem: 'StaticDeliveryAllocationItem', 
  providerRole: 'ProviderRole', 
  assetRole: 'AssetRole', 
@@ -22,6 +23,7 @@ export const EntityClassMap = {
  serviceCategory: 'ServiceCategory', 
  workSchemaNode: 'WorkSchemaNode', 
  cycleSubspanGroup: 'CycleSubspanGroup', 
+ workProjectSeriesMetric: 'WorkProjectSeriesMetric', 
  assetRoleTypeWorkTaskTypeSuitability: 'AssetRoleTypeWorkTaskTypeSuitability', 
  workSchemaNodeAssignment: 'WorkSchemaNodeAssignment', 
  carouselGroupOption: 'CarouselGroupOption', 
