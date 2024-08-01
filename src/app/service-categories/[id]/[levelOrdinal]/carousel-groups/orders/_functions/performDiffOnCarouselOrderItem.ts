@@ -26,10 +26,12 @@ export function performDiffOnCarouselOrderItem(
   // match: false & true #2
   if (assignmentMatch) {
     if (item.active && currOptionDefined) {
+      console.log('Adding item after set active to true');
       handleAddAssignee(dispatchWriteAny, item);
       updateSucceeded = true;
     } else if (prevOptionDefined) {
       handleRemoveAssignee(dispatchWriteAny, item);
+      updateSucceeded = true;
     }
   }
   // match: true & false #3
@@ -37,6 +39,7 @@ export function performDiffOnCarouselOrderItem(
     if (item.active) {
       if (prevItem && prevOptionDefined)
         handleRemoveAssignee(dispatchWriteAny, prevItem);
+      updateSucceeded = true;
       if (currOptionDefined) {
         handleAddAssignee(dispatchWriteAny, item);
         updateSucceeded = true;
@@ -54,6 +57,7 @@ export function performDiffOnCarouselOrderItem(
   } else {
     if (prevItem && prevOptionDefined)
       handleRemoveAssignee(dispatchWriteAny, prevItem);
+    updateSucceeded = true;
     // No add action needed for the current item, since it isn't active.
   }
   // finally: update the ref

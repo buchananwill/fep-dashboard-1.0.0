@@ -16,6 +16,7 @@ import { useCallback } from 'react';
 import { DispatchState } from '@/types';
 import { Switch } from '@nextui-org/react';
 import { mockOrder } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/MockOrder';
+import SelectIsActive from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/SelectIsActive';
 
 const carouselOrderModalController = 'CarouselOrderModalController';
 export const carouselOrderModal = 'CarouselOrderModal';
@@ -73,18 +74,17 @@ export default function CarouselOrderModal() {
     );
 }
 
-function CarouselOrderItem({
-  dispatch,
-  orderItem
-}: {
+export interface OrderItemRowProps {
   dispatch: DispatchState<CarouselOrderDto>;
   orderItem: CarouselOrderItemDto;
-}) {
+}
+
+function CarouselOrderItem({ dispatch, orderItem }: OrderItemRowProps) {
   return (
     <tr>
       <td>{orderItem.preferencePosition}</td>
       <td>
-        <Switch isSelected={orderItem.active}></Switch>
+        <SelectIsActive dispatch={dispatch} orderItem={orderItem} />
       </td>
       <td>
         <select value={orderItem.carouselOptionId}>
