@@ -87,8 +87,10 @@ export function CarouselOrderItem(props: OrderItemRowProps) {
   return drop(
     dragPreview(
       <tr className={clsx(isOver && 'animate-pulse')}>
-        <td className={'h-full'}>
-          <OrderItemLabel {...props} />
+        <td className={'w-12'}>
+          <div className={'h-12'}>
+            <OrderItemLabel {...props} />
+          </div>
         </td>
         {drag(
           <td
@@ -96,13 +98,14 @@ export function CarouselOrderItem(props: OrderItemRowProps) {
               'cursor-pointer',
               orderItem.preferencePosition % 2 === 0
                 ? 'bg-rose-200'
-                : 'bg-blue-200'
+                : 'bg-blue-200',
+              'h-12 w-12  text-center'
             )}
           >
             {props.orderItem.preferencePosition}
           </td>
         )}
-        <td>
+        <td className={'p-2'}>
           <SelectIsActive {...props} />
         </td>
         <td>

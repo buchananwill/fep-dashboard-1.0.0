@@ -1,14 +1,13 @@
-import { useDtoStore, useReadAnyDto } from 'dto-stores';
+import { useDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
 import clsx from 'clsx';
-import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import { ClashBadge } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/ClashBadge';
 import { useCarouselOrderModalTrigger } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/CarouselOrderModal';
+import { useClashList } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/useClashList';
 
 export default function CarouselOrderItem({
   entity: orderItem
@@ -19,13 +18,8 @@ export default function CarouselOrderItem({
     entityId: orderItem.carouselOrderId,
     entityClass: EntityClassMap.carouselOrder
   });
-  const readAny =
-    useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
   const modalTrigger = useCarouselOrderModalTrigger(orderItem.carouselOrderId);
-
-  const option = readAny(orderItem.carouselOptionId);
-
-  const clashList = option?.clashMap?.get(orderItem.carouselOrderId) ?? [];
+  const clashList = useClashList(orderItem);
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: DragTypes.CAROUSEL_ORDER_ITEM,

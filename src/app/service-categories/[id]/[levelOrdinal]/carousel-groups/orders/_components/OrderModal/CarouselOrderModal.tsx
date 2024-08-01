@@ -58,11 +58,11 @@ export default function CarouselOrderModal() {
           User {entity.userRoleId}
           <div
             className={
-              'h-[50vh] w-[30vw]  overflow-clip rounded-lg border-2 border-default-400'
+              'h-[50vh] w-fit overflow-clip rounded-lg border-2 border-default-400'
             }
           >
             <div className={'h-full w-full overflow-auto p-2'}>
-              <table className={''}>
+              <table className={'table-fixed'}>
                 <tbody>
                   {sortedOrderItems.map((orderItem, index) => (
                     <CarouselOrderItem

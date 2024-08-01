@@ -32,6 +32,7 @@ export default function SelectIsActive({
     <Switch
       isSelected={orderItem.active}
       onValueChange={setIsSelected}
+      classNames={{ wrapper: 'm-0' }}
     ></Switch>
   );
 }

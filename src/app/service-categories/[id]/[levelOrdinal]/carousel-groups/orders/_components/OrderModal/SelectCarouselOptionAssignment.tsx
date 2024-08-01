@@ -1,5 +1,10 @@
 import { OrderItemRowProps } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/CarouselOrderItem';
-import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
+import {
+  NamespacedHooks,
+  useDtoStore,
+  useLazyDtoStore,
+  useReadAnyDto
+} from 'dto-stores';
 import {
   CarouselDto,
   CarouselOptionDto
@@ -7,23 +12,39 @@ import {
 import { useCallback, useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
 import { isNotUndefined } from '@/api/main';
 import { Select, Selection } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { parseTen } from '@/api/date-and-time';
+import { useClashList } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/useClashList';
+import { ClashBadge } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/ClashBadge';
+import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
+import { useGlobalListener } from 'selective-context';
+import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 
 export default function SelectCarouselOptionAssignment({
   orderItem,
   dispatch
 }: OrderItemRowProps) {
+  const listenerKey = `assignOptionModalSelect:${orderItem.id}`;
   const { currentState } = NamespacedHooks.useListen<CarouselDto[]>(
     EntityClassMap.carousel,
     KEY_TYPES.MASTER_LIST,
-    `assignOptionModalSelect:${orderItem.id}`,
+    listenerKey,
     EmptyArray
   );
   const readAnyCarousel = useReadAnyDto<CarouselDto>(EntityClassMap.carousel);
+  const { currentState: currentOption } =
+    useGlobalListener<CarouselOptionStateInterface>({
+      contextKey: getEntityNamespaceContextKey(
+        CarouselOptionState,
+        orderItem.carouselOptionId ?? NaN
+      ),
+      listenerKey,
+      initialValue: ObjectPlaceholder as CarouselOptionStateInterface
+    });
 
   const optionsToSelectFrom = useMemo(() => {
     const responseMap = new Map<string, CarouselOptionDto>();
@@ -46,6 +67,9 @@ export default function SelectCarouselOptionAssignment({
       ? new Set([String(orderItem.carouselOptionId)])
       : new Set<string>();
   }, [orderItem]);
+
+  const clashList =
+    currentOption?.clashMap?.get(orderItem.carouselOrderId) ?? [];
 
   const handleSelection = useCallback(
     (selectionKeyValue: Selection) => {
@@ -73,32 +97,35 @@ export default function SelectCarouselOptionAssignment({
   );
 
   return (
-    <Select
-      variant={'faded'}
-      selectedKeys={currentSelection}
-      items={optionsToSelectFrom.values()}
-      label={'Carousel'}
-      labelPlacement={'inside'}
-      placeholder={'Assign to a Carousel'}
-      selectionMode={'single'}
-      onSelectionChange={handleSelection}
-      size={'sm'}
-    >
-      {(option) => (
-        <SelectItem
-          key={option.id}
-          value={option.id}
-          aria-label={
-            readAnyCarousel(option.carouselId)?.name ??
-            `Carousel ${readAnyCarousel(option.carouselId)?.carouselOrdinal}` ??
-            `Option Id: ${option.id}`
-          }
-        >
-          {readAnyCarousel(option.carouselId)?.name ??
-            readAnyCarousel(option.carouselId)?.carouselOrdinal ??
-            option.id}
-        </SelectItem>
-      )}
-    </Select>
+    <ClashBadge show={clashList.length > 0} content={'!'}>
+      <Select
+        variant={'faded'}
+        selectedKeys={currentSelection}
+        items={optionsToSelectFrom.values()}
+        label={'Carousel'}
+        labelPlacement={'inside'}
+        placeholder={'Assign to a Carousel'}
+        selectionMode={'single'}
+        onSelectionChange={handleSelection}
+        size={'sm'}
+        classNames={{ base: 'w-48' }}
+      >
+        {(option) => (
+          <SelectItem
+            key={option.id}
+            value={option.id}
+            aria-label={
+              readAnyCarousel(option.carouselId)?.name ??
+              `Carousel ${readAnyCarousel(option.carouselId)?.carouselOrdinal}` ??
+              `Option Id: ${option.id}`
+            }
+          >
+            {readAnyCarousel(option.carouselId)?.name ??
+              readAnyCarousel(option.carouselId)?.carouselOrdinal ??
+              option.id}
+          </SelectItem>
+        )}
+      </Select>
+    </ClashBadge>
   );
 }
