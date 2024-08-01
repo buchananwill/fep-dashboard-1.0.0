@@ -13,16 +13,21 @@ export default function SelectIsActive({
   const setIsSelected = useCallback(
     (isSelected: boolean) => {
       dispatch((order) => {
-        const updatedItems = Object.fromEntries(
-          Object.entries(order.carouselOrderItems).map(([itemKey, item]) => {
-            if (itemKey !== orderItem.workProjectSeriesSchemaId) {
-              return [itemKey, item] as OrderItemEntryTuple;
-            } else {
-              const updatedItem = { ...item, active: isSelected };
-              return [itemKey, updatedItem] as OrderItemEntryTuple;
-            }
-          })
-        );
+        const updatedItems = { ...order.carouselOrderItems };
+        updatedItems[orderItem.workProjectSeriesSchemaId] = {
+          ...orderItem,
+          active: isSelected
+        };
+        //   Object.fromEntries(
+        //   Object.entries(order.carouselOrderItems).map(([itemKey, item]) => {
+        //     if (itemKey !== orderItem.workProjectSeriesSchemaId) {
+        //       return [itemKey, item] as OrderItemEntryTuple;
+        //     } else {
+        //       const updatedItem = { ...item, active: isSelected };
+        //       return [itemKey, updatedItem] as OrderItemEntryTuple;
+        //     }
+        //   })
+        // );
         const updatedOrder: CarouselOrderDto = {
           ...order,
           carouselOrderItems: updatedItems
