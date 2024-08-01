@@ -81,7 +81,7 @@ export function WorkProjectSeriesSchemaCode({
   return (
     <div
       className={clsx(
-        'pointer-events-none flex h-full w-full items-center justify-center',
+        'pointer-events-none flex h-full w-full items-center justify-center duration-700 transition-colors-opacity',
         backgroundColor
       )}
     >

@@ -1,9 +1,6 @@
 'use client';
 import { useGlobalController, useGlobalDispatch } from 'selective-context';
-import {
-  CarouselOrderDto,
-  CarouselOrderItemDto
-} from '@/api/generated-types/generated-types';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
@@ -12,12 +9,9 @@ import {
   ModalFooter,
   ModalHeader
 } from '@nextui-org/modal';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { DispatchState } from '@/types';
-import { Switch } from '@nextui-org/react';
-import { mockOrder } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/MockOrder';
-import SelectIsActive from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/SelectIsActive';
-import { OrderItemLabel } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/OrderItemLabel';
+import { CarouselOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/CarouselOrderItem';
 
 const carouselOrderModalController = 'CarouselOrderModalController';
 export const carouselOrderModal = 'CarouselOrderModal';
@@ -50,55 +44,45 @@ export default function CarouselOrderModal() {
 
   console.log(entity);
 
+  const sortedOrderItems = useMemo(() => {
+    return entity
+      ? Object.values(entity.carouselOrderItems).sort(
+          (itemA, itemB) => itemA.preferencePosition - itemB.preferencePosition
+        )
+      : [];
+  }, [entity]);
+
   if (entity)
     return (
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalContent>
+        <ModalContent className={'p-2'}>
           <ModalHeader>Edit Carousel Order</ModalHeader>
           User {entity.userRoleId}
-          <table>
-            <tbody>
-              {Object.values(entity.carouselOrderItems).map((orderItem) => (
-                <CarouselOrderItem
-                  dispatch={
-                    dispatchWithoutControl as DispatchState<CarouselOrderDto>
-                  }
-                  orderItem={orderItem}
-                  key={orderItem.id}
-                />
-              ))}
-            </tbody>
-          </table>
+          <div
+            className={
+              'h-[50vh] w-[30vw]  overflow-clip rounded-lg border-2 border-default-400'
+            }
+          >
+            <div className={'h-full w-full overflow-auto p-2'}>
+              <table className={''}>
+                <tbody>
+                  {sortedOrderItems.map((orderItem, index) => (
+                    <CarouselOrderItem
+                      dispatch={
+                        dispatchWithoutControl as DispatchState<CarouselOrderDto>
+                      }
+                      orderItem={orderItem}
+                      key={index}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
           <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     );
-}
-
-export interface OrderItemRowProps {
-  dispatch: DispatchState<CarouselOrderDto>;
-  orderItem: CarouselOrderItemDto;
-}
-
-function CarouselOrderItem(props: OrderItemRowProps) {
-  return (
-    <tr>
-      <td>
-        <OrderItemLabel {...props} />
-      </td>
-      <td>{props.orderItem.preferencePosition}</td>
-      <td>
-        <SelectIsActive {...props} />
-      </td>
-      <td>
-        <select value={props.orderItem.carouselOptionId}>
-          <option value={props.orderItem.carouselOptionId}>
-            {props.orderItem.carouselOptionId}
-          </option>
-        </select>
-      </td>
-    </tr>
-  );
 }
 
 export function useCarouselOrderModalTrigger(carouselOrderId: string) {
