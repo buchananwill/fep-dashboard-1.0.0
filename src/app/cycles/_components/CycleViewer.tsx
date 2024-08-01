@@ -6,7 +6,7 @@ import { ArrayPlaceholder } from 'selective-context';
 import {
   interceptPost,
   interceptPut
-} from '@/app/cycles/_components/interceptors';
+} from '@/app/cycles/_functions/interceptors';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { CycleDto } from '@/api/dtos/CycleDtoSchema';
 import { deleteIdList } from '@/api/generated-actions/CycleSubspan';

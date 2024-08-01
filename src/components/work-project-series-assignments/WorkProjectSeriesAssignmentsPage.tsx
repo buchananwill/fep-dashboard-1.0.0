@@ -9,7 +9,7 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
 import AssignmentTable, {
   AssignmentTableRowClassName
-} from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
+} from '@/components/work-project-series-assignments/AssignmentTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';

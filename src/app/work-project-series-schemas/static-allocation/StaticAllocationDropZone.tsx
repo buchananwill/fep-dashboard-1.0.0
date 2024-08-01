@@ -1,4 +1,4 @@
-import { InnerCellContent } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-series-assignments/AssignmentCell';
 import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';

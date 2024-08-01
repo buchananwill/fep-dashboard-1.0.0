@@ -13,7 +13,7 @@ import { LazyDtoUiWrapper, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
 import { useGlobalDispatchAndListener } from 'selective-context';
-import { selectedAssignmentCell } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentTable';
+import { selectedAssignmentCell } from '@/components/work-project-series-assignments/AssignmentTable';
 import { EmptyArray } from '@/api/literals';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import { WorkProjectSeriesAssignmentDto } from '@/api/dtos/WorkProjectSeriesAssignmentDtoSchema';

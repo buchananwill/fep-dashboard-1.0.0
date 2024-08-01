@@ -1,7 +1,7 @@
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import VirtualizedOuterCellV2 from '@/components/tables/VirtualizedCellV2';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { InnerCellContent } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-series-assignments/AssignmentCell';
 import { useLazyDtoListListener } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types_';

@@ -5,12 +5,12 @@ import React, { useMemo } from 'react';
 import CellQueryManager, {
   CellIdReference
 } from '@/components/tables/CellQueryManager';
-import RenderOrganizationCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/RenderOrganizationCell';
+import RenderOrganizationCell from '@/components/work-project-series-assignments/RenderOrganizationCell';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
-import AssignmentCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
-import { workProjectSeriesDataRetrieval } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/workProjectSeriesDataRetrieval';
+import AssignmentCell from '@/components/work-project-series-assignments/AssignmentCell';
+import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/workProjectSeriesDataRetrieval';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -24,7 +24,7 @@ import {
 } from '@/api/generated-types/generated-types_';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import AssignmentRowCell from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentRowCell';
+import AssignmentRowCell from '@/components/work-project-series-assignments/AssignmentRowCell';
 
 export const selectedAssignmentCell = 'selectedAssignmentCell';
 export const AssignmentTableRowClassName = 'AssignmentTableRow';
