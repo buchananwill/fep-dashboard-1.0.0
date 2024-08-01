@@ -8,7 +8,7 @@ import {
   WorkProjectSeriesDto,
   WorkProjectSeriesMetricDto
 } from '@/api/generated-types/generated-types_';
-import WorkProjectSeriesMetricTable from '@/app/scheduling/[scheduleId]/work-project-series-metrics/WorkProjectSeriesMetricTable';
+import WorkProjectSeriesMetricTable from '@/components/work-project-series-metrics/WorkProjectSeriesMetricTable';
 import {
   DataFetchingEditDtoControllerArray,
   EditAddDeleteDtoControllerArray

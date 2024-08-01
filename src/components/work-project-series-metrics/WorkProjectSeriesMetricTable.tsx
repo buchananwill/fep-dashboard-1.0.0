@@ -14,8 +14,8 @@ import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/Cy
 import React, { memo } from 'react';
 import { getCellDataIdReferenceOrUndefined } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
 import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
-import WorkProjectSeriesCell from '@/app/scheduling/[scheduleId]/work-project-series-metrics/WorkProjectSeriesCell';
-import WorkProjectSeriesBuildMetricCell from '@/app/scheduling/[scheduleId]/work-project-series-metrics/WorkProjectSeriesBuildMetricCell';
+import WorkProjectSeriesCell from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
+import WorkProjectSeriesBuildMetricCell from '@/components/work-project-series-metrics/WorkProjectSeriesBuildMetricCell';
 import { MemoCycleSubspanCell } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 
 export default function WorkProjectSeriesMetricTable({
