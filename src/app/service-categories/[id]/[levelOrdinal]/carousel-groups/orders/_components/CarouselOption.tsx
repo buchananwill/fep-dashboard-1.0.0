@@ -48,6 +48,7 @@ import { initialMap } from '@/app/_literals';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 export const CarouselOptionState = 'CarouselOptionState';
+export const zIndexPopoverOverride = { zIndex: 50 };
 export default function CarouselOption({
   entity,
   canPrime
@@ -239,7 +240,7 @@ export default function CarouselOption({
             <PendingOverlay pending={true} />
           ) : (
             <ButtonGroup className={'flex h-full w-full justify-between'}>
-              <Popover>
+              <Popover style={zIndexPopoverOverride}>
                 <PopoverTrigger>
                   <Button
                     className={clsx(

@@ -1,7 +1,6 @@
 'use server';
 import { getKnowledgeLevelPartial } from '@/app/work-project-series-schemas/_functions/getLevelPartialAndSchemaList';
-import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/api/generated-actions/KnowledgeLevel';
-import { getDtoListByExampleList as getCarouselGroupsByExampleList } from '@/api/generated-actions/CarouselGroup';
+import { Api } from '@/api/clientApi_';
 
 export async function getCarouselGroups(
   levelOrdinal: string,
@@ -12,11 +11,13 @@ export async function getCarouselGroups(
     serviceCategoryId
   );
 
-  const kLevelList = await getKnowledgeLevelsByExampleList([levelPartial]);
+  const kLevelList = await Api.KnowledgeLevel.getDtoListByExampleList([
+    levelPartial
+  ]);
 
   const [knowledgeLevel] = kLevelList;
 
-  return await getCarouselGroupsByExampleList([
+  return await Api.CarouselGroup.getDtoListByExampleList([
     { knowledgeLevel: knowledgeLevel }
   ]);
 }

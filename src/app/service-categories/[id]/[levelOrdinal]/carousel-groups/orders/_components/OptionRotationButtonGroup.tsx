@@ -8,7 +8,10 @@ import {
   useGlobalDispatchAndListener
 } from 'selective-context';
 import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
+import {
+  CarouselOptionState,
+  zIndexPopoverOverride
+} from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { isNotUndefined } from '@/api/main';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -330,7 +333,7 @@ export default function OptionRotationButtonGroup() {
       >
         <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
-      <Popover>
+      <Popover style={zIndexPopoverOverride}>
         <PopoverTrigger>
           <Button className={'w-12'} isDisabled={filteredOrders.size === 0}>
             {filteredOrders.size}

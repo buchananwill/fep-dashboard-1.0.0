@@ -1,7 +1,3 @@
-import {
-  getDtoListByExampleList,
-  putList
-} from '@/api/generated-actions/CarouselOrder';
 import { PartialDeep } from 'type-fest';
 import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
 import {
@@ -10,9 +6,6 @@ import {
   MasterMapController
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
-import { getDtoListByBodyList as getCarouselByList } from '@/api/generated-actions/Carousel';
-import { getDtoListByBodyList as getWorkTaskTypeByList } from '@/api/generated-actions/WorkTaskType';
 import CarouselGroup from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselGroup';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import RotationConnectionOverlay from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
@@ -24,11 +17,10 @@ import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/wor
 import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { Api } from '@/api/clientApi_';
+import CarouselOrderModal from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/CarouselOrderModal';
 
-async function CarouselGroupOrdersPage({
-  depth,
-  pathVariables
-}: LeafComponentProps) {
+async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   const [id, levelOrdinal] = getLastNVariables(pathVariables, 2);
   const carouselGroupDtos = await getCarouselGroups(levelOrdinal, id);
 
@@ -43,8 +35,10 @@ async function CarouselGroupOrdersPage({
     dto.carousels.map((carousel) => carousel.id)
   );
 
-  const carouselOrderList = await getDtoListByExampleList(exampleList);
-  const carouselDtoList = await getCarouselByList(carouselIdList);
+  const carouselOrderList =
+    await Api.CarouselOrder.getDtoListByExampleList(exampleList);
+  const carouselDtoList =
+    await Api.Carousel.getDtoListByBodyList(carouselIdList);
   const optionStateList = transformOptionForClientState(carouselDtoList);
 
   return (
@@ -62,12 +56,12 @@ async function CarouselGroupOrdersPage({
       <DataFetchingEditDtoControllerArray
         idList={schemaIdList}
         entityClass={EntityClassMap.workProjectSeriesSchema}
-        getServerAction={getDtoListByBodyList}
+        getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
       />
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
         entityClass={EntityClassMap.workTaskType}
-        getServerAction={getWorkTaskTypeByList}
+        getServerAction={Api.WorkTaskType.getDtoListByBodyList}
       />
       <EditAddDeleteDtoControllerArray
         dtoList={carouselDtoList}
@@ -77,8 +71,9 @@ async function CarouselGroupOrdersPage({
         entityClass={EntityClassMap.carouselOrder}
         dtoList={carouselOrderList}
         mergeInitialWithProp={true}
-        updateServerAction={putList}
+        updateServerAction={Api.CarouselOrder.putList}
       />
+      <CarouselOrderModal />
       <CarouselGroup
         entityClass={EntityClassMap.carouselGroup}
         entityId={carouselGroupDtos[0].id}

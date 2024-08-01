@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import { ClashBadge } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/ClashBadge';
+import { useCarouselOrderModalTrigger } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/CarouselOrderModal';
 
 export default function CarouselOrderItem({
   entity: orderItem
@@ -20,6 +21,7 @@ export default function CarouselOrderItem({
   });
   const readAny =
     useReadAnyDto<CarouselOptionStateInterface>(CarouselOptionState);
+  const modalTrigger = useCarouselOrderModalTrigger(orderItem.carouselOrderId);
 
   const option = readAny(orderItem.carouselOptionId);
 
@@ -34,15 +36,16 @@ export default function CarouselOrderItem({
   }));
 
   return drag(
-    <div
+    <button
       className={clsx(
-        'bg-white rounded-lg odd:bg-sky-300 even:bg-red-300 p-1 cursor-pointer',
+        'cursor-pointer rounded-lg bg-white p-1 odd:bg-sky-300 even:bg-red-300',
         isDragging && ' opacity-50'
       )}
+      onClick={modalTrigger}
     >
       <ClashBadge show={clashList.length > 0} content={'!'}>
         <div className={''}>User: {entity.userRoleId}</div>
       </ClashBadge>
-    </div>
+    </button>
   );
 }
