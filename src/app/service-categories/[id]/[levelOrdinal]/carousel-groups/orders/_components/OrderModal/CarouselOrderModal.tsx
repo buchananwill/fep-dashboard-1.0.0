@@ -17,6 +17,7 @@ import { DispatchState } from '@/types';
 import { Switch } from '@nextui-org/react';
 import { mockOrder } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/MockOrder';
 import SelectIsActive from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/SelectIsActive';
+import { OrderItemLabel } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/OrderItemLabel';
 
 const carouselOrderModalController = 'CarouselOrderModalController';
 export const carouselOrderModal = 'CarouselOrderModal';
@@ -79,17 +80,20 @@ export interface OrderItemRowProps {
   orderItem: CarouselOrderItemDto;
 }
 
-function CarouselOrderItem({ dispatch, orderItem }: OrderItemRowProps) {
+function CarouselOrderItem(props: OrderItemRowProps) {
   return (
     <tr>
-      <td>{orderItem.preferencePosition}</td>
       <td>
-        <SelectIsActive dispatch={dispatch} orderItem={orderItem} />
+        <OrderItemLabel {...props} />
+      </td>
+      <td>{props.orderItem.preferencePosition}</td>
+      <td>
+        <SelectIsActive {...props} />
       </td>
       <td>
-        <select value={orderItem.carouselOptionId}>
-          <option value={orderItem.carouselOptionId}>
-            {orderItem.carouselOptionId}
+        <select value={props.orderItem.carouselOptionId}>
+          <option value={props.orderItem.carouselOptionId}>
+            {props.orderItem.carouselOptionId}
           </option>
         </select>
       </td>

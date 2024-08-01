@@ -18,16 +18,6 @@ export default function SelectIsActive({
           ...orderItem,
           active: isSelected
         };
-        //   Object.fromEntries(
-        //   Object.entries(order.carouselOrderItems).map(([itemKey, item]) => {
-        //     if (itemKey !== orderItem.workProjectSeriesSchemaId) {
-        //       return [itemKey, item] as OrderItemEntryTuple;
-        //     } else {
-        //       const updatedItem = { ...item, active: isSelected };
-        //       return [itemKey, updatedItem] as OrderItemEntryTuple;
-        //     }
-        //   })
-        // );
         const updatedOrder: CarouselOrderDto = {
           ...order,
           carouselOrderItems: updatedItems
