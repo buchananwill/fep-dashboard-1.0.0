@@ -12,8 +12,8 @@ import { Chip } from '@nextui-org/chip';
 import {
   CycleDay,
   getWeekNumberInt
-} from '@/app/cycles/_functions/groupCycleSubspansByDay';
-import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
+} from '@/functions/cycles/groupCycleSubspansByDay';
+import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
 
 import { CycleSubspanGroupDto } from '@/api/dtos/CycleSubspanGroupDtoSchema';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';

@@ -13,7 +13,7 @@ import AssignmentTable, {
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import SchedulingHome from '@/app/scheduling/SchedulingHome';
+import SchedulingHome from '@/app/core/scheduling/SchedulingHome';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import {
   AssignmentTableRow,

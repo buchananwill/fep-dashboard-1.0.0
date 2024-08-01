@@ -2,8 +2,8 @@
 
 import { SimpleTreeView } from '@mui/x-tree-view';
 import { CheckCircleOutline, HighlightOff } from '@mui/icons-material';
-import FeasibilityReportTreeItem from '@/app/scheduling/feasibility-report/_components/FeasilbilityReportTreeItem';
-import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';
+import FeasibilityReportTreeItem from '@/components/feasibility-report/FeasilbilityReportTreeItem';
+import { FullReport } from '@/components/feasibility-report/types';
 
 export const taskTypeClassification = 'TaskTypeClassification';
 export const taskTypeClassificationItem = 'taskTypeClassificationItem';

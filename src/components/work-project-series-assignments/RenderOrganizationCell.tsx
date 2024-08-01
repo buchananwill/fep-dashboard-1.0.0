@@ -1,7 +1,7 @@
 import { LazyDtoUiWrapper } from 'dto-stores';
-import { NamedEntityLabel } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
+import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
+import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 
 export default function RenderOrganizationCell({

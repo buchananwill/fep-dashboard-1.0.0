@@ -1,4 +1,4 @@
-import { BandwidthFeasibilityLayer } from '@/app/scheduling/feasibility-report/_components/types';
+import { BandwidthFeasibilityLayer } from '@/components/feasibility-report/types';
 import {
   CustomTreeItem,
   StyledTreeItemProps
@@ -7,7 +7,7 @@ import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useMemo } from 'react';
 import { TaskTypeClassificationDto } from '@/api/dtos/TaskTypeClassificationDtoSchema_';
-import { NamedEntityLabel } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
+import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 
 function TaskTypeClassificationSummary({
   entity

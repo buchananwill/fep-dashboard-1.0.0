@@ -8,10 +8,10 @@ import React, { memo, useCallback, useMemo } from 'react';
 import {
   NamedEntityLabel,
   WorkProjectSeriesSchemaCode
-} from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
+} from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 import { LazyDtoUiWrapper, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
+import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import { selectedAssignmentCell } from '@/components/work-project-series-assignments/AssignmentTable';
 import { EmptyArray } from '@/api/literals';

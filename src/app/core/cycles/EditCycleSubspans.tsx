@@ -1,4 +1,4 @@
-import CycleViewer from '@/app/cycles/_components/CycleViewer';
+import CycleViewer from '@/components/cycles/CycleViewer';
 import { getOne } from '@/api/generated-actions/Cycle';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 

@@ -1,6 +1,6 @@
-import { CycleDay } from '@/app/cycles/_functions/groupCycleSubspansByDay';
+import { CycleDay } from '@/functions/cycles/groupCycleSubspansByDay';
 
-import CycleDayViewer from '@/app/cycles/_components/CycleDayViewer';
+import CycleDayViewer from '@/components/cycles/CycleDayViewer';
 import { CycleDto } from '@/api/dtos/CycleDtoSchema';
 import { getDtoListByExampleList } from '@/api/generated-actions/CycleSubspan';
 

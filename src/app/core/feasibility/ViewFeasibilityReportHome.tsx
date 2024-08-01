@@ -1,6 +1,6 @@
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import ViewFeasibilityReportPage from '@/app/scheduling/feasibility-report/[id]/ViewFeasibilityReportPage';
+import ViewFeasibilityReportPage from '@/app/core/feasibility/ViewFeasibilityReportPage';
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';

@@ -1,9 +1,9 @@
 'use client';
-import { EncapsulatedButton } from '@/app/scheduling/feasibility-report/_components/CreateFeasibilityReport';
+import { EncapsulatedButton } from '@/components/feasibility-report/CreateFeasibilityReport';
 import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { buildScheduleAction } from '@/app/scheduling/build/buildScheduleAction';
+import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
 import { useRouter } from 'next/navigation';
 
 export default function BuildSchedule({

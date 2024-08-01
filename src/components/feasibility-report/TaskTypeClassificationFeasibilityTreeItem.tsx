@@ -1,10 +1,10 @@
-import { TaskTypeItem } from '@/app/scheduling/feasibility-report/_components/types';
+import { TaskTypeItem } from '@/components/feasibility-report/types';
 import {
   CustomTreeItem,
   StyledTreeItemProps
 } from '@/components/CustomTreeItem';
-import { NamedEntityLabelWrapper } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
-import { taskTypeClassification } from '@/app/scheduling/feasibility-report/_components/FeasibilityReport';
+import { NamedEntityLabelWrapper } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
+import { taskTypeClassification } from '@/components/feasibility-report/FeasibilityReport';
 
 export default function TaskTypeClassificationFeasibilityTreeItem({
   children,

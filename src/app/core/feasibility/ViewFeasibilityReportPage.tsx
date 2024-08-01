@@ -2,7 +2,7 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import FeasibilityReport, {
   taskTypeClassification
-} from '@/app/scheduling/feasibility-report/_components/FeasibilityReport';
+} from '@/components/feasibility-report/FeasibilityReport';
 
 import {
   DataFetchingEditDtoControllerArray,
@@ -11,7 +11,7 @@ import {
 } from 'dto-stores';
 import { Api } from '@/api/clientApi_';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { FullReport } from '@/app/scheduling/feasibility-report/_components/types';
+import { FullReport } from '@/components/feasibility-report/types';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { ClockIcon } from '@heroicons/react/24/outline';

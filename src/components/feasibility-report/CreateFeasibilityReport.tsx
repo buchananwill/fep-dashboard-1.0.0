@@ -2,7 +2,7 @@
 
 import { Button, ButtonProps } from '@nextui-org/button';
 import { PressEvents } from '@react-types/shared';
-import { createFeasibilityReport } from '@/app/scheduling/feasibility-report/createFeasibilityAction';
+import { createFeasibilityReport } from '@/api/createFeasibilityAction';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { FeasibilityReportDto } from '@/api/dtos/FeasibilityReportDtoSchema';

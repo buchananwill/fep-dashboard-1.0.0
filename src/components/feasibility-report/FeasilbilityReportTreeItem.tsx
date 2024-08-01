@@ -1,11 +1,11 @@
-import { getCommonTreeItemProps } from '@/app/scheduling/feasibility-report/_components/getCommonTreeItemProps';
-import { FeasibilityReportTreeItemProps } from '@/app/scheduling/feasibility-report/_components/types';
-import { WorkSchemaNodeFeasibilityItem } from '@/app/scheduling/feasibility-report/_components/WorkSchemaNodeFeasibilityItem';
-import TaskTypeClassificationFeasibilityTreeItem from '@/app/scheduling/feasibility-report/_components/TaskTypeClassificationFeasibilityTreeItem';
+import { getCommonTreeItemProps } from '@/components/feasibility-report/getCommonTreeItemProps';
+import { FeasibilityReportTreeItemProps } from '@/components/feasibility-report/types';
+import { WorkSchemaNodeFeasibilityItem } from '@/components/feasibility-report/WorkSchemaNodeFeasibilityItem';
+import TaskTypeClassificationFeasibilityTreeItem from '@/components/feasibility-report/TaskTypeClassificationFeasibilityTreeItem';
 import { CustomTreeItem } from '@/components/CustomTreeItem';
 import { useMemo } from 'react';
-import BandwidthFeasibilityLayerTreeItem from '@/app/scheduling/feasibility-report/_components/BandwidthFeasibilityLayerTreeItem';
-import AssignmentFeasibilityTreeItem from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
+import BandwidthFeasibilityLayerTreeItem from '@/components/feasibility-report/BandwidthFeasibilityLayerTreeItem';
+import AssignmentFeasibilityTreeItem from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 
 export default function FeasibilityReportTreeItem({
   children,

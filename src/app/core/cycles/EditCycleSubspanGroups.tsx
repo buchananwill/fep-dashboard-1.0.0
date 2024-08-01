@@ -1,13 +1,13 @@
 import {
   getWeekNumberInt,
   groupCycleSubspansByDay
-} from '@/app/cycles/_functions/groupCycleSubspansByDay';
+} from '@/functions/cycles/groupCycleSubspansByDay';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
-import { CycleSubspanGroupEditDto } from '@/app/cycles/_components/CycleSubspanGroupEdit';
+import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
+import { CycleSubspanGroupEditDto } from '@/components/cycles/CycleSubspanGroupEdit';
 import { getWithoutBody } from '@/api/actions/template-actions';
-import CycleSubspanGroupUiWrapper from '@/app/cycles/_components/CycleSubspanGroupUiWrapper';
-import { putGroupEditAction } from '@/app/cycles/_functions/putGroupEditAction';
+import CycleSubspanGroupUiWrapper from '@/components/cycles/CycleSubspanGroupUiWrapper';
+import { putGroupEditAction } from '@/functions/cycles/putGroupEditAction';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { getOne } from '@/api/generated-actions/Cycle';
 import { parseTen } from '@/api/date-and-time';

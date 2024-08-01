@@ -1,7 +1,7 @@
 'use client';
 import CycleSubspanGroupEdit, {
   CycleSubspanGroupEditDto
-} from '@/app/cycles/_components/CycleSubspanGroupEdit';
+} from '@/components/cycles/CycleSubspanGroupEdit';
 import { JSX } from 'react/jsx-runtime';
 import { LazyDtoUiListSome } from 'dto-stores';
 import { useMemo } from 'react';

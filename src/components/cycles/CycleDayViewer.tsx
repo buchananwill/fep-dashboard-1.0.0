@@ -1,16 +1,16 @@
 'use client';
 import { memo, useCallback, useEffect, useMemo, useTransition } from 'react';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { numberToWeekLetter } from '@/app/cycles/_functions/numberToWeekLetter';
-import { getWeekNumberInt } from '@/app/cycles/_functions/groupCycleSubspansByDay';
+import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
+import { getWeekNumberInt } from '@/functions/cycles/groupCycleSubspansByDay';
 import { Button } from '@nextui-org/button';
-import CycleSubspan from '@/app/cycles/_components/CycleSubspan';
-import { CycleDayFetcherProps } from '@/app/cycles/_components/CycleDayFetcher';
+import CycleSubspan from '@/components/cycles/CycleSubspan';
+import { CycleDayFetcherProps } from '@/components/cycles/CycleDayFetcher';
 
 import { isNotUndefined } from '@/api/main';
 import { useGlobalController } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { templateCycleSubspan } from '@/app/cycles/_components/CycleViewer';
+import { templateCycleSubspan } from '@/components/cycles/CycleViewer';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import {

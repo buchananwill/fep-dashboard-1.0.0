@@ -1,6 +1,6 @@
 import { LinkButton } from '@/app/service-categories/LinkButton';
-import CreateFeasibilityReportPage from '@/app/scheduling/feasibility-report/CreateFeasibilityReportPage';
-import { ViewFeasibilityReportHome } from '@/app/scheduling/feasibility-report/[id]/ViewFeasibilityReportHome';
+import CreateFeasibilityReportPage from '@/app/core/feasibility/CreateFeasibilityReportPage';
+import { ViewFeasibilityReportHome } from '@/app/core/feasibility/ViewFeasibilityReportHome';
 import { NavTreeBranch } from '@/app/core/navigation/types';
 import { startCase } from 'lodash';
 

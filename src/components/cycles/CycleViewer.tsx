@@ -1,12 +1,9 @@
-import { createCycleDays } from '@/app/cycles/_functions/groupCycleSubspansByDay';
+import { createCycleDays } from '@/functions/cycles/groupCycleSubspansByDay';
 import { EntityClassMap } from '@/api/entity-class-map';
 
-import CycleDayFetcher from '@/app/cycles/_components/CycleDayFetcher';
+import CycleDayFetcher from '@/components/cycles/CycleDayFetcher';
 import { ArrayPlaceholder } from 'selective-context';
-import {
-  interceptPost,
-  interceptPut
-} from '@/app/cycles/_functions/interceptors';
+import { interceptPost, interceptPut } from '@/functions/cycles/interceptors';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { CycleDto } from '@/api/dtos/CycleDtoSchema';
 import { deleteIdList } from '@/api/generated-actions/CycleSubspan';

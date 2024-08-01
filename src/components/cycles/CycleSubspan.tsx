@@ -3,7 +3,7 @@
 import { BaseDtoUiProps, Identifier } from 'dto-stores';
 
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
-import { TimeInputCycleSubspan } from '@/app/cycles/_components/TimeInputCycleSubspan';
+import { TimeInputCycleSubspan } from '@/components/cycles/TimeInputCycleSubspan';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { ObjectPlaceholder, useGlobalDispatch } from 'selective-context';
