@@ -1,6 +1,6 @@
 'use server';
 import { putEntities } from '@/api/actions/template-actions';
-import { CycleSubspanGroupEditDto } from '@/app/cycles/edit/[id]/cycleSubspanGroups/_components/CycleSubspanGroupEdit';
+import { CycleSubspanGroupEditDto } from '@/app/cycles/_components/CycleSubspanGroupEdit';
 
 import { API_V2_URL } from '@/api/literals';
 

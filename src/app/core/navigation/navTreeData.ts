@@ -1,6 +1,6 @@
 import { NavTree } from '@/app/core/navigation/types';
-import { cyclesNavTree } from '@/app/cycles/cyclesNavTree';
-import CyclesHome from '@/app/cycles/cyclesHome';
+import { cyclesNavTree } from '@/app/core/cycles/cyclesNavTree';
+import CyclesHome from '@/app/core/cycles/cyclesHome';
 import { schedulingNavTree } from '@/app/scheduling/schedulingNavTree';
 import { WorkSchemaNodeNavTree } from '@/app/service-categories/[id]/work-schema-nodes/workSchemaNodeNavTree';
 import ServiceCategoriesHome from '@/app/service-categories/ServiceCategoriesHome';
