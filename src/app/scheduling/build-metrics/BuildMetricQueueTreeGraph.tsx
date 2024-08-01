@@ -1,5 +1,5 @@
 'use client';
-import { BuildMetricDto } from '@/api/generated-types/generated-types';
+import { BuildMetricDto } from '@/api/generated-types/generated-types_';
 import { useMemo } from 'react';
 import { ResponsiveLine, ResponsiveLineCanvas } from '@nivo/line';
 

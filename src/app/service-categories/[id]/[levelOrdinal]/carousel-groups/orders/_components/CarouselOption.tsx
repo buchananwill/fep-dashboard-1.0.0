@@ -45,7 +45,7 @@ import {
   RotationConnectionMap
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/RotationConnectionOverlay';
 import { initialMap } from '@/app/_literals';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 
 export const CarouselOptionState = 'CarouselOptionState';
 export const zIndexPopoverOverride = { zIndex: 50 };

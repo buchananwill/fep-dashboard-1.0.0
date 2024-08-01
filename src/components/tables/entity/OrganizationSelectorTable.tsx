@@ -7,7 +7,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { getValue } from '@/functions/allowingNestedFiltering';
 import { StringPathsNoDeepOptionals } from '@/functions/chatGptTriesToStringPath';
 import { TypedPaths } from '@/functions/typePaths';
-import { OrganizationDto } from '@/api/generated-types/generated-types';
+import { OrganizationDto } from '@/api/generated-types/generated-types_';
 
 export default function OrganizationSelectorTable({
   organizations

@@ -5,7 +5,7 @@ import {
   OrganizationDto,
   WorkProjectSeriesAssignmentDto,
   WorkSchemaNodeAssignmentDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 
 export interface Page<T> {
   content: T[];

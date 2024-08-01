@@ -7,7 +7,7 @@ import {
   CycleSubspanWithJoinsListDto,
   WorkProjectSeriesDto,
   WorkProjectSeriesMetricDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import WorkProjectSeriesMetricTable from '@/app/scheduling/[scheduleId]/work-project-series-metrics/WorkProjectSeriesMetricTable';
 import {
   DataFetchingEditDtoControllerArray,

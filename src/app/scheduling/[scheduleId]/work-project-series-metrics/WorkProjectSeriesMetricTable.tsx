@@ -4,7 +4,7 @@ import {
   CycleSubspanWithJoinsListDto,
   WorkProjectSeriesDto,
   WorkProjectSeriesMetricDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import CellQueryManager from '@/components/tables/CellQueryManager';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';

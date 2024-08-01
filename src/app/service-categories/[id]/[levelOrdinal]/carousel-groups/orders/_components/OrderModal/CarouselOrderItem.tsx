@@ -2,7 +2,7 @@ import { DispatchState } from '@/types';
 import {
   CarouselOrderDto,
   CarouselOrderItemDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { OrderItemLabel } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/OrderItemLabel';
@@ -88,7 +88,7 @@ export function CarouselOrderItem(props: OrderItemRowProps) {
   return drop(
     dragPreview(
       <tr className={clsx(isOver && 'animate-pulse')}>
-        <td>
+        <td className={'h-full'}>
           <OrderItemLabel {...props} />
         </td>
         {drag(

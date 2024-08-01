@@ -4,7 +4,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { InnerCellContent } from '@/app/scheduling/[scheduleId]/work-project-series-assignments/AssignmentCell';
 import { useLazyDtoListListener } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
-import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types_';
 import { useMemo } from 'react';
 import { clamp, round } from 'lodash';
 import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';

@@ -6,7 +6,7 @@ import {
   WorkProjectSeriesSchemaCode
 } from '@/app/scheduling/feasibility-report/_components/WorkProjectSeriesSchemaLabel';
 import { BaseDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
-import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types_';
 import { Loading } from '@/app/scheduling/feasibility-report/_components/AssignmentFeasibilityTreeItem';
 
 export default function WorkProjectSeriesCell(props: CellWrapperProps) {
