@@ -33,6 +33,7 @@ export default function _OptionMapManager() {
         }
       }
     }
+    console.log(optionMap);
     return optionMap;
   }, [carouselList]);
 

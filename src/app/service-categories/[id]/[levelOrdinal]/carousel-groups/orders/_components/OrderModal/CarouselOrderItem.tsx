@@ -9,6 +9,7 @@ import { OrderItemLabel } from '@/app/service-categories/[id]/[levelOrdinal]/car
 import SelectIsActive from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/SelectIsActive';
 import clsx from 'clsx';
 import { useCallback } from 'react';
+import SelectCarouselOptionAssignment from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/SelectCarouselOptionAssignment';
 
 export interface OrderItemRowProps {
   dispatch: DispatchState<CarouselOrderDto>;
@@ -106,11 +107,7 @@ export function CarouselOrderItem(props: OrderItemRowProps) {
           <SelectIsActive {...props} />
         </td>
         <td>
-          <select value={props.orderItem.carouselOptionId}>
-            <option value={props.orderItem.carouselOptionId}>
-              {props.orderItem.carouselOptionId}
-            </option>
-          </select>
+          <SelectCarouselOptionAssignment {...props} />
         </td>
       </tr>
     )
