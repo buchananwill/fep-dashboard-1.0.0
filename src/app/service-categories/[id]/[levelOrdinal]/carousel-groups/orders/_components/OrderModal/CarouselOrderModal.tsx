@@ -21,8 +21,8 @@ export interface CarouselOrderModalState {
 }
 
 const defaultState = {
-  carouselOrderId: 'd6ef1aac-9cfb-481a-8259-42f63c5651ad',
-  isOpen: true
+  carouselOrderId: undefined,
+  isOpen: false
 };
 export default function CarouselOrderModal() {
   const {
@@ -41,8 +41,6 @@ export default function CarouselOrderModal() {
   const onClose = useCallback(() => {
     dispatch(defaultState);
   }, [dispatch]);
-
-  console.log(entity);
 
   const sortedOrderItems = useMemo(() => {
     return entity

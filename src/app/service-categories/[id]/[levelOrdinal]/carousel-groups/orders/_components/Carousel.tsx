@@ -42,6 +42,7 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
   >(CarouselOptionState, KEY_TYPES.MASTER_LIST);
 
   useEffect(() => {
+    console.log('Carousel entity changed: useEffect hook firing.');
     if (entity !== initialEntity.current) {
       dispatchOptionMasterList((list) => {
         const optionStates = transformOptionForClientState([entity]);

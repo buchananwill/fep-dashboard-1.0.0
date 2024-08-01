@@ -32,8 +32,6 @@ export function useClientSideFiltering<
         const value = String(
           getValue(entity, currentFilterProperty)
         ).toLowerCase() as string;
-        console.log(value, currentFilterProperty, filterValue);
-        // getValue(entity, currentFilterProperty, '')
         return value.toLowerCase().includes(filterValue.toLowerCase());
       });
     }

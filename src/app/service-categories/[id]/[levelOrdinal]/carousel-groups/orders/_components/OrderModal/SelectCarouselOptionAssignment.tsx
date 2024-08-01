@@ -23,7 +23,6 @@ export default function SelectCarouselOptionAssignment({
     `assignOptionModalSelect:${orderItem.id}`,
     EmptyArray
   );
-  console.log(currentState, orderItem);
   const readAnyCarousel = useReadAnyDto<CarouselDto>(EntityClassMap.carousel);
 
   const optionsToSelectFrom = useMemo(() => {

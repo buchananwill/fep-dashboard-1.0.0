@@ -26,7 +26,6 @@ export function performDiffOnCarouselOrderItem(
   // match: false & true #2
   if (assignmentMatch) {
     if (item.active && currOptionDefined) {
-      console.log('Adding item after set active to true');
       handleAddAssignee(dispatchWriteAny, item);
       updateSucceeded = true;
     } else if (prevOptionDefined) {

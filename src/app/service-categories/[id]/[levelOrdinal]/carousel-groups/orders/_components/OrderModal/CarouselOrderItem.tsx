@@ -24,7 +24,6 @@ export function CarouselOrderItem(props: OrderItemRowProps) {
   }));
 
   const onDrop = (item: CarouselOrderItemDto, monitor: DropTargetMonitor) => {
-    console.log(item, orderItem);
     const { preferencePosition: prefPosDraggable } = item;
     const { preferencePosition: prefPosDropTarget } = orderItem;
     if (prefPosDropTarget === prefPosDraggable) return;

@@ -6,6 +6,7 @@ export function checkForClash(
   orderItems: Record<string, CarouselOrderItemDto>,
   carouselOptionDtoMap: Map<string, CarouselOptionDto>
 ) {
+  console.log(carouselOptionDtoMap);
   const clashes: CarouselOrderItemDto[][] = [];
   const itemSet = new Set(Object.values(orderItems));
   for (let orderItemDto of Object.values(orderItems)) {
