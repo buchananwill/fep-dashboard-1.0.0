@@ -7,10 +7,8 @@ import BuildMetricQueueTreeGraph from '@/app/core/scheduling/build-metrics/Build
 export default async function BuildMetric({
   pathVariables
 }: LeafComponentProps) {
-  const [scheduleId] = getLastNVariables(pathVariables, 1);
-  const [buildMetric] = await Api.BuildMetric.getDtoListByExampleList([
-    { scheduleId: parseTen(scheduleId) }
-  ]);
+  const [buildMetricId] = getLastNVariables(pathVariables, 1);
+  const buildMetric = await Api.BuildMetric.getOne(buildMetricId);
 
   return <BuildMetricQueueTreeGraph data={buildMetric} />;
 }

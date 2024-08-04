@@ -1,9 +1,8 @@
 import { Api } from '@/api/clientApi_';
-import { Link } from '@nextui-org/link';
-import { Button } from '@nextui-org/button';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import ScheduleFallbackPage from '@/app/core/scheduling/ScheduleFallbackPage';
+import { LinkButton } from '@/app/service-categories/LinkButton';
 
 export default async function SchedulingHome({}: LeafComponentProps) {
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([
@@ -14,14 +13,20 @@ export default async function SchedulingHome({}: LeafComponentProps) {
 
   return (
     <>
-      {passingSchedules.map((passingSchedule) => (
-        <Link
-          href={`/core/scheduling/work-project-series-assignments/${passingSchedule.id}`}
-          key={passingSchedule.id}
-        >
-          <Button variant={'ghost'}>Schedule {passingSchedule.id}</Button>
-        </Link>
-      ))}
+      <h1>Completed Schedules</h1>
+      <div className={'flex flex-col'}>
+        {passingSchedules.map((passingSchedule) => (
+          <LinkButton
+            href={`/core/scheduling/work-project-series-assignments/${passingSchedule.id}`}
+            key={passingSchedule.id}
+          >
+            Schedule {passingSchedule.id}
+          </LinkButton>
+        ))}
+        <LinkButton href={'/core/scheduling/build-metric'}>
+          Build Metrics
+        </LinkButton>
+      </div>
     </>
   );
 }

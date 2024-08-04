@@ -20,7 +20,7 @@ import { Api } from '@/api/clientApi_';
 export async function WorkProjectSeriesMetricsPage({
   pathVariables
 }: LeafComponentProps) {
-  const [scheduleId] = getLastNVariables(pathVariables, 1);
+  const [buildMetricId] = getLastNVariables(pathVariables, 1);
   const metricTableDto = await getWithoutBody<
     GenericTableDto<
       WorkProjectSeriesDto,
@@ -30,9 +30,8 @@ export async function WorkProjectSeriesMetricsPage({
     >
   >(
     constructUrl([
-      '/api/v2/workProjectSeries/metrics',
-      'scheduleId',
-      scheduleId
+      '/api/v2/workProjectSeries/metrics/heatMapTable',
+      buildMetricId
     ])
   );
 

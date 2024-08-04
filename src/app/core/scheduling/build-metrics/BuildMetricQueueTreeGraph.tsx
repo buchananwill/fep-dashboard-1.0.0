@@ -59,10 +59,7 @@ export default function BuildMetricQueueTreeGraph({
         pointColor={{ theme: 'background' }}
         pointBorderWidth={2}
         pointBorderColor={{ from: 'serieColor' }}
-        pointLabel="data.yFormatted"
-        pointLabelYOffset={-12}
         enableTouchCrosshair={true}
-        useMesh={true}
         legends={[
           {
             anchor: 'bottom-right',
