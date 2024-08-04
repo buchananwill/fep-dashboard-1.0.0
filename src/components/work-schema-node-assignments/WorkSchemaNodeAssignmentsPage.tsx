@@ -15,9 +15,9 @@ import {
   convertToOrganizationNode,
   convertToWorkSchemaFlowNode
 } from '@/react-flow/utils/adaptors';
-import { defaultForceGraphPageOptions } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/defaultForceGraphPageOptions';
+import { defaultForceGraphPageOptions } from '@/components/work-schema-node-assignments/defaultForceGraphPageOptions';
 import { Api } from '@/api/clientApi_';
-import WorkSchemaNodeManager from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/_components/WorkSchemaNodeManager';
+import WorkSchemaNodeManager from '@/components/work-schema-node-assignments/_components/WorkSchemaNodeManager';
 import { EmptyArray } from '@/api/literals';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/types';

@@ -10,7 +10,7 @@ import WorkTaskTypeHome from '@/app/service-categories/[id]/work-task-types/Work
 import WorkProjectSeriesSchemaHome from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 import { CarouselGroupsAndOrders } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/carouselGroupOrdersPage';
-import { WorkSchemaNodeAssignmentsHome } from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
+import { WorkSchemaNodeAssignmentsHome } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 import { rolePageTree } from '@/app/roles/rolePage';
 import NavigationHome from '@/app/core/navigation/NavigationHome';
 import CreateServiceCategoryPage from '@/app/service-categories/create/createServiceCategoryPage';

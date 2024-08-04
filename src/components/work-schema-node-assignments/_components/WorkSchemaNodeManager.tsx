@@ -9,7 +9,7 @@ import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
 import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
-import WorkSchemaNodeLeafController from '@/app/service-categories/[id]/[levelOrdinal]/work-schema-node-assignments/_components/WorkSchemaNodeLeafController';
+import WorkSchemaNodeLeafController from '@/components/work-schema-node-assignments/_components/WorkSchemaNodeLeafController';
 import React, { memo, useMemo, useRef } from 'react';
 import { isEqual } from 'lodash';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
