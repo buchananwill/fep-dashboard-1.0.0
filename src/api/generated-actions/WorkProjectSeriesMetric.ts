@@ -1,6 +1,6 @@
 'use server';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types_';
 
 const {
   getPage,
@@ -15,8 +15,8 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<StaticDeliveryAllocationItemDto, number>(
-  '/api/v2/staticDeliveryAllocationItems'
+} = generateBaseEndpointSet<WorkProjectSeriesMetricDto, number>(
+  '/api/v2/workProjectSeries/metrics'
 );
 
 export {

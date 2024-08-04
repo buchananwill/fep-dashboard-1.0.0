@@ -11,8 +11,8 @@ import AssetRoleSelectorTable from '@/components/tables/entity/AssetRoleSelector
 import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
 import { startCase } from 'lodash';
 import WorkProjectSeriesSchemaSelectorTable from '@/components/tables/entity/WorkProjectSeriesSchemaSelectorTable';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
 import OrganizationSelectorTable from '@/components/tables/entity/OrganizationSelectorTable';
+import { OrganizationDto } from '@/api/generated-types/generated-types_';
 
 export default function TabbedSelectorTables({
   workTaskTypes,

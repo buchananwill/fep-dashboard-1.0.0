@@ -20,7 +20,8 @@ import { EmptyArray } from '@/api/literals';
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,
   CycleSubspanWithJoinsListDto,
-  StaticDeliveryAllocationItemDto
+  StaticDeliveryAllocationItemDto,
+  number
 >;
 
 export async function StaticAllocationPage({

@@ -50,7 +50,6 @@ export interface StaticDeliveryAllocationItemDto
   id: number;
   cycleSubspanGroupId: string;
   staticDeliveryAllocation: StaticDeliveryAllocationDto;
-  workProjectSeriesSchemaId: string;
 }
 
 export interface Serializable {}
@@ -1549,7 +1548,7 @@ export interface OrganizationDto
   id: number;
   name: string;
   type: OrganizationTypeDto;
-  workSchemaNodeAssignment: WorkSchemaNodeAssignmentDto;
+  workSchemaNodeAssignment?: WorkSchemaNodeAssignmentDto;
 }
 
 export interface OrganizationTypeDto
@@ -1695,7 +1694,7 @@ export interface WorkSchemaNodeAssignmentDto
     IntersectionDto<number, number> {
   id: number;
   organizationId: number;
-  workSchemaNodeId: number;
+  workSchemaNodeId?: number;
 }
 
 export interface QueueProcessObserver {}

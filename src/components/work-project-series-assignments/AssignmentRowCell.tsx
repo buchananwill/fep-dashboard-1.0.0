@@ -1,3 +1,4 @@
+'use client';
 import {
   CellWrapperProps,
   getCellIdReference
@@ -24,6 +25,7 @@ export default function AssignmentRowCell({
   });
 
   const InnerCell = useMemo(() => {
+    if (entity === undefined) return null;
     switch (entity.entityClass) {
       case 'Organization':
         return (

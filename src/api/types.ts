@@ -3,8 +3,7 @@ import { StringObjectRecord } from '@/api/string-object-record';
 import { PartialDeep } from 'type-fest';
 import {
   OrganizationDto,
-  WorkProjectSeriesAssignmentDto,
-  WorkSchemaNodeAssignmentDto
+  WorkProjectSeriesAssignmentDto
 } from '@/api/generated-types/generated-types_';
 
 export interface Page<T> {
