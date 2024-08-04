@@ -3,7 +3,7 @@ import { BuildMetricDto } from '../dtos/BuildMetricDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {
-getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -14,17 +14,14 @@ getPage,
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList
-} = generateBaseEndpointSet<
-  BuildMetricDto,
-  string
->(
+  getDtoListByExampleList,
+  getIdList
+} = generateBaseEndpointSet<BuildMetricDto, string>(
   '/api/v2/schedule/buildMetric'
 );
 
-
 export {
-    getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -35,7 +32,6 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList
-
-}
-
+  getDtoListByExampleList,
+  getIdList
+};

@@ -3,6 +3,7 @@ import { WorkProjectSeriesAssignmentsPage } from '@/components/work-project-seri
 import { SchedulingHomeRedirect } from '@/app/core/scheduling/SchedulingHome';
 import BuildMetric from '@/app/core/scheduling/build-metrics/BuildMetric';
 import { WorkProjectSeriesMetricsPage } from '@/components/work-project-series-metrics/WorkProjectSeriesMetrics';
+import { BuildMetricFallback } from '@/app/core/scheduling/build-metrics/BuildMetricListHome';
 
 export const schedulingNavTree: NavTreeBranch = {
   type: 'branch',
@@ -14,7 +15,7 @@ export const schedulingNavTree: NavTreeBranch = {
     },
     buildMetric: {
       type: 'leaf',
-      component: BuildMetric
+      component: BuildMetricFallback
     },
     workProjectSeriesMetrics: {
       type: 'leaf',

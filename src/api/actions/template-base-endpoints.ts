@@ -40,6 +40,7 @@ type RecursivePartial<T> = {
 
 export interface BaseEndpointSet<T, ID_TYPE extends string | number> {
   getPage: (pageRequest: PageRequest) => Promise<Page<T>>;
+  getIdList: () => Promise<ID_TYPE[]>;
   getAll: () => Promise<T[]>;
   putList: (dtoList: T[]) => Promise<T[]>;
   postList: (dtoList: T[]) => Promise<T[]>;
@@ -58,6 +59,10 @@ async function getDtoList<T>(
   url: string
 ): Promise<Page<T>> {
   return getWithoutBody(`${url}?page=${page}&size=${pageSize}`);
+}
+
+async function getIdList<IdType>(url: string): Promise<IdType[]> {
+  return getWithoutBody(`${url}/idList`);
 }
 
 async function getAll<T>(url: string) {
@@ -138,6 +143,7 @@ export function generateBaseEndpointSet<
 
   return {
     getPage: (pageRequest) => getDtoList<T>(pageRequest, generatedUrl),
+    getIdList: () => getIdList<ID_TYPE>(generatedUrl),
     getAll: () => getAll(generatedUrl),
     putList: (dtoList) => putDtoList(dtoList, generatedUrl),
     postList: (dtoList) => postDtoList(dtoList, generatedUrl),

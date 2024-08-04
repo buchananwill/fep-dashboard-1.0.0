@@ -6,7 +6,6 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
 import AssignmentTable, {
   AssignmentTableRowClassName
 } from '@/components/work-project-series-assignments/AssignmentTable';
@@ -14,12 +13,7 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import SchedulingHome from '@/app/core/scheduling/SchedulingHome';
-import FinderTableButton from '@/components/tables/FinderTableButton';
-import {
-  AssignmentTableRow,
-  GenericTableDto,
-  OrganizationRow
-} from '@/api/types';
+import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
