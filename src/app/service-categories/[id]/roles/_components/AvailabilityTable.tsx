@@ -27,6 +27,7 @@ export function AvailabilityTable({
   tableData: GenericTableDto<
     ProviderRoleDto,
     CycleSubspanDto,
+    ProviderRoleAvailabilityDto,
     ProviderRoleAvailabilityDto
   >;
 }) {
@@ -62,22 +63,4 @@ export function AvailabilityTable({
       />
     </>
   );
-}
-
-function retrieveAvailabilityCell(
-  tableData: GenericTableDto<
-    ProviderRoleDto,
-    CycleSubspanDto,
-    ProviderRoleAvailabilityDto
-  >
-): GetCellContent<ProviderRoleAvailabilityDto> {
-  return {
-    memoizedFunction: ({ rowId, columnId }) => {
-      const row = tableData.rowColumnCellReferenceMap[String(rowId)];
-      if (!row) return undefined;
-      const cellReference = row[String(columnId)];
-      if (!cellReference) return undefined;
-      return tableData.cellIdCellContentMap[cellReference];
-    }
-  };
 }
