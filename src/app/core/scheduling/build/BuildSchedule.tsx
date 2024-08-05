@@ -5,6 +5,8 @@ import { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
 import { useRouter } from 'next/navigation';
+import { AutoBuildParametersDto } from '@/api/generated-types/generated-types_';
+import AutoBuildForm from '@/app/core/scheduling/build/BuildScheduleForm';
 
 export default function BuildSchedule({
   cycleId,
@@ -13,18 +15,12 @@ export default function BuildSchedule({
   const [isPending, startTransition] = useTransition();
   const appRouterInstance = useRouter();
 
-  return (
-    <Button
-      {...props}
-      onPress={() => {
-        startTransition(async () => {
-          const scheduleDto = await buildScheduleAction(cycleId);
-          appRouterInstance.push(`/core/scheduling/${scheduleDto.id}`);
-        });
-      }}
-    >
-      <PendingOverlay pending={isPending} />
-      Build Schedule
-    </Button>
-  );
+  return <AutoBuildForm />;
 }
+
+const defaultParams: AutoBuildParametersDto = {
+  saveBuild: true,
+  forceSaveMetrics: false,
+  multiUndoIncrement: 5,
+  multiStepUndoTimeoutMs: 20_000
+};

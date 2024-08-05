@@ -2,6 +2,13 @@
 /* eslint-disable */
 // Generated using typescript-generator version 3.2.1263 on 2024-07-31 11:17:18.
 
+export interface AutoBuildParametersDto extends Serializable {
+  multiStepUndoTimeoutMs: number;
+  multiUndoIncrement: number;
+  saveBuild: boolean;
+  forceSaveMetrics: boolean;
+}
+
 export interface CycleSubspanJoinNestedDto extends Serializable {
   id: number;
   cycleSubspanId: number;
