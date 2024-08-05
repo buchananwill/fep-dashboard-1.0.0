@@ -15,7 +15,13 @@ import {
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
 
-export default function AutoBuildForm() {
+export default function AutoBuildForm({
+  defaultMultiStepUndoTimeout,
+  defaultMultiUndoIncrement
+}: {
+  defaultMultiStepUndoTimeout: number;
+  defaultMultiUndoIncrement: number;
+}) {
   const {
     handleSubmit,
     formState: { errors },
@@ -24,8 +30,8 @@ export default function AutoBuildForm() {
   } = useForm<AutoBuildParametersDto>({
     resolver: zodResolver(AutoBuildParametersDtoSchema),
     defaultValues: {
-      multiStepUndoTimeoutMs: 20_000,
-      multiUndoIncrement: 5,
+      multiStepUndoTimeoutMs: defaultMultiStepUndoTimeout,
+      multiUndoIncrement: defaultMultiUndoIncrement,
       saveBuild: true,
       forceSaveMetrics: false
     }

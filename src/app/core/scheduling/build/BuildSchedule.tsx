@@ -11,11 +11,11 @@ import AutoBuildForm from '@/app/core/scheduling/build/BuildScheduleForm';
 export default function BuildSchedule({
   cycleId,
   ...props
-}: EncapsulatedButton & { cycleId: number }) {
-  const [isPending, startTransition] = useTransition();
-  const appRouterInstance = useRouter();
-
-  return <AutoBuildForm />;
+}: { cycleId: number } & {
+  defaultMultiStepUndoTimeout: number;
+  defaultMultiUndoIncrement: number;
+}) {
+  return <AutoBuildForm {...props} />;
 }
 
 const defaultParams: AutoBuildParametersDto = {
