@@ -15,7 +15,7 @@ export default async function UserAvatar() {
             await signOut();
           }}
         >
-          <button type="submit">
+          <button type="submit" className={'flex flex-col items-center'}>
             {session.user.image ? (
               <img
                 src={session.user.image}
