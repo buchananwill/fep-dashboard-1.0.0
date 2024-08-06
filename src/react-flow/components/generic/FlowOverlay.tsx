@@ -26,8 +26,12 @@ export function FlowOverlay({
 
   return (
     <>
-      <Controls />
-      <MiniMap />
+      <Panel position={'bottom-right'}>
+        <div className={'flex'}>
+          <MiniMap style={{ position: 'relative' }} />
+          <Controls style={{ position: 'relative' }} />
+        </div>
+      </Panel>
       <Panel position={'top-left'} className={'flex gap-1 align-middle'}>
         <Popover
           classNames={{ base: 'w-56' }}

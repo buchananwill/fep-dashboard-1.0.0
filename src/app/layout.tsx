@@ -7,6 +7,8 @@ import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { steps } from '@/components/react-joyride/steps';
 import TooltipSingleton from '@/components/generic/TooltipSingleton';
 import NavPopoverTrigger from '@/components/navigation/NavPopoverTrigger';
+import SessionPopoverContent from '@/components/auth/SessionPopoverContent';
+import SessionButton from '@/components/auth/SessionButton';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +30,7 @@ export default function RootLayout({
             <div className={'center-all-margin'}>{children}</div>
           </div>
           <TooltipSingleton />
+          <SessionButton />
           <NavPopoverTrigger />
         </LibraryProvidersWrapper>
         <JoyrideWrapper steps={steps} />
