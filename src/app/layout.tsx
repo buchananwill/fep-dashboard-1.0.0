@@ -7,8 +7,6 @@ import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { steps } from '@/components/react-joyride/steps';
 import TooltipSingleton from '@/components/generic/TooltipSingleton';
 import NavPopoverTrigger from '@/components/navigation/NavPopoverTrigger';
-import UnsavedChangesContent from '@/components/auth/UnsavedChangesContent';
-import SessionButton from '@/components/auth/SessionButton';
 import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTrackerWrapper';
 import UserAvatar from '@/components/auth/UserAvatar';
 
@@ -35,7 +33,6 @@ export default function RootLayout({
             <div className={'center-all-margin'}>{children}</div>
           </div>
           <TooltipSingleton />
-          {/*<SessionButton />*/}
           <NavPopoverTrigger />
         </LibraryProvidersWrapper>
         <JoyrideWrapper steps={steps} />
