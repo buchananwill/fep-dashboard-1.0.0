@@ -7,8 +7,10 @@ import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { steps } from '@/components/react-joyride/steps';
 import TooltipSingleton from '@/components/generic/TooltipSingleton';
 import NavPopoverTrigger from '@/components/navigation/NavPopoverTrigger';
-import SessionPopoverContent from '@/components/auth/SessionPopoverContent';
+import UnsavedChangesContent from '@/components/auth/UnsavedChangesContent';
 import SessionButton from '@/components/auth/SessionButton';
+import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTrackerWrapper';
+import UserAvatar from '@/components/auth/UserAvatar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,11 +28,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <LibraryProvidersWrapper>
+          <MasterChangesTrackWrapper>
+            <UserAvatar />
+          </MasterChangesTrackWrapper>
           <div className={'flex'}>
             <div className={'center-all-margin'}>{children}</div>
           </div>
           <TooltipSingleton />
-          <SessionButton />
+          {/*<SessionButton />*/}
           <NavPopoverTrigger />
         </LibraryProvidersWrapper>
         <JoyrideWrapper steps={steps} />

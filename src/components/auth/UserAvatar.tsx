@@ -1,15 +1,16 @@
 import { auth, signIn, signOut } from '@/auth';
 import { SignIn } from '@/components/auth/SignIn';
+import { handleSignout } from '@/components/auth/handleSignout';
 
 export default async function UserAvatar() {
   const session = await auth();
 
-  if (!session || !session.user) return <SignIn></SignIn>;
+  if (!session || !session.user) return <SignIn />;
   else
     return (
       <div>
         <form
-          action={async (formData) => {
+          action={async (formdata) => {
             'use server';
             await signOut();
           }}
@@ -19,11 +20,12 @@ export default async function UserAvatar() {
               <img
                 src={session.user.image}
                 alt="User Avatar"
-                className={'rounded-full'}
+                className={'h-12 w-12 rounded-full'}
               />
             ) : (
-              'Logged in'
+              'Sign Out'
             )}
+            Sign out
           </button>
         </form>
       </div>

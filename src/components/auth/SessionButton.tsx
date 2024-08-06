@@ -2,13 +2,12 @@ import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import clsx from 'clsx';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import SessionPopoverContent from '@/components/auth/SessionPopoverContent';
 
 export default function SessionButton() {
   return (
     <div
       className={
-        'fixed bottom-0 left-4 z-40 rounded-t-full bg-white bg-opacity-75 p-2 pb-4'
+        'fixed right-4 top-4 z-40 rounded-t-full bg-white bg-opacity-75 p-2 pb-4'
       }
     >
       <Popover>
@@ -22,7 +21,8 @@ export default function SessionButton() {
           </Button>
         </PopoverTrigger>
         <PopoverContent>
-          <SessionPopoverContent />
+          {/*<SessionPopoverContent />*/}
+          <div></div>
         </PopoverContent>
       </Popover>
     </div>
