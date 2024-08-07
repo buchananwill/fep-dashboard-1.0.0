@@ -8,9 +8,9 @@ export default async function page({
 }: {
   params: { pathVariables: string[] };
 }) {
-  const session = await auth();
-  if (!session)
-    return <LinkButton href={'/login'}>Go To Login Page</LinkButton>;
+  // const session = await auth();
+  // if (!session)
+  //   return <LinkButton href={'/login'}>Go To Login Page</LinkButton>;
   return (
     <ResolveNavTree
       navTree={navTreeData}

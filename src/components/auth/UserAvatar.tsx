@@ -1,6 +1,5 @@
-import { auth, signIn, signOut } from '@/auth';
+import { auth, signOut } from '@/auth';
 import { SignIn } from '@/components/auth/SignIn';
-import { handleSignout } from '@/components/auth/handleSignout';
 
 export default async function UserAvatar() {
   const session = await auth();
@@ -15,7 +14,12 @@ export default async function UserAvatar() {
             await signOut();
           }}
         >
-          <button type="submit" className={'flex flex-col items-center'}>
+          <button
+            type="submit"
+            className={
+              'flex flex-col items-center rounded-lg p-1 transition-colors-opacity hover:bg-rose-100'
+            }
+          >
             {session.user.image ? (
               <img
                 src={session.user.image}
