@@ -1,4 +1,3 @@
-import { Card } from '@nextui-org/card';
 import { navTreeData } from '@/app/core/navigation/navTreeData';
 import { createLinksFromNavTree } from '@/app/core/navigation/createLinksFromNavTree';
 import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';

@@ -11,6 +11,9 @@ import {
   navLinkIcons
 } from '@/components/navigation/navLinkIcons';
 import { camelCase } from 'lodash';
+import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
+import { Button } from '@nextui-org/button';
+import { NavLinkDescriptionsDefault } from '@/components/navigation/navLinkDescriptions';
 
 export function NavLinkTreeButton({
   navLinkNode,
@@ -54,14 +57,29 @@ export function NavLinkTreeButton({
     case 0:
       return <>{...childrenElements}</>;
     case 1: {
-      const Icon = navLinkIcons[camelCase(displayName) as NavigationType];
+      const navKey = camelCase(displayName) as NavigationType;
+      const Icon = navLinkIcons[navKey];
       return (
         <Card>
-          <CardHeader className={'flex gap-2'}>
-            <Icon className={'h-8 w-8'} />
-            {displayName}
-          </CardHeader>
-          <CardBody>
+          <Popover triggerScaleOnOpen={false}>
+            <PopoverTrigger>
+              <Button
+                variant={'light'}
+                className={'rounded-none italic text-default-500'}
+              >
+                <CardHeader
+                  className={'flex justify-between  border-default-200 '}
+                >
+                  <Icon className={'h-8 w-8'} />
+                  {displayName}
+                </CardHeader>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className={'max-w-lg'}>
+              {NavLinkDescriptionsDefault[navKey]}
+            </PopoverContent>
+          </Popover>
+          <CardBody className={'pt-0'}>
             <DisplayThisLevel displayLabel={DisplayLabelElement}>
               {...childrenElements}
             </DisplayThisLevel>
