@@ -33,7 +33,11 @@ function UnsavedChangesToast({
   }, [props, session]);
 
   return (
-    <div className={'fixed right-4 top-4 z-30 h-fit w-fit'}>
+    <div
+      className={
+        'fixed right-4 top-4 z-30 h-fit w-fit opacity-50 transition-opacity hover:opacity-100'
+      }
+    >
       <Popover>
         <Badge
           content={'!'}
