@@ -9,14 +9,12 @@ export default function NavigationHome() {
   const linksFromNavTree = createLinksFromNavTree(navTreeData, ['core'], []);
 
   return (
-    <div className={' p-4'}>
-      <Card>
-        <NavLinkTreeButton
-          navLinkNode={linksFromNavTree}
-          renderHeaderAs={WrappedHeader}
-          renderLinkAs={WrappedLink}
-        />
-      </Card>
+    <div className={'grid grid-cols-4 gap-2 p-2'}>
+      <NavLinkTreeButton
+        navLinkNode={linksFromNavTree}
+        renderHeaderAs={WrappedHeader}
+        renderLinkAs={WrappedLink}
+      />
     </div>
   );
 }

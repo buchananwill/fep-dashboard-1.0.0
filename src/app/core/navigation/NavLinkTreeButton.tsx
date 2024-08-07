@@ -5,6 +5,12 @@ import {
   LinkWithChildLinks,
   NavLinkTree
 } from '@/app/core/navigation/types';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
+import {
+  NavigationType,
+  navLinkIcons
+} from '@/components/navigation/navLinkIcons';
+import { camelCase } from 'lodash';
 
 export function NavLinkTreeButton({
   navLinkNode,
@@ -18,11 +24,12 @@ export function NavLinkTreeButton({
   const { link, displayName, children, indexList } = navLinkNode;
   const DisplayLabelElement = (
     <>
-      <span className={'mr-2 font-mono'}>
-        {indexList.join('.')}
-        {indexList.length > 0 ? ':' : ''}
-      </span>
-      <span>{displayName}</span>
+      {
+        <>
+          <span className={'mr-2 font-mono'}>{indexList.join('.')}:</span>
+          <span>{displayName}</span>
+        </>
+      }
     </>
   );
   const childrenElements = children.map((navTreeLink) => (
@@ -43,9 +50,30 @@ export function NavLinkTreeButton({
         </LinkComponent>
       )
     : HeaderComponent;
-  return (
-    <DisplayThisLevel displayLabel={DisplayLabelElement}>
-      {...childrenElements}
-    </DisplayThisLevel>
-  );
+  switch (indexList.length) {
+    case 0:
+      return <>{...childrenElements}</>;
+    case 1: {
+      const Icon = navLinkIcons[camelCase(displayName) as NavigationType];
+      return (
+        <Card>
+          <CardHeader className={'flex gap-2'}>
+            <Icon className={'h-8 w-8'} />
+            {displayName}
+          </CardHeader>
+          <CardBody>
+            <DisplayThisLevel displayLabel={DisplayLabelElement}>
+              {...childrenElements}
+            </DisplayThisLevel>
+          </CardBody>
+        </Card>
+      );
+    }
+    default:
+      return (
+        <DisplayThisLevel displayLabel={DisplayLabelElement}>
+          {...childrenElements}
+        </DisplayThisLevel>
+      );
+  }
 }

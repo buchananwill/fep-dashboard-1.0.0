@@ -5,9 +5,11 @@ export function NavTreeLinkWrapper({
   label: LabelComponent
 }: PropsWithChildren & { label: ReactElement }) {
   return (
-    <div className={'flex flex-col'}>
+    <>
       {LabelComponent}
-      <div className={'ml-4'}>{children}</div>
-    </div>
+      <div className={'flex flex-col'}>
+        <div className={'ml-4'}>{children}</div>
+      </div>
+    </>
   );
 }
