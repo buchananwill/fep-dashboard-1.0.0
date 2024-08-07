@@ -14,13 +14,16 @@ import {
 } from '@/api/dtos/AutoBuildParametersDtoSchema';
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
+import { Overlay } from '@/components/overlays/overlay';
 
 export default function AutoBuildForm({
   defaultMultiStepUndoTimeout,
-  defaultMultiUndoIncrement
+  defaultMultiUndoIncrement,
+  disable
 }: {
   defaultMultiStepUndoTimeout: number;
   defaultMultiUndoIncrement: number;
+  disable?: boolean;
 }) {
   const {
     handleSubmit,
@@ -43,14 +46,23 @@ export default function AutoBuildForm({
   const onSubmit: SubmitHandler<AutoBuildParametersDto> = async (data) => {
     startTransition(async () => {
       console.log('submitted', data);
-      const pendingSchedule = await buildScheduleAction(1, data);
-      // Handle post submit actions, e.g., redirect to a different page
-      appRouterInstance.push(`/core/scheduling/${pendingSchedule.id}`);
+      if (!disable) {
+        const pendingSchedule = await buildScheduleAction(1, data);
+        // Handle post submit actions, e.g., redirect to a different page
+        appRouterInstance.push(`/core/scheduling/${pendingSchedule.id}`);
+      } else {
+        alert('Sign in to enable');
+      }
     });
   };
 
   return (
     <Card className={'mt-8 w-64'}>
+      {disable && (
+        <Overlay>
+          <div className={'rounded-lg bg-white p-2'}>Sign in to Enable</div>
+        </Overlay>
+      )}
       <PendingOverlay pending={pending} />
       <form
         onSubmit={(event) => {
@@ -90,7 +102,7 @@ export default function AutoBuildForm({
             <input
               {...register('saveBuild')}
               type={'checkbox'}
-              className={'checkbox-input'}
+              className={'checkbox-input ml-2'}
             />
           </label>
           <label className={'text-sm text-default-500'}>
@@ -98,7 +110,7 @@ export default function AutoBuildForm({
             <input
               {...register('forceSaveMetrics')}
               type={'checkbox'}
-              className={'checkbox-input'}
+              className={'checkbox-input ml-2'}
             />
           </label>
         </CardBody>

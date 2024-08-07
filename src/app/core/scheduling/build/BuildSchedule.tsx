@@ -11,9 +11,11 @@ import AutoBuildForm from '@/app/core/scheduling/build/BuildScheduleForm';
 export default function BuildSchedule({
   cycleId,
   ...props
-}: { cycleId: number } & {
+}: {
+  cycleId: number;
   defaultMultiStepUndoTimeout: number;
   defaultMultiUndoIncrement: number;
+  disable?: boolean;
 }) {
   return <AutoBuildForm {...props} />;
 }

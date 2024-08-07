@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import clsx from 'clsx';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import { PropsWithChildren, useCallback, useTransition } from 'react';
+import { PropsWithChildren, useCallback, useMemo, useTransition } from 'react';
 import { Badge } from '@nextui-org/badge';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
@@ -19,6 +19,19 @@ function UnsavedChangesToast({
   session,
   ...props
 }: UnsavedChangesProps & OtherUnsavedChangesProps) {
+  const interceptedProps = useMemo(() => {
+    const { handleCommit } = props;
+    let interceptedCommit = handleCommit;
+    if (!session || !session.user) {
+      interceptedCommit = async () => {
+        alert(
+          'Only authenticated users may save edits. To revert changes and reload from the database, hit F5.'
+        );
+      };
+    }
+    return { ...props, handleCommit: interceptedCommit };
+  }, [props, session]);
+
   return (
     <div className={'fixed right-4 top-4 z-30 h-fit w-fit'}>
       <Popover>
@@ -48,7 +61,7 @@ function UnsavedChangesToast({
           </PopoverTrigger>
         </Badge>
         <PopoverContent>
-          <UnsavedChangesContent {...props} />
+          <UnsavedChangesContent {...interceptedProps} />
         </PopoverContent>
       </Popover>
     </div>
@@ -58,8 +71,9 @@ function UnsavedChangesToast({
 function UnsavedChangesContent({
   unsavedFlag,
   handleCommit,
+  session,
   children
-}: UnsavedChangesProps & PropsWithChildren) {
+}: UnsavedChangesProps & OtherUnsavedChangesProps) {
   const [isPending, startTransition] = useTransition();
   return (
     <>
