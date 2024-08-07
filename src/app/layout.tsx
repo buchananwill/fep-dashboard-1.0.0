@@ -9,6 +9,7 @@ import TooltipSingleton from '@/components/generic/TooltipSingleton';
 import NavPopoverTrigger from '@/components/navigation/NavPopoverTrigger';
 import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTrackerWrapper';
 import UserAvatar from '@/components/auth/UserAvatar';
+import { auth } from '@/auth';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,16 +18,18 @@ export const metadata: Metadata = {
   description: 'Business resource scheduling management for the 21st Century.'
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <LibraryProvidersWrapper>
-          <MasterChangesTrackWrapper>
+          <MasterChangesTrackWrapper session={session}>
             <UserAvatar />
           </MasterChangesTrackWrapper>
           <div className={'flex'}>
