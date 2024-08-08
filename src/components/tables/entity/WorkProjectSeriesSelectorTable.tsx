@@ -61,7 +61,7 @@ export default function WorkProjectSeriesSelectorTable({
       <FilterSelectEntityTable
         entities={workProjectSeries}
         initialColumns={WorkProjectSeriesColumnsInitial}
-        filterProperty={'id'}
+        filterProperty={'workProjectSeriesSchema.workTaskType.name'}
         renderCell={renderCell}
         columns={WorkProjectSeriesColumns}
         entityClass={EntityClassMap.workProjectSeries}

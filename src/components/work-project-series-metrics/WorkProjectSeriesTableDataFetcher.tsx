@@ -32,8 +32,9 @@ export default function WorkProjectSeriesTableDataFetcher({
 
   useEffect(() => {
     const fetchData = async () => {
-      const metricTableDto =
-        await getWorkProjectSeriesMetricsByWpsIdList(selectedList);
+      const metricTableDto = await getWorkProjectSeriesMetricsByWpsIdList(
+        selectedList ?? []
+      );
       setTableData(metricTableDto);
     };
     fetchData();
