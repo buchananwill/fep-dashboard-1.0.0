@@ -31,8 +31,7 @@ export default function WorkProjectSeriesMetricTable({
     EntityClassMap.workProjectSeries
   );
   return (
-    <div className={'h-[90vh] w-[90vw] p-8 pt-12'}>
-      <FinderTableButton />
+    <>
       <CellQueryManager
         tableData={tableData}
         getDataRetrievalMemoizedFunction={getCellDataIdReferenceOrUndefined}
@@ -43,7 +42,7 @@ export default function WorkProjectSeriesMetricTable({
         renderSyncedRowCell={MemoCycleSubspanCell}
         renderSyncedColumnCell={MemoRowCell}
       />
-    </div>
+    </>
   );
 }
 

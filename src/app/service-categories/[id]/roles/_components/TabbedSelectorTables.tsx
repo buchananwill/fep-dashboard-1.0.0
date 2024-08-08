@@ -12,7 +12,12 @@ import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDt
 import { startCase } from 'lodash';
 import WorkProjectSeriesSchemaSelectorTable from '@/components/tables/entity/WorkProjectSeriesSchemaSelectorTable';
 import OrganizationSelectorTable from '@/components/tables/entity/OrganizationSelectorTable';
-import { OrganizationDto } from '@/api/generated-types/generated-types_';
+import {
+  OrganizationDto,
+  WorkProjectSeriesWithSchemaLabelsDto
+} from '@/api/generated-types/generated-types_';
+import { WorkProjectSeriesLeanDto } from '@/components/work-project-series-metrics/WorkProjectSeriesTableDataFetcher';
+import WorkProjectSeriesSelectorTable from '@/components/tables/entity/WorkProjectSeriesSelectorTable';
 
 export default function TabbedSelectorTables({
   workTaskTypes,
@@ -20,6 +25,7 @@ export default function TabbedSelectorTables({
   assetRoles,
   workProjectSeriesSchemas,
   organizations,
+  workProjectSeries,
   ...divProps
 }: SelectorTableData & Omit<GenericDivProps, 'children'>) {
   return (
@@ -58,6 +64,16 @@ export default function TabbedSelectorTables({
             <OrganizationSelectorTable organizations={organizations} />
           </Tab>
         )}
+        {workProjectSeries && (
+          <Tab
+            key={EntityClassMap.organization}
+            title={startCase(EntityClassMap.organization)}
+          >
+            <WorkProjectSeriesSelectorTable
+              workProjectSeries={workProjectSeries}
+            />
+          </Tab>
+        )}
       </Tabs>
     </div>
   );
@@ -69,4 +85,5 @@ export interface SelectorTableData {
   assetRoles?: AssetRoleDto[];
   workProjectSeriesSchemas?: WorkProjectSeriesSchemaDto[];
   organizations?: OrganizationDto[];
+  workProjectSeries?: WorkProjectSeriesWithSchemaLabelsDto[];
 }

@@ -9,6 +9,21 @@ export interface AutoBuildParametersDto extends Serializable {
   forceSaveMetrics: boolean;
 }
 
+export interface WorkProjectSeriesWithSchemaLabelsDto extends Serializable {
+  id: string;
+  scheduleId: number;
+  completedStatus: boolean;
+  workProjectSeriesSchema: WorkProjectSeriesSchemaWithLabelsDto;
+}
+
+export interface WorkProjectSeriesSchemaWithLabelsDto extends Serializable {
+  id: string;
+  name: string;
+  workTaskType: WorkTaskTypeDto;
+  workProjectBandwidth: number;
+  userToProviderRatio: number;
+}
+
 export interface CycleSubspanJoinNestedDto extends Serializable {
   id: number;
   cycleSubspanId: number;
