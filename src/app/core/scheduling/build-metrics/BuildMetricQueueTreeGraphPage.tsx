@@ -3,7 +3,7 @@ import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVar
 import { Api } from '@/api/clientApi_';
 import BuildMetricQueueTreeGraph from '@/app/core/scheduling/build-metrics/BuildMetricQueueTreeGraph';
 
-export default async function BuildMetric({
+export default async function BuildMetricQueueTreeGraphPage({
   pathVariables
 }: LeafComponentProps) {
   const [buildMetricId] = getLastNVariables(pathVariables, 1);

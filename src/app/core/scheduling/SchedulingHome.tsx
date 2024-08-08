@@ -23,7 +23,7 @@ export default async function SchedulingHome({}: LeafComponentProps) {
             Schedule {passingSchedule.id}
           </LinkButton>
         ))}
-        <LinkButton href={'/core/scheduling/build-metric'}>
+        <LinkButton href={'/core/scheduling/build-metric-queue-tree-graph'}>
           Build Metrics
         </LinkButton>
       </div>

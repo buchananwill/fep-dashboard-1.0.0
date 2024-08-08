@@ -2,8 +2,9 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import BuildMetric from '@/app/core/scheduling/build-metrics/BuildMetric';
+import BuildMetricQueueTreeGraphPage from '@/app/core/scheduling/build-metrics/BuildMetricQueueTreeGraphPage';
 import { WorkProjectSeriesMetricsPage } from '@/components/work-project-series-metrics/WorkProjectSeriesMetrics';
+import BuildMetricTablePage from '@/app/core/scheduling/build-metrics/BuildMetricTablePage';
 
 async function BuildMetricListHome({}: LeafComponentProps) {
   const strings = await Api.BuildMetric.getIdList();
@@ -18,8 +19,13 @@ async function BuildMetricListHome({}: LeafComponentProps) {
           >
             Metric Id: {stringId}
           </div>
-          <LinkButton href={`/core/scheduling/build-metric/${stringId}`}>
+          <LinkButton
+            href={`/core/scheduling/build-metric-queue-tree-graph/${stringId}`}
+          >
             Overall Build Timeline
+          </LinkButton>
+          <LinkButton href={`/core/scheduling/build-metric-table/${stringId}`}>
+            Build Metric Table
           </LinkButton>
           <LinkButton
             href={`/core/scheduling/work-project-series-metrics/${stringId}`}
@@ -32,9 +38,13 @@ async function BuildMetricListHome({}: LeafComponentProps) {
   );
 }
 
-export const BuildMetricFallback = getPathVariableSplitComponent(
+export const BuildMetricQueueTreeGraphFallback = getPathVariableSplitComponent(
   BuildMetricListHome,
-  BuildMetric
+  BuildMetricQueueTreeGraphPage
+);
+export const BuildMetricTableFallback = getPathVariableSplitComponent(
+  BuildMetricListHome,
+  BuildMetricTablePage
 );
 export const WorkProjectSeriesMetricFallback = getPathVariableSplitComponent(
   BuildMetricListHome,
