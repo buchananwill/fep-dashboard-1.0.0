@@ -67,8 +67,7 @@ const bgColorString = [
   'bg-rose-400'
 ];
 
-function getBackgroundColor(entity: WorkProjectSeriesSchemaDto) {
-  const subjectCode = entity?.shortCode?.substring(0, 2) ?? entity.name ?? '';
+function getBackgroundColor(subjectCode: string) {
   const shortCodeIndex = shortCodes.indexOf(subjectCode);
   if (shortCodeIndex === -1) return 'bg-white';
   else return bgColorString[shortCodeIndex % bgColorString.length];
@@ -77,7 +76,8 @@ function getBackgroundColor(entity: WorkProjectSeriesSchemaDto) {
 export function WorkProjectSeriesSchemaCode({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
-  const backgroundColor = getBackgroundColor(entity);
+  const subjectCode = entity?.shortCode?.substring(0, 2) ?? entity.name ?? '';
+  const backgroundColor = getBackgroundColor(subjectCode);
   return (
     <div
       className={clsx(

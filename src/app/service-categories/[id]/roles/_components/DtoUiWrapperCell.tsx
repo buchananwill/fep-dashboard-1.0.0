@@ -1,14 +1,21 @@
 import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
-import { BaseDtoUiProps, DtoUiWrapper, Entity } from 'dto-stores';
+import {
+  BaseDtoUiProps,
+  BaseLazyDtoUiProps,
+  DtoUiWrapper,
+  Entity,
+  LazyDtoUiWrapper
+} from 'dto-stores';
 import { ReactNode } from 'react';
 import clsx from 'clsx';
 import { GenericDivProps } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import { getCellIdReference } from '@/components/tables/getCellIdReference';
+import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 
 export default function DtoUiWrapperCell<T extends Entity>(
   props: GridChildComponentProps<CellIdReference[][]> & {
-    InnerCell: (props: BaseDtoUiProps<T>) => ReactNode;
+    InnerCell: (props: BaseLazyDtoUiProps<T>) => ReactNode;
     entityClass: string;
     idKey: keyof CellIdReference;
   } & Omit<GenericDivProps, 'style' | 'children'>
@@ -28,10 +35,11 @@ export default function DtoUiWrapperCell<T extends Entity>(
 
   return (
     <div style={style} className={clsx('flex overflow-hidden', className)}>
-      <DtoUiWrapper
+      <LazyDtoUiWrapper
         entityClass={entityClass}
         entityId={cellIdReference[idKey]}
         renderAs={InnerCell}
+        whileLoading={Loading}
       />
     </div>
   );

@@ -1,13 +1,9 @@
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import DtoUiWrapperCell from '@/app/service-categories/[id]/roles/_components/DtoUiWrapperCell';
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  NamedEntityLabel,
-  WorkProjectSeriesSchemaCode
-} from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
-import { BaseDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
-import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types_';
-import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
+import { BaseLazyDtoUiProps } from 'dto-stores';
+import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types_';
+import { getValue } from '@/functions/allowingNestedFiltering';
 
 export default function WorkProjectSeriesCell(props: CellWrapperProps) {
   return (
@@ -22,13 +18,10 @@ export default function WorkProjectSeriesCell(props: CellWrapperProps) {
 
 function InnerWorkProjectSeriesCell({
   entity
-}: BaseDtoUiProps<WorkProjectSeriesDto>) {
+}: BaseLazyDtoUiProps<WorkProjectSeriesWithSchemaLabelsDto>) {
   return (
-    <LazyDtoUiWrapper
-      renderAs={WorkProjectSeriesSchemaCode}
-      entityId={entity.workProjectSeriesSchemaId}
-      entityClass={EntityClassMap.workProjectSeriesSchema}
-      whileLoading={Loading}
-    />
+    <span className={'inline-block w-full truncate'}>
+      {getValue(entity, 'workProjectSeriesSchema.workTaskType.name')}
+    </span>
   );
 }

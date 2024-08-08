@@ -5,16 +5,14 @@ import {
   WorkProjectSeriesDto,
   WorkProjectSeriesMetricDto
 } from '@/api/generated-types/generated-types_';
-import FinderTableButton from '@/components/tables/FinderTableButton';
 import CellQueryManager from '@/components/tables/CellQueryManager';
-import { EntityClassMap } from '@/api/entity-class-map';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import React, { memo } from 'react';
 import { getCellDataIdReferenceOrUndefined } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
-import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
 import WorkProjectSeriesCell from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
 import WorkProjectSeriesBuildMetricCell from '@/components/work-project-series-metrics/WorkProjectSeriesBuildMetricCell';
 import { MemoCycleSubspanCell } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
+import { useTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
 
 export default function WorkProjectSeriesMetricTable({
   tableData
@@ -26,10 +24,8 @@ export default function WorkProjectSeriesMetricTable({
     number[]
   >;
 }) {
-  const tableProps = useFilteredRows(
-    tableData,
-    EntityClassMap.workProjectSeries
-  );
+  console.log(tableData);
+  const tableProps = useTableProps(tableData.rowList, tableData.columnList);
   return (
     <>
       <CellQueryManager

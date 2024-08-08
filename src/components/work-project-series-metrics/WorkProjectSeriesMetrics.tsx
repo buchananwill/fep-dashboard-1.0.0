@@ -29,25 +29,6 @@ export async function WorkProjectSeriesMetricsPage({
     WorkProjectSeriesWithSchemaLabelsDto[]
   >(constructUrl(['/api/v2/workProjectSeries/byBuildMetricId', buildMetricId]));
 
-  // const metricTableDto = await getWithoutBody<
-  //   GenericTableDto<
-  //     WorkProjectSeriesDto,
-  //     CycleSubspanWithJoinsListDto,
-  //     WorkProjectSeriesMetricDto,
-  //     number[]
-  //   >
-  // >(
-  //   constructUrl([
-  //     '/api/v2/workProjectSeries/metrics/heatMapTable',
-  //     buildMetricId
-  //   ])
-  // );
-
-  // const workProjectSeriesSchemaIds = workProjectSeries.reduce(
-  //   (prev, curr) => prev.add(curr.workProjectSeriesSchemaId),
-  //   new Set<string>()
-  // );
-
   return (
     <>
       <EditAddDeleteDtoControllerArray

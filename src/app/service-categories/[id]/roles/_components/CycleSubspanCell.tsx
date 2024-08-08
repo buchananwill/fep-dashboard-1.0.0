@@ -7,6 +7,7 @@ import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/Sim
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 
 export default function CycleSubspanCell(props: CellWrapperProps) {
+  console.log(props);
   return (
     <DtoUiWrapperCell
       entityClass={EntityClassMap.cycleSubspan}
