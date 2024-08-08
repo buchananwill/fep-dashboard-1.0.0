@@ -7,10 +7,8 @@ import {
 } from '@/api/generated-types/generated-types_';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import CellQueryManager from '@/components/tables/CellQueryManager';
-import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
-import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 import React, { memo } from 'react';
 import { getCellDataIdReferenceOrUndefined } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
 import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
@@ -28,8 +26,6 @@ export default function WorkProjectSeriesMetricTable({
     number[]
   >;
 }) {
-  console.log(tableData);
-
   const tableProps = useFilteredRows(
     tableData,
     EntityClassMap.workProjectSeries
