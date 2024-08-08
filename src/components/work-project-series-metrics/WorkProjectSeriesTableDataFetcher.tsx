@@ -43,8 +43,16 @@ export default function WorkProjectSeriesTableDataFetcher({
     EntityClassMap.cycleSubspan,
     KEY_TYPES.MASTER_LIST
   );
+  const dispatchMetrics = NamespacedHooks.useDispatch(
+    EntityClassMap.workProjectSeriesMetric,
+    KEY_TYPES.MASTER_LIST
+  );
 
   useEffectSyncWithDispatch(tableData.columnList, dispatchCycleSubspans);
+  useEffectSyncWithDispatch(
+    Object.values(tableData.cellIdCellContentMap),
+    dispatchMetrics
+  );
 
   return (
     <>
@@ -56,7 +64,7 @@ export default function WorkProjectSeriesTableDataFetcher({
         />
         <EditAddDeleteDtoControllerArray
           entityClass={EntityClassMap.workProjectSeriesMetric}
-          dtoList={Object.values(tableData.cellIdCellContentMap)}
+          dtoList={EmptyArray}
         />
         <WorkProjectSeriesMetricTable tableData={tableData} />
       </div>

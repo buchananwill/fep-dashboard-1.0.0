@@ -1,4 +1,4 @@
-import { BaseDtoUiProps } from 'dto-stores';
+import { BaseLazyDtoUiProps } from 'dto-stores';
 import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
@@ -21,7 +21,9 @@ export default function CycleSubspanCell(props: CellWrapperProps) {
   );
 }
 
-function InnerCycleSubspanCell({ entity }: BaseDtoUiProps<CycleSubspanDto>) {
+function InnerCycleSubspanCell({
+  entity
+}: BaseLazyDtoUiProps<CycleSubspanDto>) {
   const floatingTooltip = useFloatingTooltip(
     <TooltipMemo text={`${entity.zeroIndexedCycleDay + 1}: ${entity.name}`} />
   );
