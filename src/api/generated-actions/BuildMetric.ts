@@ -1,6 +1,6 @@
 'use server';
-import { BuildMetricDto } from '../dtos/BuildMetricDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { BuildMetricDto } from '@/api/generated-types/generated-types_';
 
 const {
   getPage,
