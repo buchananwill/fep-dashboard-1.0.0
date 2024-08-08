@@ -28,6 +28,8 @@ export default function WorkProjectSeriesMetricTable({
     number[]
   >;
 }) {
+  console.log(tableData);
+
   const tableProps = useFilteredRows(
     tableData,
     EntityClassMap.workProjectSeries
