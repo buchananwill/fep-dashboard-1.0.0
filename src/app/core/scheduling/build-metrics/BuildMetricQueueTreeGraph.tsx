@@ -1,7 +1,11 @@
 'use client';
 import { BuildMetricDto } from '@/api/generated-types/generated-types_';
 import { useMemo } from 'react';
-import { ResponsiveLine, ResponsiveLineCanvas } from '@nivo/line';
+import {
+  PointTooltipProps,
+  ResponsiveLine,
+  ResponsiveLineCanvas
+} from '@nivo/line';
 
 export default function BuildMetricQueueTreeGraph({
   data
@@ -33,7 +37,8 @@ export default function BuildMetricQueueTreeGraph({
           stacked: true,
           reverse: false
         }}
-        yFormat=" >-.2f"
+        tooltip={CustomTooltip}
+        yFormat=" >-.2"
         axisTop={null}
         axisRight={null}
         axisBottom={{
@@ -87,6 +92,26 @@ export default function BuildMetricQueueTreeGraph({
           }
         ]}
       />
+    </div>
+  );
+}
+
+function CustomTooltip({ point }: PointTooltipProps) {
+  console.log(point);
+  return (
+    <div className={'border-2 bg-white'}>
+      <table className={'flex flex-col p-0.5'}>
+        <tbody>
+          <tr>
+            <td>Node Number:</td>
+            <td className={'text-right'}>{point.data.xFormatted}</td>
+          </tr>
+          <tr>
+            <td>Net Failure Count:</td>
+            <td className={'text-right'}>{point.data.yFormatted}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
