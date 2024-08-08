@@ -1194,8 +1194,13 @@ export interface QueueTreeNodeDto extends Serializable {
   netFailureCount: number;
   batchSize: number;
   totalAllocationArea: number;
-  yearGroup: number;
-  subjectContactTimeUnits: StringIntegerTuple[];
+  workProjectSeriesNodeLinks: WorkProjectSeriesNodeLinkDto[];
+}
+
+export interface WorkProjectSeriesNodeLinkDto extends Serializable {
+  id: number;
+  workProjectSeriesId: string;
+  outcomeId: string;
 }
 
 export interface OrganizationRelationship
