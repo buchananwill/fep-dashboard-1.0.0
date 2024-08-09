@@ -1,8 +1,7 @@
 'use client';
 import {
   BuildMetricDto,
-  QueueTreeNodeDto,
-  WorkProjectSeriesNodeLinkDto
+  QueueTreeNodeDto
 } from '@/api/generated-types/generated-types_';
 import {
   Table,
@@ -17,9 +16,11 @@ import { startCase } from 'lodash';
 import { useClientSidePagination } from '@/hooks/useClientSidePagination';
 import { useClientSideSorting } from '@/hooks/useClientSorting';
 import { useClientFilteredSortedPagination } from '@/hooks/useClientFilteredSortedPagination';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Pagination } from '@nextui-org/react';
-import { Button } from '@nextui-org/button';
+import { WorkProjectSeriesNodeLink } from '@/app/core/scheduling/build-metrics/WorkProjectSeriesNodeLink';
+import QueueTreeNodeModal from '@/app/core/scheduling/build-metrics/QueueTreeNodeModal';
+import { LinkButton } from '@/app/service-categories/LinkButton';
 
 const initialRowsPerPage = 10;
 export default function BuildMetricTable({
@@ -42,14 +43,26 @@ export default function BuildMetricTable({
 
   const { sortDescriptor, onSortChange, sortedItems } = useClientSideSorting(
     queueTreeNodes,
-    'nodeNumber',
-    'ascending'
+    'netFailureCount',
+    'descending'
   );
 
   const { visibleItems, visibleItemsRef } = useClientFilteredSortedPagination(
     page,
     rowsPerPage,
     sortedItems
+  );
+  const [nodeInModal, setNodeInModal] = useState<QueueTreeNodeDto | undefined>(
+    undefined
+  );
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onRowAction = useCallback(
+    (key: React.Key) => {
+      setNodeInModal(nodeMap.get(key as string));
+      setIsOpen(true);
+    },
+    [setNodeInModal, nodeMap, setIsOpen]
   );
 
   const topContent = useMemo(() => {
@@ -71,6 +84,26 @@ export default function BuildMetricTable({
     );
   }, [rowsPerPage, onRowsPerPageChange]);
 
+  const onModalClose = useCallback(() => setIsOpen(false), []);
+
+  const classNames = useMemo(
+    () => ({
+      tr: 'odd:bg-default-100 ',
+      td: [
+        // changing the rows border radius
+        // first
+        'group-data-[first=true]:first:before:rounded-lg',
+        'group-data-[first=true]:last:before:rounded-none',
+        // middle
+        'group-data-[middle=true]:before:rounded-none',
+        // last
+        'group-data-[last=true]:first:before:rounded-none',
+        'group-data-[last=true]:last:before:rounded-lg'
+      ]
+    }),
+    []
+  );
+
   const bottomContent = React.useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
@@ -88,46 +121,55 @@ export default function BuildMetricTable({
   }, [page, pages, setPage]);
 
   return (
-    <Table
-      aria-label={'Queue Tree Node Details'}
-      sortDescriptor={sortDescriptor}
-      onSortChange={onSortChange}
-      topContent={topContent}
-      bottomContent={bottomContent}
-      onRowAction={(key) =>
-        alert(JSON.stringify(nodeMap.get(key).workProjectSeriesNodeLinks))
-      }
-    >
-      <TableHeader columns={simpleKeys}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={'end'}
-            allowsSorting={column.sortable}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={visibleItems}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>
-                {renderQueueTreeNodeEntry(
-                  columnKey as keyof QueueTreeNodeDto,
-                  item
-                )}
-              </TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <>
+      <Table
+        aria-label={'Queue Tree Node Details'}
+        sortDescriptor={sortDescriptor}
+        onSortChange={onSortChange}
+        topContent={topContent}
+        bottomContent={bottomContent}
+        onRowAction={onRowAction}
+        classNames={classNames}
+      >
+        <TableHeader columns={simpleKeys}>
+          {(column) => (
+            <TableColumn
+              key={column.uid}
+              align={'end'}
+              allowsSorting={column.sortable}
+            >
+              {column.name}
+            </TableColumn>
+          )}
+        </TableHeader>
+        <TableBody items={visibleItems}>
+          {(item) => (
+            <TableRow
+              key={item.id}
+              className={'cursor-pointer hover:bg-primary-500 hover:text-white'}
+            >
+              {(columnKey) => (
+                <TableCell>
+                  {renderQueueTreeNodeEntry(
+                    columnKey as keyof QueueTreeNodeDto,
+                    item
+                  )}
+                </TableCell>
+              )}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      <QueueTreeNodeModal
+        queueTreeNode={nodeInModal}
+        isOpen={isOpen}
+        onClose={onModalClose}
+      />
+    </>
   );
 }
 
-function renderQueueTreeNodeEntry(
+export function renderQueueTreeNodeEntry(
   key: keyof QueueTreeNodeDto,
   entity: QueueTreeNodeDto
 ) {
@@ -153,9 +195,3 @@ const simpleKeys: Column<QueueTreeNodeDto>[] = [
   name: startCase(qtnKey),
   sortable: true
 }));
-
-function WorkProjectSeriesNodeLink(props: {
-  nodeLink: WorkProjectSeriesNodeLinkDto;
-}) {
-  return null;
-}

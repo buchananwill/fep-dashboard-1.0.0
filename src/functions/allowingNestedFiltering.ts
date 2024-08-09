@@ -1,3 +1,5 @@
+import { Paths } from 'type-fest';
+
 type GetLeft<T extends string> = T extends `${infer Left}.${string}`
   ? Left
   : undefined;
@@ -48,7 +50,7 @@ export type GetFieldType<T, P> = P extends `${infer Left}.${infer Right}`
  * */
 export function getValue<
   TData,
-  TPath extends string,
+  TPath extends Paths<TData> & string,
   TDefault = GetFieldType<TData, TPath>
 >(
   data: TData,

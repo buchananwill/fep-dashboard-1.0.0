@@ -8,7 +8,7 @@ export default function NavigationHome() {
   const linksFromNavTree = createLinksFromNavTree(navTreeData, ['core'], []);
 
   return (
-    <div className={'grid grid-cols-4 gap-2 p-2'}>
+    <div className={'grid grid-cols-1 gap-2 p-2 md:grid-cols-3'}>
       <NavLinkTreeButton
         navLinkNode={linksFromNavTree}
         renderHeaderAs={WrappedHeader}

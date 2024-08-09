@@ -16,7 +16,7 @@ export default function WorkProjectSeriesCell(props: CellWrapperProps) {
   );
 }
 
-function InnerWorkProjectSeriesCell({
+export function InnerWorkProjectSeriesCell({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesWithSchemaLabelsDto>) {
   return (
