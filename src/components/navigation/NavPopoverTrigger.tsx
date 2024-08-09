@@ -8,8 +8,9 @@ export default function NavPopoverTrigger() {
   return (
     <div
       className={
-        'fixed bottom-0 left-1/2 z-40 rounded-t-full bg-white bg-opacity-75 p-2 pb-4'
+        'fixed bottom-0 left-1/2 z-40 rounded-t-full bg-white bg-opacity-75 p-2 pb-8'
       }
+      style={{ transform: 'translate(-50%, 0%)' }}
     >
       <Popover>
         <PopoverTrigger>

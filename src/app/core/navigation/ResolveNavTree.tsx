@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import React from 'react';
 import { camelCase } from 'lodash';
 import { NavTreeNode } from '@/app/core/navigation/types';
+import NavigationBreadcrumbs from '@/components/navigation/NavigationBreadcrumbs';
 
 export function ResolveNavTree({
   navTree,
@@ -14,7 +15,12 @@ export function ResolveNavTree({
 }) {
   if (navTree.type === 'leaf') {
     const LeafNode = navTree.component;
-    return <LeafNode pathVariables={pathVariables} depth={depth} />;
+    return (
+      <>
+        <NavigationBreadcrumbs pathVariables={pathVariables} depth={depth} />
+        <LeafNode pathVariables={pathVariables} depth={depth} />
+      </>
+    );
   } else if (navTree.type === 'branch') {
     if (pathVariables.length > depth) {
       const rootKey = getMatchString(pathVariables, depth);
@@ -33,7 +39,12 @@ export function ResolveNavTree({
     }
     const Component = navTree.component;
     if (!Component) notFound();
-    return <Component pathVariables={pathVariables} depth={depth} />;
+    return (
+      <>
+        <NavigationBreadcrumbs pathVariables={pathVariables} depth={depth} />
+        <Component pathVariables={pathVariables} depth={depth} />
+      </>
+    );
   } else {
     if (pathVariables.length <= depth) {
       console.error('No path variable for this depth');

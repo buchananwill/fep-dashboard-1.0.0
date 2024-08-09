@@ -60,7 +60,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
         assetRoles={roleCategory === 'asset' ? roles : undefined}
         workTaskTypes={workTaskTypes}
       />
-      <div className={'mb-auto mt-auto h-[90vh] w-[100vw] p-8'}>
+      <div className={'mb-auto mt-auto h-[90vh] w-[90vw] p-8'}>
         <SuitabilityTable
           roleTypeId={roleTypeIdInt}
           suitabilityType={suitabilityType as SuitabilityTypes}

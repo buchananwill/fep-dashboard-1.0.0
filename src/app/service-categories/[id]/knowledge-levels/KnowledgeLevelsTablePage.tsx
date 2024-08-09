@@ -7,6 +7,7 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
+import NavigationBreadcrumbs from '@/components/navigation/NavigationBreadcrumbs';
 
 async function KnowledgeLevelsTablePage({
   pathVariables,
