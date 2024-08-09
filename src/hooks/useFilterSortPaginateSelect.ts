@@ -15,10 +15,13 @@ import {
   useSelectVisible
 } from '@/hooks/useDeselectVisible';
 import { GetFieldType } from '@/functions/allowingNestedFiltering';
+import { Paths } from 'type-fest';
 
 export function useFilterSortPaginateSelect<
   T extends HasIdClass<Identifier>,
-  TPath extends GetFieldType<T, TPath> extends string ? string : never
+  TPath extends string & GetFieldType<T, TPath> extends string
+    ? Paths<T>
+    : never
 >(
   initialColumns: (keyof T)[],
   columns: Column<T>[],

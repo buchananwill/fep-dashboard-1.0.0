@@ -21,7 +21,9 @@ import { Paths } from 'type-fest';
 
 export default function FilterSelectEntityTable<
   T extends HasIdClass<Identifier>,
-  TPath extends GetFieldType<T, TPath> extends string ? string : never
+  TPath extends string & GetFieldType<T, TPath> extends string
+    ? Paths<T>
+    : never
 >({
   entities,
   initialColumns,
