@@ -4,9 +4,6 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import SuitabilityTable, {
   SuitabilityTypes
 } from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
-import TabbedSelectorTables from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
-import { Button } from '@nextui-org/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import {
   isValidAspect,
   RoleApiByTypeIdList,
