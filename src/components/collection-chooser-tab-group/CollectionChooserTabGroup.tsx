@@ -2,7 +2,7 @@
 
 import { FC, useMemo } from 'react';
 import { CollectionItemChooserProps } from '@/components/collectionItemChooserProps';
-import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
 import {
   EditAddDeleteDtoControllerArray,

@@ -3,7 +3,7 @@ import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { StringAttributeInputArray } from '@/components/generic/StringAttributeInputArray';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
+import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
 import { StringPropertyKey } from '@/types';
 
 export default function KnowledgeDomainCard({ id }: { id: number }) {

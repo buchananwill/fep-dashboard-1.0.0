@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
-import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
-import { TimeSpanDto } from '@/api/dtos/TimeSpanDtoSchema';
+import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
+import { TimeSpanDto } from '@/api/zod-schemas/TimeSpanDtoSchema';
 import { TimeInput } from '@nextui-org/date-input';
 import { TransientIdOffset } from '@/api/literals';
 import { Time } from '@internationalized/date';

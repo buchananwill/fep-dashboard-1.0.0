@@ -6,9 +6,9 @@ import {
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { GenericTableDto } from '@/api/types';
-import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
-import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { ProviderRoleAvailabilityDto } from '@/api/zod-schemas/ProviderRoleAvailabilityDtoSchema';
+import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
+import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { useGlobalController } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Api } from '@/api/clientApi_';

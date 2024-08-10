@@ -1,5 +1,5 @@
 'use server';
-import { WorkProjectSeriesAssignmentDto } from '../dtos/WorkProjectSeriesAssignmentDtoSchema';
+import { WorkProjectSeriesAssignmentDto } from '@/api/zod-schemas/WorkProjectSeriesAssignmentDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

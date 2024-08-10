@@ -9,7 +9,7 @@
  *   2. Read prime status of any Option
  * */
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
-import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
+import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
 import {
   buildCompleteCycle,
   DirectedEdgePredicate

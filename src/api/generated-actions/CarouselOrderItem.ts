@@ -1,5 +1,5 @@
 'use server';
-import { CarouselOrderItemDto } from '../dtos/CarouselOrderItemDtoSchema';
+import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
 

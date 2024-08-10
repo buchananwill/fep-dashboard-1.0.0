@@ -8,8 +8,8 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { Api } from '@/api/clientApi_';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { WorkSchemaNodeLayoutFlowWithForces } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import React from 'react';
 
 export default function WorkSchemaNodeGraph({

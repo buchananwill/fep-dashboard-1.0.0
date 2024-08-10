@@ -11,7 +11,7 @@ import { Button } from '@nextui-org/button';
 import {
   AutoBuildParametersDto,
   AutoBuildParametersDtoSchema
-} from '@/api/dtos/AutoBuildParametersDtoSchema';
+} from '@/api/zod-schemas/AutoBuildParametersDtoSchema';
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
 import { Overlay } from '@/components/overlays/overlay';

@@ -10,7 +10,7 @@ import RenameModal from '@/components/modals/RenameModal';
 import { Button } from '@nextui-org/button';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useRenameEntity } from '@/components/modals/nameSetter';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { SetOptional } from 'type-fest';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { DtoStoreStringInput } from '@/components/generic/DtoStoreStringInput';

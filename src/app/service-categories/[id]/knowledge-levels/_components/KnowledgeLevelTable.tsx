@@ -2,8 +2,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
-import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
-import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
+import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import {
   BaseDtoStoreNumberInputProps,
   DtoStoreNumberInput

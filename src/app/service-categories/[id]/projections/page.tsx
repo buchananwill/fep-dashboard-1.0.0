@@ -1,7 +1,7 @@
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
-import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
+import { DeliveryAllocationDto } from '@/api/zod-schemas/DeliveryAllocationDtoSchema';
+import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
 
 const projectionUrl = constructUrl(
   '/api/v2/workProjectSeriesSchemas/knowledgeDomainWorkProjections'

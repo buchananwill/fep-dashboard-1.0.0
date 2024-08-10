@@ -4,7 +4,7 @@ import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
 import { workSchemaNodeForceGraphOptions } from '@/app/service-categories/[id]/work-schema-nodes/workSchemaNodeForceGraphOptions';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import WorkSchemaNodeGraph from '@/app/service-categories/[id]/work-schema-nodes/_components/WorkSchemaNodeGraph';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { notFound } from 'next/navigation';

@@ -7,7 +7,7 @@ import {
   useGlobalDispatch,
   useGlobalDispatchAndListener
 } from 'selective-context';
-import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
+import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
 import {
   CarouselOptionState,
   zIndexPopoverOverride
@@ -20,7 +20,7 @@ import {
   validateHamiltonianCycle
 } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/carouselOptionsCanConnect';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import { assignOrderItemToOption } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/assignOrderItemToOption';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';

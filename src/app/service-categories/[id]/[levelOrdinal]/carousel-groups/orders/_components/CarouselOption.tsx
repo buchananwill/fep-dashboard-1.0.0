@@ -6,14 +6,14 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { Button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { useEffect, useMemo, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
-import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import OrderItemAssigneeList from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderItemAssigneeList';
 import {
   useGlobalDispatch,

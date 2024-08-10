@@ -1,20 +1,23 @@
 'use client';
 import React from 'react';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { Chip } from '@nextui-org/react';
 import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { Paths } from 'type-fest';
+import { getValue } from '@/functions/allowingNestedFiltering';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { TypedPaths } from '@/functions/typePaths';
 
-export const INITIAL_VISIBLE_COLUMNS: (keyof WorkTaskTypeDto)[] = [
+export const INITIAL_VISIBLE_COLUMNS: Paths<WorkTaskTypeDto>[] = [
   'name',
-  'knowledgeDomainName',
-  'knowledgeLevelLevelOrdinal'
+  'knowledgeDomain.name',
+  'knowledgeLevel.levelOrdinal'
 ];
 export const columns: Column<WorkTaskTypeDto>[] = [
   { name: 'Name', uid: 'name', sortable: true },
-  { name: 'Subject', uid: 'knowledgeDomainName', sortable: true },
-  { name: 'Year', uid: 'knowledgeLevelLevelOrdinal', sortable: true }
+  { name: 'Subject', uid: 'knowledgeDomain.name', sortable: true },
+  { name: 'Year', uid: 'knowledgeLevel.levelOrdinal', sortable: true }
 ];
 export default function WorkTaskTypeSelectorTable({
   workTaskTypes
@@ -23,20 +26,21 @@ export default function WorkTaskTypeSelectorTable({
 }) {
   const renderCell = React.useCallback(
     (workTaskTypeDto: WorkTaskTypeDto, columnKey: React.Key) => {
-      const cellValue = workTaskTypeDto[columnKey as keyof WorkTaskTypeDto];
+      const pathKey = columnKey as TypedPaths<WorkTaskTypeDto, string | number>;
+      const cellValue = getValue(workTaskTypeDto, pathKey);
 
-      switch (columnKey) {
+      switch (pathKey) {
         case 'name':
           return (
             <span className={'inline-block w-32 truncate'}>
               {workTaskTypeDto.name}
             </span>
           );
-        case 'knowledgeDomainName':
+        case 'knowledgeLevel.levelOrdinal':
           return (
             <span className="inline-block w-24  text-sm">{cellValue}</span>
           );
-        case 'knowledgeLevelName':
+        case 'knowledgeDomain.name':
           return (
             <span className={'inline-block w-20'}>
               <Chip

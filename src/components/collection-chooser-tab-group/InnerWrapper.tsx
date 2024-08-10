@@ -2,7 +2,7 @@ import { Tab, Tabs } from '@nextui-org/tabs';
 import { FC } from 'react';
 import { CollectionItemChooserProps } from '@/components/collectionItemChooserProps';
 import { useGlobalListener } from 'selective-context';
-import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import { HasUuid } from '@/api/types';
 import { initialMap } from '@/app/_literals';
 

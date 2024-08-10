@@ -1,5 +1,5 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 
 export default function WorkTaskTypeSummary({
   entity

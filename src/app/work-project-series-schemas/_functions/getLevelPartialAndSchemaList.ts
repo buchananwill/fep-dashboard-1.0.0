@@ -1,5 +1,5 @@
 import { workProjectSeriesSchemaActionSequence } from '@/app/work-project-series-schemas/_functions/workProjectSeriesSchemaActionSequence';
-import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 
 export function getKnowledgeLevelPartial(
   levelOrdinal: string,

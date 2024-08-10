@@ -1,5 +1,5 @@
 'use client';
-import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 import {
   DtoStoreNumberInput,
   MergedDtoStoreNumberInputProps

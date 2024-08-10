@@ -1,7 +1,7 @@
-import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
+import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 import { WriteAnyDto } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import { produce } from 'immer';
 
 export function assignOrderItemToOption(

@@ -13,7 +13,7 @@ import {
 } from 'react-d3-force-wrapper';
 import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 import { NodeBase } from '@/react-flow/types';

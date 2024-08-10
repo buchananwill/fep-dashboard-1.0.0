@@ -1,5 +1,5 @@
 'use server';
-import { UserRoleTypeDto } from '../dtos/UserRoleTypeDtoSchema';
+import { UserRoleTypeDto } from '@/api/zod-schemas/UserRoleTypeDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

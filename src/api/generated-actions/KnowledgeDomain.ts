@@ -1,5 +1,5 @@
 'use server';
-import { KnowledgeDomainDto } from '../dtos/KnowledgeDomainDtoSchema';
+import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

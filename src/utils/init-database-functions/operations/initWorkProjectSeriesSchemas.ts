@@ -3,11 +3,11 @@ import { initSafely } from '@/utils/init-database-functions/initSafely';
 import data from '@/utils/init-json-data/work-project-series-schema/LessonAllocations.json';
 import { getDtoListByExampleList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { PartialDeep } from 'type-fest';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 
 import { BASE_URL } from '@/api/BASE_URL';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 
 export async function initWorkProjectSeriesSchemas(
   workTaskTypeList: WorkTaskTypeDto[]

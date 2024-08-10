@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { NamespacedHooks } from 'dto-stores';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 

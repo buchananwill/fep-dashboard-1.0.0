@@ -1,7 +1,7 @@
 import { CycleSubspanDtoSchema } from './CycleSubspanDtoSchema';
 import { WorkProjectSeriesAssignmentDtoSchema } from './WorkProjectSeriesAssignmentDtoSchema';
 import { z } from 'zod';
-import { OrganizationDtoSchema } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDtoSchema } from '@/api/zod-schemas/OrganizationDtoSchema_';
 export const WorkProjectSeriesAssignmentTableDtoSchema = z.object({
   cycleSubspanDtoList: z.array(CycleSubspanDtoSchema),
   organizationList: z.array(OrganizationDtoSchema),

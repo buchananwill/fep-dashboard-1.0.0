@@ -1,7 +1,7 @@
 'use server';
 import { getCarouselGroups } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/getCarouselGroups';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
+import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
 import { HeatMapSerie } from '@nivo/heatmap';
 
 import { API_V2_URL } from '@/api/literals';

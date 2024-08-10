@@ -7,7 +7,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useMemo } from 'react';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
+import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema_';
 import { getDeliveryAllocationSize } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationDropZone';
 import { useGlobalController } from 'selective-context';
 

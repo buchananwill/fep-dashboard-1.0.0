@@ -5,8 +5,8 @@ import {
 import { useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
+import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
 

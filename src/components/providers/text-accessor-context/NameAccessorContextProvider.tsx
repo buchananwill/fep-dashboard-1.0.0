@@ -2,7 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 import { TextAccessorContext } from '@/components/providers/text-accessor-context/textAccessorContextCreator';
-import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 
 export default function NameAccessorContextProvider<T extends HasNameDto>({
   children

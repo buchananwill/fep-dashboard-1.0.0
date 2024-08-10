@@ -7,7 +7,7 @@ import {
 import {
   WorkSchemaNodeDto,
   WorkSchemaNodeDtoSchema
-} from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+} from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import { createDataNodeDtoSchema } from '@/api/zod-mods';
 import {
   Middleware,
@@ -19,7 +19,7 @@ import { z } from 'zod';
 import { ServerAction } from '@/react-flow/hooks/useEditableFlow';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { FlowNode } from '@/react-flow/types';
-import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
+import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
 import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/getGraphUpdaterWithNameDeDuplication';
 
 function cloneWorkSchemaNode(

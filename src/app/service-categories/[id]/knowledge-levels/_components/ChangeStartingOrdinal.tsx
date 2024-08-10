@@ -3,11 +3,11 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
-import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
 import { useMemo } from 'react';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
-import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 
 const maxStartingLevel = 20;
 export default function ChangeStartingOrdinal({

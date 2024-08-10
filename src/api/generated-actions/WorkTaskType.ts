@@ -1,5 +1,5 @@
 'use server';
-import { WorkTaskTypeDto } from '../dtos/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 

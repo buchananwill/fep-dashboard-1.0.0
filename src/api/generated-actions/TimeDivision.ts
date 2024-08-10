@@ -1,5 +1,5 @@
 'use server';
-import { TimeDivisionDto } from '../dtos/TimeDivisionDtoSchema';
+import { TimeDivisionDto } from '@/api/zod-schemas/TimeDivisionDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

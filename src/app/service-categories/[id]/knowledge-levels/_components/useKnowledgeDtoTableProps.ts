@@ -4,7 +4,7 @@ import {
   NamespacedHooks,
   useMasterListInteraction
 } from 'dto-stores';
-import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';

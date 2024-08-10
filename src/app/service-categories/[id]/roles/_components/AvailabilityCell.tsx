@@ -1,5 +1,5 @@
 'use client';
-import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';
+import { ProviderRoleAvailabilityDto } from '@/api/zod-schemas/ProviderRoleAvailabilityDtoSchema';
 import clsx from 'clsx';
 import { useGlobalListener } from 'selective-context';
 import { GridChildComponentProps } from 'react-window';

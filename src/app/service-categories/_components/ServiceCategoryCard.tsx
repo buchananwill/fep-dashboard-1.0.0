@@ -1,6 +1,6 @@
 'use client';
 
-import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 
 import { EntityClassMap } from '@/api/entity-class-map';
 import { StringAttributeInputArray } from '@/components/generic/StringAttributeInputArray';

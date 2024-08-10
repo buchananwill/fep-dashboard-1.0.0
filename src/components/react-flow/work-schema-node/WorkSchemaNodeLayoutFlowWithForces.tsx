@@ -27,7 +27,7 @@ import {
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import {
   determineLocalResolution,
   validateHierarchy,
@@ -52,8 +52,8 @@ import {
 import { EmptyArray } from '@/api/literals';
 import { Spinner } from '@nextui-org/spinner';
 import { FlowNode, NodeValidator } from '@/react-flow/types';
-import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';

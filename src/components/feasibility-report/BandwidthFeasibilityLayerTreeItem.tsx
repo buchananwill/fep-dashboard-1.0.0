@@ -6,7 +6,7 @@ import {
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useMemo } from 'react';
-import { TaskTypeClassificationDto } from '@/api/dtos/TaskTypeClassificationDtoSchema_';
+import { TaskTypeClassificationDto } from '@/api/zod-schemas/TaskTypeClassificationDtoSchema_';
 import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 
 function TaskTypeClassificationSummary({

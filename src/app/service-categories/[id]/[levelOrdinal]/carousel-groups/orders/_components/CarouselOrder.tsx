@@ -1,6 +1,6 @@
 import { useDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import { useCarouselOrderModalTrigger } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/CarouselOrderModal';
 
 export default function CarouselOrder({ entityId }: { entityId: string }) {

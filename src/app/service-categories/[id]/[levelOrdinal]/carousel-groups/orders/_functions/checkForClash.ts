@@ -1,5 +1,5 @@
-import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
+import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 
 export function checkForClash(

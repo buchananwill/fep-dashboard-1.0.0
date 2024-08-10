@@ -1,5 +1,5 @@
 import { PartialDeep } from 'type-fest';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import {
   DataFetchingEditDtoControllerArray,
   EditAddDeleteDtoControllerArray,

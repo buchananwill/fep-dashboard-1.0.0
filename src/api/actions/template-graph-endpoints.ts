@@ -6,7 +6,7 @@ import {
 import { isNotUndefined } from '../main';
 
 import { constructUrl } from './template-base-endpoints';
-import { HasNumberIdDto } from '@/api/dtos/HasNumberIdDtoSchema';
+import { HasNumberIdDto } from '@/api/zod-schemas/HasNumberIdDtoSchema';
 import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
 
 export type DepthOp = '>' | '>=' | '<' | '<=' | '=' | '!=';

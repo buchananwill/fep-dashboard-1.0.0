@@ -1,5 +1,5 @@
 'use server';
-import { AssetRoleTypeDto } from '../dtos/AssetRoleTypeDtoSchema';
+import { AssetRoleTypeDto } from '@/api/zod-schemas/AssetRoleTypeDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

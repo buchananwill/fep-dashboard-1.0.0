@@ -2,7 +2,7 @@ import { ForceGraphPage, GraphDto } from 'react-d3-force-wrapper';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 import { ArrayPlaceholder } from 'selective-context';

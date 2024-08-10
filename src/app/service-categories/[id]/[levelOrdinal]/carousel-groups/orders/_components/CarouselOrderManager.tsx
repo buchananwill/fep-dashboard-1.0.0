@@ -7,12 +7,12 @@ import {
   useReadAnyDto,
   useWriteAnyDto
 } from 'dto-stores';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import { SetStateAction, useEffect, useRef } from 'react';
 import { useGlobalReadAny } from 'selective-context';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
 import { performDiffOnCarouselOrderItem } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import { checkForClash } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/checkForClash';
 import { EmptyArray } from '@/api/literals';

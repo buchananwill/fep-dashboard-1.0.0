@@ -4,7 +4,7 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { SubmitTableButton } from '@/components/generic/SubmitTableButton';
 
 import { TableProps } from '@nextui-org/react';
-import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import {
   IntersectionGeneratorMatrix,
   IntersectionGeneratorRowWithHeader

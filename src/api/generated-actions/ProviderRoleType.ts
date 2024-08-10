@@ -1,5 +1,5 @@
 'use server';
-import { ProviderRoleTypeDto } from '../dtos/ProviderRoleTypeDtoSchema';
+import { ProviderRoleTypeDto } from '@/api/zod-schemas/ProviderRoleTypeDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 

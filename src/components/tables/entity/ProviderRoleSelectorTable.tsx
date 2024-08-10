@@ -2,7 +2,7 @@
 import React from 'react';
 import { Chip } from '@nextui-org/react';
 import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
+import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';

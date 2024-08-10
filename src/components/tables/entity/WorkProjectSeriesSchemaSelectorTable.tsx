@@ -5,8 +5,8 @@ import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTabl
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { AssetRoleDto } from '@/api/dtos/AssetRoleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 
 export default function WorkProjectSeriesSchemaSelectorTable({
   workProjectSeriesSchemas

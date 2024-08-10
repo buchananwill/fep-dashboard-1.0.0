@@ -1,5 +1,5 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import DtoUiWrapperCell from './DtoUiWrapperCell';

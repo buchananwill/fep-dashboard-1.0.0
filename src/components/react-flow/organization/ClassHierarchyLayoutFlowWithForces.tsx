@@ -25,8 +25,8 @@ import {
   useEffectSyncDeepEqualWithDispatch
 } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
-import { OrganizationTypeDto } from '@/api/dtos/OrganizationTypeDtoSchema';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
+import { OrganizationTypeDto } from '@/api/zod-schemas/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';

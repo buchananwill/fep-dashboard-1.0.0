@@ -8,9 +8,9 @@ import { StepperContext } from '@/components/generic/stepperContextCreator';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
-import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { CarouselLeanDto } from '@/api/dtos/CarouselLeanDtoSchema';
+import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { CarouselLeanDto } from '@/api/zod-schemas/CarouselLeanDtoSchema';
 import { produceCarouselGroupOptionsEdit } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/_components/produceCarouselGroupOptionsEdit';
 
 export default function CarouselGroupOptionChooser({

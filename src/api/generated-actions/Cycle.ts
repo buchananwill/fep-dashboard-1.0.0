@@ -1,5 +1,5 @@
 'use server';
-import { CycleDto } from '../dtos/CycleDtoSchema';
+import { CycleDto } from '@/api/zod-schemas/CycleDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

@@ -1,5 +1,5 @@
 import { DataNode } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 
 import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 import { Identifier, NamespacedHooks, useDtoStore } from 'dto-stores';
@@ -8,7 +8,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useEffect } from 'react';
 import { safeFunctionalSplice } from 'dto-stores/dist/functions/safeFunctionalSplice';
 import { useGlobalController } from 'selective-context';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 
 function useConditionalLazyDtoRequest(
   id: Identifier | undefined,

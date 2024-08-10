@@ -1,8 +1,8 @@
 import { Identifier, NamespacedHooks, useDtoStore } from 'dto-stores';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { useEffect, useMemo } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';

@@ -2,7 +2,7 @@
 
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { ScheduleDto } from '@/api/dtos/ScheduleDtoSchema';
+import { ScheduleDto } from '@/api/zod-schemas/ScheduleDtoSchema';
 import { AutoBuildParametersDto } from '@/api/generated-types/generated-types_';
 import { parseTen } from '@/api/date-and-time';
 

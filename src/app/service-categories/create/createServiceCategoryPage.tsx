@@ -6,7 +6,7 @@ import data from '@/utils/init-json-data/service-categories/ServiceCategory.json
 import { Button } from '@nextui-org/button';
 import { useGlobalReadAny } from 'selective-context';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
-import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import {
   getDtoListByExampleList,
   postOne

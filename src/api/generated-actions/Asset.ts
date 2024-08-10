@@ -1,5 +1,5 @@
 'use server';
-import { AssetDto } from '../dtos/AssetDtoSchema';
+import { AssetDto } from '@/api/zod-schemas/AssetDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';

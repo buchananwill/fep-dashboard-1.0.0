@@ -5,12 +5,12 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
+import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import clsx from 'clsx';
 import { SuitabilityCellData } from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 
 const SyncedRowCell = ({
   style,

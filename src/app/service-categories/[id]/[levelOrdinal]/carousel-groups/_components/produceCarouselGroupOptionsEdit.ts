@@ -1,4 +1,4 @@
-import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
+import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
 
 import { TransientIdOffset } from '@/api/literals';
 

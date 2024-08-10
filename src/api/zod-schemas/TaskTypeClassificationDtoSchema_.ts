@@ -1,9 +1,9 @@
 import { z } from 'zod';
-import { AssetRoleTypeDtoSchema } from '@/api/dtos/AssetRoleTypeDtoSchema';
-import { TaskTypeClassificationItemDtoSchema } from '@/api/dtos/TaskTypeClassificationItemDtoSchema';
-import { PartyClassificationItemDtoSchema } from '@/api/dtos/PartyClassificationItemDtoSchema';
-import { AssetClassificationItemDtoSchema } from '@/api/dtos/AssetClassificationItemDtoSchema';
-import { ProviderRoleTypeDtoSchema } from '@/api/dtos/ProviderRoleTypeDtoSchema';
+import { AssetRoleTypeDtoSchema } from '@/api/zod-schemas/AssetRoleTypeDtoSchema';
+import { TaskTypeClassificationItemDtoSchema } from '@/api/zod-schemas/TaskTypeClassificationItemDtoSchema';
+import { PartyClassificationItemDtoSchema } from '@/api/zod-schemas/PartyClassificationItemDtoSchema';
+import { AssetClassificationItemDtoSchema } from '@/api/zod-schemas/AssetClassificationItemDtoSchema';
+import { ProviderRoleTypeDtoSchema } from '@/api/zod-schemas/ProviderRoleTypeDtoSchema';
 
 export const ClassificationTypeEnum = z.enum([
   'WORK_TASK_TYPE_TO_ASSET',

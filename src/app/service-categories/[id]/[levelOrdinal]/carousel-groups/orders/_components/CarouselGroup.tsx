@@ -9,7 +9,7 @@ import {
 } from 'dto-stores';
 import Carousel from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/Carousel';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
+import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
 import CarouselOrderManager from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOrderManager';
 import React, { memo, useCallback, useMemo, useTransition } from 'react';
 import { useGlobalController } from 'selective-context';
@@ -28,8 +28,8 @@ import { resetAssignmentsAction } from '@/app/service-categories/[id]/[levelOrdi
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { getDtoListByBodyList as getCarouselByList } from '@/api/generated-actions/Carousel';
-import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity, dispatchWithoutControl } =

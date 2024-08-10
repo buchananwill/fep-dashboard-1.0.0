@@ -1,5 +1,5 @@
 'use server';
-import { CycleSubspanGroupDto } from '../dtos/CycleSubspanGroupDtoSchema';
+import { CycleSubspanGroupDto } from '@/api/zod-schemas/CycleSubspanGroupDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

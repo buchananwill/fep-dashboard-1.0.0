@@ -3,7 +3,7 @@ import { Edge, NodeProps, useEdges } from '@xyflow/react';
 import React, { memo, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import { BaseEditableNode } from '@/react-flow/components/nodes/BaseEditableNode';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import {
   useGlobalDispatch,
   useGlobalListener,

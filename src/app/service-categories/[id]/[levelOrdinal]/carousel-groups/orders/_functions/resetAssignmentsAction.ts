@@ -1,10 +1,10 @@
 'use server';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
+import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { PartialDeep } from 'type-fest';
 import { revalidatePath } from 'next/cache';
-import { CarouselOrderDto } from '@/api/dtos/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 
 export const resetAssignmentsAction = async (
   entity?: PartialDeep<CarouselGroupDto>

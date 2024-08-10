@@ -1,5 +1,5 @@
-import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
+import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 
 export function canAssignToOrderItem(
   orderItem: CarouselOrderItemDto,

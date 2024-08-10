@@ -1,4 +1,4 @@
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
 import { TemplateRequestOverrides } from '@/api/types';
 
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';

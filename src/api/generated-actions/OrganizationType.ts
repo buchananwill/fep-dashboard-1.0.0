@@ -1,5 +1,5 @@
 'use server';
-import { OrganizationTypeDto } from '../dtos/OrganizationTypeDtoSchema';
+import { OrganizationTypeDto } from '@/api/zod-schemas/OrganizationTypeDtoSchema';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 

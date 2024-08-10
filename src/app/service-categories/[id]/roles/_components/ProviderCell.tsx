@@ -1,5 +1,5 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
+import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
 import { EntityClassMap } from '@/api/entity-class-map';

@@ -2,8 +2,8 @@
 
 import data from '@/utils/init-json-data/primary-types/InteractionBasedValidation.json';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
-import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
+import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 import { getDtoListByExampleList } from '@/api/generated-actions/InteractionBasedValidation';
 import { API_V2_URL } from '@/api/literals';
 import { IntersectionGeneratorMatrix } from '@/api/types';

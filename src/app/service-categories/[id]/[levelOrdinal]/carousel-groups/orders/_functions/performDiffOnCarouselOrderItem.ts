@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react';
-import { CarouselOrderItemDto } from '@/api/dtos/CarouselOrderItemDtoSchema';
+import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
 import { handleAddAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/handleAddAssignee';
 import { handleRemoveAssignee } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_functions/handleRemoveAssignee';
 import {

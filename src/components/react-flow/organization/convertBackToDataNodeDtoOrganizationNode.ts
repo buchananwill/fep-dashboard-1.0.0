@@ -1,4 +1,4 @@
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import {
   DataNode,
   DataNodeDto,

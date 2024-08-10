@@ -7,9 +7,9 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 import { Button } from '@nextui-org/button';
 import React, { Dispatch, SetStateAction, useCallback } from 'react';
-import { CarouselGroupDto } from '@/api/dtos/CarouselGroupDtoSchema';
-import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
+import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import {
   EditAddDeleteDtoControllerArray,
   NamespacedHooks,

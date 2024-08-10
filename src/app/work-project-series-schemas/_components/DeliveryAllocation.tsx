@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AllocationUnitGroup } from '@/app/work-project-series-schemas/_components/AllocationUnitGroup';
-import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
+import { DeliveryAllocationDto } from '@/api/zod-schemas/DeliveryAllocationDtoSchema';
 
 export function DeliveryAllocation({
   deliveryAllocation: { deliveryAllocationSize, count }

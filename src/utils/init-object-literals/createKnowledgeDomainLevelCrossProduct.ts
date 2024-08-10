@@ -1,4 +1,4 @@
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
 
 function createKnowledgeDomainLevelCrossProduct(
   domainNames: string[],

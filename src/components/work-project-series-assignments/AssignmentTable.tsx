@@ -1,5 +1,5 @@
 'use client';
-import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
+import { WorkProjectSeriesAssignmentTableDto } from '@/api/zod-schemas/WorkProjectSeriesAssignmentTableDtoSchema_';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import React, { useMemo } from 'react';
 import CellQueryManager, {

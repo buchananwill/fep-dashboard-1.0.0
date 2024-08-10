@@ -3,8 +3,8 @@ import React, { useCallback, useMemo } from 'react';
 
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
-import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
-import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
+import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import { LazyDtoUiWrapper } from 'dto-stores';
 import {
   BaseDtoStoreStringInputProps,
