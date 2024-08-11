@@ -4,6 +4,7 @@ import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHom
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { startCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export async function ServiceCategoryLinks({
   pathVariables,
@@ -13,7 +14,8 @@ export async function ServiceCategoryLinks({
   return (
     <Card>
       <CardHeader>
-        {startCase(pathVariables[depth - 1])} - Service Categories
+        {startCase(getDomainAlias(pathVariables[depth - 1]))} - Service
+        Categories
       </CardHeader>
       <CardBody>
         {all.map((serviceCategory) => (

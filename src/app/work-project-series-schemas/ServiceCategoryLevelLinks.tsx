@@ -5,6 +5,7 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { startCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export async function ServiceCategoryLevelLinks({
   depth,
@@ -16,7 +17,9 @@ export async function ServiceCategoryLevelLinks({
   ]).then((r) => r.sort((l1, l2) => l1.levelOrdinal - l2.levelOrdinal));
   return (
     <Card>
-      <CardHeader>{startCase(pathVariables[depth - 2])}</CardHeader>
+      <CardHeader>
+        {startCase(getDomainAlias(pathVariables[depth - 2]))}
+      </CardHeader>
       <CardBody>
         {kLevels.map((kLevel) => (
           <LinkButton

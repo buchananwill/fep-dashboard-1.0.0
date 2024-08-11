@@ -15,6 +15,7 @@ import { useKnowledgeDtoTableProps } from '@/app/service-categories/[id]/knowled
 import { getEntityStringComparator } from '@/functions/sortEntityListOnStringProperty';
 import { TransientIdOffset } from '@/api/literals';
 import { Button } from '@nextui-org/button';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export function KnowledgeDomainTable({
   data,
@@ -57,6 +58,7 @@ export function KnowledgeDomainTable({
     []
   );
 
+  const domainAlias = getDomainAlias('knowledgeDomain');
   return (
     <DtoTable
       data={sortedRows}
@@ -64,12 +66,8 @@ export function KnowledgeDomainTable({
       renderCell={renderCell}
       bottomContent={
         <div className={'grid grid-cols-3 gap-2'}>
-          <Button onPress={masterListInteraction}>
-            Add {serviceCategory.knowledgeDomainDescriptor}
-          </Button>
-          <Button onPress={handleRemoveRow}>
-            Remove {serviceCategory.knowledgeDomainDescriptor}
-          </Button>
+          <Button onPress={masterListInteraction}>Add {domainAlias}</Button>
+          <Button onPress={handleRemoveRow}>Remove {domainAlias}</Button>
         </div>
       }
     />

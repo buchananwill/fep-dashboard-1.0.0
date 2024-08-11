@@ -38,8 +38,8 @@ export const navTreeData: NavTree = {
     children: {},
     component: KnowledgeLevelsHome
   },
-  workTaskType: { type: 'branch', children: {}, component: WorkTaskTypeHome },
-  workProjectSeriesSchema: {
+  workTaskTypes: { type: 'branch', children: {}, component: WorkTaskTypeHome },
+  workProjectSeriesSchemas: {
     type: 'branch',
     children: {
       staticAllocations: { type: 'leaf', component: StaticAllocationPage }
