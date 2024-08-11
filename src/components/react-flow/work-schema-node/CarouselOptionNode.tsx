@@ -32,14 +32,7 @@ export default function CarouselOptionNode(
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}
-      label={`Option:
-      ${
-        workProjectSeriesSchema &&
-        workProjectSeriesSchema.name.substring(
-          0,
-          workProjectSeriesSchema.name.indexOf(':')
-        )
-      }`}
+      label={`Option: ${workProjectSeriesSchema && workProjectSeriesSchema.shortCode}`}
     ></BaseWorkSchemaNode>
   );
 }

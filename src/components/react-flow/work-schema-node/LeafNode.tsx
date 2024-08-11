@@ -25,7 +25,7 @@ export default function LeafNode(
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}
-      label={`${entity && entity.name.substring(0, entity.name.indexOf(':'))} `}
+      label={`${entity && entity.shortCode}`}
     ></BaseWorkSchemaNode>
   );
 }
