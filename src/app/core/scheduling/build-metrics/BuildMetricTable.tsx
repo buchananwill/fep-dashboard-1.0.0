@@ -2,7 +2,7 @@
 import {
   BuildMetricDto,
   QueueTreeNodeDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 import {
   Table,
   TableBody,

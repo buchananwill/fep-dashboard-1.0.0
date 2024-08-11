@@ -6,7 +6,7 @@ import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Paths } from 'type-fest';
 import { getValue } from '@/functions/allowingNestedFiltering';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { TypedPaths } from '@/functions/typePaths';
 
 export const INITIAL_VISIBLE_COLUMNS: Paths<WorkTaskTypeDto>[] = [
@@ -26,8 +26,11 @@ export default function WorkTaskTypeSelectorTable({
 }) {
   const renderCell = React.useCallback(
     (workTaskTypeDto: WorkTaskTypeDto, columnKey: React.Key) => {
-      const pathKey = columnKey as TypedPaths<WorkTaskTypeDto, string | number>;
-      const cellValue = getValue(workTaskTypeDto, pathKey);
+      const pathKey = columnKey as TypedPaths<
+        WorkTaskTypeDto,
+        string | number | undefined
+      >;
+      const cellValue = getValue(workTaskTypeDto, pathKey) ?? '';
 
       switch (pathKey) {
         case 'name':

@@ -1,7 +1,7 @@
 import { useReadAnyDto } from 'dto-stores';
 import { CarouselOptionStateInterface } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_types';
 import { CarouselOptionState } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/CarouselOption';
-import { CarouselOrderItemDto } from '@/api/generated-types/generated-types_';
+import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
 
 export function useClashList(orderItem: CarouselOrderItemDto) {
   const readAny =

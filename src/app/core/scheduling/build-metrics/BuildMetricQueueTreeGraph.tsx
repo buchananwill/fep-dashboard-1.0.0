@@ -1,5 +1,5 @@
 'use client';
-import { BuildMetricDto } from '@/api/generated-types/generated-types_';
+import { BuildMetricDto } from '@/api/generated-types/generated-types';
 import { useMemo } from 'react';
 import {
   PointTooltipProps,

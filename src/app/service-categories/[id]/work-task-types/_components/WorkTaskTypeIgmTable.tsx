@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { initWorkProjectSeriesSchemas } from '@/utils/init-database-functions/operations/initWorkProjectSeriesSchemas';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { IntersectionGeneratorMatrix } from '@/api/types';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 export default function WorkTaskTypeIgmTable({
   submitTo,

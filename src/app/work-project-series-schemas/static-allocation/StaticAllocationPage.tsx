@@ -4,7 +4,6 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';
-import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema_';
 import StaticAllocationTable from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 import {
   EditAddDeleteDtoControllerArray,
@@ -16,6 +15,7 @@ import StaticAllocationAuditor, {
   allocationCounter
 } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationAuditor';
 import { EmptyArray } from '@/api/literals';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,

@@ -2,7 +2,7 @@
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
-import { OrganizationDto } from '@/api/generated-types/generated-types_';
+import { OrganizationDto } from '@/api/generated-types/generated-types';
 
 const {
   getPage,

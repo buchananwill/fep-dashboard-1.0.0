@@ -1,6 +1,6 @@
 'use server';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types_';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
 
 const {
   getPage,

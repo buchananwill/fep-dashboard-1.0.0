@@ -1,10 +1,11 @@
-import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
 import { TemplateRequestOverrides } from '@/api/types';
 
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
+import { PartialDeep } from 'type-fest';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 export function createRequestRecordCombiner(
-  globalSuitabilities: Partial<WorkTaskTypeDto>[]
+  globalSuitabilities: PartialDeep<WorkTaskTypeDto>[]
 ) {
   return function ([
     name,

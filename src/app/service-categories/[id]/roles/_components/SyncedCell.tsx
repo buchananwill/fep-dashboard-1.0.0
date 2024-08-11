@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import { SuitabilityCellData } from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 const SyncedRowCell = ({
   style,

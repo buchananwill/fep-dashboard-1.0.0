@@ -1,6 +1,6 @@
 'use server';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types';
 
 const {
   getPage,

@@ -7,7 +7,7 @@ import { PartialDeep } from 'type-fest';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 
 import { BASE_URL } from '@/api/BASE_URL';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 export async function initWorkProjectSeriesSchemas(
   workTaskTypeList: WorkTaskTypeDto[]

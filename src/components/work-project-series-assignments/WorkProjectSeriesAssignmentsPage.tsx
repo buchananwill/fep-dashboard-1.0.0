@@ -18,7 +18,7 @@ import {
   CycleSubspanDto,
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 
 async function WorkProjectSeriesAssignmentsForSchedule({
   pathVariables,

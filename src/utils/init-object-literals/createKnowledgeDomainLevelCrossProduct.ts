@@ -1,13 +1,14 @@
-import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
+import { PartialDeep } from 'type-fest';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 function createKnowledgeDomainLevelCrossProduct(
   domainNames: string[],
   levels: number[]
-): Partial<WorkTaskTypeDto>[] {
+): PartialDeep<WorkTaskTypeDto>[] {
   return domainNames.flatMap((knowledgeDomainName) =>
     levels.map((knowledgeLevelLevelOrdinal) => ({
-      knowledgeDomainName,
-      knowledgeLevelLevelOrdinal
+      knowledgeDomain: { name: knowledgeDomainName },
+      knowledgeLevel: { levelOrdinal: knowledgeLevelLevelOrdinal }
     }))
   );
 }

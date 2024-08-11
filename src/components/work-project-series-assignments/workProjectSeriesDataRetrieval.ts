@@ -5,7 +5,7 @@ import {
   CycleSubspanDto,
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 
 export function workProjectSeriesDataRetrieval(
   tableData: GenericTableDto<

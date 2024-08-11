@@ -12,7 +12,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { ProjectionClassificationValidationGraph } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
 import { Api } from '@/api/clientApi_';
 import { bandwidthOptions } from '@/app/service-categories/[id]/roles/bandwidth-graph/bandwidthForceGraphOptions';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 const graphUrl = constructUrl(
   '/api/v2/schedule/bandwidthGraph?providerRoleTypeId='

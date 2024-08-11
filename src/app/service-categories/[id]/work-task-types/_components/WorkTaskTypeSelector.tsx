@@ -2,7 +2,7 @@ import EntitySelector, {
   EntitySelectorProps
 } from '@/components/generic/EntitySelector';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 export default function WorkTaskTypeSelector(
   props: Omit<

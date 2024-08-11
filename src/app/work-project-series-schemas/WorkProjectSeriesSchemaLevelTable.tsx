@@ -21,7 +21,7 @@ async function WorkProjectSeriesSchemaLevelTable({
 
   const { workProjectSeriesSchemas: wpssData } =
     await workProjectSeriesSchemaActionSequence({
-      knowledgeLevelLevelOrdinal: parseInt(levelOrdinal),
+      knowledgeLevel: { levelOrdinal: parseInt(levelOrdinal) },
       serviceCategoryId: parseInt(serviceCategoryId)
     });
 

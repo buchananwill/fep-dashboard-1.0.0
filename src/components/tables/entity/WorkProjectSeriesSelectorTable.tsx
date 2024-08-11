@@ -8,7 +8,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { WorkProjectSeriesLeanDto } from '@/components/work-project-series-metrics/WorkProjectSeriesTableDataFetcher';
-import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
 import { Paths } from 'type-fest';
 import { getValue } from '@/functions/allowingNestedFiltering';
 

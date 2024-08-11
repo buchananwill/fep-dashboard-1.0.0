@@ -8,7 +8,7 @@ import {
   WorkProjectSeriesDto,
   WorkProjectSeriesMetricDto,
   WorkProjectSeriesWithSchemaLabelsDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 import WorkProjectSeriesMetricTable from '@/components/work-project-series-metrics/WorkProjectSeriesMetricTable';
 import {
   DataFetchingEditDtoControllerArray,

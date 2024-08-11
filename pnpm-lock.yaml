@@ -71,12 +71,6 @@ importers:
       '@nivo/network':
         specifier: ^0.87.0
         version: 0.87.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@react-types/datepicker':
-        specifier: ^3.8.1
-        version: 3.8.1(react@18.3.1)
-      '@react-types/shared':
-        specifier: ^3.22.1
-        version: 3.22.1(react@18.3.1)
       '@xyflow/react':
         specifier: ^12.0.3
         version: 12.0.3(@types/react@18.2.79)(immer@10.0.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -162,6 +156,12 @@ importers:
       '@nivo/core':
         specifier: ^0.87.0
         version: 0.87.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@react-types/datepicker':
+        specifier: ^3.8.1
+        version: 3.8.1(react@18.3.1)
+      '@react-types/shared':
+        specifier: ^3.24.1
+        version: 3.24.1(react@18.3.1)
       '@tailwindcss/forms':
         specifier: ^0.5.7
         version: 0.5.7(tailwindcss@3.4.3)
@@ -1893,11 +1893,6 @@ packages:
     resolution: {integrity: sha512-cVSFR0eJLup/ht1Uto+y8uyLmHO89J6wNh65SIHb3jeVz9oLBAedP3YNI2qB+F9qFMUcA8PBSLXIIuT6gXzLgQ==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0
-
-  '@react-types/shared@3.22.1':
-    resolution: {integrity: sha512-PCpa+Vo6BKnRMuOEzy5zAZ3/H5tnQg1e80khMhK2xys0j6ZqzkgQC+fHMNZ7VDFNLqqNMj/o0eVeSBDh2POjkw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
 
   '@react-types/shared@3.23.1':
     resolution: {integrity: sha512-5d+3HbFDxGZjhbMBeFHRQhexMFt4pUce3okyRtUVKbbedQFUrtXSBg9VszgF2RTeQDKDkMCIQDtz5ccP/Lk1gw==}
@@ -7245,10 +7240,6 @@ snapshots:
   '@react-types/select@3.9.6(react@18.3.1)':
     dependencies:
       '@react-types/shared': 3.24.1(react@18.3.1)
-      react: 18.3.1
-
-  '@react-types/shared@3.22.1(react@18.3.1)':
-    dependencies:
       react: 18.3.1
 
   '@react-types/shared@3.23.1(react@18.3.1)':

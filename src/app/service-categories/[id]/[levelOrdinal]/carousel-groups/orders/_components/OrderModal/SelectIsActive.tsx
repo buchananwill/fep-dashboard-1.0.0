@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import {
   CarouselOrderDto,
   CarouselOrderItemDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 import { OrderItemRowProps } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/CarouselOrderItem';
 
 export default function SelectIsActive({

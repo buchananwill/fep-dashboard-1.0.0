@@ -4,7 +4,7 @@ import { PartialDeep } from 'type-fest';
 import {
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 
 export interface Page<T> {
   content: T[];

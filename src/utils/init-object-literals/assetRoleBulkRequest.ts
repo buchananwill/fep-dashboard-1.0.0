@@ -22,6 +22,7 @@ import {
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
 import { AssetRoleTypeDto } from '@/api/zod-schemas/AssetRoleTypeDtoSchema';
 import { AssetRolePostRequest } from '@/api/zod-schemas/AssetRolePostRequestSchema_';
+import { PartialDeep } from 'type-fest';
 
 const assetRoleTypeExample: Partial<AssetRoleTypeDto> = {
   name: 'Class Room'
@@ -70,7 +71,7 @@ const standardDepartmentParams: RequestCreationParams[][] = Object.entries(
 ).map(([subject, count]) => {
   return [
     [`${subject} Department`, count, createWholeSchoolPartials([subject])]
-  ] as [string, number, Partial<WorkTaskTypeDto>[]][];
+  ] as [string, number, PartialDeep<WorkTaskTypeDto>[]][];
 });
 
 const languagesShared: RequestCreationParams[] = [

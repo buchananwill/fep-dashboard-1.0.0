@@ -1,5 +1,6 @@
 import { workProjectSeriesSchemaActionSequence } from '@/app/work-project-series-schemas/_functions/workProjectSeriesSchemaActionSequence';
-import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
+import { PartialDeep } from 'type-fest';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 
 export function getKnowledgeLevelPartial(
   levelOrdinal: string,
@@ -7,7 +8,7 @@ export function getKnowledgeLevelPartial(
 ) {
   const levelOrdinalInt = parseInt(levelOrdinal);
   const serviceCategoryIdInt = parseInt(serviceCategoryId);
-  const levelPartial: Partial<KnowledgeLevelDto> = {
+  const levelPartial: PartialDeep<KnowledgeLevelDto> = {
     levelOrdinal: levelOrdinalInt,
     serviceCategoryId: serviceCategoryIdInt
   };
@@ -23,7 +24,7 @@ export async function getLevelPartialAndSchemaList(
 
   const { workProjectSeriesSchemas: workProjectSeriesSchemaList } =
     await workProjectSeriesSchemaActionSequence({
-      knowledgeLevelLevelOrdinal: levelOrdinalInt,
+      knowledgeLevel: { levelOrdinal: levelOrdinalInt },
       serviceCategoryId: serviceCategoryIdInt
     });
   return { levelPartial, workProjectSeriesSchemaList };

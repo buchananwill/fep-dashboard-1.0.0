@@ -15,7 +15,7 @@ import {
   OrganizationDto,
   WorkProjectSeriesWithSchemaLabelsDto,
   WorkTaskTypeDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 import WorkProjectSeriesSelectorTable from '@/components/tables/entity/WorkProjectSeriesSelectorTable';
 
 export default function TabbedSelectorTables({
