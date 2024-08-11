@@ -10,8 +10,6 @@ import { ZodError } from 'zod';
 export default function NavigationBreadcrumbs({
   pathVariables
 }: LeafComponentProps) {
-  console.log('rendering breadcrumbs', pathVariables);
-
   return (
     <div
       className={

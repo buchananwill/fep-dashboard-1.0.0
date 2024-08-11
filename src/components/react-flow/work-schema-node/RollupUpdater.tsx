@@ -14,13 +14,6 @@ export function RollupUpdater({
 }: {
   allocationRollupEntities: AllocationRollup[];
 }) {
-  // 24/7/24 Currently the entire work schema node archive is fetched from the backend to determine the assignment rollups.
-  console.log(
-    'rendering rollup updater: ',
-    allocationRollupEntities,
-    getMilliseconds()
-  );
-
   const { currentState: rollupIdList } = NamespacedHooks.useListen(
     AllocationRollupEntityClass,
     KEY_TYPES.ID_LIST,
@@ -37,7 +30,6 @@ export function RollupUpdater({
       .filter((entity) => rollupIdList.includes(entity.id))
       .forEach((filteredEntity, key) => {
         const idAsString = `${filteredEntity.id}`;
-        console.log('updating AllocationRollup:', filteredEntity);
         writeAnyAllocationRollup(idAsString, filteredEntity);
       });
   }, [allocationRollupEntities, writeAnyAllocationRollup, rollupIdList]);

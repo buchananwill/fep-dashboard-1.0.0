@@ -48,7 +48,6 @@ function createPatternMatchedDomainAliasSet(
     }
     createdAliasMap[matcher] = replacement;
   }
-  console.log(createdAliasMap);
 
   return createdAliasMap;
 }

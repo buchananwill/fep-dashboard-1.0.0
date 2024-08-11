@@ -249,7 +249,9 @@ export default function CarouselOption({
                     )}
                     color={canDrop ? 'primary' : fallBackColor}
                   >
-                    <span className={'truncate'}>{workTaskType.name}</span>
+                    <span className={'truncate'}>
+                      {workTaskType.knowledgeDomain?.name}
+                    </span>
                     <Chip
                       className={clsx(badgeColor, textFade)}
                       ref={assignChipRef}

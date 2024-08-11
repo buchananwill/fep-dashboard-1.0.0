@@ -42,25 +42,16 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
   >(CarouselOptionState, KEY_TYPES.MASTER_LIST);
 
   useEffect(() => {
-    console.log('Carousel entity changed: useEffect hook firing.');
     if (entity !== initialEntity.current) {
       dispatchOptionMasterList((list) => {
         const filteredList = list.filter(
           (option) => option.carouselId !== entity.id
         );
         const optionStates = transformOptionForClientState([entity]);
-        const newVar = [...filteredList, ...optionStates];
-        console.log('returning this list: ', newVar);
-        return newVar;
+        return [...filteredList, ...optionStates];
       });
       initialEntity.current = entity;
     }
-    // return () => {
-    //   console.log('Clean up function firing');
-    //   dispatchOptionMasterList((list) => {
-    //     return list.filter((option) => option.carouselId !== entity.id);
-    //   });
-    // };
   }, [dispatchOptionMasterList, entity]);
 
   const listenerKey = useUuidListenerKey();
