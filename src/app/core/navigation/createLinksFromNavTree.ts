@@ -1,12 +1,17 @@
 import { kebabCase, startCase } from 'lodash';
 import { NavLinkTree, NavTree, NavTreeNode } from '@/app/core/navigation/types';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export function createLinksFromNavTree(
   tree: NavTreeNode,
   ancestorPath: string[],
   indexList: number[]
 ): NavLinkTree {
+  const displayNameAlias = startCase(
+    getDomainAlias(ancestorPath[ancestorPath.length - 1])
+  );
   const displayName = startCase(ancestorPath[ancestorPath.length - 1]);
+  console.log(displayName, displayNameAlias);
   if (tree.type === 'leaf') {
     return {
       link: ancestorPath.map(kebabCase),

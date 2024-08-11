@@ -10,10 +10,11 @@ import {
   NavigationType,
   navLinkIcons
 } from '@/components/navigation/navLinkIcons';
-import { camelCase } from 'lodash';
+import { camelCase, startCase } from 'lodash';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import { NavLinkDescriptionsDefault } from '@/components/navigation/navLinkDescriptions';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export function NavLinkTreeButton({
   navLinkNode,
@@ -25,12 +26,14 @@ export function NavLinkTreeButton({
   renderLinkAs: LinkWithChildLinks;
 }) {
   const { link, displayName, children, indexList } = navLinkNode;
+  const aliasName = startCase(getDomainAlias(displayName));
+
   const DisplayLabelElement = (
     <>
       {
         <>
           <span className={'mr-2 font-mono'}>{indexList.join('.')}:</span>
-          <span>{displayName}</span>
+          <span>{aliasName}</span>
         </>
       }
     </>
@@ -71,7 +74,7 @@ export function NavLinkTreeButton({
                   className={'flex justify-between  border-default-200 '}
                 >
                   <Icon className={'h-8 w-8'} />
-                  {displayName}
+                  {aliasName}
                 </CardHeader>
               </Button>
             </PopoverTrigger>
