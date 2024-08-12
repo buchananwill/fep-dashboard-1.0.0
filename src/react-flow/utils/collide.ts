@@ -156,7 +156,7 @@ function getCollide() {
 
   force.initialize = (newNodes: CollisionNode[]) => (nodes = newNodes);
   force.strength = (newStrength: number) => {
-    // strength = newStrength;
+    strength = newStrength;
     return force;
   };
 
