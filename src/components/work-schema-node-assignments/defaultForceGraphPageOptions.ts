@@ -11,7 +11,8 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
     forceYStrength: 50,
     forceYSpacing: 50,
     linkStrength: 50,
-    linkDistance: 150
+    linkDistance: 150,
+    collideStrength: 0
   },
   normalizationCoefficients: {
     forceYSpacing: 1000
@@ -19,7 +20,7 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
   forces: {
     center: false,
     collide: true,
-    forceX: false,
+    forceX: true,
     forceY: true,
     link: true,
     manyBody: true,

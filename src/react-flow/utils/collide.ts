@@ -60,7 +60,7 @@ function getOverlapRatio(spacingMin: number, spacing: number) {
 function getCollide() {
   let nodes = [] as FlowNode<any>[];
   let strength = 0.5;
-  let gap = 5;
+  let gap = 0;
   function force(alpha: number) {
     console.log('strength:', strength);
     const tree = quadtree(

@@ -6,12 +6,13 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
   forces: {
     link: true,
     manyBody: true,
-    forceY: true
+    forceY: false,
+    ...defaultForceGraphPageOptions.forces
   },
   forceAttributesInitial: {
     collideStrength: 10,
     linkDistance: 70,
-    linkStrength: 170,
+    linkStrength: 10,
     manyBodyStrength: 134,
     manyBodyMinDistance: 1,
     manyBodyMaxDistance: 40,
@@ -23,6 +24,7 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
   normalizationCoefficients: {
     forceYSpacing: 1000,
     forceXSpacing: 1000,
-    manyBodyMaxDistance: 10
+    manyBodyMaxDistance: 10,
+    collideStrength: 0.5
   }
 };
