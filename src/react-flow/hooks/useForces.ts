@@ -71,6 +71,7 @@ export function useForces(
     for (let i = 0; i < nodes.length; i++) {
       Object.assign(nodeListRef.current[i], nodes[i]);
     }
+    simRef.current.stop();
 
     // The tick function is called every animation frame while the simulation is
     // running and progresses the simulation one step forward each time.

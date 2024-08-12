@@ -14,19 +14,26 @@ type FlowNodePosition = SetRequired<FlowNode<any>, 'x' | 'y'>;
 
 type CollisionNode = Merge<FlowNodePosition, FlowNodeWithSize>;
 
-function conditionallyModifySpacing(
+function modifySpacing(
   spacing: number,
   spacingMin: number,
   alpha: number,
   node: CollisionNode,
   quadLeaf: QuadtreeLeaf<CollisionNode>,
-  strength: number
+  strength: number,
+  dimension: 'x' | 'y',
+  ratio: number
 ) {
-  if (Math.abs(spacing) < spacingMin) {
-    let spacingDelta = ((Math.abs(spacing) - spacingMin) / spacing) * alpha;
-    node.x -= spacingDelta * strength;
-    quadLeaf.data.x += spacingDelta;
-  }
+  let spacingDelta =
+    (spacingMin - Math.abs(spacing)) *
+    alpha *
+    strength *
+    ratio *
+    (spacing / Math.abs(spacing));
+  console.log(spacingDelta);
+  if (!node.fx && !node.fy) node[dimension] -= spacingDelta;
+  if (!quadLeaf.data.fx && !quadLeaf.data.fy)
+    quadLeaf.data[dimension] += spacingDelta;
 }
 
 type CollideForce = Force<
@@ -46,9 +53,14 @@ function isSafeCollisionNode(quadLeafUnsafe: QuadtreeLeaf<FlowNode<any>>) {
   );
 }
 
+function getOverlapRatio(spacingMin: number, spacing: number) {
+  return (spacingMin - Math.abs(spacing)) / spacingMin;
+}
+
 function getCollide() {
   let nodes = [] as FlowNode<any>[];
-  let strength = 1;
+  let strength = 0.5;
+  let gap = 5;
   function force(alpha: number) {
     console.log('strength:', strength);
     const tree = quadtree(
@@ -79,34 +91,59 @@ function getCollide() {
           let quadLeafUnsafe = quad as QuadtreeLeaf<FlowNode<any>> | undefined;
           while (!!quadLeafUnsafe) {
             if (
-              quadLeafUnsafe.data !== node &&
+              quadLeafUnsafe.data.id !== node.id &&
               isSafeCollisionNode(quadLeafUnsafe)
             ) {
               const quadLeaf = quadLeafUnsafe as QuadtreeLeaf<CollisionNode>;
               const xSpacingMin =
-                node.measured.width / 2 + quadLeaf.data.measured.width / 2;
+                node.measured.width / 2 +
+                quadLeaf.data.measured.width / 2 +
+                gap;
               const ySpacingMin =
-                node.measured.height / 2 + quadLeaf.data.measured.height / 2;
-              let xSpacing = node.x - quadLeaf.data.x;
-              let ySpacing = node.y - quadLeaf.data.y;
-              // let l = Math.hypot(x, y);
-
-              conditionallyModifySpacing(
-                xSpacing,
-                xSpacingMin,
-                alpha,
-                node,
-                quadLeaf,
-                strength
-              );
-              conditionallyModifySpacing(
-                ySpacing,
-                ySpacingMin,
-                alpha,
-                node,
-                quadLeaf,
-                strength
-              );
+                node.measured.height / 2 +
+                quadLeaf.data.measured.height / 2 +
+                gap;
+              let xSpacing = quadLeaf.data.x - node.x;
+              let ySpacing = quadLeaf.data.y - node.y;
+              const collision =
+                Math.abs(xSpacing) < xSpacingMin &&
+                Math.abs(ySpacing) < ySpacingMin;
+              if (collision) {
+                const xRatio = getOverlapRatio(xSpacingMin, xSpacing);
+                const yRatio = getOverlapRatio(ySpacingMin, ySpacing);
+                const modifyX = (finalRatio: number) =>
+                  modifySpacing(
+                    ySpacing,
+                    ySpacingMin,
+                    alpha,
+                    node,
+                    quadLeaf,
+                    strength,
+                    'y',
+                    xRatio * finalRatio
+                  );
+                const modifyY = (finalRatio: number) =>
+                  modifySpacing(
+                    xSpacing,
+                    xSpacingMin,
+                    alpha,
+                    node,
+                    quadLeaf,
+                    strength,
+                    'x',
+                    yRatio * finalRatio
+                  );
+                if (xRatio > yRatio) {
+                  modifyX(1);
+                  modifyY(0.1);
+                } else if (yRatio > xRatio) {
+                  modifyX(0.1);
+                  modifyY(1);
+                } else {
+                  modifyX(1);
+                  modifyY(1);
+                }
+              }
             }
             quadLeafUnsafe = quadLeafUnsafe.next;
           }

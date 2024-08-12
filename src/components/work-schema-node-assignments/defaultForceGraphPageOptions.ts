@@ -20,9 +20,9 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
     center: false,
     collide: true,
     forceX: false,
-    forceY: false,
-    link: false,
-    manyBody: false,
+    forceY: true,
+    link: true,
+    manyBody: true,
     radial: false
   }
 };
