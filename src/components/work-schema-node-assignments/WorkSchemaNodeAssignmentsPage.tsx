@@ -64,6 +64,8 @@ async function WorkSchemaNodeAssignmentsPage({
     convertToOrganizationNode
   );
 
+  console.log(dataNodes);
+
   return (
     <>
       <DataFetchingEditDtoControllerArray

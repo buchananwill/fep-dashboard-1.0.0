@@ -16,5 +16,13 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
   normalizationCoefficients: {
     forceYSpacing: 1000
   },
-  forces: { manyBody: true, link: true, center: true, forceY: true }
+  forces: {
+    center: false,
+    collide: true,
+    forceX: false,
+    forceY: false,
+    link: false,
+    manyBody: false,
+    radial: false
+  }
 };

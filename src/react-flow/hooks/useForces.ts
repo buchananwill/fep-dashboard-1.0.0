@@ -12,10 +12,13 @@ import {
   useGraphDispatch
 } from 'react-d3-force-wrapper';
 import { InitialSetRef } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
+import { collide } from '@/react-flow/utils/collide';
 
 export const draggingNodeKey = 'dragging-node';
 
 const listenerKey = 'use-layouted-elements';
+
+const forceSimParams = { forceFunctions: { collide: collide } };
 
 export function useForces(
   applyFitView?: boolean
@@ -31,7 +34,7 @@ export function useForces(
     listenerKey
   });
 
-  useD3ForceSimulationMemo();
+  useD3ForceSimulationMemo(forceSimParams);
   const { currentState: draggingNode } = useGlobalController<
     MutableRefObject<FlowNode<any>> | undefined
   >({
@@ -45,8 +48,8 @@ export function useForces(
   return useMemo(() => {
     let nodes = getNodes().map((node) => ({
       ...node,
-      x: node.position.x,
-      y: node.position.y
+      x: node.position.x || 0,
+      y: node.position.y || 0
     })) as FlowNode<any>[];
     let running = false;
     let simulation: Simulation<any, any>;
@@ -103,7 +106,10 @@ export function useForces(
           (node) =>
             ({
               ...node,
-              position: { x: node.fx ?? node.x, y: node.fy ?? node.y },
+              position: {
+                x: node.fx || node.x || 0,
+                y: node.fy || node.y || 0
+              },
               selected: selectionRef.current.has(node.id)
             }) as FlowNode<any>
         )
@@ -125,8 +131,8 @@ export function useForces(
       if (running) {
         getNodes().forEach((node, index) => {
           const scopedNode = scopedNodes[index];
-          scopedNode.x = node.position.x;
-          scopedNode.y = node.position.y;
+          scopedNode.x = node.position.x || 0;
+          scopedNode.y = node.position.y || 0;
         });
         window.requestAnimationFrame(tick);
       }
