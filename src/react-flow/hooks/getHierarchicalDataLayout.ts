@@ -13,6 +13,7 @@ export interface HierarchicalDataOptions {
     a: HierarchyPointNode<NestedWithStringId>,
     b: HierarchyPointNode<NestedWithStringId>
   ) => number;
+  orientation?: 'horizontal' | 'vertical';
 }
 
 export function getHierarchicalDataLayout(

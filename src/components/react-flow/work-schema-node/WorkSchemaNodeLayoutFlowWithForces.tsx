@@ -65,7 +65,6 @@ import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';
-import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 import { useHierarchicalDataLayoutMemo } from '@/react-flow/hooks/useHierarchicalDataLayoutMemo';
 import { HierarchicalDataOptions } from '@/react-flow/hooks/getHierarchicalDataLayout';
 import { hierarchicalLayoutMap } from '@/react-flow/hooks/useForces';
@@ -74,7 +73,26 @@ import { NestedWithStringId } from '@/react-flow/hooks/useHierarchicalDataMemo';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
-const options: HierarchicalDataOptions = { nodeSize: [50, 400] };
+const options: HierarchicalDataOptions = {
+  nodeSize: [50, 400],
+  orientation: 'horizontal'
+};
+
+function useHierarchicalTreeLayout(idToChildIdMap: Map<string, Set<string>>) {
+  const [layoutMemo] = useHierarchicalDataLayoutMemo(idToChildIdMap, options);
+
+  const layoutMemoRef = useRef(
+    InitialMap as Map<string, HierarchyPointNode<NestedWithStringId>>
+  );
+
+  layoutMemoRef.current = layoutMemo;
+
+  const { currentState: layoutMapState, dispatch } = useGlobalController({
+    contextKey: hierarchicalLayoutMap,
+    listenerKey: 'workSchemaNodeLayout',
+    initialValue: layoutMemoRef
+  });
+}
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children
@@ -126,20 +144,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     idToChildIdMap,
     idToNodeMap
   );
-
-  const [layoutMemo] = useHierarchicalDataLayoutMemo(idToChildIdMap, options);
-
-  const layoutMemoRef = useRef(
-    InitialMap as Map<string, HierarchyPointNode<NestedWithStringId>>
-  );
-
-  layoutMemoRef.current = layoutMemo;
-
-  const { currentState: layoutMapState, dispatch } = useGlobalController({
-    contextKey: hierarchicalLayoutMap,
-    listenerKey: 'workSchemaNodeLayout',
-    initialValue: layoutMemoRef
-  });
+  useHierarchicalTreeLayout(idToChildIdMap);
 
   const { onConnect, ...otherProps } = reactFlowProps;
 

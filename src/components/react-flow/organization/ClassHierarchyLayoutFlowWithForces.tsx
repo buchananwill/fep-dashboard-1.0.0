@@ -35,6 +35,7 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
 import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
 import { FlowNode } from '@/react-flow/types';
+import { HierarchicalDataOptions } from '@/react-flow/hooks/getHierarchicalDataLayout';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,

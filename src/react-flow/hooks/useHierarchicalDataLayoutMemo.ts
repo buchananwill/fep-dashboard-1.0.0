@@ -10,6 +10,24 @@ import { useMemo } from 'react';
 import { HierarchyPointNode } from 'd3';
 import { HasStringId } from 'react-d3-force-wrapper';
 
+function getOrientationCorrector(orientation: 'horizontal' | 'vertical') {
+  return function correctOrientation<T extends HasStringId>(
+    map: Map<string, HierarchyPointNode<T>>,
+    index: number
+  ) {
+    if (orientation === 'vertical') {
+      [...map.values()].forEach((hpn) => {
+        const { x, y } = hpn;
+        // noinspection JSSuspiciousNameCombination
+        hpn.x = y;
+        // noinspection JSSuspiciousNameCombination
+        hpn.y = x;
+      });
+    }
+    return map;
+  };
+}
+
 export function useHierarchicalDataLayoutMemo(
   childMap: StringIdHierarchyMap,
   options?: HierarchicalDataOptions
@@ -17,9 +35,13 @@ export function useHierarchicalDataLayoutMemo(
   const rootNodeList = useHierarchicalDataMemo(childMap);
 
   return useMemo(() => {
+    const correctOrientation = getOrientationCorrector(
+      options?.orientation ?? 'horizontal'
+    );
     return rootNodeList
       .map((rootNode) => getHierarchicalDataLayout(rootNode, options))
-      .map(flattenHierarchicalLayoutDataStructure);
+      .map(flattenHierarchicalLayoutDataStructure)
+      .map(correctOrientation);
   }, [rootNodeList, options]);
 }
 
