@@ -11,7 +11,7 @@ import {
 } from 'react-d3-force-wrapper';
 import { FlowNode, NodeConvertor, NodeValidator } from '@/react-flow/types';
 import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
-import { useCallback, useTransition } from 'react';
+import { useCallback, useMemo, useRef, useTransition } from 'react';
 import { useReactFlow } from '@xyflow/react';
 import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
 import { useGlobalDispatch } from 'selective-context';

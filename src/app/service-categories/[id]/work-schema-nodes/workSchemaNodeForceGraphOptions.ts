@@ -4,10 +4,13 @@ import { defaultForceGraphPageOptions } from '@/components/work-schema-node-assi
 export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
   ...defaultForceGraphPageOptions,
   forces: {
-    link: true,
-    manyBody: true,
-    forceY: false,
-    ...defaultForceGraphPageOptions.forces
+    link: false,
+    manyBody: false,
+    forceY: true,
+    forceX: true,
+    collide: false,
+    center: false,
+    radial: false
   },
   forceAttributesInitial: {
     collideStrength: 74,
@@ -16,14 +19,14 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
     manyBodyStrength: 63,
     manyBodyMinDistance: 1,
     manyBodyMaxDistance: 40,
-    forceXStrength: 71,
-    forceXSpacing: 77,
-    forceYStrength: 0,
-    forceYSpacing: 0
+    forceXStrength: 50,
+    forceXSpacing: 100,
+    forceYStrength: 50,
+    forceYSpacing: 100
   },
   normalizationCoefficients: {
-    forceYSpacing: 1000,
-    forceXSpacing: 1000,
+    forceYSpacing: 100,
+    forceXSpacing: 100,
     manyBodyMaxDistance: 10,
     collideStrength: 0.5
   }

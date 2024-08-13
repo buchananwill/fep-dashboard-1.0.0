@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { GraphForceSliders } from '@/react-flow/components/generic/GraphForceSliders';
 import { NodeDetailsModal } from '@/react-flow/components/nodes/NodeDetailsModal';
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useEscapeToClose } from '@/react-flow/hooks/useEscapeToClose';
 
 export function FlowOverlay({
@@ -23,6 +23,12 @@ export function FlowOverlay({
 }) {
   const [showSliders, setShowSliders] = useState(false);
   useEscapeToClose(showSliders, setShowSliders);
+  const toggleRef = useRef(toggle);
+  toggleRef.current = toggle;
+
+  const onPress = useCallback(() => {
+    if (toggleRef.current) toggleRef.current();
+  }, []);
 
   return (
     <>
@@ -52,10 +58,11 @@ export function FlowOverlay({
           </PopoverContent>
         </Popover>
         {initialized && toggle && (
-          <Button
-            onPress={toggle}
+          <button
+            // onPress={onPress}
+            onClick={toggle}
             color={'default'}
-            variant={'light'}
+            // variant={'light'}
             className={running ? 'animate-pulse' : ''}
           >
             {running ? (
@@ -64,7 +71,7 @@ export function FlowOverlay({
               <PlayIcon className={'h-5 w-5 text-emerald-500'} />
             )}{' '}
             Force Layout
-          </Button>
+          </button>
         )}
       </Panel>
       <NodeDetailsModal className={'max-w-6xl'} />

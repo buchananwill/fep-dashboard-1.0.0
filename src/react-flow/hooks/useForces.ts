@@ -1,6 +1,6 @@
 import { useNodesInitialized, useReactFlow } from '@xyflow/react';
-import { MutableRefObject, useMemo } from 'react';
-import { Simulation } from 'd3';
+import { MutableRefObject, useMemo, useRef } from 'react';
+import { forceX, forceY, HierarchyPointNode, Simulation } from 'd3';
 
 import { useGlobalController, useGlobalListener } from 'selective-context';
 
@@ -13,12 +13,31 @@ import {
 } from 'react-d3-force-wrapper';
 import { InitialSetRef } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 import { collide } from '@/react-flow/utils/collide';
+import { NodeDataType } from '@/react-flow/utils/adaptors';
+import { get } from 'lodash';
+import { InitialMap } from 'dto-stores';
 
 export const draggingNodeKey = 'dragging-node';
 
 const listenerKey = 'use-layouted-elements';
 
 const forceSimParams = { forceFunctions: { collide: collide } };
+
+const refInitial = {
+  current: InitialMap as Map<string, HierarchyPointNode<FlowNode<NodeDataType>>>
+};
+
+function getHierarchyLayoutResolver<T extends NodeDataType>(
+  layoutMap: MutableRefObject<Map<string, HierarchyPointNode<any>>>,
+  dimension: keyof Pick<HierarchyPointNode<any>, 'x' | 'y'>
+) {
+  return (node: FlowNode<T>, index: number) => {
+    const hierarchyPointNode = layoutMap.current.get(node.id);
+    return hierarchyPointNode ? get(hierarchyPointNode, dimension, 0) : 0;
+  };
+}
+
+export const hierarchicalLayoutMap = 'hierarchicalLayoutMap';
 
 export function useForces(
   applyFitView?: boolean
@@ -34,7 +53,28 @@ export function useForces(
     listenerKey
   });
 
-  useD3ForceSimulationMemo(forceSimParams);
+  const { currentState } = useGlobalListener({
+    contextKey: hierarchicalLayoutMap,
+    initialValue: refInitial,
+    listenerKey
+  });
+
+  const localRef = useRef(
+    InitialMap as Map<string, HierarchyPointNode<FlowNode<NodeDataType>>>
+  );
+  localRef.current = currentState.current;
+
+  const overrideForces = useMemo(() => {
+    const xResolver = getHierarchyLayoutResolver(localRef, 'y');
+    const yResolver = getHierarchyLayoutResolver(localRef, 'x');
+    const forceXCreated = forceX(xResolver);
+    const forceYCreated = forceY(yResolver);
+    return {
+      forceFunctions: { collide, forceX: forceXCreated, forceY: forceYCreated }
+    };
+  }, []);
+
+  useD3ForceSimulationMemo(overrideForces);
   const { currentState: draggingNode } = useGlobalController<
     MutableRefObject<FlowNode<any>> | undefined
   >({
