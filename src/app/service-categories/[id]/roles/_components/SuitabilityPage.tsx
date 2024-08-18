@@ -18,7 +18,7 @@ import { startCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
 import { notFound } from 'next/navigation';
-import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { singular } from 'pluralize';
 import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';

@@ -1,7 +1,7 @@
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/app/service-categories/LinkButton';
-import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import BuildMetricQueueTreeGraphPage from '@/app/core/scheduling/build-metrics/BuildMetricQueueTreeGraphPage';
 import { WorkProjectSeriesMetricsPage } from '@/components/work-project-series-metrics/WorkProjectSeriesMetrics';
 import BuildMetricTablePage from '@/app/core/scheduling/build-metrics/BuildMetricTablePage';

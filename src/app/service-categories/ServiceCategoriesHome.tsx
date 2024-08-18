@@ -1,5 +1,5 @@
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import KnowledgeLevelSeries from '@/app/service-categories/[id]/KnowledgeLevelSeries';
 import { kebabCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';

@@ -11,7 +11,7 @@ import {
   DtoStoreStringInput
 } from '@/components/generic/DtoStoreStringInput';
 import { Skeleton } from '@nextui-org/skeleton';
-import { useKnowledgeDtoTableProps } from '@/app/service-categories/[id]/knowledge-levels/_components/useKnowledgeDtoTableProps';
+import { useKnowledgeDtoTableProps } from '@/components/knowledge-levels/useKnowledgeDtoTableProps';
 import { getEntityStringComparator } from '@/functions/sortEntityListOnStringProperty';
 import { TransientIdOffset } from '@/api/literals';
 import { Button } from '@nextui-org/button';

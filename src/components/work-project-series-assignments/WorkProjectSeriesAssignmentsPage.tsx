@@ -11,7 +11,7 @@ import AssignmentTable, {
 } from '@/components/work-project-series-assignments/AssignmentTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
-import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import SchedulingHome from '@/app/core/scheduling/SchedulingHome';
 import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
