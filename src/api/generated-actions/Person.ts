@@ -1,5 +1,5 @@
 'use server';
-import { PersonDto } from '@/api/zod-schemas/PersonDtoSchema';
+import { PersonDto } from '../dtos/PersonDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

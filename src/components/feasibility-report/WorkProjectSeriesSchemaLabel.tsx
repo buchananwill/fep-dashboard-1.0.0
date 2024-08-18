@@ -76,7 +76,7 @@ function getBackgroundColor(subjectCode: string) {
 export function WorkProjectSeriesSchemaCode({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
-  const subjectCode = entity?.shortCode?.substring(0, 2) ?? entity.name ?? '';
+  const subjectCode = entity.name ?? '';
   const backgroundColor = getBackgroundColor(subjectCode);
   return (
     <div
@@ -85,11 +85,7 @@ export function WorkProjectSeriesSchemaCode({
         backgroundColor
       )}
     >
-      {entity.shortCode
-        ? entity.shortCode.substring(0, 2)
-        : entity.name
-          ? entity.name.substring(0, 2)
-          : ''}
+      {entity.name ? entity.name.substring(0, 2) : ''}
     </div>
   );
 }

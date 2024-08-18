@@ -1,5 +1,5 @@
 'use server';
-import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
+import { CarouselGroupDto } from '../dtos/CarouselGroupDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

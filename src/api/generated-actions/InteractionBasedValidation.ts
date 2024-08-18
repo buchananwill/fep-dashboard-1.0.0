@@ -1,5 +1,5 @@
 'use server';
-import { InteractionBasedValidationDto } from '@/api/zod-schemas/InteractionBasedValidationDtoSchema';
+import { InteractionBasedValidationDto } from '../dtos/InteractionBasedValidationDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

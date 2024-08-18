@@ -1,6 +1,17 @@
 'use server';
-import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
+import { KnowledgeDomainDto } from '../dtos/KnowledgeDomainDtoSchema';
+import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+
+const {
+getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList } =
+ generateGraphEndpointSet<
+  KnowledgeDomainDto
+>(
+  '/knowledgeDomains'
+);
+
+
 
 const {
 getPage,
@@ -24,7 +35,7 @@ getPage,
 
 
 export {
-    getPage,
+    getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList, getPage,
   getAll,
   deleteIdList,
   postList,

@@ -18,6 +18,7 @@ import { TransientIdOffset } from '@/api/literals';
 import { Button } from '@nextui-org/button';
 import ChangeStartingOrdinal from '@/app/service-categories/[id]/knowledge-levels/_components/ChangeStartingOrdinal';
 import { useKnowledgeDtoTableProps } from '@/app/service-categories/[id]/knowledge-levels/_components/useKnowledgeDtoTableProps';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 
 function sortLevelsOnOrdinal(
   level1: KnowledgeLevelDto,
@@ -30,19 +31,19 @@ const entityClass = EntityClassMap.knowledgeLevel;
 
 function createNewLevel(
   sortedLevels: KnowledgeLevelDto[],
-  serviceCategory: ServiceCategoryDto
+  knowledgeLevelSeriesDto: KnowledgeLevelSeriesDto
 ) {
   const levelOrdinal =
     sortedLevels.length > 0
       ? sortedLevels[sortedLevels.length - 1].levelOrdinal + 1
       : 1;
-  const name = `${serviceCategory.knowledgeLevelDescriptor} ${levelOrdinal}`;
+  const name = `${knowledgeLevelSeriesDto.knowledgeLevelDescriptor} ${levelOrdinal}`;
   const id = TransientIdOffset + levelOrdinal;
   const nextLevel: KnowledgeLevelDto = {
     name,
     levelOrdinal,
     id,
-    serviceCategoryId: serviceCategory.id
+    serviceCategoryId: knowledgeLevelSeriesDto.id
   };
   return nextLevel;
 }
@@ -52,7 +53,7 @@ export default function KnowledgeLevelTable({
   serviceCategory
 }: {
   data: KnowledgeLevelDto[];
-  serviceCategory: ServiceCategoryDto;
+  serviceCategory: KnowledgeLevelSeriesDto;
 }) {
   const columns = useMemo(() => {
     return [
@@ -117,7 +118,7 @@ export default function KnowledgeLevelTable({
           <Button onPress={handleRemoveRow}>
             Remove {serviceCategory.knowledgeLevelDescriptor}
           </Button>
-          <ChangeStartingOrdinal serviceCategory={serviceCategory} />
+          <ChangeStartingOrdinal />
         </div>
       }
     />

@@ -1,5 +1,5 @@
 'use server';
-import { TimeSpanDto } from '@/api/zod-schemas/TimeSpanDtoSchema';
+import { TimeSpanDto } from '../dtos/TimeSpanDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

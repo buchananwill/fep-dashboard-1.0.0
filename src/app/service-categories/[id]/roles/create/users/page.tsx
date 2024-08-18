@@ -1,4 +1,3 @@
-import { getOne } from '@/api/generated-actions/ServiceCategory';
 import { getDtoListByExampleList } from '@/api/generated-actions/KnowledgeLevel';
 import { BaseDtoStoreNumberInputProps } from '@/components/generic/DtoStoreNumberInput';
 import { DtoUiListAll, EditAddDeleteDtoControllerArray } from 'dto-stores';
@@ -9,6 +8,7 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import GenerateStudentsButton, {
   UserRowStateClass
 } from './_components/GenerateStudentsButton';
+import { Api } from '@/api/clientApi_';
 
 export default async function page({
   params: { id }
@@ -16,7 +16,8 @@ export default async function page({
   params: { id: string };
 }) {
   const serviceCategoryId = parseInt(id);
-  const serviceCategory = await getOne(serviceCategoryId);
+  const serviceCategory =
+    await Api.KnowledgeLevelSeries.getOne(serviceCategoryId);
   const knowledgeLevels = await getDtoListByExampleList([
     { serviceCategoryId: serviceCategoryId }
   ]);

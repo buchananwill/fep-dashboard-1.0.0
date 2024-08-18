@@ -19,7 +19,7 @@ import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
 import { notFound } from 'next/navigation';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
+import { KnowledgeLevelSeriesLinks } from '@/app/service-categories/[id]/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { singular } from 'pluralize';
 import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
@@ -128,7 +128,7 @@ const RoleTypeListComponent = getPathVariableSplitComponent(
   RolePageWrapper
 );
 
-export const ServiceCategoryRoleTypeList = getPathVariableSplitComponent(
-  ServiceCategoryLinks,
+export const KnowledgeLevelSeriesRoleTypeList = getPathVariableSplitComponent(
+  KnowledgeLevelSeriesLinks,
   RoleTypeListComponent
 );

@@ -1,7 +1,7 @@
 import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/types';
 import { notFound } from 'next/navigation';
 import SuitabilityPage, {
-  ServiceCategoryRoleTypeList
+  KnowledgeLevelSeriesRoleTypeList
 } from '../service-categories/[id]/roles/_components/SuitabilityPage';
 import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';
 import { LeafComponentProps, NavTreeBranch } from '@/app/core/navigation/types';
@@ -30,8 +30,8 @@ export const rolePageTree: NavTreeBranch = {
   type: 'branch',
   component: RoleAspectMenu,
   children: {
-    suitability: { type: 'leaf', component: ServiceCategoryRoleTypeList },
-    availability: { type: 'leaf', component: ServiceCategoryRoleTypeList }
+    suitability: { type: 'leaf', component: KnowledgeLevelSeriesRoleTypeList },
+    availability: { type: 'leaf', component: KnowledgeLevelSeriesRoleTypeList }
   }
 };
 

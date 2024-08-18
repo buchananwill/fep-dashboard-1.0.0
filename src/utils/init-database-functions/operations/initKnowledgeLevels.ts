@@ -4,16 +4,16 @@ import {
   postList
 } from '@/api/generated-actions/KnowledgeLevel';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
-import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import data from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
 import { setAllIdNaN } from '@/utils/init-database-functions/setIdNaN';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 
 export async function initKnowledgeLevels(
-  serviceCategoryDto: ServiceCategoryDto
+  knowledgeLevelSeriesDto: KnowledgeLevelSeriesDto
 ) {
   const noIdDataSet = setAllIdNaN(data).map((kd) => ({
     ...kd,
-    serviceCategoryId: serviceCategoryDto.id
+    knowledgeLevelSeriesId: knowledgeLevelSeriesDto.id
   }));
 
   return initSafely(

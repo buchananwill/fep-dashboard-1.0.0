@@ -22,12 +22,15 @@ export function renderWorkSchemaNodeCell(
           {workProjectSeriesSchema.name}
         </span>
       );
-    case 'shortCode':
-      return (
-        <span className="inline-block w-24  text-sm">
-          {workProjectSeriesSchema.shortCode}
-        </span>
-      );
+    /**
+     * Need to move the shortcode into the WorkTaskType and explicitly fetch the WTT if needed for display.
+     * */
+    // case 'shortCode':
+    //   return (
+    //     <span className="inline-block w-24  text-sm">
+    //       {workProjectSeriesSchema.shortCode}
+    //     </span>
+    //   );
     case 'deliveryAllocations':
       return (
         <span className={'inline-block w-20'}>

@@ -6,11 +6,11 @@ import { startCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getDomainAlias } from '@/api/getDomainAlias';
 
-export async function ServiceCategoryLinks({
+export async function KnowledgeLevelSeriesLinks({
   pathVariables,
   depth
 }: LeafComponentProps) {
-  const all = await Api.ServiceCategory.getAll();
+  const all = await Api.KnowledgeLevelSeries.getAll();
   return (
     <Card>
       <CardHeader>
@@ -18,14 +18,14 @@ export async function ServiceCategoryLinks({
         Categories
       </CardHeader>
       <CardBody>
-        {all.map((serviceCategory) => (
+        {all.map((knowledgeLevelSeries) => (
           <LinkButton
             href={getCoreEntityLink(pathVariables.slice(0, depth), [
-              serviceCategory.id
+              knowledgeLevelSeries.id
             ])}
-            key={serviceCategory.id}
+            key={knowledgeLevelSeries.id}
           >
-            {serviceCategory.name}
+            {knowledgeLevelSeries.name}
           </LinkButton>
         ))}
       </CardBody>

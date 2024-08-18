@@ -10,12 +10,13 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useCallback, useMemo } from 'react';
 import { DispatchState } from '@/types';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 
 export function useKnowledgeDtoTableProps<T extends Entity>(
-  serviceCategory: ServiceCategoryDto,
+  knowledgeLevelSeriesDto: KnowledgeLevelSeriesDto,
   entityClass: string,
   comparatorFunction: (t1: T, t2: T) => number,
-  createEntity: (current: T[], serviceCategoryDto: ServiceCategoryDto) => T
+  createEntity: (current: T[], levelSeriesDto: KnowledgeLevelSeriesDto) => T
 ) {
   const listenerKey = useUuidListenerKey();
   const { currentState, dispatchWithoutControl } =
@@ -39,11 +40,11 @@ export function useKnowledgeDtoTableProps<T extends Entity>(
       dispatchMasterList: DispatchState<T[]>,
       dispatchAddedlist: DispatchState<Identifier[]>
     ) => {
-      const entity = createEntity(sortedRows, serviceCategory);
+      const entity = createEntity(sortedRows, knowledgeLevelSeriesDto);
       dispatchMasterList((list) => [...list, entity]);
       dispatchAddedlist((list) => [...list, entity.id]);
     },
-    [serviceCategory, sortedRows, createEntity]
+    [knowledgeLevelSeriesDto, sortedRows, createEntity]
   );
 
   const masterListInteraction = useMasterListInteraction(

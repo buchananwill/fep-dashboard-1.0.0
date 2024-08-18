@@ -1,5 +1,5 @@
 'use server';
-import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/zod-schemas/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
+import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '../dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateTriIntersectionEndpointSet } from '../actions/template-tri-intersection-endpoints';
 

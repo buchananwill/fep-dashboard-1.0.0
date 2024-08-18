@@ -2,12 +2,12 @@ import {
   getDtoListByBodyList,
   putList
 } from '@/api/generated-actions/KnowledgeDomain';
-import { getDtoListByBodyList as getServiceCategoryByIdList } from '@/api/generated-actions/ServiceCategory';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import KnowledgeDomainCard from '@/app/service-categories/[id]/knowledge-domains/_components/KnowledgeDomainCard';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { parseTen } from '@/api/date-and-time';
+import { Api } from '@/api/clientApi_';
 
 export default async function KnowledgeDomainSingle({
   pathVariables,
@@ -24,9 +24,9 @@ export default async function KnowledgeDomainSingle({
         getServerAction={getDtoListByBodyList}
       />
       <DataFetchingEditDtoControllerArray
-        entityClass={EntityClassMap.serviceCategory}
+        entityClass={EntityClassMap.knowledgeLevelSeries}
         idList={[parseTen(pathVariables[depth])]}
-        getServerAction={getServiceCategoryByIdList}
+        getServerAction={Api.KnowledgeLevelSeries.getDtoListByBodyList}
       />
       <KnowledgeDomainCard id={kDomainId} />
     </>

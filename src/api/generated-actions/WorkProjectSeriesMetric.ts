@@ -1,9 +1,9 @@
 'use server';
+import { WorkProjectSeriesMetricDto } from '../dtos/WorkProjectSeriesMetricDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,12 +15,16 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<WorkProjectSeriesMetricDto, number>(
+} = generateBaseEndpointSet<
+  WorkProjectSeriesMetricDto,
+  number
+>(
   '/api/v2/workProjectSeries/metrics'
 );
 
+
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -32,4 +36,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-};
+
+}
+

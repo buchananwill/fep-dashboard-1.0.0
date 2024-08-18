@@ -1,12 +1,15 @@
-import { getPage } from '@/api/generated-actions/ServiceCategory';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import ServiceCategory from '@/app/service-categories/[id]/ServiceCategory';
+import KnowledgeLevelSeries from '@/app/service-categories/[id]/KnowledgeLevelSeries';
 import { kebabCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';
+import { Api } from '@/api/clientApi_';
 
 async function Home({ pathVariables }: LeafComponentProps) {
-  const dtoPage = await getPage({ page: 0, pageSize: 10 });
+  const dtoPage = await Api.KnowledgeLevelSeries.getPage({
+    page: 0,
+    pageSize: 10
+  });
 
   return (
     <main className={'p-8'}>
@@ -35,7 +38,7 @@ export default function ServiceCategoriesHome(props: LeafComponentProps) {
     <PathVariableSplit
       {...props}
       homeComponent={Home}
-      subRouteComponent={ServiceCategory}
+      subRouteComponent={KnowledgeLevelSeries}
     />
   );
 }

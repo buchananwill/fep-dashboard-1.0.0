@@ -1,13 +1,12 @@
 import * as KnowledgeLevelClient from '@/api/generated-actions/KnowledgeLevel';
-import { getOne } from '@/api/generated-actions/ServiceCategory';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { EntityClassMap } from '@/api/entity-class-map';
 import KnowledgeLevelTable from '@/app/service-categories/[id]/knowledge-levels/_components/KnowledgeLevelTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
-import NavigationBreadcrumbs from '@/components/navigation/NavigationBreadcrumbs';
+import { KnowledgeLevelSeriesLinks } from '@/app/service-categories/[id]/knowledge-domains/KnowledgeLevelSeriesLinks';
+import { Api } from '@/api/clientApi_';
 
 async function KnowledgeLevelsTablePage({
   pathVariables,
@@ -18,7 +17,9 @@ async function KnowledgeLevelsTablePage({
     { serviceCategoryId: parseInt(serviceCategoryId) }
   ]);
 
-  const serviceCategoryDto = await getOne(parseInt(serviceCategoryId));
+  const serviceCategoryDto = await Api.KnowledgeLevelSeries.getOne(
+    parseInt(serviceCategoryId)
+  );
 
   return (
     <div className={'p-4'}>
@@ -40,7 +41,7 @@ export default function KnowledgeLevelsHome(props: LeafComponentProps) {
   return (
     <PathVariableSplit
       {...props}
-      homeComponent={ServiceCategoryLinks}
+      homeComponent={KnowledgeLevelSeriesLinks}
       subRouteComponent={KnowledgeLevelsTablePage}
     />
   );

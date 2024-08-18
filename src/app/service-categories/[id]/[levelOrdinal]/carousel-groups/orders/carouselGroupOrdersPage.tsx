@@ -15,7 +15,7 @@ import { transformOptionForClientState } from '@/app/service-categories/[id]/[le
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
-import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
+import { KnowledgeLevelSeriesLinks } from '@/app/service-categories/[id]/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import CarouselOrderModal from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/_components/OrderModal/CarouselOrderModal';
@@ -87,6 +87,6 @@ const CarouselGroupOrderLevelLinks = getPathVariableSplitComponent(
   CarouselGroupOrdersPage
 );
 export const CarouselGroupOrdersHome = getPathVariableSplitComponent(
-  ServiceCategoryLinks,
+  KnowledgeLevelSeriesLinks,
   CarouselGroupOrderLevelLinks
 );

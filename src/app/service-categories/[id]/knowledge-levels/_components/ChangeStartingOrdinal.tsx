@@ -8,13 +8,10 @@ import { StepperContext } from '@/components/generic/stepperContextCreator';
 import { useMemo } from 'react';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 
 const maxStartingLevel = 20;
-export default function ChangeStartingOrdinal({
-  serviceCategory
-}: {
-  serviceCategory: ServiceCategoryDto;
-}) {
+export default function ChangeStartingOrdinal() {
   const listenerKey = useUuidListenerKey();
   const { currentState, dispatchWithoutControl } =
     NamespacedHooks.useDispatchAndListen(

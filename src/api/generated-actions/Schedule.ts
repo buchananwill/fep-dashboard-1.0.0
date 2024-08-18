@@ -1,5 +1,5 @@
 'use server';
-import { ScheduleDto } from '@/api/zod-schemas/ScheduleDtoSchema';
+import { ScheduleDto } from '../dtos/ScheduleDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

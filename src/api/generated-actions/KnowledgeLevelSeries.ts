@@ -1,9 +1,9 @@
 'use server';
-import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 
 const {
-getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,16 +15,12 @@ getPage,
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<
-  ServiceCategoryDto,
-  number
->(
-  '/api/v2/serviceCategories'
+} = generateBaseEndpointSet<KnowledgeLevelSeriesDto, number>(
+  '/api/v2/knowledgeLevelSeries'
 );
 
-
 export {
-    getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -36,6 +32,4 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-
-}
-
+};
