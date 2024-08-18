@@ -3,13 +3,13 @@ import {
   getDtoListByExampleList,
   putList
 } from '@/api/generated-actions/KnowledgeDomain';
-import { KnowledgeDomainTable } from '@/app/service-categories/[id]/knowledge-domains/_components/KnowledgeDomainTable';
+import { KnowledgeDomainTable } from '@/components/knowledge-domains/KnowledgeDomainTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import KnowledgeDomainSingle from '@/app/service-categories/[id]/knowledge-domains/[domainId]/KnowledgeDomainSingle';
-import { KnowledgeLevelSeriesLinks } from '@/app/service-categories/[id]/knowledge-domains/KnowledgeLevelSeriesLinks';
+import KnowledgeDomainSingle from '@/components/knowledge-domains/KnowledgeDomainSingle';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { Api } from '@/api/clientApi_';
 
 async function Home({ pathVariables, depth }: LeafComponentProps) {

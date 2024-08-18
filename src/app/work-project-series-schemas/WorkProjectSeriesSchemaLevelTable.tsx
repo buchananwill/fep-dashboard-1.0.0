@@ -9,7 +9,7 @@ import {
 } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { KnowledgeLevelSeriesLinks } from '@/app/service-categories/[id]/knowledge-domains/KnowledgeLevelSeriesLinks';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 

@@ -5,7 +5,7 @@ import KnowledgeLevelTable from '@/app/service-categories/[id]/knowledge-levels/
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { KnowledgeLevelSeriesLinks } from '@/app/service-categories/[id]/knowledge-domains/KnowledgeLevelSeriesLinks';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { Api } from '@/api/clientApi_';
 
 async function KnowledgeLevelsTablePage({

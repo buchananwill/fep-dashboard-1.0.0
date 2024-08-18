@@ -11,7 +11,7 @@ import {
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
 import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
-import { KnowledgeLevelSeriesLinks } from '@/app/service-categories/[id]/knowledge-domains/KnowledgeLevelSeriesLinks';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { CarouselGroupOrdersHome } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/orders/carouselGroupOrdersPage';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 

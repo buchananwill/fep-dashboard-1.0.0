@@ -4,7 +4,7 @@ import {
 } from '@/api/generated-actions/KnowledgeDomain';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
-import KnowledgeDomainCard from '@/app/service-categories/[id]/knowledge-domains/_components/KnowledgeDomainCard';
+import KnowledgeDomainCard from '@/components/knowledge-domains/KnowledgeDomainCard';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { parseTen } from '@/api/date-and-time';
 import { Api } from '@/api/clientApi_';
