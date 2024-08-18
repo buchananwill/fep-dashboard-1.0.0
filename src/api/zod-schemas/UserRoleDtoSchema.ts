@@ -7,11 +7,11 @@ export const UserRoleDtoSchema = z.object({
   startDate: z.date(),
   thruDate: z.date(),
   serviceCategoryName: z.string(),
-  serviceCategoryId: z.number(),
+  knowledgeLevelSeriesId: z.number(),
   partyName: z.string(),
   partyId: z.number(),
   partyType: z.string(),
   partyDateOfBirth: zDateOnly,
-  userRoleType: UserRoleTypeDtoSchema,
+  userRoleType: UserRoleTypeDtoSchema
 });
 export type UserRoleDto = z.infer<typeof UserRoleDtoSchema>;

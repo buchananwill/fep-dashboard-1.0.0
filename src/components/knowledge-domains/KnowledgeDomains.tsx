@@ -15,7 +15,7 @@ import { Api } from '@/api/clientApi_';
 async function Home({ pathVariables, depth }: LeafComponentProps) {
   const serviceCategoryId = pathVariables[depth - 1];
   const knowledgeDomainList = await getDtoListByExampleList([
-    { serviceCategoryId: parseInt(serviceCategoryId) }
+    { knowledgeLevelSeriesId: parseInt(serviceCategoryId) }
   ]);
 
   const serviceCategoryDto = await Api.KnowledgeLevelSeries.getOne(

@@ -19,7 +19,7 @@ export default async function page({
   const serviceCategory =
     await Api.KnowledgeLevelSeries.getOne(serviceCategoryId);
   const knowledgeLevels = await getDtoListByExampleList([
-    { serviceCategoryId: serviceCategoryId }
+    { knowledgeLevelSeriesId: serviceCategoryId }
   ]);
   const userRows: UserRowState[] = knowledgeLevels.map((level) => ({
     ...level,

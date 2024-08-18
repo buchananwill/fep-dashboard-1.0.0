@@ -12,18 +12,18 @@ async function KnowledgeLevelsTablePage({
   pathVariables,
   depth
 }: LeafComponentProps) {
-  const serviceCategoryId = pathVariables[depth - 1];
+  const knowledgeLevelSeriesId = pathVariables[depth - 1];
   const data = await KnowledgeLevelClient.getDtoListByExampleList([
-    { serviceCategoryId: parseInt(serviceCategoryId) }
+    { knowledgeLevelSeriesId: parseInt(knowledgeLevelSeriesId) }
   ]);
 
   const serviceCategoryDto = await Api.KnowledgeLevelSeries.getOne(
-    parseInt(serviceCategoryId)
+    parseInt(knowledgeLevelSeriesId)
   );
 
   return (
     <div className={'p-4'}>
-      <ResourceContextProvider pathSegment={serviceCategoryId}>
+      <ResourceContextProvider pathSegment={knowledgeLevelSeriesId}>
         <EditAddDeleteDtoControllerArray
           dtoList={data}
           entityClass={EntityClassMap.knowledgeLevel}
@@ -31,7 +31,10 @@ async function KnowledgeLevelsTablePage({
           deleteServerAction={KnowledgeLevelClient.deleteIdList}
           postServerAction={KnowledgeLevelClient.postList}
         />
-        <KnowledgeLevelTable data={data} serviceCategory={serviceCategoryDto} />
+        <KnowledgeLevelTable
+          data={data}
+          knowledgeLevelSeries={serviceCategoryDto}
+        />
       </ResourceContextProvider>
     </div>
   );

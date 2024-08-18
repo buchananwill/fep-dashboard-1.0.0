@@ -86,7 +86,7 @@ const getDomainFactory = () => {
     const newDomain: KnowledgeDomainDto = {
       id: nextId,
       name: `${knowledgeDomainDescriptor} ${nextId}`,
-      serviceCategoryId: id,
+      knowledgeLevelSeriesId: id,
       knowledgeDomainDescriptor
     };
     nextId++;

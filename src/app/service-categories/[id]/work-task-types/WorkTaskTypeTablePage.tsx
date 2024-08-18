@@ -19,11 +19,11 @@ async function WorkTaskTypeTablePage({
   const serviceCategoryId = pathVariables[depth - 1];
   const serviceCategoryIdInt = parseInt(serviceCategoryId);
   const kLevels = await getKnowledgeLevelsByExample([
-    { serviceCategoryId: serviceCategoryIdInt }
+    { knowledgeLevelSeriesId: serviceCategoryIdInt }
   ]).then((r) => r.sort((l1, l2) => l1.levelOrdinal - l2.levelOrdinal));
 
   const kDomains = await getKnowledgeDomainsByExample([
-    { serviceCategoryId: serviceCategoryIdInt }
+    { knowledgeLevelSeriesId: serviceCategoryIdInt }
   ]);
 
   const tableRows = createRows(

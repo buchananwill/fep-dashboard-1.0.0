@@ -43,28 +43,28 @@ function createNewLevel(
     name,
     levelOrdinal,
     id,
-    serviceCategoryId: knowledgeLevelSeriesDto.id
+    knowledgeLevelSeriesId: knowledgeLevelSeriesDto.id
   };
   return nextLevel;
 }
 
 export default function KnowledgeLevelTable({
   data,
-  serviceCategory
+  knowledgeLevelSeries
 }: {
   data: KnowledgeLevelDto[];
-  serviceCategory: KnowledgeLevelSeriesDto;
+  knowledgeLevelSeries: KnowledgeLevelSeriesDto;
 }) {
   const columns = useMemo(() => {
     return [
-      { name: serviceCategory.knowledgeLevelDescriptor, uid: 'name' },
+      { name: knowledgeLevelSeries.knowledgeLevelDescriptor, uid: 'name' },
       { name: 'Ordinal', uid: 'levelOrdinal' }
     ];
-  }, [serviceCategory]);
+  }, [knowledgeLevelSeries]);
 
   const { handleRemoveRow, masterListInteraction, sortedRows } =
     useKnowledgeDtoTableProps(
-      serviceCategory,
+      knowledgeLevelSeries,
       EntityClassMap.knowledgeLevel,
       sortLevelsOnOrdinal,
       createNewLevel
@@ -113,10 +113,10 @@ export default function KnowledgeLevelTable({
       bottomContent={
         <div className={'grid grid-cols-3 gap-2'}>
           <Button onPress={masterListInteraction}>
-            Add {serviceCategory.knowledgeLevelDescriptor}
+            Add {knowledgeLevelSeries.knowledgeLevelDescriptor}
           </Button>
           <Button onPress={handleRemoveRow}>
-            Remove {serviceCategory.knowledgeLevelDescriptor}
+            Remove {knowledgeLevelSeries.knowledgeLevelDescriptor}
           </Button>
           <ChangeStartingOrdinal />
         </div>

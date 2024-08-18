@@ -13,7 +13,7 @@ export async function initKnowledgeDomains(
 ) {
   const noIdDataSet = setAllIdNaN(data).map((kd) => ({
     ...kd,
-    serviceCategoryId: serviceCategoryDto.id
+    knowledgeLevelSeriesId: serviceCategoryDto.id
   }));
 
   return initSafely(

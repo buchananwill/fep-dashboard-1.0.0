@@ -10,7 +10,7 @@ export function getKnowledgeLevelPartial(
   const serviceCategoryIdInt = parseInt(serviceCategoryId);
   const levelPartial: PartialDeep<KnowledgeLevelDto> = {
     levelOrdinal: levelOrdinalInt,
-    serviceCategoryId: serviceCategoryIdInt
+    knowledgeLevelSeriesId: serviceCategoryIdInt
   };
   return { levelOrdinalInt, serviceCategoryIdInt, levelPartial };
 }
@@ -25,7 +25,7 @@ export async function getLevelPartialAndSchemaList(
   const { workProjectSeriesSchemas: workProjectSeriesSchemaList } =
     await workProjectSeriesSchemaActionSequence({
       knowledgeLevel: { levelOrdinal: levelOrdinalInt },
-      serviceCategoryId: serviceCategoryIdInt
+      knowledgeLevelSeriesId: serviceCategoryIdInt
     });
   return { levelPartial, workProjectSeriesSchemaList };
 }

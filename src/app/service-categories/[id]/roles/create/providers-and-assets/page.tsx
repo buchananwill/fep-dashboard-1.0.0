@@ -18,7 +18,7 @@ export default async function page({
   const serviceCategory =
     await Api.KnowledgeLevelSeries.getOne(serviceCategoryId);
   const knowledgeDomains = await getDtoListByExampleList([
-    { serviceCategoryId: serviceCategoryId }
+    { knowledgeLevelSeriesId: serviceCategoryId }
   ]);
   const rowStateInitial = sortEntityListOnStringProperty(
     knowledgeDomains,
