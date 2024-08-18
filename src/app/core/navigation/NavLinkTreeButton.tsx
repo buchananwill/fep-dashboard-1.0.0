@@ -73,7 +73,7 @@ export function NavLinkTreeButton({
                 <CardHeader
                   className={'flex justify-between  border-default-200 '}
                 >
-                  <Icon className={'h-8 w-8'} />
+                  {Icon && <Icon className={'h-8 w-8'} />}
                   {aliasName}
                 </CardHeader>
               </Button>

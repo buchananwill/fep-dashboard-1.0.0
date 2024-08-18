@@ -14,15 +14,18 @@ import { EmptyArray } from '@/api/literals';
 import { transformOptionForClientState } from '@/components/carousel-groups/orders/_functions/transformOptionForClientState';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
+import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import CarouselOrderModal from '@/components/carousel-groups/orders/order-modal/CarouselOrderModal';
+import { notFound } from 'next/navigation';
 
 async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   const [id, levelOrdinal] = getLastNVariables(pathVariables, 2);
   const carouselGroupDtos = await getCarouselGroups(levelOrdinal, id);
+
+  if (carouselGroupDtos.length === 0) notFound();
 
   const exampleList: PartialDeep<CarouselOrderDto>[] = carouselGroupDtos.map(
     (group) => ({ carouselGroupId: group.id })
@@ -83,7 +86,7 @@ async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
 }
 
 const CarouselGroupOrderLevelLinks = getPathVariableSplitComponent(
-  ServiceCategoryLevelLinks,
+  KnowledgeLevelLinks,
   CarouselGroupOrdersPage
 );
 export const CarouselGroupOrdersHome = getPathVariableSplitComponent(

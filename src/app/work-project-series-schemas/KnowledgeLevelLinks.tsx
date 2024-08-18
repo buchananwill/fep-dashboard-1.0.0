@@ -7,13 +7,13 @@ import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
 import { getDomainAlias } from '@/api/getDomainAlias';
 
-export async function ServiceCategoryLevelLinks({
+export async function KnowledgeLevelLinks({
   depth,
   pathVariables
 }: LeafComponentProps) {
-  const serviceCategoryId = parseTen(pathVariables[depth - 1]);
+  const knowledgeSeriesId = parseTen(pathVariables[depth - 1]);
   const kLevels = await getKnowledgeLevelsByExample([
-    { serviceCategoryId: serviceCategoryId }
+    { knowledgeLevelSeriesId: knowledgeSeriesId }
   ]).then((r) => r.sort((l1, l2) => l1.levelOrdinal - l2.levelOrdinal));
   return (
     <Card>
@@ -24,7 +24,7 @@ export async function ServiceCategoryLevelLinks({
         {kLevels.map((kLevel) => (
           <LinkButton
             href={getCoreEntityLink(pathVariables.slice(0, depth - 1), [
-              serviceCategoryId,
+              knowledgeSeriesId,
               kLevel.levelOrdinal
             ])}
             key={kLevel.id}

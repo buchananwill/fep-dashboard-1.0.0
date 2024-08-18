@@ -10,7 +10,7 @@ import {
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
-import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
+import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/KnowledgeLevelLinks';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 async function WorkProjectSeriesSchemaLevelTable({
@@ -53,7 +53,7 @@ function WorkProjectSeriesLevelLinks(props: LeafComponentProps) {
   return (
     <PathVariableSplit
       {...props}
-      homeComponent={ServiceCategoryLevelLinks}
+      homeComponent={KnowledgeLevelLinks}
       subRouteComponent={WorkProjectSeriesSchemaLevelTable}
     />
   );

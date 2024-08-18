@@ -10,7 +10,7 @@ import {
 } from '@/api/generated-actions/CarouselGroup';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
+import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { CarouselGroupOrdersHome } from '@/components/carousel-groups/orders/carouselGroupOrdersPage';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
@@ -50,7 +50,7 @@ export default async function CarouselGroupLevelPage({
 }
 
 export const CarouselGroupLevelLinks = getPathVariableSplitComponent(
-  ServiceCategoryLevelLinks,
+  KnowledgeLevelLinks,
   CarouselGroupLevelPage
 );
 

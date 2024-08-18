@@ -8,10 +8,7 @@ import { ProviderRoleAvailabilityDto } from '@/api/zod-schemas/ProviderRoleAvail
 import { AvailabilityTable } from './AvailabilityTable';
 import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/types';
 import { getIdList } from '@/app/service-categories/[id]/roles/_components/getIdList';
-import {
-  getTableProps,
-  useTableProps
-} from '@/app/service-categories/[id]/roles/_components/useTableProps';
+import { getTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
 
 export default async function AvailabilityPage({
   params: { roleTypeId }

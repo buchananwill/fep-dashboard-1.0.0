@@ -11,7 +11,7 @@ import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselLeanDto } from '@/api/zod-schemas/CarouselLeanDtoSchema';
-import { produceCarouselGroupOptionsEdit } from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/_components/produceCarouselGroupOptionsEdit';
+import { produceCarouselGroupOptionsEdit } from '@/components/carousel-groups/_components/produceCarouselGroupOptionsEdit';
 
 export default function CarouselGroupOptionChooser({
   collectionId,

@@ -1,9 +1,9 @@
 'use server';
-import { CarouselGroupDto } from '../dtos/CarouselGroupDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { CarouselGroupDto } from '@/api/generated-types/generated-types';
 
 const {
-getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,16 +15,10 @@ getPage,
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<
-  CarouselGroupDto,
-  string
->(
-  '/api/v2/carouselGroups'
-);
-
+} = generateBaseEndpointSet<CarouselGroupDto, string>('/api/v2/carouselGroups');
 
 export {
-    getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -36,6 +30,4 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-
-}
-
+};

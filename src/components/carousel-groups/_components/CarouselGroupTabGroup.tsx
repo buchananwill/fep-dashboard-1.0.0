@@ -2,7 +2,6 @@
 import CollectionChooserTabGroup, {
   CollectionChooserTabGroupProps
 } from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
-import CarouselGroupOptionChooser from '@/app/service-categories/[id]/[levelOrdinal]/carousel-groups/_components/CarouselGroupOptionChooser';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 import { Button } from '@nextui-org/button';
@@ -20,6 +19,7 @@ import { ArrayPlaceholder } from 'selective-context';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 import { DispatchList } from '@/types';
+import CarouselGroupOptionChooser from '@/components/carousel-groups/_components/CarouselGroupOptionChooser';
 
 function handleAddGroup(
   dispatch: Dispatch<SetStateAction<CarouselGroupDto[]>>,

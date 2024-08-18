@@ -27,20 +27,17 @@ import FinderTableButton from '@/components/tables/FinderTableButton';
 
 export default async function SuitabilityPage(props: RolePageProps) {
   const {
-    params: { roleCategory, roleTypeId, id }
+    params: { roleCategory, roleTypeId }
   } = props;
   // List of all work task types to select
   // List of all provider roles of the layer type
   const roleEntityKey = `${roleCategory}Role` as keyof typeof EntityClassMap;
   const roleTypeIdInt = parseInt(roleTypeId, 10);
-  const serviceCategoryId = parseInt(id, 10);
   const suitabilityType = EntityClassMap[roleEntityKey];
 
   const roles = await RoleApiByTypeIdList[roleCategory]([roleTypeIdInt]);
 
-  let workTaskTypes = await Api.WorkTaskType.getDtoListByExampleList([
-    { serviceCategoryId }
-  ]);
+  let workTaskTypes = await Api.WorkTaskType.getAll();
 
   return (
     <div className={'flex gap-4 p-8'}>
@@ -102,16 +99,17 @@ export async function RoleTypeListMenu(props: LeafComponentProps) {
 }
 
 function RolePageWrapper({ pathVariables }: LeafComponentProps) {
-  const [roleCategory, roleAspect, serviceCategoryId, roleTypeId] =
-    getLastNVariables(pathVariables, 4);
+  const [roleCategory, roleAspect, roleTypeId] = getLastNVariables(
+    pathVariables,
+    3
+  );
 
   if (!isValidAspect(roleAspect)) notFound();
   const roleAspectValid = roleAspect as RoleAspect;
   const params = {
     roleCategory: singular(roleCategory) as RoleEntity,
     roleAspect: roleAspectValid,
-    roleTypeId,
-    id: serviceCategoryId
+    roleTypeId
   };
 
   switch (roleAspectValid) {
@@ -123,7 +121,7 @@ function RolePageWrapper({ pathVariables }: LeafComponentProps) {
   }
 }
 
-const RoleTypeListComponent = getPathVariableSplitComponent(
+export const RoleTypeListComponent = getPathVariableSplitComponent(
   RoleTypeListMenu,
   RolePageWrapper
 );

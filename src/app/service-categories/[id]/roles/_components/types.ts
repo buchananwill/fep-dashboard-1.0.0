@@ -5,7 +5,6 @@ import { AssetRoleDtoSchema } from '@/api/zod-schemas/AssetRoleDtoSchema';
 import { RoleAspects } from '@/app/roles/rolePage';
 
 export type BaseRoleParams = {
-  id: string;
   roleTypeId: string;
   roleCategory: keyof typeof RoleCategories;
   roleAspect: RoleAspect;

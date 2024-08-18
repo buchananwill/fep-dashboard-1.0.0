@@ -1,9 +1,9 @@
 'use server';
-import { KnowledgeLevelDto } from '../dtos/KnowledgeLevelDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 
 const {
-getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,16 +15,12 @@ getPage,
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<
-  KnowledgeLevelDto,
-  number
->(
+} = generateBaseEndpointSet<KnowledgeLevelDto, number>(
   '/api/v2/serviceCategories/knowledgeLevels'
 );
 
-
 export {
-    getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -36,6 +32,4 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-
-}
-
+};
