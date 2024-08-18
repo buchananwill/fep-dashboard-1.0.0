@@ -14,6 +14,7 @@ import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/Knowledge
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { CarouselGroupOrdersHome } from '@/components/carousel-groups/orders/carouselGroupOrdersPage';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 export default async function CarouselGroupLevelPage({
   depth,
@@ -62,14 +63,24 @@ export const CarouselGroupHome = getPathVariableSplitComponent(
 export function CarouselGroupsAndOrders(props: LeafComponentProps) {
   const { depth, pathVariables } = props;
   return (
-    <>
-      <CarouselGroupHome {...props} />
+    <div className={'flex flex-col gap-2'}>
+      <Card>
+        <CardHeader>Carousel Groups</CardHeader>
+        <CardBody>
+          <CarouselGroupHome {...props} />
+        </CardBody>
+      </Card>
       {depth === pathVariables.length && (
-        <CarouselGroupOrdersHome
-          pathVariables={[...props.pathVariables, 'orders']}
-          depth={props.depth + 1}
-        />
+        <Card>
+          <CardHeader>Carousel Group Orders</CardHeader>
+          <CardBody>
+            <CarouselGroupOrdersHome
+              pathVariables={[...props.pathVariables, 'orders']}
+              depth={props.depth + 1}
+            />
+          </CardBody>
+        </Card>
       )}
-    </>
+    </div>
   );
 }

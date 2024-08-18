@@ -6,9 +6,6 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 import { Button } from '@nextui-org/button';
 import React, { Dispatch, SetStateAction, useCallback } from 'react';
-import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
-import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import {
   EditAddDeleteDtoControllerArray,
   NamespacedHooks,
@@ -20,6 +17,11 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 import { DispatchList } from '@/types';
 import CarouselGroupOptionChooser from '@/components/carousel-groups/_components/CarouselGroupOptionChooser';
+import {
+  CarouselGroupDto,
+  KnowledgeLevelDto,
+  WorkProjectSeriesSchemaDto
+} from '@/api/generated-types/generated-types';
 
 function handleAddGroup(
   dispatch: Dispatch<SetStateAction<CarouselGroupDto[]>>,
