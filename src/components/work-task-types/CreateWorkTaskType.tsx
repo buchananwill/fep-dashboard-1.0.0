@@ -24,9 +24,9 @@ import { EmptyArray } from '@/api/literals';
 import { Api } from '@/api/clientApi_';
 import {
   ControlledSelect,
-  defaultItemAccessors
+  defaultItemAccessors,
+  ItemAccessors
 } from '@/components/react-hook-form/ControlledSelect';
-import { SelectItem } from '@nextui-org/select';
 import { HasId } from '@/api/types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 
@@ -142,7 +142,6 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
             aria-label={'knowledge domain'}
             onChange={onKnowledgeDomainSelectChange}
             items={knowledgeDomains}
-            itemAccessors={defaultItemAccessors}
           />
 
           <ControlledSelect
@@ -150,7 +149,6 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
             aria-label={'knowledge Level Series Id'}
             control={control}
             items={knowledgeLevelSeriesDtos}
-            itemAccessors={defaultItemAccessors}
           />
           <ControlledSelect
             name={'knowledgeLevel'}
@@ -158,7 +156,6 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
             aria-label={'knowledge Level'}
             control={control}
             items={knowledgeLevelDtos}
-            itemAccessors={defaultItemAccessors}
             onChange={knowledgeLevelChangeHandler}
             isDisabled={knowledgeLevelDtos.length === 0}
             placeholder={`Choose a ${getDomainAlias('knowledgeLevel')}`}
@@ -181,4 +178,10 @@ const WorkTaskTypeFormMap: FormElementMap<WorkTaskTypeDto> = {
 
 export type OptionMap<T> = {
   [Property in keyof T]: T[Property][];
+};
+
+const knowledgeDomainAccessors: ItemAccessors<KnowledgeDomainDto> = {
+  keyAccessor: 'id',
+  labelAccessor: 'name',
+  valueAccessor: 'id'
 };

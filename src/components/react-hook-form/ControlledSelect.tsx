@@ -2,14 +2,19 @@ import { Control, Controller } from 'react-hook-form';
 import { Select, SelectItemProps, SelectProps } from '@nextui-org/react';
 import React, { ChangeEvent, useMemo } from 'react';
 import { SelectItem } from '@nextui-org/select';
-import {
-  RequireAllOrNone,
-  RequireExactlyOne,
-  SetOptional,
-  Simplify
-} from 'type-fest';
+import { RequireAllOrNone, Simplify } from 'type-fest';
+import { TypedPaths } from '@/functions/typePaths';
+import { HasId } from '@/api/types';
 
-type FormSelectPropsBase = {
+export type SelectableItem = HasId;
+
+export type ItemAccessors<T extends SelectableItem> = {
+  valueAccessor: TypedPaths<T, string | number>;
+  keyAccessor: TypedPaths<T, string | number>;
+  labelAccessor: TypedPaths<T, string | number>;
+};
+
+type FormSelectProps<T extends SelectableItem> = {
   selectedKeyAccessor?: string;
   name: string;
   control: Control<any>;
@@ -18,50 +23,34 @@ type FormSelectPropsBase = {
     onChange: (...event: any[]) => void
   ) => void;
   selectItemProps?: SelectItemProps;
-  itemAccessors: {
-    keyAccessor: string;
-    valueAccessor: string;
-    labelAccessor: string;
-  };
-  items?: any[];
-} & Omit<SelectProps, 'onChange'>;
+  itemAccessors?: ItemAccessors<T>;
+  items: T[];
+} & Omit<SelectProps, 'onChange' | 'children'>;
 
-type FormSelectPropsItemsWithAccessors = RequireAllOrNone<
-  FormSelectPropsBase,
-  'itemAccessors' | 'items'
->;
-
-export type FormSelectProps = Simplify<
-  RequireExactlyOne<FormSelectPropsItemsWithAccessors, 'children' | 'items'>
->;
-
-export const ControlledSelect: React.FC<FormSelectProps> = ({
+export function ControlledSelect<T extends SelectableItem>({
   name,
-  children,
   onChange,
-  itemAccessors = defaultItemAccessors,
+  itemAccessors = defaultItemAccessors as ItemAccessors<T>,
   items,
   selectItemProps,
   selectedKeyAccessor,
   ...props
-}) => {
+}: FormSelectProps<T>) {
   const { keyAccessor, labelAccessor, valueAccessor } = itemAccessors;
   const childrenDefined = useMemo(() => {
-    if (children) return children;
-    else if (items && itemAccessors) {
+    if (items && itemAccessors) {
       return items.map((kls) => (
         <SelectItem
           {...selectItemProps}
           key={kls[keyAccessor]}
           value={kls[valueAccessor]}
-          aria-label={kls[labelAccessor]}
+          aria-label={kls[labelAccessor] ?? kls[keyAccessor]}
         >
           {kls[labelAccessor]}
         </SelectItem>
       ));
     } else return [];
   }, [
-    children,
     itemAccessors,
     items,
     selectItemProps,
@@ -102,10 +91,10 @@ export const ControlledSelect: React.FC<FormSelectProps> = ({
       }}
     ></Controller>
   );
-};
+}
 
 export const defaultItemAccessors = {
   valueAccessor: 'id',
   labelAccessor: 'name',
   keyAccessor: 'id'
-};
+} as const;
