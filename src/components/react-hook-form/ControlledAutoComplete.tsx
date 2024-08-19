@@ -16,6 +16,8 @@ import {
   ItemAccessors,
   SelectableItem
 } from '@/components/react-hook-form/ControlledSelect';
+import { HasId } from '@/api/types';
+import { TypedPaths } from '@/functions/typePaths';
 
 type ControlledAutoCompleteProps<T extends SelectableItem> = {
   selectedKeyAccessor?: string;
@@ -70,19 +72,28 @@ export function ControlledAutoComplete<T extends SelectableItem>({
   inputRef.current = inputValue;
 
   const onOpenChange = useCallback(
-    (isOpen: boolean, field: ControllerRenderProps) => {
-      if (!isOpen && props.allowsCustomValue && !field.value) {
+    (isClosing: boolean, field: ControllerRenderProps) => {
+      console.log(
+        'open change handler',
+        !field.value,
+        isClosing,
+        props.allowsCustomValue
+      );
+      const triggerCondition =
+        isClosing && props.allowsCustomValue && !field.value;
+      console.log('trigger set', triggerCondition);
+      if (isClosing && props.allowsCustomValue && !field.value) {
         if (onChange) {
-          onChange(inputValue, field.onChange, setInputValue);
+          console.log('updating the field externally');
+          onChange(inputRef.current, field.onChange, setInputValue);
         } else {
-          field.onChange(inputValue);
+          console.log('updating the field internally');
+          field.onChange(inputRef.current);
         }
       }
     },
-    []
+    [props.allowsCustomValue]
   );
-
-  console.log(props);
 
   return (
     <Controller
@@ -101,7 +112,8 @@ export function ControlledAutoComplete<T extends SelectableItem>({
           currentValue,
           selectedKeyAccessor,
           field.value,
-          currentValueString
+          currentValueString,
+          inputValue
         );
 
         return (
@@ -109,17 +121,28 @@ export function ControlledAutoComplete<T extends SelectableItem>({
             {...props}
             inputValue={inputValue}
             onInputChange={setInputValue}
+            onClear={() => setInputValue('')}
             isInvalid={!!formState.errors?.[name]?.message}
             errorMessage={formState.errors?.[name]?.message?.toString()}
             selectedKey={currentValueString ?? null}
-            onOpenChange={(isOpen) => onOpenChange(isOpen, field)}
+            onClose={() => onOpenChange(true, field)}
+            onBlur={(e) => {
+              e;
+            }}
             onSelectionChange={(value) => {
-              console.log('firing the on change', value);
+              console.log('selection change triggered', value);
+              const valueOrCustom = value
+                ? value
+                : props.allowsCustomValue
+                  ? inputValue !== ''
+                    ? inputValue
+                    : null
+                  : null;
               if (onChange) {
-                onChange(value, field.onChange, setInputValue);
+                onChange(valueOrCustom, field.onChange, setInputValue);
               } else {
-                field.onChange(value);
-                setInputValue(value ? String(value) : '');
+                field.onChange(valueOrCustom);
+                setInputValue(valueOrCustom ? String(valueOrCustom) : '');
               }
             }}
           >

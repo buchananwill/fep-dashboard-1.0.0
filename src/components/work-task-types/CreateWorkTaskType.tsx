@@ -152,7 +152,7 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
       if (!disable) {
         const newWtt = await Api.WorkTaskType.postOne(data); // TODO: define posting action
         // Handle post submit actions, e.g., redirect to a different page
-        appRouterInstance.push(`/core/work-task-types`); // TODO: set WTT redirect
+        appRouterInstance.push(`/core/work-task-types/create`); // TODO: set WTT redirect
       } else {
         alert('Sign in to enable');
       }
