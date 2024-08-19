@@ -1,11 +1,11 @@
 'use server';
-import { AssetDto } from '../dtos/AssetDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
+import { AssetDto } from '@/api/generated-types/generated-types';
 
 const {
-getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -17,31 +17,21 @@ getPage,
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<
-  AssetDto,
-  number
->(
-  '/api/v2/assets'
-);
+} = generateBaseEndpointSet<AssetDto, number>('/api/v2/assets');
 
+const { getByTypeIdList } =
+  generateWithTypeEndpointSet<AssetDto>('/api/v2/assets');
 
 const {
-getByTypeIdList  } = generateWithTypeEndpointSet<AssetDto>(
-  '/api/v2/assets'
-);
-
-
-const {
-getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList } =
- generateGraphEndpointSet<
-  AssetDto
->(
-  '/api/v2/assets'
-);
-
+  getGraph,
+  getGraphByNodeList,
+  getGraphByRootId,
+  putGraph,
+  getRootNodeList
+} = generateGraphEndpointSet<AssetDto>('/api/v2/assets');
 
 export {
-    getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -52,7 +42,11 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList
-, getByTypeIdList, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
-}
-
+  getDtoListByExampleList,
+  getByTypeIdList,
+  getGraph,
+  getGraphByNodeList,
+  getGraphByRootId,
+  putGraph,
+  getRootNodeList
+};

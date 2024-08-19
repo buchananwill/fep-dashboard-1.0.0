@@ -31,6 +31,7 @@ export function ControlledAutoComplete<T extends SelectableItem>({
   items,
   selectItemProps,
   selectedKeyAccessor,
+  control,
   ...props
 }: ControlledAutoCompleteProps<T>) {
   const { keyAccessor, labelAccessor, valueAccessor } = itemAccessors;
@@ -56,14 +57,16 @@ export function ControlledAutoComplete<T extends SelectableItem>({
     labelAccessor
   ]);
 
+  console.log(props);
+
   return (
     <Controller
       name={name}
-      control={props.control}
+      control={control}
       render={({ field, fieldState, formState }) => {
         const currentValue =
           selectedKeyAccessor && field.value
-            ? field.value[keyAccessor]
+            ? field.value[selectedKeyAccessor] ?? field.value
             : field.value;
         const currentValueString = currentValue
           ? String(currentValue)
@@ -75,7 +78,7 @@ export function ControlledAutoComplete<T extends SelectableItem>({
             errorMessage={formState.errors?.[name]?.message?.toString()}
             selectedKey={currentValueString ?? ''}
             onSelectionChange={(value) => {
-              console.log('firing the on change');
+              console.log('firing the on change', value);
               if (onChange) {
                 onChange(value, field.onChange);
               } else {

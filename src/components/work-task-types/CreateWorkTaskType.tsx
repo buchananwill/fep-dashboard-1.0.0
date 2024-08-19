@@ -31,6 +31,7 @@ import {
 import { HasId } from '@/api/types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplete';
+import { getNames } from '@/components/work-task-types/getNamesServerAction';
 
 const disable = false;
 
@@ -69,9 +70,7 @@ function useNestedAutoCompleteChangeHandler<T extends HasId>(
   );
 }
 
-function useSimpleApiFetcher<T extends HasId>(
-  serverAction: () => Promise<T[]>
-) {
+function useSimpleApiFetcher<T>(serverAction: () => Promise<T[]>) {
   const [entities, setEntities] = useState<T[]>(EmptyArray);
 
   useEffect(() => {
@@ -117,6 +116,8 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
 
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
+
+  const names = useSimpleApiFetcher(getNames);
 
   const klsIdList = useMemo(() => {
     return knowledgeLevelSeriesDtos.map((kls) => kls.id);
@@ -166,6 +167,19 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
           New Work Task Type
         </CardHeader>
         <CardBody className={'items-center justify-center gap-2'}>
+          <ControlledAutoComplete
+            name={'name'}
+            allowsCustomValue={true}
+            control={control}
+            items={names}
+            selectedKeyAccessor={'name'}
+            aria-label={'Work Task Type Name'}
+            itemAccessors={{
+              labelAccessor: 'name',
+              keyAccessor: 'name',
+              valueAccessor: 'name'
+            }}
+          />
           <ControlledAutoComplete
             name={'knowledgeDomain'}
             control={control}
