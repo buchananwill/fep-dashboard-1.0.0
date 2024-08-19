@@ -177,17 +177,6 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
           New Work Task Type
         </CardHeader>
         <CardBody className={'items-center justify-center gap-2'}>
-          <Autocomplete
-            items={names}
-            allowsCustomValue={true}
-            aria-label={'Work Task Type Name'}
-          >
-            {(item) => (
-              <AutocompleteItem key={item.name} value={item.name}>
-                {item.name}
-              </AutocompleteItem>
-            )}
-          </Autocomplete>
           <ControlledAutoComplete
             name={'name'}
             allowsCustomValue={true}
