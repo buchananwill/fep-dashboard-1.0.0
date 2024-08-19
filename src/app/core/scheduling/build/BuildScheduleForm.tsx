@@ -85,7 +85,6 @@ export default function AutoBuildForm({
             hideValue={false}
             label={'Multi-Undo Timeout (ms):'}
           />
-          {/*{...register('multiUndoIncrement', { valueAsNumber: true })}*/}
           <ControlledSlider
             control={control}
             maxValue={10}

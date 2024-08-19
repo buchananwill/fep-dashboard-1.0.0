@@ -1,4 +1,3 @@
-import * as KnowledgeLevelClient from '@/api/generated-actions/KnowledgeLevel';
 import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { EntityClassMap } from '@/api/entity-class-map';
 import KnowledgeLevelTable from '@/components/knowledge-levels/KnowledgeLevelTable';
@@ -13,7 +12,7 @@ async function KnowledgeLevelsTablePage({
   depth
 }: LeafComponentProps) {
   const knowledgeLevelSeriesId = pathVariables[depth - 1];
-  const data = await KnowledgeLevelClient.getDtoListByExampleList([
+  const data = await Api.KnowledgeLevel.getDtoListByExampleList([
     { knowledgeLevelSeriesId: parseInt(knowledgeLevelSeriesId) }
   ]);
 
@@ -27,9 +26,9 @@ async function KnowledgeLevelsTablePage({
         <EditAddDeleteDtoControllerArray
           dtoList={data}
           entityClass={EntityClassMap.knowledgeLevel}
-          updateServerAction={KnowledgeLevelClient.putList}
-          deleteServerAction={KnowledgeLevelClient.deleteIdList}
-          postServerAction={KnowledgeLevelClient.postList}
+          updateServerAction={Api.KnowledgeLevel.putList}
+          deleteServerAction={Api.KnowledgeLevel.deleteIdList}
+          postServerAction={Api.KnowledgeLevel.postList}
         />
         <KnowledgeLevelTable
           data={data}

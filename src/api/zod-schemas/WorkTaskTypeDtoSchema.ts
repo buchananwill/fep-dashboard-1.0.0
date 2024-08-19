@@ -5,10 +5,9 @@ import { z } from 'zod';
 export const WorkTaskTypeDtoSchema = z.object({
   name: z.string(),
   id: z.number(),
-  knowledgeLevelSeriesId: z.number(),
-  shortCode: z.string(),
+  knowledgeLevelSeriesId: z.number().optional(),
   knowledgeDomain: KnowledgeDomainDtoSchema,
-  knowledgeLevel: KnowledgeLevelDtoSchema,
-  validationType: ValidationTypeDtoSchema
+  knowledgeLevel: KnowledgeLevelDtoSchema.optional(),
+  validationType: ValidationTypeDtoSchema.optional()
 });
 export type WorkTaskTypeDto = z.infer<typeof WorkTaskTypeDtoSchema>;

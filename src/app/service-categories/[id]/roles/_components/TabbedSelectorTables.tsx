@@ -2,21 +2,21 @@
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
-import WorkTaskTypeSelectorTable from '@/components/tables/entity/WorkTaskTypeSelectorTable';
+import WorkTaskTypeSelectorTable from '@/components/tables/selectorTables/WorkTaskTypeSelectorTable';
 import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';
-import ProviderRoleSelectorTable from '@/components/tables/entity/ProviderRoleSelectorTable';
-import AssetRoleSelectorTable from '@/components/tables/entity/AssetRoleSelectorTable';
+import ProviderRoleSelectorTable from '@/components/tables/selectorTables/ProviderRoleSelectorTable';
+import AssetRoleSelectorTable from '@/components/tables/selectorTables/AssetRoleSelectorTable';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { startCase } from 'lodash';
-import WorkProjectSeriesSchemaSelectorTable from '@/components/tables/entity/WorkProjectSeriesSchemaSelectorTable';
-import OrganizationSelectorTable from '@/components/tables/entity/OrganizationSelectorTable';
+import WorkProjectSeriesSchemaSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
+import OrganizationSelectorTable from '@/components/tables/selectorTables/OrganizationSelectorTable';
 import {
   OrganizationDto,
   WorkProjectSeriesWithSchemaLabelsDto,
   WorkTaskTypeDto
 } from '@/api/generated-types/generated-types';
-import WorkProjectSeriesSelectorTable from '@/components/tables/entity/WorkProjectSeriesSelectorTable';
+import WorkProjectSeriesSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSelectorTable';
 
 export default function TabbedSelectorTables({
   workTaskTypes,

@@ -6,13 +6,13 @@ import data from '@/utils/init-json-data/service-categories/workTaskTypesIgm.jso
 import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categories/getWorkTaskTypeTableLookUp';
 import { createRows } from '@/components/generic/createRows';
 import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
-import WorkTaskTypeIgmTable from '@/app/service-categories/[id]/work-task-types/_components/WorkTaskTypeIgmTable';
+import WorkTaskTypeIgmTable from '@/components/work-task-types/_components/WorkTaskTypeIgmTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 
 const rowEntityName = 'Lesson Type';
-async function WorkTaskTypeTablePage({
+async function CreateWorkTaskTypeTablePage({
   pathVariables,
   depth
 }: LeafComponentProps) {
@@ -68,7 +68,7 @@ export default function WorkTaskTypeHome(props: LeafComponentProps) {
     <PathVariableSplit
       {...props}
       homeComponent={KnowledgeLevelSeriesLinks}
-      subRouteComponent={WorkTaskTypeTablePage}
+      subRouteComponent={CreateWorkTaskTypeTablePage}
     />
   );
 }

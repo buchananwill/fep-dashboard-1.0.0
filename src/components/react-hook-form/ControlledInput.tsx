@@ -1,5 +1,6 @@
 import { Control, Controller } from 'react-hook-form';
 import { Input, InputProps } from '@nextui-org/input';
+import React from 'react';
 
 export type FormInputProps = {
   name: string;

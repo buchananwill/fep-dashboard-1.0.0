@@ -1,8 +1,7 @@
 import { z } from 'zod';
 export const KnowledgeDomainDtoSchema = z.object({
   id: z.number(),
-  knowledgeLevelSeriesId: z.number(),
-  knowledgeDomainDescriptor: z.string(),
-  name: z.string()
+  name: z.string(),
+  shortCode: z.string().length(2).optional()
 });
 export type KnowledgeDomainDto = z.infer<typeof KnowledgeDomainDtoSchema>;

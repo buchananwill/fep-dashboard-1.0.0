@@ -6,7 +6,6 @@ import { WorkSchemaNodeNavTree } from '@/components/work-schema-nodes/workSchema
 import ServiceCategoriesHome from '@/app/service-categories/ServiceCategoriesHome';
 import KnowledgeDomains from '@/components/knowledge-domains/KnowledgeDomains';
 import KnowledgeLevelsHome from '@/components/knowledge-levels/KnowledgeLevelsTablePage';
-import WorkTaskTypeHome from '@/app/service-categories/[id]/work-task-types/WorkTaskTypeTablePage';
 import WorkProjectSeriesSchemaHome from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
 import { CarouselGroupsAndOrders } from '@/components/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/components/carousel-groups/orders/carouselGroupOrdersPage';
@@ -17,6 +16,8 @@ import CreateServiceCategoryPage from '@/app/service-categories/create/createSer
 import BuildSchedulePage from '@/app/core/scheduling/build/BuildSchedulePage';
 import { feasibilityBranch } from '@/app/core/feasibility/FeasibilityHome';
 import { StaticAllocationPage } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationPage';
+import WorkTaskTypeTablePage from '@/components/work-task-types/WorkTaskTypeTablePage';
+import CreateWorkTaskType from '@/components/work-task-types/CreateWorkTaskType';
 
 export const navTreeData: NavTree = {
   navigation: { type: 'leaf', component: NavigationHome },
@@ -38,7 +39,13 @@ export const navTreeData: NavTree = {
     children: {},
     component: KnowledgeLevelsHome
   },
-  workTaskTypes: { type: 'branch', children: {}, component: WorkTaskTypeHome },
+  workTaskTypes: {
+    type: 'branch',
+    children: {
+      create: { type: 'leaf', component: CreateWorkTaskType }
+    },
+    component: WorkTaskTypeTablePage
+  },
   workProjectSeriesSchemas: {
     type: 'branch',
     children: {

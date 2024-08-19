@@ -29,9 +29,15 @@ export type KeyArray<T> = (keyof T)[];
 
 export type DispatchState<T> = Dispatch<SetStateAction<T>>;
 
+export type SharedColumn = 'action';
+export type ColumnUid<T> =
+  | Extract<keyof T, string | number>
+  | Paths<T>
+  | SharedColumn;
+
 export interface Column<T> {
   name: string;
-  uid: Extract<keyof T, string | number> | Paths<T>;
+  uid: ColumnUid<T>;
   sortable?: boolean;
 }
 
