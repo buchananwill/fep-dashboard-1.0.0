@@ -2,10 +2,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import {
+import React, {
   ChangeEvent,
   useCallback,
   useEffect,
+  useMemo,
   useState,
   useTransition
 } from 'react';
@@ -29,21 +30,40 @@ import {
 } from '@/components/react-hook-form/ControlledSelect';
 import { HasId } from '@/api/types';
 import { getDomainAlias } from '@/api/getDomainAlias';
+import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplete';
 
 const disable = false;
 
-function useNestedFormPropertyChangeHandler<T extends HasId>(
-  nestedPropertyOptions: T[]
+type ControlledFormElement = HTMLSelectElement | HTMLInputElement;
+
+function useNestedSelectChangeHandler<T>(
+  nestedPropertyOptions: T[],
+  valueAccessor: (item: T) => string
 ) {
   return useCallback(
     (
       event: ChangeEvent<HTMLSelectElement>,
       onChange: (...event: any[]) => void
     ) => {
-      const kd = nestedPropertyOptions.find(
-        (kdItem) => String(kdItem.id) === event.target.value
+      const updatedElement = nestedPropertyOptions.find(
+        (kdItem) => valueAccessor(kdItem) === event.target.value
       );
-      onChange(kd);
+      console.log(event, updatedElement);
+      onChange(updatedElement);
+    },
+    [nestedPropertyOptions]
+  );
+}
+function useNestedAutoCompleteChangeHandler<T extends HasId>(
+  nestedPropertyOptions: T[]
+) {
+  return useCallback(
+    (value: React.Key | null, onChange: (...event: any[]) => void) => {
+      const updatedElement = nestedPropertyOptions.find(
+        (kdItem) => String(kdItem.id) === value
+      );
+      console.log(value, updatedElement);
+      onChange(updatedElement);
     },
     [nestedPropertyOptions]
   );
@@ -76,7 +96,7 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
     resolver: zodResolver(WorkTaskTypeDtoSchema),
     defaultValues: {
       id: -1,
-      name: 'Teaching'
+      name: 'Planning'
     }
   });
   const knowledgeDomains = useSimpleApiFetcher(Api.KnowledgeDomain.getAll);
@@ -98,19 +118,30 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
 
-  const onKnowledgeDomainSelectChange =
-    useNestedFormPropertyChangeHandler(knowledgeDomains);
+  const klsIdList = useMemo(() => {
+    return knowledgeLevelSeriesDtos.map((kls) => kls.id);
+  }, [knowledgeLevelSeriesDtos]);
 
-  const knowledgeLevelChangeHandler =
-    useNestedFormPropertyChangeHandler(knowledgeLevelDtos);
+  const onKnowledgeDomainSelectChange =
+    useNestedAutoCompleteChangeHandler(knowledgeDomains);
+
+  const knowledgeLevelChangeHandler = useNestedSelectChangeHandler(
+    knowledgeLevelDtos,
+    idAccessor
+  );
+
+  const knowledgeLevelSeriesChangeHandler = useNestedSelectChangeHandler(
+    klsIdList,
+    String
+  );
 
   const onSubmit: SubmitHandler<WorkTaskTypeDto> = async (data) => {
     startTransition(async () => {
       console.log('submitted', data);
       if (!disable) {
-        // const pendingSchedule = await buildScheduleAction(1, data); // TODO: define posting action
+        const newWtt = await Api.WorkTaskType.postOne(data); // TODO: define posting action
         // Handle post submit actions, e.g., redirect to a different page
-        // appRouterInstance.push(`/core/scheduling/${pendingSchedule.id}`); // TODO: set WTT redirect
+        appRouterInstance.push(`/core/work-task-types`); // TODO: set WTT redirect
       } else {
         alert('Sign in to enable');
       }
@@ -135,7 +166,7 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
           New Work Task Type
         </CardHeader>
         <CardBody className={'items-center justify-center gap-2'}>
-          <ControlledSelect
+          <ControlledAutoComplete
             name={'knowledgeDomain'}
             control={control}
             selectedKeyAccessor={'id'}
@@ -149,6 +180,7 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
             aria-label={'knowledge Level Series Id'}
             control={control}
             items={knowledgeLevelSeriesDtos}
+            onChange={knowledgeLevelSeriesChangeHandler}
           />
           <ControlledSelect
             name={'knowledgeLevel'}
@@ -185,3 +217,7 @@ const knowledgeDomainAccessors: ItemAccessors<KnowledgeDomainDto> = {
   labelAccessor: 'name',
   valueAccessor: 'id'
 };
+
+function idAccessor<T extends HasId>(item: T) {
+  return String(item.id);
+}

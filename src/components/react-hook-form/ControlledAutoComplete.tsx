@@ -1,33 +1,30 @@
 import { Control, Controller } from 'react-hook-form';
-import { Select, SelectItemProps, SelectProps } from '@nextui-org/react';
+import {
+  Autocomplete,
+  AutocompleteItem,
+  AutocompleteProps,
+  SelectItemProps
+} from '@nextui-org/react';
 import React, { ChangeEvent, useMemo } from 'react';
-import { SelectItem } from '@nextui-org/select';
-import { RequireAllOrNone, Simplify } from 'type-fest';
-import { TypedPaths } from '@/functions/typePaths';
-import { HasId } from '@/api/types';
+import {
+  ItemAccessors,
+  SelectableItem
+} from '@/components/react-hook-form/ControlledSelect';
 
-export type SelectableItem = HasId;
-
-export type ItemAccessors<T extends SelectableItem> = {
-  valueAccessor: TypedPaths<T, string | number>;
-  keyAccessor: TypedPaths<T, string | number>;
-  labelAccessor: TypedPaths<T, string | number>;
-};
-
-type FormSelectProps<T extends SelectableItem> = {
-  selectedKeyAccessor?: keyof T;
+type ControlledAutoCompleteProps<T extends SelectableItem> = {
+  selectedKeyAccessor?: string;
   name: string;
   control: Control<any>;
   onChange?: (
-    value: ChangeEvent<HTMLSelectElement>,
+    value: React.Key | null,
     onChange: (...event: any[]) => void
   ) => void;
   selectItemProps?: SelectItemProps;
   itemAccessors?: ItemAccessors<T>;
   items: T[];
-} & Omit<SelectProps, 'onChange' | 'children'>;
+} & Omit<AutocompleteProps, 'onChange' | 'children'>;
 
-export function ControlledSelect<T extends SelectableItem>({
+export function ControlledAutoComplete<T extends SelectableItem>({
   name,
   onChange,
   itemAccessors = defaultItemAccessors as ItemAccessors<T>,
@@ -35,19 +32,19 @@ export function ControlledSelect<T extends SelectableItem>({
   selectItemProps,
   selectedKeyAccessor,
   ...props
-}: FormSelectProps<T>) {
+}: ControlledAutoCompleteProps<T>) {
   const { keyAccessor, labelAccessor, valueAccessor } = itemAccessors;
   const childrenDefined = useMemo(() => {
     if (items && itemAccessors) {
       return items.map((kls) => (
-        <SelectItem
+        <AutocompleteItem
           {...selectItemProps}
           key={kls[keyAccessor]}
           value={kls[valueAccessor]}
           aria-label={kls[labelAccessor] ?? kls[keyAccessor]}
         >
           {kls[labelAccessor]}
-        </SelectItem>
+        </AutocompleteItem>
       ));
     } else return [];
   }, [
@@ -66,33 +63,28 @@ export function ControlledSelect<T extends SelectableItem>({
       render={({ field, fieldState, formState }) => {
         const currentValue =
           selectedKeyAccessor && field.value
-            ? field.value[selectedKeyAccessor]
+            ? field.value[keyAccessor]
             : field.value;
         const currentValueString = currentValue
           ? String(currentValue)
           : currentValue;
         return (
-          <Select
+          <Autocomplete
             {...props}
             isInvalid={!!formState.errors?.[name]?.message}
             errorMessage={formState.errors?.[name]?.message?.toString()}
-            selectedKeys={[currentValueString]}
-            onChange={(value) => {
-              console.log(value);
+            selectedKey={currentValueString ?? ''}
+            onSelectionChange={(value) => {
+              console.log('firing the on change');
               if (onChange) {
-                console.log('external change handler branch', value);
                 onChange(value, field.onChange);
               } else {
-                console.log(
-                  'internal change handler branch',
-                  typeof value.target.value
-                );
-                field.onChange(value.target.value);
+                field.onChange(value);
               }
             }}
           >
             {childrenDefined}
-          </Select>
+          </Autocomplete>
         );
       }}
     ></Controller>
