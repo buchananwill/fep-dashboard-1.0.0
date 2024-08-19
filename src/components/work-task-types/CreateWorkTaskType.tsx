@@ -25,13 +25,14 @@ import { EmptyArray } from '@/api/literals';
 import { Api } from '@/api/clientApi_';
 import {
   ControlledSelect,
-  defaultItemAccessors,
   ItemAccessors
 } from '@/components/react-hook-form/ControlledSelect';
 import { HasId } from '@/api/types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplete';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
+import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
+import { nameAccessor } from '@/components/modals/nameSetter';
 
 const disable = false;
 
@@ -56,15 +57,21 @@ function useNestedSelectChangeHandler<T>(
   );
 }
 function useNestedAutoCompleteChangeHandler<T extends HasId>(
-  nestedPropertyOptions: T[]
+  nestedPropertyOptions: T[],
+  labelAccessor: (item: T) => string
 ) {
   return useCallback(
-    (value: React.Key | null, onChange: (...event: any[]) => void) => {
+    (
+      selectionKey: React.Key | null,
+      onChange: (...event: any[]) => void,
+      setInputValue: (value: string) => void
+    ) => {
       const updatedElement = nestedPropertyOptions.find(
-        (kdItem) => String(kdItem.id) === value
+        (kdItem) => String(kdItem.id) === selectionKey
       );
-      console.log(value, updatedElement);
+      console.log(selectionKey, updatedElement);
       onChange(updatedElement);
+      setInputValue(updatedElement ? labelAccessor(updatedElement) : '');
     },
     [nestedPropertyOptions]
   );
@@ -84,6 +91,10 @@ function useSimpleApiFetcher<T>(serverAction: () => Promise<T[]>) {
   return entities;
 }
 
+const defaultWorkTaskTypeValues = {
+  id: -1,
+  name: 'Planning'
+};
 export default function CreateWorkTaskType({}: LeafComponentProps) {
   const {
     handleSubmit,
@@ -93,10 +104,7 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
     watch
   } = useForm<WorkTaskTypeDto>({
     resolver: zodResolver(WorkTaskTypeDtoSchema),
-    defaultValues: {
-      id: -1,
-      name: 'Planning'
-    }
+    defaultValues: defaultWorkTaskTypeValues
   });
   const knowledgeDomains = useSimpleApiFetcher(Api.KnowledgeDomain.getAll);
   const knowledgeLevelSeriesDtos = useSimpleApiFetcher(
@@ -123,8 +131,10 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
     return knowledgeLevelSeriesDtos.map((kls) => kls.id);
   }, [knowledgeLevelSeriesDtos]);
 
-  const onKnowledgeDomainSelectChange =
-    useNestedAutoCompleteChangeHandler(knowledgeDomains);
+  const onKnowledgeDomainSelectChange = useNestedAutoCompleteChangeHandler(
+    knowledgeDomains,
+    nameAccessor
+  );
 
   const knowledgeLevelChangeHandler = useNestedSelectChangeHandler(
     knowledgeLevelDtos,
@@ -167,13 +177,24 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
           New Work Task Type
         </CardHeader>
         <CardBody className={'items-center justify-center gap-2'}>
+          <Autocomplete
+            items={names}
+            allowsCustomValue={true}
+            aria-label={'Work Task Type Name'}
+          >
+            {(item) => (
+              <AutocompleteItem key={item.name} value={item.name}>
+                {item.name}
+              </AutocompleteItem>
+            )}
+          </Autocomplete>
           <ControlledAutoComplete
             name={'name'}
             allowsCustomValue={true}
             control={control}
             items={names}
-            selectedKeyAccessor={'name'}
             aria-label={'Work Task Type Name'}
+            defaultInputValue={defaultWorkTaskTypeValues.name}
             itemAccessors={{
               labelAccessor: 'name',
               keyAccessor: 'name',

@@ -1,11 +1,17 @@
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, ControllerRenderProps } from 'react-hook-form';
 import {
   Autocomplete,
   AutocompleteItem,
   AutocompleteProps,
   SelectItemProps
 } from '@nextui-org/react';
-import React, { ChangeEvent, useMemo } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import {
   ItemAccessors,
   SelectableItem
@@ -17,7 +23,8 @@ type ControlledAutoCompleteProps<T extends SelectableItem> = {
   control: Control<any>;
   onChange?: (
     value: React.Key | null,
-    onChange: (...event: any[]) => void
+    onChange: (...event: any[]) => void,
+    setInputValue: (value: string) => void
   ) => void;
   selectItemProps?: SelectItemProps;
   itemAccessors?: ItemAccessors<T>;
@@ -31,6 +38,7 @@ export function ControlledAutoComplete<T extends SelectableItem>({
   items,
   selectItemProps,
   selectedKeyAccessor,
+  defaultInputValue,
   control,
   ...props
 }: ControlledAutoCompleteProps<T>) {
@@ -57,6 +65,23 @@ export function ControlledAutoComplete<T extends SelectableItem>({
     labelAccessor
   ]);
 
+  const [inputValue, setInputValue] = useState<string>(defaultInputValue ?? '');
+  const inputRef = useRef('');
+  inputRef.current = inputValue;
+
+  const onOpenChange = useCallback(
+    (isOpen: boolean, field: ControllerRenderProps) => {
+      if (!isOpen && props.allowsCustomValue && !field.value) {
+        if (onChange) {
+          onChange(inputValue, field.onChange, setInputValue);
+        } else {
+          field.onChange(inputValue);
+        }
+      }
+    },
+    []
+  );
+
   console.log(props);
 
   return (
@@ -71,18 +96,30 @@ export function ControlledAutoComplete<T extends SelectableItem>({
         const currentValueString = currentValue
           ? String(currentValue)
           : currentValue;
+
+        console.log(
+          currentValue,
+          selectedKeyAccessor,
+          field.value,
+          currentValueString
+        );
+
         return (
           <Autocomplete
             {...props}
+            inputValue={inputValue}
+            onInputChange={setInputValue}
             isInvalid={!!formState.errors?.[name]?.message}
             errorMessage={formState.errors?.[name]?.message?.toString()}
-            selectedKey={currentValueString ?? ''}
+            selectedKey={currentValueString ?? null}
+            onOpenChange={(isOpen) => onOpenChange(isOpen, field)}
             onSelectionChange={(value) => {
               console.log('firing the on change', value);
               if (onChange) {
-                onChange(value, field.onChange);
+                onChange(value, field.onChange, setInputValue);
               } else {
                 field.onChange(value);
+                setInputValue(value ? String(value) : '');
               }
             }}
           >
