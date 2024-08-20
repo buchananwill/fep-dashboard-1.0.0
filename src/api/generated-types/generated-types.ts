@@ -386,7 +386,7 @@ export interface KnowledgeDomainDto
     DtoWrapper<KnowledgeDomain, KnowledgeDomainDto, number> {
   id: number;
   name: string;
-  shortCode: string;
+  shortCode?: string;
 }
 
 export interface KnowledgeLevelDto
