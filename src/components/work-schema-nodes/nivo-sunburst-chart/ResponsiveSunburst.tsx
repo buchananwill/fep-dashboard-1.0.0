@@ -3,7 +3,7 @@
 import { ResponsiveSunburst } from '@nivo/sunburst';
 import { NestedWorkNode } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
-export function MyResponsiveSunburst({
+export function WorkNodeResponsiveSunburst({
   data /* see data tab */
 }: {
   data: NestedWorkNode;

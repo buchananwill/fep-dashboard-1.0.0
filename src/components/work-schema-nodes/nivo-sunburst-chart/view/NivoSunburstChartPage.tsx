@@ -1,4 +1,4 @@
-import { MyResponsiveSunburst } from '@/components/work-schema-nodes/nivo-sunburst-chart/MyResponsiveSunburst';
+import { WorkNodeResponsiveSunburst } from '@/components/work-schema-nodes/nivo-sunburst-chart/ResponsiveSunburst';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { NestedWorkNodeDto } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
@@ -21,7 +21,7 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   const { data } = dtoData;
   return (
     <div className={'h-[100vh] w-[100vw]'}>
-      <MyResponsiveSunburst data={data} />
+      <WorkNodeResponsiveSunburst data={data} />
     </div>
   );
 }

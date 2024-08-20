@@ -2,7 +2,9 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
-import TopLevelSelectors from '@/components/work-schema-nodes/nivo-sunburst-chart/TopLevelSelectors';
+import TopLevelSelectors from '@/components/work-schema-nodes/nivo-sunburst-chart/create/TopLevelSelectors';
+import KnowledgeLevelGroupManager from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
+import CycleDataFetcher from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CycleDataFetcher';
 
 export const workTaskTypeName = 'workTaskTypeName';
 export default async function CreateViaSunburst() {
@@ -26,7 +28,13 @@ export default async function CreateViaSunburst() {
         entityClass={workTaskTypeName}
         dtoList={workTaskTypesNames}
       />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.cycleSubspan}
+        dtoList={workTaskTypesNames}
+      />
       <TopLevelSelectors />
+      <KnowledgeLevelGroupManager />
+      <CycleDataFetcher />
     </>
   );
 }
