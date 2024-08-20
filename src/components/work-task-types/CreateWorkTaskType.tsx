@@ -2,14 +2,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, {
-  ChangeEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useTransition
-} from 'react';
+import React, { ChangeEvent, useCallback, useMemo, useTransition } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Overlay } from '@/components/overlays/overlay';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
@@ -21,7 +14,6 @@ import {
 import { WorkTaskTypeDtoSchema } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
 import { FormElementMap } from '@/components/react-hook-form/ControlledFormElement';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { EmptyArray } from '@/api/literals';
 import { Api } from '@/api/clientApi_';
 import {
   ControlledSelect,
@@ -31,8 +23,8 @@ import { HasId } from '@/api/types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplete';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
-import { Autocomplete, AutocompleteItem } from '@nextui-org/react';
 import { nameAccessor } from '@/components/modals/nameSetter';
+import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
 
 const disable = false;
 
@@ -75,20 +67,6 @@ function useNestedAutoCompleteChangeHandler<T extends HasId>(
     },
     [nestedPropertyOptions]
   );
-}
-
-function useSimpleApiFetcher<T>(serverAction: () => Promise<T[]>) {
-  const [entities, setEntities] = useState<T[]>(EmptyArray);
-
-  useEffect(() => {
-    const fetchKdOptions = async () => {
-      const kdList = await serverAction();
-      setEntities(kdList);
-      console.log(kdList);
-    };
-    fetchKdOptions();
-  }, [serverAction]);
-  return entities;
 }
 
 const defaultWorkTaskTypeValues = {

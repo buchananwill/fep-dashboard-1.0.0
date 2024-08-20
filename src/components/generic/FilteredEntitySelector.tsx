@@ -9,23 +9,23 @@ import { MutableRefObject } from 'react';
 
 export type EntitySelectorProps<T, U> = {
   entityClass: string;
-  visibleItems: MutableRefObject<T[]>;
+  filteredItems: MutableRefObject<T[]>;
   labelAccessor: StringPropertyKey<T>;
 } & Omit<SelectProps, 'items' | 'selectedKeys' | 'children'>;
 
-export default function EntitySelector<
+export default function FilteredEntitySelector<
   T extends HasIdClass<U>,
   U extends Identifier
 >({
   entityClass,
   labelAccessor,
-  visibleItems,
+  filteredItems,
   ...selectProps
 }: EntitySelectorProps<T, U>) {
   const { currentState, selectedKeys, onSelectionChange } = useEntitySelection<
     T,
     U
-  >(entityClass, visibleItems);
+  >(entityClass, filteredItems);
 
   return (
     <Select

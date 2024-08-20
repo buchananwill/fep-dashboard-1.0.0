@@ -1,13 +1,8 @@
 'use client';
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
 
 import { ResponsiveSunburst } from '@nivo/sunburst';
 import { NestedWorkNode } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
-// you'll often use just a few of them.
 export function MyResponsiveSunburst({
   data /* see data tab */
 }: {
