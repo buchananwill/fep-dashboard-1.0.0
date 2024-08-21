@@ -21,10 +21,10 @@ import { produce } from 'immer';
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
 const listenerKey = 'klg-controller';
-export const knowledgeLevelGroup = 'knowledgeLevelGroup';
+export const knowledgeLevelGroupContextKey = 'knowledgeLevelGroup';
 export default function KnowledgeLevelGroupManager() {
   const { dispatch } = useGlobalController({
-    contextKey: knowledgeLevelGroup,
+    contextKey: knowledgeLevelGroupContextKey,
     initialValue: knowledgeLevelGroupTemplate,
     listenerKey: listenerKey
   });
@@ -88,13 +88,14 @@ export type KnowledgeLevelGroupTemplate = SetOptional<
   'cycle' | 'knowledgeLevel' | 'workTaskTypeName'
 >;
 
+export const K_D_TEMPLATE_ID = 'template';
 export const knowledgeLevelGroupTemplate: SetOptional<
   KnowledgeLevelGroup,
   'cycle' | 'knowledgeLevel' | 'workTaskTypeName'
 > = {
   children: [],
-  type: knowledgeLevelGroup,
-  id: 'template'
+  type: knowledgeLevelGroupContextKey,
+  id: K_D_TEMPLATE_ID
 };
 
 export const BlankKnowledgeDomain: KnowledgeDomainDto = {

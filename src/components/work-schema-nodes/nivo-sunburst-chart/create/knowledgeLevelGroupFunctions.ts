@@ -116,11 +116,12 @@ export function getHierarchyList(
   root: KnowledgeLevelGroupTemplate,
   childId: string
 ): NestedWorkNode[] {
+  console.log(root, childId);
   const idPath = childId.split(':');
   const depth = idPath.length;
   const hierarchyList: NestedWorkNode[] = [root as KnowledgeLevelGroup];
   for (let i = 1; i < depth; i++) {
-    const id = idPath.slice(0, i).join(':');
+    const id = idPath.slice(0, i + 1).join(':');
     const localParent = hierarchyList[i - 1];
     if (localParent.type !== 'leaf') {
       const find = localParent.children.find((child) => child.id === id);
