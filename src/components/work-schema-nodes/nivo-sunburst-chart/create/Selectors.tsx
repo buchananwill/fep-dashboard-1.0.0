@@ -5,14 +5,18 @@ import { useGlobalListener } from 'selective-context';
 import { SelectionIdPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
 import { useSplitSelectionPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/useSplitSelectionPath';
 
-export default function Selectors() {
+export function useSplitSelectionListener(listenerKey: string) {
   const { currentState: selectionPath } = useGlobalListener({
     contextKey: SelectionIdPathKey,
     initialValue: K_D_TEMPLATE_ID,
-    listenerKey: 'selectors'
+    listenerKey: listenerKey
   });
 
-  const splitSelectionPath = useSplitSelectionPath(selectionPath);
+  return useSplitSelectionPath(selectionPath);
+}
+
+export default function Selectors() {
+  const splitSelectionPath = useSplitSelectionListener('selectors');
 
   return (
     <div className={'flex flex-col gap-2'}>

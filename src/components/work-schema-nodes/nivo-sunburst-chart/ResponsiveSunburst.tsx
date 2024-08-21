@@ -3,6 +3,7 @@
 import { ComputedDatum, ResponsiveSunburst } from '@nivo/sunburst';
 import { NestedWorkNode } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { getInheritedColorGenerator } from '@nivo/colors';
+import { patternDotsDef } from '@nivo/core';
 
 export function WorkNodeResponsiveSunburst({
   data /* see data tab */
@@ -15,12 +16,32 @@ export function WorkNodeResponsiveSunburst({
       margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
       value="size"
       cornerRadius={10}
-      borderColor={{ theme: 'background' }}
+      borderWidth={2}
+      borderColor={{ from: 'color', modifiers: [] }}
+      defs={[
+        patternDotsDef('dots', {
+          color: '#a1a1a1',
+          size: 3,
+          padding: 1,
+          stagger: false,
+          background: '#ffffff'
+        })
+      ]}
+      fill={[
+        {
+          match: (d) => {
+            console.log('matching: ', d);
+            // @ts-ignore
+            return d.data.selected;
+          },
+          id: 'dots'
+        }
+      ]}
       colors={{ scheme: 'set3' }}
       childColor={customChildColors}
       enableArcLabels={true}
       arcLabel={nestedWorkNodeArcLabel}
-      arcLabelsSkipAngle={10}
+      arcLabelsSkipAngle={60}
       arcLabelsTextColor={{
         from: 'color',
         modifiers: [['darker', 1.4]]

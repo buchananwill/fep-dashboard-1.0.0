@@ -7,7 +7,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/literals';
 import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import {
   CycleDto,
@@ -17,6 +17,8 @@ import {
 } from '@/api/generated-types/generated-types';
 import { HasNumberId } from '@/api/types';
 import { produce } from 'immer';
+import { useSplitSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/Selectors';
+import { getHierarchyList } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
 
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
@@ -52,6 +54,34 @@ export default function KnowledgeLevelGroupManager() {
     listenerKey,
     EmptyArray
   );
+
+  const selectionPath = useSplitSelectionListener(listenerKey);
+  const selectionPathRef = useRef(selectionPath);
+
+  useEffect(() => {
+    if (selectionPath.length > 0) {
+      const childId = selectionPath.join(':');
+      dispatch((klg) => {
+        return produce(klg, (draft) => {
+          const hierarchyList = getHierarchyList(draft, childId);
+          const hierarchyListElement = hierarchyList[hierarchyList.length - 1];
+          hierarchyListElement.selected = true;
+        });
+      });
+      if (selectionPathRef.current.length > 0) {
+        const childId = selectionPathRef.current.join(':');
+        dispatch((klg) => {
+          return produce(klg, (draft) => {
+            const hierarchyList = getHierarchyList(draft, childId);
+            const hierarchyListElement =
+              hierarchyList[hierarchyList.length - 1];
+            hierarchyListElement.selected = false;
+          });
+        });
+      }
+      selectionPathRef.current = selectionPath;
+    }
+  }, [selectionPath, dispatch]);
 
   useEffect(() => {
     const [cycle] = selectedCycleIdList.map(
@@ -95,7 +125,8 @@ export const knowledgeLevelGroupTemplate: SetOptional<
 > = {
   children: [],
   type: knowledgeLevelGroupContextKey,
-  id: K_D_TEMPLATE_ID
+  id: K_D_TEMPLATE_ID,
+  selected: true
 };
 
 export const BlankKnowledgeDomain: KnowledgeDomainDto = {

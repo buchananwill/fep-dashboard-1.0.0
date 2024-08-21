@@ -32,7 +32,8 @@ export const addKnowledgeDomainGroup = produce<
     type: 'knowledgeDomainGroup',
     children: [],
     knowledgeDomains: [],
-    id: makeChildId(bundle)
+    id: makeChildId(bundle),
+    selected: false
   });
   bundle.children.forEach((kdgc, index, array) => {
     kdgc.color = interpolateRainbow(index / array.length);
@@ -90,7 +91,8 @@ export const addDeliveryAllocationLeaf = produce<
   const leaf: DeliveryAllocationLeaf = {
     id: makeChildId(find),
     type: 'leaf',
-    size: size
+    size: size,
+    selected: false
   };
   find.children.push(leaf);
 });

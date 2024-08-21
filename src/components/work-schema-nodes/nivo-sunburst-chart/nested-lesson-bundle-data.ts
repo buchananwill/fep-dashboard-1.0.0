@@ -7,7 +7,10 @@ import {
   KnowledgeLevelSeriesDto
 } from '@/api/generated-types/generated-types';
 
-export type DeliveryAllocationBase = HasIdClass<string>;
+export type DeliveryAllocationBase = HasIdClass<string> & {
+  selected: boolean;
+  color?: string;
+};
 
 export type DeliveryAllocationLeaf = {
   type: 'leaf';

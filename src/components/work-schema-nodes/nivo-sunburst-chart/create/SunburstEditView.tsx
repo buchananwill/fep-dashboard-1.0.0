@@ -16,7 +16,7 @@ export default function SunburstEditView() {
   });
 
   return (
-    <div className={'h-[50vh] w-[50vw]'}>
+    <div className={'h-[75vh] w-[75vw]'}>
       <WorkNodeResponsiveSunburst data={currentState as KnowledgeLevelGroup} />
     </div>
   );

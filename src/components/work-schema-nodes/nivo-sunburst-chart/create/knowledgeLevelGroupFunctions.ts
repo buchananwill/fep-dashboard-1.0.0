@@ -38,7 +38,8 @@ export function addDeliveryAllocationListToKdg(
   const daList: DeliveryAllocationList = {
     id: `${knowledgeDomainGroup.id}:${deliveryAllocationSize}`,
     type: 'leafList',
-    children: []
+    children: [],
+    selected: false
   };
   knowledgeDomainGroup.children.push(daList);
   knowledgeDomainGroup.children.sort(
@@ -72,7 +73,8 @@ export function makeNewBundle(
   return {
     id: makeChildId(knowledgeLevelGroup as NestedWorkNode),
     children: [],
-    type: 'bundle'
+    type: 'bundle',
+    selected: false
   };
 }
 
