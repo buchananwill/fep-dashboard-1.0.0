@@ -1,7 +1,10 @@
 'use client';
 
 import { ComputedDatum, ResponsiveSunburst } from '@nivo/sunburst';
-import { NestedWorkNode } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import {
+  KnowledgeDomainGroup,
+  NestedWorkNode
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { getInheritedColorGenerator } from '@nivo/colors';
 import { patternDotsDef } from '@nivo/core';
 
@@ -30,7 +33,6 @@ export function WorkNodeResponsiveSunburst({
       fill={[
         {
           match: (d) => {
-            console.log('matching: ', d);
             // @ts-ignore
             return d.data.selected;
           },
@@ -41,7 +43,7 @@ export function WorkNodeResponsiveSunburst({
       childColor={customChildColors}
       enableArcLabels={true}
       arcLabel={nestedWorkNodeArcLabel}
-      arcLabelsSkipAngle={60}
+      arcLabelsSkipAngle={5}
       arcLabelsTextColor={{
         from: 'color',
         modifiers: [['darker', 1.4]]
@@ -52,9 +54,34 @@ export function WorkNodeResponsiveSunburst({
 
 type Datum = ComputedDatum<NestedWorkNode>;
 
+export function getKdStringCode(data: KnowledgeDomainGroup) {
+  return data.knowledgeDomains
+    .map((kd) => kd.shortCode)
+    .toSorted((a, b) => a.localeCompare(b))
+    .join(',');
+}
+
 function nestedWorkNodeArcLabel(computedData: ComputedDatum<NestedWorkNode>) {
-  const { data, value } = computedData;
-  return `${data.type}, ${value}`;
+  const { data, value, parent } = computedData;
+  switch (data.type) {
+    case 'knowledgeDomainGroup': {
+      const kdStringCode =
+        data.knowledgeDomains.length > 1
+          ? getKdStringCode(data)
+          : data.knowledgeDomains[0]?.name ?? 'No KD';
+      return `${kdStringCode}`;
+    }
+    case 'leaf': {
+      return `${data.size / 4}hr`;
+    }
+    case 'leafList':
+    case 'bundle':
+      return '';
+    case 'knowledgeLevelGroup':
+      return `${data.knowledgeLevel.name}: ${value / 4}hrs`;
+    default:
+      return `${data.type}, ${value / 4}`;
+  }
 }
 
 function customChildColors(parent: Datum, child: Datum) {

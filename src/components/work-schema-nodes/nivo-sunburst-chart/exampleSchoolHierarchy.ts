@@ -6,25 +6,28 @@ import {
 
 export const ExampleSchoolHierarchy: KnowledgeLevelSeriesGroup = {
   id: 'acringtonStanleySchoolForUnderdogs',
-  cycle: {
-    id: 1,
-    cycleDayZero: 'MONDAY',
-    cycleLengthInDays: 14,
-    cycleLengthInWeeks: 2,
-    maxGroupSize: 2
-  },
+
   knowledgeLevelSeries: {
     id: -1,
     knowledgeLevelIds: [],
     knowledgeLevelDescriptor: 'Year',
     name: 'Secondary'
   },
-  workTaskTypeName: {
-    id: -1,
-    name: 'Teaching'
-  },
+
   children: [
     {
+      workTaskTypeName: {
+        id: -1,
+        name: 'Teaching'
+      },
+      cycle: {
+        id: 1,
+        cycleDayZero: 'MONDAY',
+        cycleLengthInDays: 14,
+        cycleLengthInWeeks: 2,
+        maxGroupSize: 2,
+        cycleSubspanGroupSizes: []
+      },
       id: 'Year 7 Classes',
       knowledgeLevel: {
         id: -1,

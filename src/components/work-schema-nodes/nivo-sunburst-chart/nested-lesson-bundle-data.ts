@@ -8,13 +8,14 @@ import {
 } from '@/api/generated-types/generated-types';
 
 export type DeliveryAllocationBase = HasIdClass<string> & {
-  selected: boolean;
+  selected?: boolean;
   color?: string;
 };
 
 export type DeliveryAllocationLeaf = {
   type: 'leaf';
   size: number;
+  startTime?: string;
 } & DeliveryAllocationBase;
 
 export type DeliveryAllocationList = {
