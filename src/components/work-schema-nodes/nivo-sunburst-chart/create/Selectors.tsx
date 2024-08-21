@@ -2,10 +2,8 @@
 import { K_D_TEMPLATE_ID } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
 import NestedWorkNodeChildSelector from '@/components/work-schema-nodes/nivo-sunburst-chart/create/NestedWorkNodeChildSelector';
 import { useGlobalListener } from 'selective-context';
-import {
-  SelectionIdPathKey,
-  useSplitSelectionPath
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
+import { SelectionIdPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
+import { useSplitSelectionPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/useSplitSelectionPath';
 
 export default function Selectors() {
   const { currentState: selectionPath } = useGlobalListener({

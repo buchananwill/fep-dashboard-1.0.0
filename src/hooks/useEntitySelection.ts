@@ -1,9 +1,13 @@
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { Identifier, NamespacedHooks } from 'dto-stores';
+import {
+  Identifier,
+  NamespacedHooks,
+  useLazyDtoListListener
+} from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { Key, MutableRefObject, useCallback, useMemo } from 'react';
-import { HasIdClass } from '@/api/types';
+import { HasId, HasIdClass } from '@/api/types';
 import { getNumberFromStringId } from 'react-d3-force-wrapper';
 
 function compareNumbersOrStrings(v1: number | string, v2: number | string) {
@@ -74,4 +78,15 @@ export function useEntitySelection<
     [idClass, dispatchSelected, filteredItems]
   );
   return { currentState, selectedKeys, onSelectionChange, dispatchSelected };
+}
+
+export function useSelectedEntityMap<T extends HasId>(entityClass: string) {
+  const listenerKey = useUuidListenerKey();
+  const { currentState } = NamespacedHooks.useListen(
+    entityClass,
+    KEY_TYPES.SELECTED,
+    listenerKey,
+    EmptyArray
+  );
+  return useLazyDtoListListener<T>(currentState, entityClass, listenerKey);
 }

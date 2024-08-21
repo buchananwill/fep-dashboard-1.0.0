@@ -15,6 +15,7 @@ import {
   makeNewBundle,
   removeChildAnyLevel
 } from './knowledgeLevelGroupFunctions';
+import { interpolateRainbow } from 'd3';
 
 export const addBundle = produce<KnowledgeLevelGroupTemplate>((draft) => {
   draft.children.push(makeNewBundle(draft));
@@ -32,6 +33,9 @@ export const addKnowledgeDomainGroup = produce<
     children: [],
     knowledgeDomains: [],
     id: makeChildId(bundle)
+  });
+  bundle.children.forEach((kdgc, index, array) => {
+    kdgc.color = interpolateRainbow(index / array.length);
   });
 });
 export const addKnowledgeDomainToGroup = produce<
