@@ -39,8 +39,12 @@ export function StaticAllocationOccupied(
   });
 
   const isDraggable = useMemo(() => {
-    return matchIsFirst(cycleSubspan.cycleSubspanJoins, deliveryAllocationSize);
-  }, [cycleSubspan, deliveryAllocationSize]);
+    return matchIsFirst(
+      cycleSubspan.cycleSubspanJoins,
+      deliveryAllocationSize,
+      entity.cycleSubspanGroupId
+    );
+  }, [cycleSubspan, deliveryAllocationSize, entity.cycleSubspanGroupId]);
 
   if (isDraggable) {
     return <DraggableMemo entity={entity} {...props} />;

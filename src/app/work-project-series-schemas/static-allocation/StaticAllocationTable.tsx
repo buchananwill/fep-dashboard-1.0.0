@@ -80,6 +80,8 @@ export default function StaticAllocationTable({
       );
   }, [tableProps.itemData, tableData]);
 
+  console.log(tableData);
+
   useEffectSyncWithDispatch(flattened, dispatchCells);
 
   return (

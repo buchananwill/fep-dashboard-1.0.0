@@ -64,7 +64,11 @@ export function StaticAllocationDropZone({
       return (
         matchRow(item, rowId as string) &&
         matchSize(cycleSubspan.cycleSubspanJoins, size) &&
-        matchIsFirst(cycleSubspan.cycleSubspanJoins, size)
+        matchIsFirst(
+          cycleSubspan.cycleSubspanJoins,
+          size,
+          item.cycleSubspanGroupId
+        )
       );
     },
     [rowId, cycleSubspan]

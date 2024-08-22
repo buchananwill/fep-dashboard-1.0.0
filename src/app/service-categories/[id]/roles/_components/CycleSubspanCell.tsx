@@ -1,11 +1,14 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import DtoUiWrapperCell from './DtoUiWrapperCell';
 import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import clsx from 'clsx';
+import {
+  CycleSubspanDto,
+  CycleSubspanWithJoinsListDto
+} from '@/api/generated-types/generated-types';
 
 export default function CycleSubspanCell(props: CellWrapperProps) {
   return (
@@ -24,20 +27,23 @@ export default function CycleSubspanCell(props: CellWrapperProps) {
 
 function InnerCycleSubspanCell({
   entity
-}: BaseLazyDtoUiProps<CycleSubspanDto>) {
+}: BaseLazyDtoUiProps<CycleSubspanWithJoinsListDto>) {
   const floatingTooltip = useFloatingTooltip(
-    <TooltipMemo text={`${entity.zeroIndexedCycleDay + 1}: ${entity.name}`} />
+    <TooltipMemo
+      text={`${entity.zeroIndexedCycleDay + 1}: ${entity.timeSpan.startTimeDivisionInstant}`}
+    />
   );
 
   return (
     <span
       className={clsx(
-        'center-all-margin inline-block truncate',
+        'center-all-margin inline-block truncate text-xs',
         entity.dayOrdinal === 0 && 'bg-sky-300'
       )}
       {...floatingTooltip}
     >
-      {entity.zeroIndexedCycleDay + 1}.{entity.dayOrdinal + 1}
+      {entity.timeSpan.startTimeDivisionInstant}
+      {/*{entity.zeroIndexedCycleDay + 1}.{entity.dayOrdinal + 1}*/}
     </span>
   );
 }
