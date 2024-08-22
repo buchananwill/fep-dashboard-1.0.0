@@ -13,6 +13,7 @@ export function WorkNodeResponsiveSunburst({
 }: {
   data: NestedWorkNode;
 }) {
+  console.log(data);
   return (
     <ResponsiveSunburst
       data={data}

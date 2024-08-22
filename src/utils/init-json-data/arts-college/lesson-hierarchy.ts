@@ -820,15 +820,3 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
   ],
   id: '1'
 };
-
-export const sharedLessons: KnowledgeLevelSeriesGroup = {
-  type: 'knowledgeLevelSeriesGroup',
-  knowledgeLevelSeries: {
-    name: 'Shared',
-    knowledgeLevelDescriptor: 'N/A',
-    knowledgeLevelIds: [3],
-    id: 2
-  },
-  children: [],
-  id: '2'
-};

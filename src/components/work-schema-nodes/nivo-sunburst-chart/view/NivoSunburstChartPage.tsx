@@ -3,6 +3,7 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import {
   KnowledgeDomainGroup,
+  KnowledgeLevelSeriesGroup,
   NestedWorkNode,
   NestedWorkNodeDto
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
@@ -19,15 +20,28 @@ const nestedBundleEndpoint = (rootId: string) =>
     String(rootId)
   );
 
+const getLevelSeriesTree = (id: string) =>
+  constructUrl(
+    `/api/v2/workSchemaNode/nestedWorkSchemaNodeGraph/byKnowledgeLevelSeries/${id}?workTaskTypeName=Teaching`
+  );
+
 async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   const [rootId] = getLastNVariables(pathVariables, 1);
-  const dtoData = await getWithoutBody<NestedWorkNodeDto>(
-    nestedBundleEndpoint(rootId)
+  // const dtoData = await getWithoutBody<NestedWorkNodeDto>(
+  //   nestedBundleEndpoint(rootId)
+  // );
+  //
+  const { data } = await getWithoutBody<NestedWorkNodeDto>(
+    getLevelSeriesTree('1')
   );
-  const { data } = dtoData;
+  // const { data } = dtoData;
+
+  const colorizeKnowledgeDomains1 = colorizeKnowledgeDomains(
+    data as KnowledgeLevelSeriesGroup
+  );
   return (
     <div className={'h-[80vh] w-[80vw]'}>
-      <WorkNodeResponsiveSunburst data={getAbilityStreamedLessons()} />
+      <WorkNodeResponsiveSunburst data={colorizeKnowledgeDomains1} />
     </div>
   );
 }
@@ -37,8 +51,7 @@ export const SunburstChartHome = getPathVariableSplitComponent(
   NivoSunburstChartPage
 );
 
-const getAbilityStreamedLessons = () => {
-  let node = streamedLessons;
+const colorizeKnowledgeDomains = (node: KnowledgeLevelSeriesGroup) => {
   const kdgMap = new Map<string, KnowledgeDomainGroup[]>();
   for (let child of node.children) {
     for (let bundleChild of child.children) {
@@ -65,5 +78,5 @@ const getAbilityStreamedLessons = () => {
     }
     colorScale++;
   }
-  return streamedLessons;
+  return node;
 };
