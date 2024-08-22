@@ -16,6 +16,7 @@ import StaticAllocationAuditor, {
 } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationAuditor';
 import { EmptyArray } from '@/api/literals';
 import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,
@@ -27,11 +28,11 @@ export type StaticAllocationTableDto = GenericTableDto<
 export async function StaticAllocationPage({
   pathVariables
 }: LeafComponentProps) {
-  // const [cycleId] = getLastNVariables(pathVariables, 1);
+  const [cycleId] = getLastNVariables(pathVariables, 1);
 
   const staticDeliveryTable = await getWithoutBody<StaticAllocationTableDto>(
     constructUrl(
-      `/api/v2/staticDeliveryAllocationItems/staticAllocationTable/${1}`
+      `/api/v2/staticDeliveryAllocationItems/staticAllocationTable/${cycleId}`
     )
   );
 

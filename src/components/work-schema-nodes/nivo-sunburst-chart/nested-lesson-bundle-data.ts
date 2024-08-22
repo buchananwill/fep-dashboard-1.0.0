@@ -15,8 +15,13 @@ export type DeliveryAllocationBase = HasIdClass<string> & {
 export type DeliveryAllocationLeaf = {
   type: 'leaf';
   size: number;
-  startTime?: string;
+  startTime?: StartTime;
 } & DeliveryAllocationBase;
+
+type StartTime = {
+  time: string;
+  zeroIndexedCycleDay: number;
+};
 
 export type DeliveryAllocationList = {
   type: 'leafList';

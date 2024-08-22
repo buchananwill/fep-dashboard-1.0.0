@@ -46,7 +46,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:1:1:4:1:1'
+                      id: '1:1:1:4:1:1',
+                      startTime: {
+                        time: '09:30',
+                        zeroIndexedCycleDay: 0
+                      }
                     }
                   ]
                 }
@@ -76,7 +80,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:1:2:4:1:1'
+                      id: '1:1:2:4:1:1',
+                      startTime: {
+                        time: '10:30',
+                        zeroIndexedCycleDay: 0
+                      }
                     }
                   ]
                 }
@@ -106,7 +114,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:1:3:4:1:1'
+                      id: '1:1:3:4:1:1',
+                      startTime: {
+                        time: '12:45',
+                        zeroIndexedCycleDay: 1
+                      }
                     }
                   ]
                 }
@@ -136,7 +148,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:1:4:1:4:1'
+                      id: '1:1:4:1:4:1',
+                      startTime: {
+                        time: '15:15',
+                        zeroIndexedCycleDay: 2
+                      }
                     }
                   ]
                 }
@@ -166,7 +182,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:1:5:1:1:1'
+                      id: '1:1:5:1:1:1',
+                      startTime: {
+                        time: '14:15',
+                        zeroIndexedCycleDay: 4
+                      }
                     }
                   ]
                 }
@@ -203,7 +223,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:1:6:1:4:1'
+                      id: '1:1:6:1:4:1',
+                      startTime: {
+                        time: '10:00',
+                        zeroIndexedCycleDay: 1
+                      }
                     }
                   ]
                 }
@@ -227,7 +251,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:1:6:2:4:1'
+                      id: '1:1:6:2:4:1',
+                      startTime: {
+                        time: '12:45',
+                        zeroIndexedCycleDay: 1
+                      }
                     }
                   ]
                 }
@@ -274,7 +302,20 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:2:1:1:1:1'
+                      id: '1:2:1:1:1:1',
+                      startTime: {
+                        time: '09:30',
+                        zeroIndexedCycleDay: 0
+                      }
+                    },
+                    {
+                      type: 'leaf',
+                      size: 4,
+                      id: '1:2:1:1:1:1',
+                      startTime: {
+                        time: '09:00',
+                        zeroIndexedCycleDay: 4
+                      }
                     }
                   ]
                 }
@@ -304,7 +345,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:2:2:1:1:1'
+                      id: '1:2:2:1:1:1',
+                      startTime: {
+                        time: '10:30',
+                        zeroIndexedCycleDay: 0
+                      }
                     }
                   ]
                 }
@@ -334,7 +379,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:2:3:1:1:1'
+                      id: '1:2:3:1:1:1',
+                      startTime: {
+                        time: '13:45',
+                        zeroIndexedCycleDay: 1
+                      }
                     }
                   ]
                 }
@@ -364,7 +413,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:2:4:1:1:1'
+                      id: '1:2:4:1:1:1',
+                      startTime: {
+                        time: '10:00',
+                        zeroIndexedCycleDay: 4
+                      }
                     }
                   ]
                 }
@@ -394,7 +447,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:2:5:1:1:1'
+                      id: '1:2:5:1:1:1',
+                      startTime: {
+                        time: '11:00',
+                        zeroIndexedCycleDay: 4
+                      }
                     }
                   ]
                 }
@@ -424,7 +481,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:2:6:1:1:1'
+                      id: '1:2:6:1:1:1',
+                      startTime: {
+                        time: '12:45',
+                        zeroIndexedCycleDay: 3
+                      }
                     }
                   ]
                 }
@@ -448,7 +509,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:2:6:2:4:1'
+                      id: '1:2:6:2:4:1',
+                      startTime: {
+                        time: '13:15',
+                        zeroIndexedCycleDay: 3
+                      }
                     }
                   ]
                 }
@@ -502,7 +567,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 2,
-                      id: '1:3:1:1:2:1'
+                      id: '1:3:1:1:2:1',
+                      startTime: {
+                        time: '09:00',
+                        zeroIndexedCycleDay: 0
+                      }
                     }
                   ]
                 }
@@ -526,12 +595,20 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 6,
-                      id: '1:3:1:2:6:1'
+                      id: '1:3:1:2:6:1',
+                      startTime: {
+                        time: '11:30',
+                        zeroIndexedCycleDay: 0
+                      }
                     },
                     {
                       type: 'leaf',
                       size: 6,
-                      id: '1:3:1:2:6:2'
+                      id: '1:3:1:2:6:2',
+                      startTime: {
+                        time: '12:45',
+                        zeroIndexedCycleDay: 4
+                      }
                     }
                   ]
                 }
@@ -555,7 +632,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 2,
-                      id: '1:3:1:3:2:1'
+                      id: '1:3:1:3:2:1',
+                      startTime: {
+                        time: '13:45',
+                        zeroIndexedCycleDay: 0
+                      }
                     }
                   ]
                 }
@@ -579,12 +660,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 4,
-                      id: '1:3:1:3:4:1'
-                    },
-                    {
-                      type: 'leaf',
-                      size: 4,
-                      id: '1:3:1:3:4:2'
+                      id: '1:3:1:3:4:1',
+                      startTime: {
+                        time: '09:00',
+                        zeroIndexedCycleDay: 1
+                      }
                     }
                   ]
                 },
@@ -595,7 +675,20 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 8,
-                      id: '1:3:1:4:8:1'
+                      id: '1:3:1:4:8:1',
+                      startTime: {
+                        time: '14:15',
+                        zeroIndexedCycleDay: 0
+                      }
+                    },
+                    {
+                      type: 'leaf',
+                      size: 8,
+                      id: '1:3:1:3:8:2',
+                      startTime: {
+                        time: '09:00',
+                        zeroIndexedCycleDay: 2
+                      }
                     }
                   ]
                 }
@@ -619,7 +712,11 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     {
                       type: 'leaf',
                       size: 6,
-                      id: '1:3:1:5:6:1'
+                      id: '1:3:1:5:6:1',
+                      startTime: {
+                        time: '13:45',
+                        zeroIndexedCycleDay: 2
+                      }
                     }
                   ]
                 }
@@ -627,32 +724,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'Project Lab',
-                  id: 1,
-                  shortCode: 'PL'
-                }
-              ]
-            },
-            {
-              id: '1:3:1:6',
-              type: 'knowledgeDomainGroup',
-              children: [
-                {
-                  id: '1:3:1:6:4',
-                  type: 'leafList',
-                  children: [
-                    {
-                      type: 'leaf',
-                      size: 4,
-                      id: '1:3:1:6:4:1',
-                      startTime: '16:15'
-                    }
-                  ]
-                }
-              ],
-              knowledgeDomains: [
-                {
-                  name: 'Project Lab',
-                  id: 1,
+                  id: 13,
                   shortCode: 'PL'
                 }
               ]
@@ -669,7 +741,10 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                       type: 'leaf',
                       size: 6,
                       id: '1:3:1:7:6:1',
-                      startTime: '3.09:00'
+                      startTime: {
+                        zeroIndexedCycleDay: 3,
+                        time: '09:00'
+                      }
                     }
                   ]
                 }
@@ -694,7 +769,10 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                       type: 'leaf',
                       size: 6,
                       id: '1:3:1:8:6:1',
-                      startTime: '3.10:30'
+                      startTime: {
+                        time: '10:30',
+                        zeroIndexedCycleDay: 3
+                      }
                     }
                   ]
                 }
@@ -704,6 +782,34 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                   name: 'Production: Recording',
                   id: 1,
                   shortCode: 'Pr'
+                }
+              ]
+            },
+            {
+              type: 'knowledgeDomainGroup',
+              id: '1:3:1:9',
+              knowledgeDomains: [
+                {
+                  name: 'Performance Class/Reflective Writing',
+                  id: 14,
+                  shortCode: 'PW'
+                }
+              ],
+              children: [
+                {
+                  type: 'leafList',
+                  id: '1:3:1:9:4',
+                  children: [
+                    {
+                      type: 'leaf',
+                      startTime: {
+                        time: '11:00',
+                        zeroIndexedCycleDay: 1
+                      },
+                      id: '1:3:1:9:4:1',
+                      size: 4
+                    }
+                  ]
                 }
               ]
             }
