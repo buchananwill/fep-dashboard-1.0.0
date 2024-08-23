@@ -238,7 +238,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               type: 'knowledgeDomainGroup',
               knowledgeDomains: [
                 {
-                  id: 6,
+                  id: 7,
                   name: 'Production: Sequencing',
                   shortCode: 'Ps'
                 }
@@ -254,7 +254,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                       id: '1:1:6:2:4:1',
                       startTime: {
                         time: '12:45',
-                        zeroIndexedCycleDay: 1
+                        zeroIndexedCycleDay: 2
                       }
                     }
                   ]
@@ -475,13 +475,13 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               type: 'knowledgeDomainGroup',
               children: [
                 {
-                  id: '1:2:6:4:1',
+                  id: '1:2:6:1:2',
                   type: 'leafList',
                   children: [
                     {
                       type: 'leaf',
-                      size: 4,
-                      id: '1:2:6:1:1:1',
+                      size: 2,
+                      id: '1:2:6:1:2:1',
                       startTime: {
                         time: '12:45',
                         zeroIndexedCycleDay: 3
@@ -493,7 +493,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'UCAS Applications',
-                  id: 5,
+                  id: 8,
                   shortCode: 'UA'
                 }
               ]
@@ -503,13 +503,13 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               type: 'knowledgeDomainGroup',
               children: [
                 {
-                  id: '1:2:6:2:4:1',
+                  id: '1:2:6:2:8',
                   type: 'leafList',
                   children: [
                     {
                       type: 'leaf',
-                      size: 4,
-                      id: '1:2:6:2:4:1',
+                      size: 8,
+                      id: '1:2:6:2:8:1',
                       startTime: {
                         time: '13:15',
                         zeroIndexedCycleDay: 3
@@ -521,7 +521,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'Arranging',
-                  id: 5,
+                  id: 9,
                   shortCode: 'Ar'
                 }
               ]
@@ -579,7 +579,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'Reflection/PT',
-                  id: 1,
+                  id: 10,
                   shortCode: 'RP'
                 }
               ]
@@ -696,7 +696,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'Purple English',
-                  id: 12,
+                  id: 13,
                   shortCode: 'En'
                 }
               ]
@@ -724,7 +724,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'Project Lab',
-                  id: 13,
+                  id: 14,
                   shortCode: 'PL'
                 }
               ]
@@ -752,7 +752,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'World Music',
-                  id: 1,
+                  id: 15,
                   shortCode: 'WM'
                 }
               ]
@@ -780,7 +780,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'Production: Recording',
-                  id: 1,
+                  id: 16,
                   shortCode: 'Pr'
                 }
               ]
@@ -791,7 +791,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
               knowledgeDomains: [
                 {
                   name: 'Performance Class/Reflective Writing',
-                  id: 14,
+                  id: 17,
                   shortCode: 'PW'
                 }
               ],
@@ -811,6 +811,30 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                     }
                   ]
                 }
+              ]
+            },
+            {
+              type: 'knowledgeDomainGroup',
+              children: [
+                {
+                  id: '1:3:1:10:4',
+                  type: 'leafList',
+                  children: [
+                    {
+                      type: 'leaf',
+                      startTime: {
+                        time: '16:15',
+                        zeroIndexedCycleDay: 3
+                      },
+                      size: 4,
+                      id: '1:3:1:10:4:1'
+                    }
+                  ]
+                }
+              ],
+              id: '1:3:1:10',
+              knowledgeDomains: [
+                { id: 18, shortCode: 'HD', name: 'Hand Drumming' }
               ]
             }
           ]
