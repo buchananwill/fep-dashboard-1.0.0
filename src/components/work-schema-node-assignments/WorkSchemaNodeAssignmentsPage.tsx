@@ -33,7 +33,8 @@ async function WorkSchemaNodeAssignmentsPage({
   const [levelOrdinal] = getLastNVariables(pathVariables, 1);
   const [orgType] = await getDtoListByExampleList([
     // { name: `Year ${levelOrdinal}` }
-    { name: 'Class' }
+    // { name: 'Class' },
+    { name: 'Work Group' }
   ]);
 
   const workSchemaRootNodes = await Api.WorkSchemaNode.getRootNodeList();
