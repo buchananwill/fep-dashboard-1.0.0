@@ -34,6 +34,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:1:1',
           type: 'bundle',
+          name: 'Music Theory 1',
           children: [
             {
               id: '1:1:1:1',
@@ -97,11 +98,13 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
                 }
               ]
             }
-          ]
+          ],
+          name: 'Transcription 1'
         },
         {
           id: '1:1:3',
           type: 'bundle',
+          name: 'Aural Skills 1',
           children: [
             {
               id: '1:1:3:1',
@@ -136,6 +139,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:1:4',
           type: 'bundle',
+          name: 'Keyboard Skills 1',
           children: [
             {
               id: '1:1:4:1',
@@ -170,6 +174,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:1:5',
           type: 'bundle',
+          name: 'Composition 1',
           children: [
             {
               id: '1:1:5:1',
@@ -204,6 +209,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:1:6',
           type: 'bundle',
+          name: 'Level 3 Year 1',
           children: [
             {
               id: '1:1:6:1',
@@ -290,6 +296,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:2:1',
           type: 'bundle',
+          name: 'Music Theory 2',
           children: [
             {
               id: '1:2:1:1',
@@ -333,6 +340,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:2:2',
           type: 'bundle',
+          name: 'Transcription 2',
           children: [
             {
               id: '1:2:2:1',
@@ -367,6 +375,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:2:3',
           type: 'bundle',
+          name: 'Aural Skills 2',
           children: [
             {
               id: '1:2:3:1',
@@ -401,6 +410,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:2:4',
           type: 'bundle',
+          name: 'Keyboard Skills 2',
           children: [
             {
               id: '1:2:4:1',
@@ -435,6 +445,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:2:5',
           type: 'bundle',
+          name: 'Composition 2',
           children: [
             {
               id: '1:2:5:1',
@@ -469,6 +480,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:2:6',
           type: 'bundle',
+          name: 'Level 3 Year 2',
           children: [
             {
               id: '1:2:6:1',
@@ -555,6 +567,7 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
         {
           id: '1:3:1',
           type: 'bundle',
+          name: 'All Students',
           children: [
             {
               id: '1:3:1:1',

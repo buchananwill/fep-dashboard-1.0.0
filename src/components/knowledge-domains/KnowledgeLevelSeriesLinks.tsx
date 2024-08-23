@@ -33,8 +33,6 @@ export async function KnowledgeLevelSeriesLinks({
     indexList: []
   };
 
-  console.log(navTree);
-
   return (
     <div className={'flex gap-2'}>
       <NavLinkTreeButton
@@ -52,9 +50,10 @@ async function navLinkTreeFromKnowledgeLevelSeries(
   pathVariables: string[],
   depth: number
 ): Promise<NavLinkTree> {
-  const knowledgeLevels = await Api.KnowledgeLevel.getDtoListByBodyList(
-    series.knowledgeLevelIds
-  );
+  // const knowledgeLevels = await Api.KnowledgeLevel.getDtoListByBodyList(
+  //   series.knowledgeLevelIds
+  // );
+  const { knowledgeLevels } = series;
   const baseLinks = ['core', ...pathVariables, String(series.id)];
   const levelLinkTree: NavLinkTree[] = knowledgeLevels.map((level, index) => ({
     displayName: level.name,

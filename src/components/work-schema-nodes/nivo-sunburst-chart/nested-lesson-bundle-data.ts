@@ -36,6 +36,7 @@ export type KnowledgeDomainGroup = {
 
 export type Bundle = {
   type: 'bundle';
+  name?: string;
   children: KnowledgeDomainGroup[];
 } & DeliveryAllocationBase;
 

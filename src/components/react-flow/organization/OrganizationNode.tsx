@@ -59,9 +59,15 @@ export function OrganizationNode(
     listenerKey: listenerKey
   });
 
+  console.log(workSchemaNodeAssignment?.workSchemaNodeId);
+
+  const allocationRollupOrZero = useMemo(() => {
+    return workSchemaNodeAssignment?.workSchemaNodeId ? allocationRollup : 0;
+  }, [workSchemaNodeAssignment?.workSchemaNodeId, allocationRollup]);
+
   useEffect(() => {
-    dispatchWithoutListen(allocationRollup);
-  }, [dispatchWithoutListen, allocationRollup]);
+    dispatchWithoutListen(allocationRollupOrZero);
+  }, [dispatchWithoutListen, allocationRollupOrZero]);
 
   const inheritedTotal = useMemo(() => {
     return [...currentState.values()].reduce(
@@ -72,11 +78,11 @@ export function OrganizationNode(
 
   const summaries: AllocationSummary[] = useMemo(() => {
     return [
-      { label: 'Local', amount: allocationRollup },
+      { label: 'Local', amount: allocationRollupOrZero },
       { label: 'Inherited', amount: inheritedTotal },
-      { label: 'Total', amount: allocationRollup + inheritedTotal }
+      { label: 'Total', amount: allocationRollupOrZero + inheritedTotal }
     ];
-  }, [allocationRollup, inheritedTotal]);
+  }, [allocationRollupOrZero, inheritedTotal]);
 
   return (
     <BaseEditableNode

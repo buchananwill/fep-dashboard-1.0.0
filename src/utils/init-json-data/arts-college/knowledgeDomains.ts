@@ -12,7 +12,7 @@ interface NestedKnowledgeDomain {
 
 type NestedKd = GenericNestedDto<KnowledgeDomainDto>;
 
-function transformToGenericNested<T extends { children?: T[] }>(
+export function transformToGenericNested<T extends { children?: T[] }>(
   node: T
 ): GenericNestedDto<Omit<T, 'children'>> {
   const { children, ...data } = node;
@@ -25,124 +25,453 @@ function transformToGenericNested<T extends { children?: T[] }>(
   return { data: data, children: transformedChildren };
 }
 
-const csvpaKdomains: NestedKnowledgeDomain = {
-  name: 'Subjects',
-  id: 1,
+const csvpaKdomains: GenericNestedDto<KnowledgeDomainDto> = {
+  data: {
+    name: 'Subjects',
+    id: 1,
+    shortCode: 'su'
+  },
   children: [
     {
-      name: 'Academic Subjects',
-      id: 2,
-      children: []
-    },
-    {
-      name: 'Instrumental Subjects',
-      id: 3,
+      data: {
+        name: 'Instrumental Subjects',
+        id: 3,
+        shortCode: 'is'
+      },
       children: [
         {
-          name: 'Piano',
-          id: 4,
+          data: {
+            name: 'Piano',
+            id: 4,
+            shortCode: 'Pn'
+          },
           children: [
-            { name: 'Classical Piano', id: 5 },
-            { name: 'Jazz/Pop Piano', id: 6 }
+            {
+              data: {
+                name: 'Classical Piano',
+                id: 5,
+                shortCode: 'CP'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Jazz/Pop Piano',
+                id: 6,
+                shortCode: 'JP'
+              },
+              children: []
+            }
           ]
         },
         {
-          name: 'Percussion',
-          id: 7,
+          data: {
+            name: 'Percussion',
+            id: 7,
+            shortCode: 'Pc'
+          },
           children: [
-            { name: 'Drum Kit', id: 8 },
             {
-              name: 'Tuned Percussion',
-              id: 9,
+              data: {
+                name: 'Drum Kit',
+                id: 8,
+                shortCode: 'DK'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Tuned Percussion',
+                id: 9,
+                shortCode: 'TP'
+              },
               children: [
-                { name: 'Xylophone', id: 13 },
-                { name: 'Marimba', id: 14 },
-                { name: 'Vibraphone', id: 15 },
-                { name: 'Glockenspiel', id: 16 }
+                {
+                  data: {
+                    name: 'Xylophone',
+                    id: 13,
+                    shortCode: 'Xy'
+                  },
+                  children: []
+                },
+                {
+                  data: {
+                    name: 'Marimba',
+                    id: 14,
+                    shortCode: 'Mb'
+                  },
+                  children: []
+                },
+                {
+                  data: {
+                    name: 'Vibraphone',
+                    id: 15,
+                    shortCode: 'Vb'
+                  },
+                  children: []
+                },
+                {
+                  data: {
+                    name: 'Glockenspiel',
+                    id: 16,
+                    shortCode: 'Gl'
+                  },
+                  children: []
+                }
               ]
             },
             {
-              name: 'Hand Percussion',
-              id: 10,
+              data: {
+                name: 'Hand Percussion',
+                id: 10,
+                shortCode: 'HP'
+              },
               children: [
-                { name: 'Congas', id: 17 },
-                { name: 'Bongos', id: 18 },
-                { name: 'Djembe', id: 19 },
-                { name: 'Cajón', id: 20 }
+                {
+                  data: {
+                    name: 'Congas',
+                    id: 17,
+                    shortCode: 'Cg'
+                  },
+                  children: []
+                },
+                {
+                  data: {
+                    name: 'Bongos',
+                    id: 18,
+                    shortCode: 'Bn'
+                  },
+                  children: []
+                },
+                {
+                  data: {
+                    name: 'Djembe',
+                    id: 19,
+                    shortCode: 'Db'
+                  },
+                  children: []
+                },
+                {
+                  data: {
+                    name: 'Cajón',
+                    id: 20,
+                    shortCode: 'Cj'
+                  },
+                  children: []
+                }
               ]
             }
           ]
         },
         {
-          name: 'Brass',
-          id: 11,
+          data: {
+            name: 'Brass',
+            id: 11,
+            shortCode: 'Br'
+          },
           children: [
-            { name: 'Trumpet', id: 12 },
-            { name: 'Trombone', id: 21 },
-            { name: 'French Horn', id: 22 },
-            { name: 'Tuba', id: 23 },
-            { name: 'Cornet', id: 24 },
-            { name: 'Euphonium', id: 25 }
-          ]
-        },
-        {
-          name: 'Woodwind',
-          id: 26,
-          children: [
-            { name: 'Flute', id: 27 },
-            { name: 'Clarinet', id: 28 },
-            { name: 'Oboe', id: 29 },
-            { name: 'Bassoon', id: 30 },
-            { name: 'Saxophone', id: 31 }
-          ]
-        },
-        {
-          name: 'Strings',
-          id: 32,
-          children: [
-            { name: 'Violin', id: 33 },
-            { name: 'Viola', id: 34 },
-            { name: 'Cello', id: 35 },
-            { name: 'Double Bass', id: 36 },
-            { name: 'Harp', id: 37 },
             {
-              name: 'Guitar',
-              id: 38,
+              data: {
+                name: 'Trumpet',
+                id: 12,
+                shortCode: 'Tp'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Trombone',
+                id: 21,
+                shortCode: 'Tb'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'French Horn',
+                id: 22,
+                shortCode: 'FH'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Tuba',
+                id: 23,
+                shortCode: 'Tu'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Cornet',
+                id: 24,
+                shortCode: 'Cn'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Euphonium',
+                id: 25,
+                shortCode: 'Eu'
+              },
+              children: []
+            }
+          ]
+        },
+        {
+          data: {
+            name: 'Woodwind',
+            id: 26,
+            shortCode: 'Wd'
+          },
+          children: [
+            {
+              data: {
+                name: 'Flute',
+                id: 27,
+                shortCode: 'Fl'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Clarinet',
+                id: 28,
+                shortCode: 'Cl'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Oboe',
+                id: 29,
+                shortCode: 'Ob'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Bassoon',
+                id: 30,
+                shortCode: 'Bs'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Saxophone',
+                id: 31,
+                shortCode: 'Sx'
+              },
+              children: []
+            }
+          ]
+        },
+        {
+          data: {
+            name: 'Strings',
+            id: 32,
+            shortCode: 'Str'
+          },
+          children: [
+            {
+              data: {
+                name: 'Violin',
+                id: 33,
+                shortCode: 'Vln'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Viola',
+                id: 34,
+                shortCode: 'Vla'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Cello',
+                id: 35,
+                shortCode: 'Vcl'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Double Bass',
+                id: 36,
+                shortCode: 'Dbl'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Harp',
+                id: 37,
+                shortCode: 'Ha'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Guitar',
+                id: 38,
+                shortCode: 'Gtr'
+              },
               children: [
-                { name: 'Classical Guitar', id: 39 },
-                { name: 'Electric Guitar', id: 40 },
-                { name: 'Acoustic Guitar', id: 41 }
+                {
+                  data: {
+                    name: 'Classical Guitar',
+                    id: 39,
+                    shortCode: 'CGt'
+                  },
+                  children: []
+                },
+                {
+                  data: {
+                    name: 'Electric Guitar',
+                    id: 40,
+                    shortCode: 'EGt'
+                  },
+                  children: []
+                },
+                {
+                  data: {
+                    name: 'Acoustic Guitar',
+                    id: 41,
+                    shortCode: 'AGt'
+                  },
+                  children: []
+                }
               ]
             },
-            { name: 'Mandolin', id: 42 },
-            { name: 'Ukulele', id: 43 }
+            {
+              data: {
+                name: 'Mandolin',
+                id: 42,
+                shortCode: 'Mdn'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Ukulele',
+                id: 43,
+                shortCode: 'Uke'
+              },
+              children: []
+            }
           ]
         },
         {
-          name: 'Keyboard',
-          id: 44,
+          data: {
+            name: 'Keyboard',
+            id: 44,
+            shortCode: 'Kbd'
+          },
           children: [
-            { name: 'Organ', id: 45 },
-            { name: 'Harpsichord', id: 46 },
-            { name: 'Synthesizer', id: 47 }
+            {
+              data: {
+                name: 'Organ',
+                id: 45,
+                shortCode: 'Org'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Harpsichord',
+                id: 46,
+                shortCode: 'Hpc'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Synthesizer',
+                id: 47,
+                shortCode: 'Syn'
+              },
+              children: []
+            }
           ]
         },
         {
-          name: 'Electronic Instruments',
-          id: 48,
+          data: {
+            name: 'Electronic Instruments',
+            id: 48,
+            shortCode: 'EIn'
+          },
           children: [
-            { name: 'Electronic Drum Kit', id: 49 },
-            { name: 'Turntables', id: 50 },
-            { name: 'Sampler', id: 51 }
+            {
+              data: {
+                name: 'Electronic Drum Kit',
+                id: 49,
+                shortCode: 'EDK'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Turntables',
+                id: 50,
+                shortCode: 'Ttb'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Sampler',
+                id: 51,
+                shortCode: 'Smp'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Production',
+                id: 56,
+                shortCode: 'Pro'
+              },
+              children: []
+            }
           ]
         },
         {
-          name: 'Vocal',
-          id: 52,
+          data: {
+            name: 'Vocal',
+            id: 52,
+            shortCode: 'Vox'
+          },
           children: [
-            { name: 'Classical Voice', id: 53 },
-            { name: 'Jazz/Pop Voice', id: 54 },
-            { name: 'Choral Singing', id: 55 }
+            {
+              data: {
+                name: 'Classical Voice',
+                id: 53,
+                shortCode: 'CVo'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Jazz/Pop Voice',
+                id: 54,
+                shortCode: 'JPV'
+              },
+              children: []
+            },
+            {
+              data: {
+                name: 'Choral Singing',
+                id: 55,
+                shortCode: 'Cho'
+              },
+              children: []
+            }
           ]
         }
       ]
