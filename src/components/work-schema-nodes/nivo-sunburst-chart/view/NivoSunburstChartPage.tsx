@@ -32,7 +32,7 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   // );
   //
   const { data } = await getWithoutBody<NestedWorkNodeDto>(
-    getLevelSeriesTree('1')
+    getLevelSeriesTree('2')
   );
   // const { data } = dtoData;
 

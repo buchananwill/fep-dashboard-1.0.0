@@ -5,7 +5,26 @@ export const streamedLessons: KnowledgeLevelSeriesGroup = {
   knowledgeLevelSeries: {
     name: 'Streams',
     knowledgeLevelDescriptor: 'Stream',
-    knowledgeLevelIds: [1, 2],
+    knowledgeLevels: [
+      {
+        name: 'Shared',
+        levelOrdinal: 0,
+        id: 3,
+        knowledgeLevelSeriesId: 1
+      },
+      {
+        name: '1',
+        levelOrdinal: 1,
+        id: 1,
+        knowledgeLevelSeriesId: 1
+      },
+      {
+        name: '2',
+        levelOrdinal: 2,
+        id: 2,
+        knowledgeLevelSeriesId: 1
+      }
+    ],
     id: 1
   },
   children: [
