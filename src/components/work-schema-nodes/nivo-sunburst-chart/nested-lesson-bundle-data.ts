@@ -59,12 +59,13 @@ export type NestedWorkNode =
   | KnowledgeLevelGroup
   | Bundle
   | KnowledgeDomainGroup
-  | DeliveryAllocationList
-  | DeliveryAllocationLeaf;
+  | DeliveryAllocationList;
+export type WorkNodeHierarchy = NestedWorkNode | DeliveryAllocationLeaf;
 
-type NestedWorkNodeDiscriminator = NestedWorkNode['type'];
+type NestedWorkNodeDiscriminator = WorkNodeHierarchy['type'];
 
-export type NestedWorkNodeDto<T extends NestedWorkNode = NestedWorkNode> = {
-  data: T;
-  type: T['type'];
-};
+export type NestedWorkNodeDto<T extends WorkNodeHierarchy = WorkNodeHierarchy> =
+  {
+    data: T;
+    type: T['type'];
+  };

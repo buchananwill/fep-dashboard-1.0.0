@@ -20,6 +20,7 @@ import {
   DataLink,
   DataNodeDto,
   GraphSelectiveContextKeys,
+  HasStringId,
   MemoizedFunction,
   useGraphDispatch,
   useModalContent,
@@ -67,7 +68,11 @@ import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema
 import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';
 import { useHierarchicalDataLayoutMemo } from '@/react-flow/hooks/useHierarchicalDataLayoutMemo';
 import { HierarchicalDataOptions } from '@/react-flow/hooks/getHierarchicalDataLayout';
-import { hierarchicalLayoutMap } from '@/react-flow/hooks/useForces';
+import {
+  HasPosition,
+  hierarchicalLayoutMap,
+  Layoutable
+} from '@/react-flow/hooks/useForces';
 import { HierarchyPointNode } from 'd3';
 import { NestedWithStringId } from '@/react-flow/hooks/useHierarchicalDataMemo';
 
@@ -78,20 +83,25 @@ const options: HierarchicalDataOptions = {
   orientation: 'horizontal'
 };
 
-function useHierarchicalTreeLayout(idToChildIdMap: Map<string, Set<string>>) {
-  const [layoutMemo] = useHierarchicalDataLayoutMemo(idToChildIdMap, options);
-
-  const layoutMemoRef = useRef(
-    InitialMap as Map<string, HierarchyPointNode<NestedWithStringId>>
-  );
+export function usePreComputedPositionForce(
+  layoutMemo: Map<string, Layoutable>
+) {
+  const layoutMemoRef = useRef(InitialMap as Map<string, Layoutable>);
 
   layoutMemoRef.current = layoutMemo;
 
-  const { currentState: layoutMapState, dispatch } = useGlobalController({
+  useGlobalController({
     contextKey: hierarchicalLayoutMap,
     listenerKey: 'workSchemaNodeLayout',
     initialValue: layoutMemoRef
   });
+}
+
+export function useHierarchicalTreeLayout(
+  idToChildIdMap: Map<string, Set<string>>
+) {
+  const [layoutMemo] = useHierarchicalDataLayoutMemo(idToChildIdMap, options);
+  usePreComputedPositionForce(layoutMemo as Map<string, Layoutable>);
 }
 
 export function WorkSchemaNodeLayoutFlowWithForces({

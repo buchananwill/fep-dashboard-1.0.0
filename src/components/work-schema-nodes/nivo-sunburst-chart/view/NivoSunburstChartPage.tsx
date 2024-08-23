@@ -4,7 +4,7 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import {
   KnowledgeDomainGroup,
   KnowledgeLevelSeriesGroup,
-  NestedWorkNode,
+  WorkNodeHierarchy,
   NestedWorkNodeDto
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { LeafComponentProps } from '@/app/core/navigation/types';
@@ -13,6 +13,11 @@ import { getPathVariableSplitComponent } from '@/components/generic/PathVariable
 import WorkSchemaNodesHome from '@/components/work-schema-nodes/WorkSchemaNodesHome';
 import { streamedLessons } from '@/utils/init-json-data/arts-college/lesson-hierarchy';
 import { interpolateRainbow } from 'd3';
+import {
+  OneToOneEnrollments,
+  OneToOneWithOneHourEach
+} from '@/utils/init-json-data/arts-college/enrollments';
+import { addLeaves } from '@/utils/init-json-data/arts-college/addLeaves';
 
 const nestedBundleEndpoint = (rootId: string) =>
   constructUrl(
@@ -35,9 +40,11 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
     getLevelSeriesTree('2')
   );
   // const { data } = dtoData;
+  const withLeaves = structuredClone(OneToOneEnrollments);
+  addLeaves(withLeaves, 4);
 
   const colorizeKnowledgeDomains1 = colorizeKnowledgeDomains(
-    data as KnowledgeLevelSeriesGroup
+    OneToOneWithOneHourEach as KnowledgeLevelSeriesGroup
   );
   return (
     <div className={'h-[80vh] w-[80vw]'}>

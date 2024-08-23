@@ -8,7 +8,7 @@ import {
 import React, { useCallback, useMemo } from 'react';
 import { getHierarchyList } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
 import { EmptyArray } from '@/api/literals';
-import { NestedWorkNode } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import { WorkNodeHierarchy } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { Select, Selection, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { MonoFunction } from '@/types';
@@ -22,7 +22,7 @@ export default function NestedWorkNodeChildSelector({
 }: {
   parentId: string;
   selectionId: string;
-  labelAccessor?: MonoFunction<NestedWorkNode, string>;
+  labelAccessor?: MonoFunction<WorkNodeHierarchy, string>;
 } & Omit<SelectProps, 'children'>) {
   const listenerKey = `${parentId}:selectChild`;
   const { currentState } = useGlobalListener({
@@ -36,8 +36,12 @@ export default function NestedWorkNodeChildSelector({
     const parent = hierarchyList[hierarchyList.length - 1];
     console.log(hierarchyList, parent);
     if (parent.type === 'leaf')
-      return [parent, EmptyArray] as [NestedWorkNode, NestedWorkNode[]];
-    else return [parent, parent.children] as [NestedWorkNode, NestedWorkNode[]];
+      return [parent, EmptyArray] as [WorkNodeHierarchy, WorkNodeHierarchy[]];
+    else
+      return [parent, parent.children] as [
+        WorkNodeHierarchy,
+        WorkNodeHierarchy[]
+      ];
   }, [parentId, currentState]);
 
   const depth = useMemo(() => {
@@ -68,10 +72,10 @@ function InnerSelector({
   depth,
   ...selectProps
 }: {
-  childList: NestedWorkNode[];
+  childList: WorkNodeHierarchy[];
   selectionId: string;
   depth: number;
-  labelAccessor: MonoFunction<NestedWorkNode, string>;
+  labelAccessor: MonoFunction<WorkNodeHierarchy, string>;
 }) {
   const { dispatchWithoutListen } =
     useGlobalDispatch<string>(SelectionIdPathKey);

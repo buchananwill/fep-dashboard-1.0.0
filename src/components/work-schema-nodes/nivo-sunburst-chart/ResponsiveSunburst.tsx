@@ -3,7 +3,7 @@
 import { ComputedDatum, ResponsiveSunburst } from '@nivo/sunburst';
 import {
   KnowledgeDomainGroup,
-  NestedWorkNode
+  WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { getInheritedColorGenerator } from '@nivo/colors';
 import { patternDotsDef } from '@nivo/core';
@@ -11,7 +11,7 @@ import { patternDotsDef } from '@nivo/core';
 export function WorkNodeResponsiveSunburst({
   data /* see data tab */
 }: {
-  data: NestedWorkNode;
+  data: WorkNodeHierarchy;
 }) {
   console.log(data);
   return (
@@ -53,7 +53,7 @@ export function WorkNodeResponsiveSunburst({
   );
 }
 
-type Datum = ComputedDatum<NestedWorkNode>;
+type Datum = ComputedDatum<WorkNodeHierarchy>;
 
 export function getKdStringCode(data: KnowledgeDomainGroup) {
   return data.knowledgeDomains
@@ -62,7 +62,9 @@ export function getKdStringCode(data: KnowledgeDomainGroup) {
     .join(',');
 }
 
-function nestedWorkNodeArcLabel(computedData: ComputedDatum<NestedWorkNode>) {
+function nestedWorkNodeArcLabel(
+  computedData: ComputedDatum<WorkNodeHierarchy>
+) {
   const { data, value, parent } = computedData;
   switch (data.type) {
     case 'knowledgeDomainGroup': {

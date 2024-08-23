@@ -1,9 +1,11 @@
 import {
   Bundle,
+  DeliveryAllocationLeaf,
   DeliveryAllocationList,
   KnowledgeDomainGroup,
   KnowledgeLevelGroup,
-  NestedWorkNode
+  NestedWorkNode,
+  WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
 import { HasId } from '@/api/types';
@@ -54,7 +56,7 @@ function getDeliveryAllocationListSize(list: DeliveryAllocationList) {
   return parseInt(strings[strings.length - 1]);
 }
 
-export function makeChildId(parent: NestedWorkNode) {
+export function makeChildId(parent: WorkNodeHierarchy) {
   if (parent.type === 'leaf') throw new Error('Cannot add child to leaf');
   const { children } = parent;
   let betterSuffix = parent.children.length;
@@ -71,7 +73,7 @@ export function makeNewBundle(
   knowledgeLevelGroup: KnowledgeLevelGroupTemplate
 ): Bundle {
   return {
-    id: makeChildId(knowledgeLevelGroup as NestedWorkNode),
+    id: makeChildId(knowledgeLevelGroup as WorkNodeHierarchy),
     children: [],
     type: 'bundle',
     selected: false
@@ -115,15 +117,16 @@ export function findKnowledgeDomainGroup(
 }
 
 export function getHierarchyList(
-  root: KnowledgeLevelGroupTemplate,
+  root: NestedWorkNode,
   childId: string
-): NestedWorkNode[] {
+): WorkNodeHierarchy[] {
   console.log(root, childId);
   const idPath = childId.split(':');
   const depth = idPath.length;
-  const hierarchyList: NestedWorkNode[] = [root as KnowledgeLevelGroup];
+  const hierarchyList: WorkNodeHierarchy[] = [root];
   for (let i = 1; i < depth; i++) {
     const id = idPath.slice(0, i + 1).join(':');
+    console.log(id);
     const localParent = hierarchyList[i - 1];
     if (localParent.type !== 'leaf') {
       const find = localParent.children.find((child) => child.id === id);
@@ -137,13 +140,53 @@ export function removeChildAnyLevel(
   root: KnowledgeLevelGroupTemplate,
   childId: string
 ) {
-  const hierarchyList = getHierarchyList(root, childId);
+  const hierarchyList = getHierarchyList(root as KnowledgeLevelGroup, childId);
   const [immediateParent, child] = hierarchyList.slice(
     hierarchyList.length - 2
   );
   if (immediateParent.type !== 'leaf') {
-    const children = immediateParent.children as NestedWorkNode[];
+    const children = immediateParent.children as WorkNodeHierarchy[];
     const indexOf = children.indexOf(child);
     children.splice(indexOf, 1);
   }
+}
+
+export function addLeafToThisList(find: DeliveryAllocationList, size: number) {
+  const leaf: DeliveryAllocationLeaf = {
+    id: makeChildId(find),
+    type: 'leaf',
+    size: size,
+    selected: false
+  };
+  find.children.push(leaf);
+}
+
+export function findOrCreateList(
+  knowledgeDomainGroup: KnowledgeDomainGroup,
+  size: number
+) {
+  let find = knowledgeDomainGroup.children.find(
+    (child) => child.id === `${knowledgeDomainGroup.id}:${size}`
+  );
+  if (find === undefined) {
+    find = addDeliveryAllocationListToKdg(knowledgeDomainGroup, size);
+  }
+  return find;
+}
+
+/**
+ * Mutates the tree. For data in React state, use the producer.
+ * Doesn't work when the KnowledgeLevelGroup isn't the root: the IDs don't parse correctly (I believe that's the reason.)
+ * */
+export function addLeafToKnowledgeDomainGroupChild(
+  draft: WritableDraft<KnowledgeLevelGroupTemplate> | KnowledgeLevelGroup,
+  knowledgeDomainGroupId: string,
+  size: number
+) {
+  const knowledgeDomainGroup = getKnowledgeDomainGroup(
+    draft,
+    knowledgeDomainGroupId
+  );
+  let list = findOrCreateList(knowledgeDomainGroup, size);
+  addLeafToThisList(list, size);
 }

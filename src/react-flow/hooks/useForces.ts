@@ -7,6 +7,7 @@ import { useGlobalController, useGlobalListener } from 'selective-context';
 import { FlowNode } from '@/react-flow/types';
 import {
   GraphSelectiveContextKeys,
+  HasStringId,
   useD3ForceSimulationMemo,
   useDirectSimRefEditsDispatch,
   useGraphDispatch
@@ -24,16 +25,23 @@ const listenerKey = 'use-layouted-elements';
 const forceSimParams = { forceFunctions: { collide: collide } };
 
 const refInitial = {
-  current: InitialMap as Map<string, HierarchyPointNode<FlowNode<NodeDataType>>>
+  current: InitialMap as Map<string, Layoutable>
 };
 
+export type HasPosition = {
+  x: number;
+  y: number;
+};
+
+export type Layoutable = HasPosition & HasStringId;
+
 function getHierarchyLayoutResolver<T extends NodeDataType>(
-  layoutMap: MutableRefObject<Map<string, HierarchyPointNode<any>>>,
+  layoutMap: MutableRefObject<Map<string, Layoutable>>,
   dimension: keyof Pick<HierarchyPointNode<any>, 'x' | 'y'>
 ) {
   return (node: FlowNode<T>, index: number) => {
-    const hierarchyPointNode = layoutMap.current.get(node.id);
-    return hierarchyPointNode ? get(hierarchyPointNode, dimension, 0) : 0;
+    const hasPosition = layoutMap.current.get(node.id);
+    return hasPosition ? get(hasPosition, dimension, 0) : 0;
   };
 }
 
@@ -59,9 +67,7 @@ export function useForces(
     listenerKey
   });
 
-  const localRef = useRef(
-    InitialMap as Map<string, HierarchyPointNode<FlowNode<NodeDataType>>>
-  );
+  const localRef = useRef(InitialMap as Map<string, Layoutable>);
   localRef.current = currentState.current;
 
   const overrideForces = useMemo(() => {
@@ -70,7 +76,11 @@ export function useForces(
     const forceXCreated = forceX(xResolver);
     const forceYCreated = forceY(yResolver);
     return {
-      forceFunctions: { collide, forceX: forceXCreated, forceY: forceYCreated }
+      forceFunctions: {
+        collide,
+        forceX: forceXCreated,
+        forceY: forceYCreated
+      }
     };
   }, []);
 

@@ -37,6 +37,13 @@ async function WorkSchemaNodeAssignmentsPage({
     { name: 'Work Group' }
   ]);
 
+  const orgList = await Api.Organization.getDtoListByExampleList([
+    { type: { name: 'Work Group' } },
+    { type: { name: 'Class' } }
+  ]);
+
+  const idList = orgList.map((org) => org.id);
+
   const workSchemaRootNodes = await Api.WorkSchemaNode.getRootNodeList();
   const rootNodeIdList = workSchemaRootNodes.map((node) => node.id);
   const graphList = await Promise.all(
@@ -56,13 +63,15 @@ async function WorkSchemaNodeAssignmentsPage({
     { dataNodes: [], dataLinks: [] }
   );
 
-  const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
-    constructUrl(
-      `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
-    )
-  );
+  // const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
+  //   constructUrl(
+  //     `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
+  //   )
+  // );
+  const classesAndWorkGroups =
+    await Api.Organization.getGraphByNodeList(idList);
   const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
-    classGraph,
+    classesAndWorkGroups, //classGraph,
     convertToOrganizationNode
   );
 

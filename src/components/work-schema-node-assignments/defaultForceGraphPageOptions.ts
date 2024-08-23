@@ -9,7 +9,7 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
   },
   forceAttributesInitial: {
     forceYStrength: 50,
-    forceYSpacing: 50,
+    forceYSpacing: 200,
     linkStrength: 50,
     linkDistance: 150,
     collideStrength: 0
@@ -20,8 +20,8 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
   forces: {
     center: false,
     collide: true,
-    forceX: false,
-    forceY: false,
+    forceX: true,
+    forceY: true,
     link: true,
     manyBody: true,
     radial: false

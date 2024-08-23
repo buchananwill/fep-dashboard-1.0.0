@@ -36,6 +36,7 @@ import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
 import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
 import { FlowNode } from '@/react-flow/types';
 import { HierarchicalDataOptions } from '@/react-flow/hooks/getHierarchicalDataLayout';
+import { useOrientedDepthLayout } from '@/components/react-flow/organization/useOrientedDepthLayout';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,
@@ -67,6 +68,7 @@ export function ClassHierarchyLayoutFlowWithForces({
     );
 
   const { nodes } = reactFlowProps;
+  useOrientedDepthLayout(nodes, 400, 'vertical');
 
   const allocationTotalList: AllocationTotal[] = useMemo(
     () =>

@@ -2,12 +2,12 @@ import { produce } from 'immer';
 import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
 import {
   Bundle,
-  DeliveryAllocationLeaf,
   KnowledgeLevelGroup
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import {
   addDeliveryAllocationListToKdg,
+  addLeafToKnowledgeDomainGroupChild,
   findChildOrError,
   findKnowledgeDomainGroup,
   getKnowledgeDomainGroup,
@@ -74,27 +74,12 @@ export const addDeliveryAllocationList = produce<
     );
   }
 });
+
 export const addDeliveryAllocationLeaf = produce<
   KnowledgeLevelGroupTemplate,
   [string, number]
 >((draft, knowledgeDomainGroupId, size) => {
-  const knowledgeDomainGroup = getKnowledgeDomainGroup(
-    draft,
-    knowledgeDomainGroupId
-  );
-  let find = knowledgeDomainGroup.children.find(
-    (child) => child.id === `${knowledgeDomainGroupId}:${size}`
-  );
-  if (find === undefined) {
-    find = addDeliveryAllocationListToKdg(knowledgeDomainGroup, size);
-  }
-  const leaf: DeliveryAllocationLeaf = {
-    id: makeChildId(find),
-    type: 'leaf',
-    size: size,
-    selected: false
-  };
-  find.children.push(leaf);
+  addLeafToKnowledgeDomainGroupChild(draft, knowledgeDomainGroupId, size);
 });
 export const removeChildImmutably = produce<
   KnowledgeLevelGroupTemplate,
