@@ -13,7 +13,6 @@ export function WorkNodeResponsiveSunburst({
 }: {
   data: WorkNodeHierarchy;
 }) {
-  console.log(data);
   return (
     <ResponsiveSunburst
       data={data}
@@ -95,7 +94,6 @@ function customChildColors(parent: Datum, child: Datum) {
     data: { type, color: colorFixed }
   } = child;
   if (type === 'knowledgeDomainGroup') {
-    console.log(colorFixed);
     return colorFixed;
   } else if (type === 'leaf' || type === 'leafList') {
     return getInheritedColorGenerator({

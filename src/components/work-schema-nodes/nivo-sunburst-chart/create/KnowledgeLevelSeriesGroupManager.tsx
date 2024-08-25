@@ -21,12 +21,12 @@ import {
 } from '@/api/generated-types/generated-types';
 import { HasNumberId } from '@/api/types';
 import { produce } from 'immer';
-import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/Selectors';
 import {
   findChildOrError,
   getHierarchyList,
   joinPath
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
+import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/usePathSelectionListener';
 
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
@@ -67,14 +67,14 @@ export default function KnowledgeLevelGroupManager({
     EmptyArray
   );
 
-  const selectionPath = usePathSelectionListener(listenerKey);
+  const [joinedPath, selectionPath] = usePathSelectionListener(listenerKey);
   const selectionPathRef = useRef(selectionPath);
 
   useEffect(() => {
     if (selectionPath.length > 0) {
       const childId = joinPath(...selectionPath);
-      dispatch((klg) => {
-        return produce(klg, (draft) => {
+      dispatch((klsg) => {
+        return produce(klsg, (draft) => {
           const hierarchyList = getHierarchyList(
             draft as NestedWorkNode,
             childId
@@ -85,8 +85,8 @@ export default function KnowledgeLevelGroupManager({
       });
       if (selectionPathRef.current.length > 0) {
         const childId = joinPath(...selectionPathRef.current);
-        dispatch((klg) => {
-          return produce(klg, (draft) => {
+        dispatch((klsg) => {
+          return produce(klsg, (draft) => {
             const hierarchyList = getHierarchyList(
               draft as NestedWorkNode,
               childId

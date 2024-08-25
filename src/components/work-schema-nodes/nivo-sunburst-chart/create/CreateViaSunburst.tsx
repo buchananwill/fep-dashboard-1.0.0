@@ -52,7 +52,7 @@ export default async function CreateViaSunburst() {
       />
       <TopLevelSelectors />
       <SunburstEditView knowledgeLevelSeriesGroup={colorized} />
-      <EditorPanel />
+      <EditorPanel initialKnowledgeLevelSeriesGroup={colorized} />
       <KnowledgeLevelSeriesGroupManager initialGroup={colorized} />
       <CycleDataFetcher />
     </div>

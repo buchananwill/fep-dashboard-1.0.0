@@ -1,9 +1,9 @@
 'use client';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
-import { SelectionIdPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
+import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
 import {
-  knowledgeLevelSeriesGroupContextKey,
-  knowledgeLevelGroupTemplate
+  klsgTemplate,
+  knowledgeLevelSeriesGroupContextKey
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import React, { useCallback, useMemo } from 'react';
 import {
@@ -13,7 +13,9 @@ import {
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
 import { EmptyArray } from '@/api/literals';
 import {
+  KnowledgeLevelSeriesGroup,
   NestedWorkNode,
+  NestedWorkNodeDiscriminator,
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { Select, Selection, SelectProps } from '@nextui-org/react';
@@ -21,51 +23,79 @@ import { SelectItem } from '@nextui-org/select';
 import { MonoFunction } from '@/types';
 
 export default function NestedWorkNodeChildSelector({
-  parentPath,
   selectionPath,
+  discriminator,
+  discriminatorIndex,
+  splittedPath,
   labelAccessor = nodeLabelAccessor,
   ...selectProps
 }: {
-  parentPath: string;
   selectionPath: string;
+  splittedPath: string[];
+  discriminator: NestedWorkNodeDiscriminator;
+  discriminatorIndex: number;
   labelAccessor?: MonoFunction<WorkNodeHierarchy, string>;
 } & Omit<SelectProps, 'children'>) {
-  const listenerKey = `${parentPath}:selectChild`;
+  const listenerKey = `${discriminator}:selectChild`;
   const { currentState } = useGlobalListener({
     contextKey: knowledgeLevelSeriesGroupContextKey,
-    initialValue: knowledgeLevelGroupTemplate,
+    initialValue: klsgTemplate,
     listenerKey
   });
 
-  const [parent, childList] = useMemo(() => {
+  console.log(selectionPath, discriminator, discriminatorIndex, splittedPath);
+
+  const [parent, childList, selectionThisLevel] = useMemo(() => {
+    const selectionThisLevel =
+      splittedPath.length > discriminatorIndex
+        ? joinPath(...splittedPath.slice(0, discriminatorIndex + 1))
+        : '';
+    if (discriminator === 'knowledgeLevelGroup') {
+      return [
+        currentState as KnowledgeLevelSeriesGroup,
+        currentState.children,
+        selectionThisLevel
+      ];
+    }
     const hierarchyList = getHierarchyList(
       currentState as NestedWorkNode,
-      parentPath
+      selectionPath
     );
-    const parent = hierarchyList[hierarchyList.length - 1];
-    console.log(hierarchyList, parent);
-    if (parent.type === 'leaf')
-      return [parent, EmptyArray] as [WorkNodeHierarchy, WorkNodeHierarchy[]];
-    else
-      return [parent, parent.children] as [
+    const { length } = hierarchyList;
+    const parent =
+      length >= discriminatorIndex
+        ? hierarchyList[discriminatorIndex - 1]
+        : undefined;
+    if (parent?.type === 'leaf')
+      return [parent, EmptyArray, ''] as [
         WorkNodeHierarchy,
-        WorkNodeHierarchy[]
+        WorkNodeHierarchy[],
+        string
       ];
-  }, [parentPath, currentState]);
+    else
+      return [parent, parent?.children ?? [], selectionThisLevel] as [
+        WorkNodeHierarchy,
+        WorkNodeHierarchy[],
+        string
+      ];
+  }, [
+    currentState,
+    discriminatorIndex,
+    selectionPath,
+    splittedPath,
+    discriminator
+  ]);
 
-  const depth = useMemo(() => {
-    return parentPath.split('/').length;
-  }, [parentPath]);
-
-  if (parent.type === 'leaf' || !parent) return null;
+  if (parent?.type === 'leaf') return null;
 
   return (
     <>
       <InnerSelectorMemo
         childList={childList}
-        selectionId={selectionPath}
+        selectionPath={selectionThisLevel}
         labelAccessor={labelAccessor}
-        depth={depth}
+        depth={discriminatorIndex}
+        parent={parent}
         {...selectProps}
       />
     </>
@@ -77,17 +107,17 @@ const InnerSelectorMemo = React.memo(InnerSelector);
 function InnerSelector({
   childList,
   labelAccessor,
-  selectionId,
+  selectionPath,
   depth,
   ...selectProps
 }: {
   childList: WorkNodeHierarchy[];
-  selectionId: string;
+  parent?: NestedWorkNode;
+  selectionPath?: string;
   depth: number;
   labelAccessor: MonoFunction<WorkNodeHierarchy, string>;
 }) {
-  const { dispatchWithoutListen } =
-    useGlobalDispatch<string>(SelectionIdPathKey);
+  const { dispatchWithoutListen } = useGlobalDispatch<string>(SelectionPathKey);
 
   const onSelectionChange = useCallback(
     (selection: Selection) => {
@@ -115,10 +145,9 @@ function InnerSelector({
     <Select
       items={childList}
       {...selectProps}
-      selectedKeys={[selectionId]}
+      selectedKeys={selectionPath ? [selectionPath] : ['']}
       onSelectionChange={onSelectionChange}
       className={'w-60'}
-      placeholder={label}
     >
       {(item) => (
         <SelectItem

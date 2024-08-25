@@ -63,7 +63,16 @@ export type NestedWorkNode =
   | DeliveryAllocationList;
 export type WorkNodeHierarchy = NestedWorkNode | DeliveryAllocationLeaf;
 
-type NestedWorkNodeDiscriminator = WorkNodeHierarchy['type'];
+export type NestedWorkNodeDiscriminator = WorkNodeHierarchy['type'];
+
+export const DiscriminatorOrder: NestedWorkNodeDiscriminator[] = [
+  'knowledgeLevelSeriesGroup',
+  'knowledgeLevelGroup',
+  'bundle',
+  'knowledgeDomainGroup',
+  'leafList',
+  'leaf'
+] as const;
 
 export type NestedWorkNodeDto<T extends WorkNodeHierarchy = WorkNodeHierarchy> =
   {

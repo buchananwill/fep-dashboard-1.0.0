@@ -27,21 +27,26 @@ import { useSelectedEntityMap } from '@/hooks/useEntitySelection';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CycleDto } from '@/api/generated-types/generated-types';
 import { joinPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
+import { KnowledgeLevelSeriesGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
-export const SelectionIdPathKey = 'selectionIdPath';
+export const SelectionPathKey = 'selectionPath';
 
 const bundleDepth = 2;
 const knowledgeDomainGroupDepth = 3;
 const deliveryAllocationListDepth = 4;
 const deliveryAllocationLeafDepth = 5;
 
-export default function EditButtons() {
+export default function EditButtons({
+  initialKnowledgeLevelSeriesGroup
+}: {
+  initialKnowledgeLevelSeriesGroup: KnowledgeLevelSeriesGroup;
+}) {
   const { currentState, dispatch } = useGlobalController({
-    contextKey: SelectionIdPathKey,
-    initialValue: K_D_TEMPLATE_ID,
+    contextKey: SelectionPathKey,
+    initialValue: initialKnowledgeLevelSeriesGroup.path,
     listenerKey: 'edit-buttons'
   });
-  const selectionSplit = useSplitSelectionPath(currentState);
+  const [path, selectionSplit] = useSplitSelectionPath(currentState);
 
   const cycleMap = useSelectedEntityMap<CycleDto>(EntityClassMap.cycle);
 
@@ -75,7 +80,6 @@ export default function EditButtons() {
   const deSelectRemovedId = useCallback(
     (idDepth: number) => {
       const newSelection = joinPath(...selectionSplit.slice(0, idDepth - 1));
-      console.log(newSelection, selectionSplit, idDepth);
       dispatch(newSelection);
     },
     [selectionSplit, dispatch]
