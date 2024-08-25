@@ -69,7 +69,7 @@ export default function KnowledgeLevelGroupManager({
 
   const [joinedPath, selectionPath] = usePathSelectionListener(listenerKey);
   const selectionPathRef = useRef(selectionPath);
-
+  /*
   useEffect(() => {
     if (selectionPath.length > 0) {
       const childId = joinPath(...selectionPath);
@@ -100,6 +100,8 @@ export default function KnowledgeLevelGroupManager({
       selectionPathRef.current = selectionPath;
     }
   }, [selectionPath, dispatch]);
+  
+ */
 
   /*
   useEffect(() => {

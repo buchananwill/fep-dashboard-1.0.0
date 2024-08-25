@@ -33,8 +33,6 @@ interface EnrollmentTableProps {
   closures: ClosureMap;
 }
 
-enableMapSet();
-
 export type ClosureMap = Record<string, Record<string, ClosureDto>>;
 
 const enrollmentMap = 'enrollmentMap';
