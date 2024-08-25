@@ -1,44 +1,27 @@
 import { produce } from 'immer';
 import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
-import {
-  Bundle,
-  KnowledgeLevelGroup
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import { KnowledgeLevelGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import {
   addDeliveryAllocationListToKdg,
+  addKnowledgeDomainGroup,
   addLeafToKnowledgeDomainGroupChild,
-  findChildOrError,
   findKnowledgeDomainGroup,
   getKnowledgeDomainGroup,
-  makeChildId,
   makeNewBundle,
   removeChildAnyLevel
 } from './knowledgeLevelGroupFunctions';
-import { interpolateRainbow } from 'd3';
 
 export const addBundle = produce<KnowledgeLevelGroupTemplate>((draft) => {
   draft.children.push(makeNewBundle(draft));
 });
-export const addKnowledgeDomainGroup = produce<
+export const produceKnowledgeDomainGroup = produce<
   KnowledgeLevelGroupTemplate,
   [string]
->((draft, bundleId) => {
-  const bundle = findChildOrError<KnowledgeLevelGroupTemplate, Bundle>(
-    draft,
-    bundleId
-  );
-  bundle.children.push({
-    type: 'knowledgeDomainGroup',
-    children: [],
-    knowledgeDomains: [],
-    id: makeChildId(bundle),
-    selected: false
-  });
-  bundle.children.forEach((kdgc, index, array) => {
-    kdgc.color = interpolateRainbow(index / array.length);
-  });
-});
+>((draft, bundlePath) =>
+  addKnowledgeDomainGroup(draft as KnowledgeLevelGroup, bundlePath)
+);
+
 export const addKnowledgeDomainToGroup = produce<
   KnowledgeLevelGroupTemplate,
   [string, KnowledgeDomainDto]
@@ -46,6 +29,7 @@ export const addKnowledgeDomainToGroup = produce<
   const kDomainGroup = findKnowledgeDomainGroup(draft, knowledgeDomainGroupId);
   kDomainGroup.knowledgeDomains.push(knowledgeDomain);
 });
+
 export const removeKnowledgeDomainFromGroup = produce<
   KnowledgeLevelGroupTemplate,
   [string, number]
@@ -59,6 +43,7 @@ export const removeKnowledgeDomainFromGroup = produce<
       (kd) => kd.id !== knowledgeDomainId
     );
 });
+
 export const addDeliveryAllocationList = produce<
   KnowledgeLevelGroupTemplate,
   [string, number]

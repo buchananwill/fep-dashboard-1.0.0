@@ -1,5 +1,6 @@
 import {
   Bundle,
+  DeliveryAllocationBase,
   DeliveryAllocationLeaf,
   DeliveryAllocationList,
   KnowledgeDomainGroup,
@@ -8,11 +9,10 @@ import {
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
-import { HasId } from '@/api/types';
-import { Identifier } from 'dto-stores';
 import { WritableDraft } from 'immer/src/types/types-external';
+import { interpolateRainbow } from 'd3';
 
-type Parent<T extends HasId> = {
+export type Parent<T> = {
   children: T[];
 };
 
@@ -38,7 +38,7 @@ export function addDeliveryAllocationListToKdg(
   deliveryAllocationSize: number
 ) {
   const daList: DeliveryAllocationList = {
-    id: `${knowledgeDomainGroup.id}:${deliveryAllocationSize}`,
+    path: joinPath(knowledgeDomainGroup.path, deliveryAllocationSize),
     type: 'leafList',
     children: [],
     selected: false
@@ -51,61 +51,70 @@ export function addDeliveryAllocationListToKdg(
   return daList;
 }
 
+export function splitPath(node: DeliveryAllocationBase) {
+  return node.path.split('/');
+}
+
 function getDeliveryAllocationListSize(list: DeliveryAllocationList) {
-  const strings = list.id.split(':');
+  const strings = splitPath(list);
   return parseInt(strings[strings.length - 1]);
 }
 
-export function makeChildId(parent: WorkNodeHierarchy) {
+export function joinPath(...args: (string | number)[]) {
+  return args.join('/');
+}
+
+export function makeChildPath(parent: WorkNodeHierarchy) {
   if (parent.type === 'leaf') throw new Error('Cannot add child to leaf');
   const { children } = parent;
   let betterSuffix = parent.children.length;
   if (betterSuffix > 0) {
-    const lastId = children[children.length - 1].id;
-    const strings = lastId.split(':');
+    const strings = splitPath(children[children.length - 1]);
     const lastNum = parseInt(strings[strings.length - 1]);
     betterSuffix = lastNum + 1;
   }
-  return `${parent.id}:${betterSuffix}`;
+  const { path } = parent;
+  return joinPath(path, betterSuffix);
 }
 
 export function makeNewBundle(
   knowledgeLevelGroup: KnowledgeLevelGroupTemplate
 ): Bundle {
   return {
-    id: makeChildId(knowledgeLevelGroup as WorkNodeHierarchy),
+    path: makeChildPath(knowledgeLevelGroup as WorkNodeHierarchy),
     children: [],
     type: 'bundle',
     selected: false
   };
 }
 
-export function filterOutChild<T extends HasId>(
-  parent: Parent<T>,
-  childId: Identifier
-) {
-  return parent.children.filter((child) => child.id !== childId);
-}
-
-export function findChildOrError<T extends Parent<U>, U extends HasId>(
+export function findChildOrError<T extends Parent<U>, U extends HasPath>(
   draft: WritableDraft<T>,
-  childId: string
+  childPath: string
 ) {
-  const child = draft.children.find((bundle) => bundle.id === childId);
-  if (!child) throw new Error(`Bundle not found with given id: ${childId}`);
+  const child = draft.children.find((child) => child.path === childPath);
+  if (!child) throw new Error(`Child not found with given path: ${childPath}`);
   return child;
 }
 
-function getAncestorId(colonSeparatedId: string, ancestorDistance: number) {
-  const idList = colonSeparatedId.split(':');
-  return idList.slice(idList.length - ancestorDistance).join(':');
+function sliceSplitPath(splittedPath: string[], ancestorDistance: number) {
+  return joinPath(
+    ...splittedPath.slice(0, splittedPath.length - ancestorDistance)
+  );
+}
+
+export type HasPath = { path: string };
+
+function getAncestorPath(child: HasPath, ancestorDistance: number) {
+  const splittedPath = splitPath(child);
+  return sliceSplitPath(splittedPath, ancestorDistance);
 }
 
 export function findKnowledgeDomainGroup(
   knowledgeLevelGroup: KnowledgeLevelGroupTemplate,
   knowledgeDomainGroupId: string
 ) {
-  const bundleId = getAncestorId(knowledgeDomainGroupId, 1);
+  const bundleId = sliceSplitPath(knowledgeDomainGroupId.split('/'), 1);
   const bundle = findChildOrError<KnowledgeLevelGroupTemplate, Bundle>(
     knowledgeLevelGroup,
     bundleId
@@ -118,18 +127,18 @@ export function findKnowledgeDomainGroup(
 
 export function getHierarchyList(
   root: NestedWorkNode,
-  childId: string
+  childPath: string
 ): WorkNodeHierarchy[] {
-  console.log(root, childId);
-  const idPath = childId.split(':');
-  const depth = idPath.length;
+  const splittedPath = childPath.split('/');
+  const depth = splittedPath.length;
   const hierarchyList: WorkNodeHierarchy[] = [root];
   for (let i = 1; i < depth; i++) {
-    const id = idPath.slice(0, i + 1).join(':');
-    console.log(id);
+    const nextChildPath = splittedPath.slice(0, i + 1).join('/');
     const localParent = hierarchyList[i - 1];
     if (localParent.type !== 'leaf') {
-      const find = localParent.children.find((child) => child.id === id);
+      const find = localParent.children.find(
+        (child) => child.path === nextChildPath
+      );
       if (find) hierarchyList.push(find);
     }
   }
@@ -153,7 +162,7 @@ export function removeChildAnyLevel(
 
 export function addLeafToThisList(find: DeliveryAllocationList, size: number) {
   const leaf: DeliveryAllocationLeaf = {
-    id: makeChildId(find),
+    path: makeChildPath(find),
     type: 'leaf',
     size: size,
     selected: false
@@ -166,7 +175,7 @@ export function findOrCreateList(
   size: number
 ) {
   let find = knowledgeDomainGroup.children.find(
-    (child) => child.id === `${knowledgeDomainGroup.id}:${size}`
+    (child) => child.path === joinPath(knowledgeDomainGroup.path, size)
   );
   if (find === undefined) {
     find = addDeliveryAllocationListToKdg(knowledgeDomainGroup, size);
@@ -189,4 +198,24 @@ export function addLeafToKnowledgeDomainGroupChild(
   );
   let list = findOrCreateList(knowledgeDomainGroup, size);
   addLeafToThisList(list, size);
+}
+
+export function addKnowledgeDomainGroup(
+  draft: KnowledgeLevelGroup,
+  bundleId: string
+) {
+  const bundle = findChildOrError<KnowledgeLevelGroupTemplate, Bundle>(
+    draft,
+    bundleId
+  );
+  bundle.children.push({
+    type: 'knowledgeDomainGroup',
+    children: [],
+    knowledgeDomains: [],
+    path: makeChildPath(bundle),
+    selected: false
+  });
+  bundle.children.forEach((kdgc, index, array) => {
+    kdgc.color = interpolateRainbow(index / array.length);
+  });
 }

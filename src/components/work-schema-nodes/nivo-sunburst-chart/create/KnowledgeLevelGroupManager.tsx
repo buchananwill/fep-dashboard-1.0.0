@@ -1,6 +1,9 @@
 'use client';
 import { SetOptional } from 'type-fest';
-import { KnowledgeLevelGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import {
+  KnowledgeLevelGroup,
+  NestedWorkNode
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { useGlobalController, useGlobalReadAny } from 'selective-context';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -18,7 +21,10 @@ import {
 import { HasNumberId } from '@/api/types';
 import { produce } from 'immer';
 import { useSplitSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/Selectors';
-import { getHierarchyList } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
+import {
+  getHierarchyList,
+  joinPath
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
 
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
@@ -60,19 +66,25 @@ export default function KnowledgeLevelGroupManager() {
 
   useEffect(() => {
     if (selectionPath.length > 0) {
-      const childId = selectionPath.join(':');
+      const childId = joinPath(...selectionPath);
       dispatch((klg) => {
         return produce(klg, (draft) => {
-          const hierarchyList = getHierarchyList(draft, childId);
+          const hierarchyList = getHierarchyList(
+            draft as NestedWorkNode,
+            childId
+          );
           const hierarchyListElement = hierarchyList[hierarchyList.length - 1];
           hierarchyListElement.selected = true;
         });
       });
       if (selectionPathRef.current.length > 0) {
-        const childId = selectionPathRef.current.join(':');
+        const childId = joinPath(...selectionPathRef.current);
         dispatch((klg) => {
           return produce(klg, (draft) => {
-            const hierarchyList = getHierarchyList(draft, childId);
+            const hierarchyList = getHierarchyList(
+              draft as NestedWorkNode,
+              childId
+            );
             const hierarchyListElement =
               hierarchyList[hierarchyList.length - 1];
             hierarchyListElement.selected = false;
@@ -125,7 +137,7 @@ export const knowledgeLevelGroupTemplate: SetOptional<
 > = {
   children: [],
   type: knowledgeLevelGroupContextKey,
-  id: K_D_TEMPLATE_ID,
+  path: K_D_TEMPLATE_ID,
   selected: true
 };
 

@@ -4,6 +4,7 @@ import NestedWorkNodeChildSelector from '@/components/work-schema-nodes/nivo-sun
 import { useGlobalListener } from 'selective-context';
 import { SelectionIdPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
 import { useSplitSelectionPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/useSplitSelectionPath';
+import { joinPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
 
 export function useSplitSelectionListener(listenerKey: string) {
   const { currentState: selectionPath } = useGlobalListener({
@@ -22,11 +23,11 @@ export default function Selectors() {
     <div className={'flex flex-col gap-2'}>
       {splitSelectionPath.map((idPart, index, array) => {
         const selectionParts = array.length;
-        const parentId = array.slice(0, index + 1).join(':');
+        const parentId = joinPath(...array.slice(0, index + 1));
         const selectionId =
           index + 1 === selectionParts
             ? ''
-            : array.slice(0, index + 2).join(':');
+            : joinPath(...array.slice(0, index + 2));
         return (
           <NestedWorkNodeChildSelector
             parentId={parentId}

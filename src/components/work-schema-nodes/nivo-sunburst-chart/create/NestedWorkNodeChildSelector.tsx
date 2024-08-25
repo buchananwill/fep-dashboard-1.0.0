@@ -6,9 +6,16 @@ import {
   knowledgeLevelGroupTemplate
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
 import React, { useCallback, useMemo } from 'react';
-import { getHierarchyList } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
+import {
+  getHierarchyList,
+  joinPath,
+  splitPath
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
 import { EmptyArray } from '@/api/literals';
-import { WorkNodeHierarchy } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import {
+  NestedWorkNode,
+  WorkNodeHierarchy
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { Select, Selection, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { MonoFunction } from '@/types';
@@ -17,7 +24,7 @@ import { getAnyIdAsString } from 'react-d3-force-wrapper';
 export default function NestedWorkNodeChildSelector({
   parentId,
   selectionId,
-  labelAccessor = getAnyIdAsString,
+  labelAccessor = nodeLabelAccessor,
   ...selectProps
 }: {
   parentId: string;
@@ -32,7 +39,10 @@ export default function NestedWorkNodeChildSelector({
   });
 
   const [parent, childList] = useMemo(() => {
-    const hierarchyList = getHierarchyList(currentState, parentId);
+    const hierarchyList = getHierarchyList(
+      currentState as NestedWorkNode,
+      parentId
+    );
     const parent = hierarchyList[hierarchyList.length - 1];
     console.log(hierarchyList, parent);
     if (parent.type === 'leaf')
@@ -45,7 +55,7 @@ export default function NestedWorkNodeChildSelector({
   }, [parentId, currentState]);
 
   const depth = useMemo(() => {
-    return parentId.split(':').length;
+    return parentId.split('/').length;
   }, [parentId]);
 
   if (parent.type === 'leaf' || !parent) return null;
@@ -88,7 +98,7 @@ function InnerSelector({
         const selectionList = [...selection.values()] as string[];
         if (selectionList.length === 0) {
           dispatchWithoutListen((selectionPathId) => {
-            return selectionPathId.split(':').slice(0, depth).join(':');
+            return selectionPathId.split('/').slice(0, depth).join('/');
           });
         } else if (selectionList.length === 1) {
           dispatchWithoutListen(selectionList[0] as string);
@@ -100,6 +110,8 @@ function InnerSelector({
     [depth, dispatchWithoutListen]
   );
 
+  const label = childList.length > 0 ? childList[0].type : 'no options';
+
   return (
     <Select
       items={childList}
@@ -107,16 +119,33 @@ function InnerSelector({
       selectedKeys={[selectionId]}
       onSelectionChange={onSelectionChange}
       className={'w-60'}
+      label={label}
+      labelPlacement={'outside-left'}
     >
       {(item) => (
         <SelectItem
-          key={item.id}
-          value={item.id}
-          aria-label={`${item.type}:${labelAccessor(item)}`}
+          key={item.path}
+          value={item.path}
+          aria-label={labelAccessor(item)}
         >
-          {`${item.type}:${labelAccessor(item)}`}
+          {labelAccessor(item)}
         </SelectItem>
       )}
     </Select>
   );
+}
+
+function nodeLabelAccessor(node: WorkNodeHierarchy) {
+  switch (node.type) {
+    case 'leaf': {
+      const strings = splitPath(node);
+      return joinPath(...strings.slice(strings.length - 3, strings.length));
+    }
+    case 'bundle': {
+      return node.name ?? node.path;
+    }
+    default: {
+      return node.path;
+    }
+  }
 }

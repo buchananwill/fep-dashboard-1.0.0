@@ -9,7 +9,7 @@ import {
 import {
   addBundle,
   addDeliveryAllocationLeaf,
-  addKnowledgeDomainGroup,
+  produceKnowledgeDomainGroup,
   removeChildImmutably
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupProducers';
 import {
@@ -22,10 +22,11 @@ import {
 import { Button } from '@nextui-org/button';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useSplitSelectionPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/useSplitSelectionPath';
-import { joinIdPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/joinIdPath';
+import { joinPathUpTo } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/joinPathUpTo';
 import { useSelectedEntityMap } from '@/hooks/useEntitySelection';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CycleDto } from '@/api/generated-types/generated-types';
+import { joinPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
 
 export const SelectionIdPathKey = 'selectionIdPath';
 
@@ -73,7 +74,7 @@ export default function EditButtons() {
 
   const deSelectRemovedId = useCallback(
     (idDepth: number) => {
-      const newSelection = selectionSplit.slice(0, idDepth - 1).join(':');
+      const newSelection = joinPath(...selectionSplit.slice(0, idDepth - 1));
       console.log(newSelection, selectionSplit, idDepth);
       dispatch(newSelection);
     },
@@ -83,16 +84,19 @@ export default function EditButtons() {
   const removeBundle = useCallback(
     (klg: KnowledgeLevelGroupTemplate) => {
       deSelectRemovedId(bundleDepth);
-      return removeChildImmutably(klg, joinIdPath(selectionSplit, bundleDepth));
+      return removeChildImmutably(
+        klg,
+        joinPathUpTo(selectionSplit, bundleDepth)
+      );
     },
     [selectionSplit, deSelectRemovedId]
   );
 
   const handleAddKnowledgeDomainGroup = useCallback(
     (klg: KnowledgeLevelGroupTemplate) => {
-      return addKnowledgeDomainGroup(
+      return produceKnowledgeDomainGroup(
         klg,
-        joinIdPath(selectionSplit, bundleDepth)
+        joinPathUpTo(selectionSplit, bundleDepth)
       );
     },
     [selectionSplit]
@@ -103,7 +107,7 @@ export default function EditButtons() {
       deSelectRemovedId(knowledgeDomainGroupDepth);
       return removeChildImmutably(
         klg,
-        joinIdPath(selectionSplit, knowledgeDomainGroupDepth)
+        joinPathUpTo(selectionSplit, knowledgeDomainGroupDepth)
       );
     },
     [selectionSplit, deSelectRemovedId]
@@ -113,7 +117,7 @@ export default function EditButtons() {
     (klg: KnowledgeLevelGroupTemplate) => {
       return addDeliveryAllocationLeaf(
         klg,
-        joinIdPath(selectionSplit, knowledgeDomainGroupDepth),
+        joinPathUpTo(selectionSplit, knowledgeDomainGroupDepth),
         sizeToAdd?.value ?? 1
       );
     },
@@ -125,7 +129,7 @@ export default function EditButtons() {
       deSelectRemovedId(deliveryAllocationLeafDepth);
       return removeChildImmutably(
         klg,
-        joinIdPath(selectionSplit, deliveryAllocationLeafDepth)
+        joinPathUpTo(selectionSplit, deliveryAllocationLeafDepth)
       );
     },
     [selectionSplit, deSelectRemovedId]
@@ -136,7 +140,7 @@ export default function EditButtons() {
       deSelectRemovedId(deliveryAllocationListDepth);
       return removeChildImmutably(
         klg,
-        joinIdPath(selectionSplit, deliveryAllocationListDepth)
+        joinPathUpTo(selectionSplit, deliveryAllocationListDepth)
       );
     },
     [selectionSplit, deSelectRemovedId]
