@@ -9,6 +9,8 @@ import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode'
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import clsx from 'clsx';
+import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
+import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
 
 export function WorkProjectSeriesSchemaLabel({
   entity
@@ -90,9 +92,15 @@ export function WorkProjectSeriesSchemaCode({
   );
 }
 export function NamedEntityLabel({
-  entity
+  entity,
+  ...divProps
 }: GenericDivProps & BaseLazyDtoUiProps<HasNameDto & HasId>) {
-  return <div>{entity.name}</div>;
+  const tooltip = useFloatingTooltip(<TooltipMemo text={entity.name} />);
+  return (
+    <div {...tooltip} {...divProps}>
+      {entity.name}
+    </div>
+  );
 }
 
 export function NamedEntityLabelWrapper(

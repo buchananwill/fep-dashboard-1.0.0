@@ -13,9 +13,7 @@ export function convertGraphDtoToReactFlowState<T extends NodeDataType>(
   const dataNodes = convertDataNodeDtoListToFlowNodeList<T>(
     classGraph.nodes,
     convertor
-  ).map((flowNode) => {
-    return new Proxy(flowNode, handler);
-  });
+  );
   const dataLinks = convertClosureDtoListToEdgeList(classGraph.closureDtos)
     .filter(
       (l) =>
@@ -25,17 +23,6 @@ export function convertGraphDtoToReactFlowState<T extends NodeDataType>(
     .filter((l) => l.value === 1);
   return { dataNodes, dataLinks };
 }
-
-let handler = {
-  set(target, property, value) {
-    if (property === 'x' || property === 'y') {
-      target[property] = value;
-      callback(property, value); // Trigger callback whenever the property is modified
-      return true; // Indicate success
-    }
-    return Reflect.set(...arguments); // Default behavior for other properties
-  }
-};
 
 function callback(property: string, newValue: any) {
   console.log(property, ' changed to:', newValue);

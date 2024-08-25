@@ -134,6 +134,7 @@ canvas {
         @apply mt-auto mb-auto ml-auto mr-auto
     }
 
+
 }
 
 @keyframes moveAlongPath {

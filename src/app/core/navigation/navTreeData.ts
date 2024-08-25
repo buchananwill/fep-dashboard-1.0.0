@@ -18,6 +18,7 @@ import { feasibilityBranch } from '@/app/core/feasibility/FeasibilityHome';
 import { StaticAllocationPage } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationPage';
 import WorkTaskTypeTablePage from '@/components/work-task-types/WorkTaskTypeTablePage';
 import CreateWorkTaskType from '@/components/work-task-types/CreateWorkTaskType';
+import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
 
 export const navTreeData: NavTree = {
   navigation: { type: 'leaf', component: NavigationHome },
@@ -63,8 +64,14 @@ export const navTreeData: NavTree = {
   },
   workSchemaNodes: WorkSchemaNodeNavTree,
   workSchemaNodeAssignments: {
-    type: 'leaf',
-    component: WorkSchemaNodeAssignmentsHome
+    type: 'branch',
+    component: WorkSchemaNodeAssignmentsHome,
+    children: {
+      enrollments: {
+        type: 'leaf',
+        component: EnrollmentTablePage
+      }
+    }
   },
   feasibility: feasibilityBranch,
   autoSchedule: { type: 'leaf', component: BuildSchedulePage },
