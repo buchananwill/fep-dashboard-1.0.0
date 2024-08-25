@@ -1,5 +1,5 @@
 {
-  "name": "fep-dashboard-1.0.0",
+  "name": "csvpa-music-dashboard",
   "version": "0.2.0",
   "private": true,
   "scripts": {
@@ -34,7 +34,7 @@
     "@xyflow/react": "^12.0.3",
     "d3": "^7.8.5",
     "date-fns": "^3.3.1",
-    "dto-stores": "file:D:\\Coding\\dto-stores",
+    "dto-stores": "^3.0.2",
     "fast-cartesian": "^9.0.0",
     "framer-motion": "^11.1.1",
     "immer": "^10.0.3",
@@ -43,7 +43,7 @@
     "next-auth": "5.0.0-beta.20",
     "pluralize": "^8.0.0",
     "react": "^18.3.1",
-    "react-d3-force-wrapper": "file:D:\\Coding\\react-d3-force-graph",
+    "react-d3-force-wrapper": "0.5.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.3.1",
