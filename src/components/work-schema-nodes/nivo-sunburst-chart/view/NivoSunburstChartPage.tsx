@@ -25,7 +25,7 @@ const nestedBundleEndpoint = (rootId: string) =>
     String(rootId)
   );
 
-const getLevelSeriesTree = (id: string) =>
+export const getLevelSeriesTree = (id: string) =>
   constructUrl(
     `/api/v2/workSchemaNode/nestedWorkSchemaNodeGraph/byKnowledgeLevelSeries/${id}?workTaskTypeName=Teaching`
   );
@@ -58,7 +58,7 @@ export const SunburstChartHome = getPathVariableSplitComponent(
   NivoSunburstChartPage
 );
 
-const colorizeKnowledgeDomains = (node: KnowledgeLevelSeriesGroup) => {
+export const colorizeKnowledgeDomains = (node: KnowledgeLevelSeriesGroup) => {
   const kdgMap = new Map<string, KnowledgeDomainGroup[]>();
   for (let child of node.children) {
     for (let bundleChild of child.children) {

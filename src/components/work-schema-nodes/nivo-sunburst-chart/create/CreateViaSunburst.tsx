@@ -3,16 +3,34 @@ import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
 import TopLevelSelectors from '@/components/work-schema-nodes/nivo-sunburst-chart/create/TopLevelSelectors';
-import KnowledgeLevelSeriesGroupManager, {
+import KnowledgeLevelGroupManager, {
   K_D_TEMPLATE_ID
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
 import CycleDataFetcher from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CycleDataFetcher';
 import SunburstEditView from '@/components/work-schema-nodes/nivo-sunburst-chart/create/SunburstEditView';
 import NestedWorkNodeChildSelector from '@/components/work-schema-nodes/nivo-sunburst-chart/create/NestedWorkNodeChildSelector';
 import EditorPanel from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditorPanel';
+import { getWithoutBody } from '@/api/actions/template-actions';
+import {
+  KnowledgeLevelSeriesGroup,
+  NestedWorkNodeDto
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import {
+  colorizeKnowledgeDomains,
+  getLevelSeriesTree
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/view/NivoSunburstChartPage';
+import { OneToOneWithOneHourEach } from '@/utils/init-json-data/arts-college/enrollments';
 
 export const workTaskTypeName = 'workTaskTypeName';
 export default async function CreateViaSunburst() {
+  const { data } = await getWithoutBody<NestedWorkNodeDto>(
+    getLevelSeriesTree('2')
+  );
+
+  const colorizeKnowledgeDomains1 = colorizeKnowledgeDomains(
+    data as KnowledgeLevelSeriesGroup
+  );
+
   const knowledgeLevelDtos = await Api.KnowledgeLevel.getDtoListByExampleList([
     { knowledgeLevelSeriesId: 2 }
   ]);
@@ -38,9 +56,11 @@ export default async function CreateViaSunburst() {
         dtoList={workTaskTypesNames}
       />
       <TopLevelSelectors />
-      <SunburstEditView />
+      <SunburstEditView klgt={colorizeKnowledgeDomains1.children[0]} />
       <EditorPanel />
-      <KnowledgeLevelSeriesGroupManager />
+      <KnowledgeLevelGroupManager
+        initialGroup={colorizeKnowledgeDomains1.children[0]}
+      />
       <CycleDataFetcher />
     </div>
   );

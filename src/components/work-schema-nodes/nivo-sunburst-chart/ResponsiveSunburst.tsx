@@ -77,8 +77,9 @@ function nestedWorkNodeArcLabel(
     case 'leaf': {
       return `${data.size / 4}hr`;
     }
-    case 'leafList':
     case 'bundle':
+      return data.name;
+    case 'leafList':
       return '';
     case 'knowledgeLevelGroup':
       return `${data.knowledgeLevel.name}: ${value / 4}hrs`;
