@@ -1,7 +1,7 @@
 import {
-  knowledgeLevelGroupContextKey,
+  knowledgeLevelSeriesGroupContextKey,
   KnowledgeLevelGroupTemplate
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { useGlobalDispatch } from 'selective-context';
 import { SetStateAction, useCallback } from 'react';
 import { Button, ButtonProps } from '@nextui-org/button';
@@ -21,7 +21,7 @@ export default function KnowledgeLevelGroupEditButton({
 >) {
   const { dispatchWithoutListen: dispatch } =
     useGlobalDispatch<KnowledgeLevelGroupTemplate>(
-      knowledgeLevelGroupContextKey
+      knowledgeLevelSeriesGroupContextKey
     );
 
   const onPress = useCallback(() => {

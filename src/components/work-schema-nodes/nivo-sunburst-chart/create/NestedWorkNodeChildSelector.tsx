@@ -2,9 +2,9 @@
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { SelectionIdPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
 import {
-  knowledgeLevelGroupContextKey,
+  knowledgeLevelSeriesGroupContextKey,
   knowledgeLevelGroupTemplate
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import React, { useCallback, useMemo } from 'react';
 import {
   getHierarchyList,
@@ -33,7 +33,7 @@ export default function NestedWorkNodeChildSelector({
 } & Omit<SelectProps, 'children'>) {
   const listenerKey = `${parentId}:selectChild`;
   const { currentState } = useGlobalListener({
-    contextKey: knowledgeLevelGroupContextKey,
+    contextKey: knowledgeLevelSeriesGroupContextKey,
     initialValue: knowledgeLevelGroupTemplate,
     listenerKey
   });

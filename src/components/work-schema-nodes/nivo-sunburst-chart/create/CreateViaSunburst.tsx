@@ -3,9 +3,9 @@ import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
 import TopLevelSelectors from '@/components/work-schema-nodes/nivo-sunburst-chart/create/TopLevelSelectors';
-import KnowledgeLevelGroupManager, {
+import KnowledgeLevelSeriesGroupManager, {
   K_D_TEMPLATE_ID
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import CycleDataFetcher from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CycleDataFetcher';
 import SunburstEditView from '@/components/work-schema-nodes/nivo-sunburst-chart/create/SunburstEditView';
 import NestedWorkNodeChildSelector from '@/components/work-schema-nodes/nivo-sunburst-chart/create/NestedWorkNodeChildSelector';
@@ -40,7 +40,7 @@ export default async function CreateViaSunburst() {
       <TopLevelSelectors />
       <SunburstEditView />
       <EditorPanel />
-      <KnowledgeLevelGroupManager />
+      <KnowledgeLevelSeriesGroupManager />
       <CycleDataFetcher />
     </div>
   );

@@ -5,7 +5,7 @@ import { useGlobalController } from 'selective-context';
 import {
   K_D_TEMPLATE_ID,
   KnowledgeLevelGroupTemplate
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupManager';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import {
   addBundle,
   addDeliveryAllocationLeaf,

@@ -2,6 +2,7 @@
 import { SetOptional } from 'type-fest';
 import {
   KnowledgeLevelGroup,
+  KnowledgeLevelSeriesGroup,
   NestedWorkNode
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { useGlobalController, useGlobalReadAny } from 'selective-context';
@@ -29,10 +30,10 @@ import {
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
 const listenerKey = 'klg-controller';
-export const knowledgeLevelGroupContextKey = 'knowledgeLevelGroup';
-export default function KnowledgeLevelGroupManager() {
+export const knowledgeLevelSeriesGroupContextKey = 'knowledgeLevelSeriesGroup';
+export default function KnowledgeLevelSeriesGroupManager() {
   const { dispatch } = useGlobalController({
-    contextKey: knowledgeLevelGroupContextKey,
+    contextKey: knowledgeLevelSeriesGroupContextKey,
     initialValue: knowledgeLevelGroupTemplate,
     listenerKey: listenerKey
   });
@@ -131,12 +132,13 @@ export type KnowledgeLevelGroupTemplate = SetOptional<
 >;
 
 export const K_D_TEMPLATE_ID = 'template';
-export const knowledgeLevelGroupTemplate: SetOptional<
+type KLGTemplate = SetOptional<
   KnowledgeLevelGroup,
   'cycle' | 'knowledgeLevel' | 'workTaskTypeName'
-> = {
+>;
+export const knowledgeLevelGroupTemplate: KLGTemplate = {
   children: [],
-  type: knowledgeLevelGroupContextKey,
+  type: 'knowledgeLevelGroup',
   path: K_D_TEMPLATE_ID,
   selected: true
 };
@@ -145,4 +147,15 @@ export const BlankKnowledgeDomain: KnowledgeDomainDto = {
   name: '',
   id: -1,
   shortCode: 'NA'
+};
+
+type KLSGTemplate = SetOptional<
+  KnowledgeLevelSeriesGroup,
+  'knowledgeLevelSeries'
+>;
+
+export const klsgTemplate: KLSGTemplate = {
+  path: 'template',
+  type: 'knowledgeLevelSeriesGroup',
+  children: []
 };
