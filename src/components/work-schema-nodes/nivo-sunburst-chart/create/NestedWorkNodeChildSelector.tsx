@@ -19,19 +19,18 @@ import {
 import { Select, Selection, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { MonoFunction } from '@/types';
-import { getAnyIdAsString } from 'react-d3-force-wrapper';
 
 export default function NestedWorkNodeChildSelector({
-  parentId,
-  selectionId,
+  parentPath,
+  selectionPath,
   labelAccessor = nodeLabelAccessor,
   ...selectProps
 }: {
-  parentId: string;
-  selectionId: string;
+  parentPath: string;
+  selectionPath: string;
   labelAccessor?: MonoFunction<WorkNodeHierarchy, string>;
 } & Omit<SelectProps, 'children'>) {
-  const listenerKey = `${parentId}:selectChild`;
+  const listenerKey = `${parentPath}:selectChild`;
   const { currentState } = useGlobalListener({
     contextKey: knowledgeLevelSeriesGroupContextKey,
     initialValue: knowledgeLevelGroupTemplate,
@@ -41,7 +40,7 @@ export default function NestedWorkNodeChildSelector({
   const [parent, childList] = useMemo(() => {
     const hierarchyList = getHierarchyList(
       currentState as NestedWorkNode,
-      parentId
+      parentPath
     );
     const parent = hierarchyList[hierarchyList.length - 1];
     console.log(hierarchyList, parent);
@@ -52,11 +51,11 @@ export default function NestedWorkNodeChildSelector({
         WorkNodeHierarchy,
         WorkNodeHierarchy[]
       ];
-  }, [parentId, currentState]);
+  }, [parentPath, currentState]);
 
   const depth = useMemo(() => {
-    return parentId.split('/').length;
-  }, [parentId]);
+    return parentPath.split('/').length;
+  }, [parentPath]);
 
   if (parent.type === 'leaf' || !parent) return null;
 
@@ -64,7 +63,7 @@ export default function NestedWorkNodeChildSelector({
     <>
       <InnerSelectorMemo
         childList={childList}
-        selectionId={selectionId}
+        selectionId={selectionPath}
         labelAccessor={labelAccessor}
         depth={depth}
         {...selectProps}
@@ -119,8 +118,7 @@ function InnerSelector({
       selectedKeys={[selectionId]}
       onSelectionChange={onSelectionChange}
       className={'w-60'}
-      label={label}
-      labelPlacement={'outside-left'}
+      placeholder={label}
     >
       {(item) => (
         <SelectItem

@@ -23,6 +23,7 @@ import { HasNumberId } from '@/api/types';
 import { produce } from 'immer';
 import { useSplitSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/Selectors';
 import {
+  findChildOrError,
   getHierarchyList,
   joinPath
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
@@ -30,14 +31,14 @@ import {
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
 const listenerKey = 'klg-controller';
-export const knowledgeLevelGroupContextKey = 'knowledgeLevelGroup';
+export const knowledgeLevelSeriesGroupContextKey = 'knowledgeLevelGroup';
 export default function KnowledgeLevelGroupManager({
   initialGroup
 }: {
-  initialGroup: KnowledgeLevelGroupTemplate;
+  initialGroup: KLSGTemplate;
 }) {
   const { dispatch } = useGlobalController({
-    contextKey: knowledgeLevelGroupContextKey,
+    contextKey: knowledgeLevelSeriesGroupContextKey,
     initialValue: initialGroup,
     listenerKey: listenerKey
   });
@@ -100,6 +101,7 @@ export default function KnowledgeLevelGroupManager({
     }
   }, [selectionPath, dispatch]);
 
+  /*
   useEffect(() => {
     const [cycle] = selectedCycleIdList.map(
       (cycleId) => readCycle(cycleId) as CycleDto
@@ -110,13 +112,25 @@ export default function KnowledgeLevelGroupManager({
     const [knowledgeLevel] = selectedKnowledgeLevelIdList.map(
       (klName) => readKnowledgeLevel(klName) as KnowledgeLevelDto
     );
-    dispatch((group) => {
-      return produce(group, (draft) => {
-        draft.knowledgeLevel = knowledgeLevel;
-        draft.workTaskTypeName = workTaskTypeName;
-        draft.cycle = cycle;
+
+    if (selectionPathRef.current.length > 2) {
+      dispatch((group) => {
+        return produce(group, (draft) => {
+          const child = findChildOrError<
+            KnowledgeLevelSeriesGroup,
+            KnowledgeLevelGroup
+          >(
+            draft as KnowledgeLevelSeriesGroup,
+            joinPath(...selectionPathRef.current.slice(0, 2))
+          );
+          if (child.type === 'knowledgeLevelGroup') {
+            child.knowledgeLevel = knowledgeLevel;
+            child.workTaskTypeName = workTaskTypeName;
+            child.cycle = cycle;
+          }
+        });
       });
-    });
+    }
   }, [
     selectedWorkTaskTypeNameIdList,
     selectedCycleIdList,
@@ -126,6 +140,7 @@ export default function KnowledgeLevelGroupManager({
     readKnowledgeLevel,
     readCycle
   ]);
+    */
 
   return null;
 }
@@ -153,7 +168,7 @@ export const BlankKnowledgeDomain: KnowledgeDomainDto = {
   shortCode: 'NA'
 };
 
-type KLSGTemplate = SetOptional<
+export type KLSGTemplate = SetOptional<
   KnowledgeLevelSeriesGroup,
   'knowledgeLevelSeries'
 >;

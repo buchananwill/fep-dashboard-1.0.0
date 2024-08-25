@@ -1,27 +1,32 @@
 'use client';
 import { useGlobalListener } from 'selective-context';
 import {
-  knowledgeLevelGroupContextKey,
+  knowledgeLevelSeriesGroupContextKey,
   KnowledgeLevelGroupTemplate,
   knowledgeLevelGroupTemplate
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { WorkNodeResponsiveSunburst } from '@/components/work-schema-nodes/nivo-sunburst-chart/ResponsiveSunburst';
-import { KnowledgeLevelGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import {
+  KnowledgeLevelGroup,
+  KnowledgeLevelSeriesGroup
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
 export default function SunburstEditView({
-  klgt
+  knowledgeLevelSeriesGroup
 }: {
-  klgt: KnowledgeLevelGroupTemplate;
+  knowledgeLevelSeriesGroup: KnowledgeLevelSeriesGroup;
 }) {
-  const { currentState } = useGlobalListener<KnowledgeLevelGroupTemplate>({
-    contextKey: knowledgeLevelGroupContextKey,
-    initialValue: klgt,
+  const { currentState } = useGlobalListener<KnowledgeLevelSeriesGroup>({
+    contextKey: knowledgeLevelSeriesGroupContextKey,
+    initialValue: knowledgeLevelSeriesGroup,
     listenerKey: 'viewer'
   });
 
   return (
     <div className={'h-[75vh] w-[75vw]'}>
-      <WorkNodeResponsiveSunburst data={currentState as KnowledgeLevelGroup} />
+      <WorkNodeResponsiveSunburst
+        data={currentState as KnowledgeLevelSeriesGroup}
+      />
     </div>
   );
 }

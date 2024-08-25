@@ -21,19 +21,19 @@ export default function Selectors() {
 
   return (
     <div className={'flex flex-col gap-2'}>
-      {splitSelectionPath.map((idPart, index, array) => {
+      {splitSelectionPath.map((pathSection, index, array) => {
         const selectionParts = array.length;
-        const parentId = joinPath(...array.slice(0, index + 1));
+        const parentPath = joinPath(...array.slice(0, index + 1));
         const selectionId =
           index + 1 === selectionParts
             ? ''
             : joinPath(...array.slice(0, index + 2));
         return (
           <NestedWorkNodeChildSelector
-            parentId={parentId}
-            selectionId={selectionId}
+            parentPath={parentPath}
+            selectionPath={selectionId}
             key={index}
-            aria-label={`select child of ${parentId}`}
+            aria-label={`select child of ${parentPath}`}
           />
         );
       })}

@@ -36,16 +36,14 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   //   nestedBundleEndpoint(rootId)
   // );
   //
-  const { data } = await getWithoutBody<NestedWorkNodeDto>(
-    getLevelSeriesTree('2')
-  );
+  const { data } = await getWithoutBody<
+    NestedWorkNodeDto<KnowledgeLevelSeriesGroup>
+  >(getLevelSeriesTree('2'));
   // const { data } = dtoData;
   const withLeaves = structuredClone(OneToOneEnrollments);
   addLeaves(withLeaves, 4);
 
-  const colorizeKnowledgeDomains1 = colorizeKnowledgeDomains(
-    OneToOneWithOneHourEach as KnowledgeLevelSeriesGroup
-  );
+  const colorizeKnowledgeDomains1 = colorizeKnowledgeDomains(data);
   return (
     <div className={'h-[80vh] w-[80vw]'}>
       <WorkNodeResponsiveSunburst data={colorizeKnowledgeDomains1} />

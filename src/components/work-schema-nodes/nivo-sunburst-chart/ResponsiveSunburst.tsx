@@ -18,6 +18,7 @@ export function WorkNodeResponsiveSunburst({
     <ResponsiveSunburst
       data={data}
       margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+      id={'path'}
       value="size"
       cornerRadius={10}
       borderWidth={2}
@@ -78,7 +79,7 @@ function nestedWorkNodeArcLabel(
       return `${data.size / 4}hr`;
     }
     case 'bundle':
-      return data.name;
+      return data.name ?? data.path;
     case 'leafList':
       return '';
     case 'knowledgeLevelGroup':

@@ -9,7 +9,7 @@ Content-Type: application/json
       "type": "knowledgeLevelGroup",
       "workTaskTypeName": { "name": "Teaching", "id": 1 },
       "knowledgeLevel": {
-        "id": 1,
+        "id": 4,
         "name": "Level 3 Year 1",
         "levelOrdinal": 1,
         "knowledgeLevelSeriesId": 2
@@ -173,7 +173,7 @@ Content-Type: application/json
       "type": "knowledgeLevelGroup",
       "workTaskTypeName": { "name": "Teaching", "id": 1 },
       "knowledgeLevel": {
-        "id": 1,
+        "id": 5,
         "name": "Level 3 Year 2",
         "levelOrdinal": 2,
         "knowledgeLevelSeriesId": 2
@@ -388,7 +388,7 @@ Content-Type: application/json
       "type": "knowledgeLevelGroup",
       "workTaskTypeName": { "name": "Teaching", "id": 1 },
       "knowledgeLevel": {
-        "id": 1,
+        "id": 6,
         "name": "Level 4",
         "levelOrdinal": 3,
         "knowledgeLevelSeriesId": 2
@@ -580,19 +580,19 @@ Content-Type: application/json
       {
         "id": 4,
         "name": "Level 3 Year 1",
-        "levelOrdinal": 0,
+        "levelOrdinal": 1,
         "knowledgeLevelSeriesId": 2
       },
       {
         "id": 5,
         "name": "Level 3 Year 2",
-        "levelOrdinal": 1,
+        "levelOrdinal": 2,
         "knowledgeLevelSeriesId": 2
       },
       {
         "id": 6,
         "name": "Level 4",
-        "levelOrdinal": 2,
+        "levelOrdinal": 3,
         "knowledgeLevelSeriesId": 2
       }
     ]
