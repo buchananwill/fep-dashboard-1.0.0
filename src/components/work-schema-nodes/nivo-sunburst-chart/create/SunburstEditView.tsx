@@ -8,10 +8,14 @@ import {
 import { WorkNodeResponsiveSunburst } from '@/components/work-schema-nodes/nivo-sunburst-chart/ResponsiveSunburst';
 import { KnowledgeLevelGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
-export default function SunburstEditView() {
+export default function SunburstEditView({
+  klgt
+}: {
+  klgt: KnowledgeLevelGroupTemplate;
+}) {
   const { currentState } = useGlobalListener<KnowledgeLevelGroupTemplate>({
     contextKey: knowledgeLevelGroupContextKey,
-    initialValue: knowledgeLevelGroupTemplate,
+    initialValue: klgt,
     listenerKey: 'viewer'
   });
 

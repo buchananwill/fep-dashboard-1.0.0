@@ -24,10 +24,14 @@ type WorkTaskTypeNameDto = HasName & HasNumberId;
 
 const listenerKey = 'klg-controller';
 export const knowledgeLevelGroupContextKey = 'knowledgeLevelGroup';
-export default function KnowledgeLevelGroupManager() {
+export default function KnowledgeLevelGroupManager({
+  initialGroup
+}: {
+  initialGroup: KnowledgeLevelGroupTemplate;
+}) {
   const { dispatch } = useGlobalController({
     contextKey: knowledgeLevelGroupContextKey,
-    initialValue: knowledgeLevelGroupTemplate,
+    initialValue: initialGroup,
     listenerKey: listenerKey
   });
   const readCycle = useReadAnyDto(EntityClassMap.cycle);
