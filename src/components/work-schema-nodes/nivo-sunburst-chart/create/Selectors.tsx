@@ -6,7 +6,7 @@ import { SelectionIdPathKey } from '@/components/work-schema-nodes/nivo-sunburst
 import { useSplitSelectionPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/useSplitSelectionPath';
 import { joinPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
 
-export function useSplitSelectionListener(listenerKey: string) {
+export function usePathSelectionListener(listenerKey: string) {
   const { currentState: selectionPath } = useGlobalListener({
     contextKey: SelectionIdPathKey,
     initialValue: K_D_TEMPLATE_ID,
@@ -17,7 +17,7 @@ export function useSplitSelectionListener(listenerKey: string) {
 }
 
 export default function Selectors() {
-  const splitSelectionPath = useSplitSelectionListener('selectors');
+  const splitSelectionPath = usePathSelectionListener('selectors');
 
   return (
     <div className={'flex flex-col gap-2'}>

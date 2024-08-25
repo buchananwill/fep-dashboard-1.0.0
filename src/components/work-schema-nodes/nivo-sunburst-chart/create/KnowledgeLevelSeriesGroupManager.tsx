@@ -21,7 +21,7 @@ import {
 } from '@/api/generated-types/generated-types';
 import { HasNumberId } from '@/api/types';
 import { produce } from 'immer';
-import { useSplitSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/Selectors';
+import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/Selectors';
 import {
   findChildOrError,
   getHierarchyList,
@@ -67,7 +67,7 @@ export default function KnowledgeLevelGroupManager({
     EmptyArray
   );
 
-  const selectionPath = useSplitSelectionListener(listenerKey);
+  const selectionPath = usePathSelectionListener(listenerKey);
   const selectionPathRef = useRef(selectionPath);
 
   useEffect(() => {
