@@ -5,13 +5,17 @@ import {
   KnowledgeLevelSeriesGroup,
   NestedWorkNode
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { useGlobalController, useGlobalReadAny } from 'selective-context';
-import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
+import {
+  useGlobalController,
+  useGlobalDispatch,
+  useGlobalReadAny
+} from 'selective-context';
+import { ChangesCallbackMap, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/literals';
 import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import {
   CycleDto,
@@ -27,24 +31,56 @@ import {
   joinPath
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
+import { Api } from '@/api/clientApi_';
+import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
+import submitKnowledgeLevelSeriesGroup from '@/components/work-schema-nodes/nivo-sunburst-chart/create/submitAction';
 
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
 const listenerKey = 'klg-controller';
-export const knowledgeLevelSeriesGroupContextKey = 'knowledgeLevelGroup';
-export default function KnowledgeLevelGroupManager({
+export const knowledgeLevelSeriesGroupContextKey = 'knowledgeLevelSeriesGroup';
+export default function KnowledgeLevelSeriesGroupManager({
   initialGroup
 }: {
   initialGroup: KLSGTemplate;
 }) {
-  const { dispatch } = useGlobalController({
+  const { dispatch, currentState } = useGlobalController({
     contextKey: knowledgeLevelSeriesGroupContextKey,
     initialValue: initialGroup,
     listenerKey: listenerKey
   });
+  const mutableRefObject = useRef(currentState);
+
   const readCycle = useReadAnyDto(EntityClassMap.cycle);
   const readWorkTaskTypeName = useReadAnyDto(workTaskTypeName);
   const readKnowledgeLevel = useReadAnyDto(EntityClassMap.knowledgeLevel);
+
+  const { dispatchWithoutListen: dispatchUnsavedFlag } =
+    useGlobalDispatch<ChangesCallbackMap>('unsavedChanges');
+
+  const [hasChanges, setHasChanges] = useState(false);
+
+  useEffect(() => {
+    if (mutableRefObject.current !== currentState) {
+      setHasChanges(true);
+      mutableRefObject.current = currentState;
+    }
+  }, [currentState]);
+
+  const handleCommit = useCallback(async () => {
+    const response = await submitKnowledgeLevelSeriesGroup(
+      mutableRefObject.current as KnowledgeLevelSeriesGroup
+    );
+    console.log(response);
+    setHasChanges(false);
+  }, []);
+
+  useHasChangesFlagCallback(
+    handleCommit,
+    hasChanges,
+    dispatchUnsavedFlag,
+    knowledgeLevelSeriesGroupContextKey
+  );
 
   const { currentState: selectedKnowledgeLevelIdList } =
     NamespacedHooks.useListen(

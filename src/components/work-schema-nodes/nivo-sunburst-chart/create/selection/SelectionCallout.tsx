@@ -58,6 +58,8 @@ export default function SelectionCallout() {
 
         // Store the observers in ref for cleanup
         observerRef.current = { resizeObserver, mutationObserver };
+      } else {
+        setPosition({ top: 0, left: 0 });
       }
     }
 
@@ -68,7 +70,7 @@ export default function SelectionCallout() {
         observerRef.current.mutationObserver?.disconnect();
       }
     };
-  }, [path]);
+  }, [path, updatePosition]);
 
   const pathPresent = position.left !== 0 && position.top !== 0;
 
