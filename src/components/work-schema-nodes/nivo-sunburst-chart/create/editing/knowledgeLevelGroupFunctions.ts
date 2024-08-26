@@ -6,15 +6,24 @@ import {
   KnowledgeDomainGroup,
   KnowledgeLevelGroup,
   NestedWorkNode,
+  NestedWorkNodeDiscriminator,
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { WritableDraft } from 'immer/src/types/types-external';
 import { interpolateRainbow } from 'd3';
+import { split } from 'lodash';
 
 export type Parent<T> = {
   children: T[];
 };
+
+function childNotFoundError(
+  selectionPath: string,
+  type: NestedWorkNodeDiscriminator
+) {
+  throw Error(`Did not find ${type} on path ${selectionPath}`);
+}
 
 export function getKnowledgeDomainGroup(
   draft: WritableDraft<WorkNodeHierarchy>,
@@ -33,10 +42,7 @@ export function getKnowledgeDomainGroup(
   }
   if (hierarchyListElement?.type === 'knowledgeDomainGroup') {
     return hierarchyListElement;
-  } else
-    throw Error(
-      `Did not find knowledgeDomainGroup at path ${knowledgeDomainGroupId}`
-    );
+  } else childNotFoundError(knowledgeDomainGroupId, 'knowledgeDomainGroup');
 }
 
 export function addDeliveryAllocationListToKdg(
@@ -57,12 +63,17 @@ export function addDeliveryAllocationListToKdg(
   return daList;
 }
 
-export function splitPath(node: DeliveryAllocationBase) {
-  return node.path.split('/');
+function splitPath(path: string) {
+  return path.split('/');
+}
+
+export function splitPathOf(node: DeliveryAllocationBase) {
+  const { path } = node;
+  return splitPath(path);
 }
 
 function getDeliveryAllocationListSize(list: DeliveryAllocationList) {
-  const strings = splitPath(list);
+  const strings = splitPathOf(list);
   return parseInt(strings[strings.length - 1]);
 }
 
@@ -75,7 +86,7 @@ export function makeChildPath(parent: WorkNodeHierarchy) {
   const { children } = parent;
   let betterSuffix = parent.children.length;
   if (betterSuffix > 0) {
-    const strings = splitPath(children[children.length - 1]);
+    const strings = splitPathOf(children[children.length - 1]);
     const lastNum = parseInt(strings[strings.length - 1]);
     betterSuffix = lastNum + 1;
   }
@@ -109,6 +120,25 @@ function sliceSplitPath(splittedPath: string[], ancestorDistance: number) {
   );
 }
 
+function findChildOfType(
+  root: NestedWorkNode,
+  selectionPath: string,
+  type: NestedWorkNodeDiscriminator
+): WorkNodeHierarchy | undefined {
+  const splittedPath = splitPath(selectionPath);
+  let path = root.path;
+  let nextParent = root;
+  for (let i = 1; i < splittedPath.length; i++) {
+    let nextPathSection = splittedPath[i];
+    path = path === '' ? nextPathSection : joinPath(path, nextPathSection);
+    const find = nextParent.children.find((child) => child.path === path);
+    if (find && find.type === type) return find;
+    else if (find && find.type !== 'leaf') {
+      nextParent = find;
+    }
+  }
+}
+
 export function findChildOfWorkNodeHierarchy(
   draft: WritableDraft<WorkNodeHierarchy>,
   childPath: string
@@ -123,33 +153,34 @@ export function findChildOfWorkNodeHierarchy(
 export type HasPath = { path: string };
 
 function getAncestorPath(child: HasPath, ancestorDistance: number) {
-  const splittedPath = splitPath(child);
+  const splittedPath = splitPathOf(child);
   return sliceSplitPath(splittedPath, ancestorDistance);
 }
 
 export function findKnowledgeDomainGroup(
-  knowledgeLevelGroup: KnowledgeLevelGroupTemplate,
-  knowledgeDomainGroupId: string
-) {
-  const bundleId = sliceSplitPath(knowledgeDomainGroupId.split('/'), 1);
-  const bundle = findChildOrError<KnowledgeLevelGroupTemplate, Bundle>(
-    knowledgeLevelGroup,
-    bundleId
-  );
-  return findChildOrError<Bundle, KnowledgeDomainGroup>(
-    bundle,
-    knowledgeDomainGroupId
-  );
+  root: NestedWorkNode,
+  selectionPath: string
+): KnowledgeDomainGroup {
+  const kdg = findChildOfType(root, selectionPath, 'knowledgeDomainGroup');
+  if (!kdg) childNotFoundError(selectionPath, 'knowledgeDomainGroup');
+  return kdg as KnowledgeDomainGroup;
+  // const bundleId = sliceSplitPath(selectionPath.split('/'), 1);
+  // const bundle = findChildOrError<KnowledgeLevelGroupTemplate, Bundle>(
+  //   knowledgeLevelGroup,
+  //   bundleId
+  // );
+  // return findChildOrError<Bundle, KnowledgeDomainGroup>(
+  //   bundle,
+  //   selectionPath
+  // );
 }
 
 export function getHierarchyList(
   root: NestedWorkNode,
   childPath: string
 ): WorkNodeHierarchy[] {
-  console.log(root, childPath);
   const splittedPath = childPath.split('/');
   const depth = splittedPath.length;
-  console.log(splittedPath);
   const hierarchyList: WorkNodeHierarchy[] = [root];
   for (let i = 1; i < depth; i++) {
     const nextChildPath = splittedPath.slice(0, i + 1).join('/');
@@ -205,13 +236,14 @@ export function findOrCreateList(
  * */
 export function addLeafToKnowledgeDomainGroupChild(
   draft: WritableDraft<WorkNodeHierarchy> | WorkNodeHierarchy,
-  knowledgeDomainGroupId: string,
+  selectionPath: string,
   size: number
 ) {
-  const knowledgeDomainGroup = getKnowledgeDomainGroup(
-    draft,
-    knowledgeDomainGroupId
+  const knowledgeDomainGroup = findKnowledgeDomainGroup(
+    draft as NestedWorkNode,
+    selectionPath
   );
+  console.log(knowledgeDomainGroup);
   let list = findOrCreateList(knowledgeDomainGroup, size);
   addLeafToThisList(list, size);
 }

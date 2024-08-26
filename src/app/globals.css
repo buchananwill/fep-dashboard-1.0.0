@@ -24,7 +24,10 @@ canvas {
 .container::after {
     content: '';
     position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 10%, rgba(255, 255, 255, 1) 90%, rgba(255, 255, 255, 0));
     pointer-events: none;
 }
@@ -37,7 +40,6 @@ canvas {
 .sixth-child :nth-child(6n+6) {
     border-right-color: #393939; /* Or any other style you want */
 }
-
 
 
 @keyframes bounce-less {
@@ -122,6 +124,7 @@ canvas {
         position: absolute;
         @apply w-6 h-6 bg-red-400 z-50 rounded-full
     }
+
     .center-vertical-with-margin {
         @apply mt-auto mb-auto
     }
@@ -135,6 +138,17 @@ canvas {
     }
 
 
+}
+
+@keyframes ping {
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.animate-ping-slow {
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 @keyframes moveAlongPath {

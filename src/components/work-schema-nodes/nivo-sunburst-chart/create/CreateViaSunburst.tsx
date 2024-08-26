@@ -34,7 +34,7 @@ export default async function CreateViaSunburst() {
   const cycleList = await Api.Cycle.getAll();
 
   return (
-    <div className={'flex'}>
+    <div className={'relative flex p-4 '}>
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.knowledgeLevel}
         dtoList={knowledgeLevelDtos}

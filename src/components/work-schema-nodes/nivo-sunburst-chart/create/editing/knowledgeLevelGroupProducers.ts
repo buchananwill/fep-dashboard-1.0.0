@@ -1,7 +1,5 @@
-import { produce } from 'immer';
-import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
+import { produce, setAutoFreeze } from 'immer';
 import {
-  KnowledgeLevelGroup,
   NestedWorkNode,
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
@@ -12,7 +10,6 @@ import {
   addLeafToKnowledgeDomainGroupChild,
   findKnowledgeDomainGroup,
   getHierarchyList,
-  getKnowledgeDomainGroup,
   makeNewBundle,
   removeChildAnyLevel
 } from './knowledgeLevelGroupFunctions';
@@ -35,15 +32,15 @@ export const produceKnowledgeDomainGroup = produce<WorkNodeHierarchy, [string]>(
 );
 
 export const addKnowledgeDomainToGroup = produce<
-  KnowledgeLevelGroupTemplate,
+  NestedWorkNode,
   [string, KnowledgeDomainDto]
->((draft, knowledgeDomainGroupId, knowledgeDomain) => {
-  const kDomainGroup = findKnowledgeDomainGroup(draft, knowledgeDomainGroupId);
+>((draft, selectionPath, knowledgeDomain) => {
+  const kDomainGroup = findKnowledgeDomainGroup(draft, selectionPath);
   kDomainGroup.knowledgeDomains.push(knowledgeDomain);
 });
 
 export const removeKnowledgeDomainFromGroup = produce<
-  KnowledgeLevelGroupTemplate,
+  NestedWorkNode,
   [string, number]
 >((draft, knowledgeDomainGroupId, knowledgeDomainId) => {
   const knowledgeDomainGroup = findKnowledgeDomainGroup(
@@ -59,24 +56,17 @@ export const removeKnowledgeDomainFromGroup = produce<
 export const addDeliveryAllocationList = produce<
   NestedWorkNode,
   [string, number]
->((draft, knowledgeDomainGroupId, deliveryAllocationSize) => {
-  const knowledgeDomainGroup = getKnowledgeDomainGroup(
-    draft,
-    knowledgeDomainGroupId
-  );
-  if (knowledgeDomainGroup.type === 'knowledgeDomainGroup') {
-    addDeliveryAllocationListToKdg(
-      knowledgeDomainGroup,
-      deliveryAllocationSize
-    );
-  }
+>((draft, selectionPath, deliveryAllocationSize) => {
+  const knowledgeDomainGroup = findKnowledgeDomainGroup(draft, selectionPath);
+
+  addDeliveryAllocationListToKdg(knowledgeDomainGroup, deliveryAllocationSize);
 });
 
 export const addDeliveryAllocationLeaf = produce<
   WorkNodeHierarchy,
   [string, number]
->((draft, knowledgeDomainGroupId, size) => {
-  addLeafToKnowledgeDomainGroupChild(draft, knowledgeDomainGroupId, size);
+>((draft, selectionPath, size) => {
+  addLeafToKnowledgeDomainGroupChild(draft, selectionPath, size);
 });
 
 export const removeChildImmutably = produce<WorkNodeHierarchy, [string]>(

@@ -32,7 +32,7 @@ export const SelectionLayer = ({
             borderColor: datum.color,
             borderWidth: 0,
             path: datum.svgPath,
-            opacity: 0.5
+            opacity: 0
           }
         });
       })}

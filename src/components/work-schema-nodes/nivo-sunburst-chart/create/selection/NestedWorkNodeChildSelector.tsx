@@ -9,7 +9,7 @@ import React, { useCallback, useMemo, useTransition } from 'react';
 import {
   getHierarchyList,
   joinPath,
-  splitPath
+  splitPathOf
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 import { EmptyArray } from '@/api/literals';
 import {
@@ -170,7 +170,7 @@ function InnerSelector({
 function nodeLabelAccessor(node: WorkNodeHierarchy) {
   switch (node.type) {
     case 'leaf': {
-      const strings = splitPath(node);
+      const strings = splitPathOf(node);
       return joinPath(...strings.slice(strings.length - 3, strings.length));
     }
     case 'bundle': {

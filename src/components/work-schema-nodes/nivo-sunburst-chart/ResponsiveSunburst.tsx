@@ -95,6 +95,7 @@ function nestedWorkNodeArcLabel(
   computedData: ComputedDatum<WorkNodeHierarchy>
 ) {
   const { data, value, parent } = computedData;
+  const hours = `${value / 4}hrs`;
   switch (data.type) {
     case 'knowledgeDomainGroup': {
       const kdStringCode =
@@ -104,16 +105,16 @@ function nestedWorkNodeArcLabel(
       return `${kdStringCode}`;
     }
     case 'leaf': {
-      return `${data.size / 4}hr`;
+      return `${data.size / 4}hrs`;
     }
     case 'bundle':
-      return data.name ?? data.path;
+      return [data.name ?? data.path, hours].join(': ');
     case 'leafList':
       return '';
     case 'knowledgeLevelGroup':
-      return `${data.knowledgeLevel.name}: ${value / 4}hrs`;
+      return `${data.knowledgeLevel.name}: ${hours}`;
     default:
-      return `${data.type}, ${value / 4}`;
+      return `${data.type}: ${hours}`;
   }
 }
 

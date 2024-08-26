@@ -8,11 +8,11 @@ export default function EditorPanel({
   initialKnowledgeLevelSeriesGroup: KnowledgeLevelSeriesGroup;
 }) {
   return (
-    <div className={'grid grid-cols-2 gap-2'}>
-      <Selectors />
+    <div className={'absolute right-0 grid grid-cols-2 gap-2'}>
       <EditButtons
         initialKnowledgeLevelSeriesGroup={initialKnowledgeLevelSeriesGroup}
       ></EditButtons>
+      <Selectors />
     </div>
   );
 }

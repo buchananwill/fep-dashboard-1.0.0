@@ -49,7 +49,7 @@ export default function EditButtons({
 }) {
   const { currentState, dispatch } = useGlobalController({
     contextKey: SelectionPathKey,
-    initialValue: initialKnowledgeLevelSeriesGroup.path,
+    initialValue: initialKnowledgeLevelSeriesGroup.path ?? '',
     listenerKey: 'edit-buttons'
   });
   const [path, selectionSplit] = useSplitSelectionPath(currentState);
@@ -130,7 +130,10 @@ export default function EditButtons({
     (klg: WorkNodeHierarchy) => {
       return addDeliveryAllocationLeaf(
         klg,
-        joinPathUpTo(selectionSplitRef.current, knowledgeDomainGroupDepth),
+        joinPathUpTo(
+          selectionSplitRef.current,
+          selectionSplitRef.current.length
+        ),
         sizeToAdd?.value ?? 1
       );
     },
