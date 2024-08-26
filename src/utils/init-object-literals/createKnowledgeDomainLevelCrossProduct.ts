@@ -26,3 +26,7 @@ export function createWholeSchoolPartials(domainNames: string[]) {
     ...createALevelPartials(domainNames)
   ];
 }
+
+export function createCsvpaPartials(domainNames: string[]) {
+  return createKnowledgeDomainLevelCrossProduct(domainNames, [0, 1, 2, 3]);
+}

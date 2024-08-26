@@ -156,13 +156,15 @@ const requestParamsListList: RequestCreationParams[][] = [
   ...standardDepartmentParams
 ];
 
+export function flattenParamList(list: RequestCreationParams[]) {
+  return list.reduce(
+    (acc, params) => ({ ...acc, ...createRequestRecord(params) }),
+    {}
+  );
+}
+
 export const bulkPipeline = requestParamsListList
-  .map((list) =>
-    list.reduce(
-      (acc, params) => ({ ...acc, ...createRequestRecord(params) }),
-      {}
-    )
-  )
+  .map(flattenParamList)
   .map((record) => providerMergingFunction(record));
 
 export const pipelineAsJson = JSON.stringify(bulkPipeline);
