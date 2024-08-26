@@ -122,6 +122,7 @@ function InnerSelector({
 
   const onSelectionChange = useCallback(
     (selection: Selection) => {
+      console.log(selection);
       startTransition(() => {
         if (selection === 'all') {
           throw new Error('Only single selection is supported');
@@ -184,7 +185,7 @@ function nodeLabelAccessor(node: WorkNodeHierarchy) {
       return node.knowledgeDomains.map((kd) => kd.name).join(', ');
     }
     case 'leafList': {
-      return ['Size: ', pathOf[pathOf.length - 1]].join('');
+      return ['Size: ', getHours(parseInt(pathOf[pathOf.length - 1]))].join('');
     }
     default: {
       return node.path;

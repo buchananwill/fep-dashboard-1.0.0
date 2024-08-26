@@ -11,13 +11,11 @@ import {
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { getInheritedColorGenerator } from '@nivo/colors';
 import { patternDotsDef } from '@nivo/core';
-import {
-  useGlobalDispatch,
-  useGlobalDispatchAndListener
-} from 'selective-context';
+import { useGlobalDispatch } from 'selective-context';
 import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/SelectionController';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { SelectionLayer } from '@/components/work-schema-nodes/nivo-sunburst-chart/selection-layer/SelectionLayer';
+import { nestedWorkNodeArcLabel } from '@/components/work-schema-nodes/nivo-sunburst-chart/nestedWorkNodeArcLabel';
 
 function callOutLayer(props: SunburstCustomLayerProps<WorkNodeHierarchy>) {
   props.arcGenerator;
@@ -43,6 +41,13 @@ export function WorkNodeResponsiveSunburst({
   return (
     <ResponsiveSunburst
       layers={['arcs', 'arcLabels', SelectionLayer]}
+      theme={{
+        text: {
+          fontSize: 12,
+          outlineWidth: 0,
+          outlineColor: 'transparent'
+        }
+      }}
       data={data}
       margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
       id={'path'}
@@ -60,15 +65,6 @@ export function WorkNodeResponsiveSunburst({
           background: '#ffffff'
         })
       ]}
-      // fill={[
-      //   {
-      //     match: (d) => {
-      //       // @ts-ignore
-      //       return (d.data as WorkNodeHierarchy).path === currentState;
-      //     },
-      //     id: 'dots'
-      //   }
-      // ]}
       colors={{ scheme: 'set3' }}
       childColor={customChildColors}
       enableArcLabels={true}
@@ -76,7 +72,7 @@ export function WorkNodeResponsiveSunburst({
       arcLabelsSkipAngle={5}
       arcLabelsTextColor={{
         from: 'color',
-        modifiers: [['darker', 1.4]]
+        modifiers: [['darker', 2]]
       }}
     />
   );
@@ -93,33 +89,6 @@ export function getKdStringCode(data: KnowledgeDomainGroup) {
 
 export function getHours(value: number) {
   return `${value / 4} hrs`;
-}
-
-function nestedWorkNodeArcLabel(
-  computedData: ComputedDatum<WorkNodeHierarchy>
-) {
-  const { data, value, parent } = computedData;
-  const hours = getHours(value);
-  switch (data.type) {
-    case 'knowledgeDomainGroup': {
-      const kdStringCode =
-        data.knowledgeDomains.length > 1
-          ? getKdStringCode(data)
-          : data.knowledgeDomains[0]?.name ?? 'No KD';
-      return `${kdStringCode}`;
-    }
-    case 'leaf': {
-      return `${data.size / 4}hrs`;
-    }
-    case 'bundle':
-      return [data.name ?? data.path, hours].join(': ');
-    case 'leafList':
-      return '';
-    case 'knowledgeLevelGroup':
-      return `${data.knowledgeLevel.name}: ${hours}`;
-    default:
-      return `${data.type}: ${hours}`;
-  }
 }
 
 function customChildColors(parent: Datum, child: Datum) {

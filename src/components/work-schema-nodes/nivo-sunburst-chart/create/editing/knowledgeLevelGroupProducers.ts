@@ -18,17 +18,18 @@ export const produceKnowledgeDomainGroup = produce<WorkNodeHierarchy, [string]>(
   (draft, bundlePath) => addKnowledgeDomainGroup(draft, bundlePath)
 );
 
-export const addKnowledgeDomainToGroup = produce<
+export const replaceKnowledgeDomainsInGroup = produce<
   NestedWorkNode,
-  [string, KnowledgeDomainDto]
->((draft, selectionPath, knowledgeDomain) => {
+  [string, KnowledgeDomainDto[]]
+>((draft, selectionPath, knowledgeDomainsReplacement) => {
   const kDomainGroup = findKnowledgeDomainGroup(draft, selectionPath);
-  kDomainGroup.knowledgeDomains.push(knowledgeDomain);
+  kDomainGroup.knowledgeDomains = knowledgeDomainsReplacement;
 });
 
-export const removeKnowledgeDomainFromGroup = produce<
+/* Removed while the selection dropdown is handling it.
+export const removeKnowledgeDomainsFromGroup = produce<
   NestedWorkNode,
-  [string, number]
+  [string, number[]]
 >((draft, knowledgeDomainGroupId, knowledgeDomainId) => {
   const knowledgeDomainGroup = findKnowledgeDomainGroup(
     draft,
@@ -39,6 +40,8 @@ export const removeKnowledgeDomainFromGroup = produce<
       (kd) => kd.id !== knowledgeDomainId
     );
 });
+
+ */
 
 export const addDeliveryAllocationList = produce<
   NestedWorkNode,

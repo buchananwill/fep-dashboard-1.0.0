@@ -91,7 +91,7 @@ function UnsavedChangesContent({
         >
           <PendingOverlay pending={isPending} />
           <span className={'mr-2 w-fit text-nowrap text-black'}>
-            Unsaved changes.
+            Save changes?
           </span>
           <ExclamationTriangleIcon
             className={'h-6 w-6 fill-red-500'}

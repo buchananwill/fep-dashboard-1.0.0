@@ -86,7 +86,7 @@ export default function LeafEditGroup({
       </Dropdown>
       <MemoEditButton
         editCommand={handleRemoveDeliveryAllocationLeaf}
-        isDisabled={selectionLength < deliveryAllocationLeafDepth}
+        isDisabled={selectionLength <= deliveryAllocationLeafDepth}
       >
         Remove
       </MemoEditButton>

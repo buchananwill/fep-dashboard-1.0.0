@@ -25,7 +25,7 @@ export default function KnowledgeDomainGroupButtons({
       </MemoEditButton>
       <MemoEditButton
         editCommand={handleRemoveKDG}
-        isDisabled={selectionLength < knowledgeDomainGroupDepth}
+        isDisabled={selectionLength <= knowledgeDomainGroupDepth}
       >
         Remove
       </MemoEditButton>

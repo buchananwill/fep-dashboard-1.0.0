@@ -2,14 +2,13 @@
 import NestedWorkNodeChildSelector from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/NestedWorkNodeChildSelector';
 import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
 import { DiscriminatorOrder } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { useRef } from 'react';
 import { EditButtonGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
+import { useRefUpdatedEachRender } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/useRefUpdatedEachRender';
 
 export default function Selectors() {
   const [path, splitSelectionPath] = usePathSelectionListener('selectors');
   const selectionLength = splitSelectionPath.length;
-  const splitSelectionRef = useRef(splitSelectionPath);
-  splitSelectionRef.current = splitSelectionPath;
+  const splitSelectionRef = useRefUpdatedEachRender(splitSelectionPath);
 
   return (
     <>

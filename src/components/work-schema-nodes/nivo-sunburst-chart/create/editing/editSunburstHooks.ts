@@ -27,7 +27,7 @@ export function useDeselectRemovedId(
   return useCallback(
     (idDepth: number) => {
       const newSelection = joinPath(
-        ...selectionSplitRef.current.slice(0, idDepth - 1)
+        ...selectionSplitRef.current.slice(0, idDepth)
       );
       dispatch(newSelection);
     },
@@ -112,11 +112,12 @@ export function useLeafEdits(
 
   const handleRemoveDeliveryAllocationLeaf = useCallback(
     (klg: WorkNodeHierarchy) => {
-      deSelectRemovedId(deliveryAllocationLeafDepth);
-      return removeChildImmutably(
+      const afterChildRemoved = removeChildImmutably(
         klg,
         joinPathUpTo(selectionSplitRef.current, deliveryAllocationLeafDepth)
       );
+      deSelectRemovedId(deliveryAllocationLeafDepth);
+      return afterChildRemoved;
     },
     [deSelectRemovedId, selectionSplitRef]
   );

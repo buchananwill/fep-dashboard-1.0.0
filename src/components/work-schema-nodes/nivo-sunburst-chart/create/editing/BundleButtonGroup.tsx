@@ -6,17 +6,16 @@ import {
 import React from 'react';
 import { SelectionSplitRef } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
 import { MemoEditButton } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/WorkNodeHierarchyButton';
+import { EditBundleDetails } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditBundleDetails';
 
 export type ButtonEditGroupProps = {
   selectionSplitRef: SelectionSplitRef;
   selectionLength: number;
   deselectRemovedId: DeSelectRemovedId;
 };
-export default function BundleButtonGroup({
-  selectionSplitRef,
-  deselectRemovedId,
-  selectionLength
-}: ButtonEditGroupProps) {
+
+export default function BundleButtonGroup(props: ButtonEditGroupProps) {
+  const { selectionSplitRef, deselectRemovedId, selectionLength } = props;
   const { removeBundle, handleAddBundle } = useBundleEdits(
     deselectRemovedId,
     selectionSplitRef
@@ -31,6 +30,7 @@ export default function BundleButtonGroup({
       >
         Remove
       </MemoEditButton>
+      <EditBundleDetails {...props} />
     </>
   );
 }

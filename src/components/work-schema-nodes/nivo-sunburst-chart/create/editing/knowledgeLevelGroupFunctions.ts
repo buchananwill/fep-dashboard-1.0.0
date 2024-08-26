@@ -11,6 +11,7 @@ import {
 import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { WritableDraft } from 'immer/src/types/types-external';
 import { interpolateRainbow } from 'd3';
+import { getColorWithinSpace } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
 
 export type Parent<T> = {
   children: T[];
@@ -61,7 +62,7 @@ export function addDeliveryAllocationListToKdg(
   return daList;
 }
 
-function splitPath(path: string) {
+export function splitPath(path: string) {
   return path.split('/');
 }
 
@@ -118,7 +119,7 @@ function sliceSplitPath(splittedPath: string[], ancestorDistance: number) {
   );
 }
 
-function findChildOfType(
+export function findChildOfType(
   root: NestedWorkNode,
   selectionPath: string,
   type: NestedWorkNodeDiscriminator
@@ -241,7 +242,7 @@ export function addLeafToKnowledgeDomainGroupChild(
     draft as NestedWorkNode,
     selectionPath
   );
-  console.log(knowledgeDomainGroup);
+
   let list = findOrCreateList(knowledgeDomainGroup, size);
   addLeafToThisList(list, size);
 }
@@ -260,12 +261,12 @@ export function addKnowledgeDomainGroup(
       selected: false
     });
     bundle.children.forEach((kdgc, index, array) => {
-      kdgc.color = interpolateRainbow(index / array.length);
+      kdgc.color = getColorWithinSpace(index, array.length);
     });
   }
 }
 
-function deProxify(proxy: any) {
+export function deProxify(proxy: any) {
   return proxy ? JSON.parse(JSON.stringify(proxy)) : 'falsy';
 }
 
