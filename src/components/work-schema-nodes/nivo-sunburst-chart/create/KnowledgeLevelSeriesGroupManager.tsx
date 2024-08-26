@@ -25,8 +25,8 @@ import {
   findChildOrError,
   getHierarchyList,
   joinPath
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
-import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/usePathSelectionListener';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
+import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
 
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 

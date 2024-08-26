@@ -1,6 +1,6 @@
 'use client';
-import NestedWorkNodeChildSelector from '@/components/work-schema-nodes/nivo-sunburst-chart/create/NestedWorkNodeChildSelector';
-import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/usePathSelectionListener';
+import NestedWorkNodeChildSelector from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/NestedWorkNodeChildSelector';
+import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
 import { DiscriminatorOrder } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
 export default function Selectors() {

@@ -74,6 +74,10 @@ export const DiscriminatorOrder: NestedWorkNodeDiscriminator[] = [
   'leaf'
 ] as const;
 
+export function getTypeDepth(discriminator: NestedWorkNodeDiscriminator) {
+  return DiscriminatorOrder.indexOf(discriminator);
+}
+
 export type NestedWorkNodeDto<T extends WorkNodeHierarchy = WorkNodeHierarchy> =
   {
     data: T;

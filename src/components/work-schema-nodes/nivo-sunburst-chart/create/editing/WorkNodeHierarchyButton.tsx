@@ -6,23 +6,22 @@ import { useGlobalDispatch } from 'selective-context';
 import { SetStateAction, useCallback } from 'react';
 import { Button, ButtonProps } from '@nextui-org/button';
 import clsx from 'clsx';
+import {
+  NestedWorkNode,
+  NestedWorkNodeDiscriminator,
+  WorkNodeHierarchy
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
-export type KnowledgeLevelGroupProducer =
-  SetStateAction<KnowledgeLevelGroupTemplate>;
+export type WorkNodeHierarchyProducer = SetStateAction<WorkNodeHierarchy>;
 
-export default function KnowledgeLevelGroupEditButton({
+export default function WorkNodeHierarchyButton({
   editCommand,
   children,
   className,
   ...buttonProps
-}: { editCommand: KnowledgeLevelGroupProducer } & Omit<
-  ButtonProps,
-  'onPress'
->) {
+}: { editCommand: WorkNodeHierarchyProducer } & Omit<ButtonProps, 'onPress'>) {
   const { dispatchWithoutListen: dispatch } =
-    useGlobalDispatch<KnowledgeLevelGroupTemplate>(
-      knowledgeLevelSeriesGroupContextKey
-    );
+    useGlobalDispatch<WorkNodeHierarchy>(knowledgeLevelSeriesGroupContextKey);
 
   const onPress = useCallback(() => {
     dispatch(editCommand);

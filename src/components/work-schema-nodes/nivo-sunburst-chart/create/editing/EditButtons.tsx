@@ -1,6 +1,6 @@
 'use client';
-import KnowledgeLevelGroupEditButton from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelGroupEditButton';
-import React, { useCallback, useMemo, useState } from 'react';
+import WorkNodeHierarchyButton from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/WorkNodeHierarchyButton';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useGlobalController } from 'selective-context';
 import {
   K_D_TEMPLATE_ID,
@@ -11,7 +11,7 @@ import {
   addDeliveryAllocationLeaf,
   produceKnowledgeDomainGroup,
   removeChildImmutably
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupProducers';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupProducers';
 import {
   Dropdown,
   DropdownItem,
@@ -21,20 +21,26 @@ import {
 } from '@nextui-org/react';
 import { Button } from '@nextui-org/button';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { useSplitSelectionPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/useSplitSelectionPath';
-import { joinPathUpTo } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/joinPathUpTo';
+import { useSplitSelectionPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/useSplitSelectionPath';
+import { joinPathUpTo } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/joinPathUpTo';
 import { useSelectedEntityMap } from '@/hooks/useEntitySelection';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CycleDto } from '@/api/generated-types/generated-types';
-import { joinPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
-import { KnowledgeLevelSeriesGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import { joinPath } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
+import {
+  DiscriminatorOrder,
+  getTypeDepth,
+  KnowledgeLevelSeriesGroup,
+  NestedWorkNode,
+  WorkNodeHierarchy
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
 export const SelectionPathKey = 'selectionPath';
 
-const bundleDepth = 2;
-const knowledgeDomainGroupDepth = 3;
-const deliveryAllocationListDepth = 4;
-const deliveryAllocationLeafDepth = 5;
+const bundleDepth = getTypeDepth('bundle');
+const knowledgeDomainGroupDepth = getTypeDepth('knowledgeDomainGroup');
+const deliveryAllocationListDepth = getTypeDepth('leafList');
+const deliveryAllocationLeafDepth = getTypeDepth('leaf');
 
 export default function EditButtons({
   initialKnowledgeLevelSeriesGroup
@@ -47,7 +53,8 @@ export default function EditButtons({
     listenerKey: 'edit-buttons'
   });
   const [path, selectionSplit] = useSplitSelectionPath(currentState);
-
+  const selectionSplitRef = useRef(selectionSplit);
+  selectionSplitRef.current = selectionSplit;
   const cycleMap = useSelectedEntityMap<CycleDto>(EntityClassMap.cycle);
 
   const cycleSubspanGroupSizeItems = useMemo(() => {
@@ -79,81 +86,87 @@ export default function EditButtons({
 
   const deSelectRemovedId = useCallback(
     (idDepth: number) => {
-      const newSelection = joinPath(...selectionSplit.slice(0, idDepth - 1));
+      const newSelection = joinPath(
+        ...selectionSplitRef.current.slice(0, idDepth - 1)
+      );
       dispatch(newSelection);
     },
-    [selectionSplit, dispatch]
+    [dispatch]
   );
 
   const removeBundle = useCallback(
-    (klg: KnowledgeLevelGroupTemplate) => {
+    (klg: WorkNodeHierarchy) => {
       deSelectRemovedId(bundleDepth);
       return removeChildImmutably(
         klg,
-        joinPathUpTo(selectionSplit, bundleDepth)
+        joinPathUpTo(selectionSplitRef.current, bundleDepth)
       );
     },
-    [selectionSplit, deSelectRemovedId]
+    [deSelectRemovedId]
   );
 
   const handleAddKnowledgeDomainGroup = useCallback(
-    (klg: KnowledgeLevelGroupTemplate) => {
+    (klg: WorkNodeHierarchy) => {
       return produceKnowledgeDomainGroup(
         klg,
-        joinPathUpTo(selectionSplit, bundleDepth)
+        joinPathUpTo(selectionSplitRef.current, bundleDepth)
       );
     },
-    [selectionSplit]
+    []
   );
 
   const handleRemoveKDG = useCallback(
-    (klg: KnowledgeLevelGroupTemplate) => {
+    (klg: WorkNodeHierarchy) => {
       deSelectRemovedId(knowledgeDomainGroupDepth);
       return removeChildImmutably(
         klg,
-        joinPathUpTo(selectionSplit, knowledgeDomainGroupDepth)
+        joinPathUpTo(selectionSplitRef.current, knowledgeDomainGroupDepth)
       );
     },
-    [selectionSplit, deSelectRemovedId]
+    [deSelectRemovedId]
   );
 
   const handleAddDeliveryAllocationLeaf = useCallback(
-    (klg: KnowledgeLevelGroupTemplate) => {
+    (klg: WorkNodeHierarchy) => {
       return addDeliveryAllocationLeaf(
         klg,
-        joinPathUpTo(selectionSplit, knowledgeDomainGroupDepth),
+        joinPathUpTo(selectionSplitRef.current, knowledgeDomainGroupDepth),
         sizeToAdd?.value ?? 1
       );
     },
-    [selectionSplit, sizeToAdd]
+    [sizeToAdd]
   );
 
   const handleRemoveDeliveryAllocationLeaf = useCallback(
-    (klg: KnowledgeLevelGroupTemplate) => {
+    (klg: WorkNodeHierarchy) => {
       deSelectRemovedId(deliveryAllocationLeafDepth);
       return removeChildImmutably(
         klg,
-        joinPathUpTo(selectionSplit, deliveryAllocationLeafDepth)
+        joinPathUpTo(selectionSplitRef.current, deliveryAllocationLeafDepth)
       );
     },
-    [selectionSplit, deSelectRemovedId]
+    [deSelectRemovedId]
   );
 
   const handleRemoveDeliveryAllocationList = useCallback(
-    (klg: KnowledgeLevelGroupTemplate) => {
+    (klg: WorkNodeHierarchy) => {
       deSelectRemovedId(deliveryAllocationListDepth);
       return removeChildImmutably(
         klg,
-        joinPathUpTo(selectionSplit, deliveryAllocationListDepth)
+        joinPathUpTo(selectionSplitRef.current, deliveryAllocationListDepth)
       );
     },
-    [selectionSplit, deSelectRemovedId]
+    [deSelectRemovedId]
   );
+
+  const handleAddBundle = useCallback((wnh: WorkNodeHierarchy) => {
+    return addBundle(wnh, joinPath(...selectionSplitRef.current));
+  }, []);
 
   return (
     <div className={'flex flex-col gap-2'}>
       <div>
-        <MemoEditButton editCommand={addBundle}>Add</MemoEditButton>
+        <MemoEditButton editCommand={handleAddBundle}>Add</MemoEditButton>
         <MemoEditButton
           editCommand={removeBundle}
           isDisabled={selectionSplit.length < bundleDepth}
@@ -227,7 +240,7 @@ export default function EditButtons({
   );
 }
 
-const MemoEditButton = React.memo(KnowledgeLevelGroupEditButton);
+const MemoEditButton = React.memo(WorkNodeHierarchyButton);
 
 const dropdownItems = [
   { id: 1, value: 1 },

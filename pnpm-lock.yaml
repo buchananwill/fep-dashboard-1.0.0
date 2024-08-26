@@ -53,6 +53,9 @@ importers:
       '@nextui-org/theme':
         specifier: ^2.2.5
         version: 2.2.5(tailwindcss@3.4.3)
+      '@nivo/arcs':
+        specifier: ^0.87.0
+        version: 0.87.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@nivo/chord':
         specifier: ^0.87.0
         version: 0.87.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

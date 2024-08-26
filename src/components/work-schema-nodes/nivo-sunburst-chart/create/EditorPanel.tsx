@@ -1,7 +1,5 @@
-import { K_D_TEMPLATE_ID } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
-import NestedWorkNodeChildSelector from '@/components/work-schema-nodes/nivo-sunburst-chart/create/NestedWorkNodeChildSelector';
-import EditButtons from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
-import Selectors from './Selectors';
+import EditButtons from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtons';
+import Selectors from './selection/Selectors';
 import { KnowledgeLevelSeriesGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
 export default function EditorPanel({

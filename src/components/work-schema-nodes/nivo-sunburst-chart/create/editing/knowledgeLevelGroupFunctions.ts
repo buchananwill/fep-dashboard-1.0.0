@@ -17,19 +17,25 @@ export type Parent<T> = {
 };
 
 export function getKnowledgeDomainGroup(
-  draft: WritableDraft<KnowledgeLevelGroupTemplate>,
+  draft: WritableDraft<WorkNodeHierarchy>,
   knowledgeDomainGroupId: string
 ) {
   const hierarchyList = getHierarchyList(
-    draft as KnowledgeLevelGroup,
+    draft as NestedWorkNode,
     knowledgeDomainGroupId
   );
-  const hierarchyListElement = hierarchyList[hierarchyList.length - 1];
-  if (hierarchyListElement.type === 'knowledgeDomainGroup') {
+  let hierarchyListElement = undefined;
+  for (let i = 0; i < hierarchyList.length; i++) {
+    hierarchyListElement =
+      hierarchyList[i].type === 'knowledgeDomainGroup'
+        ? hierarchyList[i]
+        : undefined;
+  }
+  if (hierarchyListElement?.type === 'knowledgeDomainGroup') {
     return hierarchyListElement;
   } else
     throw Error(
-      `Did not find knowledgeDomainGroup at id ${knowledgeDomainGroupId}`
+      `Did not find knowledgeDomainGroup at path ${knowledgeDomainGroupId}`
     );
 }
 
@@ -103,6 +109,17 @@ function sliceSplitPath(splittedPath: string[], ancestorDistance: number) {
   );
 }
 
+export function findChildOfWorkNodeHierarchy(
+  draft: WritableDraft<WorkNodeHierarchy>,
+  childPath: string
+) {
+  const hierarchyList = getHierarchyList(draft as NestedWorkNode, childPath);
+  for (let hierarchyListElement of hierarchyList) {
+    if (hierarchyListElement.path === childPath) return hierarchyListElement;
+  }
+  throw new Error(`Child not found with given path: ${childPath}`);
+}
+
 export type HasPath = { path: string };
 
 function getAncestorPath(child: HasPath, ancestorDistance: number) {
@@ -129,8 +146,10 @@ export function getHierarchyList(
   root: NestedWorkNode,
   childPath: string
 ): WorkNodeHierarchy[] {
+  console.log(root, childPath);
   const splittedPath = childPath.split('/');
   const depth = splittedPath.length;
+  console.log(splittedPath);
   const hierarchyList: WorkNodeHierarchy[] = [root];
   for (let i = 1; i < depth; i++) {
     const nextChildPath = splittedPath.slice(0, i + 1).join('/');
@@ -145,11 +164,8 @@ export function getHierarchyList(
   return hierarchyList;
 }
 
-export function removeChildAnyLevel(
-  root: KnowledgeLevelGroupTemplate,
-  childId: string
-) {
-  const hierarchyList = getHierarchyList(root as KnowledgeLevelGroup, childId);
+export function removeChildAnyLevel(root: WorkNodeHierarchy, childId: string) {
+  const hierarchyList = getHierarchyList(root as NestedWorkNode, childId);
   const [immediateParent, child] = hierarchyList.slice(
     hierarchyList.length - 2
   );
@@ -188,7 +204,7 @@ export function findOrCreateList(
  * Doesn't work when the KnowledgeLevelGroup isn't the root: the IDs don't parse correctly (I believe that's the reason.)
  * */
 export function addLeafToKnowledgeDomainGroupChild(
-  draft: WritableDraft<KnowledgeLevelGroupTemplate> | KnowledgeLevelGroup,
+  draft: WritableDraft<WorkNodeHierarchy> | WorkNodeHierarchy,
   knowledgeDomainGroupId: string,
   size: number
 ) {
@@ -201,21 +217,20 @@ export function addLeafToKnowledgeDomainGroupChild(
 }
 
 export function addKnowledgeDomainGroup(
-  draft: KnowledgeLevelGroup,
+  draft: WorkNodeHierarchy,
   bundleId: string
 ) {
-  const bundle = findChildOrError<KnowledgeLevelGroupTemplate, Bundle>(
-    draft,
-    bundleId
-  );
-  bundle.children.push({
-    type: 'knowledgeDomainGroup',
-    children: [],
-    knowledgeDomains: [],
-    path: makeChildPath(bundle),
-    selected: false
-  });
-  bundle.children.forEach((kdgc, index, array) => {
-    kdgc.color = interpolateRainbow(index / array.length);
-  });
+  const bundle = findChildOfWorkNodeHierarchy(draft, bundleId);
+  if (bundle.type === 'bundle') {
+    bundle.children.push({
+      type: 'knowledgeDomainGroup',
+      children: [],
+      knowledgeDomains: [],
+      path: makeChildPath(bundle),
+      selected: false
+    });
+    bundle.children.forEach((kdgc, index, array) => {
+      kdgc.color = interpolateRainbow(index / array.length);
+    });
+  }
 }

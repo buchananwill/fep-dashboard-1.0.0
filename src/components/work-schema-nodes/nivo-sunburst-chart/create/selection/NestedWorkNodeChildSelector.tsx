@@ -1,16 +1,16 @@
 'use client';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
-import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditButtons';
+import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtons';
 import {
   klsgTemplate,
   knowledgeLevelSeriesGroupContextKey
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useTransition } from 'react';
 import {
   getHierarchyList,
   joinPath,
   splitPath
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 import { EmptyArray } from '@/api/literals';
 import {
   KnowledgeLevelSeriesGroup,
@@ -21,6 +21,7 @@ import {
 import { Select, Selection, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { MonoFunction } from '@/types';
+import { PendingOverlay } from '@/components/overlays/pending-overlay';
 
 export default function NestedWorkNodeChildSelector({
   selectionPath,
@@ -42,8 +43,6 @@ export default function NestedWorkNodeChildSelector({
     initialValue: klsgTemplate,
     listenerKey
   });
-
-  console.log(selectionPath, discriminator, discriminatorIndex, splittedPath);
 
   const [parent, childList, selectionThisLevel] = useMemo(() => {
     const selectionThisLevel =
@@ -117,24 +116,27 @@ function InnerSelector({
   depth: number;
   labelAccessor: MonoFunction<WorkNodeHierarchy, string>;
 }) {
+  const [isPending, startTransition] = useTransition();
   const { dispatchWithoutListen } = useGlobalDispatch<string>(SelectionPathKey);
 
   const onSelectionChange = useCallback(
     (selection: Selection) => {
-      if (selection === 'all') {
-        throw new Error('Only single selection is supported');
-      } else {
-        const selectionList = [...selection.values()] as string[];
-        if (selectionList.length === 0) {
-          dispatchWithoutListen((selectionPathId) => {
-            return selectionPathId.split('/').slice(0, depth).join('/');
-          });
-        } else if (selectionList.length === 1) {
-          dispatchWithoutListen(selectionList[0] as string);
-        } else {
+      startTransition(() => {
+        if (selection === 'all') {
           throw new Error('Only single selection is supported');
+        } else {
+          const selectionList = [...selection.values()] as string[];
+          if (selectionList.length === 0) {
+            dispatchWithoutListen((selectionPathId) => {
+              return selectionPathId.split('/').slice(0, depth).join('/');
+            });
+          } else if (selectionList.length === 1) {
+            dispatchWithoutListen(selectionList[0] as string);
+          } else {
+            throw new Error('Only single selection is supported');
+          }
         }
-      }
+      });
     },
     [depth, dispatchWithoutListen]
   );
@@ -142,23 +144,26 @@ function InnerSelector({
   const label = childList.length > 0 ? childList[0].type : 'no options';
 
   return (
-    <Select
-      items={childList}
-      {...selectProps}
-      selectedKeys={selectionPath ? [selectionPath] : ['']}
-      onSelectionChange={onSelectionChange}
-      className={'w-60'}
-    >
-      {(item) => (
-        <SelectItem
-          key={item.path}
-          value={item.path}
-          aria-label={labelAccessor(item)}
-        >
-          {labelAccessor(item)}
-        </SelectItem>
-      )}
-    </Select>
+    <div className={'relative h-fit w-fit'}>
+      <PendingOverlay pending={isPending} />
+      <Select
+        items={childList}
+        {...selectProps}
+        selectedKeys={selectionPath ? [selectionPath] : ['']}
+        onSelectionChange={onSelectionChange}
+        className={'w-60'}
+      >
+        {(item) => (
+          <SelectItem
+            key={item.path}
+            value={item.path}
+            aria-label={labelAccessor(item)}
+          >
+            {labelAccessor(item)}
+          </SelectItem>
+        )}
+      </Select>
+    </div>
   );
 }
 

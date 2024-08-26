@@ -1,20 +1,48 @@
 'use client';
 
-import { ComputedDatum, ResponsiveSunburst } from '@nivo/sunburst';
+import {
+  ComputedDatum,
+  ResponsiveSunburst,
+  SunburstCustomLayerProps
+} from '@nivo/sunburst';
 import {
   KnowledgeDomainGroup,
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { getInheritedColorGenerator } from '@nivo/colors';
 import { patternDotsDef } from '@nivo/core';
+import {
+  useGlobalDispatch,
+  useGlobalDispatchAndListener
+} from 'selective-context';
+import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtons';
+import React, { useCallback, useRef } from 'react';
+import { SelectionLayer } from '@/components/work-schema-nodes/nivo-sunburst-chart/selection-layer/SelectionLayer';
+
+function callOutLayer(props: SunburstCustomLayerProps<WorkNodeHierarchy>) {
+  props.arcGenerator;
+
+  return null;
+}
 
 export function WorkNodeResponsiveSunburst({
   data /* see data tab */
 }: {
   data: WorkNodeHierarchy;
 }) {
+  const { dispatchWithoutListen: dispatchWithoutControl } =
+    useGlobalDispatch<string>(SelectionPathKey);
+
+  const handleClick = useCallback(
+    (datum: ComputedDatum<WorkNodeHierarchy>, event: React.MouseEvent) => {
+      dispatchWithoutControl(datum.data.path);
+    },
+    [dispatchWithoutControl]
+  );
+
   return (
     <ResponsiveSunburst
+      layers={['arcs', 'arcLabels', SelectionLayer]}
       data={data}
       margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
       id={'path'}
@@ -22,6 +50,7 @@ export function WorkNodeResponsiveSunburst({
       cornerRadius={10}
       borderWidth={2}
       borderColor={{ from: 'color', modifiers: [] }}
+      onClick={handleClick}
       defs={[
         patternDotsDef('dots', {
           color: '#a1a1a1',
@@ -31,15 +60,15 @@ export function WorkNodeResponsiveSunburst({
           background: '#ffffff'
         })
       ]}
-      fill={[
-        {
-          match: (d) => {
-            // @ts-ignore
-            return d.data.selected;
-          },
-          id: 'dots'
-        }
-      ]}
+      // fill={[
+      //   {
+      //     match: (d) => {
+      //       // @ts-ignore
+      //       return (d.data as WorkNodeHierarchy).path === currentState;
+      //     },
+      //     id: 'dots'
+      //   }
+      // ]}
       colors={{ scheme: 'set3' }}
       childColor={customChildColors}
       enableArcLabels={true}

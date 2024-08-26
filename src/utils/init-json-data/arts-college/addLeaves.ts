@@ -3,7 +3,7 @@ import { WorkNodeHierarchy } from '@/components/work-schema-nodes/nivo-sunburst-
 import {
   addLeafToThisList,
   findOrCreateList
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/knowledgeLevelGroupFunctions';
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 
 export function addLeaves(node: WorkNodeHierarchy, size: number) {
   switch (node.type) {
