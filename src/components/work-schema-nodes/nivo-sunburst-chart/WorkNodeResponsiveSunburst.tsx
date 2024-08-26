@@ -91,11 +91,15 @@ export function getKdStringCode(data: KnowledgeDomainGroup) {
     .join(',');
 }
 
+export function getHours(value: number) {
+  return `${value / 4} hrs`;
+}
+
 function nestedWorkNodeArcLabel(
   computedData: ComputedDatum<WorkNodeHierarchy>
 ) {
   const { data, value, parent } = computedData;
-  const hours = `${value / 4}hrs`;
+  const hours = getHours(value);
   switch (data.type) {
     case 'knowledgeDomainGroup': {
       const kdStringCode =

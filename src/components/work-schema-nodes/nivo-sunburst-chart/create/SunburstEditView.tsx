@@ -5,7 +5,7 @@ import {
   KnowledgeLevelGroupTemplate,
   knowledgeLevelGroupTemplate
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
-import { WorkNodeResponsiveSunburst } from '@/components/work-schema-nodes/nivo-sunburst-chart/ResponsiveSunburst';
+import { WorkNodeResponsiveSunburst } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
 import {
   KnowledgeLevelGroup,
   KnowledgeLevelSeriesGroup
