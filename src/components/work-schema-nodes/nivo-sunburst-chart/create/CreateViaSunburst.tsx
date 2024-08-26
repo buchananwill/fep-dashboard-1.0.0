@@ -34,7 +34,7 @@ export default async function CreateViaSunburst() {
   const cycleList = await Api.Cycle.getAll();
 
   return (
-    <div className={'relative flex p-4 '}>
+    <div className={'grid h-[90vh] grid-cols-3 p-8'}>
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.knowledgeLevel}
         dtoList={knowledgeLevelDtos}
@@ -51,8 +51,9 @@ export default async function CreateViaSunburst() {
         entityClass={EntityClassMap.cycleSubspan}
         dtoList={workTaskTypesNames}
       />
-      <TopLevelSelectors />
-      <SunburstEditView knowledgeLevelSeriesGroup={colorized} />
+      <div className={'col-span-2 h-full'}>
+        <SunburstEditView knowledgeLevelSeriesGroup={colorized} />
+      </div>
       <EditorPanel initialKnowledgeLevelSeriesGroup={colorized} />
       <KnowledgeLevelSeriesGroupManager initialGroup={colorized} />
       <SelectionCallout />

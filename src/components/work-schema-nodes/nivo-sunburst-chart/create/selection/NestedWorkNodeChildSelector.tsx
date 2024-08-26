@@ -1,6 +1,6 @@
 'use client';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
-import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtons';
+import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/SelectionController';
 import {
   klsgTemplate,
   knowledgeLevelSeriesGroupContextKey
@@ -175,6 +175,9 @@ function nodeLabelAccessor(node: WorkNodeHierarchy) {
     }
     case 'bundle': {
       return node.name ?? node.path;
+    }
+    case 'knowledgeLevelGroup': {
+      return node.knowledgeLevel?.name ?? node.path;
     }
     default: {
       return node.path;

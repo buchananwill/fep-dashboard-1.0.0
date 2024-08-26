@@ -1,16 +1,9 @@
-import {
-  knowledgeLevelSeriesGroupContextKey,
-  KnowledgeLevelGroupTemplate
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
+import { knowledgeLevelSeriesGroupContextKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { useGlobalDispatch } from 'selective-context';
-import { SetStateAction, useCallback } from 'react';
+import React, { SetStateAction, useCallback } from 'react';
 import { Button, ButtonProps } from '@nextui-org/button';
 import clsx from 'clsx';
-import {
-  NestedWorkNode,
-  NestedWorkNodeDiscriminator,
-  WorkNodeHierarchy
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import { WorkNodeHierarchy } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
 export type WorkNodeHierarchyProducer = SetStateAction<WorkNodeHierarchy>;
 
@@ -40,3 +33,4 @@ export default function WorkNodeHierarchyButton({
     </Button>
   );
 }
+export const MemoEditButton = React.memo(WorkNodeHierarchyButton);

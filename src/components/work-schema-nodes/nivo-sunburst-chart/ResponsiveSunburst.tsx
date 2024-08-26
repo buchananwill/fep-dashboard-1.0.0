@@ -15,7 +15,7 @@ import {
   useGlobalDispatch,
   useGlobalDispatchAndListener
 } from 'selective-context';
-import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtons';
+import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/SelectionController';
 import React, { useCallback, useRef } from 'react';
 import { SelectionLayer } from '@/components/work-schema-nodes/nivo-sunburst-chart/selection-layer/SelectionLayer';
 

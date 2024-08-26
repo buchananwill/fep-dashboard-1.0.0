@@ -1,6 +1,7 @@
-import EditButtons from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtons';
+import SelectionController from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/SelectionController';
 import Selectors from './selection/Selectors';
 import { KnowledgeLevelSeriesGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import TopLevelSelectors from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/TopLevelSelectors';
 
 export default function EditorPanel({
   initialKnowledgeLevelSeriesGroup
@@ -8,11 +9,14 @@ export default function EditorPanel({
   initialKnowledgeLevelSeriesGroup: KnowledgeLevelSeriesGroup;
 }) {
   return (
-    <div className={'absolute right-0 grid grid-cols-2 gap-2'}>
-      <EditButtons
+    <>
+      <SelectionController
         initialKnowledgeLevelSeriesGroup={initialKnowledgeLevelSeriesGroup}
-      ></EditButtons>
-      <Selectors />
-    </div>
+      />
+      <div className={'flex flex-col gap-2'}>
+        <TopLevelSelectors />
+        <Selectors />
+      </div>
+    </>
   );
 }

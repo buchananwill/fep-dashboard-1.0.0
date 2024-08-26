@@ -17,13 +17,7 @@ export default function TopLevelSelectors() {
   const filteredItemsWttN = useRef([] as (HasNumberId & HasName)[]);
   const filteredItemsCycle = useRef([] as CycleDto[]);
   return (
-    <div className={'flex w-32 flex-col gap-2'}>
-      <FilteredEntitySelector
-        entityClass={EntityClassMap.knowledgeLevel}
-        filteredItems={filteredItems}
-        labelAccessor={'name'}
-        label={getDomainAlias('knowledgeLevel')}
-      />
+    <div className={'grid grid-cols-2 gap-2 p-2'}>
       <FilteredEntitySelector
         entityClass={workTaskTypeName}
         filteredItems={filteredItemsWttN}

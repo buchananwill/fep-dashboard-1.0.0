@@ -4,7 +4,6 @@ import {
   DeliveryAllocationLeaf,
   DeliveryAllocationList,
   KnowledgeDomainGroup,
-  KnowledgeLevelGroup,
   NestedWorkNode,
   NestedWorkNodeDiscriminator,
   WorkNodeHierarchy
@@ -12,7 +11,6 @@ import {
 import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { WritableDraft } from 'immer/src/types/types-external';
 import { interpolateRainbow } from 'd3';
-import { split } from 'lodash';
 
 export type Parent<T> = {
   children: T[];
@@ -265,4 +263,31 @@ export function addKnowledgeDomainGroup(
       kdgc.color = interpolateRainbow(index / array.length);
     });
   }
+}
+
+function deProxify(proxy: any) {
+  return proxy ? JSON.parse(JSON.stringify(proxy)) : 'falsy';
+}
+
+export function addBundleMutable(
+  draft: WorkNodeHierarchy,
+  selectionPath: string
+) {
+  const knowledgeLevelGroupOptional = findChildOfType(
+    draft as NestedWorkNode,
+    selectionPath,
+    'knowledgeLevelGroup'
+  );
+  const notProxy = deProxify(knowledgeLevelGroupOptional);
+
+  console.log(notProxy);
+  if (
+    knowledgeLevelGroupOptional &&
+    knowledgeLevelGroupOptional.type === 'knowledgeLevelGroup'
+  ) {
+    knowledgeLevelGroupOptional.children.push(
+      makeNewBundle(knowledgeLevelGroupOptional)
+    );
+  }
+  return draft;
 }

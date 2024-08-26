@@ -1,32 +1,19 @@
-import { produce, setAutoFreeze } from 'immer';
+import { produce } from 'immer';
 import {
   NestedWorkNode,
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import {
+  addBundleMutable,
   addDeliveryAllocationListToKdg,
   addKnowledgeDomainGroup,
   addLeafToKnowledgeDomainGroupChild,
   findKnowledgeDomainGroup,
-  getHierarchyList,
-  makeNewBundle,
   removeChildAnyLevel
 } from './knowledgeLevelGroupFunctions';
 
-export const addBundle = produce<WorkNodeHierarchy, [string]>(
-  (draft, selectionPath) => {
-    const hierarchyList = getHierarchyList(
-      draft as NestedWorkNode,
-      selectionPath
-    );
-    for (let hierarchyListElement of hierarchyList) {
-      if (hierarchyListElement.type === 'knowledgeLevelGroup') {
-        hierarchyListElement.children.push(makeNewBundle(hierarchyListElement));
-      }
-    }
-  }
-);
+export const addBundle = produce<WorkNodeHierarchy, [string]>(addBundleMutable);
 export const produceKnowledgeDomainGroup = produce<WorkNodeHierarchy, [string]>(
   (draft, bundlePath) => addKnowledgeDomainGroup(draft, bundlePath)
 );
