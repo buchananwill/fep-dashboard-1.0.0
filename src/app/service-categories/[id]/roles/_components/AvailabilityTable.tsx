@@ -14,8 +14,9 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { Api } from '@/api/clientApi_';
 import { AvailabilityCell } from '@/app/service-categories/[id]/roles/_components/AvailabilityCell';
 import { ProviderCell } from '@/app/service-categories/[id]/roles/_components/ProviderCell';
-import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
+import CycleSubspanCellWithJoins from '@/app/service-categories/[id]/roles/_components/CycleSubspanCellWithJoins';
 import { useGridSelectionController } from '@/app/service-categories/[id]/roles/_components/useGridSelectionCell';
+import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 
 export function AvailabilityTable({
   tableData,
@@ -46,15 +47,7 @@ export function AvailabilityTable({
         dtoList={Object.values(tableData.cellIdCellContentMap)}
         updateServerAction={Api.ProviderRoleAvailability.putList}
       />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.providerRole}
-        dtoList={tableData.rowList}
-        updateServerAction={Api.ProviderRole.putList}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.cycleSubspan}
-        dtoList={tableData.columnList}
-      />
+
       <VirtualizedTableWindowed
         renderCell={AvailabilityCell}
         renderSyncedColumnCell={ProviderCell}

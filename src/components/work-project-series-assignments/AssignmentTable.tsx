@@ -11,7 +11,7 @@ import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
 import AssignmentCell from '@/components/work-project-series-assignments/AssignmentCell';
 import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/workProjectSeriesDataRetrieval';
-import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
+import CycleSubspanCellWithJoins from '@/app/service-categories/[id]/roles/_components/CycleSubspanCellWithJoins';
 import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
@@ -77,7 +77,7 @@ export default function AssignmentTable({
       <VirtualizedTableWindowed
         {...tableProps}
         renderCell={memoCell}
-        renderSyncedRowCell={CycleSubspanCell}
+        renderSyncedRowCell={CycleSubspanCellWithJoins}
         renderSyncedColumnCell={memoOrganizationCell}
       />
     </>

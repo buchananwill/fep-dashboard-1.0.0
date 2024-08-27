@@ -9,6 +9,8 @@ import { AvailabilityTable } from './AvailabilityTable';
 import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/types';
 import { getIdList } from '@/app/service-categories/[id]/roles/_components/getIdList';
 import { getTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { EntityClassMap } from '@/api/entity-class-map';
 
 export default async function AvailabilityPage({
   params: { roleTypeId }
@@ -40,6 +42,15 @@ export default async function AvailabilityPage({
 
   return (
     <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8'}>
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.providerRole}
+        dtoList={genericTable.rowList}
+        updateServerAction={Api.ProviderRole.putList}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.cycleSubspan}
+        dtoList={cycleSubspanList}
+      />
       <AvailabilityTable tableData={genericTable} {...tableProps} />
     </div>
   );

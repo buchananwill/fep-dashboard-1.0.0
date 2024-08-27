@@ -10,7 +10,7 @@ import {
   CycleSubspanWithJoinsListDto
 } from '@/api/generated-types/generated-types';
 
-export default function CycleSubspanCell(props: CellWrapperProps) {
+export default function CycleSubspanCellWithJoins(props: CellWrapperProps) {
   return (
     <DtoUiWrapperCell
       entityClass={EntityClassMap.cycleSubspan}
@@ -27,10 +27,10 @@ export default function CycleSubspanCell(props: CellWrapperProps) {
 
 function InnerCycleSubspanCell({
   entity
-}: BaseLazyDtoUiProps<CycleSubspanDto>) {
+}: BaseLazyDtoUiProps<CycleSubspanWithJoinsListDto>) {
   const floatingTooltip = useFloatingTooltip(
     <TooltipMemo
-      text={`${entity.zeroIndexedCycleDay + 1}: ${entity?.timeSpanDto?.startTimeDivisionInstant}`}
+      text={`${entity.zeroIndexedCycleDay + 1}: ${entity?.timeSpan?.startTimeDivisionInstant}`}
     />
   );
 
@@ -42,7 +42,7 @@ function InnerCycleSubspanCell({
       )}
       {...floatingTooltip}
     >
-      {String(entity?.timeSpanDto?.startTimeDivisionInstant)}
+      {String(entity?.timeSpan?.startTimeDivisionInstant)}
       {/*{entity.zeroIndexedCycleDay + 1}.{entity.dayOrdinal + 1}*/}
     </span>
   );

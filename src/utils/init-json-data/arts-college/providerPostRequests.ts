@@ -1,69 +1,418 @@
-import { createCsvpaPartials } from '@/utils/init-object-literals/createKnowledgeDomainLevelCrossProduct';
-import { flattenParamList } from '@/utils/init-object-literals/assetRoleBulkRequest';
-import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
-import { AssetRoleTypeDto } from '@/api/zod-schemas/AssetRoleTypeDtoSchema';
-import { AssetRolePostRequest } from '@/api/zod-schemas/AssetRolePostRequestSchema_';
-import { RepeatPostRequest } from '@/api/types';
-import { getTemplateMergingFunction } from '@/utils/init-object-literals/getTemplateMergingFunction';
-import { ProviderRoleTypeDto } from '@/api/zod-schemas/ProviderRoleTypeDtoSchema';
-import { ProviderRolePostRequest } from '@/api/zod-schemas/ProviderRolePostRequestSchema';
-import { PartialDeep } from 'type-fest';
-
-const classicalVoice = createCsvpaPartials(['Classical Voice']);
-const popVoice = createCsvpaPartials(['Jazz/Pop Voice']);
-const doubleBass = createCsvpaPartials(['Double Bass']);
-const pianoPop = createCsvpaPartials(['Pop Piano', 'Piano']);
-const pianoClassical = createCsvpaPartials(['Classical Piano', 'Piano']);
-const guitar = createCsvpaPartials(['Guitar', 'Pop Guitar']);
-const dj = createCsvpaPartials(['DJ']);
-const production = createCsvpaPartials([
-  'Production',
-  'Production: Recording',
-  'Production: Sequencing'
-]);
-const drumKit = createCsvpaPartials(['Drum Kit']);
-const frenchHorn = createCsvpaPartials(['French Horn']);
-
-const providerRoleType: Partial<ProviderRoleTypeDto> = {
-  name: 'Teacher'
-};
-
-const templateRequest: PartialDeep<ProviderRolePostRequest> = {
-  roleTypeExample: providerRoleType,
-  rating: 4,
-  workTaskTypeExampleList: []
-};
-
-const templateRepeatRequest: RepeatPostRequest<
-  PartialDeep<ProviderRolePostRequest>
-> = {
-  postRequest: templateRequest,
-  count: 1
-};
-
-const providerMergingFunction = getTemplateMergingFunction(
-  templateRepeatRequest
-);
-
-const postRequests = [
-  classicalVoice,
-  popVoice,
-  doubleBass,
-  pianoPop,
-  pianoClassical,
-  guitar,
-  dj,
-  production,
-  drumKit,
-  frenchHorn
-]
-  .map(
-    (partialList) =>
-      [
-        partialList[0].knowledgeDomain?.name,
-        1,
-        partialList
-      ] as RequestCreationParams[]
-  )
-  .map(flattenParamList)
-  .map(providerMergingFunction);
+export const providerPostRequests = [
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Vivian',
+      familyName: 'Choi'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'Classical Piano', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'TUESDAY',
+        startTime: '10:00',
+        endTime: '12:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'THURSDAY',
+        startTime: '10:00',
+        endTime: '12:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Jamie',
+      familyName: 'Brooks'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'Piano', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'WEDNESDAY',
+        startTime: '17:00',
+        endTime: '20:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Rebecca',
+      familyName: 'Moulton'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'Classical Voice', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'TUESDAY',
+        startTime: '10:00',
+        endTime: '16:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'THURSDAY',
+        startTime: '14:00',
+        endTime: '20:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Sarah',
+      familyName: 'Hunt'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'Production', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'TUESDAY',
+        startTime: '9:00',
+        endTime: '17:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'MONDAY',
+        startTime: '12:00',
+        endTime: '17:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'WEDNESDAY',
+        startTime: '12:00',
+        endTime: '17:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'THURSDAY',
+        startTime: '12:00',
+        endTime: '17:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Ian',
+      familyName: 'Griffith'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [
+            { name: 'Drum Kit', id: -1 },
+            { name: 'Production', id: -1 }
+          ],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'WEDNESDAY',
+        startTime: '10:00',
+        endTime: '20:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'THURSDAY',
+        startTime: '10:00',
+        endTime: '20:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Jeremy',
+      familyName: 'Sparks'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'Guitar', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'MONDAY',
+        startTime: '14:15',
+        endTime: '15:15',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'THURSDAY',
+        startTime: '10:00',
+        endTime: '12:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Caroline',
+      familyName: 'Prozesky'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'French Horn', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'WEDNESDAY',
+        startTime: '11:00',
+        endTime: '13:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Georgia',
+      familyName: 'Van Etten'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'Jazz/Pop Voice', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'TUESDAY',
+        startTime: '10:00',
+        endTime: '12:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'THURSDAY',
+        startTime: '10:00',
+        endTime: '12:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Vivian',
+      familyName: 'Choi'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'Double Bass', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'WEDNESDAY',
+        startTime: '11:00',
+        endTime: '12:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      },
+      {
+        day: 'FRIDAY',
+        startTime: '11:00',
+        endTime: '12:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  },
+  {
+    baseEntity: {
+      id: 0,
+      dateOfBirth: '1990-09-25',
+      personalName: 'Vivian',
+      familyName: 'Choi'
+    },
+    suitabilities: [
+      {
+        workTaskTypeMatrix: {
+          knowledgeLevelSeriesDtoList: [
+            {
+              name: 'Courses',
+              id: 2,
+              knowledgeLevels: []
+            }
+          ],
+          knowledgeDomainInclusionList: [{ name: 'DJ', id: -1 }],
+          knowledgeDomainExclusionList: [],
+          workTaskTypeNames: ['Teaching']
+        },
+        roleTypeNames: ['Teacher'],
+        rating: 4
+      }
+    ],
+    availabilities: [
+      {
+        day: 'WEDNESDAY',
+        startTime: '17:00',
+        endTime: '20:00',
+        roleTypeNames: ['Teacher'],
+        availabilityCode: 'TRUE'
+      }
+    ]
+  }
+];
