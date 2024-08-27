@@ -1,10 +1,3 @@
-import {
-  RolePostRequest,
-  SuitabilityPostRequest
-} from '@/api/generated-types/generated-types';
-import { PersonDto } from '@/api/zod-schemas/PersonDtoSchema';
-import { PartialDeep } from 'type-fest';
-
 const suitabilityTemplate = {
   workTaskTypeMatrix: {
     knowledgeLevelSeriesDtoList: [
@@ -34,7 +27,7 @@ const availabilityTemplate = {
   availabilityCode: 'TRUE'
 };
 
-const providers: RolePostRequest<PersonDto> = [
+const providers = [
   {
     baseEntity: {
       id: 0,
@@ -133,9 +126,7 @@ function replaceDayStartEnd(day: string, startTime: string, endTime: string) {
   return { ...availabilityTemplate, day, startTime, endTime };
 }
 
-function replaceKnowledgeDomainInclusions(
-  knowledgeDomainNames: string[]
-): SuitabilityPostRequest {
+function replaceKnowledgeDomainInclusions(knowledgeDomainNames: string[]) {
   return {
     ...suitabilityTemplate,
     workTaskTypeMatrix: {
