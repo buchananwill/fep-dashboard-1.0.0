@@ -25,9 +25,37 @@ export function useEntitySelection<
   entityClass: string,
   filteredItems: MutableRefObject<T[]>,
   idClass?: 'string' | 'number',
-  forceString = true
+  forceString = true,
+  sortedItems?: T[]
 ) {
   const listenerKey = useUuidListenerKey();
+
+  const idMap = useMemo(() => {
+    return sortedItems
+      ? sortedItems.reduce(
+          (prev, curr, index) => prev.set(curr.id, index),
+          new Map<U, number>()
+        )
+      : null;
+  }, [sortedItems]);
+
+  const sortFunction = useCallback(
+    (a: U, b: U) => {
+      if (idMap) {
+        return (idMap.get(a) ?? 0) - (idMap.get(b) ?? 0);
+      } else {
+        const normaliseId = (id: number | string) => {
+          return typeof id === idClass
+            ? id
+            : typeof id === 'string'
+              ? getNumberFromStringId(id)
+              : String(id);
+        };
+        return compareNumbersOrStrings(normaliseId(a), normaliseId(b));
+      }
+    },
+    [idMap, idClass]
+  );
 
   const {
     currentState: selectedList,
@@ -63,19 +91,11 @@ export function useEntitySelection<
           selectionSet.clear();
           selected.forEach((item) => selectionSet.add(item as U));
         }
-        const sort = [...selectionSet.values()]
-          .map((id) => {
-            return typeof id === idClass
-              ? id
-              : typeof id === 'string'
-                ? getNumberFromStringId(id)
-                : String(id);
-          })
-          .sort(compareNumbersOrStrings);
+        const sort = [...selectionSet.values()].sort(sortFunction);
         return sort as U[];
       });
     },
-    [idClass, dispatchSelected, filteredItems]
+    [dispatchSelected, filteredItems, sortFunction]
   );
   return { currentState, selectedKeys, onSelectionChange, dispatchSelected };
 }

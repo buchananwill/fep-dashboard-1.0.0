@@ -65,7 +65,13 @@ export function useFilterSortPaginateSelect<
 
   // Set up selection
   const { onSelectionChange, selectedKeys, dispatchSelected } =
-    useEntitySelection<T, Identifier>(entityClass, filteredItemsRef, idClass);
+    useEntitySelection<T, Identifier>(
+      entityClass,
+      filteredItemsRef,
+      idClass,
+      undefined,
+      sortedItems
+    );
   const deselectVisible = useDeselectVisible(dispatchSelected, visibleItemsRef);
   const selectVisible = useSelectVisible(dispatchSelected, visibleItemsRef);
   return {

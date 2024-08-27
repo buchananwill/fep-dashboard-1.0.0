@@ -44,7 +44,10 @@ export function AvailabilityCell({
     currentState[referenceElement.rowId][referenceElement.columnId];
 
   return (
-    <div style={style} className={'flex h-full w-full'}>
+    <div
+      style={style}
+      className={'flex h-full w-full border-b border-r first:border-l'}
+    >
       {entityId ? (
         <DtoUiWrapper
           entityClass={EntityClassMap.providerRoleAvailability}
