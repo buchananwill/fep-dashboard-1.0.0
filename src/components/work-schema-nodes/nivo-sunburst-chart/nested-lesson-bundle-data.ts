@@ -45,13 +45,14 @@ export type KnowledgeLevelGroup = {
   type: 'knowledgeLevelGroup';
   knowledgeLevel: KnowledgeLevelDto;
   children: Bundle[];
-  cycle: CycleDto;
   workTaskTypeName: HasName & HasNumberId;
 } & DeliveryAllocationBase;
 
 export type KnowledgeLevelSeriesGroup = {
   type: 'knowledgeLevelSeriesGroup';
   knowledgeLevelSeries: KnowledgeLevelSeriesDto;
+  cycle: CycleDto;
+  organizationTypeName?: string;
   children: KnowledgeLevelGroup[];
 } & DeliveryAllocationBase;
 
