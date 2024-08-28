@@ -336,9 +336,9 @@ Content-Type: application/json
         "availabilityCode": "TRUE"
       },
       {
-        "day": "THURSDAY",
-        "startTime": "10:00",
-        "endTime": "12:00",
+        "day": "FRIDAY",
+        "startTime": "15:15",
+        "endTime": "20:00",
         "roleTypeNames": [
           "Teacher"
         ],

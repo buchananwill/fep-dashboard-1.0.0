@@ -251,6 +251,7 @@ Content-Type: application/json
           ],
           "knowledgeDomainInclusionList": [
             { "name": "Guitar", "id": -1 },
+            { "name": "French Horn", "id": -1 },
             { "name": "Double Bass", "id": -1 },
             { "name": "Classical Voice", "id": -1 },
             { "name": "Jazz/Pop Voice", "id": -1 },

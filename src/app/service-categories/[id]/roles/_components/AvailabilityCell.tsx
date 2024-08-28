@@ -83,6 +83,7 @@ export const MemoAssetRoleAvailabilityCell = React.memo(AssetAvailabilityCell);
 
 function InnerCell(props: BaseDtoUiProps<RoleAvailabilityDto>) {
   const availabilityColor = getAvailabilityColor(props.entity.availabilityCode);
+  console.log(props.entity);
 
   return (
     <DtoStoreNumberInput<RoleAvailabilityDto>
