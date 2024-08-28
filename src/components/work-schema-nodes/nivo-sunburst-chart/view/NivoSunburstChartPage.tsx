@@ -9,8 +9,6 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import WorkSchemaNodesHome from '@/components/work-schema-nodes/WorkSchemaNodesHome';
-import { OneToOneEnrollments } from '@/utils/init-json-data/arts-college/enrollments';
-import { addLeaves } from '@/utils/init-json-data/arts-college/addLeaves';
 import { colorizeKnowledgeDomains } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
 
 const nestedBundleEndpoint = (rootId: string) =>
@@ -33,9 +31,6 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   const { data } = await getWithoutBody<
     NestedWorkNodeDto<KnowledgeLevelSeriesGroup>
   >(getLevelSeriesTree('1'));
-  // const { data } = dtoData;
-  const withLeaves = structuredClone(OneToOneEnrollments);
-  addLeaves(withLeaves, 4);
 
   const colorizeKnowledgeDomains1 = colorizeKnowledgeDomains(data);
   return (

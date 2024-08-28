@@ -40,14 +40,14 @@ export const assetPostRequests: RolePostRequest<AssetDto>[] = [
         day: 'WEDNESDAY',
         startTime: '10:00',
         endTime: '20:00',
-        roleTypeNames: ['Drum Studio'],
+        roleTypeNames: ['Studio'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'THURSDAY',
         startTime: '10:00',
         endTime: '20:00',
-        roleTypeNames: ['Drum Studio'],
+        roleTypeNames: ['Studio'],
         availabilityCode: 'TRUE'
       }
     ]
