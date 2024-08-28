@@ -5,12 +5,17 @@ import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { GenericTableDto, HasNumberId } from '@/api/types';
 import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { useGlobalController } from 'selective-context';
-import { AvailabilityCell } from '@/app/service-categories/[id]/roles/_components/AvailabilityCell';
+import {
+  GenericAvailabilityCell,
+  MemoAssetRoleAvailabilityCell,
+  MemoProviderRoleAvailabilityCell
+} from '@/app/service-categories/[id]/roles/_components/AvailabilityCell';
 import { ProviderCell } from '@/app/service-categories/[id]/roles/_components/ProviderCell';
 import { useGridSelectionController } from '@/app/service-categories/[id]/roles/_components/useGridSelectionCell';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 import { availabilityConfig } from '@/app/service-categories/[id]/roles/_components/AvailabilityConfig';
 import { AvailabilityType } from '@/app/service-categories/[id]/roles/_components/AvailabilityType';
+import { useMemo } from 'react';
 
 export interface AvailabilityTableProps<
   Role extends HasNumberId,
@@ -36,6 +41,15 @@ export function AvailabilityTable<Role extends HasNumberId, Availability>({
     listenerKey: 'controller'
   });
 
+  const Cell = useMemo(() => {
+    switch (type) {
+      case 'asset':
+        return MemoAssetRoleAvailabilityCell;
+      case 'provider':
+        return MemoProviderRoleAvailabilityCell;
+    }
+  }, [type]);
+
   return (
     <>
       <EditAddDeleteDtoControllerArray
@@ -45,8 +59,8 @@ export function AvailabilityTable<Role extends HasNumberId, Availability>({
       />
 
       <VirtualizedTableWindowed
-        renderCell={AvailabilityCell}
-        renderSyncedColumnCell={ProviderCell}
+        renderCell={Cell}
+        renderSyncedColumnCell={availabilityConfig[type].roleCell}
         renderSyncedRowCell={CycleSubspanCell}
         {...props}
       />

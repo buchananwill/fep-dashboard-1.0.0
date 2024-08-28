@@ -1,5 +1,4 @@
 'use client';
-import { ProviderRoleAvailabilityDto } from '@/api/zod-schemas/ProviderRoleAvailabilityDtoSchema';
 import clsx from 'clsx';
 import { useGlobalListener } from 'selective-context';
 import { GridChildComponentProps } from 'react-window';
@@ -8,6 +7,14 @@ import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { ObjectPlaceholder } from '@/api/literals';
+import {
+  ProviderRoleAvailabilityDto,
+  RoleAvailabilityDto
+} from '@/api/generated-types/generated-types';
+import { AvailabilityType } from '@/app/service-categories/[id]/roles/_components/AvailabilityType';
+import { CellWrapperProps } from '@/components/tables/getCellIdReference';
+import { startCase } from 'lodash';
+import React from 'react';
 
 function getAvailabilityColor(availabilityCode: number) {
   switch (availabilityCode) {
@@ -24,12 +31,13 @@ function getAvailabilityColor(availabilityCode: number) {
 
 const numberOfAvailabilityCodeTypes = 4;
 
-export function AvailabilityCell({
+export function GenericAvailabilityCell({
   data,
   rowIndex,
   columnIndex,
-  style
-}: GridChildComponentProps<CellIdReference[][]>) {
+  style,
+  type
+}: GridChildComponentProps<CellIdReference[][]> & { type: AvailabilityType }) {
   const referenceElement = data[rowIndex][columnIndex];
 
   const { currentState } = useGlobalListener<
@@ -50,7 +58,7 @@ export function AvailabilityCell({
     >
       {entityId ? (
         <DtoUiWrapper
-          entityClass={EntityClassMap.providerRoleAvailability}
+          entityClass={`${startCase(type)}RoleAvailability`}
           entityId={parseInt(entityId)}
           renderAs={InnerCell}
         />
@@ -61,11 +69,23 @@ export function AvailabilityCell({
   );
 }
 
-function InnerCell(props: BaseDtoUiProps<ProviderRoleAvailabilityDto>) {
+const ProviderAvailabilityCell = (props: CellWrapperProps) => {
+  return <GenericAvailabilityCell {...props} type={'provider'} />;
+};
+const AssetAvailabilityCell = (props: CellWrapperProps) => {
+  return <GenericAvailabilityCell {...props} type={'asset'} />;
+};
+
+export const MemoProviderRoleAvailabilityCell = React.memo(
+  ProviderAvailabilityCell
+);
+export const MemoAssetRoleAvailabilityCell = React.memo(AssetAvailabilityCell);
+
+function InnerCell(props: BaseDtoUiProps<RoleAvailabilityDto>) {
   const availabilityColor = getAvailabilityColor(props.entity.availabilityCode);
 
   return (
-    <DtoStoreNumberInput<ProviderRoleAvailabilityDto>
+    <DtoStoreNumberInput<RoleAvailabilityDto>
       className={clsx(
         'mb-auto ml-auto mr-auto mt-auto max-h-[92%] max-w-[92%] text-center',
         availabilityColor

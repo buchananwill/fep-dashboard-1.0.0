@@ -1,3 +1,4 @@
+'use client';
 import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
 import {
