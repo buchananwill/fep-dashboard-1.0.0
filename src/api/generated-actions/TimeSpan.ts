@@ -1,9 +1,9 @@
 'use server';
+import { TimeSpanDto } from '../dtos/TimeSpanDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { TimeSpanDto } from '@/api/generated-types/generated-types';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,12 +15,16 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<TimeSpanDto, number>(
+} = generateBaseEndpointSet<
+  TimeSpanDto,
+  number
+>(
   '/api/v2/time/cycleSubspans/types'
 );
 
+
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -32,4 +36,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-};
+
+}
+

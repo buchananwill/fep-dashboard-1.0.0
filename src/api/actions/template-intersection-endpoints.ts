@@ -4,9 +4,13 @@ import {
 } from './template-actions';
 import { constructUrl } from './template-base-endpoints';
 import {
+  GenericTableDto,
   IdReferencedIntersectionTableDto,
   IntersectionRequestParams
 } from '@/api/types';
+import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
+import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
+import { ProviderRoleAvailabilityDto } from '@/api/zod-schemas/ProviderRoleAvailabilityDtoSchema';
 
 export interface IntersectionEndpoints<T, U, V> {
   getIntersectionTable: (
@@ -23,6 +27,9 @@ export interface IntersectionEndpoints<T, U, V> {
     idsForHasIdTypeT: T[],
     idsForHasIdTypeU: U[]
   ) => Promise<IdReferencedIntersectionTableDto<T>>;
+  getDtoTableByRowIdListAndColumnIdList: (
+    idsForHasIdTypeT: U[]
+  ) => Promise<GenericTableDto<any, any, T, T>>;
 }
 
 async function getIntersectionTable<T, U, V>(
@@ -33,6 +40,19 @@ async function getIntersectionTable<T, U, V>(
     url: `${request.url}/intersectionTable`
   };
   return postIntersectionTableRequest<T, U, V>(modifiedUrlRequest);
+}
+
+async function getGenericDtoTable<T, U, V>(
+  request: Omit<IntersectionRequestParams<U, V>, 'idsForHasIdTypeU'>
+) {
+  const modifiedUrlRequest = {
+    ...request,
+    url: `${request.url}/dtoTableByRowList`
+  };
+  return postEntitiesWithDifferentReturnType<
+    U[],
+    GenericTableDto<any, any, T, T>
+  >(request.idsForHasIdTypeT, modifiedUrlRequest.url);
 }
 
 export function generateIntersectionEndpointSet<T, U, V>(
@@ -55,7 +75,9 @@ export function generateIntersectionEndpointSet<T, U, V>(
         idsForHasIdTypeT,
         idsForHasIdTypeU,
         url: generatedUrl
-      })
+      }),
+    getDtoTableByRowIdListAndColumnIdList: (idsForHasIdTypeT) =>
+      getGenericDtoTable({ idsForHasIdTypeT, url: generatedUrl })
   };
 }
 

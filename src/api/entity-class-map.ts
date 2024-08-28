@@ -1,5 +1,6 @@
 export const EntityClassMap = {
    buildMetric: 'BuildMetric', 
+ assetRoleAvailability: 'AssetRoleAvailability', 
  schedule: 'Schedule', 
  staticDeliveryAllocationItem: 'StaticDeliveryAllocationItem', 
  providerRole: 'ProviderRole', 

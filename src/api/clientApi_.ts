@@ -37,10 +37,12 @@ import * as WorkSchemaNode from './generated-actions/WorkSchemaNode_';
 import * as WorkSchemaNodeAssignment from './generated-actions/WorkSchemaNodeAssignment_';
 import * as WorkTaskType from './generated-actions/WorkTaskType';
 import * as KnowledgeLevelSeries from '@/api/generated-actions/KnowledgeLevelSeries';
+import * as AssetRoleAvailability from '@/api/generated-actions/AssetRoleAvailability';
 
 export const Api = {
   Asset,
   AssetRole,
+  AssetRoleAvailability,
   AssetRoleType,
   AssetRoleTypeWorkTaskTypeSuitability,
   AssetType,

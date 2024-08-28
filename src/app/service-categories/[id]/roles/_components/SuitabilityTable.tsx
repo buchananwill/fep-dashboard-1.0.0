@@ -23,7 +23,7 @@ import { Api } from '@/api/clientApi_';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import { CellComponentMemo } from '@/app/service-categories/[id]/roles/_components/CellComponent';
 
-export type SuitabilityTypes = (typeof EntityClassMap)[
+export type RoleTypes = (typeof EntityClassMap)[
   | 'assetRole'
   | 'providerRole'
   | 'userRole'];
@@ -37,13 +37,13 @@ export type SuitabilityEntity =
   | AssetRoleWorkTaskSuitabilityDto;
 
 export interface SuitabilityTableProps {
-  suitabilityType: SuitabilityTypes;
+  suitabilityType: RoleTypes;
   roleTypeId: number;
 }
 
 export interface SuitabilityConditions {
   suitabilityEntityType: SuitabilityEntityTypes;
-  suitabilityType: SuitabilityTypes;
+  suitabilityType: RoleTypes;
   baseEntityIdAccessor: 'partyId' | 'assetId';
   displayNameAccessor: 'partyName' | 'assetName';
   api: (typeof SuitabilityApis)[keyof typeof SuitabilityApis];

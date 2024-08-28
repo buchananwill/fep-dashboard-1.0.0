@@ -1,37 +1,33 @@
 'use client';
-import {
-  CellIdReference,
-  GetCellContent
-} from '@/components/tables/CellQueryManager';
+import { CellIdReference } from '@/components/tables/CellQueryManager';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
-import { GenericTableDto } from '@/api/types';
-import { ProviderRoleAvailabilityDto } from '@/api/zod-schemas/ProviderRoleAvailabilityDtoSchema';
-import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
+import { GenericTableDto, HasNumberId } from '@/api/types';
 import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { useGlobalController } from 'selective-context';
-import { EntityClassMap } from '@/api/entity-class-map';
-import { Api } from '@/api/clientApi_';
 import { AvailabilityCell } from '@/app/service-categories/[id]/roles/_components/AvailabilityCell';
 import { ProviderCell } from '@/app/service-categories/[id]/roles/_components/ProviderCell';
-import CycleSubspanCellWithJoins from '@/app/service-categories/[id]/roles/_components/CycleSubspanCellWithJoins';
 import { useGridSelectionController } from '@/app/service-categories/[id]/roles/_components/useGridSelectionCell';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
+import { availabilityConfig } from '@/app/service-categories/[id]/roles/_components/AvailabilityConfig';
+import { AvailabilityType } from '@/app/service-categories/[id]/roles/_components/AvailabilityType';
 
-export function AvailabilityTable({
-  tableData,
-  ...props
-}: {
+export interface AvailabilityTableProps<
+  Role extends HasNumberId,
+  Availability
+> {
+  type: AvailabilityType;
   itemData: CellIdReference[][];
   columnIdList: Identifier[];
   rowIdList: Identifier[];
-  tableData: GenericTableDto<
-    ProviderRoleDto,
-    CycleSubspanDto,
-    ProviderRoleAvailabilityDto,
-    ProviderRoleAvailabilityDto
-  >;
-}) {
+  tableData: GenericTableDto<Role, CycleSubspanDto, Availability, Availability>;
+}
+
+export function AvailabilityTable<Role extends HasNumberId, Availability>({
+  tableData,
+  type,
+  ...props
+}: AvailabilityTableProps<Role, Availability>) {
   useGridSelectionController();
 
   const { currentState } = useGlobalController({
@@ -43,9 +39,9 @@ export function AvailabilityTable({
   return (
     <>
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.providerRoleAvailability}
+        entityClass={availabilityConfig[type].entityClass}
         dtoList={Object.values(tableData.cellIdCellContentMap)}
-        updateServerAction={Api.ProviderRoleAvailability.putList}
+        updateServerAction={availabilityConfig[type].update}
       />
 
       <VirtualizedTableWindowed

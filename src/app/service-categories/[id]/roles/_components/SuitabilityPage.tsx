@@ -2,7 +2,7 @@ import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import SuitabilityTable, {
-  SuitabilityTypes
+  RoleTypes
 } from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import {
   isValidAspect,
@@ -25,16 +25,20 @@ import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/av
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 
+export function getRoleEntityKey(roleCategory: 'user' | 'provider' | 'asset') {
+  return `${roleCategory}Role` as keyof typeof EntityClassMap;
+}
+
 export default async function SuitabilityPage(props: RolePageProps) {
   const {
     params: { roleCategory, roleTypeId }
   } = props;
   // List of all work task types to select
   // List of all provider roles of the layer type
-  const roleEntityKey = `${roleCategory}Role` as keyof typeof EntityClassMap;
-  const roleTypeIdInt = parseInt(roleTypeId, 10);
+  const roleEntityKey = getRoleEntityKey(roleCategory);
   const suitabilityType = EntityClassMap[roleEntityKey];
 
+  const roleTypeIdInt = parseInt(roleTypeId, 10);
   const roles = await RoleApiByTypeIdList[roleCategory]([roleTypeIdInt]);
 
   let workTaskTypes = await Api.WorkTaskType.getAll();
@@ -57,7 +61,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
       <div className={'mb-auto mt-auto h-[90vh] w-[90vw] p-8'}>
         <SuitabilityTable
           roleTypeId={roleTypeIdInt}
-          suitabilityType={suitabilityType as SuitabilityTypes}
+          suitabilityType={suitabilityType as RoleTypes}
         />
       </div>
     </div>
