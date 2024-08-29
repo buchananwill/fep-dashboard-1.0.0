@@ -16,11 +16,11 @@ import { useGlobalDispatchAndListener } from 'selective-context';
 import { selectedAssignmentCell } from '@/components/work-project-series-assignments/AssignmentTable';
 import { EmptyArray } from '@/api/literals';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
-import { WorkProjectSeriesAssignmentDto } from '@/api/zod-schemas/WorkProjectSeriesAssignmentDtoSchema';
 import clsx from 'clsx';
 import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { WorkProjectSeriesAssignmentDto } from '@/api/generated-types/generated-types';
 
 export default function AssignmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;

@@ -19,6 +19,7 @@ import {
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
 } from '@/api/generated-types/generated-types';
+import React from 'react';
 
 async function WorkProjectSeriesAssignmentsForSchedule({
   pathVariables,
@@ -62,7 +63,10 @@ async function WorkProjectSeriesAssignmentsForSchedule({
         getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
         entityClass={EntityClassMap.workProjectSeriesSchema}
       />
-
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.cycleSubspan}
+        dtoList={workProjectSeriesAssignmentTableDto.columnList}
+      />
       <AssignmentTable
         tableData={workProjectSeriesAssignmentTableDto}
         organizations={organizationList}

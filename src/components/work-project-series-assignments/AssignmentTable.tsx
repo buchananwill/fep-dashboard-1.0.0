@@ -1,18 +1,13 @@
 'use client';
-import { WorkProjectSeriesAssignmentTableDto } from '@/api/zod-schemas/WorkProjectSeriesAssignmentTableDtoSchema_';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
-import React, { useMemo } from 'react';
-import CellQueryManager, {
-  CellIdReference
-} from '@/components/tables/CellQueryManager';
-import RenderOrganizationCell from '@/components/work-project-series-assignments/RenderOrganizationCell';
+import React from 'react';
+import CellQueryManager from '@/components/tables/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
 import AssignmentCell from '@/components/work-project-series-assignments/AssignmentCell';
 import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/workProjectSeriesDataRetrieval';
-import CycleSubspanCellWithJoins from '@/app/service-categories/[id]/roles/_components/CycleSubspanCellWithJoins';
-import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
+import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
 import { AssignmentTableRow, GenericTableDto } from '@/api/types';
@@ -25,6 +20,7 @@ import {
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import AssignmentRowCell from '@/components/work-project-series-assignments/AssignmentRowCell';
+import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 
 export const selectedAssignmentCell = 'selectedAssignmentCell';
 export const AssignmentTableRowClassName = 'AssignmentTableRow';
@@ -70,14 +66,11 @@ export default function AssignmentTable({
         tableData={tableData}
         getDataRetrievalMemoizedFunction={workProjectSeriesDataRetrieval}
       />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.cycleSubspan}
-        dtoList={tableData.columnList}
-      />
+
       <VirtualizedTableWindowed
         {...tableProps}
         renderCell={memoCell}
-        renderSyncedRowCell={CycleSubspanCellWithJoins}
+        renderSyncedRowCell={CycleSubspanCell}
         renderSyncedColumnCell={memoOrganizationCell}
       />
     </>

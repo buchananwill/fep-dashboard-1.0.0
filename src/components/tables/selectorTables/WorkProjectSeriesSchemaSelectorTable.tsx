@@ -1,12 +1,11 @@
 'use client';
 import React, { useCallback } from 'react';
-import { Chip } from '@nextui-org/react';
 import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { Paths } from 'type-fest';
 
 export default function WorkProjectSeriesSchemaSelectorTable({
   workProjectSeriesSchemas
@@ -14,11 +13,17 @@ export default function WorkProjectSeriesSchemaSelectorTable({
   workProjectSeriesSchemas: WorkProjectSeriesSchemaDto[];
 }) {
   const renderCell = useCallback(
-    (assetRoleDto: WorkProjectSeriesSchemaDto, columnKey: React.Key) => {
+    (
+      workProjectSeriesSchemaDto: WorkProjectSeriesSchemaDto,
+      columnKey: React.Key
+    ) => {
       const cellValue =
-        assetRoleDto[
+        workProjectSeriesSchemaDto[
           columnKey as Extract<
-            keyof Omit<WorkProjectSeriesSchemaDto, 'deliveryAllocations'>,
+            keyof Omit<
+              WorkProjectSeriesSchemaDto,
+              'deliveryAllocations' | 'workTaskType'
+            >,
             string | number
           >
         ];
@@ -32,7 +37,7 @@ export default function WorkProjectSeriesSchemaSelectorTable({
         case 'name':
           return (
             <div className={'inline-block w-32 truncate'}>
-              {assetRoleDto.name}
+              {workProjectSeriesSchemaDto.name}
             </div>
           );
         default:
@@ -57,10 +62,18 @@ export default function WorkProjectSeriesSchemaSelectorTable({
   );
 }
 
-export const WorkProjectSeriesSchemaColumnsInitial: (keyof WorkProjectSeriesSchemaDto)[] =
-  ['name', 'shortCode'];
+export const WorkProjectSeriesSchemaColumnsInitial: Paths<WorkProjectSeriesSchemaDto>[] =
+  [
+    'name',
+    'workTaskType.knowledgeDomain.name',
+    'workTaskType.knowledgeDomain.shortCode'
+  ];
 export const WorkProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[] =
   [
     { name: 'Name', uid: 'name', sortable: true },
-    { name: 'Short Code', uid: 'shortCode', sortable: true }
+    {
+      name: 'Short Code',
+      uid: 'workTaskType.knowledgeDomain.shortCode',
+      sortable: true
+    }
   ];

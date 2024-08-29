@@ -7,12 +7,12 @@ import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';
 import ProviderRoleSelectorTable from '@/components/tables/selectorTables/ProviderRoleSelectorTable';
 import AssetRoleSelectorTable from '@/components/tables/selectorTables/AssetRoleSelectorTable';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { startCase } from 'lodash';
 import WorkProjectSeriesSchemaSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
 import OrganizationSelectorTable from '@/components/tables/selectorTables/OrganizationSelectorTable';
 import {
   OrganizationDto,
+  WorkProjectSeriesSchemaDto,
   WorkProjectSeriesWithSchemaLabelsDto,
   WorkTaskTypeDto
 } from '@/api/generated-types/generated-types';

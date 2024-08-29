@@ -1,9 +1,9 @@
 'use server';
-import { WorkProjectSeriesAssignmentDto } from '../dtos/WorkProjectSeriesAssignmentDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { WorkProjectSeriesAssignmentDto } from '@/api/generated-types/generated-types';
 
 const {
-getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,16 +15,12 @@ getPage,
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<
-  WorkProjectSeriesAssignmentDto,
-  number
->(
+} = generateBaseEndpointSet<WorkProjectSeriesAssignmentDto, number>(
   '/api/v2/workProjectSeries/assignments'
 );
 
-
 export {
-    getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -36,6 +32,4 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-
-}
-
+};

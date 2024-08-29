@@ -20,13 +20,14 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "Classical Piano",
-              "id": -1
+              "id": -1,
+              "shortCode": "CPo"
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -75,13 +76,13 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "Piano",
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -121,13 +122,13 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "Classical Voice",
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -176,13 +177,13 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "Production",
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -249,7 +250,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "Drum Kit",
               "id": -1
@@ -259,7 +260,7 @@ Content-Type: application/json
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -308,13 +309,13 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "Guitar",
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -363,13 +364,13 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "French Horn",
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -409,13 +410,13 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "Jazz/Pop Voice",
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -428,18 +429,18 @@ Content-Type: application/json
     ],
     "availabilities": [
       {
-        "day": "TUESDAY",
+        "day": "MONDAY",
         "startTime": "10:00",
-        "endTime": "12:00",
+        "endTime": "17:00",
         "roleTypeNames": [
           "Teacher"
         ],
         "availabilityCode": "TRUE"
       },
       {
-        "day": "THURSDAY",
+        "day": "TUESDAY",
         "startTime": "10:00",
-        "endTime": "12:00",
+        "endTime": "17:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -464,13 +465,13 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "Double Bass",
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]
@@ -519,13 +520,13 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             {
               "name": "DJ",
               "id": -1
             }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": [
             "Teaching"
           ]

@@ -6,48 +6,18 @@ import {
 
 import { HasId } from '@/api/types';
 import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import clsx from 'clsx';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { shortCodes } from '@/components/feasibility-report/shortCodes';
 
 export function WorkProjectSeriesSchemaLabel({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
   return entity.name;
 }
-
-const shortCodes = [
-  'Ar',
-  'Bi',
-  'Cc',
-  'Ch',
-  'Cm',
-  'Dr',
-  'Dt',
-  'Ec',
-  'El',
-  'Fp',
-  'Fr',
-  'Ga',
-  'Ge',
-  'Gg',
-  'Gp',
-  'Hi',
-  'La',
-  'Ld',
-  'Mf',
-  'Mm',
-  'Mp',
-  'Mu',
-  'PE',
-  'Pe',
-  'Ph',
-  'Ps',
-  'Py',
-  'Rs'
-];
 
 const bgColorString = [
   'bg-red-400',
@@ -78,7 +48,10 @@ function getBackgroundColor(subjectCode: string) {
 export function WorkProjectSeriesSchemaCode({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
-  const subjectCode = entity.name ?? '';
+  const subjectCode =
+    entity.workTaskType.knowledgeDomain?.shortCode ??
+    entity.workTaskType.knowledgeDomain?.name ??
+    entity.name;
   const backgroundColor = getBackgroundColor(subjectCode);
   return (
     <div
@@ -87,10 +60,11 @@ export function WorkProjectSeriesSchemaCode({
         backgroundColor
       )}
     >
-      {entity.name ? entity.name.substring(0, 2) : ''}
+      {subjectCode}
     </div>
   );
 }
+
 export function NamedEntityLabel({
   entity,
   ...divProps

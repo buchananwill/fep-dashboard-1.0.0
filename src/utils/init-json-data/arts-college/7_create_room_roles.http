@@ -15,7 +15,7 @@ Content-Type: application/json
           "knowledgeLevelSeriesDtoList": [
             { "name": "Courses", "id": 2, "knowledgeLevels": [] }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             { "name": "Drum Kit", "id": -1 },
             { "name": "Piano", "id": -1 },
             { "name": "Classical Piano", "id": -1 },
@@ -26,7 +26,7 @@ Content-Type: application/json
             { "name": "Double Bass", "id": -1 },
             { "name": "Jazz/Pop Voice", "id": -1 }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": ["Teaching"]
         },
         "roleTypeNames": ["Studio"],
@@ -62,14 +62,14 @@ Content-Type: application/json
           "knowledgeLevelSeriesDtoList": [
             { "name": "Courses", "id": 2, "knowledgeLevels": [] }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             { "name": "Piano", "id": -1 },
             { "name": "Classical Piano", "id": -1 },
             { "name": "Production", "id": -1 },
             { "name": "French Horn", "id": -1 },
             { "name": "Jazz/Pop Voice", "id": -1 }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": ["Teaching"]
         },
         "roleTypeNames": ["Studio"],
@@ -126,12 +126,12 @@ Content-Type: application/json
           "knowledgeLevelSeriesDtoList": [
             { "name": "Courses", "id": 2, "knowledgeLevels": [] }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             { "name": "Guitar", "id": -1 },
             { "name": "Double Bass", "id": -1 },
             { "name": "Jazz/Pop Voice", "id": -1 }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": ["Teaching"]
         },
         "roleTypeNames": ["Studio"],
@@ -188,11 +188,11 @@ Content-Type: application/json
           "knowledgeLevelSeriesDtoList": [
             { "name": "Courses", "id": 2, "knowledgeLevels": [] }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             { "name": "French Horn", "id": -1 },
             { "name": "Jazz/Pop Voice", "id": -1 }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": ["Teaching"]
         },
         "roleTypeNames": ["Studio"],
@@ -249,7 +249,7 @@ Content-Type: application/json
           "knowledgeLevelSeriesDtoList": [
             { "name": "Courses", "id": 2, "knowledgeLevels": [] }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             { "name": "Guitar", "id": -1 },
             { "name": "French Horn", "id": -1 },
             { "name": "Double Bass", "id": -1 },
@@ -257,7 +257,7 @@ Content-Type: application/json
             { "name": "Jazz/Pop Voice", "id": -1 },
             { "name": "DJ", "id": -1 }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": ["Teaching"]
         },
         "roleTypeNames": ["Studio"],
@@ -314,11 +314,11 @@ Content-Type: application/json
           "knowledgeLevelSeriesDtoList": [
             { "name": "Courses", "id": 2, "knowledgeLevels": [] }
           ],
-          "knowledgeDomainInclusionList": [
+          "knowledgeDomainDtoInclusionList": [
             { "name": "Classical Voice", "id": -1 },
             { "name": "Jazz/Pop Voice", "id": -1 }
           ],
-          "knowledgeDomainExclusionList": [],
+          "knowledgeDomainDtoExclusionList": [],
           "workTaskTypeNames": ["Teaching"]
         },
         "roleTypeNames": ["Studio"],
