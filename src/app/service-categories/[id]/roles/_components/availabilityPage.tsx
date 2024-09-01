@@ -1,49 +1,61 @@
 import { Api } from '@/api/clientApi_';
-import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { GenericTableDto } from '@/api/types';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
-import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
-import { ProviderRoleAvailabilityDto } from '@/api/dtos/ProviderRoleAvailabilityDtoSchema';
 import { AvailabilityTable } from './AvailabilityTable';
-import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/types';
-import { getIdList } from '@/app/service-categories/[id]/roles/_components/getIdList';
 import {
-  getTableProps,
-  useTableProps
-} from '@/app/service-categories/[id]/roles/_components/useTableProps';
+  RoleApiByTypeIdList,
+  RolePageProps
+} from '@/app/service-categories/[id]/roles/_components/types';
+import { getIdList } from '@/app/service-categories/[id]/roles/_components/getIdList';
+import { getTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { getRoleEntityKey } from '@/app/service-categories/[id]/roles/_components/SuitabilityPage';
+import { availabilityConfig } from '@/app/service-categories/[id]/roles/_components/AvailabilityConfig';
+import {
+  AvailabilityEntityClass,
+  AvailabilityType
+} from '@/app/service-categories/[id]/roles/_components/AvailabilityType';
+import { notFound } from 'next/navigation';
 
 export default async function AvailabilityPage({
-  params: { roleTypeId }
+  params: { roleTypeId, roleCategory }
 }: RolePageProps) {
-  const providerRoles = await Api.ProviderRole.getDtoListByExampleList([
-    { type: { id: parseInt(roleTypeId) } }
-  ]);
+  if (roleCategory === 'user') {
+    return notFound();
+  }
+  const roleEntityKey = getRoleEntityKey(roleCategory);
+  const entityClassMapElement = EntityClassMap[roleEntityKey];
+  const roleTypeIdInt = parseInt(roleTypeId, 10);
+  const roles = await RoleApiByTypeIdList[roleCategory]([roleTypeIdInt]);
+
   const cycleSubspanList = await Api.CycleSubspan.getDtoListByExampleList([
     { parentCycleId: 1 }
   ]);
-  const providerIdList: number[] = getIdList(providerRoles);
+  const roleIdList: number[] = getIdList(roles);
+  console.log(roleIdList);
 
-  const genericTable = await postEntitiesWithDifferentReturnType<
-    number[],
-    GenericTableDto<
-      ProviderRoleDto,
-      CycleSubspanDto,
-      ProviderRoleAvailabilityDto,
-      ProviderRoleAvailabilityDto
-    >
-  >(
-    providerIdList,
-    constructUrl(
-      '/api/v2/providerRoles/availabilities/dtoTableByRowListAndColumnList'
-    )
-  );
+  const genericTable =
+    await Api[
+      availabilityConfig[roleCategory as AvailabilityType]
+        .entityClass as keyof Pick<typeof Api, AvailabilityEntityClass>
+    ].getDtoTableByRowIdListAndColumnIdList(roleIdList);
 
-  const tableProps = getTableProps(providerRoles, cycleSubspanList);
+  const tableProps = getTableProps(roles, cycleSubspanList);
 
   return (
     <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8'}>
-      <AvailabilityTable tableData={genericTable} {...tableProps} />
+      <EditAddDeleteDtoControllerArray
+        entityClass={entityClassMapElement}
+        dtoList={genericTable.rowList}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.cycleSubspan}
+        dtoList={cycleSubspanList}
+      />
+      <AvailabilityTable
+        type={roleCategory}
+        tableData={genericTable}
+        {...tableProps}
+      />
     </div>
   );
 }

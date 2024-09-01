@@ -8,8 +8,8 @@ import {
 } from '@nextui-org/react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { Identifier } from 'dto-stores';
-import { Column } from '@/types';
-import { HasIdClass } from '@/api/types';
+import { Column, ColumnUid } from '@/types';
+import { HasId, HasIdClass } from '@/api/types';
 import { ColumnDropdown } from '@/components/generic/ColumnDropdown';
 import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect';
 import {
@@ -18,6 +18,22 @@ import {
 } from '@/components/generic/FilterSortPaginateTableContent';
 import { GetFieldType } from '@/functions/allowingNestedFiltering';
 import { Paths } from 'type-fest';
+
+export interface FilterSelectEntityTableProps<
+  T extends HasIdClass<Identifier>,
+  TPath extends string & GetFieldType<T, TPath> extends string
+    ? Paths<T>
+    : never
+> {
+  entityClass: string;
+  idClass?: 'string' | 'number';
+  entities: T[];
+  columns: Column<T>[];
+  initialColumns: ColumnUid<T>[];
+  filterProperty: TPath;
+  renderCell: TableCellRenderer<T>;
+  dynamicColumns?: boolean;
+}
 
 export default function FilterSelectEntityTable<
   T extends HasIdClass<Identifier>,
@@ -33,17 +49,10 @@ export default function FilterSelectEntityTable<
   columns,
   entityClass,
   selectionMode = 'multiple',
-  dynamicColumns = true
-}: {
-  entityClass: string;
-  idClass?: 'string' | 'number';
-  entities: T[];
-  columns: Column<T>[];
-  initialColumns: Paths<T>[];
-  filterProperty: TPath;
-  renderCell: TableCellRenderer<T>;
-  dynamicColumns?: boolean;
-} & Pick<TableProps, 'selectionMode'>) {
+  dynamicColumns = true,
+  ...otherProps
+}: FilterSelectEntityTableProps<T, TPath> &
+  Omit<TableProps, OmittedTableProps>) {
   const {
     paginationProps,
     columnDropdownProps,
@@ -158,9 +167,13 @@ export default function FilterSelectEntityTable<
   return (
     <FilterSortPaginateTableContent
       {...tableContentProps}
+      {...otherProps}
       selectionMode={selectionMode}
       isHeaderSticky
-      aria-label="Table to enable selection for related context."
+      aria-label={
+        otherProps['aria-label'] ??
+        'Table to enable selection for related context.'
+      }
       topContent={topContent}
       topContentPlacement={'outside'}
       bottomContent={bottomContent}
@@ -173,3 +186,5 @@ export default function FilterSelectEntityTable<
     />
   );
 }
+
+type OmittedTableProps = 'topContent' | 'bottomContent';

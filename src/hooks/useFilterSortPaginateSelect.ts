@@ -1,6 +1,6 @@
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
-import { Column, StringPropertyKey } from '@/types';
+import { Column, ColumnUid, StringPropertyKey } from '@/types';
 import { useClientSidePagination } from '@/hooks/useClientSidePagination';
 import { useDynamicColumnVisibility } from '@/hooks/useDynamicColumnVisibility';
 import {
@@ -23,7 +23,7 @@ export function useFilterSortPaginateSelect<
     ? Paths<T>
     : never
 >(
-  initialColumns: (keyof T)[],
+  initialColumns: ColumnUid<T>[],
   columns: Column<T>[],
   entities: T[],
   initialFilterProperty: TPath,
@@ -65,7 +65,13 @@ export function useFilterSortPaginateSelect<
 
   // Set up selection
   const { onSelectionChange, selectedKeys, dispatchSelected } =
-    useEntitySelection<T, Identifier>(entityClass, filteredItemsRef, idClass);
+    useEntitySelection<T, Identifier>(
+      entityClass,
+      filteredItemsRef,
+      idClass,
+      undefined,
+      sortedItems
+    );
   const deselectVisible = useDeselectVisible(dispatchSelected, visibleItemsRef);
   const selectVisible = useSelectVisible(dispatchSelected, visibleItemsRef);
   return {

@@ -12,7 +12,7 @@ import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect'
 import { DayOfWeekArray } from '@/api/date-and-time';
 import { SelectItem } from '@nextui-org/select';
 import { Button } from '@nextui-org/button';
-import { CycleDto, CycleDtoSchema } from '@/api/dtos/CycleDtoSchema';
+import { CycleDto, CycleDtoSchema } from '@/api/zod-schemas/CycleDtoSchema';
 import { postOne } from '@/api/generated-actions/Cycle';
 import { initCycleSubspans } from '@/utils/init-database-functions/operations/initCycleSubspans';
 import { TransientIdOffset } from '@/api/literals';

@@ -25,7 +25,6 @@ import * as ProviderRoleAvailability from './generated-actions/ProviderRoleAvail
 import * as ProviderRoleType from './generated-actions/ProviderRoleType';
 import * as ProviderRoleTypeWorkTaskTypeSuitability from './generated-actions/ProviderRoleTypeWorkTaskTypeSuitability';
 import * as Schedule from './generated-actions/Schedule';
-import * as ServiceCategory from './generated-actions/ServiceCategory';
 import * as StaticDeliveryAllocationItem from '@/api/generated-actions/StaticDeliveryAllocationItem';
 import * as TimeDivision from './generated-actions/TimeDivision';
 import * as UserRole from './generated-actions/UserRole';
@@ -37,10 +36,13 @@ import * as WorkProjectSeriesSchema from './generated-actions/WorkProjectSeriesS
 import * as WorkSchemaNode from './generated-actions/WorkSchemaNode_';
 import * as WorkSchemaNodeAssignment from './generated-actions/WorkSchemaNodeAssignment_';
 import * as WorkTaskType from './generated-actions/WorkTaskType';
+import * as KnowledgeLevelSeries from '@/api/generated-actions/KnowledgeLevelSeries';
+import * as AssetRoleAvailability from '@/api/generated-actions/AssetRoleAvailability';
 
 export const Api = {
   Asset,
   AssetRole,
+  AssetRoleAvailability,
   AssetRoleType,
   AssetRoleTypeWorkTaskTypeSuitability,
   AssetType,
@@ -58,6 +60,7 @@ export const Api = {
   InteractionBasedValidation,
   KnowledgeDomain,
   KnowledgeLevel,
+  KnowledgeLevelSeries,
   Organization,
   OrganizationType,
   Person,
@@ -66,7 +69,6 @@ export const Api = {
   ProviderRoleType,
   ProviderRoleTypeWorkTaskTypeSuitability,
   Schedule,
-  ServiceCategory,
   StaticDeliveryAllocationItem,
   TimeDivision,
   UserRole,

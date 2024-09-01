@@ -1,11 +1,11 @@
-import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
+import { WorkProjectSeriesAssignmentTableDto } from '@/api/zod-schemas/WorkProjectSeriesAssignmentTableDtoSchema_';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
 import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 
 export function workProjectSeriesDataRetrieval(
   tableData: GenericTableDto<

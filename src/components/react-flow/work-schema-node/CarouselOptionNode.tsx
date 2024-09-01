@@ -1,11 +1,11 @@
 import { NodeProps } from '@xyflow/react';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import clsx from 'clsx';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
-import { CarouselOptionDto } from '@/api/dtos/CarouselOptionDtoSchema';
+import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 import { NodeBase } from '@/react-flow/types';
 
 export default function CarouselOptionNode(
@@ -32,14 +32,7 @@ export default function CarouselOptionNode(
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}
-      label={`Option:
-      ${
-        workProjectSeriesSchema &&
-        workProjectSeriesSchema.name.substring(
-          0,
-          workProjectSeriesSchema.name.indexOf(':')
-        )
-      }`}
+      label={`Option: ${workProjectSeriesSchema && workProjectSeriesSchema.name}`}
     ></BaseWorkSchemaNode>
   );
 }

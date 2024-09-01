@@ -2,7 +2,7 @@ import { BaseLazyDtoUiProps } from 'dto-stores';
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { Checkbox } from '@nextui-org/checkbox';
 import { Chip } from '@nextui-org/chip';
-import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 
 export interface CycleSubspanGroupEditDto extends CycleSubspanDto {
   sizesStartingAtCycleSubspanId: number[];

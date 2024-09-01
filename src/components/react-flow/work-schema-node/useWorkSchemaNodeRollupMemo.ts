@@ -1,6 +1,6 @@
 import { DataNode } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { useMemo } from 'react';
 import { resolveNodeAllocation } from '@/components/react-flow/work-schema-node/resolveNodeAllocation';
 import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';

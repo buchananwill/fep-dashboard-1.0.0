@@ -1,0 +1,59 @@
+###
+POST http://localhost:8080/api/v2/time/cycles/createFromInitDto
+Content-Type: application/json
+
+{
+  "startDay": "MONDAY",
+  "durationInWeeks": 1,
+  "omitDays": [5, 6],
+  "startOfDay": {
+    "defaultTime": "09:00"
+  },
+  "endOfDay": {
+    "defaultTime": "20:00"
+  },
+  "cycleSubspanDuration": 15,
+  "breaks": {
+    "0": [
+      {
+        "startTime": "13:00",
+        "endTime": "13:45"
+      }
+    ],
+    "1": [
+      {
+        "startTime": "12:00",
+        "endTime": "12:45"
+      }
+    ],
+    "2": [
+      {
+        "startTime": "11:00",
+        "endTime": "11:45"
+      }
+    ],
+    "3": [
+      {
+        "startTime": "12:00",
+        "endTime": "12:45"
+      }
+    ],
+    "4": [
+      {
+        "startTime": "12:00",
+        "endTime": "12:45"
+      }
+    ]
+  },
+  "groupSizes": [2,3, 4, 6, 8]
+}
+
+<> 2024-08-23T120420.200.json
+<> 2024-08-23T115954.200.json
+<> 2024-08-23T115525.200.json
+<> 2024-08-23T112451.200.json
+<> 2024-08-23T000645.200.json
+<> 2024-08-22T233413.200.json
+<> 2024-08-22T231155.200.json
+<> 2024-08-22T230817.200.json
+<> 2024-08-22T230247.200.json

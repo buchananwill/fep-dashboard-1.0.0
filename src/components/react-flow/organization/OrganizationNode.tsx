@@ -3,7 +3,7 @@ import { Edge, NodeProps, useEdges } from '@xyflow/react';
 import React, { memo, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import { BaseEditableNode } from '@/react-flow/components/nodes/BaseEditableNode';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import {
   useGlobalDispatch,
   useGlobalListener,
@@ -59,9 +59,15 @@ export function OrganizationNode(
     listenerKey: listenerKey
   });
 
+  console.log(workSchemaNodeAssignment?.workSchemaNodeId);
+
+  const allocationRollupOrZero = useMemo(() => {
+    return workSchemaNodeAssignment?.workSchemaNodeId ? allocationRollup : 0;
+  }, [workSchemaNodeAssignment?.workSchemaNodeId, allocationRollup]);
+
   useEffect(() => {
-    dispatchWithoutListen(allocationRollup);
-  }, [dispatchWithoutListen, allocationRollup]);
+    dispatchWithoutListen(allocationRollupOrZero);
+  }, [dispatchWithoutListen, allocationRollupOrZero]);
 
   const inheritedTotal = useMemo(() => {
     return [...currentState.values()].reduce(
@@ -72,11 +78,11 @@ export function OrganizationNode(
 
   const summaries: AllocationSummary[] = useMemo(() => {
     return [
-      { label: 'Local', amount: allocationRollup },
-      { label: 'Inherited', amount: inheritedTotal },
-      { label: 'Total', amount: allocationRollup + inheritedTotal }
+      { label: 'Local', amount: allocationRollupOrZero / 4 },
+      { label: 'Inherited', amount: inheritedTotal / 4 },
+      { label: 'Total', amount: (allocationRollupOrZero + inheritedTotal) / 4 }
     ];
-  }, [allocationRollup, inheritedTotal]);
+  }, [allocationRollupOrZero, inheritedTotal]);
 
   return (
     <BaseEditableNode

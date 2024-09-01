@@ -4,7 +4,7 @@ import {
   postList
 } from '@/api/generated-actions/KnowledgeDomain';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
-import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
+import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import data from '@/utils/init-json-data/service-categories/KnowledgeDomain.json';
 import { setAllIdNaN } from '@/utils/init-database-functions/setIdNaN';
 
@@ -13,7 +13,7 @@ export async function initKnowledgeDomains(
 ) {
   const noIdDataSet = setAllIdNaN(data).map((kd) => ({
     ...kd,
-    serviceCategoryId: serviceCategoryDto.id
+    knowledgeLevelSeriesId: serviceCategoryDto.id
   }));
 
   return initSafely(

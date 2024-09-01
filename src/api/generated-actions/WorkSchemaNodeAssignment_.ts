@@ -1,7 +1,7 @@
 'use server';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
-import { WorkSchemaNodeAssignmentDto } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema_';
+import { WorkSchemaNodeAssignmentDto } from '@/api/zod-schemas/WorkSchemaNodeAssignmentDtoSchema_';
 
 const {
   getPage,

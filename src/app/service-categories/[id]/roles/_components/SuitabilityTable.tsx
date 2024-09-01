@@ -6,7 +6,7 @@ import {
   useReadAnyDto
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/dtos/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
+import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/zod-schemas/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -16,14 +16,14 @@ import {
   SyncedColumnCellMemo,
   SyncedRowCellMemo
 } from '@/app/service-categories/[id]/roles/_components/SyncedCell';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
+import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import { isNotUndefined } from '@/api/main';
-import { AssetRoleWorkTaskSuitabilityDto } from '@/api/dtos/AssetRoleWorkTaskSuitabilityDtoSchema';
+import { AssetRoleWorkTaskSuitabilityDto } from '@/api/zod-schemas/AssetRoleWorkTaskSuitabilityDtoSchema';
 import { Api } from '@/api/clientApi_';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import { CellComponentMemo } from '@/app/service-categories/[id]/roles/_components/CellComponent';
 
-export type SuitabilityTypes = (typeof EntityClassMap)[
+export type RoleTypes = (typeof EntityClassMap)[
   | 'assetRole'
   | 'providerRole'
   | 'userRole'];
@@ -37,13 +37,13 @@ export type SuitabilityEntity =
   | AssetRoleWorkTaskSuitabilityDto;
 
 export interface SuitabilityTableProps {
-  suitabilityType: SuitabilityTypes;
+  suitabilityType: RoleTypes;
   roleTypeId: number;
 }
 
 export interface SuitabilityConditions {
   suitabilityEntityType: SuitabilityEntityTypes;
-  suitabilityType: SuitabilityTypes;
+  suitabilityType: RoleTypes;
   baseEntityIdAccessor: 'partyId' | 'assetId';
   displayNameAccessor: 'partyName' | 'assetName';
   api: (typeof SuitabilityApis)[keyof typeof SuitabilityApis];

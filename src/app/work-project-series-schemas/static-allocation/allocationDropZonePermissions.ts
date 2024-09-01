@@ -1,5 +1,5 @@
-import { CycleSubspanJoinNestedDto } from '@/api/dtos/CycleSubspanJoinNestedDtoSchema';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
+import { CycleSubspanJoinNestedDto } from '@/api/zod-schemas/CycleSubspanJoinNestedDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema_';
 
 export function matchSize(
   sizesSet: Record<string, CycleSubspanJoinNestedDto>,
@@ -10,9 +10,13 @@ export function matchSize(
 
 export function matchIsFirst(
   sizesSet: Record<string, CycleSubspanJoinNestedDto>,
-  size: number
+  size: number,
+  cycleSubspanGroupId: string
 ) {
-  return sizesSet[size]?.joinOrdinal === 1;
+  return (
+    sizesSet[size]?.joinOrdinal === 1 &&
+    sizesSet[size].cycleSubspanGroupId === cycleSubspanGroupId
+  );
 }
 
 export function matchRow(

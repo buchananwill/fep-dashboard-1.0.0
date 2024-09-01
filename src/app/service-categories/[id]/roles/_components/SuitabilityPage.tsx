@@ -2,11 +2,8 @@ import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import SuitabilityTable, {
-  SuitabilityTypes
+  RoleTypes
 } from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
-import TabbedSelectorTables from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
-import { Button } from '@nextui-org/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import {
   isValidAspect,
   RoleApiByTypeIdList,
@@ -21,29 +18,30 @@ import { startCase } from 'lodash';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
 import { notFound } from 'next/navigation';
-import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
+import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { singular } from 'pluralize';
 import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 
+export function getRoleEntityKey(roleCategory: 'user' | 'provider' | 'asset') {
+  return `${roleCategory}Role` as keyof typeof EntityClassMap;
+}
+
 export default async function SuitabilityPage(props: RolePageProps) {
   const {
-    params: { roleCategory, roleTypeId, id }
+    params: { roleCategory, roleTypeId }
   } = props;
   // List of all work task types to select
   // List of all provider roles of the layer type
-  const roleEntityKey = `${roleCategory}Role` as keyof typeof EntityClassMap;
-  const roleTypeIdInt = parseInt(roleTypeId, 10);
-  const serviceCategoryId = parseInt(id, 10);
+  const roleEntityKey = getRoleEntityKey(roleCategory);
   const suitabilityType = EntityClassMap[roleEntityKey];
 
+  const roleTypeIdInt = parseInt(roleTypeId, 10);
   const roles = await RoleApiByTypeIdList[roleCategory]([roleTypeIdInt]);
 
-  let workTaskTypes = await Api.WorkTaskType.getDtoListByExampleList([
-    { serviceCategoryId }
-  ]);
+  let workTaskTypes = await Api.WorkTaskType.getAll();
 
   return (
     <div className={'flex gap-4 p-8'}>
@@ -63,7 +61,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
       <div className={'mb-auto mt-auto h-[90vh] w-[90vw] p-8'}>
         <SuitabilityTable
           roleTypeId={roleTypeIdInt}
-          suitabilityType={suitabilityType as SuitabilityTypes}
+          suitabilityType={suitabilityType as RoleTypes}
         />
       </div>
     </div>
@@ -105,16 +103,17 @@ export async function RoleTypeListMenu(props: LeafComponentProps) {
 }
 
 function RolePageWrapper({ pathVariables }: LeafComponentProps) {
-  const [roleCategory, roleAspect, serviceCategoryId, roleTypeId] =
-    getLastNVariables(pathVariables, 4);
+  const [roleCategory, roleAspect, roleTypeId] = getLastNVariables(
+    pathVariables,
+    3
+  );
 
   if (!isValidAspect(roleAspect)) notFound();
   const roleAspectValid = roleAspect as RoleAspect;
   const params = {
     roleCategory: singular(roleCategory) as RoleEntity,
     roleAspect: roleAspectValid,
-    roleTypeId,
-    id: serviceCategoryId
+    roleTypeId
   };
 
   switch (roleAspectValid) {
@@ -126,12 +125,12 @@ function RolePageWrapper({ pathVariables }: LeafComponentProps) {
   }
 }
 
-const RoleTypeListComponent = getPathVariableSplitComponent(
+export const RoleTypeListComponent = getPathVariableSplitComponent(
   RoleTypeListMenu,
   RolePageWrapper
 );
 
-export const ServiceCategoryRoleTypeList = getPathVariableSplitComponent(
-  ServiceCategoryLinks,
+export const KnowledgeLevelSeriesRoleTypeList = getPathVariableSplitComponent(
+  KnowledgeLevelSeriesLinks,
   RoleTypeListComponent
 );

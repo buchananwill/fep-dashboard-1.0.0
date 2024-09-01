@@ -1,11 +1,10 @@
 import { Api } from '@/api/clientApi_';
-import { UserRoleDtoSchema } from '@/api/dtos/UserRoleDtoSchema';
-import { ProviderRoleDtoSchema } from '@/api/dtos/ProviderRoleDtoSchema';
-import { AssetRoleDtoSchema } from '@/api/dtos/AssetRoleDtoSchema';
+import { UserRoleDtoSchema } from '@/api/zod-schemas/UserRoleDtoSchema';
+import { ProviderRoleDtoSchema } from '@/api/zod-schemas/ProviderRoleDtoSchema';
+import { AssetRoleDtoSchema } from '@/api/zod-schemas/AssetRoleDtoSchema';
 import { RoleAspects } from '@/app/roles/rolePage';
 
 export type BaseRoleParams = {
-  id: string;
   roleTypeId: string;
   roleCategory: keyof typeof RoleCategories;
   roleAspect: RoleAspect;

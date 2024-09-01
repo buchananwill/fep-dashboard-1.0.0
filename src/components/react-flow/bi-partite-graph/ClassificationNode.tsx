@@ -1,6 +1,6 @@
 'use client';
 import { NodeProps } from '@xyflow/react';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
 import { BaseReadOnlyNode } from '@/react-flow/components/nodes/BaseReadOnlyNode';
 import React, { memo, useMemo } from 'react';
 import {

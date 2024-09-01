@@ -2,10 +2,10 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { SetRequired } from 'type-fest';
 import { InnerCellContent } from '@/components/work-project-series-assignments/AssignmentCell';
 import { useDtoStore } from 'dto-stores';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
+import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema_';
 import { getCellId } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 import { getCellIdReference } from '@/components/tables/getCellIdReference';
-import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema_';
+import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';
 import { memo, useMemo } from 'react';
 import { matchIsFirst } from '@/app/work-project-series-schemas/static-allocation/allocationDropZonePermissions';
 import clsx from 'clsx';
@@ -39,8 +39,12 @@ export function StaticAllocationOccupied(
   });
 
   const isDraggable = useMemo(() => {
-    return matchIsFirst(cycleSubspan.cycleSubspanJoins, deliveryAllocationSize);
-  }, [cycleSubspan, deliveryAllocationSize]);
+    return matchIsFirst(
+      cycleSubspan.cycleSubspanJoins,
+      deliveryAllocationSize,
+      entity.cycleSubspanGroupId
+    );
+  }, [cycleSubspan, deliveryAllocationSize, entity.cycleSubspanGroupId]);
 
   if (isDraggable) {
     return <DraggableMemo entity={entity} {...props} />;

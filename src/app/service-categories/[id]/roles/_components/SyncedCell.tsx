@@ -5,12 +5,12 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
+import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import clsx from 'clsx';
 import { SuitabilityCellData } from '@/app/service-categories/[id]/roles/_components/SuitabilityTable';
 import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
 import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 const SyncedRowCell = ({
   style,
@@ -29,7 +29,11 @@ const SyncedRowCell = ({
 
   const wttId = currentState[columnIndex];
 
-  const name = readAnyWorkTaskType(wttId)?.name ?? 'No Data Found';
+  const workTaskType = readAnyWorkTaskType(wttId);
+
+  const name = workTaskType
+    ? `${workTaskType.shortCode ?? workTaskType.knowledgeDomain?.name}:${workTaskType.knowledgeLevel?.levelOrdinal}`
+    : 'No Data Found';
 
   const tooltip = useFloatingTooltip(<TooltipMemo text={name} />, 'bottom');
 
@@ -37,7 +41,7 @@ const SyncedRowCell = ({
     <div
       style={style}
       className={clsx(
-        'border-x-1 first:border-l-0 ',
+        'border-x-1 first:border-l-0',
         columnIndex % 2 === 1 ? 'bg-purple-50' : 'bg-sky-50'
       )}
       {...tooltip}
@@ -94,7 +98,7 @@ const InnerCellComponent = forwardRef<
     <div ref={ref} className={'relative flex h-full items-center align-middle'}>
       <div
         className={
-          'mb-auto mt-auto inline-block h-fit w-full overflow-hidden overflow-ellipsis whitespace-nowrap p-1 text-sm   '
+          'mb-auto mt-auto inline-block h-fit w-full overflow-hidden overflow-ellipsis whitespace-nowrap p-0.5 text-xs   '
         }
       >
         {children}

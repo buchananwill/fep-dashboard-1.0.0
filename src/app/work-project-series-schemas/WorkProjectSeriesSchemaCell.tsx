@@ -5,14 +5,14 @@ import {
   NamespacedHooks,
   useWriteAnyDto
 } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import {
   CellWrapperProps,
   getCellIdReference
 } from '@/components/tables/getCellIdReference';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { memo, useCallback, useMemo } from 'react';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
+import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema_';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import clsx from 'clsx';
@@ -24,7 +24,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import { StaticAllocationDraggable } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationDraggable';
-import { DeliveryAllocationDto } from '@/api/dtos/DeliveryAllocationDtoSchema';
+import { DeliveryAllocationDto } from '@/api/zod-schemas/DeliveryAllocationDtoSchema';
 import {
   allocationCounter,
   getAllocationCounterId,

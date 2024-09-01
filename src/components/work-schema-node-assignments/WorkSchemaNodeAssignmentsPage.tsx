@@ -2,7 +2,7 @@ import { ForceGraphPage, GraphDto } from 'react-d3-force-wrapper';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 import { ArrayPlaceholder } from 'selective-context';
@@ -21,9 +21,9 @@ import WorkSchemaNodeManager from '@/components/work-schema-node-assignments/_co
 import { EmptyArray } from '@/api/literals';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
-import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
+import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
+import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/KnowledgeLevelLinks';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 async function WorkSchemaNodeAssignmentsPage({
@@ -32,8 +32,17 @@ async function WorkSchemaNodeAssignmentsPage({
 }: LeafComponentProps) {
   const [levelOrdinal] = getLastNVariables(pathVariables, 1);
   const [orgType] = await getDtoListByExampleList([
-    { name: `Year ${levelOrdinal}` }
+    // { name: `Year ${levelOrdinal}` }
+    // { name: 'Class' },
+    { name: 'Work Group' }
   ]);
+
+  const orgList = await Api.Organization.getDtoListByExampleList([
+    { type: { name: 'Work Group' } },
+    { type: { name: 'Class' } }
+  ]);
+
+  const idList = orgList.map((org) => org.id);
 
   const workSchemaRootNodes = await Api.WorkSchemaNode.getRootNodeList();
   const rootNodeIdList = workSchemaRootNodes.map((node) => node.id);
@@ -54,15 +63,19 @@ async function WorkSchemaNodeAssignmentsPage({
     { dataNodes: [], dataLinks: [] }
   );
 
-  const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
-    constructUrl(
-      `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
-    )
-  );
+  // const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
+  //   constructUrl(
+  //     `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
+  //   )
+  // );
+  const classesAndWorkGroups =
+    await Api.Organization.getGraphByNodeList(idList);
   const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
-    classGraph,
+    classesAndWorkGroups, //classGraph,
     convertToOrganizationNode
   );
+
+  console.log(dataNodes);
 
   return (
     <>
@@ -103,10 +116,10 @@ async function WorkSchemaNodeAssignmentsPage({
 }
 
 const AssignmentLevelLinks = getPathVariableSplitComponent(
-  ServiceCategoryLevelLinks,
+  KnowledgeLevelLinks,
   WorkSchemaNodeAssignmentsPage
 );
 export const WorkSchemaNodeAssignmentsHome = getPathVariableSplitComponent(
-  ServiceCategoryLinks,
+  KnowledgeLevelSeriesLinks,
   AssignmentLevelLinks
 );

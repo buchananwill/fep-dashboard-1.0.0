@@ -6,11 +6,8 @@ import data from '@/utils/init-json-data/service-categories/ServiceCategory.json
 import { Button } from '@nextui-org/button';
 import { useGlobalReadAny } from 'selective-context';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
-import { ServiceCategoryDto } from '@/api/dtos/ServiceCategoryDtoSchema';
-import {
-  getDtoListByExampleList,
-  postOne
-} from '@/api/generated-actions/ServiceCategory';
+import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
+
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
@@ -20,8 +17,9 @@ import { initKnowledgeDomains } from '@/utils/init-database-functions/operations
 import { initKnowledgeLevels } from '@/utils/init-database-functions/operations/initKnowledgeLevels';
 import { initOrganizationTypes } from '@/utils/init-database-functions/resources/initOrganizationTypes';
 import { TransientIdOffset } from '@/api/literals';
+import { Api } from '@/api/clientApi_';
 
-const entityName = EntityClassMap.serviceCategory;
+const entityName = EntityClassMap.knowledgeLevelSeries;
 
 const handleSubmit = async (
   selectiveContextReadAll: SelectiveContextReadAll<ServiceCategoryDto>
@@ -31,8 +29,8 @@ const handleSubmit = async (
   );
   if (serviceCategory) {
     const serviceCategoryResponse = await initSafely(
-      () => getDtoListByExampleList([serviceCategory]),
-      () => postOne(serviceCategory)
+      () => Api.KnowledgeLevelSeries.getDtoListByExampleList([serviceCategory]),
+      () => Api.KnowledgeLevelSeries.postOne(serviceCategory)
     );
     let serviceCategoryDto: ServiceCategoryDto | undefined = undefined;
     if (Array.isArray(serviceCategoryResponse)) {
@@ -62,7 +60,7 @@ export default function CreateServiceCategoryPage() {
   return (
     <>
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.serviceCategory}
+        entityClass={entityName}
         dtoList={[template]}
       />
       <div className={'relative, h-fit w-fit'}>

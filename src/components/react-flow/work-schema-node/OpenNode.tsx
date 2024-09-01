@@ -1,5 +1,5 @@
 import { NodeProps } from '@xyflow/react';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import clsx from 'clsx';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import { NodeBase } from '@/react-flow/types';

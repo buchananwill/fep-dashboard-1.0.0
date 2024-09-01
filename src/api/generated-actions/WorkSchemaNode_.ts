@@ -1,5 +1,5 @@
 'use server';
-import { WorkSchemaNodeDto } from '../dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 

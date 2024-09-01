@@ -6,7 +6,7 @@ import {
   getCellDataIdReferenceOrUndefined,
   getCellDataOrUndefined
 } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
-import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
+import CycleSubspanCellWithJoins from '@/app/service-categories/[id]/roles/_components/CycleSubspanCellWithJoins';
 import {
   Identifier,
   NamespacedHooks,
@@ -80,6 +80,8 @@ export default function StaticAllocationTable({
       );
   }, [tableProps.itemData, tableData]);
 
+  console.log(tableData);
+
   useEffectSyncWithDispatch(flattened, dispatchCells);
 
   return (
@@ -100,7 +102,7 @@ export default function StaticAllocationTable({
   );
 }
 
-export const MemoCycleSubspanCell = memo(CycleSubspanCell);
+export const MemoCycleSubspanCell = memo(CycleSubspanCellWithJoins);
 
 const MemoStaticAllocationCell = memo(StaticAllocationCell);
 

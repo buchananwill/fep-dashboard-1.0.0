@@ -12,8 +12,8 @@ import {
 } from 'react-d3-force-wrapper';
 
 import { HasNumberId } from '@/api/types';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 
 const organizationNodeType = 'organization';
 

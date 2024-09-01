@@ -8,6 +8,8 @@ export type OuterCellProps = GridChildComponentProps<CellIdReference[][]> & {
 };
 export type CellWrapperProps = GridChildComponentProps<CellIdReference[][]>;
 
+export type GenericIdReferenceCell = (props: CellWrapperProps) => ReactNode;
+
 export function getCellIdReference({
   data,
   columnIndex,

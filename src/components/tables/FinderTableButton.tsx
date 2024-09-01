@@ -3,10 +3,10 @@ import { Button } from '@nextui-org/button';
 import TabbedSelectorTables, {
   SelectorTableData
 } from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
-import { ProviderRoleDto } from '@/api/dtos/ProviderRoleDtoSchema';
-import { AssetRoleDto } from '@/api/dtos/AssetRoleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
+import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
+import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 
 export default function FinderTableButton(tableButtonProps: SelectorTableData) {
   return (

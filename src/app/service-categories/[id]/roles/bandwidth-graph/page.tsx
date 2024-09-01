@@ -5,7 +5,6 @@ import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraph
 import { convertToClassificationNode } from '@/react-flow/utils/adaptors';
 import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
 import { BandwidthLayoutFlowWithForces } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 
@@ -13,6 +12,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { ProjectionClassificationValidationGraph } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
 import { Api } from '@/api/clientApi_';
 import { bandwidthOptions } from '@/app/service-categories/[id]/roles/bandwidth-graph/bandwidthForceGraphOptions';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 const graphUrl = constructUrl(
   '/api/v2/schedule/bandwidthGraph?providerRoleTypeId='

@@ -5,7 +5,7 @@ import { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
 import { useRouter } from 'next/navigation';
-import { AutoBuildParametersDto } from '@/api/generated-types/generated-types_';
+import { AutoBuildParametersDto } from '@/api/generated-types/generated-types';
 import AutoBuildForm from '@/app/core/scheduling/build/BuildScheduleForm';
 
 export default function BuildSchedule({

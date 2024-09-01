@@ -1,4 +1,4 @@
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 
 type Join<K, P> = K extends string | number
   ? P extends string | number

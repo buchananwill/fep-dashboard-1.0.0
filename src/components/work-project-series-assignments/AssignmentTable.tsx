@@ -1,5 +1,5 @@
 'use client';
-import { WorkProjectSeriesAssignmentTableDto } from '@/api/dtos/WorkProjectSeriesAssignmentTableDtoSchema_';
+import { WorkProjectSeriesAssignmentTableDto } from '@/api/zod-schemas/WorkProjectSeriesAssignmentTableDtoSchema_';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import React, { useMemo } from 'react';
 import CellQueryManager, {
@@ -11,7 +11,7 @@ import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
 import AssignmentCell from '@/components/work-project-series-assignments/AssignmentCell';
 import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/workProjectSeriesDataRetrieval';
-import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
+import CycleSubspanCellWithJoins from '@/app/service-categories/[id]/roles/_components/CycleSubspanCellWithJoins';
 import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
@@ -21,7 +21,7 @@ import {
   OrganizationDto,
   WorkProjectSeriesAssignmentDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types_';
+} from '@/api/generated-types/generated-types';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import AssignmentRowCell from '@/components/work-project-series-assignments/AssignmentRowCell';
@@ -77,7 +77,7 @@ export default function AssignmentTable({
       <VirtualizedTableWindowed
         {...tableProps}
         renderCell={memoCell}
-        renderSyncedRowCell={CycleSubspanCell}
+        renderSyncedRowCell={CycleSubspanCellWithJoins}
         renderSyncedColumnCell={memoOrganizationCell}
       />
     </>

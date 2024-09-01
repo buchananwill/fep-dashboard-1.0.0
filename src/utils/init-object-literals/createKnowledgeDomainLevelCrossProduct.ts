@@ -1,13 +1,14 @@
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { PartialDeep } from 'type-fest';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
 function createKnowledgeDomainLevelCrossProduct(
   domainNames: string[],
   levels: number[]
-): Partial<WorkTaskTypeDto>[] {
+): PartialDeep<WorkTaskTypeDto>[] {
   return domainNames.flatMap((knowledgeDomainName) =>
     levels.map((knowledgeLevelLevelOrdinal) => ({
-      knowledgeDomainName,
-      knowledgeLevelLevelOrdinal
+      knowledgeDomain: { name: knowledgeDomainName },
+      knowledgeLevel: { levelOrdinal: knowledgeLevelLevelOrdinal }
     }))
   );
 }
@@ -24,4 +25,8 @@ export function createWholeSchoolPartials(domainNames: string[]) {
     ...createLowerSchoolPartials(domainNames),
     ...createALevelPartials(domainNames)
   ];
+}
+
+export function createCsvpaPartials(domainNames: string[]) {
+  return createKnowledgeDomainLevelCrossProduct(domainNames, [0, 1, 2, 3]);
 }

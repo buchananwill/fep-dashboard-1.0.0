@@ -1,13 +1,13 @@
 import { HasNumberId } from '@/api/types';
-import { NodeAssignmentFeasibilityDto } from '@/api/dtos/NodeAssignmentFeasibilityDtoSchema';
-import { TaskTypeFeasibilityDto } from '@/api/dtos/TaskTypeFeasibilityDtoSchema_';
-import { BandwidthFeasibilityLayerDto } from '@/api/dtos/BandwidthFeasibilityLayerDtoSchema';
-import { FullReportDto } from '@/api/dtos/FullReportDtoSchema_';
+import { NodeAssignmentFeasibilityDto } from '@/api/zod-schemas/NodeAssignmentFeasibilityDtoSchema';
+import { TaskTypeFeasibilityDto } from '@/api/zod-schemas/TaskTypeFeasibilityDtoSchema_';
+import { BandwidthFeasibilityLayerDto } from '@/api/zod-schemas/BandwidthFeasibilityLayerDtoSchema';
+import { FullReportDto } from '@/api/zod-schemas/FullReportDtoSchema_';
 import { PropsWithChildren } from 'react';
-import { WorkSchemaNodeFeasibilityDto } from '@/api/dtos/WorkSchemaNodeFeasibilityDtoSchema_';
-import { WorkSchemaNodeFeasibilitySummaryDto } from '@/api/dtos/WorkSchemaNodeFeasibilitySummaryDtoSchema_';
-import { NodeAssignmentFeasibilitySummaryDto } from '@/api/dtos/NodeAssignmentFeasibilitySummaryDtoSchema_';
-import { TaskTypeFeasibilitySummaryDto } from '@/api/dtos/TaskTypeFeasibilitySummaryDtoSchema_';
+import { WorkSchemaNodeFeasibilityDto } from '@/api/zod-schemas/WorkSchemaNodeFeasibilityDtoSchema_';
+import { WorkSchemaNodeFeasibilitySummaryDto } from '@/api/zod-schemas/WorkSchemaNodeFeasibilitySummaryDtoSchema_';
+import { NodeAssignmentFeasibilitySummaryDto } from '@/api/zod-schemas/NodeAssignmentFeasibilitySummaryDtoSchema_';
+import { TaskTypeFeasibilitySummaryDto } from '@/api/zod-schemas/TaskTypeFeasibilitySummaryDtoSchema_';
 
 type FeasibilityReportTreeItemBase = HasNumberId & {
   // itemType: string;

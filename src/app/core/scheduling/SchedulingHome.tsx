@@ -1,6 +1,6 @@
 import { Api } from '@/api/clientApi_';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getPathVariableSplitComponent } from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
+import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import ScheduleFallbackPage from '@/app/core/scheduling/ScheduleFallbackPage';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 

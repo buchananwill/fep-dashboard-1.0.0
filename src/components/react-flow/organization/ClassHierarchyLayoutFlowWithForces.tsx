@@ -25,8 +25,8 @@ import {
   useEffectSyncDeepEqualWithDispatch
 } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
-import { OrganizationTypeDto } from '@/api/dtos/OrganizationTypeDtoSchema';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
+import { OrganizationTypeDto } from '@/api/zod-schemas/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
@@ -35,6 +35,8 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
 import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
 import { FlowNode } from '@/react-flow/types';
+import { HierarchicalDataOptions } from '@/react-flow/hooks/getHierarchicalDataLayout';
+import { useOrientedDepthLayout } from '@/components/react-flow/organization/useOrientedDepthLayout';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,
@@ -66,6 +68,7 @@ export function ClassHierarchyLayoutFlowWithForces({
     );
 
   const { nodes } = reactFlowProps;
+  useOrientedDepthLayout(nodes, 400, 'vertical');
 
   const allocationTotalList: AllocationTotal[] = useMemo(
     () =>

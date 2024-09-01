@@ -4,10 +4,10 @@ import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
 import { useGlobalController } from 'selective-context';
 import { EditAddDeleteDtoControllerArray, InitialMap } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
 import WorkSchemaNodeLeafController from '@/components/work-schema-node-assignments/_components/WorkSchemaNodeLeafController';
 import React, { memo, useMemo, useRef } from 'react';
@@ -25,22 +25,17 @@ export default function WorkSchemaNodeManager({
   const linkListRef = useRef(linkList);
 
   const { memoNodes, memoLinks } = useMemo(() => {
-    console.log('Checking lists.');
     const nodesMatch = nodeList.every((nodeDto) => {
       const oldNode = nodeListRef.current.find(
         (prevNode) => prevNode.id === nodeDto.id
       );
-      const equal = isEqual(nodeDto, oldNode);
-      if (!equal) console.log('Node changed.');
-      return equal;
+      return isEqual(nodeDto, oldNode);
     });
     const linksMatch = linkList.every((linkDto) => {
       const oldLink = linkListRef.current.find(
         (prevLink) => prevLink.id === linkDto.id
       );
-      const equal = isEqual(linkDto, oldLink);
-      if (!equal) console.log('Link changed.');
-      return equal;
+      return isEqual(linkDto, oldLink);
     });
     if (nodesMatch && linksMatch)
       return { memoNodes: nodeListRef.current, memoLinks: linkListRef.current };

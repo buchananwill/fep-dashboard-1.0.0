@@ -1,5 +1,5 @@
 'use client';
-import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
+import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
 import { BaseLazyDtoUiProps } from 'dto-stores';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 

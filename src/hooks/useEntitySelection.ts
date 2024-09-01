@@ -1,9 +1,13 @@
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { Identifier, NamespacedHooks } from 'dto-stores';
+import {
+  Identifier,
+  NamespacedHooks,
+  useLazyDtoListListener
+} from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { Key, MutableRefObject, useCallback, useMemo } from 'react';
-import { HasIdClass } from '@/api/types';
+import { HasId, HasIdClass } from '@/api/types';
 import { getNumberFromStringId } from 'react-d3-force-wrapper';
 
 function compareNumbersOrStrings(v1: number | string, v2: number | string) {
@@ -19,11 +23,39 @@ export function useEntitySelection<
   U extends Identifier
 >(
   entityClass: string,
-  selectableItems: MutableRefObject<T[]>,
+  filteredItems: MutableRefObject<T[]>,
   idClass?: 'string' | 'number',
-  forceString = true
+  forceString = true,
+  sortedItems?: T[]
 ) {
   const listenerKey = useUuidListenerKey();
+
+  const idMap = useMemo(() => {
+    return sortedItems
+      ? sortedItems.reduce(
+          (prev, curr, index) => prev.set(curr.id, index),
+          new Map<U, number>()
+        )
+      : null;
+  }, [sortedItems]);
+
+  const sortFunction = useCallback(
+    (a: U, b: U) => {
+      if (idMap) {
+        return (idMap.get(a) ?? 0) - (idMap.get(b) ?? 0);
+      } else {
+        const normaliseId = (id: number | string) => {
+          return typeof id === idClass
+            ? id
+            : typeof id === 'string'
+              ? getNumberFromStringId(id)
+              : String(id);
+        };
+        return compareNumbersOrStrings(normaliseId(a), normaliseId(b));
+      }
+    },
+    [idMap, idClass]
+  );
 
   const {
     currentState: selectedList,
@@ -52,26 +84,29 @@ export function useEntitySelection<
       dispatchSelected((currentSelection) => {
         const selectionSet = new Set(currentSelection);
         if (selected === 'all') {
-          selectableItems.current
+          filteredItems.current
             .map((item) => item.id)
             .forEach((itemId) => selectionSet.add(itemId));
         } else {
           selectionSet.clear();
           selected.forEach((item) => selectionSet.add(item as U));
         }
-        const sort = [...selectionSet.values()]
-          .map((id) => {
-            return typeof id === idClass
-              ? id
-              : typeof id === 'string'
-                ? getNumberFromStringId(id)
-                : String(id);
-          })
-          .sort(compareNumbersOrStrings);
+        const sort = [...selectionSet.values()].sort(sortFunction);
         return sort as U[];
       });
     },
-    [idClass, dispatchSelected, selectableItems]
+    [dispatchSelected, filteredItems, sortFunction]
   );
   return { currentState, selectedKeys, onSelectionChange, dispatchSelected };
+}
+
+export function useSelectedEntityMap<T extends HasId>(entityClass: string) {
+  const listenerKey = useUuidListenerKey();
+  const { currentState } = NamespacedHooks.useListen(
+    entityClass,
+    KEY_TYPES.SELECTED,
+    listenerKey,
+    EmptyArray
+  );
+  return useLazyDtoListListener<T>(currentState, entityClass, listenerKey);
 }

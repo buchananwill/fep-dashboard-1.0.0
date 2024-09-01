@@ -1,5 +1,5 @@
 import { InnerCellContent } from '@/components/work-project-series-assignments/AssignmentCell';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
+import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema_';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { getCellIdReference } from '@/components/tables/getCellIdReference';
@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 import clsx from 'clsx';
 import { NamespacedHooks, useDtoStore, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema_';
+import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';
 import {
   matchIsFirst,
   matchRow,
@@ -64,7 +64,11 @@ export function StaticAllocationDropZone({
       return (
         matchRow(item, rowId as string) &&
         matchSize(cycleSubspan.cycleSubspanJoins, size) &&
-        matchIsFirst(cycleSubspan.cycleSubspanJoins, size)
+        matchIsFirst(
+          cycleSubspan.cycleSubspanJoins,
+          size,
+          item.cycleSubspanGroupId
+        )
       );
     },
     [rowId, cycleSubspan]

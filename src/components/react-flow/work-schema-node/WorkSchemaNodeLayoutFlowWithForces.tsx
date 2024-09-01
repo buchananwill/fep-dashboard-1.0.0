@@ -4,7 +4,8 @@ import React, {
   PropsWithChildren,
   useCallback,
   useEffect,
-  useMemo
+  useMemo,
+  useRef
 } from 'react';
 import {
   Background,
@@ -19,6 +20,7 @@ import {
   DataLink,
   DataNodeDto,
   GraphSelectiveContextKeys,
+  HasStringId,
   MemoizedFunction,
   useGraphDispatch,
   useModalContent,
@@ -27,7 +29,7 @@ import {
 import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import {
   determineLocalResolution,
   validateHierarchy,
@@ -52,8 +54,8 @@ import {
 import { EmptyArray } from '@/api/literals';
 import { Spinner } from '@nextui-org/spinner';
 import { FlowNode, NodeValidator } from '@/react-flow/types';
-import { CarouselDto } from '@/api/dtos/CarouselDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';
@@ -64,9 +66,43 @@ import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';
-import { AllocationRollup } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
+import { useHierarchicalDataLayoutMemo } from '@/react-flow/hooks/useHierarchicalDataLayoutMemo';
+import { HierarchicalDataOptions } from '@/react-flow/hooks/getHierarchicalDataLayout';
+import {
+  HasPosition,
+  hierarchicalLayoutMap,
+  Layoutable
+} from '@/react-flow/hooks/useForces';
+import { HierarchyPointNode } from 'd3';
+import { NestedWithStringId } from '@/react-flow/hooks/useHierarchicalDataMemo';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
+
+const options: HierarchicalDataOptions = {
+  nodeSize: [50, 400],
+  orientation: 'horizontal'
+};
+
+export function usePreComputedPositionForce(
+  layoutMemo: Map<string, Layoutable>
+) {
+  const layoutMemoRef = useRef(InitialMap as Map<string, Layoutable>);
+
+  layoutMemoRef.current = layoutMemo;
+
+  useGlobalController({
+    contextKey: hierarchicalLayoutMap,
+    listenerKey: 'workSchemaNodeLayout',
+    initialValue: layoutMemoRef
+  });
+}
+
+export function useHierarchicalTreeLayout(
+  idToChildIdMap: Map<string, Set<string>>
+) {
+  const [layoutMemo] = useHierarchicalDataLayoutMemo(idToChildIdMap, options);
+  usePreComputedPositionForce(layoutMemo as Map<string, Layoutable>);
+}
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children
@@ -88,6 +124,19 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     validateWorkSchemaNodeDataNodeDto as NodeValidator<WorkSchemaNodeDto>
   );
 
+  const { toggle, running } = flowOverlayProps;
+  const runningRef = useRef(running);
+  runningRef.current = running;
+
+  const checkToggleFirstAndAfter = useCallback(() => {
+    console.log('checking toggle');
+    if (runningRef.current && toggle) {
+      console.log('sim is running');
+      toggle();
+      console.log('current running status: ', runningRef.current);
+    }
+  }, [toggle]);
+
   const { nodesFromContext, edgesFromContext } = contextData;
 
   const idToNodeMap = useIdToNodeMapMemo(nodesFromContext);
@@ -105,6 +154,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     idToChildIdMap,
     idToNodeMap
   );
+  useHierarchicalTreeLayout(idToChildIdMap);
 
   const { onConnect, ...otherProps } = reactFlowProps;
 
@@ -112,6 +162,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
 
   const interceptedOnConnect = useCallback(
     (connection: Connection) => {
+      checkToggleFirstAndAfter();
       const { source, target } = connection;
       if (source && target) {
         const nodeSource = idToNodeMap.get(source);
@@ -138,7 +189,14 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         }
       }
     },
-    [onConnect, idToNodeMap, readAnyCarousel, dispatchNodes, idToChildIdMap]
+    [
+      onConnect,
+      idToNodeMap,
+      readAnyCarousel,
+      dispatchNodes,
+      idToChildIdMap,
+      checkToggleFirstAndAfter
+    ]
   );
 
   const { dispatchWithoutListen: dispatchDeleteLinksFunction } =
@@ -148,6 +206,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
 
   useEffect(() => {
     dispatchDeleteLinksFunction(({ memoizedFunction }) => {
+      checkToggleFirstAndAfter();
       const interceptAndUpdateDepth = (linkIds: string[]) => {
         memoizedFunction(linkIds);
         const targetNodeList: FlowNode<WorkSchemaNodeDto>[] = [];
@@ -176,6 +235,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       return { memoizedFunction: interceptAndUpdateDepth };
     });
   }, [
+    checkToggleFirstAndAfter,
     dispatchDeleteLinksFunction,
     idToNodeMap,
     dispatchNodes,
@@ -190,6 +250,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   useEffect(() => {
     dispatchWithoutListen(
       (prevFunction: MemoizedFunction<WorkSchemaNodeDto, void>) => {
+        checkToggleFirstAndAfter();
         const { memoizedFunction } = prevFunction;
         const interceptValidateResolutionMode = (
           updatedNode: WorkSchemaNodeDto
@@ -208,7 +269,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         return { memoizedFunction: interceptValidateResolutionMode };
       }
     );
-  }, [dispatchWithoutListen]);
+  }, [dispatchWithoutListen, checkToggleFirstAndAfter]);
 
   const mergedReactFlowProps = useMemo(() => {
     return { onConnect: interceptedOnConnect, ...otherProps };

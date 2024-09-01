@@ -1,16 +1,12 @@
-import JsonTree from '@/components/generic/JsonTree';
-import {
-  reAccumulatedTeachers,
-  teachers,
-  teachersCrossProduct
-} from '@/utils/init-object-literals/genericGeneratorNodeFunctions/teacherExample';
+import { assetPostRequests } from '@/utils/init-json-data/arts-college/dataToTransform';
 
 export default function page() {
   return (
     <>
-      <JsonTree data={teachers} />
-      <JsonTree data={reAccumulatedTeachers} />
-      <JsonTree data={teachersCrossProduct} />
+      <div className={'border-2 '}>{JSON.stringify(assetPostRequests)}</div>
+
+      {/*<JsonTree data={enrollmentGraph} />*/}
+      {/*<JsonTree data={teachersCrossProduct} />*/}
     </>
   );
 }

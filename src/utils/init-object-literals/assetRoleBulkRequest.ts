@@ -1,5 +1,5 @@
 import { RepeatPostRequest } from '@/api/types';
-import { WorkTaskTypeDto } from '@/api/dtos/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
 import { getTemplateMergingFunction } from '@/utils/init-object-literals/getTemplateMergingFunction';
 import { createWholeSchoolPartials } from '@/utils/init-object-literals/createKnowledgeDomainLevelCrossProduct';
 import { createRequestRecordCombiner } from '@/utils/init-object-literals/createRequestRecordCombiner';
@@ -20,8 +20,9 @@ import {
   singleAlevelMaths
 } from '@/utils/init-object-literals/wttPartials';
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
-import { AssetRoleTypeDto } from '@/api/dtos/AssetRoleTypeDtoSchema';
-import { AssetRolePostRequest } from '@/api/dtos/AssetRolePostRequestSchema_';
+import { AssetRoleTypeDto } from '@/api/zod-schemas/AssetRoleTypeDtoSchema';
+import { AssetRolePostRequest } from '@/api/zod-schemas/AssetRolePostRequestSchema_';
+import { PartialDeep } from 'type-fest';
 
 const assetRoleTypeExample: Partial<AssetRoleTypeDto> = {
   name: 'Class Room'
@@ -70,7 +71,7 @@ const standardDepartmentParams: RequestCreationParams[][] = Object.entries(
 ).map(([subject, count]) => {
   return [
     [`${subject} Department`, count, createWholeSchoolPartials([subject])]
-  ] as [string, number, Partial<WorkTaskTypeDto>[]][];
+  ] as [string, number, PartialDeep<WorkTaskTypeDto>[]][];
 });
 
 const languagesShared: RequestCreationParams[] = [
@@ -155,13 +156,15 @@ const requestParamsListList: RequestCreationParams[][] = [
   ...standardDepartmentParams
 ];
 
+export function flattenParamList(list: RequestCreationParams[]) {
+  return list.reduce(
+    (acc, params) => ({ ...acc, ...createRequestRecord(params) }),
+    {}
+  );
+}
+
 export const bulkPipeline = requestParamsListList
-  .map((list) =>
-    list.reduce(
-      (acc, params) => ({ ...acc, ...createRequestRecord(params) }),
-      {}
-    )
-  )
+  .map(flattenParamList)
   .map((record) => providerMergingFunction(record));
 
 export const pipelineAsJson = JSON.stringify(bulkPipeline);

@@ -2,7 +2,7 @@
 import { DtoTable } from '@/components/generic/DtoTable';
 import React, { useCallback } from 'react';
 import { TableProps } from '@nextui-org/react';
-import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import {
   BaseDtoStoreNumberInputProps,
   DtoStoreNumberInput

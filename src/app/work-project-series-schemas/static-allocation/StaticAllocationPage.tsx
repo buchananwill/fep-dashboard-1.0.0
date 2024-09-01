@@ -2,9 +2,8 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { CycleSubspanWithJoinsListDto } from '@/api/dtos/CycleSubspanWithJoinsListDtoSchema_';
-import { StaticDeliveryAllocationItemDto } from '@/api/dtos/StaticDeliveryAllocationItemDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';
 import StaticAllocationTable from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 import {
   EditAddDeleteDtoControllerArray,
@@ -16,6 +15,8 @@ import StaticAllocationAuditor, {
   allocationCounter
 } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationAuditor';
 import { EmptyArray } from '@/api/literals';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
+import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,
@@ -27,11 +28,11 @@ export type StaticAllocationTableDto = GenericTableDto<
 export async function StaticAllocationPage({
   pathVariables
 }: LeafComponentProps) {
-  // const [cycleId] = getLastNVariables(pathVariables, 1);
+  const [cycleId] = getLastNVariables(pathVariables, 1);
 
   const staticDeliveryTable = await getWithoutBody<StaticAllocationTableDto>(
     constructUrl(
-      `/api/v2/staticDeliveryAllocationItems/staticAllocationTable/${1}`
+      `/api/v2/staticDeliveryAllocationItems/staticAllocationTable/${cycleId}`
     )
   );
 

@@ -27,10 +27,10 @@ export default function GenerateStudentsButton() {
       const promises = rowIdList
         .map(readAnyRow)
         .filter(isNotUndefined)
-        .map(({ levelOrdinal, serviceCategoryId, howMany }) => ({
+        .map(({ levelOrdinal, knowledgeLevelSeriesId, howMany }) => ({
           levelOrdinal,
           howMany,
-          serviceCategoryId
+          serviceCategoryId: knowledgeLevelSeriesId
         }))
         .map((params) => initStudents(params));
       const array = await Promise.all(promises);

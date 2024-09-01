@@ -1,7 +1,7 @@
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import _ from 'lodash';
 import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeAssignmentDtoSchema } from '@/api/dtos/WorkSchemaNodeAssignmentDtoSchema_';
+import { WorkSchemaNodeAssignmentDtoSchema } from '@/api/zod-schemas/WorkSchemaNodeAssignmentDtoSchema_';
 
 export function validateAssignmentDtos(
   putUpdatedGraph: (

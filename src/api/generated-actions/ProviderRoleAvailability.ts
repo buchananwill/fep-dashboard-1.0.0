@@ -1,10 +1,10 @@
 'use server';
-import { ProviderRoleAvailabilityDto } from '../dtos/ProviderRoleAvailabilityDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
+import { ProviderRoleAvailabilityDto } from '@/api/generated-types/generated-types';
 
 const {
-getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,16 +16,13 @@ getPage,
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<
-  ProviderRoleAvailabilityDto,
-  number
->(
+} = generateBaseEndpointSet<ProviderRoleAvailabilityDto, number>(
   '/api/v2/providerRoles/availabilities'
 );
 
-
 const {
-          getByRowIdListAndColumnIdList,
+  getByRowIdListAndColumnIdList,
+  getDtoTableByRowIdListAndColumnIdList,
   getColumnIdList,
   getByRowIdList,
   getIntersectionTable
@@ -33,12 +30,10 @@ const {
   ProviderRoleAvailabilityDto,
   number,
   number
->(
-  '/api/v2/providerRoles/availabilities'
-);
+>('/api/v2/providerRoles/availabilities');
 
 export {
-    getPage,
+  getPage,
   getAll,
   deleteIdList,
   postList,
@@ -49,11 +44,10 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList
-,           getByRowIdListAndColumnIdList,
+  getDtoListByExampleList,
+  getByRowIdListAndColumnIdList,
+  getDtoTableByRowIdListAndColumnIdList,
   getColumnIdList,
   getByRowIdList,
   getIntersectionTable
-
-}
-
+};

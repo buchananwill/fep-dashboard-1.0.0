@@ -8,9 +8,9 @@ import {
   putList
 } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import PathVariableSplit from '@/app/service-categories/[id]/work-schema-nodes/PathVariableSplit';
-import { ServiceCategoryLinks } from '@/app/service-categories/[id]/knowledge-domains/ServiceCategoryLinks';
-import { ServiceCategoryLevelLinks } from '@/app/work-project-series-schemas/ServiceCategoryLevelLinks';
+import PathVariableSplit from '@/components/generic/PathVariableSplit';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
+import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/KnowledgeLevelLinks';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 async function WorkProjectSeriesSchemaLevelTable({
@@ -21,8 +21,8 @@ async function WorkProjectSeriesSchemaLevelTable({
 
   const { workProjectSeriesSchemas: wpssData } =
     await workProjectSeriesSchemaActionSequence({
-      knowledgeLevelLevelOrdinal: parseInt(levelOrdinal),
-      serviceCategoryId: parseInt(serviceCategoryId)
+      knowledgeLevel: { levelOrdinal: parseInt(levelOrdinal) },
+      knowledgeLevelSeriesId: parseInt(serviceCategoryId)
     });
 
   return (
@@ -43,7 +43,7 @@ export default function WorkProjectSeriesSchemaHome(props: LeafComponentProps) {
   return (
     <PathVariableSplit
       {...props}
-      homeComponent={ServiceCategoryLinks}
+      homeComponent={KnowledgeLevelSeriesLinks}
       subRouteComponent={WorkProjectSeriesLevelLinks}
     />
   );
@@ -53,7 +53,7 @@ function WorkProjectSeriesLevelLinks(props: LeafComponentProps) {
   return (
     <PathVariableSplit
       {...props}
-      homeComponent={ServiceCategoryLevelLinks}
+      homeComponent={KnowledgeLevelLinks}
       subRouteComponent={WorkProjectSeriesSchemaLevelTable}
     />
   );

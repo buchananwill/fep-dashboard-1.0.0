@@ -7,7 +7,7 @@ import gcseJson from '@/utils/init-json-data/carousel-orders/gcseFrequencyMap.js
 import aLevelJson from '@/utils/init-json-data/carousel-orders/aLevelFrequencyMap.json';
 
 export async function initStudents(params: {
-  serviceCategoryId: number;
+  knowledgeLevelSeriesId: number;
   levelOrdinal: number;
   howMany: number;
 }) {

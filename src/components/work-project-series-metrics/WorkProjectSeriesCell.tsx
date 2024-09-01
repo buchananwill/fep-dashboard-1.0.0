@@ -2,7 +2,7 @@ import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import DtoUiWrapperCell from '@/app/service-categories/[id]/roles/_components/DtoUiWrapperCell';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
 import { getValue } from '@/functions/allowingNestedFiltering';
 
 export default function WorkProjectSeriesCell(props: CellWrapperProps) {

@@ -1,5 +1,5 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import { useDirectSimRefEditsDispatch } from 'react-d3-force-wrapper';
 import React, { useCallback, useState, useTransition } from 'react';
 import { Api } from '@/api/clientApi_';

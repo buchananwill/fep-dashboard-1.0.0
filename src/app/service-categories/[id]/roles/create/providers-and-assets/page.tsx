@@ -4,9 +4,10 @@ import { DtoUiListAll, EditAddDeleteDtoControllerArray } from 'dto-stores';
 import KnowledgeDomainRoleRow, {
   knowledgeDomainRoleRow
 } from '@/app/service-categories/[id]/roles/create/providers-and-assets/_components/KnowledgeDomainRoleRow';
-import { getOne } from '@/api/generated-actions/ServiceCategory';
 import { knowledgeDomainRowActionMapper } from '@/app/service-categories/[id]/roles/create/providers-and-assets/knowledgeDomainRowActionMapper';
 import { sortEntityListOnStringProperty } from '@/functions/sortEntityListOnStringProperty';
+import { Api } from '@/api/clientApi_';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export default async function page({
   params: { id }
@@ -14,9 +15,10 @@ export default async function page({
   params: Pick<ServiceCategoryRouteParams, 'id'>;
 }) {
   const serviceCategoryId = parseInt(id);
-  const serviceCategory = await getOne(serviceCategoryId);
+  const serviceCategory =
+    await Api.KnowledgeLevelSeries.getOne(serviceCategoryId);
   const knowledgeDomains = await getDtoListByExampleList([
-    { serviceCategoryId: serviceCategoryId }
+    { knowledgeLevelSeriesId: serviceCategoryId }
   ]);
   const rowStateInitial = sortEntityListOnStringProperty(
     knowledgeDomains,
@@ -38,7 +40,7 @@ export default async function page({
       />
       <thead>
         <tr>
-          <th>{serviceCategory.knowledgeDomainDescriptor}</th>
+          <th>{getDomainAlias('knowledgeDomain')}</th>
           <th>Teachers</th>
           <th>Rooms</th>
         </tr>

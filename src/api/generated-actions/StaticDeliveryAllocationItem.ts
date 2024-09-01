@@ -1,9 +1,9 @@
 'use server';
+import { StaticDeliveryAllocationItemDto } from '../dtos/StaticDeliveryAllocationItemDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types_';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -15,12 +15,16 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<StaticDeliveryAllocationItemDto, number>(
+} = generateBaseEndpointSet<
+  StaticDeliveryAllocationItemDto,
+  number
+>(
   '/api/v2/staticDeliveryAllocationItems'
 );
 
+
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -32,4 +36,6 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-};
+
+}
+

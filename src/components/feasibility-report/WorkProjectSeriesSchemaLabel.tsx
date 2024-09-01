@@ -6,9 +6,11 @@ import {
 
 import { HasId } from '@/api/types';
 import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
-import { HasNameDto } from '@/api/dtos/HasNameDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import clsx from 'clsx';
+import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
+import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
 
 export function WorkProjectSeriesSchemaLabel({
   entity
@@ -76,7 +78,7 @@ function getBackgroundColor(subjectCode: string) {
 export function WorkProjectSeriesSchemaCode({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
-  const subjectCode = entity?.shortCode?.substring(0, 2) ?? entity.name ?? '';
+  const subjectCode = entity.name ?? '';
   const backgroundColor = getBackgroundColor(subjectCode);
   return (
     <div
@@ -85,18 +87,20 @@ export function WorkProjectSeriesSchemaCode({
         backgroundColor
       )}
     >
-      {entity.shortCode
-        ? entity.shortCode.substring(0, 2)
-        : entity.name
-          ? entity.name.substring(0, 2)
-          : ''}
+      {entity.name ? entity.name.substring(0, 2) : ''}
     </div>
   );
 }
 export function NamedEntityLabel({
-  entity
+  entity,
+  ...divProps
 }: GenericDivProps & BaseLazyDtoUiProps<HasNameDto & HasId>) {
-  return <div>{entity.name}</div>;
+  const tooltip = useFloatingTooltip(<TooltipMemo text={entity.name} />);
+  return (
+    <div {...tooltip} {...divProps}>
+      {entity.name}
+    </div>
+  );
 }
 
 export function NamedEntityLabelWrapper(

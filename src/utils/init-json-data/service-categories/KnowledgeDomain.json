@@ -1,50 +1,42 @@
 [
   {
     "id": 1,
-    "serviceCategoryId": 1,
     "knowledgeDomainDescriptor": "Subject",
     "name": "General",
     "workTaskTypeCount": 16
   },
   {
     "id": 2,
-    "serviceCategoryId": 1,
     "knowledgeDomainDescriptor": "Subject",
     "name": "Art",
     "workTaskTypeCount": 17
   },
   {
     "id": 3,
-    "serviceCategoryId": 1,
     "knowledgeDomainDescriptor": "Subject",
     "name": "Biology",
     "workTaskTypeCount": 17
   },
   {
     "id": 4,
-    "serviceCategoryId": 1,
     "knowledgeDomainDescriptor": "Subject",
     "name": "Chemistry",
     "workTaskTypeCount": 18
   },
   {
     "id": 5,
-    "serviceCategoryId": 1,
     "knowledgeDomainDescriptor": "Subject",
     "name": "Classical Civ",
     "workTaskTypeCount": 13
   },
   {
     "id": 6,
-    "serviceCategoryId": 1,
     "knowledgeDomainDescriptor": "Subject",
     "name": "Computing",
     "workTaskTypeCount": 19
   },
   {
     "id": 7,
-    "serviceCategoryId": 1,
-    "knowledgeDomainDescriptor": "Subject",
     "name": "Design and T",
     "workTaskTypeCount": 17
   },

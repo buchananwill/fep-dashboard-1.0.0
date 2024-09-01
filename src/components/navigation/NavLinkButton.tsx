@@ -10,6 +10,7 @@ import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_compone
 import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
 import { mainNavLinkList } from '@/components/navigation/navLinks';
 import Link, { LinkProps } from 'next/link';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export default function NavLinkButton({
   className,
@@ -17,7 +18,7 @@ export default function NavLinkButton({
 }: { navigationType: NavigationType; className?: string } & PropsWithChildren &
   Omit<LinkProps, 'href'>) {
   const Icon = navLinkIcons[navigationType];
-  const label = startCase(navigationType);
+  const label = startCase(getDomainAlias(navigationType));
 
   const floatingTooltip = useFloatingTooltip(<TooltipMemo text={label} />);
 

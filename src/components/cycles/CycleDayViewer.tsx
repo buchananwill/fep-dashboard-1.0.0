@@ -12,7 +12,7 @@ import { useGlobalController } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { templateCycleSubspan } from '@/components/cycles/CycleViewer';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { CycleSubspanDto } from '@/api/dtos/CycleSubspanDtoSchema';
+import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import {
   DispatchList,
   DtoUiListSome,

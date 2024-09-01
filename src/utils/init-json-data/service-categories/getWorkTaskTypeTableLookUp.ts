@@ -1,7 +1,7 @@
 import { isNotUndefined } from '@/api/main';
 import { WorkTaskTypeInitTable } from '@/utils/init-json-data/service-categories/workTaskTypeInitTable';
-import { KnowledgeDomainDto } from '@/api/dtos/KnowledgeDomainDtoSchema';
-import { KnowledgeLevelDto } from '@/api/dtos/KnowledgeLevelDtoSchema';
+import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
+import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 
 export function getWorkTaskTypeTableLookUp(table: WorkTaskTypeInitTable) {
   return function (

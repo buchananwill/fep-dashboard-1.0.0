@@ -1,5 +1,5 @@
 import { incrementCloneSuffix } from 'react-d3-force-wrapper';
-import { OrganizationDto } from '@/api/dtos/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 
 import { TransientIdOffset } from '@/api/literals';
 import { FlowNode } from '@/react-flow/types';

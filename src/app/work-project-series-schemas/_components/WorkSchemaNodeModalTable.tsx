@@ -1,5 +1,5 @@
 'use client';
-import { WorkProjectSeriesSchemaDto } from '@/api/dtos/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import React, { Key, useCallback, useMemo } from 'react';
 import { Pagination, TableProps } from '@nextui-org/react';
@@ -8,7 +8,7 @@ import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect
 import { FilterSortPaginateTableContent } from '@/components/generic/FilterSortPaginateTableContent';
 import { Input } from '@nextui-org/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { WorkSchemaNodeDto } from '@/api/dtos/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import { renderWorkSchemaNodeCell } from '@/app/work-project-series-schemas/_components/RenderWorkProjectSeriesSchemaCell';
 
 export default function WorkSchemaNodeModalTable({
