@@ -5,53 +5,6 @@ Content-Type: application/json
 [
   {
     "baseEntity": {
-      "name": "3",
-      "id": 1,
-      "type": { "name": "room", "id": 1, "isMoveable": false }
-    },
-    "suitabilities": [
-      {
-        "workTaskTypeMatrix": {
-          "knowledgeLevelSeriesDtoList": [
-            { "name": "Courses", "id": 2, "knowledgeLevels": [] }
-          ],
-          "knowledgeDomainDtoInclusionList": [
-            { "name": "Drum Kit", "id": -1 },
-            { "name": "Piano", "id": -1 },
-            { "name": "Classical Piano", "id": -1 },
-            { "name": "Production", "id": -1 },
-            { "name": "French Horn", "id": -1 },
-            { "name": "Jazz/Pop Voice", "id": -1 },
-            { "name": "Guitar", "id": -1 },
-            { "name": "Double Bass", "id": -1 },
-            { "name": "Jazz/Pop Voice", "id": -1 }
-          ],
-          "knowledgeDomainDtoExclusionList": [],
-          "workTaskTypeNames": ["Teaching"]
-        },
-        "roleTypeNames": ["Studio"],
-        "rating": 4
-      }
-    ],
-    "availabilities": [
-      {
-        "day": "WEDNESDAY",
-        "startTime": "10:00",
-        "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
-        "availabilityCode": "TRUE"
-      },
-      {
-        "day": "THURSDAY",
-        "startTime": "10:00",
-        "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
-        "availabilityCode": "TRUE"
-      }
-    ]
-  },
-  {
-    "baseEntity": {
       "name": "3a",
       "id": 2,
       "type": { "name": "room", "id": 1, "isMoveable": false }
@@ -63,6 +16,7 @@ Content-Type: application/json
             { "name": "Courses", "id": 2, "knowledgeLevels": [] }
           ],
           "knowledgeDomainDtoInclusionList": [
+            { "name": "Drum Kit", "id": -1 },
             { "name": "Piano", "id": -1 },
             { "name": "Classical Piano", "id": -1 },
             { "name": "Production", "id": -1 },
@@ -94,14 +48,14 @@ Content-Type: application/json
       {
         "day": "WEDNESDAY",
         "startTime": "09:00",
-        "endTime": "10:00",
+        "endTime": "20:00",
         "roleTypeNames": ["Studio"],
         "availabilityCode": "TRUE"
       },
       {
         "day": "THURSDAY",
         "startTime": "09:00",
-        "endTime": "10:00",
+        "endTime": "20:00",
         "roleTypeNames": ["Studio"],
         "availabilityCode": "TRUE"
       },
@@ -127,6 +81,7 @@ Content-Type: application/json
             { "name": "Courses", "id": 2, "knowledgeLevels": [] }
           ],
           "knowledgeDomainDtoInclusionList": [
+            { "name": "Drum Kit", "id": -1 },
             { "name": "Guitar", "id": -1 },
             { "name": "Double Bass", "id": -1 },
             { "name": "Jazz/Pop Voice", "id": -1 }
@@ -156,14 +111,14 @@ Content-Type: application/json
       {
         "day": "WEDNESDAY",
         "startTime": "09:00",
-        "endTime": "10:00",
+        "endTime": "20:00",
         "roleTypeNames": ["Studio"],
         "availabilityCode": "TRUE"
       },
       {
         "day": "THURSDAY",
         "startTime": "09:00",
-        "endTime": "10:00",
+        "endTime": "20:00",
         "roleTypeNames": ["Studio"],
         "availabilityCode": "TRUE"
       },
