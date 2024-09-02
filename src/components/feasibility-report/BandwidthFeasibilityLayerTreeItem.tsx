@@ -7,7 +7,7 @@ import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useMemo } from 'react';
 import { TaskTypeClassificationDto } from '@/api/zod-schemas/TaskTypeClassificationDtoSchema_';
-import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
+import WorkTaskTypeSummary from '@/components/work-task-types/_components/WorkTaskTypeSummary';
 
 function TaskTypeClassificationSummary({
   entity
@@ -18,7 +18,7 @@ function TaskTypeClassificationSummary({
         return entity.taskTypeClassificationItems.map((wttItem) => (
           <LazyDtoUiWrapper
             key={wttItem.id}
-            renderAs={NamedEntityLabel}
+            renderAs={WorkTaskTypeSummary}
             entityId={wttItem.workTaskTypeId}
             entityClass={EntityClassMap.workTaskType}
             whileLoading={() => '...loading'}

@@ -1,6 +1,7 @@
 import {
   KnowledgeDomainGroup,
-  KnowledgeLevelSeriesGroup
+  KnowledgeLevelSeriesGroup,
+  WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { hsl, interpolateRainbow } from 'd3';
 
@@ -16,23 +17,39 @@ export function getColorWithinSpace(
   return interpolatedColor.formatRgb();
 }
 
-export const colorizeKnowledgeDomains = (node: KnowledgeLevelSeriesGroup) => {
+function flatMapOfKnowledgeDomainGroups(
+  node: WorkNodeHierarchy
+): KnowledgeDomainGroup[] {
+  switch (node.type) {
+    case 'bundle':
+      return node.children;
+    case 'knowledgeDomainGroup':
+      return [node];
+    case 'leafList':
+    case 'leaf':
+      return [];
+    case 'knowledgeLevelGroup':
+    case 'knowledgeLevelSeriesGroup':
+      return node.children.flatMap((child) =>
+        flatMapOfKnowledgeDomainGroups(child)
+      );
+  }
+}
+
+export const colorizeKnowledgeDomains = (node: WorkNodeHierarchy) => {
+  const knowledgeDomainGroups = flatMapOfKnowledgeDomainGroups(node);
   const kdgMap = new Map<string, KnowledgeDomainGroup[]>();
-  for (let child of node.children) {
-    for (let bundleChild of child.children) {
-      for (let kdgChild of bundleChild.children) {
-        const kdStringCode = kdgChild.knowledgeDomains
-          .map((kd) => kd.shortCode)
-          .toSorted((a, b) => a.localeCompare(b))
-          .join(',');
-        let list = kdgMap.get(kdStringCode);
-        if (list === undefined) {
-          list = [] as KnowledgeDomainGroup[];
-          kdgMap.set(kdStringCode, list);
-        }
-        list.push(kdgChild);
-      }
+  for (let knowledgeDomainGroup of knowledgeDomainGroups) {
+    const kdStringCode = knowledgeDomainGroup.knowledgeDomains
+      .map((kd) => kd.name)
+      .toSorted((a, b) => a.localeCompare(b))
+      .join(',');
+    let list = kdgMap.get(kdStringCode);
+    if (list === undefined) {
+      list = [] as KnowledgeDomainGroup[];
+      kdgMap.set(kdStringCode, list);
     }
+    list.push(knowledgeDomainGroup);
   }
   const differentKCount = kdgMap.size;
   let colorScale = 0;
