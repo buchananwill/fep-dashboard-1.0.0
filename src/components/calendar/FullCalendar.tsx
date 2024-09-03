@@ -1,15 +1,12 @@
 'use client';
 import FullCalendar from '@fullcalendar/react';
 import timegrid from '@fullcalendar/timegrid';
+import { CalendarOptions } from '@fullcalendar/core';
 
-export default function CalendarViewer({
-  events
-}: {
-  events: { start: Date; end: Date }[];
-}) {
+export default function CalendarViewer(props: CalendarOptions) {
   return (
     <FullCalendar
-      events={events}
+      {...props}
       dayHeaderContent={(props) =>
         new Intl.DateTimeFormat('en-GB', {
           day: '2-digit',
