@@ -1,15 +1,43 @@
 import CalendarViewer from '@/components/calendar/FullCalendar';
-import { eventsWithDates } from '@/app/test/eventsTest';
-import { sourcesColorised } from '@/app/test/eventSourcesTest';
+import {
+  colorizeEventSources,
+  EventSourceSimple
+} from '@/app/test/eventSourcesTest';
+import { getEventSourcesAsKnowledgeDomains } from '@/app/test/eventSourcesAction';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import CalendarWithShowHideSources, {
+  eventSourceEntityClass
+} from '@/app/test/CalendarWithShowHideSources';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 
-export default function page() {
+export default async function page() {
+  const eventSources = await getEventSourcesAsKnowledgeDomains(2);
+  let sourcesColorised = colorizeEventSources(
+    eventSources as EventSourceSimple<KnowledgeDomainDto>[]
+    // .filter((source) => oneToOneSubjects.includes(source.sourceData.name))
+  );
   return (
-    <div className={'w-[60vw]'}>
+    <div className={'h-[95vh] w-[95vw]'}>
+      <EditAddDeleteDtoControllerArray
+        entityClass={eventSourceEntityClass}
+        dtoList={sourcesColorised}
+      />
       {/*<div className={'border-2 '}>{JSON.stringify(assetPostRequests)}</div>*/}
-      <CalendarViewer eventSources={sourcesColorised} />
-
+      <CalendarWithShowHideSources sources={sourcesColorised} />
       {/*<JsonTree data={enrollmentGraph} />*/}
       {/*<JsonTree data={teachersCrossProduct} />*/}
     </div>
   );
 }
+
+const oneToOneSubjects = [
+  'Jazz/Pop Voice',
+  'Piano',
+  'Classical Voice',
+  'Pop Guitar',
+  'Drum Kit',
+  'Production',
+  'French Horn',
+  'Double Bass',
+  'Guitar'
+];

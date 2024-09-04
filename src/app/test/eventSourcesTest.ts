@@ -691,14 +691,15 @@ const eventSources = [
   }
 ];
 
-function colorizeEventSources(
-  eventSources: {
-    events: any[];
-    id: string;
-    color?: string;
-    textColor?: string;
-  }[]
-) {
+export interface EventSourceSimple<T> {
+  events: any[];
+  id: string;
+  color?: string;
+  textColor?: string;
+  sourceData: T;
+}
+
+export function colorizeEventSources<T>(eventSources: EventSourceSimple<T>[]) {
   let totalSources = eventSources.length;
   eventSources.forEach((source, index) => {
     let colorWithinSpace = getColorWithinSpace(index, totalSources);

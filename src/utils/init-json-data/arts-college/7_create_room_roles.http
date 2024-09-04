@@ -7,26 +7,108 @@ Content-Type: application/json
     "baseEntity": {
       "name": "3a",
       "id": 2,
-      "type": { "name": "room", "id": 1, "isMoveable": false }
+      "type": {
+        "name": "room",
+        "id": 1,
+        "isMoveable": false
+      }
     },
     "suitabilities": [
       {
         "workTaskTypeMatrix": {
           "knowledgeLevelSeriesDtoList": [
-            { "name": "Courses", "id": 2, "knowledgeLevels": [] }
+            {
+              "name": "Courses",
+              "id": 2,
+              "knowledgeLevels": [  {
+                "name": "Streams",
+                "id": 1,
+                "knowledgeLevels": [
+                  {
+                    "name": "1",
+                    "id": 1,
+                    "levelOrdinal": 1,
+                    "knowledgeLevelSeriesId": 1
+                  },
+                  {
+                    "name": "2",
+                    "id": 2,
+                    "levelOrdinal": 2,
+                    "knowledgeLevelSeriesId": 1
+                  },
+                  {
+                    "name": "Shared",
+                    "id": 3,
+                    "levelOrdinal": 0,
+                    "knowledgeLevelSeriesId": 1
+                  }
+                ]
+              },
+                {
+                  "name": "Courses",
+                  "id": 2,
+                  "knowledgeLevels": [
+                    {
+                      "name": "Level 3 Year 1",
+                      "id": 4,
+                      "levelOrdinal": 1,
+                      "knowledgeLevelSeriesId": 2
+                    },
+                    {
+                      "name": "Level 3 Year 2",
+                      "id": 5,
+                      "levelOrdinal": 2,
+                      "knowledgeLevelSeriesId": 2
+                    },
+                    {
+                      "name": "Level 4",
+                      "id": 6,
+                      "levelOrdinal": 3,
+                      "knowledgeLevelSeriesId": 2
+                    }
+                  ]
+                }]
+            }
           ],
           "knowledgeDomainDtoInclusionList": [
-            { "name": "Drum Kit", "id": -1 },
-            { "name": "Piano", "id": -1 },
-            { "name": "Classical Piano", "id": -1 },
-            { "name": "Production", "id": -1 },
-            { "name": "French Horn", "id": -1 },
-            { "name": "Jazz/Pop Voice", "id": -1 }
+            {
+              "name": "Ensemble Rehearsals",
+              "id": 11,
+              "shortCode": "ER"
+            },
+            {
+              "name": "Drum Kit",
+              "id": -1
+            },
+            {
+              "name": "Piano",
+              "id": -1
+            },
+            {
+              "name": "Classical Piano",
+              "id": -1
+            },
+            {
+              "name": "Production",
+              "id": -1
+            },
+            {
+              "name": "French Horn",
+              "id": -1
+            },
+            {
+              "name": "Jazz/Pop Voice",
+              "id": -1
+            }
           ],
           "knowledgeDomainDtoExclusionList": [],
-          "workTaskTypeNames": ["Teaching"]
+          "workTaskTypeNames": [
+            "Teaching"
+          ]
         },
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "rating": 4
       }
     ],
@@ -35,35 +117,45 @@ Content-Type: application/json
         "day": "MONDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "TUESDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "WEDNESDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "THURSDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "FRIDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       }
     ]
@@ -72,24 +164,53 @@ Content-Type: application/json
     "baseEntity": {
       "name": "3b",
       "id": 3,
-      "type": { "name": "room", "id": 1, "isMoveable": false }
+      "type": {
+        "name": "room",
+        "id": 1,
+        "isMoveable": false
+      }
     },
     "suitabilities": [
       {
         "workTaskTypeMatrix": {
           "knowledgeLevelSeriesDtoList": [
-            { "name": "Courses", "id": 2, "knowledgeLevels": [] }
+            {
+              "name": "Courses",
+              "id": 2,
+              "knowledgeLevels": []
+            }
           ],
           "knowledgeDomainDtoInclusionList": [
-            { "name": "Drum Kit", "id": -1 },
-            { "name": "Guitar", "id": -1 },
-            { "name": "Double Bass", "id": -1 },
-            { "name": "Jazz/Pop Voice", "id": -1 }
+            {
+              "name": "Ensemble Rehearsals",
+              "id": 11,
+              "shortCode": "ER"
+            },
+            {
+              "name": "Drum Kit",
+              "id": -1
+            },
+            {
+              "name": "Guitar",
+              "id": -1
+            },
+            {
+              "name": "Double Bass",
+              "id": -1
+            },
+            {
+              "name": "Jazz/Pop Voice",
+              "id": -1
+            }
           ],
           "knowledgeDomainDtoExclusionList": [],
-          "workTaskTypeNames": ["Teaching"]
+          "workTaskTypeNames": [
+            "Teaching"
+          ]
         },
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "rating": 4
       }
     ],
@@ -98,35 +219,45 @@ Content-Type: application/json
         "day": "MONDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "TUESDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "WEDNESDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "THURSDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "FRIDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       }
     ]
@@ -135,22 +266,153 @@ Content-Type: application/json
     "baseEntity": {
       "name": "8",
       "id": 4,
-      "type": { "name": "room", "id": 1, "isMoveable": false }
+      "type": {
+        "name": "room",
+        "id": 1,
+        "isMoveable": false
+      }
     },
     "suitabilities": [
       {
         "workTaskTypeMatrix": {
           "knowledgeLevelSeriesDtoList": [
-            { "name": "Courses", "id": 2, "knowledgeLevels": [] }
+            {
+              "name": "Streams",
+              "id": 1,
+              "knowledgeLevels": [
+                {
+                  "name": "1",
+                  "id": 1,
+                  "levelOrdinal": 1,
+                  "knowledgeLevelSeriesId": 1
+                },
+                {
+                  "name": "2",
+                  "id": 2,
+                  "levelOrdinal": 2,
+                  "knowledgeLevelSeriesId": 1
+                },
+                {
+                  "name": "Shared",
+                  "id": 3,
+                  "levelOrdinal": 0,
+                  "knowledgeLevelSeriesId": 1
+                }
+              ]
+            },
+            {
+              "name": "Courses",
+              "id": 2,
+              "knowledgeLevels": [
+                {
+                  "name": "Level 3 Year 1",
+                  "id": 4,
+                  "levelOrdinal": 1,
+                  "knowledgeLevelSeriesId": 2
+                },
+                {
+                  "name": "Level 3 Year 2",
+                  "id": 5,
+                  "levelOrdinal": 2,
+                  "knowledgeLevelSeriesId": 2
+                },
+                {
+                  "name": "Level 4",
+                  "id": 6,
+                  "levelOrdinal": 3,
+                  "knowledgeLevelSeriesId": 2
+                }
+              ]
+            }
           ],
           "knowledgeDomainDtoInclusionList": [
-            { "name": "French Horn", "id": -1 },
-            { "name": "Jazz/Pop Voice", "id": -1 }
+            {
+              "name": "Reflection/PT",
+              "id": 10,
+              "shortCode": "RP"
+            },
+            {
+              "name": "Music Theory",
+              "id": 1,
+              "shortCode": "MT"
+            },
+            {
+              "name": "Transcription",
+              "id": 2,
+              "shortCode": "Tr"
+            },
+            {
+              "name": "Ensemble Rehearsals",
+              "id": 11,
+              "shortCode": "ER"
+            },
+            {
+              "name": "No Name",
+              "id": 12,
+              "shortCode": "NN"
+            },
+            {
+              "name": "Aural Skills",
+              "id": 3,
+              "shortCode": "AS"
+            },
+            {
+              "id": 7,
+              "name": "Production: Sequencing",
+              "shortCode": "Ps"
+            },
+            {
+              "name": "Project Lab",
+              "id": 14,
+              "shortCode": "PL"
+            },
+            {
+              "name": "Keyboard Skills",
+              "id": 4,
+              "shortCode": "KS"
+            },
+            {
+              "name": "World Music",
+              "id": 15,
+              "shortCode": "WM"
+            },
+            {
+              "name": "Production: Recording",
+              "id": 16,
+              "shortCode": "Pr"
+            },
+            {
+              "name": "UCAS Applications",
+              "id": 8,
+              "shortCode": "UA"
+            },
+            {
+              "name": "Arranging",
+              "id": 9,
+              "shortCode": "Ar"
+            },
+            {
+              "name": "Composition",
+              "id": 5,
+              "shortCode": "Co"
+            },
+            {
+              "name": "French Horn",
+              "id": -1
+            },
+            {
+              "name": "Jazz/Pop Voice",
+              "id": -1
+            }
           ],
           "knowledgeDomainDtoExclusionList": [],
-          "workTaskTypeNames": ["Teaching"]
+          "workTaskTypeNames": [
+            "Teaching"
+          ]
         },
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "rating": 4
       }
     ],
@@ -159,35 +421,45 @@ Content-Type: application/json
         "day": "MONDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "TUESDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "WEDNESDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "THURSDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "FRIDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       }
     ]
@@ -196,26 +468,144 @@ Content-Type: application/json
     "baseEntity": {
       "name": "14",
       "id": 5,
-      "type": { "name": "room", "id": 1, "isMoveable": false }
+      "type": {
+        "name": "room",
+        "id": 1,
+        "isMoveable": false
+      }
     },
     "suitabilities": [
       {
         "workTaskTypeMatrix": {
           "knowledgeLevelSeriesDtoList": [
-            { "name": "Courses", "id": 2, "knowledgeLevels": [] }
+            {
+              "name": "Streams",
+              "id": 1,
+              "knowledgeLevels": [
+                {
+                  "name": "1",
+                  "id": 1,
+                  "levelOrdinal": 1,
+                  "knowledgeLevelSeriesId": 1
+                },
+                {
+                  "name": "2",
+                  "id": 2,
+                  "levelOrdinal": 2,
+                  "knowledgeLevelSeriesId": 1
+                },
+                {
+                  "name": "Shared",
+                  "id": 3,
+                  "levelOrdinal": 0,
+                  "knowledgeLevelSeriesId": 1
+                }
+              ]
+            },
+            {
+              "name": "Courses",
+              "id": 2,
+              "knowledgeLevels": [
+                {
+                  "name": "Level 3 Year 1",
+                  "id": 4,
+                  "levelOrdinal": 1,
+                  "knowledgeLevelSeriesId": 2
+                },
+                {
+                  "name": "Level 3 Year 2",
+                  "id": 5,
+                  "levelOrdinal": 2,
+                  "knowledgeLevelSeriesId": 2
+                },
+                {
+                  "name": "Level 4",
+                  "id": 6,
+                  "levelOrdinal": 3,
+                  "knowledgeLevelSeriesId": 2
+                }
+              ]
+            }
           ],
           "knowledgeDomainDtoInclusionList": [
-            { "name": "Guitar", "id": -1 },
-            { "name": "French Horn", "id": -1 },
-            { "name": "Double Bass", "id": -1 },
-            { "name": "Classical Voice", "id": -1 },
-            { "name": "Jazz/Pop Voice", "id": -1 },
-            { "name": "DJ", "id": -1 }
+            {
+              "name": "Reflection/PT",
+              "id": 10,
+              "shortCode": "RP"
+            },
+            {
+              "name": "Music Theory",
+              "id": 1,
+              "shortCode": "MT"
+            },
+            {
+              "name": "Transcription",
+              "id": 2,
+              "shortCode": "Tr"
+            },
+            {
+              "name": "Ensemble Rehearsals",
+              "id": 11,
+              "shortCode": "ER"
+            },
+            {
+              "id": 6,
+              "name": "Pop Styles",
+              "shortCode": "PS"
+            },
+            {
+              "name": "Performance Class/Reflective Writing",
+              "id": 17,
+              "shortCode": "PW"
+            },
+            {
+              "id": 7,
+              "name": "Production: Sequencing",
+              "shortCode": "Ps"
+            },
+            {
+              "name": "Project Lab",
+              "id": 14,
+              "shortCode": "PL"
+            },
+            {
+              "name": "Keyboard Skills",
+              "id": 4,
+              "shortCode": "KS"
+            },
+            {
+              "name": "Guitar",
+              "id": -1
+            },
+            {
+              "name": "French Horn",
+              "id": -1
+            },
+            {
+              "name": "Double Bass",
+              "id": -1
+            },
+            {
+              "name": "Classical Voice",
+              "id": -1
+            },
+            {
+              "name": "Jazz/Pop Voice",
+              "id": -1
+            },
+            {
+              "name": "DJ",
+              "id": -1
+            }
           ],
           "knowledgeDomainDtoExclusionList": [],
-          "workTaskTypeNames": ["Teaching"]
+          "workTaskTypeNames": [
+            "Teaching"
+          ]
         },
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "rating": 4
       }
     ],
@@ -224,35 +614,45 @@ Content-Type: application/json
         "day": "MONDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "TUESDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "WEDNESDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "THURSDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "FRIDAY",
         "startTime": "09:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       }
     ]
@@ -261,22 +661,40 @@ Content-Type: application/json
     "baseEntity": {
       "name": "16",
       "id": 6,
-      "type": { "name": "room", "id": 1, "isMoveable": false }
+      "type": {
+        "name": "room",
+        "id": 1,
+        "isMoveable": false
+      }
     },
     "suitabilities": [
       {
         "workTaskTypeMatrix": {
           "knowledgeLevelSeriesDtoList": [
-            { "name": "Courses", "id": 2, "knowledgeLevels": [] }
+            {
+              "name": "Courses",
+              "id": 2,
+              "knowledgeLevels": []
+            }
           ],
           "knowledgeDomainDtoInclusionList": [
-            { "name": "Classical Voice", "id": -1 },
-            { "name": "Jazz/Pop Voice", "id": -1 }
+            {
+              "name": "Classical Voice",
+              "id": -1
+            },
+            {
+              "name": "Jazz/Pop Voice",
+              "id": -1
+            }
           ],
           "knowledgeDomainDtoExclusionList": [],
-          "workTaskTypeNames": ["Teaching"]
+          "workTaskTypeNames": [
+            "Teaching"
+          ]
         },
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "rating": 4
       }
     ],
@@ -285,35 +703,45 @@ Content-Type: application/json
         "day": "MONDAY",
         "startTime": "16:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "TUESDAY",
         "startTime": "16:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "WEDNESDAY",
         "startTime": "16:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "THURSDAY",
         "startTime": "16:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       },
       {
         "day": "FRIDAY",
         "startTime": "16:00",
         "endTime": "20:00",
-        "roleTypeNames": ["Studio"],
+        "roleTypeNames": [
+          "Studio"
+        ],
         "availabilityCode": "TRUE"
       }
     ]

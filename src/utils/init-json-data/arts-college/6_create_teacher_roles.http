@@ -291,7 +291,65 @@ Content-Type: application/json
         "availabilityCode": "TRUE"
       }
     ]
+  },{
+  "baseEntity": {
+    "id": 0,
+    "dateOfBirth": "1990-09-25",
+    "personalName": "FAKE",
+    "familyName": "DRUM_TEACHER"
   },
+  "suitabilities": [
+    {
+      "workTaskTypeMatrix": {
+        "knowledgeLevelSeriesDtoList": [
+          {
+            "name": "Courses",
+            "id": 2,
+            "knowledgeLevels": []
+          }
+        ],
+        "knowledgeDomainDtoInclusionList": [
+          {
+            "name": "Drum Kit",
+            "id": -1
+          },
+          {
+            "name": "Production",
+            "id": -1
+          }
+        ],
+        "knowledgeDomainDtoExclusionList": [],
+        "workTaskTypeNames": [
+          "Teaching"
+        ]
+      },
+      "roleTypeNames": [
+        "Teacher"
+      ],
+      "rating": 4
+    }
+  ],
+  "availabilities": [
+    {
+      "day": "WEDNESDAY",
+      "startTime": "10:00",
+      "endTime": "20:00",
+      "roleTypeNames": [
+        "Teacher"
+      ],
+      "availabilityCode": "TRUE"
+    },
+    {
+      "day": "THURSDAY",
+      "startTime": "10:00",
+      "endTime": "20:00",
+      "roleTypeNames": [
+        "Teacher"
+      ],
+      "availabilityCode": "TRUE"
+    }
+  ]
+},
   {
     "baseEntity": {
       "id": 0,
