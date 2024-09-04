@@ -1,0 +1,130 @@
+###
+PUT http://localhost:8080/api/v2/workSchemaNode/graphs
+Content-Type: application/json
+
+{
+  "graphDto": {
+    "nodes": [
+      {
+        "id": 49,
+        "distanceFromRoot": 0,
+        "data": {
+          "allowBundle": true,
+          "preferCarousel": false,
+          "dominanceFactor": 1,
+          "priority": 1,
+          "workSchemaNodeAssignmentIds": [
+            21
+          ],
+          "id": 49,
+          "knowledgeLevelId": 5,
+          "name": "Student 7",
+          "resolutionMode": "OPEN"
+        }
+      },
+      {
+        "id": 51,
+        "distanceFromRoot": 1,
+        "data": {
+          "allowBundle": false,
+          "preferCarousel": false,
+          "dominanceFactor": 1,
+          "priority": 1,
+          "workSchemaNodeAssignmentIds": [],
+          "id": 51,
+          "workProjectSeriesSchemaId": "7ea41ffb-38b4-450f-84c4-0bb0f1d72bc2",
+          "resolutionMode": "LEAF"
+        }
+      },
+      {
+        "id": 50,
+        "distanceFromRoot": 2,
+        "data": {
+          "allowBundle": false,
+          "preferCarousel": false,
+          "dominanceFactor": 1,
+          "priority": 1,
+          "workSchemaNodeAssignmentIds": [],
+          "id": 50,
+          "workProjectSeriesSchemaId": "3dcaac43-f2c9-4f22-ad30-882d9e13b350",
+          "resolutionMode": "LEAF"
+        }
+      },
+      {
+        "id": 1125899906842624,
+        "distanceFromRoot": 1,
+        "data": {
+          "allowBundle": false,
+          "preferCarousel": true,
+          "dominanceFactor": 1,
+          "priority": 1,
+          "workSchemaNodeAssignmentIds": [],
+          "id": 1125899906842624,
+          "knowledgeLevelId": 5,
+          "name": "Drum kit carousel to block other room",
+          "resolutionMode": "CAROUSEL"
+        }
+      },
+      {
+        "id": 1125899906842625,
+        "distanceFromRoot": 2,
+        "data": {
+          "allowBundle": true,
+          "preferCarousel": false,
+          "dominanceFactor": 1,
+          "priority": 1,
+          "workSchemaNodeAssignmentIds": [],
+          "id": 1125899906842625,
+          "knowledgeLevelId": 5,
+          "name": "Blocking drum kit lesson",
+          "workProjectSeriesSchemaId": "3dcaac43-f2c9-4f22-ad30-882d9e13b350",
+          "resolutionMode": "LEAF"
+        }
+      }
+    ],
+    "closureDtos": [
+      {
+        "id": 82,
+        "closureType": "com.futuredyme.Entities.Scheduling.Series.SchemaGraph.WorkSchemaClosure",
+        "source": 49,
+        "target": 51,
+        "value": 1,
+        "weighting": 1,
+        "index": 0
+      },
+      {
+        "id": 1125899906842624,
+        "closureType": "com.futuredyme.Entities.Scheduling.Series.SchemaGraph.WorkSchemaClosure",
+        "source": 49,
+        "target": 1125899906842624,
+        "value": 1,
+        "weighting": 1,
+        "index": 1
+      },
+      {
+        "id": 1125899906842625,
+        "closureType": "com.futuredyme.Entities.Scheduling.Series.SchemaGraph.WorkSchemaClosure",
+        "source": 1125899906842624,
+        "target": 50,
+        "value": 1,
+        "weighting": 1,
+        "index": 2
+      },
+      {
+        "id": 1125899906842626,
+        "closureType": "com.futuredyme.Entities.Scheduling.Series.SchemaGraph.WorkSchemaClosure",
+        "source": 1125899906842624,
+        "target": 1125899906842625,
+        "value": 1,
+        "weighting": 1,
+        "index": 3
+      }
+    ]
+  },
+  "deletedClosureIdList": [
+    80
+  ],
+  "deletedNodeIdList": []
+}
+
+<> 2024-09-04T130051.200.json

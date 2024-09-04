@@ -118,6 +118,7 @@ const maxOneOf: (keyof WorkSchemaNodeDto)[] = [
 
 function spyOnRequest<T, U>(currentRequest: ServerAction<T, U>) {
   return (request: T) => {
+    console.log(request);
     return currentRequest(request);
   };
 }
@@ -136,7 +137,8 @@ export const workSchemaNodeGraphUpdater = middlewareCombiner<
     getGraphUpdaterWithNameDeDuplication as Middleware<
       GraphDtoPutRequestBody<WorkSchemaNodeDto>,
       Promise<GraphDto<WorkSchemaNodeDto>>
-    >
+    >,
+    spyOnRequest
   ],
   Api.WorkSchemaNode.putGraph
 );

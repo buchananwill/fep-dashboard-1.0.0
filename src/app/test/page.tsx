@@ -1,4 +1,3 @@
-import CalendarViewer from '@/components/calendar/FullCalendar';
 import {
   colorizeEventSources,
   EventSourceSimple
@@ -11,7 +10,7 @@ import CalendarWithShowHideSources, {
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 
 export default async function page() {
-  const eventSources = await getEventSourcesAsKnowledgeDomains(2);
+  const eventSources = await getEventSourcesAsKnowledgeDomains(1);
   let sourcesColorised = colorizeEventSources(
     eventSources as EventSourceSimple<KnowledgeDomainDto>[]
     // .filter((source) => oneToOneSubjects.includes(source.sourceData.name))
