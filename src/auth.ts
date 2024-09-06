@@ -8,10 +8,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     MicrosoftEntraID({
       clientId: process.env.AUTH_MICROSOFT_ENTRA_ID_ID,
       clientSecret: process.env.AUTH_MICROSOFT_ENTRA_ID_SECRET,
-      tenantId: process.env.AUTH_MICROSOFT_ENTRA_ID_TENANT_ID
+      tenantId: process.env.AUTH_MICROSOFT_ENTRA_ID_TENANT_ID,
+      authorization: {
+        params: {
+          scope:
+            'openid profile email offline_access https://graph.microsoft.com/user.read https://graph.microsoft.com/calendars.read'
+        }
+      }
     })
   ],
-  callbacks: {},
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        // User is available during sign-in
+        token.id = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      // @ts-ignore
+      session.user.token = token;
+      return session;
+    }
+  },
   pages: {
     signIn: '/login'
   }

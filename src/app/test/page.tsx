@@ -8,6 +8,8 @@ import CalendarWithShowHideSources, {
   eventSourceEntityClass
 } from '@/app/test/CalendarWithShowHideSources';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { graphClient } from '@/components/microsoft-graph/graphClient';
+import CreateEventButton from '@/app/test/CreateEventButton';
 
 export default async function page() {
   const eventSources = await getEventSourcesAsKnowledgeDomains(1);
@@ -15,12 +17,14 @@ export default async function page() {
     eventSources as EventSourceSimple<KnowledgeDomainDto>[]
     // .filter((source) => oneToOneSubjects.includes(source.sourceData.name))
   );
+
   return (
     <div className={'h-[95vh] w-[95vw]'}>
       <EditAddDeleteDtoControllerArray
         entityClass={eventSourceEntityClass}
         dtoList={sourcesColorised}
       />
+      <CreateEventButton />
       {/*<div className={'border-2 '}>{JSON.stringify(assetPostRequests)}</div>*/}
       <CalendarWithShowHideSources sources={sourcesColorised} />
       {/*<JsonTree data={enrollmentGraph} />*/}

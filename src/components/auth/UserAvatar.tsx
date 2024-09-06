@@ -5,6 +5,8 @@ import { SignInAzure } from '@/components/auth/SignInAzure';
 export default async function UserAvatar() {
   const session = await auth();
 
+  console.log(session?.user);
+
   if (!session || !session.user) {
     return (
       <>
@@ -35,7 +37,7 @@ export default async function UserAvatar() {
                 className={'h-12 w-12 rounded-full'}
               />
             ) : (
-              session.user.name
+              `${session.user.name} - ${session.user.id}`
             )}
           </button>
         </form>
