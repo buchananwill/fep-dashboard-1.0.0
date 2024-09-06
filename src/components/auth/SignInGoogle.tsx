@@ -1,7 +1,6 @@
 import { signIn } from '@/auth';
-import { handleGoogleSignin } from '@/components/auth/handleSignout';
 
-export function SignIn() {
+export function SignInGoogle() {
   return (
     <form
       action={async () => {

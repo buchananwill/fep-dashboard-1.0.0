@@ -1,11 +1,18 @@
 import { auth, signOut } from '@/auth';
-import { SignIn } from '@/components/auth/SignIn';
+import { SignInGoogle } from '@/components/auth/SignInGoogle';
+import { SignInAzure } from '@/components/auth/SignInAzure';
 
 export default async function UserAvatar() {
   const session = await auth();
 
-  if (!session || !session.user) return <SignIn />;
-  else
+  if (!session || !session.user) {
+    return (
+      <>
+        <SignInGoogle />
+        <SignInAzure />
+      </>
+    );
+  } else
     return (
       <div>
         <form
@@ -20,6 +27,7 @@ export default async function UserAvatar() {
               'flex flex-col items-center rounded-lg p-1 transition-colors-opacity hover:bg-rose-100'
             }
           >
+            Sign out:
             {session.user.image ? (
               <img
                 src={session.user.image}
@@ -27,9 +35,8 @@ export default async function UserAvatar() {
                 className={'h-12 w-12 rounded-full'}
               />
             ) : (
-              'Sign Out'
+              session.user.name
             )}
-            Sign out
           </button>
         </form>
       </div>
