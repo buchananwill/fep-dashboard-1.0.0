@@ -12,22 +12,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorization: {
         params: {
           scope:
-            'openid profile email offline_access https://graph.microsoft.com/user.read https://graph.microsoft.com/calendars.read'
+            'openid profile email https://graph.microsoft.com/user.read https://graph.microsoft.com/calendars.ReadWrite'
         }
       }
     })
   ],
   callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        // User is available during sign-in
-        token.id = user.id;
-      }
+    jwt({ token }) {
+      console.log(token);
+
       return token;
     },
     session({ session, token }) {
+      console.log(token, session);
       // @ts-ignore
       session.user.token = token;
+      // @ts-ignore
+      session.accessToken = token.accessToken;
       return session;
     }
   },

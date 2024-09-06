@@ -1,17 +1,27 @@
 'use server';
 
-import { graphClient } from '@/components/microsoft-graph/graphClient';
 import { auth } from '@/auth';
 
-export const readUser = async (req: any) => {
-  return await graphClient.api(`/users`).top(1).get();
-};
+// export const readUser = async (req: any) => {
+//   return await graphClient.api(`/users`).top(1).get();
+// };
 export const createEvent = async () => {
-  const userId = '4e1a7c2c-7365-45c7-9d3c-84671ceacb3b';
+  const session = await auth();
+  const accessToken = session?.accessToken;
+  console.log(session);
+
+  // return graphClient.api('/me').get();
+  const response = await fetch('https://graph.microsoft.com/v1.0/me/calendar', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+  return response.json();
+  // const userId = '4e1a7c2c-7365-45c7-9d3c-84671ceacb3b';
+  // return '200';
+  /*
   try {
-    const events = await graphClient
-      .api(`/users/${userId}/calendar/events`)
-      .get();
+    const events = graphClient.api(`/me/calendar/events`).get();
 
     console.log('User Events:', events);
     return events;
@@ -24,6 +34,8 @@ export const createEvent = async () => {
       console.error('Graph Client Error:', error);
     }
   }
+   *
+   */
 };
 
 const event = {
