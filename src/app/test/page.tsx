@@ -12,12 +12,12 @@ import { graphClient } from '@/components/microsoft-graph/graphClient';
 import CreateEventButton from '@/app/test/CreateEventButton';
 
 export default async function page() {
-  const eventSources = await getEventSourcesAsKnowledgeDomains(1);
+  const eventSources = await getEventSourcesAsKnowledgeDomains(52);
   let sourcesColorised = colorizeEventSources(
     eventSources as EventSourceSimple<KnowledgeDomainDto>[]
     // .filter((source) => oneToOneSubjects.includes(source.sourceData.name))
   );
-
+  console.log(sourcesColorised);
   return (
     <div className={'h-[95vh] w-[95vw]'}>
       <EditAddDeleteDtoControllerArray

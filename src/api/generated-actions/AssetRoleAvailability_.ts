@@ -1,7 +1,7 @@
 'use server';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
-import { ProviderRoleAvailabilityDto } from '@/api/generated-types/generated-types';
+import { AssetRoleAvailabilityDto } from '@/api/generated-types/generated-types';
 
 const {
   getPage,
@@ -16,8 +16,8 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<ProviderRoleAvailabilityDto, number>(
-  '/api/v2/providerRoles/availabilities'
+} = generateBaseEndpointSet<AssetRoleAvailabilityDto, number>(
+  '/api/v2/assets/roles/availabilities'
 );
 
 const {
@@ -26,11 +26,9 @@ const {
   getColumnIdList,
   getByRowIdList,
   getIntersectionTable
-} = generateIntersectionEndpointSet<
-  ProviderRoleAvailabilityDto,
-  number,
-  number
->('/api/v2/providerRoles/availabilities');
+} = generateIntersectionEndpointSet<AssetRoleAvailabilityDto, number, number>(
+  '/api/v2/assets/roles/availabilities'
+);
 
 export {
   getPage,
@@ -46,7 +44,6 @@ export {
   getDtoListByParamList,
   getDtoListByExampleList,
   getByRowIdListAndColumnIdList,
-  getDtoTableByRowIdListAndColumnIdList,
   getColumnIdList,
   getByRowIdList,
   getIntersectionTable

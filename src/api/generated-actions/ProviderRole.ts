@@ -1,10 +1,10 @@
 'use server';
+import { ProviderRoleDto } from '../dtos/ProviderRoleDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
-import { ProviderRoleDto } from '@/api/generated-types/generated-types';
 
 const {
-  getPage,
+getPage,
   getAll,
   deleteIdList,
   postList,
@@ -16,14 +16,21 @@ const {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<ProviderRoleDto, number>('/api/v2/providerRoles');
+} = generateBaseEndpointSet<
+  ProviderRoleDto,
+  number
+>(
+  '/api/v2/providerRoles'
+);
 
-const { getByTypeIdList } = generateWithTypeEndpointSet<ProviderRoleDto>(
+
+const {
+getByTypeIdList  } = generateWithTypeEndpointSet<ProviderRoleDto>(
   '/api/v2/providerRoles'
 );
 
 export {
-  getPage,
+    getPage,
   getAll,
   deleteIdList,
   postList,
@@ -34,6 +41,7 @@ export {
   deleteOne,
   getDtoListByBodyList,
   getDtoListByParamList,
-  getDtoListByExampleList,
-  getByTypeIdList
-};
+  getDtoListByExampleList
+, getByTypeIdList
+}
+

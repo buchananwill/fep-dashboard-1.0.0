@@ -21,7 +21,7 @@ import * as Organization from './generated-actions/Organization';
 import * as OrganizationType from './generated-actions/OrganizationType';
 import * as Person from './generated-actions/Person';
 import * as ProviderRole from './generated-actions/ProviderRole';
-import * as ProviderRoleAvailability from './generated-actions/ProviderRoleAvailability';
+import * as ProviderRoleAvailability from './generated-actions/ProviderRoleAvailability_';
 import * as ProviderRoleType from './generated-actions/ProviderRoleType';
 import * as ProviderRoleTypeWorkTaskTypeSuitability from './generated-actions/ProviderRoleTypeWorkTaskTypeSuitability';
 import * as Schedule from './generated-actions/Schedule';
@@ -37,7 +37,7 @@ import * as WorkSchemaNode from './generated-actions/WorkSchemaNode_';
 import * as WorkSchemaNodeAssignment from './generated-actions/WorkSchemaNodeAssignment_';
 import * as WorkTaskType from './generated-actions/WorkTaskType';
 import * as KnowledgeLevelSeries from '@/api/generated-actions/KnowledgeLevelSeries';
-import * as AssetRoleAvailability from '@/api/generated-actions/AssetRoleAvailability';
+import * as AssetRoleAvailability from '@/api/generated-actions/AssetRoleAvailability_';
 
 export const Api = {
   Asset,

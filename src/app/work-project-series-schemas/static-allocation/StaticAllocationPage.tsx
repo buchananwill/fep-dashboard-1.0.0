@@ -2,7 +2,6 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';
 import StaticAllocationTable from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 import {
@@ -15,7 +14,10 @@ import StaticAllocationAuditor, {
   allocationCounter
 } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationAuditor';
 import { EmptyArray } from '@/api/literals';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
+import {
+  StaticDeliveryAllocationItemDto,
+  WorkProjectSeriesSchemaDto
+} from '@/api/generated-types/generated-types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 
 export type StaticAllocationTableDto = GenericTableDto<

@@ -5,8 +5,6 @@ import { SignInAzure } from '@/components/auth/SignInAzure';
 export default async function UserAvatar() {
   const session = await auth();
 
-  console.log(session?.user);
-
   if (!session || !session.user) {
     return (
       <>

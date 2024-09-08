@@ -16,6 +16,7 @@ export default function CalendarViewer(props: CalendarOptions) {
       titleFormat={{ day: '2-digit', month: '2-digit' }}
       plugins={plugins}
       locale={'en-GB'}
+      firstDay={1}
       initialView="timeGridWeek"
       headerToolbar={{
         left: 'prev,next today',

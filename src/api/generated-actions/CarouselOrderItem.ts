@@ -32,7 +32,7 @@ const {
 } = generateIntersectionEndpointSet<
   CarouselOrderItemDto,
   string,
-  string
+  number
 >(
   '/api/v2/carouselGroups/orders/items'
 );

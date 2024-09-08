@@ -19,7 +19,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     jwt({ token, account, user, profile }) {
-      console.log('calling back with token:', token, account, user, profile);
       if (account) {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
@@ -27,7 +26,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     session({ session, token }) {
-      console.log(token, session);
       // @ts-ignore
       session.user.token = token;
       // @ts-ignore

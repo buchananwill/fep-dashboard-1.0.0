@@ -8,7 +8,9 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 
 export const eventSourceEntityClass = 'eventSource';
-export default function CalendarWithShowHideSources({}: {
+export default function CalendarWithShowHideSources({
+  sources
+}: {
   sources: EventSourceSimple<KnowledgeDomainDto>[];
 }) {
   let { currentState: selectedSourceIdList } = NamespacedHooks.useListen(
@@ -20,7 +22,7 @@ export default function CalendarWithShowHideSources({}: {
   let { currentState } = useLazyDtoListListener<
     EventSourceSimple<KnowledgeDomainDto>
   >(selectedSourceIdList, eventSourceEntityClass);
-
+  console.log([...currentState.values()]);
   return (
     <div className={'flex w-full'}>
       <div className={'flex flex-col gap-2'}>
