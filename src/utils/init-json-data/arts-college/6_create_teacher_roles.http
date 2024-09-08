@@ -326,7 +326,7 @@ Content-Type: application/json
       "roleTypeNames": [
         "Teacher"
       ],
-      "rating": 4
+      "rating": 1
     }
   ],
   "availabilities": [
@@ -370,6 +370,9 @@ Content-Type: application/json
           "knowledgeDomainDtoInclusionList": [
             {
               "name": "Guitar",
+              "id": -1
+            },{
+              "name": "Pop Guitar",
               "id": -1
             }
           ],

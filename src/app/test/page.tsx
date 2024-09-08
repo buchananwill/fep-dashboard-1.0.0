@@ -8,11 +8,10 @@ import CalendarWithShowHideSources, {
   eventSourceEntityClass
 } from '@/app/test/CalendarWithShowHideSources';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { graphClient } from '@/components/microsoft-graph/graphClient';
 import CreateEventButton from '@/app/test/CreateEventButton';
 
 export default async function page() {
-  const eventSources = await getEventSourcesAsKnowledgeDomains(52);
+  const eventSources = await getEventSourcesAsKnowledgeDomains(1);
   let sourcesColorised = colorizeEventSources(
     eventSources as EventSourceSimple<KnowledgeDomainDto>[]
     // .filter((source) => oneToOneSubjects.includes(source.sourceData.name))

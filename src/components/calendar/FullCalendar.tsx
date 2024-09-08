@@ -13,6 +13,9 @@ export default function CalendarViewer(props: CalendarOptions) {
           month: '2-digit'
         }).format(props.date)
       }
+      eventClick={(info) => {
+        alert(JSON.stringify(info.event.extendedProps['providerRoleList']));
+      }}
       titleFormat={{ day: '2-digit', month: '2-digit' }}
       plugins={plugins}
       locale={'en-GB'}
