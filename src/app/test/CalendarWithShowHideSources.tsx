@@ -6,6 +6,8 @@ import CheckBoxEntity from '@/app/test/checkbox-group-entity/CheckBoxEntity';
 import { NamespacedHooks, useLazyDtoListListener } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
+import { useMemo } from 'react';
+import { flattenTimesIntoEvent } from '@/full-calendar/flattenTimesIntoEvent';
 
 export const eventSourceEntityClass = 'eventSource';
 export default function CalendarWithShowHideSources({
@@ -22,7 +24,17 @@ export default function CalendarWithShowHideSources({
   let { currentState } = useLazyDtoListListener<
     EventSourceSimple<KnowledgeDomainDto>
   >(selectedSourceIdList, eventSourceEntityClass);
-  console.log([...currentState.values()]);
+
+  const sourcesFlattened = useMemo(() => {
+    return [...currentState.values()].map((source) => {
+      return {
+        ...source,
+        events: source.events.map((event) => flattenTimesIntoEvent(event))
+      };
+    });
+  }, [currentState]);
+  console.log(sourcesFlattened);
+
   return (
     <div className={'flex w-full'}>
       <div className={'flex flex-col gap-2'}>
@@ -32,7 +44,7 @@ export default function CalendarWithShowHideSources({
         />
       </div>
       <div className={'w-[50vw]'}>
-        <CalendarViewer eventSources={[...currentState.values()]} />
+        <CalendarViewer eventSources={sourcesFlattened} />
       </div>
     </div>
   );

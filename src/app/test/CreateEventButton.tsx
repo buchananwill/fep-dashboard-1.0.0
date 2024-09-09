@@ -1,9 +1,6 @@
 'use client';
 import { Button } from '@nextui-org/button';
-import {
-  createEvent,
-  readUser
-} from '@/components/microsoft-graph/createEventAction';
+import { createEvent } from '@/components/microsoft-graph/createEventAction';
 
 export default function CreateEventButton() {
   return (
