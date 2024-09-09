@@ -1,5 +1,5 @@
 'use client';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import React, { Key, useCallback, useMemo } from 'react';
 import { Pagination, TableProps } from '@nextui-org/react';
@@ -30,7 +30,7 @@ export default function WorkSchemaNodeModalTable({
         if (dispatchWithoutControl) {
           dispatchWithoutControl((data) => ({
             ...data,
-            workProjectSeriesSchemaId: value
+            workProjectSeriesSchemaId: parseInt(value)
           }));
         }
       } else {

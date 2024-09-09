@@ -4,7 +4,7 @@ import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
 import { useGlobalController } from 'selective-context';
 import { EditAddDeleteDtoControllerArray, InitialMap } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
 import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';

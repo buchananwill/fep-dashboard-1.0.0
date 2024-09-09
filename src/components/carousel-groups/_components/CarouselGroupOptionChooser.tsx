@@ -9,7 +9,7 @@ import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 import { CarouselLeanDto } from '@/api/zod-schemas/CarouselLeanDtoSchema';
 import { produceCarouselGroupOptionsEdit } from '@/components/carousel-groups/_components/produceCarouselGroupOptionsEdit';
 

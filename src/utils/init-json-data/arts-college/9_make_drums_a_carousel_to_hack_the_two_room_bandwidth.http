@@ -32,7 +32,7 @@ Content-Type: application/json
           "priority": 1,
           "workSchemaNodeAssignmentIds": [],
           "id": 51,
-          "workProjectSeriesSchemaId": "7ea41ffb-38b4-450f-84c4-0bb0f1d72bc2",
+          "workProjectSeriesSchemaId": 29,
           "resolutionMode": "LEAF"
         }
       },
@@ -46,7 +46,7 @@ Content-Type: application/json
           "priority": 1,
           "workSchemaNodeAssignmentIds": [],
           "id": 50,
-          "workProjectSeriesSchemaId": "3dcaac43-f2c9-4f22-ad30-882d9e13b350",
+          "workProjectSeriesSchemaId": 28,
           "resolutionMode": "LEAF"
         }
       },
@@ -61,7 +61,7 @@ Content-Type: application/json
           "workSchemaNodeAssignmentIds": [],
           "id": 1125899906842624,
           "knowledgeLevelId": 5,
-          "name": "Drum kit carousel to block other room",
+          "name": "Drum Kit BLOCKING CAROUSEL",
           "resolutionMode": "CAROUSEL"
         }
       },
@@ -76,8 +76,8 @@ Content-Type: application/json
           "workSchemaNodeAssignmentIds": [],
           "id": 1125899906842625,
           "knowledgeLevelId": 5,
-          "name": "Blocking drum kit lesson",
-          "workProjectSeriesSchemaId": "3dcaac43-f2c9-4f22-ad30-882d9e13b350",
+          "name": "Drum Kit BLOCKING LESSON",
+          "workProjectSeriesSchemaId": 28,
           "resolutionMode": "LEAF"
         }
       }
@@ -111,7 +111,7 @@ Content-Type: application/json
         "index": 2
       },
       {
-        "id": 1125899906842626,
+        "id": 1125899906842627,
         "closureType": "com.futuredyme.Entities.Scheduling.Series.SchemaGraph.WorkSchemaClosure",
         "source": 1125899906842624,
         "target": 1125899906842625,

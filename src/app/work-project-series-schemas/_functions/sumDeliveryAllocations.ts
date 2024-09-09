@@ -1,5 +1,5 @@
 import { DeliveryAllocationDto } from '@/api/zod-schemas/DeliveryAllocationDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 
 function flattenAllocation(da: DeliveryAllocationDto) {
   return da.count * da.deliveryAllocationSize;

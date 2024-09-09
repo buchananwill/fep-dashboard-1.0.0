@@ -4,7 +4,7 @@ import data from '@/utils/init-json-data/work-project-series-schema/LessonAlloca
 import { getDtoListByExampleList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { PartialDeep } from 'type-fest';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 
 import { BASE_URL } from '@/api/BASE_URL';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';

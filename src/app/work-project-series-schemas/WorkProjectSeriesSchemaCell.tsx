@@ -5,7 +5,7 @@ import {
   NamespacedHooks,
   useWriteAnyDto
 } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 import {
   CellWrapperProps,
   getCellIdReference

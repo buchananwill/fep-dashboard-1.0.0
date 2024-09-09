@@ -13,7 +13,7 @@ export const WorkSchemaNodeDtoSchema = z.object({
   name: z.string().optional(),
   carouselGroupId: z.string().uuid().optional(),
   carouselId: z.string().uuid().optional(),
-  workProjectSeriesSchemaId: z.string().uuid().optional(),
+  workProjectSeriesSchemaId: z.number().optional(),
   resolutionMode: z.string()
 });
 

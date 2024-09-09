@@ -1,6 +1,6 @@
 import { DataNode } from 'react-d3-force-wrapper';
 import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 import { isNotUndefined } from '@/api/main';
 
 interface GraphRollupData {

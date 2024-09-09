@@ -6,7 +6,7 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 import { Button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { useEffect, useMemo, useRef } from 'react';
