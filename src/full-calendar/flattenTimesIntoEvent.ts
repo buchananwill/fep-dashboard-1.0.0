@@ -6,7 +6,8 @@ export function flattenTimesIntoEvent(event: OutlookEvent): EventInput_FC {
   return {
     ...event,
     start: getZonedDateTime(event.start),
-    end: getZonedDateTime(event.end)
+    end: getZonedDateTime(event.end),
+    title: event.subject ?? ''
   };
 }
 

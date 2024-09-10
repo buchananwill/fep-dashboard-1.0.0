@@ -65,21 +65,21 @@ export default function CheckBoxEntity<T extends Identifier, E extends Entity>({
         let key = String(entity.id);
         console.log(style);
         return (
-          <Checkbox
-            value={key}
-            isSelected={selectedSet.has(key)}
+          <label
+            // value={key}
+            className={' relative select-none '}
             key={key}
-            onValueChange={(isSelected) => onValueChange(isSelected, key)}
-            classNames={{
-              icon: 'text-inherit bg-inherit fill-inherit stroke-inherit',
-              wrapper: 'text-inherit bg-inherit fill-inherit stroke-inherit',
-              base: 'text-inherit bg-inherit fill-inherit stroke-inherit'
-            }}
-            className={''}
-            style={style}
+            // onValueChange={(isSelected) => onValueChange(isSelected, key)}
           >
+            <input
+              type={'checkbox'}
+              className={'relative -bottom-1 mr-1 h-5 w-5'}
+              style={style}
+              checked={selectedSet.has(key)}
+              onChange={(event) => onValueChange(event.target.checked, key)}
+            />
             {labelAccessor ? labelAccessor(entity) : String(entity)}
-          </Checkbox>
+          </label>
         );
       })}
     </>
