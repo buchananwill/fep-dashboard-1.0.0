@@ -102,6 +102,14 @@ Content-Type: application/json
           "Teacher"
         ],
         "availabilityCode": "TRUE"
+      },{
+        "day": "THURSDAY",
+        "startTime": "17:00",
+        "endTime": "20:00",
+        "roleTypeNames": [
+          "Teacher"
+        ],
+        "availabilityCode": "TRUE"
       }
     ]
   },
@@ -389,9 +397,9 @@ Content-Type: application/json
     ],
     "availabilities": [
       {
-        "day": "MONDAY",
+        "day": "TUESDAY",
         "startTime": "14:15",
-        "endTime": "15:15",
+        "endTime": "17:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -492,7 +500,7 @@ Content-Type: application/json
       {
         "day": "MONDAY",
         "startTime": "10:00",
-        "endTime": "17:00",
+        "endTime": "20:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -501,7 +509,7 @@ Content-Type: application/json
       {
         "day": "TUESDAY",
         "startTime": "10:00",
-        "endTime": "17:00",
+        "endTime": "20:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -555,8 +563,8 @@ Content-Type: application/json
       },
       {
         "day": "FRIDAY",
-        "startTime": "11:00",
-        "endTime": "12:00",
+        "startTime": "12:00",
+        "endTime": "13:00",
         "roleTypeNames": [
           "Teacher"
         ],

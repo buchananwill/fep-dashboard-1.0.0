@@ -15,7 +15,7 @@ export default async function BuildMetricTablePage({
   pathVariables
 }: LeafComponentProps) {
   const [buildMetricId] = getLastNVariables(pathVariables, 1);
-  const buildMetric = await Api.BuildMetric.getOne(buildMetricId);
+  const buildMetric = await Api.BuildMetric.getOne(parseInt(buildMetricId));
 
   return (
     <div className={'flex flex-col items-center gap-2'}>

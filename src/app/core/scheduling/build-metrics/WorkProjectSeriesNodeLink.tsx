@@ -27,5 +27,13 @@ export function WorkProjectSeriesNodeLink({
 function WorkProjectSeries({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesWithSchemaLabelsDto>) {
-  return getValue(entity, 'workProjectSeriesSchema.workTaskType.name');
+  const kdName = getValue(
+    entity,
+    'workProjectSeriesSchema.workTaskType.knowledgeDomain.name'
+  );
+  const kLName = getValue(
+    entity,
+    'workProjectSeriesSchema.workTaskType.knowledgeLevel.name'
+  );
+  return `${kdName}: ${kLName}`;
 }

@@ -3,17 +3,19 @@ import { Entity, Identifier, NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
-import { useCallback, useMemo } from 'react';
+import { CSSProperties, useCallback, useMemo } from 'react';
 import { parseTen } from '@/api/date-and-time';
 
 interface CheckBoxEntityGroupProps<T extends Identifier, E extends Entity> {
   labelAccessor?: (entity: E) => string;
+  colorAccessor?: (entity: E) => string;
   entityClass: string;
 }
 
 export default function CheckBoxEntity<T extends Identifier, E extends Entity>({
   entityClass,
-  labelAccessor
+  labelAccessor,
+  colorAccessor
 }: CheckBoxEntityGroupProps<T, E>) {
   const listenerKey = useUuidListenerKey();
   const { currentState, dispatchWithoutControl } =
@@ -50,13 +52,31 @@ export default function CheckBoxEntity<T extends Identifier, E extends Entity>({
   return (
     <>
       {entities.map((entity) => {
+        const colorString = colorAccessor ? colorAccessor(entity) : '';
+        const style: CSSProperties = colorAccessor
+          ? {
+              color: colorString,
+              backgroundColor: colorString,
+              accentColor: colorString,
+              borderColor: colorString,
+              outlineColor: colorString
+            }
+          : {};
         let key = String(entity.id);
+        console.log(style);
         return (
           <Checkbox
             value={key}
             isSelected={selectedSet.has(key)}
             key={key}
             onValueChange={(isSelected) => onValueChange(isSelected, key)}
+            classNames={{
+              icon: 'text-inherit bg-inherit fill-inherit stroke-inherit',
+              wrapper: 'text-inherit bg-inherit fill-inherit stroke-inherit',
+              base: 'text-inherit bg-inherit fill-inherit stroke-inherit'
+            }}
+            className={''}
+            style={style}
           >
             {labelAccessor ? labelAccessor(entity) : String(entity)}
           </Checkbox>

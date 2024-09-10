@@ -1,10 +1,11 @@
 'use server';
-import { BuildMetricDto } from '../dtos/BuildMetricDtoSchema';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
+import { BuildMetricDto } from '@/api/generated-types/generated-types';
 
 const {
-getPage,
+  getPage,
   getAll,
+  getIdList,
   deleteIdList,
   postList,
   putList,
@@ -15,16 +16,13 @@ getPage,
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-} = generateBaseEndpointSet<
-  BuildMetricDto,
-  number
->(
+} = generateBaseEndpointSet<BuildMetricDto, number>(
   '/api/v2/schedule/buildMetric'
 );
 
-
 export {
-    getPage,
+  getPage,
+  getIdList,
   getAll,
   deleteIdList,
   postList,
@@ -36,6 +34,4 @@ export {
   getDtoListByBodyList,
   getDtoListByParamList,
   getDtoListByExampleList
-
-}
-
+};

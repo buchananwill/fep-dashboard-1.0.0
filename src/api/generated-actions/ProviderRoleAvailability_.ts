@@ -46,6 +46,7 @@ export {
   getDtoListByParamList,
   getDtoListByExampleList,
   getByRowIdListAndColumnIdList,
+  getDtoTableByRowIdListAndColumnIdList,
   getColumnIdList,
   getByRowIdList,
   getIntersectionTable

@@ -41,6 +41,7 @@ export default function CalendarWithShowHideSources({
         <CheckBoxEntity<number, EventSourceSimple<KnowledgeDomainDto>>
           entityClass={eventSourceEntityClass}
           labelAccessor={(kd) => kd.sourceData.name}
+          colorAccessor={(kdSource) => kdSource.color ?? 'dodgerblue'}
         />
       </div>
       <div className={'w-[50vw]'}>

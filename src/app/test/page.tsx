@@ -11,7 +11,7 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import CreateEventButton from '@/app/test/CreateEventButton';
 
 export default async function page() {
-  const eventSources = await getEventSourcesAsKnowledgeDomains(2);
+  const eventSources = await getEventSourcesAsKnowledgeDomains(1);
   let sourcesColorised = colorizeEventSources(
     eventSources as EventSourceSimple<KnowledgeDomainDto>[]
     // .filter((source) => oneToOneSubjects.includes(source.sourceData.name))

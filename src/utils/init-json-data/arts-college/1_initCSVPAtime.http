@@ -14,36 +14,7 @@ Content-Type: application/json
   },
   "cycleSubspanDuration": 15,
   "breaks": {
-    "0": [
-      {
-        "startTime": "13:00",
-        "endTime": "13:45"
-      }
-    ],
-    "1": [
-      {
-        "startTime": "12:00",
-        "endTime": "12:45"
-      }
-    ],
-    "2": [
-      {
-        "startTime": "11:00",
-        "endTime": "11:45"
-      }
-    ],
-    "3": [
-      {
-        "startTime": "12:00",
-        "endTime": "12:45"
-      }
-    ],
-    "4": [
-      {
-        "startTime": "12:00",
-        "endTime": "12:45"
-      }
-    ]
+
   },
   "groupSizes": [2,3, 4, 6, 8]
 }

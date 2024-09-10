@@ -361,17 +361,12 @@ Content-Type: application/json
                 {
                   "children": [
                     {
-                      "size": 3,
-                      "path": "2/1/2/0/3/0",
-                      "type": "leaf"
-                    },
-                    {
-                      "size": 3,
-                      "path": "2/1/2/0/3/1",
+                      "size": 8,
+                      "path": "2/1/2/0/8/0",
                       "type": "leaf"
                     }
                   ],
-                  "path": "2/1/2/0/3",
+                  "path": "2/1/2/0/8",
                   "type": "leafList"
                 }
               ],
