@@ -1,7 +1,7 @@
 import { NavTree } from '@/app/core/navigation/types';
 import { cyclesNavTree } from '@/app/core/cycles/cyclesNavTree';
 import CyclesHome from '@/app/core/cycles/cyclesHome';
-import { schedulingNavTree } from '@/app/core/scheduling/schedulingNavTree';
+import { schedulesNavTree } from '@/app/core/schedules/schedulesNavTree';
 import { WorkSchemaNodeNavTree } from '@/components/work-schema-nodes/workSchemaNodeNavTree';
 import ServiceCategoriesHome from '@/app/service-categories/ServiceCategoriesHome';
 import KnowledgeDomains from '@/components/knowledge-domains/KnowledgeDomains';
@@ -13,7 +13,7 @@ import { WorkSchemaNodeAssignmentsHome } from '@/components/work-schema-node-ass
 import { rolePageTree } from '@/app/roles/rolePage';
 import NavigationHome from '@/app/core/navigation/NavigationHome';
 import CreateServiceCategoryPage from '@/app/service-categories/create/createServiceCategoryPage';
-import BuildSchedulePage from '@/app/core/scheduling/build/BuildSchedulePage';
+import BuildSchedulePage from '@/app/core/auto-scheduling/BuildSchedulePage';
 import { feasibilityBranch } from '@/app/core/feasibility/FeasibilityHome';
 import { StaticAllocationPage } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationPage';
 import WorkTaskTypeTablePage from '@/components/work-task-types/WorkTaskTypeTablePage';
@@ -74,6 +74,6 @@ export const navTreeData: NavTree = {
     }
   },
   feasibility: feasibilityBranch,
-  autoSchedule: { type: 'leaf', component: BuildSchedulePage },
-  scheduling: schedulingNavTree
+  autoScheduling: { type: 'leaf', component: BuildSchedulePage },
+  schedules: schedulesNavTree
 } as const;

@@ -7,9 +7,9 @@ import {
   ModalProps
 } from '@nextui-org/modal';
 import { QueueTreeNodeDto } from '@/api/generated-types/generated-types';
-import { renderQueueTreeNodeEntry } from '@/app/core/scheduling/build-metrics/BuildMetricTable';
+import { renderQueueTreeNodeEntry } from '@/app/core/schedules/build-metrics/BuildMetricTable';
 import { Button } from '@nextui-org/button';
-import { WorkProjectSeriesNodeLink } from '@/app/core/scheduling/build-metrics/WorkProjectSeriesNodeLink';
+import { WorkProjectSeriesNodeLink } from '@/app/core/schedules/build-metrics/WorkProjectSeriesNodeLink';
 import { Chip } from '@nextui-org/chip';
 
 export default function QueueTreeNodeModal({

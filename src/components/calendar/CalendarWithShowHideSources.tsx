@@ -1,6 +1,5 @@
 'use client';
 import CalendarViewer from '@/components/calendar/FullCalendar';
-import { EventSourceSimple } from '@/app/test/eventSourcesTest';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import CheckBoxEntity from '@/app/test/checkbox-group-entity/CheckBoxEntity';
 import { NamespacedHooks, useLazyDtoListListener } from 'dto-stores';
@@ -8,6 +7,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/full-calendar/flattenTimesIntoEvent';
+import { EventSourceSimple } from '@/components/calendar/eventSourceSimple';
 
 export const eventSourceEntityClass = 'eventSource';
 export default function CalendarWithShowHideSources({

@@ -4,7 +4,7 @@ import {
   getCellIdReference
 } from '@/components/tables/getCellIdReference';
 import { DtoUiWrapper, useDtoStore } from 'dto-stores';
-import { AssignmentTableRowClassName } from '@/components/work-project-series-assignments/AssignmentTable';
+import { AssignmentTableRowClassName } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
 import { AssignmentTableRow } from '@/api/types';
 import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';

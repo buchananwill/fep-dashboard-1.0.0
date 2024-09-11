@@ -1,10 +1,10 @@
 import { Api } from '@/api/clientApi_';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import ScheduleFallbackPage from '@/app/core/scheduling/ScheduleFallbackPage';
+import TableViewFallbackPage from '@/components/work-project-series-assignments/table-view/TableViewFallbackPage';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 
-export default async function SchedulingHome({}: LeafComponentProps) {
+export default async function WorkProjectSeriesAssignmentTableView({}: LeafComponentProps) {
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([
     { status: 'PASS' }
   ]);
@@ -17,13 +17,13 @@ export default async function SchedulingHome({}: LeafComponentProps) {
       <div className={'flex flex-col'}>
         {passingSchedules.map((passingSchedule) => (
           <LinkButton
-            href={`/core/scheduling/work-project-series-assignments/${passingSchedule.id}`}
+            href={`/core/schedules/work-project-series-assignments/${passingSchedule.id}`}
             key={passingSchedule.id}
           >
             Schedule {passingSchedule.id}
           </LinkButton>
         ))}
-        <LinkButton href={'/core/scheduling/build-metric-queue-tree-graph'}>
+        <LinkButton href={'/core/schedules/build-metric-queue-tree-graph'}>
           Build Metrics
         </LinkButton>
       </div>
@@ -31,7 +31,7 @@ export default async function SchedulingHome({}: LeafComponentProps) {
   );
 }
 
-export const SchedulingHomeRedirect = getPathVariableSplitComponent(
-  SchedulingHome,
-  ScheduleFallbackPage
+export const SchedulesHomeRedirect = getPathVariableSplitComponent(
+  WorkProjectSeriesAssignmentTableView,
+  TableViewFallbackPage
 );

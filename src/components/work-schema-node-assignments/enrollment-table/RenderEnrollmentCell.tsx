@@ -1,7 +1,7 @@
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
 import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
-import { InnerCellContent } from '@/components/work-project-series-assignments/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { SetRequired } from 'type-fest';
 import { useGlobalListener } from 'selective-context';
 import { useCallback } from 'react';

@@ -12,14 +12,14 @@ export const NavLinkDescriptionsDefault: NavLinkDescriptionsRecord = {
   knowledgeDomains:
     'Labels for areas of specialized expertise, e.g. Maths, Science.',
   knowledgeLevels: 'Hierarchical labels to organize depth of expertise.',
-  workTaskType: (
+  workTaskTypes: (
     <span>
       Defining the tasks that require scheduling. Usually labelled with an
       intersection of a <strong>Knowledge Domain</strong> and{' '}
       <strong>Knowledge Level</strong>
     </span>
   ),
-  workProjectSeriesSchema:
+  workProjectSeriesSchemas:
     'Defining how time is devoted to a particular task within a scheduled timetable.',
   users: 'The beneficiaries of the work carried out by the business',
   providers: 'The source of the work carried out by the business',
@@ -42,7 +42,7 @@ export const NavLinkDescriptionsDefault: NavLinkDescriptionsRecord = {
     'Organizations can be connected hierarchically to allow a set of WorkSchemaNodes to apply across multiple Organizations in parallel.',
   feasibility:
     'Assess a baseline logistical feasibility of a schedule design, regarding its provider and asset resources, and the proposed timetable shape.',
-  autoSchedule: 'Commission an automated schedule build via the cloud.',
-  scheduling:
+  autoScheduling: 'Commission an automated schedule build via the cloud.',
+  schedules:
     'Completed schedule builds and build metrics or both successful and failed build attempts.'
 };

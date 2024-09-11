@@ -36,8 +36,8 @@ export const navLinkIcons = {
   workSchemaNodes: ShareIcon,
   workSchemaNodeAssignments: ArrowUpOnSquareStackIcon,
   feasibility: NewspaperIcon,
-  autoSchedule: CpuChipIcon,
-  scheduling: CalendarDaysIcon
+  autoScheduling: CpuChipIcon,
+  schedules: CalendarDaysIcon
 } as const;
 
 export type NavigationType = keyof typeof navLinkIcons;

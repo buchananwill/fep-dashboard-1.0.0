@@ -5,8 +5,8 @@ import CellQueryManager from '@/components/tables/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
-import AssignmentCell from '@/components/work-project-series-assignments/AssignmentCell';
-import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/workProjectSeriesDataRetrieval';
+import AssignmentCell from '@/components/work-project-series-assignments/table-view/AssignmentCell';
+import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/table-view/workProjectSeriesDataRetrieval';
 import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
@@ -19,7 +19,7 @@ import {
 } from '@/api/generated-types/generated-types';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import AssignmentRowCell from '@/components/work-project-series-assignments/AssignmentRowCell';
+import AssignmentRowCell from '@/components/work-project-series-assignments/table-view/AssignmentRowCell';
 import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
 
 export const selectedAssignmentCell = 'selectedAssignmentCell';

@@ -2,7 +2,7 @@
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import VirtualizedOuterCellV2 from '@/components/tables/VirtualizedCellV2';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { InnerCellContent } from '@/components/work-project-series-assignments/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { EmptyArray } from '@/api/literals';
 import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types';
 import { useMemo, useRef } from 'react';

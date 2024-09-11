@@ -3,10 +3,10 @@ import { EncapsulatedButton } from '@/components/feasibility-report/CreateFeasib
 import { Button } from '@nextui-org/button';
 import { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
+import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
 import { useRouter } from 'next/navigation';
 import { AutoBuildParametersDto } from '@/api/generated-types/generated-types';
-import AutoBuildForm from '@/app/core/scheduling/build/BuildScheduleForm';
+import AutoBuildForm from '@/app/core/auto-scheduling/BuildScheduleForm';
 
 export default function BuildSchedule({
   cycleId,

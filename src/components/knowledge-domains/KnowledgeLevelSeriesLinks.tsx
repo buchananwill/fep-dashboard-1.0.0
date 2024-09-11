@@ -50,9 +50,6 @@ async function navLinkTreeFromKnowledgeLevelSeries(
   pathVariables: string[],
   depth: number
 ): Promise<NavLinkTree> {
-  // const knowledgeLevels = await Api.KnowledgeLevel.getDtoListByBodyList(
-  //   series.knowledgeLevelIds
-  // );
   const { knowledgeLevels } = series;
   const baseLinks = ['core', ...pathVariables, String(series.id)];
   const levelLinkTree: NavLinkTree[] = knowledgeLevels.map((level, index) => ({

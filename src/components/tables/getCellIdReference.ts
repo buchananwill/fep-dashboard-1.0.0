@@ -1,6 +1,6 @@
 import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
-import { InnerCellContent } from '@/components/work-project-series-assignments/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { ReactNode } from 'react';
 
 export type OuterCellProps = GridChildComponentProps<CellIdReference[][]> & {

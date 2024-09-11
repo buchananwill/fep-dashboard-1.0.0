@@ -1,4 +1,4 @@
-import BuildSchedule from '@/app/core/scheduling/build/BuildSchedule';
+import BuildSchedule from '@/app/core/auto-scheduling/BuildSchedule';
 import { parseTen } from '@/api/date-and-time';
 import { auth } from '@/auth';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';

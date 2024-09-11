@@ -2,9 +2,9 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import BuildMetricQueueTreeGraphPage from '@/app/core/scheduling/build-metrics/BuildMetricQueueTreeGraphPage';
+import BuildMetricQueueTreeGraphPage from '@/app/core/schedules/build-metrics/BuildMetricQueueTreeGraphPage';
 import { WorkProjectSeriesMetricsPage } from '@/components/work-project-series-metrics/WorkProjectSeriesMetrics';
-import BuildMetricTablePage from '@/app/core/scheduling/build-metrics/BuildMetricTablePage';
+import BuildMetricTablePage from '@/app/core/schedules/build-metrics/BuildMetricTablePage';
 
 async function BuildMetricListHome({}: LeafComponentProps) {
   const strings = await Api.BuildMetric.getIdList();
@@ -20,15 +20,15 @@ async function BuildMetricListHome({}: LeafComponentProps) {
             Metric Id: {stringId}
           </div>
           <LinkButton
-            href={`/core/scheduling/build-metric-queue-tree-graph/${stringId}`}
+            href={`/core/schedules/build-metric-queue-tree-graph/${stringId}`}
           >
             Overall Build Timeline
           </LinkButton>
-          <LinkButton href={`/core/scheduling/build-metric-table/${stringId}`}>
+          <LinkButton href={`/core/schedules/build-metric-table/${stringId}`}>
             Build Metric Table
           </LinkButton>
           <LinkButton
-            href={`/core/scheduling/work-project-series-metrics/${stringId}`}
+            href={`/core/schedules/work-project-series-metrics/${stringId}`}
           >
             Work Project Series Heat Map
           </LinkButton>

@@ -1,7 +1,7 @@
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { Api } from '@/api/clientApi_';
-import BuildMetricTable from '@/app/core/scheduling/build-metrics/BuildMetricTable';
+import BuildMetricTable from '@/app/core/schedules/build-metrics/BuildMetricTable';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 import { EntityClassMap } from '@/api/entity-class-map';

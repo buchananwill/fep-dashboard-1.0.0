@@ -1,5 +1,5 @@
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
-import { InnerCellContent } from '@/components/work-project-series-assignments/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { StaticAllocationDropZone } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationDropZone';
 import VirtualizedOuterCellV2 from '@/components/tables/VirtualizedCellV2';
 import { EntityClassMap } from '@/api/entity-class-map';

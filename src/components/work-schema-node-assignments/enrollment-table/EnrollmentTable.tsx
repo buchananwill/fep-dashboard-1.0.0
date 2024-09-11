@@ -20,7 +20,7 @@ import {
   connectNodes,
   defaultClosureTemplate
 } from '@/components/work-schema-node-assignments/enrollment-table/addClosure';
-import RenderOrganizationCell from '@/components/work-project-series-assignments/RenderOrganizationCell';
+import RenderOrganizationCell from '@/components/work-project-series-assignments/table-view/RenderOrganizationCell';
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import { ChangesCallbackMap } from 'dto-stores';
 import { HasIdClass } from '@/api/types';

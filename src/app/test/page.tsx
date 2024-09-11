@@ -1,14 +1,12 @@
-import {
-  colorizeEventSources,
-  EventSourceSimple
-} from '@/app/test/eventSourcesTest';
-import { getEventSourcesAsKnowledgeDomains } from '@/app/test/eventSourcesAction';
+import { getEventSourcesAsKnowledgeDomains } from '@/components/calendar/eventSourcesAction';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import CalendarWithShowHideSources, {
   eventSourceEntityClass
-} from '@/app/test/CalendarWithShowHideSources';
+} from '@/components/calendar/CalendarWithShowHideSources';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import CreateEventButton from '@/app/test/CreateEventButton';
+import CreateEventButton from '@/components/calendar/CreateEventButton';
+import { EventSourceSimple } from '@/components/calendar/eventSourceSimple';
+import { colorizeEventSources } from '@/components/calendar/colorizeEventSources';
 
 export default async function page() {
   const eventSources = await getEventSourcesAsKnowledgeDomains(1);

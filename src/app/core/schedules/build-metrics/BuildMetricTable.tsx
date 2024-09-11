@@ -18,8 +18,8 @@ import { useClientSideSorting } from '@/hooks/useClientSorting';
 import { useClientFilteredSortedPagination } from '@/hooks/useClientFilteredSortedPagination';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Pagination } from '@nextui-org/react';
-import { WorkProjectSeriesNodeLink } from '@/app/core/scheduling/build-metrics/WorkProjectSeriesNodeLink';
-import QueueTreeNodeModal from '@/app/core/scheduling/build-metrics/QueueTreeNodeModal';
+import { WorkProjectSeriesNodeLink } from '@/app/core/schedules/build-metrics/WorkProjectSeriesNodeLink';
+import QueueTreeNodeModal from '@/app/core/schedules/build-metrics/QueueTreeNodeModal';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 
 const initialRowsPerPage = 10;

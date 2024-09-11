@@ -9,15 +9,15 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@nextui-org/button';
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
-import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
+import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
 import { Overlay } from '@/components/overlays/overlay';
 import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
 import { ScheduleParametersDtoSchema } from '@/api/zod-schemas/ScheduleParametersDtoSchema';
 import { startCase } from 'lodash';
-import { MultiSelect } from '@/app/core/scheduling/build/MultiSelect';
+import { MultiSelect } from '@/app/core/auto-scheduling/MultiSelect';
 import FixedOrderMultiSelect, {
   FixedOrderSelectable
-} from '@/app/core/scheduling/build/FixedOrderMultiSelect';
+} from '@/app/core/auto-scheduling/FixedOrderMultiSelect';
 import { MultiValue } from 'react-select';
 
 export default function AutoBuildForm({
@@ -90,7 +90,7 @@ export default function AutoBuildForm({
       if (!disable) {
         const pendingSchedule = await buildScheduleAction(1, data);
         // Handle post submit actions, e.g., redirect to a different page
-        appRouterInstance.push(`/core/scheduling/${pendingSchedule.id}`);
+        appRouterInstance.push(`/core/schedules/${pendingSchedule.id}`);
       } else {
         alert('Sign in to enable');
       }

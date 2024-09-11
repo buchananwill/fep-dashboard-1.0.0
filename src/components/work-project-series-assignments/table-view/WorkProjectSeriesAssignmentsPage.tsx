@@ -8,11 +8,11 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import AssignmentTable, {
   AssignmentTableRowClassName
-} from '@/components/work-project-series-assignments/AssignmentTable';
+} from '@/components/work-project-series-assignments/table-view/AssignmentTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import SchedulingHome from '@/app/core/scheduling/SchedulingHome';
+import WorkProjectSeriesAssignmentTableView from '@/components/work-project-series-assignments/table-view/WorkProjectSeriesAssignmentTableView';
 import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
@@ -35,12 +35,12 @@ async function WorkProjectSeriesAssignmentsForSchedule({
     constructUrl(['/api/v2/workProjectSeries/assignments/schedule', scheduleId])
   );
 
-  const strings: string[] = [
+  const strings: number[] = [
     ...Object.values(workProjectSeriesAssignmentTableDto.cellIdCellContentMap)
       .map(
         (assignment) => assignment.workProjectSeries.workProjectSeriesSchemaId
       )
-      .reduce((prev, curr) => prev.add(curr), new Set<string>())
+      .reduce((prev, curr) => prev.add(curr), new Set<number>())
       .values()
   ];
 
@@ -76,6 +76,6 @@ async function WorkProjectSeriesAssignmentsForSchedule({
 }
 
 export const WorkProjectSeriesAssignmentsPage = getPathVariableSplitComponent(
-  SchedulingHome,
+  WorkProjectSeriesAssignmentTableView,
   WorkProjectSeriesAssignmentsForSchedule
 );
