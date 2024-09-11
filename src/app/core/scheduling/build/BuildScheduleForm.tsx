@@ -3,35 +3,41 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import { useCallback, useMemo, useTransition } from 'react';
 
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@nextui-org/button';
-import {
-  AutoBuildParametersDto,
-  AutoBuildParametersDtoSchema
-} from '@/api/zod-schemas/AutoBuildParametersDtoSchema';
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
 import { Overlay } from '@/components/overlays/overlay';
 import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
 import { ScheduleParametersDtoSchema } from '@/api/zod-schemas/ScheduleParametersDtoSchema';
+import { startCase } from 'lodash';
+import { MultiSelect } from '@/app/core/scheduling/build/MultiSelect';
+import FixedOrderMultiSelect, {
+  FixedOrderSelectable
+} from '@/app/core/scheduling/build/FixedOrderMultiSelect';
+import { MultiValue } from 'react-select';
 
 export default function AutoBuildForm({
   defaultMultiStepUndoTimeout,
   defaultMultiUndoIncrement,
-  disable
+  disable,
+  costParameters
 }: {
   defaultMultiStepUndoTimeout: number;
   defaultMultiUndoIncrement: number;
   disable?: boolean;
+  costParameters: string[];
 }) {
   const {
     handleSubmit,
     formState: { errors },
     control,
-    register
+    register,
+    watch,
+    setValue
   } = useForm<ScheduleParametersDto>({
     resolver: zodResolver(ScheduleParametersDtoSchema),
     defaultValues: {
@@ -41,9 +47,39 @@ export default function AutoBuildForm({
         saveBuild: true,
         forceSaveMetrics: false
       },
-      costParameters: []
+      costParameters: costParameters
     }
   });
+
+  // Watch the current values of the costParameters field
+  const selectedCostParameters = watch('costParameters');
+
+  const costParameterOptions = useMemo(() => {
+    return costParameters.map((param, index) => ({
+      value: param,
+      label: startCase(param.toLowerCase()),
+      position: index
+    }));
+  }, [costParameters]);
+
+  const selectedCostParameterOptions = useMemo(() => {
+    return selectedCostParameters.map((param) => ({
+      value: param,
+      label: startCase(param.toLowerCase()),
+      position: costParameters.indexOf(param)
+    }));
+  }, [selectedCostParameters, costParameters]);
+
+  const handleSelectionChange = useCallback(
+    (param: MultiValue<FixedOrderSelectable>) => {
+      const updatedParams = param
+        .toSorted((a, b) => a.position - b.position)
+        .map((option) => option.value);
+
+      setValue('costParameters', updatedParams);
+    },
+    [setValue]
+  );
 
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
@@ -62,7 +98,7 @@ export default function AutoBuildForm({
   };
 
   return (
-    <Card className={'mt-8 w-64'}>
+    <Card className={'mt-8 w-96 overflow-visible'}>
       {disable && (
         <Overlay>
           <div className={'rounded-lg bg-white p-2'}>Sign in to Enable</div>
@@ -78,7 +114,9 @@ export default function AutoBuildForm({
         <CardHeader className={'items-center justify-center align-middle '}>
           Auto Build Parameters
         </CardHeader>
-        <CardBody className={'items-center justify-center gap-2'}>
+        <CardBody
+          className={'items-center justify-center gap-2 overflow-visible'}
+        >
           <ControlledSlider
             control={control}
             maxValue={60_000}
@@ -117,6 +155,11 @@ export default function AutoBuildForm({
               className={'checkbox-input ml-2'}
             />
           </label>
+          <FixedOrderMultiSelect
+            options={costParameterOptions}
+            currentOptions={selectedCostParameterOptions}
+            onChange={handleSelectionChange}
+          />
         </CardBody>
         <CardFooter className={'justify-center'}>
           <Button type={'submit'}>Submit</Button>

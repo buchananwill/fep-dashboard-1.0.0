@@ -16,6 +16,7 @@ export default function BuildSchedule({
   defaultMultiStepUndoTimeout: number;
   defaultMultiUndoIncrement: number;
   disable?: boolean;
+  costParameters: string[];
 }) {
   return <AutoBuildForm {...props} />;
 }
