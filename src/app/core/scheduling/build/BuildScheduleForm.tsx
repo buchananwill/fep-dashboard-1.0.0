@@ -15,6 +15,8 @@ import {
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { buildScheduleAction } from '@/app/core/scheduling/build/buildScheduleAction';
 import { Overlay } from '@/components/overlays/overlay';
+import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
+import { ScheduleParametersDtoSchema } from '@/api/zod-schemas/ScheduleParametersDtoSchema';
 
 export default function AutoBuildForm({
   defaultMultiStepUndoTimeout,
@@ -30,20 +32,23 @@ export default function AutoBuildForm({
     formState: { errors },
     control,
     register
-  } = useForm<AutoBuildParametersDto>({
-    resolver: zodResolver(AutoBuildParametersDtoSchema),
+  } = useForm<ScheduleParametersDto>({
+    resolver: zodResolver(ScheduleParametersDtoSchema),
     defaultValues: {
-      multiStepUndoTimeoutMs: defaultMultiStepUndoTimeout,
-      multiUndoIncrement: defaultMultiUndoIncrement,
-      saveBuild: true,
-      forceSaveMetrics: false
+      autoBuildParametersDto: {
+        multiStepUndoTimeoutMs: defaultMultiStepUndoTimeout,
+        multiUndoIncrement: defaultMultiUndoIncrement,
+        saveBuild: true,
+        forceSaveMetrics: false
+      },
+      costParameters: []
     }
   });
 
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
 
-  const onSubmit: SubmitHandler<AutoBuildParametersDto> = async (data) => {
+  const onSubmit: SubmitHandler<ScheduleParametersDto> = async (data) => {
     startTransition(async () => {
       console.log('submitted', data);
       if (!disable) {
@@ -80,7 +85,7 @@ export default function AutoBuildForm({
             minValue={1_000}
             step={500}
             size={'sm'}
-            name={'multiStepUndoTimeoutMs'}
+            name={'autoBuildParametersDto.multiStepUndoTimeoutMs'}
             aria-label={'Multi-Undo Timeout'}
             hideValue={false}
             label={'Multi-Undo Timeout (ms):'}
@@ -91,7 +96,7 @@ export default function AutoBuildForm({
             minValue={1}
             step={1}
             size={'sm'}
-            name={'multiUndoIncrement'}
+            name={'autoBuildParametersDto.multiUndoIncrement'}
             aria-label={'multi-undo increment'}
             hideValue={false}
             label={'Multi-undo increment:'}
@@ -99,7 +104,7 @@ export default function AutoBuildForm({
           <label className={'text-sm text-default-500'}>
             Save Build:
             <input
-              {...register('saveBuild')}
+              {...register('autoBuildParametersDto.saveBuild')}
               type={'checkbox'}
               className={'checkbox-input ml-2'}
             />
@@ -107,7 +112,7 @@ export default function AutoBuildForm({
           <label className={'text-sm text-default-500'}>
             Force Save Metrics:
             <input
-              {...register('forceSaveMetrics')}
+              {...register('autoBuildParametersDto.forceSaveMetrics')}
               type={'checkbox'}
               className={'checkbox-input ml-2'}
             />

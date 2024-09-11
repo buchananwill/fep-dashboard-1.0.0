@@ -3,15 +3,18 @@
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { ScheduleDto } from '@/api/zod-schemas/ScheduleDtoSchema';
-import { AutoBuildParametersDto } from '@/api/generated-types/generated-types';
+import {
+  AutoBuildParametersDto,
+  ScheduleParametersDto
+} from '@/api/generated-types/generated-types';
 import { parseTen } from '@/api/date-and-time';
 
 export async function buildScheduleAction(
   cycleId: number,
-  requestBody: AutoBuildParametersDto
+  requestBody: ScheduleParametersDto
 ) {
   return postEntitiesWithDifferentReturnType<
-    AutoBuildParametersDto,
+    ScheduleParametersDto,
     ScheduleDto
   >(requestBody, constructUrl(`/api/v2/schedule/doBuild?cycleId=${cycleId}`));
 }
