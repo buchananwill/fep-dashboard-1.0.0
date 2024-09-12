@@ -14,7 +14,7 @@ export default async function page() {
     eventSources as EventSourceSimple<KnowledgeDomainDto>[]
     // .filter((source) => oneToOneSubjects.includes(source.sourceData.name))
   );
-  console.log(sourcesColorised);
+
   return (
     <div className={'h-[95vh] w-[95vw]'}>
       <EditAddDeleteDtoControllerArray

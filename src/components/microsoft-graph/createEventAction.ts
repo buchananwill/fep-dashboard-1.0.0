@@ -1,32 +1,28 @@
 'use server';
 import { auth } from '@/auth';
-import { Session } from 'next-auth';
 import { MICROSOFT_GRAPH_DELEGATED } from '@/api/literals';
 import { OutlookEvent } from '@/components/microsoft-graph/helperTypes';
+import { SessionWithAccessToken } from '@/components/microsoft-graph/sessionWithAccessToken';
 
-interface SessionWithAccessToken extends Session {
-  accessToken?: string;
-}
-
-export const createEvent = async () => {
+export const createEvent = async (event: OutlookEvent) => {
   const session = (await auth()) as SessionWithAccessToken;
   const accessToken = session?.accessToken;
-
-  const response = await fetch(
-    `${MICROSOFT_GRAPH_DELEGATED}/events?startdatetime=2024-09-09T09:47:00.110Z&enddatetime=2024-09-23T09:47:00.110Z`,
-    {
-      method: 'GET',
+  let response = new Response();
+  if (session && accessToken) {
+    response = await fetch(`${MICROSOFT_GRAPH_DELEGATED}/events`, {
+      method: 'POST',
       headers: {
-        Authorization: `Bearer ${accessToken}`
-        // 'Content-Type': 'application/json'
-      }
-      // body: JSON.stringify(event)
-    }
-  );
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(event)
+    });
+  }
+
   return response.json();
 };
 
-const event: OutlookEvent = {
+const testEvent: OutlookEvent = {
   subject: 'Drum Kit',
   body: {
     contentType: 'html',
@@ -42,23 +38,5 @@ const event: OutlookEvent = {
   },
   location: {
     displayName: 'Studio 3a'
-  },
-  recurrence: {
-    pattern: {
-      type: 'weekly',
-      interval: 1,
-      month: 0,
-      dayOfMonth: 0,
-      daysOfWeek: ['monday'],
-      firstDayOfWeek: 'monday',
-      index: 'first'
-    },
-    range: {
-      type: 'endDate',
-      startDate: '2024-09-09',
-      endDate: '2025-03-03',
-      recurrenceTimeZone: 'GMT Standard Time',
-      numberOfOccurrences: 0
-    }
   }
 };

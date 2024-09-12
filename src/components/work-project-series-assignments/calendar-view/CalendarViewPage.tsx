@@ -11,6 +11,8 @@ import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVar
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/app/service-categories/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
+import SendEventsButton from '@/components/calendar/CreateEventButton';
+import PurgeEventsButton from '@/components/calendar/PurgeEventsButton';
 
 async function CalendarViewPage({ pathVariables }: LeafComponentProps) {
   const [scheduleId] = getLastNVariables(pathVariables, 1);
@@ -20,13 +22,17 @@ async function CalendarViewPage({ pathVariables }: LeafComponentProps) {
   let sourcesColorised = colorizeEventSources(
     eventSources as EventSourceSimple<KnowledgeDomainDto>[]
   );
-  console.log(sourcesColorised);
+
   return (
     <div className={'h-[95vh] w-[95vw]'}>
       <EditAddDeleteDtoControllerArray
         entityClass={eventSourceEntityClass}
         dtoList={sourcesColorised}
       />
+      <div className={'flex gap-2'}>
+        <SendEventsButton />
+        <PurgeEventsButton />
+      </div>
       <CalendarWithShowHideSources sources={sourcesColorised} />
     </div>
   );

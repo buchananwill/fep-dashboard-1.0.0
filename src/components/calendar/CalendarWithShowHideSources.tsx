@@ -33,7 +33,6 @@ export default function CalendarWithShowHideSources({
       };
     });
   }, [currentState]);
-  console.log(sourcesFlattened);
 
   return (
     <div className={'flex w-full'}>

@@ -63,7 +63,6 @@ export default function CheckBoxEntity<T extends Identifier, E extends Entity>({
             }
           : {};
         let key = String(entity.id);
-        console.log(style);
         return (
           <label
             // value={key}
