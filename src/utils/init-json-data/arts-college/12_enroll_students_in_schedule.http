@@ -1,0 +1,28 @@
+###
+POST http://localhost:8080/api/v2/userRoles/enrollInHierarchy
+Content-Type: application/json
+
+{
+  "scheduleId": 1,
+  "organizationIdToUserRoleIdList": {
+    "15":[12],
+    "16":[13],
+    "17":[14],
+    "18":[15],
+    "19":[16],
+    "20":[17],
+    "21":[18],
+    "22":[19],
+    "23":[20],
+    "24":[21],
+    "25":[22],
+    "26":[23],
+    "27":[24],
+    "28":[25],
+    "29":[26],
+    "30":[27]
+  }
+}
+
+<> 2024-09-12T165917.200.json
+<> 2024-09-12T164120.200.json

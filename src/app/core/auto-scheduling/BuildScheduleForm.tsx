@@ -88,9 +88,10 @@ export default function AutoBuildForm({
     startTransition(async () => {
       console.log('submitted', data);
       if (!disable) {
-        const pendingSchedule = await buildScheduleAction(1, data);
+        console.log(data);
+        // const pendingSchedule = await buildScheduleAction(1, data);
         // Handle post submit actions, e.g., redirect to a different page
-        appRouterInstance.push(`/core/schedules/${pendingSchedule.id}`);
+        // appRouterInstance.push(`/core/schedules/${pendingSchedule.id}`);
       } else {
         alert('Sign in to enable');
       }
