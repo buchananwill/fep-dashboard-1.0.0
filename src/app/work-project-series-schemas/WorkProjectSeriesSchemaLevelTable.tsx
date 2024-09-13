@@ -12,12 +12,16 @@ import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/KnowledgeLevelLinks';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { Api } from '@/api/clientApi_';
+
+const targetCycleId = 1;
 
 async function WorkProjectSeriesSchemaLevelTable({
   pathVariables,
   depth
 }: LeafComponentProps) {
   const [serviceCategoryId, levelOrdinal] = getLastNVariables(pathVariables, 2);
+  const availableCycles = await Api.Cycle.getAll();
 
   const { workProjectSeriesSchemas: wpssData } =
     await workProjectSeriesSchemaActionSequence({
@@ -33,6 +37,10 @@ async function WorkProjectSeriesSchemaLevelTable({
         updateServerAction={putList}
         deleteServerAction={deleteIdList}
         postServerAction={postList}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.cycle}
+        dtoList={availableCycles}
       />
       <WpssEditGridColList />
     </>

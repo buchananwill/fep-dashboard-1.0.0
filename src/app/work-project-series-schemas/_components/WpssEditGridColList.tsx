@@ -7,10 +7,17 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { WorkProjectSeriesSchemaEditor } from '@/app/work-project-series-schemas/_components/WorkProjectSeriesSchemaEditor';
 
 import { sumAllSchemas } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
-import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import {
+  useGlobalController,
+  useGlobalListener,
+  useGlobalListenerGroup
+} from 'selective-context';
 import { DtoUiListAll } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
+import {
+  CycleDto,
+  WorkProjectSeriesSchemaDto
+} from '@/api/generated-types/generated-types';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 const initialMap = new Map();

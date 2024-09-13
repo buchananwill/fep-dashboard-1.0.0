@@ -51,7 +51,7 @@ Content-Type: application/json
         }
       },
       {
-        "id": 1125899906842624,
+        "id": -1125899906842624,
         "distanceFromRoot": 1,
         "data": {
           "allowBundle": false,
@@ -59,14 +59,14 @@ Content-Type: application/json
           "dominanceFactor": 1,
           "priority": 1,
           "workSchemaNodeAssignmentIds": [],
-          "id": 1125899906842624,
+          "id": -1125899906842624,
           "knowledgeLevelId": 5,
           "name": "Drum Kit BLOCKING CAROUSEL",
           "resolutionMode": "CAROUSEL"
         }
       },
       {
-        "id": 1125899906842625,
+        "id": -1125899906842625,
         "distanceFromRoot": 2,
         "data": {
           "allowBundle": true,
@@ -74,7 +74,7 @@ Content-Type: application/json
           "dominanceFactor": 1,
           "priority": 1,
           "workSchemaNodeAssignmentIds": [],
-          "id": 1125899906842625,
+          "id": -1125899906842625,
           "knowledgeLevelId": 5,
           "name": "Drum Kit BLOCKING LESSON",
           "workProjectSeriesSchemaId": 28,
@@ -93,28 +93,28 @@ Content-Type: application/json
         "index": 0
       },
       {
-        "id": 1125899906842624,
+        "id": -1125899906842624,
         "closureType": "com.futuredyme.Entities.Scheduling.Series.SchemaGraph.WorkSchemaClosure",
         "source": 49,
-        "target": 1125899906842624,
+        "target": -1125899906842624,
         "value": 1,
         "weighting": 1,
         "index": 1
       },
       {
-        "id": 1125899906842625,
+        "id": -1125899906842625,
         "closureType": "com.futuredyme.Entities.Scheduling.Series.SchemaGraph.WorkSchemaClosure",
-        "source": 1125899906842624,
+        "source": -1125899906842624,
         "target": 50,
         "value": 1,
         "weighting": 1,
         "index": 2
       },
       {
-        "id": 1125899906842627,
+        "id": -1125899906842627,
         "closureType": "com.futuredyme.Entities.Scheduling.Series.SchemaGraph.WorkSchemaClosure",
-        "source": 1125899906842624,
-        "target": 1125899906842625,
+        "source": -1125899906842624,
+        "target": -1125899906842625,
         "value": 1,
         "weighting": 1,
         "index": 3

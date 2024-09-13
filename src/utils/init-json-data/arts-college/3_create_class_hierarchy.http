@@ -58,18 +58,18 @@ Content-Type: application/json
       },
       {
         "data": {
-          "id": 1152921504606846976,
+          "id": -1152921504606846976,
           "name": "Level 4",
           "type": {
             "id": 1,
             "name": "Class"
           },
           "workSchemaNodeAssignment": {
-            "id": 1152921504606846976,
-            "organizationId": 1152921504606846976
+            "id": -1152921504606846976,
+            "organizationId": -1152921504606846976
           }
         },
-        "id": 1152921504606846976,
+        "id": -1152921504606846976,
         "distanceFromRoot": 2
       },
       {
@@ -312,7 +312,7 @@ Content-Type: application/json
         "id": 54,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
         "source": 12,
-        "target": 1152921504606846976,
+        "target": -1152921504606846976,
         "value": 1,
         "weighting": 1
       },
@@ -320,7 +320,7 @@ Content-Type: application/json
         "id": 53,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
         "source": 6,
-        "target": 1152921504606846976,
+        "target": -1152921504606846976,
         "value": 1,
         "weighting": 1
       },
@@ -375,8 +375,8 @@ Content-Type: application/json
       {
         "id": 52,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 1152921504606846976,
-        "target": 1152921504606846976,
+        "source": -1152921504606846976,
+        "target": -1152921504606846976,
         "value": 0,
         "weighting": 1
       },
@@ -384,7 +384,7 @@ Content-Type: application/json
         "id": 55,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
         "source": 13,
-        "target": 1152921504606846976,
+        "target": -1152921504606846976,
         "value": 2,
         "weighting": 1
       },

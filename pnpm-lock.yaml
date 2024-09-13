@@ -108,8 +108,8 @@ importers:
         specifier: ^3.1.3
         version: 3.1.3(date-fns@3.6.0)
       dto-stores:
-        specifier: file:D:\Coding\dto-stores
-        version: file:../dto-stores(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
+        specifier: 3.0.3
+        version: 3.0.3(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
       fast-cartesian:
         specifier: ^9.0.0
         version: 9.0.0
@@ -135,8 +135,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       react-d3-force-wrapper:
-        specifier: file:D:\Coding\react-d3-force-graph
-        version: file:../react-d3-force-graph(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
+        specifier: ^0.6.1
+        version: 0.6.1(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
       react-dnd:
         specifier: ^16.0.1
         version: 16.0.1(@types/node@20.12.7)(@types/react@18.2.79)(react@18.3.1)
@@ -164,9 +164,6 @@ importers:
       react-select:
         specifier: ^5.8.0
         version: 5.8.0(@types/react@18.2.79)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-sortable-hoc:
-        specifier: ^2.0.0
-        version: 2.0.0(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-virtualized-auto-sizer:
         specifier: ^1.0.24
         version: 1.0.24(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2876,8 +2873,8 @@ packages:
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
 
-  dto-stores@file:../dto-stores:
-    resolution: {directory: ../dto-stores, type: directory}
+  dto-stores@3.0.3:
+    resolution: {integrity: sha512-vR9AFlbx22uks8Fl99/7H+7wi3xAaxcIIG2kfB2H5MxSdM34PzLVn+imFhR0sAtCx8aBW8qtwhqRHVWMeUK3MA==}
     peerDependencies:
       lodash: ^4.17.21
       react: ^18.3.1
@@ -4008,8 +4005,8 @@ packages:
   react-base16-styling@0.10.0:
     resolution: {integrity: sha512-H1k2eFB6M45OaiRru3PBXkuCcn2qNmx+gzLb4a9IPMR7tMH8oBRXU5jGbPDYG1Hz+82d88ED0vjR8BmqU3pQdg==}
 
-  react-d3-force-wrapper@file:../react-d3-force-graph:
-    resolution: {directory: ../react-d3-force-graph, type: directory}
+  react-d3-force-wrapper@0.6.1:
+    resolution: {integrity: sha512-oRYkFs01GOYswglCXs+N9KjIKL0RybqQXoB5y4/STMJ+OO9yTpUGMFZUEzChHSCVlhd6pIaBUGmsJ8hkHSAJ+g==}
     peerDependencies:
       react: ^18.3.1
       selective-context: ^2.0.2
@@ -4109,13 +4106,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-
-  react-sortable-hoc@2.0.0:
-    resolution: {integrity: sha512-JZUw7hBsAHXK7PTyErJyI7SopSBFRcFHDjWW5SWjcugY0i6iH7f+eJkY8cJmGMlZ1C9xz1J3Vjz0plFpavVeRg==}
-    peerDependencies:
-      prop-types: ^15.5.7
-      react: ^16.3.0 || ^17.0.0
-      react-dom: ^16.3.0 || ^17.0.0
 
   react-style-singleton@2.2.1:
     resolution: {integrity: sha512-ZWj0fHEMyWkHzKYUr2Bs/4zU6XLmq9HsgBURm7g5pAVfyn49DgUiNgY2d4lXRlYSiCif9YBGpQleewkcqddc7g==}
@@ -8569,7 +8559,7 @@ snapshots:
       '@babel/runtime': 7.24.7
       csstype: 3.1.3
 
-  dto-stores@file:../dto-stores(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
+  dto-stores@3.0.3(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
     dependencies:
       lodash: 4.17.21
       react: 18.3.1
@@ -9777,7 +9767,7 @@ snapshots:
       csstype: 3.1.3
       lodash-es: 4.17.21
 
-  react-d3-force-wrapper@file:../react-d3-force-graph(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
+  react-d3-force-wrapper@0.6.1(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
     dependencies:
       d3: 7.9.0
       lodash: 4.17.21
@@ -9902,14 +9892,6 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
       - supports-color
-
-  react-sortable-hoc@2.0.0(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.24.7
-      invariant: 2.2.4
-      prop-types: 15.8.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
 
   react-style-singleton@2.2.1(@types/react@18.2.79)(react@18.3.1):
     dependencies:
