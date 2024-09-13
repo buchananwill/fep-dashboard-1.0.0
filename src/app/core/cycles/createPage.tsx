@@ -10,16 +10,18 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';
 import { DayOfWeekArray } from '@/api/date-and-time';
-import { SelectItem } from '@nextui-org/select';
 import { Button } from '@nextui-org/button';
-import { CycleDto, CycleDtoSchema } from '@/api/zod-schemas/CycleDtoSchema';
+
 import { postOne } from '@/api/generated-actions/Cycle';
 import { initCycleSubspans } from '@/utils/init-database-functions/operations/initCycleSubspans';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
+import { CycleDto } from '@/api/generated-types/generated-types';
+import { CycleDtoSchema } from '@/api/zod-schemas/CycleDtoSchema';
 
 const dayArray = DayOfWeekArray.map((day) => ({
   value: day.toUpperCase(),
-  label: day
+  label: day,
+  id: day
 }));
 
 export default function CreatePage() {
@@ -69,13 +71,9 @@ export default function CreatePage() {
             control={control}
             label={'Cycle Start Day'}
             className={'max-w-xl'}
-          >
-            {dayArray.map((day) => (
-              <SelectItem key={day.value} value={day.value}>
-                {day.label}
-              </SelectItem>
-            ))}
-          </ControlledSelect>
+            items={dayArray}
+          />
+
           <label className={'text-sm text-default-500'}>
             Cycle Length in Weeks:
             <input

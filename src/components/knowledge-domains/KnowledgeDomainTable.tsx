@@ -1,9 +1,8 @@
 'use client';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
-import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
 import { LazyDtoUiWrapper } from 'dto-stores';
 import {
   BaseDtoStoreStringInputProps,
@@ -18,13 +17,14 @@ import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
 import { TypedPaths } from '@/functions/typePaths';
 import { Column } from '@/types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 
 const columns: Column<KnowledgeDomainDto>[] = [
   { name: startCase(getDomainAlias('knowledgeDomain')), uid: 'name' },
   { name: 'ShortCode', uid: 'shortCode' }
 ];
 
-export function KnowledgeDomainTable({ data }: { data: KnowledgeDomainDto[] }) {
+export function KnowledgeDomainTable() {
   const { sortedRows, handleRemoveRow, masterListInteraction } =
     useKnowledgeDtoTableProps(
       EntityClassMap.knowledgeDomain,
@@ -79,7 +79,7 @@ const getDomainFactory = () => {
       id: nextId,
       name: `${getDomainAlias('knowledgeDomain')} ${nextId}`
     };
-    nextId++;
+    nextId--;
     return newDomain;
   };
 };

@@ -32,7 +32,7 @@ const SyncedRowCell = ({
   const workTaskType = readAnyWorkTaskType(wttId);
 
   const name = workTaskType
-    ? `${workTaskType.shortCode ?? workTaskType.knowledgeDomain?.name}:${workTaskType.knowledgeLevel?.levelOrdinal}`
+    ? `${workTaskType.knowledgeDomain?.shortCode ?? workTaskType.knowledgeDomain?.name}:${workTaskType.knowledgeLevel?.levelOrdinal}`
     : 'No Data Found';
 
   const tooltip = useFloatingTooltip(<TooltipMemo text={name} />, 'bottom');
