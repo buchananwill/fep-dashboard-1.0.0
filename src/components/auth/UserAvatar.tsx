@@ -35,7 +35,10 @@ export default async function UserAvatar() {
                 className={'h-12 w-12 rounded-full'}
               />
             ) : (
-              `${session.user.name} - ${session.user.id}`
+              <div className={'flex flex-col'}>
+                <div>{`${session.user.name}`}</div>
+                {session.user.email && <div>{session.user.email}</div>}
+              </div>
             )}
           </button>
         </form>

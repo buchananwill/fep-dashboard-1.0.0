@@ -30,6 +30,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.token = token;
       // @ts-ignore
       session.accessToken = token.accessToken;
+
+      if (token.email) session.user.email = token.email;
       return session;
     }
   },
