@@ -1,6 +1,6 @@
 import { useGlobalListenerGroup } from 'selective-context';
 import { useMemo } from 'react';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 
 import { initialMap } from '@/app/_literals';
 

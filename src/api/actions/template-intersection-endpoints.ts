@@ -27,7 +27,7 @@ export interface IntersectionEndpoints<T, U, V> {
     idsForHasIdTypeT: T[],
     idsForHasIdTypeU: U[]
   ) => Promise<IdReferencedIntersectionTableDto<T>>;
-  getDtoTableByRowIdListAndColumnIdList: (
+  getDtoTableByRowIdList: (
     idsForHasIdTypeT: U[]
   ) => Promise<GenericTableDto<any, any, T, T>>;
 }
@@ -76,7 +76,7 @@ export function generateIntersectionEndpointSet<T, U, V>(
         idsForHasIdTypeU,
         url: generatedUrl
       }),
-    getDtoTableByRowIdListAndColumnIdList: (idsForHasIdTypeT) =>
+    getDtoTableByRowIdList: (idsForHasIdTypeT) =>
       getGenericDtoTable({ idsForHasIdTypeT, url: generatedUrl })
   };
 }

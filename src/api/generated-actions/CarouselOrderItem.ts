@@ -1,21 +1,22 @@
 'use server';
-import { CarouselOrderItemDto } from '../dtos/CarouselOrderItemDtoSchema';
+import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
 
 const {
 getPage,
-  getAll,
-  deleteIdList,
-  postList,
-  putList,
-  getOne,
-  postOne,
-  putOne,
-  deleteOne,
-  getDtoListByBodyList,
-  getDtoListByParamList,
-  getDtoListByExampleList
+getAll,
+getIdList,
+deleteIdList,
+postList,
+putList,
+getOne,
+postOne,
+putOne,
+deleteOne,
+getDtoListByBodyList,
+getDtoListByParamList,
+getDtoListByExampleList
 } = generateBaseEndpointSet<
   CarouselOrderItemDto,
   number
@@ -26,9 +27,10 @@ getPage,
 
 const {
           getByRowIdListAndColumnIdList,
-  getColumnIdList,
-  getByRowIdList,
-  getIntersectionTable
+          getDtoTableByRowIdList,
+          getColumnIdList,
+          getByRowIdList,
+          getIntersectionTable
 } = generateIntersectionEndpointSet<
   CarouselOrderItemDto,
   string,
@@ -39,21 +41,23 @@ const {
 
 export {
     getPage,
-  getAll,
-  deleteIdList,
-  postList,
-  putList,
-  getOne,
-  postOne,
-  putOne,
-  deleteOne,
-  getDtoListByBodyList,
-  getDtoListByParamList,
-  getDtoListByExampleList
+getAll,
+getIdList,
+deleteIdList,
+postList,
+putList,
+getOne,
+postOne,
+putOne,
+deleteOne,
+getDtoListByBodyList,
+getDtoListByParamList,
+getDtoListByExampleList
 ,           getByRowIdListAndColumnIdList,
-  getColumnIdList,
-  getByRowIdList,
-  getIntersectionTable
+          getDtoTableByRowIdList,
+          getColumnIdList,
+          getByRowIdList,
+          getIntersectionTable
 
 }
 

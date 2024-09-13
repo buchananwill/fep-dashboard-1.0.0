@@ -1,5 +1,5 @@
 'use server';
-import { OrganizationTypeDto } from '../dtos/OrganizationTypeDtoSchema';
+import { OrganizationTypeDto } from '@/api/generated-types/generated-types';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
@@ -15,17 +15,18 @@ getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList } =
 
 const {
 getPage,
-  getAll,
-  deleteIdList,
-  postList,
-  putList,
-  getOne,
-  postOne,
-  putOne,
-  deleteOne,
-  getDtoListByBodyList,
-  getDtoListByParamList,
-  getDtoListByExampleList
+getAll,
+getIdList,
+deleteIdList,
+postList,
+putList,
+getOne,
+postOne,
+putOne,
+deleteOne,
+getDtoListByBodyList,
+getDtoListByParamList,
+getDtoListByExampleList
 } = generateBaseEndpointSet<
   OrganizationTypeDto,
   number
@@ -36,17 +37,18 @@ getPage,
 
 export {
     getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList, getPage,
-  getAll,
-  deleteIdList,
-  postList,
-  putList,
-  getOne,
-  postOne,
-  putOne,
-  deleteOne,
-  getDtoListByBodyList,
-  getDtoListByParamList,
-  getDtoListByExampleList
+getAll,
+getIdList,
+deleteIdList,
+postList,
+putList,
+getOne,
+postOne,
+putOne,
+deleteOne,
+getDtoListByBodyList,
+getDtoListByParamList,
+getDtoListByExampleList
 
 }
 

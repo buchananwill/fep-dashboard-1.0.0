@@ -1,21 +1,22 @@
 'use server';
-import { AssetRoleTypeWorkTaskTypeSuitabilityDto } from '../dtos/AssetRoleTypeWorkTaskTypeSuitabilityDtoSchema';
+import { AssetRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateTriIntersectionEndpointSet } from '../actions/template-tri-intersection-endpoints';
 
 const {
 getPage,
-  getAll,
-  deleteIdList,
-  postList,
-  putList,
-  getOne,
-  postOne,
-  putOne,
-  deleteOne,
-  getDtoListByBodyList,
-  getDtoListByParamList,
-  getDtoListByExampleList
+getAll,
+getIdList,
+deleteIdList,
+postList,
+putList,
+getOne,
+postOne,
+putOne,
+deleteOne,
+getDtoListByBodyList,
+getDtoListByParamList,
+getDtoListByExampleList
 } = generateBaseEndpointSet<
   AssetRoleTypeWorkTaskTypeSuitabilityDto,
   number
@@ -40,17 +41,18 @@ const {
 
 export {
     getPage,
-  getAll,
-  deleteIdList,
-  postList,
-  putList,
-  getOne,
-  postOne,
-  putOne,
-  deleteOne,
-  getDtoListByBodyList,
-  getDtoListByParamList,
-  getDtoListByExampleList
+getAll,
+getIdList,
+deleteIdList,
+postList,
+putList,
+getOne,
+postOne,
+putOne,
+deleteOne,
+getDtoListByBodyList,
+getDtoListByParamList,
+getDtoListByExampleList
 ,   getByRowIdListAndColumnIdListAndLayerId,
   getByRowIdListAndLayerId,
   getColumnIdListAndLayerId,

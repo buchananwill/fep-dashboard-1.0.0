@@ -1,5 +1,5 @@
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
-import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema_';
+import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
 import { getCellIdReference } from '@/components/tables/getCellIdReference';

@@ -22,7 +22,7 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import WorkSchemaNodeModalTable from '@/app/work-project-series-schemas/_components/WorkSchemaNodeModalTable';
 import EntityPropertyCheckbox from '@/components/generic/EntityPropertyCheckbox';
 import WorkProjectionSeriesSchemaSummary from '@/app/work-project-series-schemas/_components/WorkProjectSeriesSchemaSummary';

@@ -1,8 +1,10 @@
-import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
-import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 import { WriteAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
-import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import { produce } from 'immer';
+import {
+  CarouselOptionDto,
+  CarouselOrderDto,
+  CarouselOrderItemDto
+} from '@/api/generated-types/generated-types';
 
 export function assignOrderItemToOption(
   orderItem: CarouselOrderItemDto,

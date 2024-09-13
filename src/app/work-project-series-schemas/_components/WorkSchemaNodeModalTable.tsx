@@ -1,5 +1,5 @@
 'use client';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import React, { Key, useCallback, useMemo } from 'react';
 import { Pagination, TableProps } from '@nextui-org/react';

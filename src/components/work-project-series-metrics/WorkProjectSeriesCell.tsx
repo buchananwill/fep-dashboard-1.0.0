@@ -21,7 +21,7 @@ export function InnerWorkProjectSeriesCell({
 }: BaseLazyDtoUiProps<WorkProjectSeriesWithSchemaLabelsDto>) {
   return (
     <span className={'inline-block w-full truncate'}>
-      {getValue(entity, 'workProjectSeriesSchema.workTaskType.name')}
+      {getValue(entity, 'workTaskType.name')}
     </span>
   );
 }

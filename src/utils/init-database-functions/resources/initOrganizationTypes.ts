@@ -1,13 +1,13 @@
-import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
 import {
   getDtoListByExampleList,
   postList
 } from '@/api/generated-actions/OrganizationType';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 
 export async function initOrganizationTypes(
-  serviceCategoryDto: ServiceCategoryDto,
+  serviceCategoryDto: KnowledgeLevelSeriesDto,
   promiseLevels: Promise<KnowledgeLevelDto[]>
 ) {
   return promiseLevels.then((knowledgeLevels) => {

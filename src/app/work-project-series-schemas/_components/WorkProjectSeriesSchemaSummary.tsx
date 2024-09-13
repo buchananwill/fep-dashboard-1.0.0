@@ -1,5 +1,5 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { NumberPropertyKey, StringPropertyKey } from '@/types';
 import { useMemo } from 'react';
 import { sumDeliveryAllocationList } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';

@@ -6,43 +6,47 @@ import data from '@/utils/init-json-data/service-categories/ServiceCategory.json
 import { Button } from '@nextui-org/button';
 import { useGlobalReadAny } from 'selective-context';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
-import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
-import { initKnowledgeDomains } from '@/utils/init-database-functions/operations/initKnowledgeDomains';
 import { initKnowledgeLevels } from '@/utils/init-database-functions/operations/initKnowledgeLevels';
 import { initOrganizationTypes } from '@/utils/init-database-functions/resources/initOrganizationTypes';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { Api } from '@/api/clientApi_';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 
 const entityName = EntityClassMap.knowledgeLevelSeries;
 
 const handleSubmit = async (
-  selectiveContextReadAll: SelectiveContextReadAll<ServiceCategoryDto>
+  selectiveContextReadAll: SelectiveContextReadAll<KnowledgeLevelSeriesDto>
 ) => {
-  const serviceCategory = selectiveContextReadAll(
+  const knowledgeLevelSeries = selectiveContextReadAll(
     `${entityName}:${ABSOLUTE_SMALLEST_TRANSIENT_ID}`
   );
-  if (serviceCategory) {
-    const serviceCategoryResponse = await initSafely(
-      () => Api.KnowledgeLevelSeries.getDtoListByExampleList([serviceCategory]),
-      () => Api.KnowledgeLevelSeries.postOne(serviceCategory)
+  if (knowledgeLevelSeries) {
+    const klSeriesResponse = await initSafely(
+      () =>
+        Api.KnowledgeLevelSeries.getDtoListByExampleList([
+          knowledgeLevelSeries
+        ]),
+      () => Api.KnowledgeLevelSeries.postOne(knowledgeLevelSeries)
     );
-    let serviceCategoryDto: ServiceCategoryDto | undefined = undefined;
-    if (Array.isArray(serviceCategoryResponse)) {
-      serviceCategoryDto = serviceCategoryResponse[0];
-    } else serviceCategoryDto = serviceCategoryResponse;
-    if (serviceCategoryDto) {
-      const promiseDomains = initKnowledgeDomains(serviceCategoryDto);
-      const promiseLevels = initKnowledgeLevels(serviceCategoryDto);
-      const orgTypes = initOrganizationTypes(serviceCategoryDto, promiseLevels);
-      await Promise.all([promiseDomains, promiseLevels, orgTypes]);
+    let knowledgeLevelSeries: KnowledgeLevelSeriesDto | undefined = undefined;
+    if (Array.isArray(klSeriesResponse)) {
+      knowledgeLevelSeries = klSeriesResponse[0];
+    } else knowledgeLevelSeries = klSeriesResponse;
+    if (knowledgeLevelSeries) {
+      const promiseLevels = initKnowledgeLevels(knowledgeLevelSeries);
+      const orgTypes = initOrganizationTypes(
+        knowledgeLevelSeries,
+        promiseLevels
+      );
+      await Promise.all([promiseLevels, orgTypes]);
     }
-    return serviceCategoryDto?.id;
+    return knowledgeLevelSeries?.id;
   }
 };
 
@@ -55,7 +59,7 @@ export default function CreateServiceCategoryPage() {
 
   template.id = ABSOLUTE_SMALLEST_TRANSIENT_ID;
 
-  const selectiveContextReadAll = useGlobalReadAny<ServiceCategoryDto>();
+  const selectiveContextReadAll = useGlobalReadAny<KnowledgeLevelSeriesDto>();
 
   return (
     <>

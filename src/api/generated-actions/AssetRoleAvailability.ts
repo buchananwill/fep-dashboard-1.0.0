@@ -1,5 +1,5 @@
 'use server';
-import { CarouselGroupOptionDto } from '@/api/generated-types/generated-types';
+import { AssetRoleAvailabilityDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
 
@@ -18,10 +18,10 @@ getDtoListByBodyList,
 getDtoListByParamList,
 getDtoListByExampleList
 } = generateBaseEndpointSet<
-  CarouselGroupOptionDto,
+  AssetRoleAvailabilityDto,
   number
 >(
-  '/api/v2/carouselGroups/options'
+  '/api/v2/assets/roles/availabilities'
 );
 
 
@@ -32,11 +32,11 @@ const {
           getByRowIdList,
           getIntersectionTable
 } = generateIntersectionEndpointSet<
-  CarouselGroupOptionDto,
-  string,
+  AssetRoleAvailabilityDto,
+  number,
   number
 >(
-  '/api/v2/carouselGroups/options'
+  '/api/v2/assets/roles/availabilities'
 );
 
 export {

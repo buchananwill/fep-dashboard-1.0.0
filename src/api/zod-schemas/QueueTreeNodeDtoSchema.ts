@@ -1,4 +1,4 @@
-import { StringIntegerTupleSchema } from './StringIntegerTupleSchema';
+import { WorkProjectSeriesNodeLinkDtoSchema } from './WorkProjectSeriesNodeLinkDtoSchema';
 import { z } from 'zod';
 export const QueueTreeNodeDtoSchema = z.object({
   id: z.string(),
@@ -8,7 +8,6 @@ export const QueueTreeNodeDtoSchema = z.object({
   netFailureCount: z.number(),
   batchSize: z.number(),
   totalAllocationArea: z.number(),
-  yearGroup: z.number(),
-  subjectContactTimeUnits: z.array(StringIntegerTupleSchema),
+  workProjectSeriesNodeLinks: z.array(WorkProjectSeriesNodeLinkDtoSchema),
 });
 export type QueueTreeNodeDto = z.infer<typeof QueueTreeNodeDtoSchema>;

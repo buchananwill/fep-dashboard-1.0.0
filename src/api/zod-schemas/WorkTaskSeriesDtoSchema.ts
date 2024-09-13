@@ -5,7 +5,6 @@ export const WorkTaskSeriesDtoSchema = z.object({
   workTaskTypeId: z.number(),
   cycleSubSpanGroupSize: z.number(),
   cycleSubSpanGroupId: z.string().uuid(),
-  providerRoleId: z.number(),
   workTaskSeriesUnits: z.array(WorkTaskSeriesUnitDtoSchema),
 });
 export type WorkTaskSeriesDto = z.infer<typeof WorkTaskSeriesDtoSchema>;

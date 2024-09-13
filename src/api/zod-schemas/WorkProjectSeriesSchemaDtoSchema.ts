@@ -1,14 +1,12 @@
 import { DeliveryAllocationDtoSchema } from './DeliveryAllocationDtoSchema';
+import { WorkTaskTypeDtoSchema } from './WorkTaskTypeDtoSchema';
 import { z } from 'zod';
 export const WorkProjectSeriesSchemaDtoSchema = z.object({
   id: z.number(),
   name: z.string(),
-  workTaskTypeId: z.number(),
   deliveryAllocations: z.record(z.string(), DeliveryAllocationDtoSchema),
   workProjectBandwidth: z.number(),
   userToProviderRatio: z.number(),
-  shortCode: z.string()
+  workTaskType: WorkTaskTypeDtoSchema,
 });
-export type WorkProjectSeriesSchemaDto = z.infer<
-  typeof WorkProjectSeriesSchemaDtoSchema
->;
+export type WorkProjectSeriesSchemaDto = z.infer<typeof WorkProjectSeriesSchemaDtoSchema>;

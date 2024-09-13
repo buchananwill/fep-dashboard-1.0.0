@@ -1,13 +1,9 @@
 'use client';
 import React, { useCallback } from 'react';
-import { Chip } from '@nextui-org/react';
 import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
-import { WorkProjectSeriesLeanDto } from '@/components/work-project-series-metrics/WorkProjectSeriesTableDataFetcher';
 import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
 import { Paths } from 'type-fest';
 import { getValue } from '@/functions/allowingNestedFiltering';
@@ -27,7 +23,7 @@ export default function WorkProjectSeriesSelectorTable({
           columnKey as Extract<
             keyof Omit<
               WorkProjectSeriesWithSchemaLabelsDto,
-              'workProjectSeriesSchema' | 'completedStatus'
+              'workProjectSeriesSchema' | 'completedStatus' | 'workTaskType'
             >,
             string | number
           >
@@ -43,7 +39,7 @@ export default function WorkProjectSeriesSelectorTable({
               {workProjectSeriesLeanDto.id}
             </div>
           );
-        case 'workProjectSeriesSchema.workTaskType.name':
+        case 'workTaskType.name':
           return (
             <div className={'inline-block w-32 truncate'}>
               {getValue(workProjectSeriesLeanDto, entityKey)}
@@ -61,7 +57,7 @@ export default function WorkProjectSeriesSelectorTable({
       <FilterSelectEntityTable
         entities={workProjectSeries}
         initialColumns={WorkProjectSeriesColumnsInitial}
-        filterProperty={'workProjectSeriesSchema.workTaskType.name'}
+        filterProperty={'workTaskType.name'}
         renderCell={renderCell}
         columns={WorkProjectSeriesColumns}
         entityClass={EntityClassMap.workProjectSeries}
@@ -72,12 +68,12 @@ export default function WorkProjectSeriesSelectorTable({
 }
 
 export const WorkProjectSeriesColumnsInitial: Paths<WorkProjectSeriesWithSchemaLabelsDto>[] =
-  ['id', 'workProjectSeriesSchema.workTaskType.name'];
+  ['id', 'workTaskType.name'];
 export const WorkProjectSeriesColumns: Column<WorkProjectSeriesWithSchemaLabelsDto>[] =
   [
     {
       name: 'WorkTaskType Name',
-      uid: 'workProjectSeriesSchema.workTaskType.name',
+      uid: 'workTaskType.name',
       sortable: true
     },
     { name: 'Id', uid: 'id', sortable: false },

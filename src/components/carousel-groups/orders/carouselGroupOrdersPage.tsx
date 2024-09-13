@@ -1,5 +1,4 @@
 import { PartialDeep } from 'type-fest';
-import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import {
   DataFetchingEditDtoControllerArray,
   EditAddDeleteDtoControllerArray,
@@ -20,6 +19,7 @@ import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVar
 import { Api } from '@/api/clientApi_';
 import CarouselOrderModal from '@/components/carousel-groups/orders/order-modal/CarouselOrderModal';
 import { notFound } from 'next/navigation';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types';
 
 async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   const [id, levelOrdinal] = getLastNVariables(pathVariables, 2);

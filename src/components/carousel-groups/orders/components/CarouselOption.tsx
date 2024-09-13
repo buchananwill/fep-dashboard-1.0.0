@@ -6,14 +6,12 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 import { Button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { useEffect, useMemo, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { DragTypes } from '@/react-dnd/literals';
-import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
-import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
+
 import OrderItemAssigneeList from '@/components/carousel-groups/orders/components/OrderItemAssigneeList';
 import {
   useGlobalDispatch,
@@ -45,7 +43,12 @@ import {
   RotationConnectionMap
 } from '@/components/carousel-groups/orders/components/RotationConnectionOverlay';
 import { initialMap } from '@/app/_literals';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import {
+  CarouselOrderDto,
+  CarouselOrderItemDto,
+  WorkProjectSeriesSchemaDto,
+  WorkTaskTypeDto
+} from '@/api/generated-types/generated-types';
 
 export const CarouselOptionState = 'CarouselOptionState';
 export const zIndexPopoverOverride = { zIndex: 50 };
@@ -61,7 +64,7 @@ export default function CarouselOption({
   // Chip location calculation condition: primed or anti-primed
   const assignChipRef = useRef<HTMLDivElement | null>(null);
   const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
-    Map<string, ConnectionVector>
+    Map<number, ConnectionVector>
   >(RotationConnectionMap);
   const primeState = useRef({ prime: false, antiPrime: false });
 
@@ -70,7 +73,7 @@ export default function CarouselOption({
   const {
     currentState: highlightedList,
     dispatchWithoutControl: highlightSubject
-  } = useGlobalDispatchAndListener<string[]>({
+  } = useGlobalDispatchAndListener<number[]>({
     contextKey: HighlightedSubjects,
     listenerKey: listenerKey,
     initialValue: EmptyArray
@@ -94,7 +97,7 @@ export default function CarouselOption({
   );
 
   const { entity: workTaskType } = useLazyDtoStore<WorkTaskTypeDto>(
-    schema?.workTaskTypeId ?? NaN,
+    schema?.workTaskType?.id ?? NaN,
     EntityClassMap.workTaskType
   );
 

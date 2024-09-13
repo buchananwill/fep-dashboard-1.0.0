@@ -1,4 +1,4 @@
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 
 export function getAssigneeCountColor(
   count: number,

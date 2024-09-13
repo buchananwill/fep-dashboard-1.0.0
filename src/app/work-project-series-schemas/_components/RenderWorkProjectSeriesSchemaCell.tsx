@@ -1,4 +1,4 @@
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import React, { ReactElement } from 'react';
 import { Chip } from '@nextui-org/react';
 import { sumDeliveryAllocations } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';

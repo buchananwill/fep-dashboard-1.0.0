@@ -1,35 +1,43 @@
 'use server';
-import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {
-  getPage,
-  getAll,
-  deleteIdList,
-  postList,
-  putList,
-  getOne,
-  postOne,
-  putOne,
-  deleteOne,
-  getDtoListByBodyList,
-  getDtoListByParamList,
-  getDtoListByExampleList
-} = generateBaseEndpointSet<WorkProjectSeriesSchemaDto, number>(
+getPage,
+getAll,
+getIdList,
+deleteIdList,
+postList,
+putList,
+getOne,
+postOne,
+putOne,
+deleteOne,
+getDtoListByBodyList,
+getDtoListByParamList,
+getDtoListByExampleList
+} = generateBaseEndpointSet<
+  WorkProjectSeriesSchemaDto,
+  number
+>(
   '/api/v2/workProjectSeriesSchemas'
 );
 
+
 export {
-  getPage,
-  getAll,
-  deleteIdList,
-  postList,
-  putList,
-  getOne,
-  postOne,
-  putOne,
-  deleteOne,
-  getDtoListByBodyList,
-  getDtoListByParamList,
-  getDtoListByExampleList
-};
+    getPage,
+getAll,
+getIdList,
+deleteIdList,
+postList,
+putList,
+getOne,
+postOne,
+putOne,
+deleteOne,
+getDtoListByBodyList,
+getDtoListByParamList,
+getDtoListByExampleList
+
+}
+

@@ -55,7 +55,7 @@ import { EmptyArray } from '@/api/literals';
 import { Spinner } from '@nextui-org/spinner';
 import { FlowNode, NodeValidator } from '@/react-flow/types';
 import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';

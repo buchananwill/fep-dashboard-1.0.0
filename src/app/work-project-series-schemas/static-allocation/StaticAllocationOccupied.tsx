@@ -2,7 +2,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { SetRequired } from 'type-fest';
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { useDtoStore } from 'dto-stores';
-import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema_';
+import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
 import { getCellId } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
 import { getCellIdReference } from '@/components/tables/getCellIdReference';
 import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';

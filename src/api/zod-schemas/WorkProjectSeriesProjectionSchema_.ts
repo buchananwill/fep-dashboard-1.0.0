@@ -1,7 +1,7 @@
 import { CarouselOptionDtoSchema } from './CarouselOptionDtoSchema';
 import { WorkSchemaNodeDtoSchema } from './WorkSchemaNodeDtoSchema_';
 import { z } from 'zod';
-import { WorkProjectSeriesSchemaDtoSchema } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
+import { WorkProjectSeriesSchemaDtoSchema } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 export const WorkProjectSeriesProjectionSchema = z.object({
   workProjectSeriesSchema: WorkProjectSeriesSchemaDtoSchema,
   bundleItemDtoList: z.array(WorkSchemaNodeDtoSchema),
