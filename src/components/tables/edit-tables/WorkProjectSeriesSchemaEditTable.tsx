@@ -3,8 +3,6 @@
 import React, { useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Card, CardBody } from '@nextui-org/card';
-
-import { sumAllSchemas } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
@@ -23,15 +21,13 @@ const initialMap = new Map();
 
 export default function WorkProjectSeriesSchemaEditTable() {
   const { currentState: idList } = useGlobalListener({
-    contextKey: `${EntityClassMap.workProjectSeriesSchema}:idList`,
+    contextKey: `${entityType}:idList`,
     initialValue: EmptyArray,
     listenerKey: 'editList'
   });
 
   const contextKeys = useMemo(() => {
-    return idList.map(
-      (id) => `${EntityClassMap.workProjectSeriesSchema}:${id}`
-    );
+    return idList.map((id) => `${entityType}:${id}`);
   }, [idList]);
 
   const { currentState } = useGlobalListenerGroup<WorkProjectSeriesSchemaDto>({
@@ -40,15 +36,11 @@ export default function WorkProjectSeriesSchemaEditTable() {
     initialValue: initialMap
   });
 
-  const totalAllocation = useMemo(() => {
-    return sumAllSchemas([...currentState.values()]);
-  }, [currentState]);
-
   return (
-    <Card className={'center-all-margin relative'}>
+    <Card className={'center-all-margin'}>
       <CardBody>
         <FilterSelectEntityTable
-          entityClass={EntityClassMap.workProjectSeriesSchema}
+          entityClass={entityType}
           entities={[...currentState.values()]}
           columns={columns}
           selectionMode={'none'}
@@ -101,5 +93,5 @@ const wpssRenderCellFunction =
       deliveryAllocations: AdjustAllocationInWrapper,
       'workTaskType.knowledgeDomain.shortCode': StringValueChip
     },
-    EntityClassMap.workProjectSeriesSchema
+    entityType
   );
