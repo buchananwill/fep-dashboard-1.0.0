@@ -9,13 +9,23 @@ import React from 'react';
 import { HasId } from '@/api/types';
 import { TypedPaths } from '@/functions/typePaths';
 import { get } from 'lodash';
+import { getShortCodeColor } from '@/components/feasibility-report/getShortcodeColor';
+import clsx from 'clsx';
 
 export function StringValueChip<
   T extends HasId & { workTaskType: WorkTaskTypeDto }
 >(props: NextUiCellComponentProps<T>) {
+  const stringValue = get(
+    props.entity,
+    props.path as TypedPaths<T, string | number>,
+    ''
+  );
+
+  let shortCodeColor = getShortCodeColor(stringValue);
+
+  if (shortCodeColor === 'bg-white') shortCodeColor = 'bg-default-200';
+
   return (
-    <Chip>
-      {get(props.entity, props.path as TypedPaths<T, string | number>, '')}
-    </Chip>
+    <Chip className={clsx(shortCodeColor, 'select-none')}>{stringValue}</Chip>
   );
 }

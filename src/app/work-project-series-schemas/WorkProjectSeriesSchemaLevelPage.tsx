@@ -14,20 +14,24 @@ import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/Knowledge
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 
-const targetCycleId = 1;
-
-async function WorkProjectSeriesSchemaLevelTable({
-  pathVariables,
-  depth
+async function WorkProjectSeriesSchemaLevelPage({
+  pathVariables
 }: LeafComponentProps) {
-  const [serviceCategoryId, levelOrdinal] = getLastNVariables(pathVariables, 2);
+  const [knowledgeLevelSeriesId, levelOrdinal] = getLastNVariables(
+    pathVariables,
+    2
+  );
   const availableCycles = await Api.Cycle.getAll();
 
-  const { workProjectSeriesSchemas: wpssData } =
+  const { workProjectSeriesSchemas: wpssData, workTaskTypes } =
     await workProjectSeriesSchemaActionSequence({
-      knowledgeLevel: { levelOrdinal: parseInt(levelOrdinal) },
-      knowledgeLevelSeriesId: parseInt(serviceCategoryId)
+      knowledgeLevel: {
+        levelOrdinal: parseInt(levelOrdinal),
+        knowledgeLevelSeriesId: parseInt(knowledgeLevelSeriesId)
+      }
     });
+
+  console.log(workTaskTypes);
 
   return (
     <div className={'flex h-[100vh] w-[100vw]'}>
@@ -62,7 +66,7 @@ function WorkProjectSeriesLevelLinks(props: LeafComponentProps) {
     <PathVariableSplit
       {...props}
       homeComponent={KnowledgeLevelLinks}
-      subRouteComponent={WorkProjectSeriesSchemaLevelTable}
+      subRouteComponent={WorkProjectSeriesSchemaLevelPage}
     />
   );
 }

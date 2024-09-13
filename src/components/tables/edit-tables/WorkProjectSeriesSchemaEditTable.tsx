@@ -46,7 +46,7 @@ export default function WorkProjectSeriesSchemaEditTable() {
           selectionMode={'none'}
           initialColumns={initialColumns}
           filterProperty={'name'}
-          renderCell={wpssRenderCellFunction}
+          renderCell={workProjectSeriesSchemaRenderCellFunction}
           isCompact={true}
           classNames={{
             wrapper: 'w-[90vw] h-[70vh]',
@@ -75,7 +75,8 @@ const columns: Column<WorkProjectSeriesSchemaDto>[] = [
     uid: 'userToProviderRatio',
     sortable: true,
     name: `${startCase(getDomainAlias('user'))} limit`
-  }
+  },
+  { uid: 'workTaskType.name', name: startCase('workTaskType'), sortable: true }
 ];
 
 const initialColumns: ColumnUid<WorkProjectSeriesSchemaDto>[] = [
@@ -85,13 +86,14 @@ const initialColumns: ColumnUid<WorkProjectSeriesSchemaDto>[] = [
   'userToProviderRatio'
 ];
 
-const wpssRenderCellFunction =
+export const workProjectSeriesSchemaRenderCellFunction =
   getCellRenderFunction<WorkProjectSeriesSchemaDto>(
     {
       name: RenameWpss,
       userToProviderRatio: NestedDtoStoreNumberEditCell,
       deliveryAllocations: AdjustAllocationInWrapper,
-      'workTaskType.knowledgeDomain.shortCode': StringValueChip
+      'workTaskType.knowledgeDomain.shortCode': StringValueChip,
+      'workTaskType.name': StringValueChip
     },
     entityType
   );

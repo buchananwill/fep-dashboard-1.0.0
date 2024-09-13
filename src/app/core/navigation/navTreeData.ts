@@ -5,7 +5,7 @@ import { schedulesNavTree } from '@/app/core/schedules/schedulesNavTree';
 import { WorkSchemaNodeNavTree } from '@/components/work-schema-nodes/workSchemaNodeNavTree';
 import { KnowledgeDomainsList } from '@/components/knowledge-domains/KnowledgeDomains';
 import KnowledgeLevelsHome from '@/components/knowledge-levels/KnowledgeLevelsTablePage';
-import WorkProjectSeriesSchemaHome from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaLevelTable';
+import WorkProjectSeriesSchemaHome from '@/app/work-project-series-schemas/WorkProjectSeriesSchemaLevelPage';
 import { CarouselGroupsAndOrders } from '@/components/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/components/carousel-groups/orders/carouselGroupOrdersPage';
 import { WorkSchemaNodeAssignmentsHome } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';

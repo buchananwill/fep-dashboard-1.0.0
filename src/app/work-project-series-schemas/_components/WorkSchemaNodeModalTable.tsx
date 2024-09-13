@@ -1,15 +1,16 @@
 'use client';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+
 import { EntityClassMap } from '@/api/entity-class-map';
 import React, { Key, useCallback, useMemo } from 'react';
 import { Pagination, TableProps } from '@nextui-org/react';
-import { Column, DispatchState } from '@/types';
+import { Column, ColumnUid, DispatchState } from '@/types';
 import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect';
 import { FilterSortPaginateTableContent } from '@/components/generic/FilterSortPaginateTableContent';
 import { Input } from '@nextui-org/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
-import { renderWorkSchemaNodeCell } from '@/app/work-project-series-schemas/_components/RenderWorkProjectSeriesSchemaCell';
+import { workProjectSeriesSchemaRenderCellFunction } from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 
 export default function WorkSchemaNodeModalTable({
   entities,
@@ -94,7 +95,7 @@ export default function WorkSchemaNodeModalTable({
           'Table to find and select a WorkProjectSeriesSchema to be resolved at this node.'
         }
         isHeaderSticky
-        renderCell={renderWorkSchemaNodeCell}
+        renderCell={workProjectSeriesSchemaRenderCellFunction}
         selectionMode={selectionMode}
         bottomContent={bottomContent}
         bottomContentPlacement={'inside'}
@@ -105,13 +106,12 @@ export default function WorkSchemaNodeModalTable({
   );
 }
 
-export const INITIAL_VISIBLE_COLUMNS: (keyof WorkProjectSeriesSchemaDto)[] = [
+export const INITIAL_VISIBLE_COLUMNS: ColumnUid<WorkProjectSeriesSchemaDto>[] = [
   'name',
-  'shortCode',
+  'workTaskType.knowledgeDomain.shortCode',
   'deliveryAllocations'
 ];
 export const columns: Column<WorkProjectSeriesSchemaDto>[] = [
   { name: 'Name', uid: 'name', sortable: true },
-  { name: 'ShortCode', uid: 'shortCode', sortable: true },
-  { name: 'Delivery Allocations', uid: 'deliveryAllocations', sortable: true }
+  { name: 'ShortCode', uid: 'workTaskType.knowledgeDomain.shortCode', sortable: true },
 ];

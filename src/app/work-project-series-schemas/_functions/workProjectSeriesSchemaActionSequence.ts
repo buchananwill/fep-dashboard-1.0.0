@@ -1,5 +1,3 @@
-import { getDtoListByExampleList as getWorkTaskTypesByExample } from '@/api/generated-actions/WorkTaskType';
-
 import { PartialDeep } from 'type-fest';
 import {
   WorkProjectSeriesSchemaDto,
@@ -15,7 +13,9 @@ export async function workProjectSeriesSchemaActionSequence(
   workTaskTypes: WorkTaskTypeDto[];
   workProjectSeriesSchemas: WorkProjectSeriesSchemaDto[];
 }> {
-  const workTaskTypes = await getWorkTaskTypesByExample([example]);
+  const workTaskTypes = await Api.WorkTaskType.getDtoListByExampleList([
+    example
+  ]);
 
   const workProjectSeriesSchemas =
     await Api.WorkProjectSeriesSchema.getDtoListByExampleList(
