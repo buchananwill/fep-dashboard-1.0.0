@@ -15,7 +15,7 @@ import { Column } from '@/types';
 export type TableCellRenderer<T extends HasIdClass<Identifier>> = (
   entity: T,
   columnKey: React.Key
-) => string | number | ReactElement;
+) => string | number | React.ReactNode;
 export type TableContentProps<T extends HasIdClass<Identifier>> = TableProps & {
   headerColumns: Column<T>[];
   visibleItems: T[];

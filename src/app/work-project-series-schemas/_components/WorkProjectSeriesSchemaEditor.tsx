@@ -2,36 +2,21 @@
 import { BaseDtoUiProps } from 'dto-stores';
 import { AdjustAllocation } from './AdjustAllocation';
 
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import React from 'react';
-import RenameModal from '@/components/modals/RenameModal';
-import { Button } from '@nextui-org/button';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
-import { useRenameEntity } from '@/components/modals/nameSetter';
 import { SetOptional } from 'type-fest';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
-import { Chip } from '@nextui-org/chip';
-import { getValue } from '@/functions/allowingNestedFiltering';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { StringValueChip } from '@/app/work-project-series-schemas/_components/StringValueChip';
+import { RenameWpss } from '@/app/work-project-series-schemas/_components/RenameWpss';
 
 export const WorkProjectSeriesSchemaEditor = (
   props: SetOptional<BaseDtoUiProps<WorkProjectSeriesSchemaDto>, 'deleted'>
 ) => {
-  const {
-    entity: model,
-    deleted,
-    dispatchWithoutControl,
-    dispatchDeletion,
-    entityClass
-  } = props;
-
-  const renameEntityProps = useRenameEntity(
-    entityClass,
-    model,
-    dispatchWithoutControl
-  );
+  const { entity: model, deleted, dispatchDeletion, entityClass } = props;
 
   return (
     <div className={'relative grid grid-cols-4 items-center'}>
@@ -55,33 +40,23 @@ export const WorkProjectSeriesSchemaEditor = (
             <TrashIcon className={'h-4 w-4'}></TrashIcon>
           </TwoStageClick>
         )}
-
-        <Button
-          onPress={() => renameEntityProps.onOpen()}
-          className={'px-unit-2'}
-          endContent={<PencilSquareIcon className={'p-1.5'} />}
-        >
-          <span className={'... truncate text-left'}>{model.name}</span>
-        </Button>
+        <RenameWpss entity={model} path={'name'} entityClass={entityClass} />
       </div>
       <div className={'col-span-2 px-2'}>
         <AdjustAllocation {...props}></AdjustAllocation>
       </div>
       <div className={'grid grid-cols-3'}>
-        <Chip>
-          {getValue(props.entity, 'workTaskType.knowledgeDomain.shortCode')}
-        </Chip>
+        <StringValueChip
+          entity={model}
+          entityClass={entityClass}
+          path={'workTaskType.knowledgeDomain.shortCode'}
+        />
         <DtoStoreNumberInput<WorkProjectSeriesSchemaDto>
           {...props}
           numberKey={'userToProviderRatio'}
           min={1}
         />
       </div>
-
-      <RenameModal
-        {...renameEntityProps}
-        onCancel={() => renameEntityProps.dispatchTextChange(model.name)}
-      />
     </div>
   );
 };

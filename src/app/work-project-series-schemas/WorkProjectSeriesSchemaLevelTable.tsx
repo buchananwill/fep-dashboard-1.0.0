@@ -1,5 +1,5 @@
 import { EntityClassMap } from '@/api/entity-class-map';
-import WpssEditGridColList from '@/app/work-project-series-schemas/_components/WpssEditGridColList';
+import WorkProjectSeriesSchemaEditTable from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
 import { workProjectSeriesSchemaActionSequence } from '@/app/work-project-series-schemas/_functions/workProjectSeriesSchemaActionSequence';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import {
@@ -30,7 +30,7 @@ async function WorkProjectSeriesSchemaLevelTable({
     });
 
   return (
-    <>
+    <div className={'flex h-[100vh] w-[100vw]'}>
       <EditAddDeleteDtoControllerArray
         dtoList={wpssData}
         entityClass={EntityClassMap.workProjectSeriesSchema}
@@ -42,8 +42,8 @@ async function WorkProjectSeriesSchemaLevelTable({
         entityClass={EntityClassMap.cycle}
         dtoList={availableCycles}
       />
-      <WpssEditGridColList />
-    </>
+      <WorkProjectSeriesSchemaEditTable />
+    </div>
   );
 }
 

@@ -1,6 +1,10 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { BaseDtoUiProps, useLazyDtoStore } from 'dto-stores';
+import {
+  BaseDtoUiProps,
+  useDtoStoreDispatch,
+  useLazyDtoStore
+} from 'dto-stores';
 
 import { sumDeliveryAllocations } from '@/app/work-project-series-schemas/_functions/sumDeliveryAllocations';
 import { StepperContext } from '@/components/generic/stepperContextCreator';
@@ -17,6 +21,7 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
+import { NextUiCellComponentProps } from '@/app/work-project-series-schemas/_components/GetCellRenderFunction';
 
 export const allocationSizes = [1, 2];
 
@@ -78,53 +83,65 @@ export function AdjustAllocation({
   );
 
   return (
-    <div>
-      <div className=" flex items-center justify-start gap-1 py-2 align-middle">
-        <Popover showArrow={true}>
-          <PopoverTrigger>
-            <Button>Adjust Allocation</Button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className={'flex flex-col items-end gap-1'}>
-              {currentAllocations.map((deliveryAllocation, index) => (
-                <StepperContext.Provider
-                  key={index}
-                  value={{
-                    increment: () =>
-                      handleModifyAllocation(
-                        deliveryAllocation.deliveryAllocationSize,
-                        true
-                      ),
-                    decrement: () =>
-                      handleModifyAllocation(
-                        deliveryAllocation.deliveryAllocationSize,
-                        false
-                      ),
-                    min: 0,
-                    max: 10,
-                    current: currentAllocations[index].count
-                  }}
-                >
-                  <div className={'flex w-full items-center gap-1 '}>
-                    <span>{deliveryAllocation.deliveryAllocationSize}</span>
-                    <AllocationUnitGroup
-                      size={deliveryAllocation.deliveryAllocationSize}
-                      indexOfGroup={index}
-                    />
-                    <div className={'grow'}></div>
-                    <LandscapeStepper></LandscapeStepper>
-                  </div>
-                </StepperContext.Provider>
-              ))}
-            </div>
-          </PopoverContent>
-        </Popover>
-        <h3 className={'w-20 px-2 text-sm'}>Total: {totalAllocations}</h3>
-        {currentAllocations.map((delivAl) => (
-          <DeliveryAllocation deliveryAllocation={delivAl} key={delivAl.id} />
-        ))}
-      </div>
+    <div className=" flex items-center justify-start gap-1 align-middle">
+      <Popover showArrow={true}>
+        <PopoverTrigger>
+          <Button>Adjust Allocation</Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <div className={'flex flex-col items-end gap-1'}>
+            {currentAllocations.map((deliveryAllocation, index) => (
+              <StepperContext.Provider
+                key={index}
+                value={{
+                  increment: () =>
+                    handleModifyAllocation(
+                      deliveryAllocation.deliveryAllocationSize,
+                      true
+                    ),
+                  decrement: () =>
+                    handleModifyAllocation(
+                      deliveryAllocation.deliveryAllocationSize,
+                      false
+                    ),
+                  min: 0,
+                  max: 10,
+                  current: currentAllocations[index].count
+                }}
+              >
+                <div className={'flex w-full items-center gap-1 '}>
+                  <span>{deliveryAllocation.deliveryAllocationSize}</span>
+                  <AllocationUnitGroup
+                    size={deliveryAllocation.deliveryAllocationSize}
+                    indexOfGroup={index}
+                  />
+                  <div className={'grow'}></div>
+                  <LandscapeStepper></LandscapeStepper>
+                </div>
+              </StepperContext.Provider>
+            ))}
+          </div>
+        </PopoverContent>
+      </Popover>
+      <h3 className={'w-20 px-2 text-sm'}>Total: {totalAllocations}</h3>
+      {currentAllocations.map((delivAl) => (
+        <DeliveryAllocation deliveryAllocation={delivAl} key={delivAl.id} />
+      ))}
     </div>
   );
 }
-``;
+
+export function AdjustAllocationInWrapper({
+  entity,
+  entityClass
+}: NextUiCellComponentProps<WorkProjectSeriesSchemaDto>) {
+  const { dispatchWithoutListen } = useDtoStoreDispatch(entity.id, entityClass);
+
+  return (
+    <AdjustAllocation
+      entityClass={entityClass}
+      entity={entity}
+      dispatchWithoutControl={dispatchWithoutListen}
+    />
+  );
+}

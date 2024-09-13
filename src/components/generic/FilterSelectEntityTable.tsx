@@ -49,6 +49,7 @@ export default function FilterSelectEntityTable<
   columns,
   entityClass,
   selectionMode = 'multiple',
+  classNames,
   dynamicColumns = true,
   ...otherProps
 }: FilterSelectEntityTableProps<T, TPath> &
@@ -72,6 +73,10 @@ export default function FilterSelectEntityTable<
     idClass ?? 'number'
   );
 
+  const filterColumns = useMemo(() => {
+    return columns.filter((column) => !column.ignoreFilter);
+  }, [columns]);
+
   const { selectedKeys } = tableContentProps;
 
   const topContent = useMemo(() => {
@@ -86,11 +91,13 @@ export default function FilterSelectEntityTable<
             {...filterProps}
           />
 
-          <ButtonGroup>
-            Page:
-            <Button onPress={selectVisible}>Select</Button>
-            <Button onPress={deselectVisible}>Deselect</Button>
-          </ButtonGroup>
+          {selectionMode !== 'none' && (
+            <ButtonGroup>
+              Page:
+              <Button onPress={selectVisible}>Select</Button>
+              <Button onPress={deselectVisible}>Deselect</Button>
+            </ButtonGroup>
+          )}
           {dynamicColumns && (
             <div className="flex gap-3">
               <ColumnDropdown {...columnDropdownProps} />
@@ -108,7 +115,7 @@ export default function FilterSelectEntityTable<
               value={filterPropertySelectProps.value as string}
               onChange={filterPropertySelectProps.onChange}
             >
-              {columns.map((column) => {
+              {filterColumns.map((column) => {
                 return (
                   <option key={column.uid} value={column.uid}>
                     {column.name}
@@ -178,9 +185,11 @@ export default function FilterSelectEntityTable<
       topContentPlacement={'outside'}
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
-      classNames={{
-        wrapper: 'h-[55vh] max-w-[45vw] ml-auto mr-auto'
-      }}
+      classNames={
+        classNames ?? {
+          wrapper: 'h-[55vh] max-w-[45vw] ml-auto mr-auto'
+        }
+      }
       className={'pointer-events-auto'}
       renderCell={renderCell}
     />

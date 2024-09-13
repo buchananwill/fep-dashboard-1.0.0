@@ -39,6 +39,7 @@ export interface Column<T> {
   name: string;
   uid: ColumnUid<T>;
   sortable?: boolean;
+  ignoreFilter?: boolean;
 }
 
 export type NextUiSelection = Selection;

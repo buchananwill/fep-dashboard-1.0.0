@@ -1,11 +1,5 @@
 import { Paths } from 'type-fest';
 
-type GetLeft<T extends string> = T extends `${infer Left}.${string}`
-  ? Left
-  : undefined;
-
-type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`;
-
 // Getting typed values:
 
 type GetIndexedField<T, K> = K extends keyof T
