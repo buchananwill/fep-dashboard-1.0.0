@@ -1,9 +1,8 @@
 'use client';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
 import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
-import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import {
   BaseDtoStoreNumberInputProps,
   DtoStoreNumberInput
@@ -14,7 +13,7 @@ import {
   DtoStoreStringInput
 } from '@/components/generic/DtoStoreStringInput';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { TransientIdOffset } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { Button } from '@nextui-org/button';
 import ChangeStartingOrdinal from '@/components/knowledge-levels/ChangeStartingOrdinal';
 import { useKnowledgeDtoTableProps } from '@/components/knowledge-levels/useKnowledgeDtoTableProps';
@@ -23,6 +22,7 @@ import { Paths } from 'type-fest';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { Column } from '@/types';
 import { startCase } from 'lodash';
+import { makeTransientId } from '@/makeTransientId';
 
 function sortLevelsOnOrdinal(
   level1: KnowledgeLevelDto,
@@ -42,7 +42,7 @@ function createNewLevel(
       ? sortedLevels[sortedLevels.length - 1].levelOrdinal + 1
       : 1;
   const name = `${knowledgeLevelSeriesDto.knowledgeLevelDescriptor} ${levelOrdinal}`;
-  const id = TransientIdOffset + levelOrdinal;
+  const id = makeTransientId(ABSOLUTE_SMALLEST_TRANSIENT_ID + levelOrdinal);
   const nextLevel: KnowledgeLevelDto = {
     name,
     levelOrdinal,

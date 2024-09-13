@@ -14,8 +14,8 @@ import {
   removeEnrollment,
   renderEnrollmentCell
 } from '@/components/work-schema-node-assignments/enrollment-table/RenderEnrollmentCell';
-import { enableMapSet, produce } from 'immer';
-import { TransientIdOffset } from '@/api/literals';
+import { produce } from 'immer';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import {
   connectNodes,
   defaultClosureTemplate
@@ -40,8 +40,8 @@ const listenerKey = 'tableIsController';
 
 function useNextId() {
   return useCallback(() => {
-    let id = TransientIdOffset;
-    return id++;
+    let id = ABSOLUTE_SMALLEST_TRANSIENT_ID;
+    return id--;
   }, []);
 }
 

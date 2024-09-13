@@ -18,7 +18,7 @@ import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
 import { CycleSubspanGroupDto } from '@/api/zod-schemas/CycleSubspanGroupDtoSchema';
 import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { CycleSubspanJoinDto } from '@/api/zod-schemas/CycleSubspanJoinDtoSchema';
-import { TransientIdOffset } from '@/api/literals';
+import { makeTransientId } from '@/makeTransientId';
 
 function updateGroupJoins(
   updatedKeys: string[],
@@ -37,7 +37,7 @@ function updateGroupJoins(
     )
     .map((key, index) => {
       const newJoin: Partial<CycleSubspanJoinDto> = {
-        id: key + TransientIdOffset,
+        id: makeTransientId(key),
         cycleSubspanId: key,
         cycleSubspanGroupId: collection.id,
         joinOrdinal: keepTheseJoins.length + index

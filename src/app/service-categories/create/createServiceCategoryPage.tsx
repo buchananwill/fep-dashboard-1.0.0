@@ -16,7 +16,7 @@ import { initSafely } from '@/utils/init-database-functions/initSafely';
 import { initKnowledgeDomains } from '@/utils/init-database-functions/operations/initKnowledgeDomains';
 import { initKnowledgeLevels } from '@/utils/init-database-functions/operations/initKnowledgeLevels';
 import { initOrganizationTypes } from '@/utils/init-database-functions/resources/initOrganizationTypes';
-import { TransientIdOffset } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { Api } from '@/api/clientApi_';
 
 const entityName = EntityClassMap.knowledgeLevelSeries;
@@ -25,7 +25,7 @@ const handleSubmit = async (
   selectiveContextReadAll: SelectiveContextReadAll<ServiceCategoryDto>
 ) => {
   const serviceCategory = selectiveContextReadAll(
-    `${entityName}:${TransientIdOffset}`
+    `${entityName}:${ABSOLUTE_SMALLEST_TRANSIENT_ID}`
   );
   if (serviceCategory) {
     const serviceCategoryResponse = await initSafely(
@@ -53,7 +53,7 @@ export default function CreateServiceCategoryPage() {
 
   const appRouterInstance = useRouter();
 
-  template.id = TransientIdOffset;
+  template.id = ABSOLUTE_SMALLEST_TRANSIENT_ID;
 
   const selectiveContextReadAll = useGlobalReadAny<ServiceCategoryDto>();
 

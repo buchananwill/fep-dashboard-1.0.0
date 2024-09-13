@@ -8,7 +8,7 @@ import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { CycleDto } from '@/api/zod-schemas/CycleDtoSchema';
 import { deleteIdList } from '@/api/generated-actions/CycleSubspan';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { TransientIdOffset } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 
 const entityClass = EntityClassMap.cycleSubspan;
 
@@ -16,13 +16,13 @@ export const templateCycleSubspan: CycleSubspanDto = {
   parentCycleId: NaN,
   zeroIndexedCycleDay: NaN,
   name: 'New Period',
-  id: TransientIdOffset,
+  id: ABSOLUTE_SMALLEST_TRANSIENT_ID,
   timeSpanDto: {
     startTimeDivisionInstant: '09:00:00',
     endTimeDivisionInstant: '10:00:00',
-    id: TransientIdOffset,
-    startTimeDivisionId: TransientIdOffset,
-    endTimeDivisionId: TransientIdOffset,
+    id: ABSOLUTE_SMALLEST_TRANSIENT_ID,
+    startTimeDivisionId: ABSOLUTE_SMALLEST_TRANSIENT_ID,
+    endTimeDivisionId: ABSOLUTE_SMALLEST_TRANSIENT_ID,
     name: 'New Timespan'
   },
   dayOrdinal: 1

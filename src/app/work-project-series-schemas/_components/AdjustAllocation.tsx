@@ -8,7 +8,7 @@ import { AllocationUnitGroup } from '@/app/work-project-series-schemas/_componen
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { DeliveryAllocation } from '@/app/work-project-series-schemas/_components/DeliveryAllocation';
 import { SetOptional } from 'type-fest';
-import { TransientIdOffset } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import {
   DeliveryAllocationDto,
   WorkProjectSeriesSchemaDto
@@ -27,7 +27,7 @@ export function AdjustAllocation({
         : {};
       const found = allocations[String(size)];
       const nullAllocation: DeliveryAllocationDto = {
-        id: TransientIdOffset + size, // TODO improve this transient ID allocation
+        id: ABSOLUTE_SMALLEST_TRANSIENT_ID - size, // TODO improve this transient ID allocation
         count: 0,
         deliveryAllocationSize: size,
         workProjectSeriesSchemaId: workProjectSeriesSchemaDto.id

@@ -15,7 +15,7 @@ import { Button } from '@nextui-org/button';
 import { CycleDto, CycleDtoSchema } from '@/api/zod-schemas/CycleDtoSchema';
 import { postOne } from '@/api/generated-actions/Cycle';
 import { initCycleSubspans } from '@/utils/init-database-functions/operations/initCycleSubspans';
-import { TransientIdOffset } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 
 const dayArray = DayOfWeekArray.map((day) => ({
   value: day.toUpperCase(),
@@ -31,7 +31,7 @@ export default function CreatePage() {
   } = useForm<CycleDto>({
     resolver: zodResolver(CycleDtoSchema.partial()),
     defaultValues: {
-      id: TransientIdOffset,
+      id: ABSOLUTE_SMALLEST_TRANSIENT_ID,
       cycleDayZero: 'MONDAY',
       cycleLengthInDays: 14,
       cycleLengthInWeeks: 2,

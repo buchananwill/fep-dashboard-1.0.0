@@ -12,20 +12,19 @@ import {
 import { Skeleton } from '@nextui-org/skeleton';
 import { useKnowledgeDtoTableProps } from '@/components/knowledge-levels/useKnowledgeDtoTableProps';
 import { getEntityStringComparator } from '@/functions/sortEntityListOnStringProperty';
-import { TransientIdOffset } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { Button } from '@nextui-org/button';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
 import { TypedPaths } from '@/functions/typePaths';
+import { Column } from '@/types';
+
+const columns: Column<KnowledgeDomainDto>[] = [
+  { name: startCase(getDomainAlias('knowledgeDomain')), uid: 'name' },
+  { name: 'ShortCode', uid: 'shortCode' }
+];
 
 export function KnowledgeDomainTable({ data }: { data: KnowledgeDomainDto[] }) {
-  const columns = useMemo(() => {
-    return [
-      { name: startCase(getDomainAlias('knowledgeDomain')), uid: 'name' },
-      { name: 'ShortCode', uid: 'shortCode' }
-    ];
-  }, []);
-
   const { sortedRows, handleRemoveRow, masterListInteraction } =
     useKnowledgeDtoTableProps(
       EntityClassMap.knowledgeDomain,
@@ -74,7 +73,7 @@ export function KnowledgeDomainTable({ data }: { data: KnowledgeDomainDto[] }) {
 const domainSort = getEntityStringComparator<KnowledgeDomainDto>('name');
 
 const getDomainFactory = () => {
-  let nextId = TransientIdOffset;
+  let nextId = ABSOLUTE_SMALLEST_TRANSIENT_ID;
   return function (current: KnowledgeDomainDto[]) {
     const newDomain: KnowledgeDomainDto = {
       id: nextId,

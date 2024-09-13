@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { TimeSpanDto } from '@/api/zod-schemas/TimeSpanDtoSchema';
 import { TimeInput } from '@nextui-org/date-input';
-import { TransientIdOffset } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { Time } from '@internationalized/date';
 import { TimeValue } from '@react-types/datepicker';
 
@@ -59,14 +59,14 @@ function handleTimeChange(
         updatedTimespan = {
           ...timeSpanDto,
           startTimeDivisionInstant: zTimeOnly,
-          startTimeDivisionId: TransientIdOffset
+          startTimeDivisionId: ABSOLUTE_SMALLEST_TRANSIENT_ID
         };
         break;
       case 'End':
         updatedTimespan = {
           ...timeSpanDto,
           endTimeDivisionInstant: zTimeOnly,
-          endTimeDivisionId: TransientIdOffset
+          endTimeDivisionId: ABSOLUTE_SMALLEST_TRANSIENT_ID
         };
         break;
     }

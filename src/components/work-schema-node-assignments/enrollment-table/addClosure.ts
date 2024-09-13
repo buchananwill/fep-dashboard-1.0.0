@@ -1,6 +1,6 @@
 import { ClosureMap } from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTable';
 import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
-import { TransientIdOffset } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { getClosureTargetMap } from '@/components/work-schema-node-assignments/enrollment-table/getClosureTargetMap';
 
 export function addClosure(map: ClosureMap, c: ClosureDto) {
@@ -34,7 +34,7 @@ export function connectNodes(
 }
 
 export const defaultClosureTemplate: ClosureDto = {
-  id: TransientIdOffset,
+  id: ABSOLUTE_SMALLEST_TRANSIENT_ID,
   closureType: 'generic-closure',
   source: NaN,
   target: NaN,
