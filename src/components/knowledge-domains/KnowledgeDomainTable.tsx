@@ -4,7 +4,6 @@ import React, { useCallback, useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/generic/DtoTable';
 import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
-import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
 import { LazyDtoUiWrapper } from 'dto-stores';
 import {
   BaseDtoStoreStringInputProps,
@@ -16,21 +15,19 @@ import { getEntityStringComparator } from '@/functions/sortEntityListOnStringPro
 import { TransientIdOffset } from '@/api/literals';
 import { Button } from '@nextui-org/button';
 import { getDomainAlias } from '@/api/getDomainAlias';
+import { startCase } from 'lodash';
+import { TypedPaths } from '@/functions/typePaths';
 
-export function KnowledgeDomainTable({
-  data,
-  serviceCategory
-}: {
-  data: KnowledgeDomainDto[];
-  serviceCategory: ServiceCategoryDto;
-}) {
+export function KnowledgeDomainTable({ data }: { data: KnowledgeDomainDto[] }) {
   const columns = useMemo(() => {
-    return [{ name: serviceCategory.knowledgeDomainDescriptor, uid: 'name' }];
-  }, [serviceCategory]);
+    return [
+      { name: startCase(getDomainAlias('knowledgeDomain')), uid: 'name' },
+      { name: 'ShortCode', uid: 'shortCode' }
+    ];
+  }, []);
 
   const { sortedRows, handleRemoveRow, masterListInteraction } =
     useKnowledgeDtoTableProps(
-      serviceCategory,
       EntityClassMap.knowledgeDomain,
       domainSort,
       domainFactory
@@ -45,7 +42,7 @@ export function KnowledgeDomainTable({
         >
           renderAs={DtoStoreStringInput}
           entityClass={EntityClassMap.knowledgeDomain}
-          stringKey={'name'}
+          stringKey={columnKey as TypedPaths<KnowledgeDomainDto, string>}
           entityId={domain.id}
           whileLoading={() => (
             <Skeleton>
@@ -78,16 +75,10 @@ const domainSort = getEntityStringComparator<KnowledgeDomainDto>('name');
 
 const getDomainFactory = () => {
   let nextId = TransientIdOffset;
-  return function (
-    current: KnowledgeDomainDto[],
-    serviceCategory: ServiceCategoryDto
-  ) {
-    const { knowledgeDomainDescriptor, id } = serviceCategory;
+  return function (current: KnowledgeDomainDto[]) {
     const newDomain: KnowledgeDomainDto = {
       id: nextId,
-      name: `${knowledgeDomainDescriptor} ${nextId}`,
-      knowledgeLevelSeriesId: id,
-      knowledgeDomainDescriptor
+      name: `${getDomainAlias('knowledgeDomain')} ${nextId}`
     };
     nextId++;
     return newDomain;

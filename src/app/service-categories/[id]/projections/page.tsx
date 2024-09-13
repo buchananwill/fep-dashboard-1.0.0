@@ -1,6 +1,6 @@
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { DeliveryAllocationDto } from '@/api/zod-schemas/DeliveryAllocationDtoSchema';
+import { DeliveryAllocationDto } from '@/api/generated-types/generated-types';
 import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
 
 const projectionUrl = constructUrl(

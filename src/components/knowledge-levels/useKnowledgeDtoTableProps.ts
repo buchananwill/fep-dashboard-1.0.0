@@ -13,10 +13,9 @@ import { DispatchState } from '@/types';
 import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 
 export function useKnowledgeDtoTableProps<T extends Entity>(
-  knowledgeLevelSeriesDto: KnowledgeLevelSeriesDto,
   entityClass: string,
   comparatorFunction: (t1: T, t2: T) => number,
-  createEntity: (current: T[], levelSeriesDto: KnowledgeLevelSeriesDto) => T
+  createEntity: (current: T[]) => T
 ) {
   const listenerKey = useUuidListenerKey();
   const { currentState, dispatchWithoutControl } =
@@ -40,11 +39,11 @@ export function useKnowledgeDtoTableProps<T extends Entity>(
       dispatchMasterList: DispatchState<T[]>,
       dispatchAddedlist: DispatchState<Identifier[]>
     ) => {
-      const entity = createEntity(sortedRows, knowledgeLevelSeriesDto);
+      const entity = createEntity(sortedRows);
       dispatchMasterList((list) => [...list, entity]);
       dispatchAddedlist((list) => [...list, entity.id]);
     },
-    [knowledgeLevelSeriesDto, sortedRows, createEntity]
+    [sortedRows, createEntity]
   );
 
   const masterListInteraction = useMasterListInteraction(

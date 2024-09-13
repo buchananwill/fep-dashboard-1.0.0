@@ -5,7 +5,7 @@ export const rawData: KnowledgeLevelSeriesGroup = {
     name: 'Courses',
     knowledgeLevelDescriptor: 'Course',
     id: 2,
-    knowledgeLevels: [
+    knowledgeLevelSeries: [
       {
         name: 'Level 3 Year 1',
         id: 4,

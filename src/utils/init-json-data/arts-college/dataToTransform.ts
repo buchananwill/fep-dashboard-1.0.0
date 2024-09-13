@@ -15,7 +15,7 @@ export const assetPostRequests: RolePostRequest<AssetDto>[] = [
       {
         workTaskTypeMatrix: {
           knowledgeLevelSeriesDtoList: [
-            { name: 'Courses', id: 2, knowledgeLevels: [] }
+            { name: 'Courses', id: 2, knowledgeLevelSeries: [] }
           ],
           knowledgeDomainInclusionList: [
             { name: 'Drum Kit', id: -1 },
@@ -62,7 +62,7 @@ export const assetPostRequests: RolePostRequest<AssetDto>[] = [
       {
         workTaskTypeMatrix: {
           knowledgeLevelSeriesDtoList: [
-            { name: 'Courses', id: 2, knowledgeLevels: [] }
+            { name: 'Courses', id: 2, knowledgeLevelSeries: [] }
           ],
           knowledgeDomainInclusionList: [
             { name: 'Piano', id: -1 },
@@ -126,7 +126,7 @@ export const assetPostRequests: RolePostRequest<AssetDto>[] = [
       {
         workTaskTypeMatrix: {
           knowledgeLevelSeriesDtoList: [
-            { name: 'Courses', id: 2, knowledgeLevels: [] }
+            { name: 'Courses', id: 2, knowledgeLevelSeries: [] }
           ],
           knowledgeDomainInclusionList: [
             { name: 'Guitar', id: -1 },
@@ -188,7 +188,7 @@ export const assetPostRequests: RolePostRequest<AssetDto>[] = [
       {
         workTaskTypeMatrix: {
           knowledgeLevelSeriesDtoList: [
-            { name: 'Courses', id: 2, knowledgeLevels: [] }
+            { name: 'Courses', id: 2, knowledgeLevelSeries: [] }
           ],
           knowledgeDomainInclusionList: [
             { name: 'French Horn', id: -1 },
@@ -249,7 +249,7 @@ export const assetPostRequests: RolePostRequest<AssetDto>[] = [
       {
         workTaskTypeMatrix: {
           knowledgeLevelSeriesDtoList: [
-            { name: 'Courses', id: 2, knowledgeLevels: [] }
+            { name: 'Courses', id: 2, knowledgeLevelSeries: [] }
           ],
           knowledgeDomainInclusionList: [
             { name: 'Guitar', id: -1 },
@@ -313,7 +313,7 @@ export const assetPostRequests: RolePostRequest<AssetDto>[] = [
       {
         workTaskTypeMatrix: {
           knowledgeLevelSeriesDtoList: [
-            { name: 'Courses', id: 2, knowledgeLevels: [] }
+            { name: 'Courses', id: 2, knowledgeLevelSeries: [] }
           ],
           knowledgeDomainInclusionList: [
             { name: 'Classical Voice', id: -1 },

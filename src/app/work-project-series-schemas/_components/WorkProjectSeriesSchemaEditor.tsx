@@ -10,10 +10,11 @@ import RenameModal from '@/components/modals/RenameModal';
 import { Button } from '@nextui-org/button';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { useRenameEntity } from '@/components/modals/nameSetter';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
 import { SetOptional } from 'type-fest';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
-import { DtoStoreStringInput } from '@/components/generic/DtoStoreStringInput';
+import { Chip } from '@nextui-org/chip';
+import { getValue } from '@/functions/allowingNestedFiltering';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 
 export const WorkProjectSeriesSchemaEditor = (
   props: SetOptional<BaseDtoUiProps<WorkProjectSeriesSchemaDto>, 'deleted'>
@@ -67,12 +68,9 @@ export const WorkProjectSeriesSchemaEditor = (
         <AdjustAllocation {...props}></AdjustAllocation>
       </div>
       <div className={'grid grid-cols-3'}>
-        <DtoStoreStringInput {...props} stringKey={'shortCode'} />
-        <DtoStoreNumberInput<WorkProjectSeriesSchemaDto>
-          {...props}
-          numberKey={'workProjectBandwidth'}
-          min={0}
-        />
+        <Chip>
+          {getValue(props.entity, 'workTaskType.knowledgeDomain.shortCode')}
+        </Chip>
         <DtoStoreNumberInput<WorkProjectSeriesSchemaDto>
           {...props}
           numberKey={'userToProviderRatio'}

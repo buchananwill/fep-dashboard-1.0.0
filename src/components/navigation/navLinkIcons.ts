@@ -24,14 +24,13 @@ import {
 export const navLinkIcons = {
   navigation: GlobeAltIcon,
   cycles: ClockIcon,
-  serviceCategories: TagIcon,
   knowledgeDomains: AcademicCapIcon,
-  knowledgeLevels: ChartBarIcon,
+  knowledgeLevelSeries: ChartBarIcon,
   workTaskTypes: TableCellsIcon,
   workProjectSeriesSchemas: SquaresPlusIcon,
-  users: UserGroupIcon,
   providers: BriefcaseIcon,
   assets: BuildingOfficeIcon,
+  users: UserGroupIcon,
   carouselGroups: ArrowPathRoundedSquareIcon,
   workSchemaNodes: ShareIcon,
   workSchemaNodeAssignments: ArrowUpOnSquareStackIcon,
@@ -47,5 +46,6 @@ export const navKeyList = Object.keys(navLinkIcons) as NavigationType[];
 const unusedIcons = {
   RectangleGroupIcon,
   RectangleStackIcon,
-  ListBulletIcon
+  ListBulletIcon,
+  TagIcon
 };

@@ -19,6 +19,10 @@ import { Button } from '@nextui-org/button';
 import ChangeStartingOrdinal from '@/components/knowledge-levels/ChangeStartingOrdinal';
 import { useKnowledgeDtoTableProps } from '@/components/knowledge-levels/useKnowledgeDtoTableProps';
 import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
+import { Paths } from 'type-fest';
+import { getDomainAlias } from '@/api/getDomainAlias';
+import { Column } from '@/types';
+import { startCase } from 'lodash';
 
 function sortLevelsOnOrdinal(
   level1: KnowledgeLevelDto,
@@ -48,6 +52,11 @@ function createNewLevel(
   return nextLevel;
 }
 
+const columns: Column<KnowledgeLevelDto>[] = [
+  { name: startCase(getDomainAlias('knowledgeLevel')), uid: 'name' },
+  { name: 'Ordinal', uid: 'levelOrdinal' }
+];
+
 export default function KnowledgeLevelTable({
   data,
   knowledgeLevelSeries
@@ -55,19 +64,18 @@ export default function KnowledgeLevelTable({
   data: KnowledgeLevelDto[];
   knowledgeLevelSeries: KnowledgeLevelSeriesDto;
 }) {
-  const columns = useMemo(() => {
-    return [
-      { name: knowledgeLevelSeries.knowledgeLevelDescriptor, uid: 'name' },
-      { name: 'Ordinal', uid: 'levelOrdinal' }
-    ];
-  }, [knowledgeLevelSeries]);
+  const createLevelWithinSeries = useCallback(
+    (sortedLevels: KnowledgeLevelDto[]) => {
+      return createNewLevel(sortedLevels, knowledgeLevelSeries);
+    },
+    [knowledgeLevelSeries]
+  );
 
   const { handleRemoveRow, masterListInteraction, sortedRows } =
     useKnowledgeDtoTableProps(
-      knowledgeLevelSeries,
       EntityClassMap.knowledgeLevel,
       sortLevelsOnOrdinal,
-      createNewLevel
+      createLevelWithinSeries
     );
 
   const renderCell = useCallback(
@@ -85,7 +93,7 @@ export default function KnowledgeLevelTable({
             whileLoading={() => <PendingOverlay pending={true} />}
           />
         );
-      } else {
+      } else if ((columnKey as Paths<KnowledgeLevelDto>) === 'levelOrdinal') {
         return (
           <LazyDtoUiWrapper<
             KnowledgeLevelDto,
@@ -100,7 +108,7 @@ export default function KnowledgeLevelTable({
             disabled={true}
           />
         );
-      }
+      } else return null;
     },
     []
   );

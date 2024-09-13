@@ -9,11 +9,7 @@ import {
 } from '@nextui-org/table';
 import { TableProps } from '@nextui-org/react';
 import { HasId } from '@/api/types';
-
-export interface ColumnMetaData {
-  name: string;
-  uid: React.Key;
-}
+import { Column } from '@/types';
 
 export function DtoTable<T extends HasId>({
   columns,
@@ -21,9 +17,9 @@ export function DtoTable<T extends HasId>({
   renderCell,
   ...tableProps
 }: {
-  columns: ColumnMetaData[];
+  columns: Column<T>[];
   data: T[];
-  renderCell: (item: T, columnKey: Key) => string | number | React.JSX.Element;
+  renderCell: (item: T, columnKey: Key) => string | number | React.ReactNode;
 } & TableProps) {
   return (
     <Table

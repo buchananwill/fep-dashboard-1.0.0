@@ -7,10 +7,12 @@ import { StepperContext } from '@/components/generic/stepperContextCreator';
 import { AllocationUnitGroup } from '@/app/work-project-series-schemas/_components/AllocationUnitGroup';
 import LandscapeStepper from '@/components/generic/LandscapeStepper';
 import { DeliveryAllocation } from '@/app/work-project-series-schemas/_components/DeliveryAllocation';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema_';
-import { DeliveryAllocationDto } from '@/api/zod-schemas/DeliveryAllocationDtoSchema';
 import { SetOptional } from 'type-fest';
 import { TransientIdOffset } from '@/api/literals';
+import {
+  DeliveryAllocationDto,
+  WorkProjectSeriesSchemaDto
+} from '@/api/generated-types/generated-types';
 
 export const allocationSizes = [1, 2];
 
@@ -28,8 +30,7 @@ export function AdjustAllocation({
         id: TransientIdOffset + size, // TODO improve this transient ID allocation
         count: 0,
         deliveryAllocationSize: size,
-        workProjectSeriesSchemaId: workProjectSeriesSchemaDto.id,
-        workTaskTypeId: workProjectSeriesSchemaDto.workTaskTypeId
+        workProjectSeriesSchemaId: workProjectSeriesSchemaDto.id
       };
       return found ?? nullAllocation;
     });
@@ -105,3 +106,4 @@ export function AdjustAllocation({
     </div>
   );
 }
+``;

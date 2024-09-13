@@ -9,7 +9,7 @@ import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.js
 import WorkTaskTypeIgmTable from '@/components/work-task-types/_components/WorkTaskTypeIgmTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
-import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 
 const rowEntityName = 'Lesson Type';
 async function CreateWorkTaskTypeTablePage({

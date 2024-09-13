@@ -24,7 +24,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import { StaticAllocationDraggable } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationDraggable';
-import { DeliveryAllocationDto } from '@/api/zod-schemas/DeliveryAllocationDtoSchema';
+import { DeliveryAllocationDto } from '@/api/generated-types/generated-types';
 import {
   allocationCounter,
   getAllocationCounterId,

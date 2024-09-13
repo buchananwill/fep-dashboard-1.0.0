@@ -1,11 +1,11 @@
 import { getDtoListByExampleList as getWorkTaskTypesByExample } from '@/api/generated-actions/WorkTaskType';
 
-import { getDtoListByExampleList as getWorkProjectSeriesSchemasByExample } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { PartialDeep } from 'type-fest';
 import {
   WorkProjectSeriesSchemaDto,
   WorkTaskTypeDto
 } from '@/api/generated-types/generated-types';
+import { Api } from '@/api/clientApi_';
 
 export type WorkProjectSeriesSchemaFetchParams = PartialDeep<WorkTaskTypeDto>;
 
@@ -17,9 +17,10 @@ export async function workProjectSeriesSchemaActionSequence(
 }> {
   const workTaskTypes = await getWorkTaskTypesByExample([example]);
 
-  const workProjectSeriesSchemas = await getWorkProjectSeriesSchemasByExample(
-    workTaskTypes.map((wtt) => ({ workTaskTypeId: wtt.id }))
-  );
+  const workProjectSeriesSchemas =
+    await Api.WorkProjectSeriesSchema.getDtoListByExampleList(
+      workTaskTypes.map((wtt) => ({ workTaskType: wtt }))
+    );
 
   return { workTaskTypes, workProjectSeriesSchemas };
 }

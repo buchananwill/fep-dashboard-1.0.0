@@ -4,7 +4,7 @@ import KnowledgeLevelTable from '@/components/knowledge-levels/KnowledgeLevelTab
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
-import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-domains/KnowledgeLevelSeriesLinks';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { Api } from '@/api/clientApi_';
 
 async function KnowledgeLevelsTablePage({
@@ -16,7 +16,7 @@ async function KnowledgeLevelsTablePage({
     { knowledgeLevelSeriesId: parseInt(knowledgeLevelSeriesId) }
   ]);
 
-  const serviceCategoryDto = await Api.KnowledgeLevelSeries.getOne(
+  const knowledgeLevelSeriesDto = await Api.KnowledgeLevelSeries.getOne(
     parseInt(knowledgeLevelSeriesId)
   );
 
@@ -32,7 +32,7 @@ async function KnowledgeLevelsTablePage({
         />
         <KnowledgeLevelTable
           data={data}
-          knowledgeLevelSeries={serviceCategoryDto}
+          knowledgeLevelSeries={knowledgeLevelSeriesDto}
         />
       </ResourceContextProvider>
     </div>
