@@ -18,6 +18,9 @@ import {
   CycleDto,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
+import { getDomainAlias } from '@/api/getDomainAlias';
+import pluralize from 'pluralize';
+import { startCase } from 'lodash';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 const initialMap = new Map();
@@ -58,8 +61,7 @@ export default function WpssEditGridColList() {
           </div>
           <div className={'grid grid-cols-3'}>
             <div>Short code</div>
-            <div>Bandwidth</div>
-            <div>Student ratio</div>
+            <div>{startCase(getDomainAlias('user'))} limit</div>
           </div>
         </div>
         <DtoUiListAll
