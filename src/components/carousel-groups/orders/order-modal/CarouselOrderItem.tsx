@@ -4,7 +4,7 @@ import {
   CarouselOrderItemDto
 } from '@/api/generated-types/generated-types';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
-import { DragTypes } from '@/react-dnd/literals';
+import { DragTypes } from '@/components/react-dnd/literals';
 import { OrderItemLabel } from '@/components/carousel-groups/orders/order-modal/OrderItemLabel';
 import SelectIsActive from '@/components/carousel-groups/orders/order-modal/SelectIsActive';
 import clsx from 'clsx';

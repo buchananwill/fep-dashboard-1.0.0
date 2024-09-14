@@ -1,4 +1,4 @@
-import { CollectionItemChooserProps } from '@/components/collectionItemChooserProps';
+import { CollectionItemChooserProps } from '@/components/types/collectionItemChooserProps';
 import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
 import { useItemChooserMap } from '@/hooks/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/hooks/useListboxSelectionChangeCallback';

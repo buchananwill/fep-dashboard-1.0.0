@@ -2,7 +2,7 @@ import { TaskTypeItem } from '@/components/feasibility-report/types';
 import {
   CustomTreeItem,
   StyledTreeItemProps
-} from '@/components/CustomTreeItem';
+} from '@/components/mui/CustomTreeItem';
 import { NamedEntityLabelWrapper } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 import { taskTypeClassification } from '@/components/feasibility-report/FeasibilityReport';
 

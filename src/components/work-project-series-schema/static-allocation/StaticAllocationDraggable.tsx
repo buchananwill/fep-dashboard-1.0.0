@@ -1,6 +1,6 @@
 import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
 import { useDrag } from 'react-dnd';
-import { DragTypes } from '@/react-dnd/literals';
+import { DragTypes } from '@/components/react-dnd/literals';
 import clsx from 'clsx';
 import { defaultCellSize } from '@/components/tables/VirtualizedTableWindowed';
 

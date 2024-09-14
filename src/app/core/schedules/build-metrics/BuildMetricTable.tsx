@@ -20,7 +20,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { Pagination } from '@nextui-org/react';
 import { WorkProjectSeriesNodeLink } from '@/app/core/schedules/build-metrics/WorkProjectSeriesNodeLink';
 import QueueTreeNodeModal from '@/app/core/schedules/build-metrics/QueueTreeNodeModal';
-import { LinkButton } from '@/components/LinkButton';
+import { LinkButton } from '@/components/navigation/LinkButton';
 
 const initialRowsPerPage = 10;
 export default function BuildMetricTable({

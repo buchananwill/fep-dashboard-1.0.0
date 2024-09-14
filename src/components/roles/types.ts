@@ -3,7 +3,7 @@ import { UserRoleDtoSchema } from '@/api/zod-schemas/UserRoleDtoSchema';
 import { ProviderRoleDtoSchema } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import { AssetRoleDtoSchema } from '@/api/zod-schemas/AssetRoleDtoSchema';
 
-import { RoleAspects } from '@/components/rolePageTree';
+import { RoleAspects } from '@/components/roles/rolePageTree';
 
 export type BaseRoleParams = {
   roleTypeId: string;

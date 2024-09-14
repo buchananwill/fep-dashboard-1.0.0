@@ -9,7 +9,7 @@ import CalendarWithShowHideSources, {
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
-import { LinkButton } from '@/components/LinkButton';
+import { LinkButton } from '@/components/navigation/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import SendEventsButton from '@/components/calendar/CreateEventButton';
 import PurgeEventsButton from '@/components/calendar/PurgeEventsButton';

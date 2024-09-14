@@ -10,7 +10,7 @@ import { Button } from '@nextui-org/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { useEffect, useMemo, useRef } from 'react';
 import { useDrop } from 'react-dnd';
-import { DragTypes } from '@/react-dnd/literals';
+import { DragTypes } from '@/components/react-dnd/literals';
 
 import OrderItemAssigneeList from '@/components/carousel-groups/orders/components/OrderItemAssigneeList';
 import {

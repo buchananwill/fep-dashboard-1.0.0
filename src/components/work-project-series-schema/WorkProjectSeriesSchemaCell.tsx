@@ -14,7 +14,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { memo, useCallback, useMemo } from 'react';
 import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
-import { DragTypes } from '@/react-dnd/literals';
+import { DragTypes } from '@/components/react-dnd/literals';
 import clsx from 'clsx';
 import { useStaticAllocationCellUpdater } from '@/components/work-project-series-schema/static-allocation/UseStaticAllocationCellUpdater';
 import { useGlobalListener } from 'selective-context';

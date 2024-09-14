@@ -2,7 +2,7 @@ import { getCommonTreeItemProps } from '@/functions/getCommonTreeItemProps';
 import { FeasibilityReportTreeItemProps } from '@/components/feasibility-report/types';
 import { WorkSchemaNodeFeasibilityItem } from '@/components/feasibility-report/WorkSchemaNodeFeasibilityItem';
 import TaskTypeClassificationFeasibilityTreeItem from '@/components/feasibility-report/TaskTypeClassificationFeasibilityTreeItem';
-import { CustomTreeItem } from '@/components/CustomTreeItem';
+import { CustomTreeItem } from '@/components/mui/CustomTreeItem';
 import { useMemo } from 'react';
 import BandwidthFeasibilityLayerTreeItem from '@/components/feasibility-report/BandwidthFeasibilityLayerTreeItem';
 import AssignmentFeasibilityTreeItem from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';

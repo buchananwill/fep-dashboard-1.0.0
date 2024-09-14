@@ -1,4 +1,4 @@
-import { LinkButton } from '@/components/LinkButton';
+import { LinkButton } from '@/components/navigation/LinkButton';
 import { LinkTreeElementProps } from '@/app/core/navigation/types';
 
 export function LinkButtonThatJoinsList({

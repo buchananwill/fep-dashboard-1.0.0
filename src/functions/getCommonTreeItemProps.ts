@@ -1,5 +1,5 @@
 import { getLabelIcon } from '@/components/feasibility-report/FeasibilityReport';
-import { StyledTreeItemProps } from '@/components/CustomTreeItem';
+import { StyledTreeItemProps } from '@/components/mui/CustomTreeItem';
 
 import { FeasibilityReportTreeItemPayload } from '@/components/feasibility-report/types';
 

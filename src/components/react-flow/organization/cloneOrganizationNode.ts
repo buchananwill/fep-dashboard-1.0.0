@@ -3,7 +3,7 @@ import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { FlowNode } from '@/components/react-flow/generic/types';
-import { makeTransientId } from '@/makeTransientId';
+import { makeTransientId } from '@/functions/makeTransientId';
 
 export function cloneOrganizationNode(
   templateNode: FlowNode<OrganizationDto>

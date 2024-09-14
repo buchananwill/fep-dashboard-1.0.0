@@ -18,7 +18,7 @@ import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
 import { CycleSubspanGroupDto } from '@/api/zod-schemas/CycleSubspanGroupDtoSchema';
 import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
 import { CycleSubspanJoinDto } from '@/api/zod-schemas/CycleSubspanJoinDtoSchema';
-import { makeTransientId } from '@/makeTransientId';
+import { makeTransientId } from '@/functions/makeTransientId';
 
 function updateGroupJoins(
   updatedKeys: string[],

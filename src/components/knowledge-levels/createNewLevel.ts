@@ -1,6 +1,6 @@
 import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
-import { makeTransientId } from '@/makeTransientId';
+import { makeTransientId } from '@/functions/makeTransientId';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 
 export function createNewLevel(

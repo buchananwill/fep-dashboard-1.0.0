@@ -2,7 +2,7 @@ import { WorkSchemaNodeItem } from '@/components/feasibility-report/types';
 import {
   CustomTreeItem,
   StyledTreeItemProps
-} from '@/components/CustomTreeItem';
+} from '@/components/mui/CustomTreeItem';
 import { LazyDtoUiWrapper } from 'dto-stores';
 import { WorkSchemaNodeLabel } from '@/components/feasibility-report/WorkSchemaNodeLabel';
 import { EntityClassMap } from '@/api/entity-class-map';

@@ -15,7 +15,7 @@ import {
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { startCase } from 'lodash';
-import { LinkButton } from '@/components/LinkButton';
+import { LinkButton } from '@/components/navigation/LinkButton';
 import { notFound } from 'next/navigation';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';

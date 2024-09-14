@@ -17,7 +17,7 @@ import WorkTaskTypeTablePage from '@/components/work-task-types/WorkTaskTypeTabl
 import CreateWorkTaskType from '@/components/work-task-types/CreateWorkTaskType';
 import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
 import CyclesHome from '@/app/core/cycles/CyclesHome';
-import { rolePageTree } from '@/components/rolePageTree';
+import { rolePageTree } from '@/components/roles/rolePageTree';
 
 export const navTreeData: NavTree = {
   navigation: { type: 'leaf', component: NavigationHome },

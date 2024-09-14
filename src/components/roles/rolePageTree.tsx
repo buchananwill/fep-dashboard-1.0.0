@@ -1,5 +1,5 @@
 import { LeafComponentProps, NavTreeBranch } from '@/app/core/navigation/types';
-import { LinkButton } from '@/components/LinkButton';
+import { LinkButton } from '@/components/navigation/LinkButton';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 import { startCase } from 'lodash';
 import SuitabilityPage, {

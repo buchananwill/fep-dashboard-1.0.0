@@ -1,12 +1,12 @@
 'use client';
-import CalendarViewer from '@/components/calendar/FullCalendar';
+import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import CheckBoxEntity from '@/app/test/checkbox-group-entity/CheckBoxEntity';
 import { NamespacedHooks, useLazyDtoListListener } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useMemo } from 'react';
-import { flattenTimesIntoEvent } from '@/full-calendar/flattenTimesIntoEvent';
+import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
 import { EventSourceSimple } from '@/api/custom-types/eventSourceSimple';
 
 export const eventSourceEntityClass = 'eventSource';

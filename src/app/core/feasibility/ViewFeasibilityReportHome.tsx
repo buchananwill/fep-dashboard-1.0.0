@@ -2,7 +2,7 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import ViewFeasibilityReportPage from '@/app/core/feasibility/ViewFeasibilityReportPage';
 import { Api } from '@/api/clientApi_';
-import { LinkButton } from '@/components/LinkButton';
+import { LinkButton } from '@/components/navigation/LinkButton';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 async function FeasibilityReportLinks({}: LeafComponentProps) {

@@ -2,7 +2,7 @@ import { BandwidthFeasibilityLayer } from '@/components/feasibility-report/types
 import {
   CustomTreeItem,
   StyledTreeItemProps
-} from '@/components/CustomTreeItem';
+} from '@/components/mui/CustomTreeItem';
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useMemo } from 'react';

@@ -3,7 +3,7 @@ import { parseTen } from '@/api/date-and-time';
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { startCase } from 'lodash';
-import { LinkButton } from '@/components/LinkButton';
+import { LinkButton } from '@/components/navigation/LinkButton';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 

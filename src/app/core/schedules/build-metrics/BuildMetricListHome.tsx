@@ -1,6 +1,6 @@
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
-import { LinkButton } from '@/components/LinkButton';
+import { LinkButton } from '@/components/navigation/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import BuildMetricQueueTreeGraphPage from '@/app/core/schedules/build-metrics/BuildMetricQueueTreeGraphPage';
 import { WorkProjectSeriesMetricsPage } from '@/components/work-project-series-metrics/WorkProjectSeriesMetrics';

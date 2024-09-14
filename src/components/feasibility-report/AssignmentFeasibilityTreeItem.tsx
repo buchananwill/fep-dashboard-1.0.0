@@ -1,7 +1,7 @@
 import {
   CustomTreeItem,
   StyledTreeItemProps
-} from '@/components/CustomTreeItem';
+} from '@/components/mui/CustomTreeItem';
 import { NodeAssignmentFeasibilityDto } from '@/api/zod-schemas/NodeAssignmentFeasibilityDtoSchema';
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';

@@ -22,7 +22,7 @@ import {
 } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
-import { makeTransientId } from '@/makeTransientId';
+import { makeTransientId } from '@/functions/makeTransientId';
 
 export interface CycleDayViewerProps extends CycleDayFetcherProps {
   cycleSubspanDtos: CycleSubspanDto[];
@@ -47,9 +47,10 @@ export default function CycleDayViewer({
       dispatchMasterList: DispatchList<CycleSubspanDto>,
       dispatchAddedList: DispatchList<Identifier>
     ) => {
-      const transientId =
-        makeTransientId(ABSOLUTE_SMALLEST_TRANSIENT_ID +
-        currentState.length * (cycleDay.zeroIndexedCycleDay + 1));
+      const transientId = makeTransientId(
+        ABSOLUTE_SMALLEST_TRANSIENT_ID +
+          currentState.length * (cycleDay.zeroIndexedCycleDay + 1)
+      );
       const newCycleSubspan: CycleSubspanDto = {
         ...templateCycleSubspan,
         zeroIndexedCycleDay: cycleDay.zeroIndexedCycleDay,
