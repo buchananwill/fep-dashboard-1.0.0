@@ -31,8 +31,6 @@ async function WorkProjectSeriesSchemaLevelPage({
       }
     });
 
-  console.log(workTaskTypes);
-
   return (
     <div className={'flex h-[100vh] w-[100vw]'}>
       <EditAddDeleteDtoControllerArray

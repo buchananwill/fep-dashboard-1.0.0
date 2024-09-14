@@ -5,6 +5,7 @@ import {
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
 } from '@/api/generated-types/generated-types';
+import { Api } from '@/api/clientApi_';
 
 export interface Page<T> {
   content: T[];
@@ -129,3 +130,5 @@ export interface WorkProjectSeriesAssignmentRow
 export type AssignmentTableRow =
   | OrganizationRow
   | WorkProjectSeriesAssignmentRow;
+
+export type EntityApiKey = keyof typeof Api;

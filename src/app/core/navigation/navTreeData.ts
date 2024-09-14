@@ -1,6 +1,6 @@
 import { NavTree } from '@/app/core/navigation/types';
 import { cyclesNavTree } from '@/app/core/cycles/cyclesNavTree';
-import CyclesHome from '@/app/core/cycles/cyclesHome';
+import CyclesChooser from '@/app/core/cycles/cyclesChooser';
 import { schedulesNavTree } from '@/app/core/schedules/schedulesNavTree';
 import { WorkSchemaNodeNavTree } from '@/components/work-schema-nodes/workSchemaNodeNavTree';
 import { KnowledgeDomainsList } from '@/components/knowledge-domains/KnowledgeDomains';
@@ -17,6 +17,7 @@ import { StaticAllocationPage } from '@/app/work-project-series-schemas/static-a
 import WorkTaskTypeTablePage from '@/components/work-task-types/WorkTaskTypeTablePage';
 import CreateWorkTaskType from '@/components/work-task-types/CreateWorkTaskType';
 import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
+import CyclesHome from '@/app/core/cycles/CyclesHome';
 
 export const navTreeData: NavTree = {
   navigation: { type: 'leaf', component: NavigationHome },
