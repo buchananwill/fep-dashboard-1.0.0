@@ -1,10 +1,6 @@
 import { NextUiCellComponentProps } from '@/app/work-project-series-schemas/_components/GetCellRenderFunction';
-import {
-  WorkProjectSeriesSchemaDto,
-  WorkTaskTypeDto
-} from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { Chip } from '@nextui-org/chip';
-import { getValue } from '@/functions/allowingNestedFiltering';
 import React from 'react';
 import { HasId } from '@/api/types';
 import { TypedPaths } from '@/functions/typePaths';
