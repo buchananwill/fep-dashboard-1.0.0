@@ -14,6 +14,7 @@ import { parseTen } from '@/api/date-and-time';
 import { API_V2_URL } from '@/api/literals';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { EntityClassMap } from '@/api/entity-class-map';
 
 const entityName = 'CycleSubspanGroupEdit';
 export default async function EditCycleSubspanGroups({
@@ -38,6 +39,10 @@ export default async function EditCycleSubspanGroups({
         'grid grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 overflow-auto'
       }
     >
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.cycle}
+        dtoList={[cycle]}
+      />
       <EditAddDeleteDtoControllerArray
         dtoList={cycleSubspanGroupEditDtos}
         entityClass={entityName}

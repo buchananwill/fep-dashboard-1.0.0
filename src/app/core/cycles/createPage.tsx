@@ -19,9 +19,8 @@ import { CycleDto } from '@/api/generated-types/generated-types';
 import { CycleDtoSchema } from '@/api/zod-schemas/CycleDtoSchema';
 
 const dayArray = DayOfWeekArray.map((day) => ({
-  value: day.toUpperCase(),
-  label: day,
-  id: day
+  name: day,
+  id: day.toUpperCase()
 }));
 
 export default function CreatePage() {
@@ -35,7 +34,6 @@ export default function CreatePage() {
     defaultValues: {
       id: ABSOLUTE_SMALLEST_TRANSIENT_ID,
       cycleDayZero: 'MONDAY',
-      cycleLengthInDays: 14,
       cycleLengthInWeeks: 2,
       maxGroupSize: 2
     }
@@ -47,7 +45,6 @@ export default function CreatePage() {
   const onSubmit: SubmitHandler<CycleDto> = async (data) => {
     startTransition(async () => {
       const cycleDto = await postOne(data);
-      const cycleSubspans = await initCycleSubspans(cycleDto);
 
       appRouterInstance.push(`/cycles/edit/${cycleDto.id}/cycleSubspans`);
     });
@@ -71,6 +68,11 @@ export default function CreatePage() {
             control={control}
             label={'Cycle Start Day'}
             className={'max-w-xl'}
+            listboxProps={{
+              classNames: {
+                list: 'gap-0'
+              }
+            }}
             items={dayArray}
           />
 
