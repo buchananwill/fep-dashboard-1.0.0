@@ -1,13 +1,13 @@
-import { getEventSourcesAsKnowledgeDomains } from '@/components/calendar/eventSourcesAction';
-import { colorizeEventSources } from '@/components/calendar/colorizeEventSources';
-import { EventSourceSimple } from '@/components/calendar/eventSourceSimple';
+import { getEventSourcesAsKnowledgeDomains } from '@/api/actions-custom/eventSourcesAction';
+import { colorizeEventSources } from '@/functions/colorizeEventSources';
+import { EventSourceSimple } from '@/api/custom-types/eventSourceSimple';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import CalendarWithShowHideSources, {
   eventSourceEntityClass
 } from '@/components/calendar/CalendarWithShowHideSources';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/components/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';

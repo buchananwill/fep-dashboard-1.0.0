@@ -8,10 +8,10 @@ import {
 import CellQueryManager from '@/components/tables/CellQueryManager';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
 import React, { memo } from 'react';
-import { getCellDataIdReferenceOrUndefined } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
+import { getCellDataIdReferenceOrUndefined } from '@/components/work-project-series-schema/static-allocation/getCellDataOrUndefined';
 import WorkProjectSeriesCell from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
 import WorkProjectSeriesBuildMetricCell from '@/components/work-project-series-metrics/WorkProjectSeriesBuildMetricCell';
-import { MemoCycleSubspanCell } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
+import { MemoCycleSubspanCell } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import { useTableProps } from '@/components/tables/useTableProps';
 
 export default function WorkProjectSeriesMetricTable({

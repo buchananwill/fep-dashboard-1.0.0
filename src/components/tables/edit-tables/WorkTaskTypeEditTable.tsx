@@ -4,7 +4,7 @@ import React from 'react';
 import { Button } from '@nextui-org/button';
 import { EllipsisIcon } from '@nextui-org/shared-icons';
 import { renderWorkTaskTypeAttributeCell } from '@/components/tables/selectorTables/renderWorkTaskTypeAttributeCell';
-import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
+import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS,

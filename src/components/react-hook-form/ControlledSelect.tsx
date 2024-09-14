@@ -3,7 +3,7 @@ import { Select, SelectItemProps, SelectProps } from '@nextui-org/react';
 import React, { ChangeEvent, useMemo } from 'react';
 import { SelectItem } from '@nextui-org/select';
 import { RequireAllOrNone, Simplify } from 'type-fest';
-import { TypedPaths } from '@/functions/typePaths';
+import { TypedPaths } from '@/api/custom-types/typePaths';
 import { HasId } from '@/api/types';
 
 export type SelectableItem = HasId;

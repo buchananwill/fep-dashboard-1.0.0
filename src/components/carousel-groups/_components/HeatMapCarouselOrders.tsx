@@ -11,8 +11,8 @@ import {
   legends,
   margin,
   theme
-} from '@/components/carousel-groups/_components/nivoPropLiterals';
-import { HeatMapDataSeries } from '@/components/carousel-groups/_components/types';
+} from '@/components/types/nivoPropLiterals';
+import { HeatMapDataSeries } from '@/components/types/types';
 
 export default function HeatMapCarouselOrders({
   data /* see data tab */

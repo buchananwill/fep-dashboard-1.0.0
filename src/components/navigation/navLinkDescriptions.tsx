@@ -8,10 +8,9 @@ export type NavLinkDescriptionsRecord = {
 export const NavLinkDescriptionsDefault: NavLinkDescriptionsRecord = {
   navigation: 'Overview of the website sections.',
   cycles: 'Creating and editing the timetables used for scheduling.',
-  serviceCategories: 'Group related business areas into a Service Category.',
   knowledgeDomains:
     'Labels for areas of specialized expertise, e.g. Maths, Science.',
-  knowledgeLevels: 'Hierarchical labels to organize depth of expertise.',
+  knowledgeLevelSeries: 'Hierarchical labels to organize depth of expertise.',
   workTaskTypes: (
     <span>
       Defining the tasks that require scheduling. Usually labelled with an

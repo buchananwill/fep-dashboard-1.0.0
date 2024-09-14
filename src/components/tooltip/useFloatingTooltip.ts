@@ -4,7 +4,7 @@ import { useGlobalDispatch } from 'selective-context';
 import {
   TooltipContext,
   TooltipContextInterface
-} from '@/components/generic/TooltipSingleton';
+} from '@/components/tooltip/TooltipSingleton';
 
 export function useFloatingTooltip(
   content: ReactElement | string | number,

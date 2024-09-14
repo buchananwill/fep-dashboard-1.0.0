@@ -1,5 +1,5 @@
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import BuildMetricQueueTreeGraph from '@/app/core/schedules/build-metrics/BuildMetricQueueTreeGraph';
 import { LinkButton } from '@/components/LinkButton';

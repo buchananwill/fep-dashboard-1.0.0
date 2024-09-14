@@ -1,6 +1,6 @@
 import { HasIdClass, Identifier } from 'dto-stores';
 import { getIdList } from '@/functions/getIdList';
-import { getItemData } from '@/components/grids/getItemData';
+import { createRowIdColumnIdCells } from '@/components/grids/createRowIdColumnIdCells';
 import { useMemo } from 'react';
 
 export function getTableProps<
@@ -12,7 +12,7 @@ export function getTableProps<
   const rowIdList: U[] = getIdList(rowList);
   const columnIdList: W[] = getIdList(columnList);
 
-  const itemData = getItemData(rowIdList, columnIdList);
+  const itemData = createRowIdColumnIdCells(rowIdList, columnIdList);
   return { rowIdList, columnIdList, itemData };
 }
 

@@ -1,4 +1,4 @@
-import { getCommonTreeItemProps } from '@/components/feasibility-report/getCommonTreeItemProps';
+import { getCommonTreeItemProps } from '@/functions/getCommonTreeItemProps';
 import { FeasibilityReportTreeItemProps } from '@/components/feasibility-report/types';
 import { WorkSchemaNodeFeasibilityItem } from '@/components/feasibility-report/WorkSchemaNodeFeasibilityItem';
 import TaskTypeClassificationFeasibilityTreeItem from '@/components/feasibility-report/TaskTypeClassificationFeasibilityTreeItem';

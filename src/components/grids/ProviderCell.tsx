@@ -4,7 +4,7 @@ import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/components/tables/CellQueryManager';
 import { EntityClassMap } from '@/api/entity-class-map';
-import DtoUiWrapperCell from '@/components/generic/DtoUiWrapperCell';
+import DtoUiWrapperCell from '@/components/grids/DtoUiWrapperCell';
 
 function InnerProviderCell(props: BaseLazyDtoUiProps<ProviderRoleDto>) {
   return (

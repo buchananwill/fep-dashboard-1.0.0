@@ -4,7 +4,7 @@ import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/ge
 import { getDtoListByExampleList as getKnowledgeDomainsByExample } from '@/api/generated-actions/KnowledgeDomain';
 import data from '@/utils/init-json-data/service-categories/workTaskTypesIgm.json';
 import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categories/getWorkTaskTypeTableLookUp';
-import { createRows } from '@/components/generic/createRows';
+import { createRows } from '@/functions/createRows';
 import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
 import WorkTaskTypeIgmTable from '@/components/work-task-types/_components/WorkTaskTypeIgmTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';

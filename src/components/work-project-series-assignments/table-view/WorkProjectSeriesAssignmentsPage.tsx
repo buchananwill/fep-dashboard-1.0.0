@@ -10,7 +10,7 @@ import AssignmentTable, {
   AssignmentTableRowClassName
 } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import WorkProjectSeriesAssignmentTableView from '@/components/work-project-series-assignments/table-view/WorkProjectSeriesAssignmentTableView';
 import { AssignmentTableRow, GenericTableDto } from '@/api/types';

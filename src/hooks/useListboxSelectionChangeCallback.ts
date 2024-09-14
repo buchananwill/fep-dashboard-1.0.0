@@ -5,10 +5,10 @@ export function useListboxSelectionChangeCallback<T>(
   dispatchWithoutControl?: React.Dispatch<React.SetStateAction<T>>
 ) {
   return useCallback(
-    (key: Set<Key> | 'all') => {
+    (keySet: Set<Key> | 'all') => {
       if (dispatchWithoutControl)
         dispatchWithoutControl((bundle) => {
-          const updatedKeys = [...key].map((nextKey) => `${nextKey}`);
+          const updatedKeys = [...keySet].map((nextKey) => `${nextKey}`);
           return updateKeys(updatedKeys, bundle);
         });
     },

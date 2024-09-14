@@ -2,7 +2,7 @@
 import React, { useCallback } from 'react';
 
 import { EntityClassMap } from '@/api/entity-class-map';
-import { DtoTable } from '@/components/generic/DtoTable';
+import { DtoTable } from '@/components/tables/DtoTable';
 import { LazyDtoUiWrapper } from 'dto-stores';
 import {
   BaseDtoStoreStringInputProps,
@@ -15,7 +15,7 @@ import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { Button } from '@nextui-org/button';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
-import { TypedPaths } from '@/functions/typePaths';
+import { TypedPaths } from '@/api/custom-types/typePaths';
 import { Column } from '@/types';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 

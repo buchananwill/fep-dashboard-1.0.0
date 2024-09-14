@@ -1,7 +1,7 @@
 'use client';
 import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { DtoTable } from '@/components/generic/DtoTable';
+import { DtoTable } from '@/components/tables/DtoTable';
 import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 import {
   BaseDtoStoreNumberInputProps,
@@ -13,7 +13,6 @@ import {
   DtoStoreStringInput
 } from '@/components/generic/DtoStoreStringInput';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { Button } from '@nextui-org/button';
 import ChangeStartingOrdinal from '@/components/knowledge-levels/ChangeStartingOrdinal';
 import { useKnowledgeDtoTableProps } from '@/components/knowledge-levels/useKnowledgeDtoTableProps';
@@ -22,35 +21,10 @@ import { Paths } from 'type-fest';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { Column } from '@/types';
 import { startCase } from 'lodash';
-import { makeTransientId } from '@/makeTransientId';
-
-function sortLevelsOnOrdinal(
-  level1: KnowledgeLevelDto,
-  level2: KnowledgeLevelDto
-) {
-  return level1.levelOrdinal - level2.levelOrdinal;
-}
+import { createNewLevel } from '@/components/knowledge-levels/createNewLevel';
+import { sortLevelsOnOrdinal } from '@/components/knowledge-levels/sortLevelsOnOrdinal';
 
 const entityClass = EntityClassMap.knowledgeLevel;
-
-function createNewLevel(
-  sortedLevels: KnowledgeLevelDto[],
-  knowledgeLevelSeriesDto: KnowledgeLevelSeriesDto
-) {
-  const levelOrdinal =
-    sortedLevels.length > 0
-      ? sortedLevels[sortedLevels.length - 1].levelOrdinal + 1
-      : 1;
-  const name = `${knowledgeLevelSeriesDto.knowledgeLevelDescriptor} ${levelOrdinal}`;
-  const id = makeTransientId(ABSOLUTE_SMALLEST_TRANSIENT_ID + levelOrdinal);
-  const nextLevel: KnowledgeLevelDto = {
-    name,
-    levelOrdinal,
-    id,
-    knowledgeLevelSeriesId: knowledgeLevelSeriesDto.id
-  };
-  return nextLevel;
-}
 
 const columns: Column<KnowledgeLevelDto>[] = [
   { name: startCase(getDomainAlias('knowledgeLevel')), uid: 'name' },

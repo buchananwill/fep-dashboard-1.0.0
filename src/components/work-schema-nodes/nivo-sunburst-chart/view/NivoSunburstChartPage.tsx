@@ -6,7 +6,7 @@ import {
   NestedWorkNodeDto
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import WorkSchemaNodesHome from '@/components/work-schema-nodes/WorkSchemaNodesHome';
 import { colorizeKnowledgeDomains } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';

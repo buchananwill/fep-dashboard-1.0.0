@@ -13,7 +13,7 @@ import { getOne } from '@/api/generated-actions/Cycle';
 import { parseTen } from '@/api/date-and-time';
 import { API_V2_URL } from '@/api/literals';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 import { EntityClassMap } from '@/api/entity-class-map';
 
 const entityName = 'CycleSubspanGroupEdit';

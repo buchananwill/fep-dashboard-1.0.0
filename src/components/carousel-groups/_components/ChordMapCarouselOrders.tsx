@@ -1,8 +1,5 @@
 'use client';
-import {
-  margin,
-  theme
-} from '@/components/carousel-groups/_components/nivoPropLiterals';
+import { margin, theme } from '@/components/types/nivoPropLiterals';
 import { ChordCanvasProps, ResponsiveChordCanvas } from '@nivo/chord';
 
 export default function ChordMapCarouselOrders({

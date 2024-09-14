@@ -17,7 +17,7 @@ import {
   SelectableItem
 } from '@/components/react-hook-form/ControlledSelect';
 import { HasId } from '@/api/types';
-import { TypedPaths } from '@/functions/typePaths';
+import { TypedPaths } from '@/api/custom-types/typePaths';
 
 type ControlledAutoCompleteProps<T extends SelectableItem> = {
   selectedKeyAccessor?: string;

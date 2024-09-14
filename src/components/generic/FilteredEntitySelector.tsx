@@ -6,7 +6,7 @@ import { SelectItem } from '@nextui-org/select';
 import { StringPropertyKey } from '@/types';
 import { useEntitySelection } from '@/hooks/useEntitySelection';
 import { MutableRefObject } from 'react';
-import { TypedPaths } from '@/functions/typePaths';
+import { TypedPaths } from '@/api/custom-types/typePaths';
 
 export type EntitySelectorProps<T, U> = {
   entityClass: string;

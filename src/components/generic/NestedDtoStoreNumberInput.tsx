@@ -13,11 +13,11 @@ import {
   DtoUiWrapperProps
 } from 'dto-stores';
 import clsx from 'clsx';
-import { removeLeadingZeroStringConversion } from '@/components/generic/removeLeadingZeroStringConversion';
+import { removeLeadingZeroStringConversion } from '@/functions/removeLeadingZeroStringConversion';
 import { HasId } from '@/api/types';
 import { NumberPropertyKey } from '@/types';
-import { TypedPaths } from '@/functions/typePaths';
-import { updateNestedValue } from '@/app/work-project-series-schemas/_components/updateNestedValue';
+import { TypedPaths } from '@/api/custom-types/typePaths';
+import { updateNestedValue } from '@/functions/updateNestedValue';
 import { getValue } from '@/functions/allowingNestedFiltering';
 import { get } from 'lodash';
 

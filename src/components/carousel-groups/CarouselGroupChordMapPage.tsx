@@ -1,12 +1,12 @@
-import { ServiceCategoryRouteParams } from '@/app/work-project-series-schemas/serviceCategoryRouteParams';
-import { getChordMap } from '@/components/carousel-groups/getHeatMapSeriesList';
+import { getChordMap } from '@/api/actions-custom/getHeatMapSeriesList';
 import ChordMapCarouselOrders from '@/components/carousel-groups/_components/ChordMapCarouselOrders';
+import { LeafComponentProps } from '@/app/core/navigation/types';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 
 export default async function carouselGroupChordMapPage({
-  params: { levelOrdinal, id }
-}: {
-  params: ServiceCategoryRouteParams;
-}) {
+  pathVariables
+}: LeafComponentProps) {
+  const [levelOrdinal, id] = getLastNVariables(pathVariables, 2);
   const data = await getChordMap(levelOrdinal, id);
 
   return (

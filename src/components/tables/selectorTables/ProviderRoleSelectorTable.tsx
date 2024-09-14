@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Chip } from '@nextui-org/react';
-import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
+import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 
 import { Column } from '@/types';

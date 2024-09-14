@@ -1,7 +1,7 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
-import DtoUiWrapperCell from '../generic/DtoUiWrapperCell';
+import DtoUiWrapperCell from './DtoUiWrapperCell';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import clsx from 'clsx';

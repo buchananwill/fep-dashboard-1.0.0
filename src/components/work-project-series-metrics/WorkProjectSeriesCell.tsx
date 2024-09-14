@@ -1,5 +1,5 @@
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
-import DtoUiWrapperCell from '@/components/generic/DtoUiWrapperCell';
+import DtoUiWrapperCell from '@/components/grids/DtoUiWrapperCell';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { BaseLazyDtoUiProps } from 'dto-stores';
 import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';

@@ -9,7 +9,7 @@ import AssignmentCell from '@/components/work-project-series-assignments/table-v
 import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/table-view/workProjectSeriesDataRetrieval';
 import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { useFilteredRows } from '@/app/work-project-series-schemas/static-allocation/useFilteredRows';
+import { useFilteredRows } from '@/components/work-project-series-schema/static-allocation/useFilteredRows';
 import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,

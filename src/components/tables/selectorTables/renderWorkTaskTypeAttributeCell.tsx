@@ -1,6 +1,6 @@
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import React from 'react';
-import { TypedPaths } from '@/functions/typePaths';
+import { TypedPaths } from '@/api/custom-types/typePaths';
 import { getValue } from '@/functions/allowingNestedFiltering';
 import { Chip } from '@nextui-org/react';
 

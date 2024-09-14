@@ -4,7 +4,7 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import RenameModal from '@/components/modals/RenameModal';
-import { useEditEntityTextAttribute } from '@/components/modals/useEditEntityTextAttribute';
+import { useModalEditEntityTextAttribute } from '@/hooks/useModalEditEntityTextAttribute';
 import { useCallback, useState } from 'react';
 import { BaseDtoUiProps } from 'dto-stores';
 import { isNotUndefined } from '@/api/main';
@@ -35,7 +35,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
     onClose,
     onConfirm,
     ...modalProps
-  } = useEditEntityTextAttribute(
+  } = useModalEditEntityTextAttribute(
     entityClass,
     entity,
     stringKey,

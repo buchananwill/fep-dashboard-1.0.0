@@ -1,9 +1,9 @@
 'use client';
 import { useCallback } from 'react';
-import { getEventsAction } from '@/components/microsoft-graph/getEventsAction';
+import { getEventsAction } from '@/api/microsoft-graph/getEventsAction';
 import { Button } from '@nextui-org/button';
-import { OutlookEvent } from '@/components/microsoft-graph/helperTypes';
-import { deleteEventsAction } from '../microsoft-graph/deleteEventsAction';
+import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
+import { deleteEventsAction } from '@/api/microsoft-graph/deleteEventsAction';
 
 export default function PurgeEventsButton() {
   const onPress = useCallback(async () => {

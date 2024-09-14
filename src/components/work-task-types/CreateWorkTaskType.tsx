@@ -23,7 +23,7 @@ import { HasId } from '@/api/types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplete';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
-import { nameAccessor } from '@/components/modals/nameSetter';
+import { nameAccessor } from '@/functions/nameSetter';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
 
 const disable = false;

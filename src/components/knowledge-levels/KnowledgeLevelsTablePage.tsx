@@ -1,4 +1,3 @@
-import ResourceContextProvider from '@/components/providers/resource-context/ResourceContextProvider';
 import { EntityClassMap } from '@/api/entity-class-map';
 import KnowledgeLevelTable from '@/components/knowledge-levels/KnowledgeLevelTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
@@ -22,19 +21,17 @@ async function KnowledgeLevelsTablePage({
 
   return (
     <div className={'p-4'}>
-      <ResourceContextProvider pathSegment={knowledgeLevelSeriesId}>
-        <EditAddDeleteDtoControllerArray
-          dtoList={data}
-          entityClass={EntityClassMap.knowledgeLevel}
-          updateServerAction={Api.KnowledgeLevel.putList}
-          deleteServerAction={Api.KnowledgeLevel.deleteIdList}
-          postServerAction={Api.KnowledgeLevel.postList}
-        />
-        <KnowledgeLevelTable
-          data={data}
-          knowledgeLevelSeries={knowledgeLevelSeriesDto}
-        />
-      </ResourceContextProvider>
+      <EditAddDeleteDtoControllerArray
+        dtoList={data}
+        entityClass={EntityClassMap.knowledgeLevel}
+        updateServerAction={Api.KnowledgeLevel.putList}
+        deleteServerAction={Api.KnowledgeLevel.deleteIdList}
+        postServerAction={Api.KnowledgeLevel.postList}
+      />
+      <KnowledgeLevelTable
+        data={data}
+        knowledgeLevelSeries={knowledgeLevelSeriesDto}
+      />
     </div>
   );
 }

@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
-import { getShortCodeColor } from '@/components/feasibility-report/getShortcodeColor';
+import { getShortCodeColor } from '@/functions/getShortcodeColor';
 
 export function WorkProjectSeriesSchemaLabel({
   entity

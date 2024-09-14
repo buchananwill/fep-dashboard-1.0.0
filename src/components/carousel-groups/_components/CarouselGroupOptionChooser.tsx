@@ -4,14 +4,14 @@ import { useItemChooserMap } from '@/hooks/useItemChooserMap';
 import { useListboxSelectionChangeCallback } from '@/hooks/useListboxSelectionChangeCallback';
 import React, { useCallback, useMemo } from 'react';
 import { Listbox, ListboxItem } from '@nextui-org/listbox';
-import { StepperContext } from '@/components/generic/stepperContextCreator';
-import LandscapeStepper from '@/components/generic/LandscapeStepper';
+import { StepperContext } from '@/components/generic/stepper/stepperContextCreator';
+import LandscapeStepper from '@/components/generic/stepper/LandscapeStepper';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselLeanDto } from '@/api/zod-schemas/CarouselLeanDtoSchema';
-import { produceCarouselGroupOptionsEdit } from '@/components/carousel-groups/_components/produceCarouselGroupOptionsEdit';
+import { produceCarouselGroupOptionsEdit } from '@/functions/produceCarouselGroupOptionsEdit';
 
 export default function CarouselGroupOptionChooser({
   collectionId,

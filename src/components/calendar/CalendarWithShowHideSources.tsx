@@ -7,7 +7,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/full-calendar/flattenTimesIntoEvent';
-import { EventSourceSimple } from '@/components/calendar/eventSourceSimple';
+import { EventSourceSimple } from '@/api/custom-types/eventSourceSimple';
 
 export const eventSourceEntityClass = 'eventSource';
 export default function CalendarWithShowHideSources({

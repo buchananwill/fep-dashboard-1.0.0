@@ -1,7 +1,7 @@
 'use client';
 import React, { useCallback } from 'react';
 import { Chip } from '@nextui-org/react';
-import FilterSelectEntityTable from '@/components/generic/FilterSelectEntityTable';
+import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';

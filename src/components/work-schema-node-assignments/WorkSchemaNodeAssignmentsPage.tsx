@@ -22,9 +22,9 @@ import { EmptyArray } from '@/api/literals';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/KnowledgeLevelLinks';
+import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
-import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 
 async function WorkSchemaNodeAssignmentsPage({
   pathVariables,

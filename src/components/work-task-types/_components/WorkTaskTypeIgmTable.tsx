@@ -1,7 +1,7 @@
 'use client';
 import IgmTableWrapper, {
   IgmTableWrapperProps
-} from '@/components/generic/IgmTableWrapper';
+} from '@/components/tables/IgmTableWrapper';
 import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
 import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 import { TableProps } from '@nextui-org/react';

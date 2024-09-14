@@ -13,7 +13,7 @@ import {
   DtoUiWrapperProps
 } from 'dto-stores';
 import clsx from 'clsx';
-import { removeLeadingZeroStringConversion } from '@/components/generic/removeLeadingZeroStringConversion';
+import { removeLeadingZeroStringConversion } from '@/functions/removeLeadingZeroStringConversion';
 import { HasId } from '@/api/types';
 import { NumberPropertyKey } from '@/types';
 

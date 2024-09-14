@@ -1,4 +1,4 @@
-import { OutlookEvent } from '@/components/microsoft-graph/helperTypes';
+import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { EventInput_FC } from '@/full-calendar/types';
 import { formatInTimeZone } from 'date-fns-tz';
 

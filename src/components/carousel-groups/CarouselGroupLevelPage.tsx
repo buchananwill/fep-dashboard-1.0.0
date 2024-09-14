@@ -1,7 +1,7 @@
 import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/api/generated-actions/KnowledgeLevel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import CarouselGroupTabGroup from '@/components/carousel-groups/_components/CarouselGroupTabGroup';
-import { getLevelPartialAndSchemaList } from '@/app/work-project-series-schemas/_functions/getLevelPartialAndSchemaList';
+import { getLevelPartialAndSchemaList } from '@/components/work-project-series-schema/_functions/getLevelPartialAndSchemaList';
 import {
   deleteIdList,
   getDtoListByExampleList as getCarouselGroupsByExampleList,
@@ -10,10 +10,10 @@ import {
 } from '@/api/generated-actions/CarouselGroup';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import { KnowledgeLevelLinks } from '@/app/work-project-series-schemas/KnowledgeLevelLinks';
+import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { CarouselGroupOrdersHome } from '@/components/carousel-groups/orders/carouselGroupOrdersPage';
-import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 export default async function CarouselGroupLevelPage({

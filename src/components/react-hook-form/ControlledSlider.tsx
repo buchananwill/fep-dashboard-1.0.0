@@ -2,7 +2,7 @@ import { Control, Controller } from 'react-hook-form';
 import { SliderProps } from '@nextui-org/react';
 import { Slider } from '@nextui-org/slider';
 import { Get, Paths } from 'type-fest';
-import { TypedPaths } from '@/functions/typePaths';
+import { TypedPaths } from '@/api/custom-types/typePaths';
 import { FieldPath, FieldValues } from 'react-hook-form/dist/types';
 
 export type FormSliderProps<

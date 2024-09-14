@@ -21,7 +21,7 @@ import { getPathVariableSplitComponent } from '@/components/generic/PathVariable
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { singular } from 'pluralize';
 import AvailabilityPage from '@/components/roles/availability/availabilityPage';
-import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
+import { getLastNVariables } from '@/functions/getLastNVariables';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 

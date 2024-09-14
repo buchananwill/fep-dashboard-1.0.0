@@ -28,26 +28,3 @@ export type StringPathsNoDeepOptionals<T> =
         : never
       : never
     : never;
-
-// Example usage with a type:
-export type Example = {
-  a: {
-    b: string;
-    c: number;
-    d?: {
-      e: string;
-    };
-  };
-  f: boolean;
-  g: {
-    h: string;
-    i?: {
-      j: string;
-    };
-  };
-};
-
-type Result = StringPathsNoDeepOptionals<Example>; // Expected to be "a.b" | "a.d.e" | "g.h" | "g.i.j"
-
-type LeavesOfOrganization = Leaves<OrganizationDto>;
-type AnotherTest = StringPathsNoDeepOptionals<OrganizationDto>;

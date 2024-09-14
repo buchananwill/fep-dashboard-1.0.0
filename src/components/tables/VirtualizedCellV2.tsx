@@ -10,7 +10,7 @@ import {
 import {
   Cell,
   getCellId
-} from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
+} from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import { ObjectPlaceholder } from '@/api/literals';
 
 export default function VirtualizedOuterCellV2<T>({
