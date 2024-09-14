@@ -1,7 +1,7 @@
 'use client';
 import { NodeProps } from '@xyflow/react';
 import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
-import { BaseReadOnlyNode } from '@/react-flow/components/nodes/BaseReadOnlyNode';
+import { BaseReadOnlyNode } from '@/components/react-flow/generic/components/nodes/BaseReadOnlyNode';
 import React, { memo, useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
@@ -18,8 +18,8 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { ObjectPlaceholder } from '@/api/literals';
 import { BandwidthValidationLayer } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
 import clsx from 'clsx';
-import { NodeBase } from '@/react-flow/types';
-import { NodeDataType } from '@/react-flow/utils/adaptors';
+import { NodeBase } from '@/components/react-flow/generic/types';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 
 type BaseClassification = NodeDataType & {
   hashcode: number;

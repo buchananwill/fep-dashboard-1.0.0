@@ -4,7 +4,7 @@ import { forceX, forceY, HierarchyPointNode, Simulation } from 'd3';
 
 import { useGlobalController, useGlobalListener } from 'selective-context';
 
-import { FlowNode } from '@/react-flow/types';
+import { FlowNode } from '@/components/react-flow/generic/types';
 import {
   GraphSelectiveContextKeys,
   HasStringId,
@@ -13,8 +13,8 @@ import {
   useGraphDispatch
 } from 'react-d3-force-wrapper';
 import { InitialSetRef } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
-import { collide } from '@/react-flow/utils/collide';
-import { NodeDataType } from '@/react-flow/utils/adaptors';
+import { collide } from '@/components/react-flow/generic/utils/collide';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 import { get } from 'lodash';
 import { InitialMap } from 'dto-stores';
 

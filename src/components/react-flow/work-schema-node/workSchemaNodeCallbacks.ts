@@ -12,13 +12,13 @@ import { createDataNodeDtoSchema } from '@/api/zod-mods';
 import {
   Middleware,
   middlewareCombiner
-} from '@/react-flow/utils/graphMiddlewareCombiner';
+} from '@/components/react-flow/generic/utils/graphMiddlewareCombiner';
 import { Api } from '@/api/clientApi_';
 import { isNotUndefined } from '@/api/main';
 import { z } from 'zod';
-import { ServerAction } from '@/react-flow/hooks/useEditableFlow';
+import { ServerAction } from '@/components/react-flow/generic/hooks/useEditableFlow';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import { FlowNode } from '@/react-flow/types';
+import { FlowNode } from '@/components/react-flow/generic/types';
 import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
 import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/getGraphUpdaterWithNameDeDuplication';
 

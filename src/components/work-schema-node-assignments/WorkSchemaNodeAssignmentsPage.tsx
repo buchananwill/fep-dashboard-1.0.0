@@ -1,5 +1,5 @@
 import { ForceGraphPage, GraphDto } from 'react-d3-force-wrapper';
-import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
+import { ReactFlowWrapper } from '@/components/react-flow/generic/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
@@ -10,11 +10,11 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getDtoListByExampleList } from '@/api/generated-actions/OrganizationType';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
-import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
+import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
 import {
   convertToOrganizationNode,
   convertToWorkSchemaFlowNode
-} from '@/react-flow/utils/adaptors';
+} from '@/components/react-flow/generic/utils/adaptors';
 import { defaultForceGraphPageOptions } from '@/components/work-schema-node-assignments/defaultForceGraphPageOptions';
 import { Api } from '@/api/clientApi_';
 import WorkSchemaNodeManager from '@/components/work-schema-node-assignments/_components/WorkSchemaNodeManager';

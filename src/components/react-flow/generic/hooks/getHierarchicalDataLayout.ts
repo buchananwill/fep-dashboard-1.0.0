@@ -2,7 +2,7 @@ import {
   Comparator,
   fallbackComparator,
   NestedWithStringId
-} from '@/react-flow/hooks/useHierarchicalDataMemo';
+} from '@/components/react-flow/generic/hooks/useHierarchicalDataMemo';
 import { cluster, hierarchy, HierarchyPointNode } from 'd3';
 
 export interface HierarchicalDataOptions {

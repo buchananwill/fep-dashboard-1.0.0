@@ -14,7 +14,7 @@ import {
   Panel,
   ReactFlow
 } from '@xyflow/react';
-import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
+import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
 
 import {
   DataLink,
@@ -26,9 +26,9 @@ import {
   useModalContent,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
-import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
+import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
+import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditableFlow';
 import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import {
   determineLocalResolution,
@@ -37,7 +37,7 @@ import {
   workSchemaNodeCloneFunctionWrapper,
   workSchemaNodeGraphUpdater
 } from '@/components/react-flow/work-schema-node/workSchemaNodeCallbacks';
-import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
+import { convertToWorkSchemaFlowNode } from '@/components/react-flow/generic/utils/adaptors';
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/WorkSchemaNodeDetailsContent';
 import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
@@ -53,7 +53,7 @@ import {
 } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
 import { Spinner } from '@nextui-org/spinner';
-import { FlowNode, NodeValidator } from '@/react-flow/types';
+import { FlowNode, NodeValidator } from '@/components/react-flow/generic/types';
 import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
@@ -61,20 +61,20 @@ import { recalculateDepths } from '@/components/react-flow/work-schema-node/reca
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';
 import { useGlobalController } from 'selective-context';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
-import { useIdToNodeMapMemo } from '@/react-flow/hooks/useIdToNodeMapMemo';
-import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
-import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
+import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
+import { useIdToEdgeMapMemo } from '@/components/react-flow/generic/hooks/useIdToEdgeMapMemo';
+import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
-import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';
-import { useHierarchicalDataLayoutMemo } from '@/react-flow/hooks/useHierarchicalDataLayoutMemo';
-import { HierarchicalDataOptions } from '@/react-flow/hooks/getHierarchicalDataLayout';
+import { LeftToRightEdge } from '@/components/react-flow/generic/components/edges/LeftToRightEdge';
+import { useHierarchicalDataLayoutMemo } from '@/components/react-flow/generic/hooks/useHierarchicalDataLayoutMemo';
+import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 import {
   HasPosition,
   hierarchicalLayoutMap,
   Layoutable
-} from '@/react-flow/hooks/useForces';
+} from '@/components/react-flow/generic/hooks/useForces';
 import { HierarchyPointNode } from 'd3';
-import { NestedWithStringId } from '@/react-flow/hooks/useHierarchicalDataMemo';
+import { NestedWithStringId } from '@/components/react-flow/generic/hooks/useHierarchicalDataMemo';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 

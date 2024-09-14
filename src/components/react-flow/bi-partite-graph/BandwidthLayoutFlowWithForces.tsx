@@ -2,13 +2,13 @@
 
 import React, { memo, PropsWithChildren, useTransition } from 'react';
 import { Background, BackgroundVariant, ReactFlow } from '@xyflow/react';
-import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
-import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
+import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
+import { useLayoutFlowWithForces } from '@/components/react-flow/generic/hooks/useLayoutFlowWithForces';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import ClassificationNode from '@/components/react-flow/bi-partite-graph/ClassificationNode';
 import { useMaxProjectionController } from '@/components/react-flow/bi-partite-graph/useMaxProjectionController';
 import { SelectionChangeTraversalUpdater } from '@/components/react-flow/bi-partite-graph/SelectionChangeTraversalUpdater';
-import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
+import { TopToBottomEdge } from '@/components/react-flow/generic/components/edges/TopToBottomEdge';
 
 export function BandwidthLayoutFlowWithForces({ children }: PropsWithChildren) {
   // 4. Call the hook to set up the layout with forces

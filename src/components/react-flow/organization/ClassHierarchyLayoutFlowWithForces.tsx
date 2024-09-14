@@ -2,7 +2,7 @@
 
 import React, { memo, PropsWithChildren, useMemo } from 'react';
 import { Background, BackgroundVariant, ReactFlow } from '@xyflow/react';
-import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
+import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
 import {
   cloneFunctionWrapper,
   organizationGraphUpdater
@@ -29,13 +29,13 @@ import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import { OrganizationTypeDto } from '@/api/zod-schemas/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
-import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
-import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
+import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';
+import { convertToOrganizationNode } from '@/components/react-flow/generic/utils/adaptors';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
-import { TopToBottomEdge } from '@/react-flow/components/edges/TopToBottomEdge';
-import { FlowNode } from '@/react-flow/types';
-import { HierarchicalDataOptions } from '@/react-flow/hooks/getHierarchicalDataLayout';
+import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditableFlow';
+import { TopToBottomEdge } from '@/components/react-flow/generic/components/edges/TopToBottomEdge';
+import { FlowNode } from '@/components/react-flow/generic/types';
+import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 import { useOrientedDepthLayout } from '@/components/react-flow/organization/useOrientedDepthLayout';
 
 export function ClassHierarchyLayoutFlowWithForces({

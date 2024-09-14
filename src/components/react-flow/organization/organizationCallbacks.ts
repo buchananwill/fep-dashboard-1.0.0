@@ -3,7 +3,7 @@ import { getGraphUpdaterWithNameDeDuplication } from './getGraphUpdaterWithNameD
 import * as Organization from '@/api/generated-actions/Organization';
 import { createDataNodeDtoSchema } from '@/api/zod-mods';
 import { validateAssignmentDtos } from '@/components/react-flow/organization/validateAssignmentDtos';
-import { middlewareCombiner } from '@/react-flow/utils/graphMiddlewareCombiner';
+import { middlewareCombiner } from '@/components/react-flow/generic/utils/graphMiddlewareCombiner';
 import { OrganizationDtoSchema } from '@/api/zod-schemas/OrganizationDtoSchema_';
 
 export const cloneFunctionWrapper = { memoizedFunction: cloneOrganizationNode };

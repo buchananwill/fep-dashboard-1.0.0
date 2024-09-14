@@ -6,7 +6,10 @@ import {
   useNodesState,
   useUpdateNodeInternals
 } from '@xyflow/react';
-import { draggingNodeKey, useForces } from '@/react-flow/hooks/useForces';
+import {
+  draggingNodeKey,
+  useForces
+} from '@/components/react-flow/generic/hooks/useForces';
 import {
   type MouseEvent as ReactMouseEvent,
   useCallback,
@@ -14,7 +17,7 @@ import {
   useRef
 } from 'react';
 import { useGlobalDispatch } from 'selective-context';
-import { FlowEdge, FlowNode } from '@/react-flow/types';
+import { FlowEdge, FlowNode } from '@/components/react-flow/generic/types';
 import {
   GraphSelectiveContextKeys,
   MemoizedFunction,
@@ -23,7 +26,7 @@ import {
   useLinkContext,
   useNodeContext
 } from 'react-d3-force-wrapper';
-import { NodeDataType } from '@/react-flow/utils/adaptors';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 
 const listenerKey = 'layout-flow-with-forces';
 

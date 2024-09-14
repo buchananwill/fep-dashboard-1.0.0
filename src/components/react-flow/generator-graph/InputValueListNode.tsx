@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Handle, Node, NodeProps, Position } from '@xyflow/react';
-import { NodeDataType } from '@/react-flow/utils/adaptors';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 
 const handleStyle = { left: 10 };
 export interface TextList extends NodeDataType {

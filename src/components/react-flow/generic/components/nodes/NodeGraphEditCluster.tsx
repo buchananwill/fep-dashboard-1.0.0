@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { TrashIcon } from '@heroicons/react/16/solid';
 import React from 'react';
-import { UsePopoverFixReturn } from '@/react-flow/hooks/usePopoverFix';
+import { UsePopoverFixReturn } from '@/components/react-flow/generic/hooks/usePopoverFix';
 
 export default function NodeGraphEditCluster({
   addSibling,

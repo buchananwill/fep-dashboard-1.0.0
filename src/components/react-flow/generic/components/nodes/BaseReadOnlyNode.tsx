@@ -10,7 +10,7 @@ import {
 } from 'react-d3-force-wrapper';
 import React, { useCallback } from 'react';
 import { HasNumberId } from '@/api/types';
-import { NodeBase } from '@/react-flow/types';
+import { NodeBase } from '@/components/react-flow/generic/types';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,

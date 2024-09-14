@@ -5,7 +5,7 @@ import {
 } from 'dto-stores';
 
 import { HasId } from '@/api/types';
-import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
+import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import clsx from 'clsx';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';

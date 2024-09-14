@@ -1,7 +1,7 @@
 'use client';
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
+import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import WorkTaskTypeSelectorTable from '@/components/tables/selectorTables/WorkTaskTypeSelectorTable';
 import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';

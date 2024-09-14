@@ -1,5 +1,5 @@
 import { EdgeProps, getBezierPath, Position } from '@xyflow/react';
-import { EdgeWithDelete } from '@/react-flow/components/edges/EdgeWithDelete';
+import { EdgeWithDelete } from '@/components/react-flow/generic/components/edges/EdgeWithDelete';
 
 export function TopToBottomEdge(props: EdgeProps) {
   const { sourceX, sourceY, targetX, targetY } = props;

@@ -3,7 +3,7 @@ import {
   FlowEdge,
   FlowNode,
   NodeConvertor
-} from '@/react-flow/types';
+} from '@/components/react-flow/generic/types';
 import {
   ClosureDto,
   DataNode,

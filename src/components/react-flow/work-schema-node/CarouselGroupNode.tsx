@@ -5,7 +5,7 @@ import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
-import { NodeBase } from '@/react-flow/types';
+import { NodeBase } from '@/components/react-flow/generic/types';
 
 export default function CarouselGroupNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>

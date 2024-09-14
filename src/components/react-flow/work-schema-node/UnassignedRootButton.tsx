@@ -3,8 +3,8 @@ import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import { useDirectSimRefEditsDispatch } from 'react-d3-force-wrapper';
 import React, { useCallback, useState, useTransition } from 'react';
 import { Api } from '@/api/clientApi_';
-import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
-import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
+import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
+import { convertToWorkSchemaFlowNode } from '@/components/react-flow/generic/utils/adaptors';
 import { Button } from '@nextui-org/button';
 
 export function UnassignedRootButton({

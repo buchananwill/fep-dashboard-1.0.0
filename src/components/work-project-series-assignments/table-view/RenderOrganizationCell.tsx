@@ -4,7 +4,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import { HasName } from '@/api/generated-types/generated-types';
-import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
+import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import { HasId } from '@/api/types';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 

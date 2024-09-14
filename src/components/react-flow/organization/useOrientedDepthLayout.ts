@@ -1,6 +1,6 @@
-import { FlowNode } from '@/react-flow/types';
-import { NodeDataType } from '@/react-flow/utils/adaptors';
-import { HasPosition } from '@/react-flow/hooks/useForces';
+import { FlowNode } from '@/components/react-flow/generic/types';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
+import { HasPosition } from '@/components/react-flow/generic/hooks/useForces';
 import { useMemo } from 'react';
 import { HasStringId } from 'react-d3-force-wrapper';
 import { usePreComputedPositionForce } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';

@@ -5,7 +5,7 @@ import {
   SimulationLinkDatum,
   SimulationNodeDatum
 } from 'd3';
-import { FlowNode } from '@/react-flow/types';
+import { FlowNode } from '@/components/react-flow/generic/types';
 import { Merge, RequiredDeep, SetRequired } from 'type-fest';
 
 type FlowNodeWithSize = RequiredDeep<Pick<FlowNode<any>, 'measured'>>;

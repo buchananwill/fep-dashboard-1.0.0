@@ -1,7 +1,7 @@
 'use client';
 import { Handle, NodeProps, Position } from '@xyflow/react';
 
-import { usePopoverFix } from '@/react-flow/hooks/usePopoverFix';
+import { usePopoverFix } from '@/components/react-flow/generic/hooks/usePopoverFix';
 import {
   AddNodesParams,
   GraphSelectiveContextKeys,
@@ -13,9 +13,9 @@ import {
   useGraphListener
 } from 'react-d3-force-wrapper';
 import React, { useCallback, useMemo } from 'react';
-import NodeGraphEditCluster from '@/react-flow/components/nodes/NodeGraphEditCluster';
-import { NodeBase } from '@/react-flow/types';
-import { NodeDataType } from '@/react-flow/utils/adaptors';
+import NodeGraphEditCluster from '@/components/react-flow/generic/components/nodes/NodeGraphEditCluster';
+import { NodeBase } from '@/components/react-flow/generic/types';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,

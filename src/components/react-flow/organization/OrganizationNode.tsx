@@ -2,7 +2,7 @@ import { Edge, NodeProps, useEdges } from '@xyflow/react';
 
 import React, { memo, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
-import { BaseEditableNode } from '@/react-flow/components/nodes/BaseEditableNode';
+import { BaseEditableNode } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import {
   useGlobalDispatch,
@@ -12,7 +12,7 @@ import {
 import { isNumber } from 'lodash';
 import { AllocationSummary } from '@/components/react-flow/organization/allocationSummary';
 import NodeBundleSummaries from '@/components/react-flow/organization/NodeBundleSummaries';
-import { NodeBase } from '@/react-flow/types';
+import { NodeBase } from '@/components/react-flow/generic/types';
 
 const initialTotalMap = new Map<string, number>();
 

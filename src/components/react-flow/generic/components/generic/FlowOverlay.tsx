@@ -7,10 +7,10 @@ import {
   PlayIcon,
   StopIcon
 } from '@heroicons/react/24/solid';
-import { GraphForceSliders } from '@/react-flow/components/generic/GraphForceSliders';
-import { NodeDetailsModal } from '@/react-flow/components/nodes/NodeDetailsModal';
+import { GraphForceSliders } from '@/components/react-flow/generic/components/generic/GraphForceSliders';
+import { NodeDetailsModal } from '@/components/react-flow/generic/components/nodes/NodeDetailsModal';
 import React, { useCallback, useRef, useState } from 'react';
-import { useEscapeToClose } from '@/react-flow/hooks/useEscapeToClose';
+import { useEscapeToClose } from '@/components/react-flow/generic/hooks/useEscapeToClose';
 
 export function FlowOverlay({
   initialized,

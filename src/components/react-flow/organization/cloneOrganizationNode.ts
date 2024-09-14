@@ -2,7 +2,7 @@ import { incrementCloneSuffix } from 'react-d3-force-wrapper';
 import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
-import { FlowNode } from '@/react-flow/types';
+import { FlowNode } from '@/components/react-flow/generic/types';
 import { makeTransientId } from '@/makeTransientId';
 
 export function cloneOrganizationNode(
@@ -16,7 +16,9 @@ export function cloneOrganizationNode(
   const {
     data: { workSchemaNodeAssignment }
   } = clonedNode;
-  workSchemaNodeAssignment!.id = makeTransientId(ABSOLUTE_SMALLEST_TRANSIENT_ID + templateNode.data.id);
+  workSchemaNodeAssignment!.id = makeTransientId(
+    ABSOLUTE_SMALLEST_TRANSIENT_ID + templateNode.data.id
+  );
 
   return {
     ...clonedNode,

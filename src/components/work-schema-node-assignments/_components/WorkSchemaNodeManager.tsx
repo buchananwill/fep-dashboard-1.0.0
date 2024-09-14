@@ -1,7 +1,7 @@
 'use client';
-import { useIdToNodeMapMemo } from '@/react-flow/hooks/useIdToNodeMapMemo';
-import { useIdToEdgeMapMemo } from '@/react-flow/hooks/useIdToEdgeMapMemo';
-import { useIdToChildIdMapMemo } from '@/react-flow/hooks/useIdToChildIdMapMemo';
+import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
+import { useIdToEdgeMapMemo } from '@/components/react-flow/generic/hooks/useIdToEdgeMapMemo';
+import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useGlobalController } from 'selective-context';
 import { EditAddDeleteDtoControllerArray, InitialMap } from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';

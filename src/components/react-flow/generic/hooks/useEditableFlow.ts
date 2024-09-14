@@ -9,14 +9,18 @@ import {
   useGraphDispatch,
   useNodeEditing
 } from 'react-d3-force-wrapper';
-import { FlowNode, NodeConvertor, NodeValidator } from '@/react-flow/types';
-import { useLayoutFlowWithForces } from '@/react-flow/hooks/useLayoutFlowWithForces';
+import {
+  FlowNode,
+  NodeConvertor,
+  NodeValidator
+} from '@/components/react-flow/generic/types';
+import { useLayoutFlowWithForces } from '@/components/react-flow/generic/hooks/useLayoutFlowWithForces';
 import { useCallback, useMemo, useRef, useTransition } from 'react';
 import { useReactFlow } from '@xyflow/react';
-import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
+import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
 import { useGlobalDispatch } from 'selective-context';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
-import { NodeDataType } from '@/react-flow/utils/adaptors';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 
 export interface ServerAction<T, U> {
   (request: T): Promise<U>;

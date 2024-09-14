@@ -6,7 +6,7 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Api } from '@/api/clientApi_';
-import { ReactFlowWrapper } from '@/react-flow/components/wrappers/ReactFlowWrapper';
+import { ReactFlowWrapper } from '@/components/react-flow/generic/components/wrappers/ReactFlowWrapper';
 import { WorkSchemaNodeLayoutFlowWithForces } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
 import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import React from 'react';

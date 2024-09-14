@@ -1,11 +1,11 @@
 import {
   StringIdHierarchyMap,
   useHierarchicalDataMemo
-} from '@/react-flow/hooks/useHierarchicalDataMemo';
+} from '@/components/react-flow/generic/hooks/useHierarchicalDataMemo';
 import {
   getHierarchicalDataLayout,
   HierarchicalDataOptions
-} from '@/react-flow/hooks/getHierarchicalDataLayout';
+} from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 import { useMemo } from 'react';
 import { HierarchyPointNode } from 'd3';
 import { HasStringId } from 'react-d3-force-wrapper';

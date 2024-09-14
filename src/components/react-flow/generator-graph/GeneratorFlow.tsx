@@ -2,7 +2,7 @@
 
 import React, { memo, PropsWithChildren, useMemo } from 'react';
 import { Background, BackgroundVariant, ReactFlow } from '@xyflow/react';
-import { FlowOverlay } from '@/react-flow/components/generic/FlowOverlay';
+import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
 import {
   cloneFunctionWrapper,
   organizationGraphUpdater
@@ -18,13 +18,13 @@ import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import { OrganizationTypeDto } from '@/api/zod-schemas/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
-import { AddRootNode } from '@/react-flow/components/nodes/AddRootNode';
-import { convertToOrganizationNode } from '@/react-flow/utils/adaptors';
+import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';
+import { convertToOrganizationNode } from '@/components/react-flow/generic/utils/adaptors';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { useEditableFlow } from '@/react-flow/hooks/useEditableFlow';
-import { FlowNode } from '@/react-flow/types';
+import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditableFlow';
+import { FlowNode } from '@/components/react-flow/generic/types';
 import InputValueListNode from '@/components/react-flow/generator-graph/InputValueListNode';
-import { LeftToRightEdge } from '@/react-flow/components/edges/LeftToRightEdge';
+import { LeftToRightEdge } from '@/components/react-flow/generic/components/edges/LeftToRightEdge';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,

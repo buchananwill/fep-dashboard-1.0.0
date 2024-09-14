@@ -1,6 +1,6 @@
 import { Api } from '@/api/clientApi_';
-import { convertGraphDtoToReactFlowState } from '@/react-flow/utils/convertGraphDtoToReactFlowState';
-import { convertToWorkSchemaFlowNode } from '@/react-flow/utils/adaptors';
+import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
+import { convertToWorkSchemaFlowNode } from '@/components/react-flow/generic/utils/adaptors';
 import { workSchemaNodeForceGraphOptions } from '@/components/work-schema-nodes/workSchemaNodeForceGraphOptions';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';

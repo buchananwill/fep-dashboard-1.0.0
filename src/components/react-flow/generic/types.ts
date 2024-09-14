@@ -9,7 +9,7 @@ import {
   Position,
   XYPosition
 } from '@xyflow/react';
-import { NodeDataType } from '@/react-flow/utils/adaptors';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 
 export type FlowNode<T extends NodeDataType> = NodeBase<T> & DataNode<T>;
 export type FlowEdge<T extends HasNumberId> = Edge & DataLink<T>;

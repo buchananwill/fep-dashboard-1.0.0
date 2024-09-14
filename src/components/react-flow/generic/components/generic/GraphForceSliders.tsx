@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 
 import { useGlobalReadAny } from 'selective-context';
 
-import { SelectiveContextRangeSlider } from '@/react-flow/components/generic/SelectiveContextRangeSlider';
+import { SelectiveContextRangeSlider } from '@/components/react-flow/generic/components/generic/SelectiveContextRangeSlider';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
 import {
   ForceAttributesInitial,

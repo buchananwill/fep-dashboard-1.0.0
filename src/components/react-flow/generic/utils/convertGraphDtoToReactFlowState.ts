@@ -3,8 +3,8 @@ import {
   convertClosureDtoListToEdgeList,
   convertDataNodeDtoListToFlowNodeList,
   NodeDataType
-} from '@/react-flow/utils/adaptors';
-import { FlowNode } from '@/react-flow/types';
+} from '@/components/react-flow/generic/utils/adaptors';
+import { FlowNode } from '@/components/react-flow/generic/types';
 
 export function convertGraphDtoToReactFlowState<T extends NodeDataType>(
   classGraph: GraphDto<T>,
