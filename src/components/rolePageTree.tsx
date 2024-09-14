@@ -1,31 +1,11 @@
-import { RolePageProps } from '@/components/roles/types';
-import { notFound } from 'next/navigation';
-import SuitabilityPage, {
-  KnowledgeLevelSeriesRoleTypeList,
-  RoleTypeListComponent
-} from '../../components/roles/suitability/SuitabilityPage';
-import AvailabilityPage from '@/components/roles/availability/availabilityPage';
 import { LeafComponentProps, NavTreeBranch } from '@/app/core/navigation/types';
 import { LinkButton } from '@/components/LinkButton';
-import { startCase } from 'lodash';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
-
-export default function RolePage(props: RolePageProps) {
-  const {
-    params: { roleAspect, roleCategory }
-  } = props;
-
-  switch (roleAspect) {
-    case 'suitability': {
-      if (roleCategory === 'user') return notFound();
-      else return <SuitabilityPage params={props.params} />;
-    }
-    case 'availability': {
-      if (roleCategory === 'provider') return <AvailabilityPage {...props} />;
-      else return notFound();
-    }
-  }
-}
+import { startCase } from 'lodash';
+import SuitabilityPage, {
+  RoleTypeListComponent
+} from '@/components/roles/suitability/SuitabilityPage';
+import AvailabilityPage from '@/components/roles/availability/availabilityPage';
 
 export const rolePageTree: NavTreeBranch = {
   type: 'branch',
@@ -35,7 +15,6 @@ export const rolePageTree: NavTreeBranch = {
     availability: { type: 'leaf', component: RoleTypeListComponent }
   }
 };
-
 export const RoleAspects = {
   suitability: SuitabilityPage,
   availability: AvailabilityPage

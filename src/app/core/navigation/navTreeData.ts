@@ -9,7 +9,6 @@ import WorkProjectSeriesSchemaHome from '@/app/work-project-series-schemas/WorkP
 import { CarouselGroupsAndOrders } from '@/components/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/components/carousel-groups/orders/carouselGroupOrdersPage';
 import { WorkSchemaNodeAssignmentsHome } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
-import { rolePageTree } from '@/app/roles/rolePage';
 import NavigationHome from '@/app/core/navigation/NavigationHome';
 import BuildSchedulePage from '@/app/core/auto-scheduling/BuildSchedulePage';
 import { feasibilityBranch } from '@/app/core/feasibility/FeasibilityHome';
@@ -18,6 +17,7 @@ import WorkTaskTypeTablePage from '@/components/work-task-types/WorkTaskTypeTabl
 import CreateWorkTaskType from '@/components/work-task-types/CreateWorkTaskType';
 import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
 import CyclesHome from '@/app/core/cycles/CyclesHome';
+import { rolePageTree } from '@/components/rolePageTree';
 
 export const navTreeData: NavTree = {
   navigation: { type: 'leaf', component: NavigationHome },
