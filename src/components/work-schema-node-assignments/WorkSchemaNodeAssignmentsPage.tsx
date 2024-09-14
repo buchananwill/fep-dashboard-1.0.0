@@ -1,13 +1,10 @@
-import { ForceGraphPage, GraphDto } from 'react-d3-force-wrapper';
+import { ForceGraphPage } from 'react-d3-force-wrapper';
 import { ReactFlowWrapper } from '@/components/react-flow/generic/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 
 import { ArrayPlaceholder } from 'selective-context';
-import { getWithoutBody } from '@/api/actions/template-actions';
-import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getDtoListByExampleList } from '@/api/generated-actions/OrganizationType';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';

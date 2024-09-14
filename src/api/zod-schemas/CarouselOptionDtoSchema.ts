@@ -1,6 +1,6 @@
 import { z } from 'zod';
 export const CarouselOptionDtoSchema = z.object({
-  carouselId: z.string().uuid(),
+  carouselId: z.number(),
   id: z.number(),
   workProjectSeriesSchemaId: z.number(),
 });

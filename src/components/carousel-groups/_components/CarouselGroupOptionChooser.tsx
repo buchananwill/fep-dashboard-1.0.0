@@ -12,6 +12,7 @@ import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
 import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
 import { CarouselLeanDto } from '@/api/zod-schemas/CarouselLeanDtoSchema';
 import { produceCarouselGroupOptionsEdit } from '@/functions/produceCarouselGroupOptionsEdit';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 export default function CarouselGroupOptionChooser({
   collectionId,
@@ -64,7 +65,7 @@ function InnerChooserComponent(
           const carouselsUpdate: CarouselLeanDto[] = [
             ...group.carousels,
             {
-              id: crypto.randomUUID(),
+              id: idDecrementer(),
               carouselOrdinal: currentCarouselCount
             }
           ];
