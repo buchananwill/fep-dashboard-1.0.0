@@ -65,7 +65,7 @@ export default function CycleSubspanGroupEdit({
       );
     }
     return checkBoxes;
-  }, [dispatchWithoutControl, entity]);
+  }, [dispatchWithoutControl, entity, cycle.cycleSubspanGroupSizes]);
 
   return (
     <tr>
