@@ -34,7 +34,7 @@ export default async function AvailabilityPage({
     await Api[
       availabilityConfig[roleCategory as AvailabilityType]
         .entityClass as keyof Pick<typeof Api, AvailabilityEntityClass>
-    ].getDtoTableByRowIdListAndColumnIdList(roleIdList);
+    ].getDtoTableByRowIdList(roleIdList);
 
   const tableProps = getTableProps(roles, cycleSubspanList);
 
@@ -48,6 +48,7 @@ export default async function AvailabilityPage({
         entityClass={EntityClassMap.cycleSubspan}
         dtoList={cycleSubspanList}
       />
+      {/* TODO: fix typing on this component. */}
       <AvailabilityTable
         type={roleCategory}
         tableData={genericTable}

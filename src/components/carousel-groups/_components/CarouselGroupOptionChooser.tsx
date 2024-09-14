@@ -50,8 +50,8 @@ function InnerChooserComponent(
   );
 
   const selectedKeys = useMemo(() => {
-    return currentState.carouselGroupOptions.map(
-      (option) => option.workProjectSeriesSchemaId
+    return currentState.carouselGroupOptions.map((option) =>
+      String(option.workProjectSeriesSchemaId)
     );
   }, [currentState]);
 
@@ -120,7 +120,7 @@ function InnerChooserComponent(
       >
         {(listboxItem) => (
           <ListboxItem
-            key={listboxItem.id}
+            key={String(listboxItem.id)}
             classNames={{ base: 'data-[selected=true]:bg-emerald-100' }}
             textValue={listboxItem.name}
           >
