@@ -2,7 +2,7 @@ import { Api } from '@/api/clientApi_';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import TableViewFallbackPage from '@/components/work-project-series-assignments/table-view/TableViewFallbackPage';
-import { LinkButton } from '@/app/service-categories/LinkButton';
+import { LinkButton } from '@/components/LinkButton';
 
 export default async function WorkProjectSeriesAssignmentTableView({}: LeafComponentProps) {
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([

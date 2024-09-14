@@ -20,7 +20,7 @@ import {
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import AssignmentRowCell from '@/components/work-project-series-assignments/table-view/AssignmentRowCell';
-import CycleSubspanCell from '@/app/service-categories/[id]/roles/_components/CycleSubspanCell';
+import CycleSubspanCell from '@/components/grids/CycleSubspanCell';
 
 export const selectedAssignmentCell = 'selectedAssignmentCell';
 export const AssignmentTableRowClassName = 'AssignmentTableRow';

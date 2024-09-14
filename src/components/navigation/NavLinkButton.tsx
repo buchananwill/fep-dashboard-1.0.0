@@ -6,8 +6,8 @@ import {
   navLinkIcons
 } from '@/components/navigation/navLinkIcons';
 import { startCase } from 'lodash';
-import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
-import { TooltipMemo } from '@/app/service-categories/[id]/roles/_components/SimpleTooltip';
+import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
+import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { mainNavLinkList } from '@/components/navigation/navLinks';
 import Link, { LinkProps } from 'next/link';
 import { getDomainAlias } from '@/api/getDomainAlias';

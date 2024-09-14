@@ -6,7 +6,7 @@ import {
   getCellDataIdReferenceOrUndefined,
   getCellDataOrUndefined
 } from '@/app/work-project-series-schemas/static-allocation/getCellDataOrUndefined';
-import CycleSubspanCellWithJoins from '@/app/service-categories/[id]/roles/_components/CycleSubspanCellWithJoins';
+import CycleSubspanCellWithJoins from '@/components/grids/CycleSubspanCellWithJoins';
 import {
   Identifier,
   NamespacedHooks,

@@ -1,4 +1,4 @@
-import { LinkButton } from '@/app/service-categories/LinkButton';
+import { LinkButton } from '@/components/LinkButton';
 import CreateFeasibilityReportPage from '@/app/core/feasibility/CreateFeasibilityReportPage';
 import { ViewFeasibilityReportHome } from '@/app/core/feasibility/ViewFeasibilityReportHome';
 import { NavTreeBranch } from '@/app/core/navigation/types';

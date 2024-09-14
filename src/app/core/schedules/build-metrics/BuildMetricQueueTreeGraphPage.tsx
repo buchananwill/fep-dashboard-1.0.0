@@ -2,7 +2,7 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/app/work-project-series-schemas/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import BuildMetricQueueTreeGraph from '@/app/core/schedules/build-metrics/BuildMetricQueueTreeGraph';
-import { LinkButton } from '@/app/service-categories/LinkButton';
+import { LinkButton } from '@/components/LinkButton';
 import React from 'react';
 
 export default async function BuildMetricQueueTreeGraphPage({

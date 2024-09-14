@@ -15,7 +15,7 @@ import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTr
 import { useGlobalDispatchAndListener } from 'selective-context';
 import { selectedAssignmentCell } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
 import { EmptyArray } from '@/api/literals';
-import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
+import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import clsx from 'clsx';
 import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
 import { CellWrapperProps } from '@/components/tables/getCellIdReference';

@@ -6,7 +6,7 @@ import { CellWrapperProps } from '@/components/tables/getCellIdReference';
 import { HasName } from '@/api/generated-types/generated-types';
 import { GenericDivProps } from '@/react-flow/components/nodes/BaseEditableNode';
 import { HasId } from '@/api/types';
-import { useFloatingTooltip } from '@/app/service-categories/[id]/roles/_components/useFloatingTooltip';
+import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 
 export default function RenderOrganizationCell({
   rowIndex,

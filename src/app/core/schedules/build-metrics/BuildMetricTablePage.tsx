@@ -8,7 +8,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
-import { LinkButton } from '@/app/service-categories/LinkButton';
+import { LinkButton } from '@/components/LinkButton';
 import React from 'react';
 
 export default async function BuildMetricTablePage({

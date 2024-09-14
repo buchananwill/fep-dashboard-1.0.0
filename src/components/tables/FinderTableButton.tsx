@@ -2,7 +2,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import TabbedSelectorTables, {
   SelectorTableData
-} from '@/app/service-categories/[id]/roles/_components/TabbedSelectorTables';
+} from '@/components/tables/TabbedSelectorTables';
 
 export default function FinderTableButton(tableButtonProps: SelectorTableData) {
   return (

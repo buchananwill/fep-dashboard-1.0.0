@@ -12,7 +12,7 @@ import { getCellDataIdReferenceOrUndefined } from '@/app/work-project-series-sch
 import WorkProjectSeriesCell from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
 import WorkProjectSeriesBuildMetricCell from '@/components/work-project-series-metrics/WorkProjectSeriesBuildMetricCell';
 import { MemoCycleSubspanCell } from '@/app/work-project-series-schemas/static-allocation/StaticAllocationTable';
-import { useTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
+import { useTableProps } from '@/components/tables/useTableProps';
 
 export default function WorkProjectSeriesMetricTable({
   tableData

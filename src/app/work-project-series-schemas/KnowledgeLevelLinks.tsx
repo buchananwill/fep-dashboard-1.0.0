@@ -3,9 +3,9 @@ import { parseTen } from '@/api/date-and-time';
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { startCase } from 'lodash';
-import { LinkButton } from '@/app/service-categories/LinkButton';
-import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
+import { LinkButton } from '@/components/LinkButton';
 import { getDomainAlias } from '@/api/getDomainAlias';
+import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 
 export async function KnowledgeLevelLinks({
   depth,

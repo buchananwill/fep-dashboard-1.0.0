@@ -3,7 +3,7 @@ import { DataNodeDto } from 'react-d3-force-wrapper';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
-import { useTableProps } from '@/app/service-categories/[id]/roles/_components/useTableProps';
+import { useTableProps } from '@/components/tables/useTableProps';
 import { useGlobalController, useGlobalDispatch } from 'selective-context';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import CellQueryManager, {

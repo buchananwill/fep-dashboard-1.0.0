@@ -1,14 +1,14 @@
-import { RolePageProps } from '@/app/service-categories/[id]/roles/_components/types';
+import { RolePageProps } from '@/components/roles/types';
 import { notFound } from 'next/navigation';
 import SuitabilityPage, {
   KnowledgeLevelSeriesRoleTypeList,
   RoleTypeListComponent
-} from '../service-categories/[id]/roles/_components/SuitabilityPage';
-import AvailabilityPage from '@/app/service-categories/[id]/roles/_components/availabilityPage';
+} from '../../components/roles/suitability/SuitabilityPage';
+import AvailabilityPage from '@/components/roles/availability/availabilityPage';
 import { LeafComponentProps, NavTreeBranch } from '@/app/core/navigation/types';
-import { LinkButton } from '@/app/service-categories/LinkButton';
-import { getCoreEntityLink } from '@/app/service-categories/ServiceCategoriesHome';
+import { LinkButton } from '@/components/LinkButton';
 import { startCase } from 'lodash';
+import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 
 export default function RolePage(props: RolePageProps) {
   const {
