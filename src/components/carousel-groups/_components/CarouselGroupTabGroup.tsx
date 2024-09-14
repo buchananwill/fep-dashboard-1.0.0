@@ -22,24 +22,26 @@ import {
   KnowledgeLevelDto,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
+import { makeTransientId } from '@/functions/makeTransientId';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 function handleAddGroup(
   dispatch: Dispatch<SetStateAction<CarouselGroupDto[]>>,
-  dispatchWithoutControl: Dispatch<SetStateAction<string[]>>,
+  dispatchWithoutControl: Dispatch<SetStateAction<number[]>>,
   level: KnowledgeLevelDto
 ) {
-  let newCarousel: CarouselGroupDto;
+  let carouselGroupDto: CarouselGroupDto;
   dispatch((list) => {
-    newCarousel = {
-      id: crypto.randomUUID(),
-      name: `New Carousel ${list.length}`,
+    carouselGroupDto = {
+      id: idDecrementer(),
+      name: `New Carousel Group ${list.length}`,
       carousels: [],
       carouselGroupOptions: [],
       knowledgeLevel: level
     };
-    return [...list, newCarousel];
+    return [...list, carouselGroupDto];
   });
-  dispatchWithoutControl((list) => [...list, newCarousel.id]);
+  dispatchWithoutControl((list) => [...list, carouselGroupDto.id]);
 }
 
 export default function CarouselGroupTabGroup({

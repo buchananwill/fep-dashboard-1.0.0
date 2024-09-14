@@ -15,7 +15,6 @@ import {
   renderEnrollmentCell
 } from '@/components/work-schema-node-assignments/enrollment-table/RenderEnrollmentCell';
 import { produce } from 'immer';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import {
   connectNodes,
   defaultClosureTemplate
@@ -26,6 +25,7 @@ import { ChangesCallbackMap } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { Api } from '@/api/clientApi_';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 interface EnrollmentTableProps {
   classes: DataNodeDto<OrganizationDto>[];
@@ -40,8 +40,7 @@ const listenerKey = 'tableIsController';
 
 function useNextId() {
   return useCallback(() => {
-    let id = ABSOLUTE_SMALLEST_TRANSIENT_ID;
-    return id--;
+    return idDecrementer();
   }, []);
 }
 
