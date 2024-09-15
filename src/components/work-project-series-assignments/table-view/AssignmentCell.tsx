@@ -3,7 +3,7 @@ import { GridChildComponentProps } from 'react-window';
 import {
   AssignmentCellContent,
   CellIdReference
-} from '@/components/tables/CellQueryManager';
+} from '@/components/grids/CellQueryManager';
 import React, { memo, useCallback, useMemo } from 'react';
 import {
   NamedEntityLabel,
@@ -17,8 +17,8 @@ import { selectedAssignmentCell } from '@/components/work-project-series-assignm
 import { EmptyArray } from '@/api/literals';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import clsx from 'clsx';
-import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
-import { CellWrapperProps } from '@/components/tables/getCellIdReference';
+import VirtualizedOuterCell from '@/components/grids/VirtualizedCell';
+import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { WorkProjectSeriesAssignmentDto } from '@/api/generated-types/generated-types';
 

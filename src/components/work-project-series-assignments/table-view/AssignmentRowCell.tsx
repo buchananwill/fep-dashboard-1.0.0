@@ -2,7 +2,7 @@
 import {
   CellWrapperProps,
   getCellIdReference
-} from '@/components/tables/getCellIdReference';
+} from '@/components/grids/getCellIdReference';
 import { DtoUiWrapper, useDtoStore } from 'dto-stores';
 import { AssignmentTableRowClassName } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
 import { AssignmentTableRow } from '@/api/types';

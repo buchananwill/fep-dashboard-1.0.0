@@ -7,18 +7,26 @@ import {
   EditTextDeletePopoverProps
 } from '@/components/generic/EditTextDeleteEntityPopover';
 import { HasId } from '@/api/types';
-import { StringPropertyKey } from '@/types';
+import { TypedPaths } from '@/api/custom-types/typePaths';
+import { useUniqueStringFieldConstraint } from '@/components/tables/edit-tables/useUniqueStringFieldConstraint';
 
 export function RenameAndDeleteCell<T extends HasName & HasId>({
   entity,
   entityClass
 }: NextUiCellComponentProps<T>) {
+  const validator = useUniqueStringFieldConstraint(
+    entityClass,
+    entity,
+    'name' as TypedPaths<T, string>
+  );
+
   return (
     <DtoUiWrapper<T, EditTextDeletePopoverProps<T>>
-      stringKey={'name' as StringPropertyKey<T>}
+      stringPath={'name' as TypedPaths<T, string>}
       entityClass={entityClass}
       entityId={entity.id}
       renderAs={EditTextDeleteEntityPopover}
+      validateInput={validator}
     />
   );
 }

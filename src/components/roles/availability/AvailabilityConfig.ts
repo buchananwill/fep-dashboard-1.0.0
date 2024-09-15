@@ -2,7 +2,7 @@ import { Api } from '@/api/clientApi_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { AvailabilityType } from '@/components/roles/availability/AvailabilityType';
 import { ProviderCell } from '@/components/grids/ProviderCell';
-import { GenericIdReferenceCell } from '@/components/tables/getCellIdReference';
+import { GenericIdReferenceCell } from '@/components/grids/getCellIdReference';
 import { AssetCell } from '@/components/grids/AssetCell';
 
 export const availabilityConfig: {

@@ -48,7 +48,7 @@ export default function CycleSubspan({
         classNames={{ button: 'w-24 px-2' }}
         {...props}
         dispatchDeletion={interceptDelete}
-        stringKey={'name'}
+        stringPath={'name'}
       />
       <TimeInputCycleSubspan
         entity={entity}

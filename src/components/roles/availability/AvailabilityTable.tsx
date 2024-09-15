@@ -1,6 +1,6 @@
 'use client';
-import { CellIdReference } from '@/components/tables/CellQueryManager';
-import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
+import { CellIdReference } from '@/components/grids/CellQueryManager';
+import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { GenericTableDto, HasNumberId } from '@/api/types';
 import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';

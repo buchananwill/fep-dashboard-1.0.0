@@ -4,12 +4,12 @@ import { InnerCellContent } from '@/components/work-project-series-assignments/t
 import { useDtoStore } from 'dto-stores';
 import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
 import { getCellId } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
-import { getCellIdReference } from '@/components/tables/getCellIdReference';
+import { getCellIdReference } from '@/components/grids/getCellIdReference';
 import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';
 import { memo, useMemo } from 'react';
 import { matchIsFirst } from '@/components/work-project-series-schema/static-allocation/allocationDropZonePermissions';
 import clsx from 'clsx';
-import { defaultCellSize } from '@/components/tables/VirtualizedTableWindowed';
+import { defaultCellSize } from '@/components/grids/VirtualizedTableWindowed';
 import { StaticAllocationDraggable } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDraggable';
 import { getDeliveryAllocationSize } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDropZone';
 

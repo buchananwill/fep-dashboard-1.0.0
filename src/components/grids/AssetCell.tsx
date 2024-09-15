@@ -1,7 +1,7 @@
 'use client';
 import { BaseLazyDtoUiProps } from 'dto-stores';
 import { GridChildComponentProps } from 'react-window';
-import { CellIdReference } from '@/components/tables/CellQueryManager';
+import { CellIdReference } from '@/components/grids/CellQueryManager';
 import { EntityClassMap } from '@/api/entity-class-map';
 import DtoUiWrapperCell from '@/components/grids/DtoUiWrapperCell';
 import { AssetRoleDto } from '@/api/generated-types/generated-types';

@@ -1,22 +1,24 @@
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { StringPropertyKey } from '@/types';
+import { TypedPaths } from '@/api/custom-types/typePaths';
+import { updateNestedValue } from '@/functions/updateNestedValue';
 
 export function useEditTextProperty<T>(
   dispatchWithoutControl: Dispatch<SetStateAction<T>> | undefined,
-  stringKey: StringPropertyKey<T> | undefined
+  stringPath: TypedPaths<T, string> | undefined
 ) {
   return useCallback(
     (value: string) => {
-      if (!dispatchWithoutControl || !stringKey) {
+      if (!dispatchWithoutControl || !stringPath) {
         console.error('no dispatch defined!');
         return;
       }
       dispatchWithoutControl((entityState: T) => {
-        const updated: T = { ...entityState };
-        (updated as any)[stringKey] = value;
-        return updated;
+        return updateNestedValue(entityState, stringPath, value);
+        // const updated: T = { ...entityState };
+        // (updated as any)[stringPath] = value;
+        // return updated;
       });
     },
-    [dispatchWithoutControl, stringKey]
+    [dispatchWithoutControl, stringPath]
   );
 }

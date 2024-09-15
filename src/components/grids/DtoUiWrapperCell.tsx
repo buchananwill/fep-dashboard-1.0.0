@@ -1,6 +1,6 @@
 'use client';
 import { GridChildComponentProps } from 'react-window';
-import { CellIdReference } from '@/components/tables/CellQueryManager';
+import { CellIdReference } from '@/components/grids/CellQueryManager';
 import {
   BaseDtoUiProps,
   BaseLazyDtoUiProps,
@@ -11,7 +11,7 @@ import {
 import { ReactNode } from 'react';
 import clsx from 'clsx';
 import { GenericDivProps } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
-import { getCellIdReference } from '@/components/tables/getCellIdReference';
+import { getCellIdReference } from '@/components/grids/getCellIdReference';
 import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 
 export default function DtoUiWrapperCell<T extends Entity>(

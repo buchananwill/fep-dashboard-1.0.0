@@ -20,7 +20,7 @@ import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
 import { isNotUndefined } from '@/api/main';
 import { AssetRoleWorkTaskSuitabilityDto } from '@/api/zod-schemas/AssetRoleWorkTaskSuitabilityDtoSchema';
 import { Api } from '@/api/clientApi_';
-import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
+import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import { CellComponentMemo } from '@/components/grids/CellComponent';
 
 export type RoleTypes = (typeof EntityClassMap)[

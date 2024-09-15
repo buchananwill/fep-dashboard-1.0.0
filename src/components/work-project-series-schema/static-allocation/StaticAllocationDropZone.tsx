@@ -2,7 +2,7 @@ import { InnerCellContent } from '@/components/work-project-series-assignments/t
 import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
-import { getCellIdReference } from '@/components/tables/getCellIdReference';
+import { getCellIdReference } from '@/components/grids/getCellIdReference';
 import { useCallback } from 'react';
 import clsx from 'clsx';
 import { NamespacedHooks, useDtoStore, useWriteAnyDto } from 'dto-stores';

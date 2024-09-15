@@ -1,4 +1,4 @@
-import { CellWrapperProps } from '@/components/tables/getCellIdReference';
+import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import DtoUiWrapperCell from '@/components/grids/DtoUiWrapperCell';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { BaseLazyDtoUiProps } from 'dto-stores';

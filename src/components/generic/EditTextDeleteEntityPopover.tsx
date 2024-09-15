@@ -3,21 +3,23 @@ import { Button } from '@nextui-org/button';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
-import RenameModal from '@/components/modals/RenameModal';
+import EditTextValueModal, {
+  Validator
+} from '@/components/modals/EditTextValueModal';
 import { useModalEditEntityTextAttribute } from '@/hooks/useModalEditEntityTextAttribute';
 import { useCallback, useState } from 'react';
 import { BaseDtoUiProps } from 'dto-stores';
 import { isNotUndefined } from '@/api/main';
-import { StringPropertyKey } from '@/types';
 import { HasId } from '@/api/types';
-import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
+import { TypedPaths } from '@/api/custom-types/typePaths';
+import { get } from 'lodash';
 
 export interface EditTextDeletePopoverProps<T extends HasId> {
-  stringKey: StringPropertyKey<T>;
-
+  stringPath: TypedPaths<T, string>;
   classNames?: {
     button?: string;
   };
+  validateInput?: Validator<string>;
 }
 
 export function EditTextDeleteEntityPopover<T extends HasId>({
@@ -25,9 +27,9 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   entity,
   dispatchDeletion,
   dispatchWithoutControl,
-  deleted,
   classNames,
-  stringKey
+  stringPath,
+  validateInput
 }: EditTextDeletePopoverProps<T> & BaseDtoUiProps<T>) {
   const {
     onOpen,
@@ -39,7 +41,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   } = useModalEditEntityTextAttribute(
     entityClass,
     entity,
-    stringKey,
+    stringPath,
     dispatchWithoutControl
   );
 
@@ -54,6 +56,9 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   return (
     <>
       <Popover
+        style={{
+          zIndex: 50
+        }}
         placement={'bottom'}
         showArrow
         isOpen={showPopover}
@@ -62,9 +67,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
       >
         <PopoverTrigger>
           <Button className={`${classNames?.button}`}>
-            <span className={' ... truncate'}>
-              {entity[stringKey] as string}
-            </span>
+            <span className={' ... truncate'}>{get(entity, stringPath)}</span>
             <PendingOverlay pending={isOpen} />
           </Button>
         </PopoverTrigger>
@@ -72,7 +75,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
           <div className={'flex gap-2'}>
             <Button
               onPress={() => {
-                dispatchTextChange(entity[stringKey] as string);
+                dispatchTextChange(get(entity, stringPath));
                 onOpen();
               }}
               isIconOnly
@@ -95,8 +98,9 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
           </div>
         </PopoverContent>
       </Popover>
-      <RenameModal
+      <EditTextValueModal
         {...modalProps}
+        validateInput={validateInput}
         isOpen={isOpen}
         onClose={onClose}
         onConfirm={confirmTextEdit}

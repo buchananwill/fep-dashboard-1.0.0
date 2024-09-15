@@ -1,5 +1,5 @@
 import { GridChildComponentProps } from 'react-window';
-import { CellIdReference } from '@/components/tables/CellQueryManager';
+import { CellIdReference } from '@/components/grids/CellQueryManager';
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { ReactNode } from 'react';
 

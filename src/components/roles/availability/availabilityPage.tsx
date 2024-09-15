@@ -2,7 +2,7 @@ import { Api } from '@/api/clientApi_';
 import { AvailabilityTable } from './AvailabilityTable';
 import { RoleApiByTypeIdList, RolePageProps } from '@/components/roles/types';
 import { getIdList } from '@/functions/getIdList';
-import { getTableProps } from '@/components/tables/useTableProps';
+import { getTableProps } from '@/components/grids/useTableProps';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getRoleEntityKey } from '@/components/roles/suitability/SuitabilityPage';

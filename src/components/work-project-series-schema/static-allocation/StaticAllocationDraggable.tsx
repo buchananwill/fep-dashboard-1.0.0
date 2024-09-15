@@ -2,7 +2,7 @@ import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliver
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import clsx from 'clsx';
-import { defaultCellSize } from '@/components/tables/VirtualizedTableWindowed';
+import { defaultCellSize } from '@/components/grids/VirtualizedTableWindowed';
 
 export function StaticAllocationDraggable(props: {
   entity: StaticDeliveryAllocationItemDto;

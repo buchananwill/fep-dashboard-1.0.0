@@ -1,4 +1,4 @@
-import { CellIdReference } from '@/components/tables/CellQueryManager';
+import { CellIdReference } from '@/components/grids/CellQueryManager';
 import { GenericTableDto } from '@/api/types';
 import { MemoizedFunction } from 'react-d3-force-wrapper';
 

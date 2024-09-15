@@ -9,7 +9,7 @@ import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesS
 import {
   CellWrapperProps,
   getCellIdReference
-} from '@/components/tables/getCellIdReference';
+} from '@/components/grids/getCellIdReference';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { memo, useCallback, useMemo } from 'react';
 import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';

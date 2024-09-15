@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import {
   Modal,
@@ -8,32 +8,43 @@ import {
   ModalHeader,
   ModalProps
 } from '@nextui-org/modal';
-import { Input } from '@nextui-org/input';
+import { Input, InputProps } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
+import {
+  useInputValidation,
+  ValidatedInput
+} from '@/components/modals/ValidatedInput';
 
-export const RenameContextKey = 'rename';
+export const ExitTextContextKey = 'edit-text-value';
 export interface ConfirmActionModalProps extends Omit<ModalProps, 'children'> {
   onConfirm?: () => void;
   onCancel?: () => void;
 }
 
+export interface Validator<T> {
+  (input: T | undefined | null): { errorMessage?: string; error?: boolean };
+}
+
 export interface RenameModalProps extends ConfirmActionModalProps {
   contextKey: string;
   listenerKey?: string;
-  errorMessage?: string;
-  error?: boolean;
+  validateInput?: Validator<string>;
 }
 
-export default function RenameModal({
+function contextKeyToDisplayName(contextKey: string) {
+  const strings = contextKey.split(':');
+  return strings[strings.length - 1];
+}
+
+export default function EditTextValueModal({
   contextKey,
-  error,
   isOpen,
   onCancel,
   onConfirm,
+  validateInput,
   listenerKey: lKeyProp,
-  errorMessage = 'Please choose unique, non-empty name',
   ...props
 }: RenameModalProps) {
   const listenerKey = useUuidListenerKey();
@@ -52,19 +63,27 @@ export default function RenameModal({
     }
   });
 
+  const { error, errorMessage } = useInputValidation(
+    validateInput,
+    currentState
+  );
+
   return (
     <Modal {...props} isOpen={isOpen}>
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader>Rename</ModalHeader>
+            <ModalHeader>
+              Edit: {contextKeyToDisplayName(contextKey)}
+            </ModalHeader>
             <ModalBody>
               <Input
                 type={'text'}
                 ref={textInput}
                 value={currentState}
+                isInvalid={error}
                 onValueChange={(value) => dispatchWithoutControl(value)}
-                // errorMessage={errorMessage}
+                errorMessage={errorMessage}
               />
             </ModalBody>
             <ModalFooter>
@@ -83,6 +102,7 @@ export default function RenameModal({
                   if (onConfirm) onConfirm();
                   onClose();
                 }}
+                isDisabled={error}
               >
                 Confirm
               </Button>

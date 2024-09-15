@@ -2,7 +2,7 @@ import {
   CellIdReference,
   GetCellContent,
   GetCellContentKey
-} from '@/components/tables/CellQueryManager';
+} from '@/components/grids/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalListener } from 'selective-context';
 import React, { useMemo } from 'react';
@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import {
   getCellIdReference,
   OuterCellProps
-} from '@/components/tables/getCellIdReference';
+} from '@/components/grids/getCellIdReference';
 
 export default function VirtualizedOuterCell<T>({
   rowIndex,

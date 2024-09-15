@@ -2,13 +2,13 @@
 import { DataNodeDto } from 'react-d3-force-wrapper';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
-import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
-import { useTableProps } from '@/components/tables/useTableProps';
+import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
+import { useTableProps } from '@/components/grids/useTableProps';
 import { useGlobalController, useGlobalDispatch } from 'selective-context';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import CellQueryManager, {
   CellIdReference
-} from '@/components/tables/CellQueryManager';
+} from '@/components/grids/CellQueryManager';
 import { removeClosure } from '@/components/work-schema-node-assignments/enrollment-table/removeClosure';
 import {
   removeEnrollment,
@@ -20,7 +20,7 @@ import {
   defaultClosureTemplate
 } from '@/components/work-schema-node-assignments/enrollment-table/addClosure';
 import RenderOrganizationCell from '@/components/work-project-series-assignments/table-view/RenderOrganizationCell';
-import { CellWrapperProps } from '@/components/tables/getCellIdReference';
+import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { ChangesCallbackMap } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { Api } from '@/api/clientApi_';

@@ -1,13 +1,13 @@
 'use client';
-import { CellWrapperProps } from '@/components/tables/getCellIdReference';
-import VirtualizedOuterCellV2 from '@/components/tables/VirtualizedCellV2';
+import { CellWrapperProps } from '@/components/grids/getCellIdReference';
+import VirtualizedOuterCellV2 from '@/components/grids/VirtualizedCellV2';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { EmptyArray } from '@/api/literals';
 import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types';
 import { useMemo, useRef } from 'react';
 import { clamp, round } from 'lodash';
-import VirtualizedOuterCell from '@/components/tables/VirtualizedCell';
+import VirtualizedOuterCell from '@/components/grids/VirtualizedCell';
 import { interpolateRgb, interpolateRgbBasis } from 'd3';
 import { useLazyDtoListListener } from 'dto-stores';
 

@@ -1,7 +1,7 @@
 'use client';
 import { StaticAllocationTableDto } from '@/components/work-project-series-schema/static-allocation/StaticAllocationPage';
-import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
-import CellQueryManager from '@/components/tables/CellQueryManager';
+import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
+import CellQueryManager from '@/components/grids/CellQueryManager';
 import {
   getCellDataIdReferenceOrUndefined,
   getCellDataOrUndefined

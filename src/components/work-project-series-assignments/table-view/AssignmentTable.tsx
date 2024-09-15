@@ -1,7 +1,7 @@
 'use client';
-import VirtualizedTableWindowed from '@/components/tables/VirtualizedTableWindowed';
+import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import React from 'react';
-import CellQueryManager from '@/components/tables/CellQueryManager';
+import CellQueryManager from '@/components/grids/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
 import { EmptyArray } from '@/api/literals';

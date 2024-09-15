@@ -3,7 +3,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import DtoUiWrapperCell from './DtoUiWrapperCell';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
-import { CellWrapperProps } from '@/components/tables/getCellIdReference';
+import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import clsx from 'clsx';
 import {
   CycleSubspanDto,
