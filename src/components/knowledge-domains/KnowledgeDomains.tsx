@@ -1,4 +1,4 @@
-import { KnowledgeDomainTable } from '@/components/knowledge-domains/KnowledgeDomainTable';
+import { KnowledgeDomainTable } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';

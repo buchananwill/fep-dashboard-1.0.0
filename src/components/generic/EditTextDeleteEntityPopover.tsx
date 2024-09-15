@@ -24,7 +24,6 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   entity,
   dispatchDeletion,
   dispatchWithoutControl,
-
   classNames,
   stringKey
 }: EditTextDeletePopoverProps<T> & BaseDtoUiProps<T>) {

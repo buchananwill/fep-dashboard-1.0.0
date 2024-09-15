@@ -18,6 +18,8 @@ import {
 } from '@/components/tables/FilterSortPaginateTableContent';
 import { GetFieldType } from '@/functions/allowingNestedFiltering';
 import { Paths } from 'type-fest';
+import { getDomainAlias } from '@/api/getDomainAlias';
+import pluralize from 'pluralize';
 
 export interface FilterSelectEntityTableProps<
   T extends HasIdClass<Identifier>,
@@ -106,7 +108,7 @@ export default function FilterSelectEntityTable<
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            Total {entities.length} {entityClass}.
+            Total {entities.length} {pluralize(getDomainAlias(entityClass))}.
           </span>
           <label className="flex items-center text-small text-default-400">
             Filter By:
@@ -155,11 +157,15 @@ export default function FilterSelectEntityTable<
   const bottomContent = useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
-        <span className="w-[30%] text-small text-default-400">
-          {selectedKeys.size === entities.length
-            ? 'All items selected'
-            : `${selectedKeys.size} of ${filteredItems.length} selected`}
-        </span>
+        {
+          <span className="w-[30%] text-small text-default-400">
+            {selectionMode !== 'none'
+              ? selectedKeys.size === entities.length
+                ? 'All items selected'
+                : `${selectedKeys.size} of ${filteredItems.length} selected`
+              : ''}
+          </span>
+        }
         <Pagination
           isCompact
           showControls
