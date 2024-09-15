@@ -16,13 +16,17 @@ import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_co
 import { useFilterOutDeletedEntities } from '@/components/tables/edit-tables/useFilterOutDeletedEntities';
 import { EditStringUniqueConstraintButton } from '@/components/tables/edit-tables/EditStringUniqueConstraintButton';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
+import { useMasterListToCreate } from '@/components/knowledge-levels/useMasterListToCreate';
 
 export function KnowledgeDomainTable() {
   const entities = useFilterOutDeletedEntities<KnowledgeDomainDto>(entityType);
 
+  const createHandler = useMasterListToCreate(domainFactory, entityType);
+
   return (
     <FilterSelectEntityTable
       columns={columns}
+      addRow={createHandler}
       entityClass={entityType}
       entities={entities}
       isCompact={true}
@@ -33,7 +37,7 @@ export function KnowledgeDomainTable() {
       classNames={{
         tr: 'py-0',
         td: 'py-0.5',
-        wrapper: 'h-[60vh]'
+        wrapper: 'h-[60vh] w-[40vw]'
       }}
     />
   );
@@ -41,7 +45,7 @@ export function KnowledgeDomainTable() {
 
 const getDomainFactory = () => {
   let nextId = ABSOLUTE_SMALLEST_TRANSIENT_ID;
-  return function (current: KnowledgeDomainDto[]) {
+  return function () {
     const newDomain: KnowledgeDomainDto = {
       id: nextId,
       name: `${getDomainAlias('knowledgeDomain')} ${nextId * -1}`

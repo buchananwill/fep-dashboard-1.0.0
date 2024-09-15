@@ -6,7 +6,10 @@ import {
   Pagination,
   TableProps
 } from '@nextui-org/react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import {
+  MagnifyingGlassIcon,
+  PlusCircleIcon
+} from '@heroicons/react/24/outline';
 import { Identifier } from 'dto-stores';
 import { Column, ColumnUid } from '@/types';
 import { HasId, HasIdClass } from '@/api/types';
@@ -35,6 +38,7 @@ export interface FilterSelectEntityTableProps<
   filterProperty: TPath;
   renderCell: TableCellRenderer<T>;
   dynamicColumns?: boolean;
+  addRow?: () => void;
 }
 
 export default function FilterSelectEntityTable<
@@ -53,6 +57,8 @@ export default function FilterSelectEntityTable<
   selectionMode = 'multiple',
   classNames,
   dynamicColumns = true,
+  bottomContentPlacement = 'outside',
+  addRow,
   ...otherProps
 }: FilterSelectEntityTableProps<T, TPath> &
   Omit<TableProps, OmittedTableProps>) {
@@ -144,7 +150,8 @@ export default function FilterSelectEntityTable<
     filterPropertySelectProps.onChange,
     filterPropertySelectProps.value,
     dynamicColumns,
-    columns,
+    filterColumns,
+    selectionMode,
     selectVisible,
     deselectVisible,
     entityClass,
@@ -157,6 +164,11 @@ export default function FilterSelectEntityTable<
   const bottomContent = useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
+        {addRow && (
+          <Button onPress={addRow} isIconOnly className={'p-1'}>
+            <PlusCircleIcon />
+          </Button>
+        )}
         {
           <span className="w-[30%] text-small text-default-400">
             {selectionMode !== 'none'
@@ -175,7 +187,14 @@ export default function FilterSelectEntityTable<
         />
       </div>
     );
-  }, [paginationProps, selectedKeys, entities.length, filteredItems]);
+  }, [
+    paginationProps,
+    selectedKeys,
+    entities.length,
+    filteredItems,
+    addRow,
+    selectionMode
+  ]);
 
   return (
     <FilterSortPaginateTableContent
@@ -190,7 +209,7 @@ export default function FilterSelectEntityTable<
       topContent={topContent}
       topContentPlacement={'outside'}
       bottomContent={bottomContent}
-      bottomContentPlacement="outside"
+      bottomContentPlacement={bottomContentPlacement}
       classNames={
         classNames ?? {
           wrapper: 'h-[55vh] max-w-[45vw] ml-auto mr-auto'

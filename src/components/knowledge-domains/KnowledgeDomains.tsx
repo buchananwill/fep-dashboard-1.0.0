@@ -16,6 +16,7 @@ async function Home({}: LeafComponentProps) {
         entityClass={EntityClassMap.knowledgeDomain}
         updateServerAction={Api.KnowledgeDomain.putList}
         deleteServerAction={Api.KnowledgeDomain.deleteIdList}
+        postServerAction={Api.KnowledgeDomain.postList}
       />
       <KnowledgeDomainTable />
     </div>

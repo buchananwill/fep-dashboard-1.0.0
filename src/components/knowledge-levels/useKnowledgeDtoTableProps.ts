@@ -1,18 +1,12 @@
-import {
-  Entity,
-  Identifier,
-  NamespacedHooks,
-  useMasterListInteraction
-} from 'dto-stores';
-import { ServiceCategoryDto } from '@/api/zod-schemas/ServiceCategoryDtoSchema';
+import { Identifier, NamespacedHooks } from 'dto-stores';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useCallback, useMemo } from 'react';
-import { DispatchState } from '@/types';
-import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
+import { HasId } from '@/api/types';
+import { useMasterListToCreate } from '@/components/knowledge-levels/useMasterListToCreate';
 
-export function useKnowledgeDtoTableProps<T extends Entity>(
+export function useKnowledgeDtoTableProps<T extends HasId>(
   entityClass: string,
   comparatorFunction: (t1: T, t2: T) => number,
   createEntity: (current: T[]) => T
@@ -34,21 +28,13 @@ export function useKnowledgeDtoTableProps<T extends Entity>(
     return currentState.toSorted(comparatorFunction);
   }, [currentState, comparatorFunction]);
 
-  const handleAddRow = useCallback(
-    (
-      dispatchMasterList: DispatchState<T[]>,
-      dispatchAddedlist: DispatchState<Identifier[]>
-    ) => {
-      const entity = createEntity(sortedRows);
-      dispatchMasterList((list) => [...list, entity]);
-      dispatchAddedlist((list) => [...list, entity.id]);
-    },
-    [sortedRows, createEntity]
-  );
+  const entitySupplier = useCallback(() => {
+    return createEntity(sortedRows);
+  }, [sortedRows, createEntity]);
 
-  const masterListInteraction = useMasterListInteraction(
-    entityClass,
-    handleAddRow
+  const masterListInteraction = useMasterListToCreate(
+    entitySupplier,
+    entityClass
   );
 
   const handleRemoveRow = useCallback(() => {

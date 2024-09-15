@@ -25,25 +25,6 @@ import {
 import { makeTransientId } from '@/functions/makeTransientId';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
-function handleAddGroup(
-  dispatch: Dispatch<SetStateAction<CarouselGroupDto[]>>,
-  dispatchWithoutControl: Dispatch<SetStateAction<number[]>>,
-  level: KnowledgeLevelDto
-) {
-  let carouselGroupDto: CarouselGroupDto;
-  dispatch((list) => {
-    carouselGroupDto = {
-      id: idDecrementer(),
-      name: `New Carousel Group ${list.length}`,
-      carousels: [],
-      carouselGroupOptions: [],
-      knowledgeLevel: level
-    };
-    return [...list, carouselGroupDto];
-  });
-  dispatchWithoutControl((list) => [...list, carouselGroupDto.id]);
-}
-
 export default function CarouselGroupTabGroup({
   collectionData,
   knowledgeLevel,
@@ -100,4 +81,23 @@ export default function CarouselGroupTabGroup({
       </CardBody>
     </Card>
   );
+}
+
+function handleAddGroup(
+  dispatch: Dispatch<SetStateAction<CarouselGroupDto[]>>,
+  dispatchWithoutControl: Dispatch<SetStateAction<number[]>>,
+  level: KnowledgeLevelDto
+) {
+  let carouselGroupDto: CarouselGroupDto;
+  dispatch((list) => {
+    carouselGroupDto = {
+      id: idDecrementer(),
+      name: `New Carousel Group ${list.length}`,
+      carousels: [],
+      carouselGroupOptions: [],
+      knowledgeLevel: level
+    };
+    return [...list, carouselGroupDto];
+  });
+  dispatchWithoutControl((list) => [...list, carouselGroupDto.id]);
 }

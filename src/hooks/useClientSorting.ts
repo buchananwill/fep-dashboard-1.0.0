@@ -3,7 +3,7 @@ import { Identifier } from 'dto-stores';
 import { NumberPropertyKey, StringPropertyKey } from '@/types';
 import { useMemo, useState } from 'react';
 import { SortDescriptor } from '@nextui-org/react';
-import { sortBy } from 'lodash';
+import { get, sortBy } from 'lodash';
 
 export function useClientSideSorting<T extends HasIdClass<Identifier>>(
   sortableItems: T[],
@@ -17,7 +17,13 @@ export function useClientSideSorting<T extends HasIdClass<Identifier>>(
   });
   const sortedItems = useMemo(() => {
     const mutableList = [...sortableItems];
-    const sorted = sortBy(mutableList, [sortDescriptor.column]);
+    const sorted = sortBy(mutableList, [
+      (item) => {
+        const value = get(item, String(sortDescriptor.column));
+        const valueType = typeof value;
+        return valueType === 'string' ? value.toLowerCase() : value;
+      }
+    ]);
     return (
       sortDescriptor.direction === 'ascending' ? sorted : sorted.reverse()
     ) as T[];
