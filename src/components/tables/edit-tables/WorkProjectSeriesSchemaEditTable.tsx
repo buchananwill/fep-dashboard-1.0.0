@@ -1,10 +1,8 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Card, CardBody } from '@nextui-org/card';
-import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
-import { EmptyArray } from '@/api/literals';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
@@ -14,34 +12,21 @@ import { StringValueChip } from '@/components/generic/StringValueChip';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { Column, ColumnUid } from '@/types';
 import { NestedDtoStoreNumberEditCell } from '@/components/tables/NestedDtoStoreNumberEditCell';
-import { RenameWpss } from '@/components/work-project-series-schema/_components/RenameWpss';
+import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
+import { useFilterOutDeletedEntities } from '@/components/tables/edit-tables/useFilterOutDeletedEntities';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
-const initialMap = new Map();
 
 export default function WorkProjectSeriesSchemaEditTable() {
-  const { currentState: idList } = useGlobalListener({
-    contextKey: `${entityType}:idList`,
-    initialValue: EmptyArray,
-    listenerKey: 'editList'
-  });
-
-  const contextKeys = useMemo(() => {
-    return idList.map((id) => `${entityType}:${id}`);
-  }, [idList]);
-
-  const { currentState } = useGlobalListenerGroup<WorkProjectSeriesSchemaDto>({
-    contextKeys,
-    listenerKey: 'editList',
-    initialValue: initialMap
-  });
+  const entities =
+    useFilterOutDeletedEntities<WorkProjectSeriesSchemaDto>(entityType);
 
   return (
     <Card className={'center-all-margin'}>
       <CardBody>
         <FilterSelectEntityTable
           entityClass={entityType}
-          entities={[...currentState.values()]}
+          entities={entities}
           columns={columns}
           selectionMode={'none'}
           initialColumns={initialColumns}
@@ -89,7 +74,7 @@ const initialColumns: ColumnUid<WorkProjectSeriesSchemaDto>[] = [
 export const workProjectSeriesSchemaRenderCellFunction =
   getCellRenderFunction<WorkProjectSeriesSchemaDto>(
     {
-      name: RenameWpss,
+      name: RenameAndDeleteCell,
       userToProviderRatio: NestedDtoStoreNumberEditCell,
       deliveryAllocations: AdjustAllocationInWrapper,
       'workTaskType.knowledgeDomain.shortCode': StringValueChip,

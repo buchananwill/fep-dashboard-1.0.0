@@ -23,6 +23,10 @@ import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { initialMap } from '@/app/_literals';
+import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
+import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
+import { StringValueChip } from '@/components/generic/StringValueChip';
+import { useFilterOutDeletedEntities } from '@/components/tables/edit-tables/useFilterOutDeletedEntities';
 
 const columns: Column<KnowledgeDomainDto>[] = [
   { name: startCase(getDomainAlias('knowledgeDomain')), uid: 'name' },
@@ -30,6 +34,14 @@ const columns: Column<KnowledgeDomainDto>[] = [
 ];
 
 const entityType = EntityClassMap.knowledgeDomain;
+
+const cellRenderFunction = getCellRenderFunction<KnowledgeDomainDto>(
+  {
+    name: RenameAndDeleteCell,
+    shortCode: StringValueChip
+  },
+  entityType
+);
 
 const renderCell = (domain: KnowledgeDomainDto, columnKey: React.Key) => {
   return (
@@ -46,51 +58,17 @@ const renderCell = (domain: KnowledgeDomainDto, columnKey: React.Key) => {
 };
 
 export function KnowledgeDomainTable() {
-  const { currentState: idList } = useGlobalListener({
-    contextKey: `${entityType}:idList`,
-    initialValue: EmptyArray,
-    listenerKey: 'editList'
-  });
+  const entities = useFilterOutDeletedEntities<KnowledgeDomainDto>(entityType);
 
-  NamespacedHooks.useListen;
-
-  const contextKeys = useMemo(() => {
-    return idList.map((id) => `${entityType}:${id}`);
-  }, [idList]);
-
-  // const { currentState } = useLazyDtoListListener<KnowledgeDomainDto>(
-  //   idList,
-  //   entityType
-  // );
-
-  const { currentState } = useGlobalListenerGroup<KnowledgeDomainDto>({
-    contextKeys,
-    listenerKey: 'editList',
-    initialValue: initialMap as Map<string, KnowledgeDomainDto>
-  });
-
-  const entityList = useMemo(() => {
-    return [...currentState.values()];
-  }, [currentState]);
-  //
-  // console.log(entityList);
-  // const domainAlias = getDomainAlias('knowledgeDomain');
   return (
     <FilterSelectEntityTable
       columns={columns}
       entityClass={entityType}
-      entities={entityList}
-      // entities={[]}
+      entities={entities}
       selectionMode={'none'}
       initialColumns={['name', 'shortCode']}
       filterProperty={'name'}
-      renderCell={renderCell}
-      // bottomContent={
-      //   <div className={'grid grid-cols-3 gap-2'}>
-      //     <Button onPress={masterListInteraction}>Add {domainAlias}</Button>
-      //     <Button onPress={handleRemoveRow}>Remove {domainAlias}</Button>
-      //    </div>
-      // }
+      renderCell={cellRenderFunction}
     />
   );
 }

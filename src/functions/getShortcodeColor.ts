@@ -1,4 +1,4 @@
-import { shortCodes } from '@/api/literals/shortCodes';
+import { shortCodes } from '@/components/shortCodes';
 
 export const bgColorString = [
   'bg-red-400',

@@ -10,6 +10,7 @@ import { BaseDtoUiProps } from 'dto-stores';
 import { isNotUndefined } from '@/api/main';
 import { StringPropertyKey } from '@/types';
 import { HasId } from '@/api/types';
+import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 
 export interface EditTextDeletePopoverProps<T extends HasId> {
   stringKey: StringPropertyKey<T>;
@@ -24,6 +25,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   entity,
   dispatchDeletion,
   dispatchWithoutControl,
+  deleted,
   classNames,
   stringKey
 }: EditTextDeletePopoverProps<T> & BaseDtoUiProps<T>) {

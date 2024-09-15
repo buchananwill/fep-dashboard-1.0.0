@@ -1,6 +1,5 @@
 'use server';
 import { HTTP_METHOD } from 'next/dist/server/web/http';
-import { notFound } from 'next/navigation';
 import {
   IdReferencedIntersectionTableDto,
   IntersectionPostRequestMap,
@@ -137,21 +136,45 @@ export async function deleteEntity<T>(url: string): Promise<T> {
 async function callApi<T>(url: string, request: RequestInit): Promise<T> {
   try {
     const response = await fetch(url, request);
+
+    // Check if response is successful
     if (response.status >= 200 && response.status < 300) {
-      // const message = response.statusText;
-      return await response.json();
+      const contentType = response.headers.get('content-type') || '';
+
+      if (contentType.includes('application/json')) {
+        return await response.json(); // Parse as JSON if content type is JSON
+      } else if (contentType.includes('text/plain')) {
+        // If it's plain text, you can log or handle it appropriately
+        const text = await response.text();
+        console.warn('Received plain text response:', text);
+        throw new Error('Expected JSON but received plain text');
+      } else {
+        throw new Error(`Unsupported content type: ${contentType}`);
+      }
     } else {
-      console.error(response);
+      console.error(
+        `Error from API: ${response.status} - ${response.statusText}`
+      );
       console.error('From: %s', url);
-      const newVar = await response.json();
-      const errorMessage: string = newVar.message;
-      const originalRequest: T = newVar.requestBody;
-      // return errorResponse(errorMessage, originalRequest);
-      notFound();
+
+      // Check for error response type
+      const contentType = response.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        // Handle JSON response for errors
+        const errorJson = await response.json();
+        console.error(errorJson);
+      } else if (contentType.includes('text/plain')) {
+        // Handle plain text error response
+        const errorText = await response.text();
+        console.error('Error message:', errorText);
+      } else {
+        console.error('Unsupported error content type:', contentType);
+      }
+      throw new Error();
+      // notFound(); // Custom error handler
     }
   } catch (error) {
-    console.error('Error fetching data: ', error, request, url);
-    // return errorResponse('Error');
+    console.error('Error fetching data:', request, url);
     throw Error('Error while fetching data.');
   }
 }

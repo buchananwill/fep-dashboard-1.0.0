@@ -8,9 +8,9 @@ import { get } from 'lodash';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import clsx from 'clsx';
 
-export function StringValueChip<
-  T extends HasId & { workTaskType: WorkTaskTypeDto }
->(props: NextUiCellComponentProps<T>) {
+export function StringValueChip<T extends HasId>(
+  props: NextUiCellComponentProps<T>
+) {
   const stringValue = get(
     props.entity,
     props.path as TypedPaths<T, string | number>,
@@ -22,6 +22,6 @@ export function StringValueChip<
   if (shortCodeColor === 'bg-white') shortCodeColor = 'bg-default-200';
 
   return (
-    <Chip className={clsx(shortCodeColor, 'select-none')}>{stringValue}</Chip>
+    <Chip className={clsx(shortCodeColor, ' select-none ')}>{stringValue}</Chip>
   );
 }
