@@ -8,8 +8,7 @@ import {
   WORK_TASK_TYPE_COLUMNS
 } from '@/components/tables/selectorTables/WorkTaskTypeSelectorTable';
 import { Column, ColumnUid } from '@/types';
-import { get, startCase } from 'lodash';
-import { getDomainAlias } from '@/api/getDomainAlias';
+import { get } from 'lodash';
 import { DeleteEntity } from '@/components/tables/edit-tables/DeleteEntity';
 import {
   getCellRenderFunction,
@@ -20,11 +19,7 @@ import { StringValueChip } from '@/components/generic/StringValueChip';
 import { useFilterOutDeletedEntities } from '@/components/tables/edit-tables/useFilterOutDeletedEntities';
 import { useRouter } from 'next/navigation';
 
-export default function WorkTaskTypeEditTable({
-  workTaskTypes
-}: {
-  workTaskTypes: WorkTaskTypeDto[];
-}) {
+export default function WorkTaskTypeEditTable() {
   const entities = useFilterOutDeletedEntities<WorkTaskTypeDto>(
     EntityClassMap.workTaskType
   );
@@ -54,7 +49,7 @@ export default function WorkTaskTypeEditTable({
 }
 
 const COLUMNS: Column<WorkTaskTypeDto>[] = [
-  { name: 'Action', uid: 'action', sortable: false },
+  { name: 'Delete', uid: 'action', sortable: false },
   ...WORK_TASK_TYPE_COLUMNS
 ];
 

@@ -20,7 +20,7 @@ export function useModalEditEntityTextAttribute<T extends HasId>(
   const { currentState, dispatch: dispatchTextChange } =
     useGlobalController<string>({
       contextKey,
-      listenerKey: 'replacement-value-controller',
+      listenerKey: `${entityClass}:${entity.id}:replacement-value-controller`,
       initialValue: get(entity, stringPath)
     });
 

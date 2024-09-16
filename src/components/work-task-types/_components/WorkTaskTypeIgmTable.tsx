@@ -2,15 +2,17 @@
 import IgmTableWrapper, {
   IgmTableWrapperProps
 } from '@/components/tables/IgmTableWrapper';
-import { KnowledgeDomainDto } from '@/api/zod-schemas/KnowledgeDomainDtoSchema';
-import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
 import { TableProps } from '@nextui-org/react';
 import { useCallback, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { initWorkProjectSeriesSchemas } from '@/utils/init-database-functions/operations/initWorkProjectSeriesSchemas';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { IntersectionGeneratorMatrix } from '@/api/types';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import {
+  KnowledgeDomainDto,
+  KnowledgeLevelDto,
+  WorkTaskTypeDto
+} from '@/api/generated-types/generated-types';
 
 export default function WorkTaskTypeIgmTable({
   submitTo,

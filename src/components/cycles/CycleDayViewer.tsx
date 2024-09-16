@@ -21,8 +21,7 @@ import {
   useMasterListInteraction
 } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
-import { makeTransientId } from '@/functions/makeTransientId';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 export interface CycleDayViewerProps extends CycleDayFetcherProps {
   cycleSubspanDtos: CycleSubspanDto[];
@@ -47,10 +46,7 @@ export default function CycleDayViewer({
       dispatchMasterList: DispatchList<CycleSubspanDto>,
       dispatchAddedList: DispatchList<Identifier>
     ) => {
-      const transientId = makeTransientId(
-        ABSOLUTE_SMALLEST_TRANSIENT_ID +
-          currentState.length * (cycleDay.zeroIndexedCycleDay + 1)
-      );
+      const transientId = idDecrementer();
       const newCycleSubspan: CycleSubspanDto = {
         ...templateCycleSubspan,
         zeroIndexedCycleDay: cycleDay.zeroIndexedCycleDay,
@@ -67,7 +63,7 @@ export default function CycleDayViewer({
       dispatchMasterList(addCycleSubspan);
       dispatchAddedList(addId);
     },
-    [cycleDay.zeroIndexedCycleDay, currentState, cycle.id, dispatch]
+    [cycle.id, dispatch, cycleDay]
   );
 
   const dispatchInitialList = NamespacedHooks.useDispatch<CycleSubspanDto[]>(
@@ -89,8 +85,6 @@ export default function CycleDayViewer({
 
   return (
     <Card classNames={{ base: 'w-fit', body: 'w-fit' }}>
-      {/*<DtoControllerArray entityClass={cycleSubspan} dtoList={currentState} />*/}
-
       <CardHeader className={'justify-center gap-2 text-center'}>
         {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
         <Button

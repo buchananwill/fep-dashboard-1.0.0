@@ -6,6 +6,8 @@ import SuitabilityPage, {
   RoleTypeListComponent
 } from '@/components/roles/suitability/SuitabilityPage';
 import AvailabilityPage from '@/components/roles/availability/availabilityPage';
+import { getLastNVariables } from '@/functions/getLastNVariables';
+import { notFound } from 'next/navigation';
 
 export const rolePageTree: NavTreeBranch = {
   type: 'branch',
@@ -21,6 +23,9 @@ export const RoleAspects = {
 };
 
 function RoleAspectMenu({ pathVariables, depth }: LeafComponentProps) {
+  const [roleType] = getLastNVariables(pathVariables, 1);
+  if (roleType === 'users') notFound();
+
   return Object.keys(RoleAspects).map((aspect) => {
     return (
       <LinkButton

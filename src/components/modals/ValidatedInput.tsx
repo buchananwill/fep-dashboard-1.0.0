@@ -14,7 +14,6 @@ export function useInputValidation(
     return validator ? validator(value) : {};
   }, [validator, value]);
 
-  console.log('Inside Input:', error, errorMessage);
   return { error, errorMessage };
 }
 

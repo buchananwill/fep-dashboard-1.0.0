@@ -1,7 +1,6 @@
 import { Card } from '@nextui-org/card';
 import { initWorkTaskTypesFromMatrix } from '@/utils/init-database-functions/operations/initWorkTaskTypesFromMatrix';
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
-import { getDtoListByExampleList as getKnowledgeDomainsByExample } from '@/api/generated-actions/KnowledgeDomain';
 import data from '@/utils/init-json-data/service-categories/workTaskTypesIgm.json';
 import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categories/getWorkTaskTypeTableLookUp';
 import { createRows } from '@/functions/createRows';
@@ -10,6 +9,7 @@ import WorkTaskTypeIgmTable from '@/components/work-task-types/_components/WorkT
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
+import { Api } from '@/api/clientApi_';
 
 const rowEntityName = 'Lesson Type';
 async function CreateWorkTaskTypeTablePage({
@@ -22,9 +22,7 @@ async function CreateWorkTaskTypeTablePage({
     { knowledgeLevelSeriesId: serviceCategoryIdInt }
   ]).then((r) => r.sort((l1, l2) => l1.levelOrdinal - l2.levelOrdinal));
 
-  const kDomains = await getKnowledgeDomainsByExample([
-    { knowledgeLevelSeriesId: serviceCategoryIdInt }
-  ]);
+  const kDomains = await Api.KnowledgeDomain.getAll();
 
   const tableRows = createRows(
     kDomains,

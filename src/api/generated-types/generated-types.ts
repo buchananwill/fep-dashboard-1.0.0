@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-09-14 18:10:41.
+// Generated using typescript-generator version 3.2.1263 on 2024-09-16 14:26:19.
 
 export interface AutoBuildParametersDto extends Serializable {
     multiStepUndoTimeoutMs: number;
@@ -48,6 +48,13 @@ export interface GenericNestedDto<T> extends NestedDto<T> {
 export interface HierarchyEnrollmentRequest {
     scheduleId: number;
     organizationIdToUserRoleIdList: { [index: string]: number[] };
+}
+
+export interface PersonDto extends Serializable, DtoWrapper<Person, PersonDto, number> {
+    id: number;
+    dateOfBirth: DateAsString;
+    personalName: string;
+    familyName: string;
 }
 
 export interface ResourceRequirementItemRequest {
@@ -255,6 +262,17 @@ export interface DateAndTimeAndZoneDto extends Serializable {
 export interface DtoWrapper<E, D, I> extends Identifiable<I>, Serializable {
 }
 
+export interface Person extends Party, SelfSerializing<Person, PersonDto, number> {
+    id: number;
+    personNameJoins: PersonNameJoin[];
+    personNameStrategy: PersonNameStrategy;
+    fullName: string;
+    familyName: string;
+    personalAndFamilyNames: string;
+    middleNames: string;
+    personalName: string;
+}
+
 export interface Schedule extends SelfSerializing<Schedule, ScheduleDto, number> {
     id: number;
     autoBuildParameters: AutoBuildParameters;
@@ -289,8 +307,8 @@ export interface WorkProjectSeriesEnrollment extends LongIdentifiable, Intersect
     thruDate: DateAsString;
     fromDate: DateAsString;
     workTaskSeriesEnrollments: WorkTaskSeriesEnrollment[];
-    entityA: UserRole;
     entityB: WorkProjectSeries;
+    entityA: UserRole;
     serviceProductCycle: WorkProjectSeries;
 }
 
@@ -335,6 +353,60 @@ export interface TimeSpan extends Comparable<TimeSpan>, TypeFor<CycleSubspan, Ti
 export interface ZoneId extends Serializable {
 }
 
+export interface ProviderRole extends Role, PartyRole<ProviderRole>, EntityWithType<ProviderRole, ProviderRoleType, ProviderRoleTypeDto>, SelfSerializing<ProviderRole, ProviderRoleDto, number>, ResourceRole, HasEmail {
+    id: number;
+    knowledgeDomain: KnowledgeDomain;
+    maximumWeeklyHours: number;
+    type: ProviderRoleType;
+    workTaskSeriesResourceRequirementItems: WorkTaskSeriesResourceRequirementItem[];
+    providerAvailabilities: ProviderRoleAvailability[];
+    workTaskSeries: WorkTaskSeries[];
+    roleType: ProviderRole;
+    providerAvailability: ProviderRoleAvailability[];
+}
+
+export interface ProviderRoleTypeWorkTaskTypeSuitability extends SelfSerializing<ProviderRoleTypeWorkTaskTypeSuitability, ProviderRoleTypeWorkTaskTypeSuitabilityDto, number>, TriIntersectionEntityRead<Party, WorkTaskType, ProviderRoleType>, RatingEntity, SuitabilityEntity<Party, WorkTaskType, ProviderRoleType>, IdSettable<number> {
+    id: number;
+    party: Party;
+    providerRoleType: ProviderRoleType;
+    workTaskType: WorkTaskType;
+    entityB: WorkTaskType;
+    entityA: Party;
+    entityC: ProviderRoleType;
+}
+
+export interface PersonNameJoin {
+    id: number;
+    person: Person;
+    personName: PersonName;
+    nameOrdinal: number;
+}
+
+export interface ProviderRoleAvailability extends SelfSerializing<ProviderRoleAvailability, ProviderRoleAvailabilityDto, number>, LongIdentifiable, IdSettable<number>, RoleAvailability<ProviderRole> {
+    providerRole: ProviderRole;
+    party: Party;
+    entityA: ProviderRole;
+    neverAvailable: boolean;
+}
+
+export interface PartyNode extends ClosureNode<PartyNode, PartyNodeRelationship> {
+    closureManager: ClosureManager<PartyNode, PartyNodeRelationship>;
+    party: Party;
+    closuresAsChild: PartyNodeRelationship[];
+    closuresAsParent: PartyNodeRelationship[];
+    allClosures: PartyNodeRelationship[];
+    allNodes: PartyNode[];
+}
+
+export interface Party extends Nameable, LongIdentifiable {
+    dateOfBirth: DateAsString;
+    providerRoles: ProviderRole[];
+    workTaskTypeProviderRoleTypeSuitabilities: ProviderRoleTypeWorkTaskTypeSuitability[];
+    providerRoleAvailabilities: ProviderRoleAvailability[];
+    partyType: string;
+    partyGraphNodes: PartyNode[];
+}
+
 export interface AutoBuildParameters {
     multiStepUndoTimeoutMs: number;
     multiUndoIncrement: number;
@@ -370,11 +442,11 @@ export interface WorkProjectSeries extends SelfSerializing<WorkProjectSeries, Wo
     completedStatus: boolean;
     size: number;
     providerRoleTypeCountMap: { [index: string]: number };
+    workTaskSeriesDtoList: WorkTaskSeriesDto[];
+    knowledgeDomain: KnowledgeDomain;
+    cycleSubspanSetView: CycleSubspan[];
     workTaskSeriesSetView: WorkTaskSeries[];
     cycleSubspanGroupListView: CycleSubspanGroup[];
-    workTaskSeriesDtoList: WorkTaskSeriesDto[];
-    cycleSubspanSetView: CycleSubspan[];
-    knowledgeDomain: KnowledgeDomain;
     serviceProductCycleSchema: WorkProjectSeriesSchema;
 }
 
@@ -393,8 +465,8 @@ export interface WorkTaskSeriesUnitEnrollment extends IntersectionEntityRead<Par
     workTaskSeriesEnrollment: WorkTaskSeriesEnrollment;
     userRole: UserRole;
     party: Party;
-    entityA: Party;
     entityB: CycleSubspan;
+    entityA: Party;
 }
 
 export interface WorkTaskSeries {
@@ -406,13 +478,13 @@ export interface WorkTaskSeries {
     workTaskSeriesResourceRequirementItems: WorkTaskSeriesResourceRequirementItem[];
     workTaskSeriesEnrollments: WorkTaskSeriesEnrollment[];
     size: number;
-    subject: string;
     startTime: DateAsString;
+    subject: string;
     endTime: DateAsString;
-    providerRoles: ProviderRole[];
-    assetRoles: AssetRole[];
-    cycleSubspans: CycleSubspan[];
     schedule: Schedule;
+    assetRoles: AssetRole[];
+    providerRoles: ProviderRole[];
+    cycleSubspans: CycleSubspan[];
 }
 
 export interface DeliveryAllocation extends SelfSerializing<DeliveryAllocation, DeliveryAllocationDto, number> {
@@ -422,8 +494,8 @@ export interface DeliveryAllocation extends SelfSerializing<DeliveryAllocation, 
     staticDeliveryAllocations: StaticDeliveryAllocation[];
     size: number;
     count: number;
-    volume: number;
     workTaskType: WorkTaskType;
+    volume: number;
 }
 
 export interface StaticDeliveryAllocation {
@@ -441,10 +513,10 @@ export interface CycleSubspanGroup extends Comparable<CycleSubspanGroup>, Collec
     staticDeliveryAllocationItems: StaticDeliveryAllocationItem[];
     cycleLayerItems: CycleLayerItem[];
     dayOfWeek: DayOfWeek;
-    intersectionItems: CycleSubspanJoin[];
-    cycleSubspansList: CycleSubspan[];
     cycle?: Cycle;
     cycleSubSpans: CycleSubspan[];
+    cycleSubspansList: CycleSubspan[];
+    intersectionItems: CycleSubspanJoin[];
 }
 
 export interface StaticDeliveryAllocationItemUnit {
@@ -463,14 +535,14 @@ export interface WorkProjectSeriesSchema extends LongIdentifiable, Nameable, Sel
     carouselGroupOptions: CarouselGroupOption[];
     carouselOptions: CarouselOption[];
     workSchemaNodes: WorkSchemaNode[];
-    intersectionItems: DeliveryAllocation[];
     knowledgeLevel: KnowledgeLevel;
-    deliveryAllocationsPerCycle: number;
-    allocationEntryTokens: EntryToken<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    subjectNamePrefix: string;
-    deliveryAllocationsMap: { [index: string]: DeliveryAllocation };
     shortCode: string;
     knowledgeDomain: KnowledgeDomain;
+    deliveryAllocationsPerCycle: number;
+    subjectNamePrefix: string;
+    deliveryAllocationsMap: { [index: string]: DeliveryAllocation };
+    allocationEntryTokens: EntryToken<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    intersectionItems: DeliveryAllocation[];
 }
 
 export interface CycleSubspan extends Comparable<CycleSubspan>, LongIdentifiable, SelfSerializing<CycleSubspan, CycleSubspanDto, number>, EntityWithType<CycleSubspan, TimeSpan, TimeSpanDto>, Nameable {
@@ -484,9 +556,9 @@ export interface CycleSubspan extends Comparable<CycleSubspan>, LongIdentifiable
     duration: Duration;
     dayOfWeek: DayOfWeek;
     startTime: DateAsString;
-    zeroIndexedWeekNumber: number;
     endTime: DateAsString;
     dayOrdinal: number;
+    zeroIndexedWeekNumber: number;
 }
 
 export interface UserRole extends Role, PartyRole<UserRole>, EntityWithType<UserRole, UserRoleType, UserRoleTypeDto>, SelfSerializing<UserRole, UserRoleDto, number> {
@@ -529,29 +601,17 @@ export interface WorkTaskType extends SelfSerializing<WorkTaskType, WorkTaskType
     entities: WorkTask[];
     workTaskSeries: WorkTaskSeries[];
     resourceRequirementItems: ResourceRequirementItem[];
+    knowledgeLevelOrdinal: number;
+    workProjectSchemaItems: TaskSequenceSchemaItem[];
     providerRoleTypeCountMap: { [index: string]: number };
+    workTaskTypeName: WorkTaskTypeName;
     knowledgeLevelSeries: KnowledgeLevelSeries;
     nameSpaceIdentifier: string;
-    workProjectSchemaItems: TaskSequenceSchemaItem[];
-    workTaskTypeName: WorkTaskTypeName;
-    knowledgeLevelOrdinal: number;
-    entityA: KnowledgeDomain;
-    entityB: KnowledgeLevel;
     shortCode: string;
+    entityB: KnowledgeLevel;
+    entityA: KnowledgeDomain;
     workTaskTypeCycleLayerPermissions: WorkTaskTypeCycleLayerExclusion[];
     serviceProductCycleSchemas: WorkProjectSeriesSchema[];
-}
-
-export interface ProviderRole extends Role, PartyRole<ProviderRole>, EntityWithType<ProviderRole, ProviderRoleType, ProviderRoleTypeDto>, SelfSerializing<ProviderRole, ProviderRoleDto, number>, ResourceRole, HasEmail {
-    id: number;
-    knowledgeDomain: KnowledgeDomain;
-    maximumWeeklyHours: number;
-    type: ProviderRoleType;
-    workTaskSeriesResourceRequirementItems: WorkTaskSeriesResourceRequirementItem[];
-    providerAvailabilities: ProviderRoleAvailability[];
-    workTaskSeries: WorkTaskSeries[];
-    roleType: ProviderRole;
-    providerAvailability: ProviderRoleAvailability[];
 }
 
 export interface AssetRole extends SelfSerializing<AssetRole, AssetRoleDto, number>, EntityWithType<AssetRole, AssetRoleType, AssetRoleTypeDto>, LongIdentifiable, ResourceRole {
@@ -591,31 +651,25 @@ export interface TimeDivision extends Comparable<TimeDivision>, SelfSerializing<
     instant: DateAsString;
 }
 
-export interface CycleModel {
-    validCycleSubspanGroupSizes: number[];
-    validCycleSubspanGroups: CycleSubspanGroup[];
-    cycleLengthInSeconds: number;
-    cycleLengthInDays: number;
-    cycleLengthInWeeks: number;
-    cycleSubSpans: CycleSubspan[];
-    cycleStartDay: DayOfWeek;
-}
-
-export interface WorkTaskSeriesDto extends Serializable {
+export interface PartyRoleRelationship {
+    fromDate: DateAsString;
+    thruDate: DateAsString;
     id: number;
-    workTaskTypeId: number;
-    cycleSubSpanGroupSize: number;
-    cycleSubSpanGroupId: string;
-    workTaskSeriesUnits: WorkTaskSeriesUnitDto[];
+    name: string;
+    fromPartyRole: PartyRole<any>;
+    toPartyRole: PartyRole<any>;
+    serviceProductType: WorkTaskType;
 }
 
-export interface Party extends Nameable, LongIdentifiable {
-    dateOfBirth: DateAsString;
-    providerRoles: ProviderRole[];
+export interface ProviderRoleType extends ClosureNode<ProviderRoleType, ProviderRoleTypeClosure>, TypeFor<ProviderRole, ProviderRoleType, ProviderRoleTypeDto> {
+    resourceRequirementItems: ResourceRequirementItem[];
+    closureManager: ClosureManager<ProviderRoleType, ProviderRoleTypeClosure>;
+    closuresAsParent: ProviderRoleTypeClosure[];
+    closuresAsChild: ProviderRoleTypeClosure[];
     workTaskTypeProviderRoleTypeSuitabilities: ProviderRoleTypeWorkTaskTypeSuitability[];
-    providerRoleAvailabilities: ProviderRoleAvailability[];
-    partyType: string;
-    partyGraphNodes: PartyNode[];
+    entities: ProviderRole[];
+    allClosures: ProviderRoleTypeClosure[];
+    allNodes: ProviderRoleType[];
 }
 
 export interface WorkTaskSeriesResourceRequirementItem {
@@ -628,7 +682,73 @@ export interface WorkTaskSeriesResourceRequirementItem {
     schedule: Schedule;
 }
 
+export interface Calendar {
+    id: string;
+    name: string;
+    ownerRole: Role;
+    scheduleEvents: Event[];
+}
+
+export interface Role extends LongIdentifiable, Nameable, HasEmail {
+    colorCode: string;
+    startDate: DateAsString;
+    thruDate: DateAsString;
+    partyRoleRelationships: PartyRoleRelationship[];
+    party: Party;
+    calendars: Calendar[];
+    defaultCalendar: Calendar;
+}
+
+export interface ResourceRole {
+    allowableCycleSubspans: CycleSubspan[];
+}
+
+export interface HasEmail {
+    email: string;
+}
+
+export interface RatingEntity {
+    rating: number;
+}
+
+export interface PersonName {
+}
+
+export interface ClosureManager<N, C> extends ClosureManagerInterface<N, C> {
+    shortestPath: boolean;
+    uniqueRoot: boolean;
+}
+
+export interface PartyNodeRelationship extends Closure<PartyNode, PartyNodeRelationship>, EntityWithType<PartyNodeRelationship, PartyNodeRelationshipType, PartyNodeRelationshipTypeDto> {
+    name: string;
+    type: PartyNodeRelationshipType;
+    child: PartyNode;
+    parent: PartyNode;
+    nodes: PartyNode[];
+}
+
+export interface Nameable extends HasName {
+}
+
 export interface SelfSerializing<E, D, I> extends Identifiable<I> {
+}
+
+export interface CycleModel {
+    cycleLengthInDays: number;
+    cycleLengthInWeeks: number;
+    cycleSubSpans: CycleSubspan[];
+    cycleLengthInSeconds: number;
+    validCycleSubspanGroupSizes: number[];
+    validCycleSubspanGroups: CycleSubspanGroup[];
+    cycleStartDay: DayOfWeek;
+}
+
+export interface WorkTaskSeriesDto extends Serializable {
+    id: number;
+    workTaskTypeId: number;
+    cycleSubSpanGroupSize: number;
+    cycleSubSpanGroupId: string;
+    workTaskSeriesUnits: WorkTaskSeriesUnitDto[];
 }
 
 export interface IntegerScalarProduct {
@@ -642,8 +762,8 @@ export interface CycleSubspanJoin extends Comparable<CycleSubspanJoin>, ItemEnti
     cycleSubspan: CycleSubspan;
     cycleSubspanGroup: CycleSubspanGroup;
     joinOrdinal: number;
-    entityA: CycleSubspanGroup;
     entityB: CycleSubspan;
+    entityA: CycleSubspanGroup;
 }
 
 export interface CycleLayerItem {
@@ -662,17 +782,17 @@ export interface CarouselGroupOption extends ItemEntityRead<CarouselGroup, Carou
     id: number;
     carouselGroup: CarouselGroup;
     workProjectSeriesSchema: WorkProjectSeriesSchema;
-    entityA: CarouselGroup;
     entityB: WorkProjectSeriesSchema;
+    entityA: CarouselGroup;
 }
 
 export interface CarouselOption extends LongIdentifiable, SelfSerializing<CarouselOption, CarouselOptionDto, number>, ItemEntityRead<Carousel, CarouselOption, WorkProjectSeriesSchema>, IdSettable<number> {
     carousel: Carousel;
     workProjectSeriesSchema: WorkProjectSeriesSchema;
     workSchemaNode: WorkSchemaNode;
-    assignedCarouselOrderItems: CarouselOrderItem[];
-    entityA: Carousel;
     entityB: WorkProjectSeriesSchema;
+    entityA: Carousel;
+    assignedCarouselOrderItems: CarouselOrderItem[];
 }
 
 export interface WorkSchemaNode extends ClosureNode<WorkSchemaNode, WorkSchemaClosure>, WorkSchemaNodeTaskSourceResolver, SelfSerializing<WorkSchemaNode, WorkSchemaNodeDto, number> {
@@ -694,10 +814,10 @@ export interface WorkSchemaNode extends ClosureNode<WorkSchemaNode, WorkSchemaCl
     workSchemaNodeAssignments: WorkSchemaNodeAssignment[];
     workProjectSeriesAssignments: WorkProjectSeriesAssignment[];
     root: WorkSchemaNode;
-    uniqueRoot: boolean;
     resolutionMode: WorkSchemaNodeTypes;
-    permittedChildTypes: WorkSchemaNodeTypes[];
+    uniqueRoot: boolean;
     orGenerateName: string;
+    permittedChildTypes: WorkSchemaNodeTypes[];
 }
 
 export interface KnowledgeLevel extends LongIdentifiable, SelfSerializing<KnowledgeLevel, KnowledgeLevelDto, number> {
@@ -730,20 +850,7 @@ export interface CycleWorkerGrouping extends WorkerGrouping<WorkProjectSeriesFac
     workers: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
 }
 
-export interface Nameable extends HasName {
-}
-
 export interface Duration extends TemporalAmount, Comparable<Duration>, Serializable {
-}
-
-export interface PartyRoleRelationship {
-    fromDate: DateAsString;
-    thruDate: DateAsString;
-    id: number;
-    name: string;
-    fromPartyRole: PartyRole<any>;
-    toPartyRole: PartyRole<any>;
-    serviceProductType: WorkTaskType;
 }
 
 export interface UserRoleType extends TypeFor<UserRole, UserRoleType, UserRoleTypeDto>, ClosureNode<UserRoleType, UserRoleTypeClosure>, SelfSerializing<UserRoleType, UserRoleTypeDto, number> {
@@ -760,31 +867,14 @@ export interface CarouselOrder extends CollectionEntity<CarouselOrder, CarouselO
     carouselGroup: CarouselGroup;
     userRole: UserRole;
     intersectionItems: CarouselOrderItem[];
-    listOfActiveElectives: CarouselOrderItem[];
-    subscribedCarousels: Carousel[];
     orderItems: CarouselOrderItem[];
-}
-
-export interface Calendar {
-    id: string;
-    name: string;
-    ownerRole: Role;
-    scheduleEvents: Event[];
-}
-
-export interface Role extends LongIdentifiable, Nameable, HasEmail {
-    colorCode: string;
-    startDate: DateAsString;
-    thruDate: DateAsString;
-    partyRoleRelationships: PartyRoleRelationship[];
-    defaultCalendar: Calendar;
-    calendars: Calendar[];
-    party: Party;
+    subscribedCarousels: Carousel[];
+    listOfActiveElectives: CarouselOrderItem[];
 }
 
 export interface IntersectionEntityRead<EntityA, EntityB> {
-    entityA: EntityA;
     entityB: EntityB;
+    entityA: EntityA;
 }
 
 export interface QueueTreeNode {
@@ -808,19 +898,9 @@ export interface AssetRoleTypeWorkTaskTypeSuitability extends SelfSerializing<As
     assetRoleType: AssetRoleType;
     workTaskType: WorkTaskType;
     asset: Asset;
-    entityC: AssetRoleType;
+    entityB: WorkTaskType;
     entityA: Asset;
-    entityB: WorkTaskType;
-}
-
-export interface ProviderRoleTypeWorkTaskTypeSuitability extends SelfSerializing<ProviderRoleTypeWorkTaskTypeSuitability, ProviderRoleTypeWorkTaskTypeSuitabilityDto, number>, TriIntersectionEntityRead<Party, WorkTaskType, ProviderRoleType>, RatingEntity, SuitabilityEntity<Party, WorkTaskType, ProviderRoleType>, IdSettable<number> {
-    id: number;
-    party: Party;
-    providerRoleType: ProviderRoleType;
-    workTaskType: WorkTaskType;
-    entityC: ProviderRoleType;
-    entityA: Party;
-    entityB: WorkTaskType;
+    entityC: AssetRoleType;
 }
 
 export interface WorkTask extends ReasonInterface<WorkTask>, EntityWithType<WorkTask, WorkTaskType, WorkTaskTypeDto> {
@@ -863,32 +943,6 @@ export interface WorkTaskTypeCycleLayerExclusion {
     cycleLayer: CycleLayer;
 }
 
-export interface ProviderRoleType extends ClosureNode<ProviderRoleType, ProviderRoleTypeClosure>, TypeFor<ProviderRole, ProviderRoleType, ProviderRoleTypeDto> {
-    resourceRequirementItems: ResourceRequirementItem[];
-    closureManager: ClosureManager<ProviderRoleType, ProviderRoleTypeClosure>;
-    closuresAsParent: ProviderRoleTypeClosure[];
-    closuresAsChild: ProviderRoleTypeClosure[];
-    workTaskTypeProviderRoleTypeSuitabilities: ProviderRoleTypeWorkTaskTypeSuitability[];
-    entities: ProviderRole[];
-    allClosures: ProviderRoleTypeClosure[];
-    allNodes: ProviderRoleType[];
-}
-
-export interface ProviderRoleAvailability extends SelfSerializing<ProviderRoleAvailability, ProviderRoleAvailabilityDto, number>, LongIdentifiable, IdSettable<number>, RoleAvailability<ProviderRole> {
-    providerRole: ProviderRole;
-    party: Party;
-    neverAvailable: boolean;
-    entityA: ProviderRole;
-}
-
-export interface ResourceRole {
-    allowableCycleSubspans: CycleSubspan[];
-}
-
-export interface HasEmail {
-    email: string;
-}
-
 export interface AssetRoleType extends LongIdentifiable, ClosureNode<AssetRoleType, AssetRoleTypeClosure>, SelfSerializing<AssetRoleType, AssetRoleTypeDto, number>, TypeFor<AssetRole, AssetRoleType, AssetRoleTypeDto> {
     closureManager: ClosureManager<AssetRoleType, AssetRoleTypeClosure>;
     assetRoles: AssetRole[];
@@ -897,8 +951,8 @@ export interface AssetRoleType extends LongIdentifiable, ClosureNode<AssetRoleTy
     assetRoleWorkTaskSuitabilities: AssetRoleTypeWorkTaskTypeSuitability[];
     resourceRequirementItems: ResourceRequirementItem[];
     allClosures: AssetRoleTypeClosure[];
-    allNodes: AssetRoleType[];
     entities: AssetRole[];
+    allNodes: AssetRoleType[];
 }
 
 export interface Asset extends ClosureNode<Asset, AssetClosure>, SelfSerializing<Asset, AssetDto, number>, EntityWithType<Asset, AssetType, AssetTypeDto> {
@@ -926,13 +980,8 @@ export interface WorkTaskUtilization {
 export interface AssetRoleAvailability extends SelfSerializing<AssetRoleAvailability, AssetRoleAvailabilityDto, number>, LongIdentifiable, IdSettable<number>, RoleAvailability<AssetRole> {
     assetRole: AssetRole;
     asset: Asset;
-    neverAvailable: boolean;
     entityA: AssetRole;
-}
-
-export interface ClosureManager<N, C> extends ClosureManagerInterface<N, C> {
-    shortestPath: boolean;
-    uniqueRoot: boolean;
+    neverAvailable: boolean;
 }
 
 export interface KnowledgeDomainClosure extends Closure<KnowledgeDomain, KnowledgeDomainClosure> {
@@ -949,13 +998,98 @@ export interface TypeFor<E, T, DtoForType> extends Nameable, LongIdentifiable, S
     id: number;
 }
 
+export interface ProviderRoleTypeClosure extends Closure<ProviderRoleType, ProviderRoleTypeClosure> {
+    parent: ProviderRoleType;
+    child: ProviderRoleType;
+    nodes: ProviderRoleType[];
+}
+
+export interface Event {
+    id: string;
+    title: string;
+    description: string;
+    creationTime: DateAsString;
+    start: DateAsString;
+    end: DateAsString;
+    calendar: Calendar;
+    eventAttendances: EventAttendance[];
+    startTimeZone: ZoneId;
+    scheduleEventAttendances: EventAttendance[];
+}
+
+export interface PartyRole<T> {
+    name: string;
+    id: number;
+    party: Party;
+    startDate: DateAsString;
+    thruDate: DateAsString;
+    roleType: T;
+}
+
+export interface EntityWithType<E, T, DT> {
+    type: T;
+}
+
+export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto extends Serializable, LongIdentifiable, DtoWrapper<ProviderRoleTypeWorkTaskTypeSuitability, ProviderRoleTypeWorkTaskTypeSuitabilityDto, number>, TriIntersectionDto<number, number, number> {
+    id: number;
+    rating: number;
+    partyId: number;
+    providerRoleTypeId: number;
+    providerRoleTypeName: string;
+    workTaskTypeId: number;
+    workTaskTypeName: string;
+    idEntityC: number;
+}
+
+export interface TriIntersectionEntityRead<A, B, C> extends IntersectionEntityRead<A, B> {
+    entityC: C;
+    entityB: B;
+    entityA: A;
+}
+
+export interface SuitabilityEntity<T, U, V> extends TriIntersectionEntityRead<T, U, V>, RatingEntity {
+    entityC: V;
+    entityB: U;
+    entityA: T;
+}
+
+export interface IdSettable<IdClass> {
+}
+
+export interface ProviderRoleAvailabilityDto extends Serializable, DtoWrapper<ProviderRoleAvailability, ProviderRoleAvailabilityDto, number>, LongIdentifiable, IntersectionDto<number, number>, RoleAvailabilityDto {
+    providerRoleId: number;
+    partyId: number;
+}
+
+export interface RoleAvailability<T> extends IntersectionEntityRead<T, CycleSubspan> {
+    available: boolean;
+    availabilityCode: AvailabilityCode;
+    cycleSubspan: CycleSubspan;
+    entityB: CycleSubspan;
+    entityA: T;
+}
+
+export interface PartyNodeRelationshipType extends TypeFor<PartyNodeRelationship, PartyNodeRelationshipType, PartyNodeRelationshipTypeDto>, SelfSerializing<PartyNodeRelationshipType, PartyNodeRelationshipTypeDto, number> {
+    entities: PartyNodeRelationship[];
+    id: number;
+    parentType: PartyNodeRelationshipType;
+    childTypeSet: PartyNodeRelationshipType[];
+    hierarchical: boolean;
+}
+
+export interface ClosureNode<N, C> extends LongIdentifiable {
+    closuresAsParent: C[];
+    closuresAsChild: C[];
+    closureManager: ClosureManager<N, C>;
+}
+
 export interface CycleDto extends Serializable, DtoWrapper<Cycle, CycleDto, number> {
     id: number;
     cycleLengthInDays: number;
-    cycleDayZero: DayOfWeek;
     maxGroupSize: number;
-    cycleLengthInWeeks: number;
     cycleSubspanGroupSizes: number[];
+    cycleDayZero: DayOfWeek;
+    cycleLengthInWeeks: number;
 }
 
 export interface WorkTaskSeriesUnitDto extends Serializable {
@@ -971,15 +1105,6 @@ export interface WorkProjectSeriesDto extends Serializable, DtoWrapper<WorkProje
     workProjectSeriesSchemaId: number;
     completedStatus: boolean;
     workTaskType: WorkTaskTypeDto;
-}
-
-export interface PartyNode extends ClosureNode<PartyNode, PartyNodeRelationship> {
-    closureManager: ClosureManager<PartyNode, PartyNodeRelationship>;
-    party: Party;
-    closuresAsChild: PartyNodeRelationship[];
-    closuresAsParent: PartyNodeRelationship[];
-    allClosures: PartyNodeRelationship[];
-    allNodes: PartyNode[];
 }
 
 export interface CycleLayer {
@@ -1016,9 +1141,9 @@ export interface Carousel extends Nameable, Identifiable<number>, CollectionEnti
     carouselOrdinal: number;
     carouselGroup: CarouselGroup;
     workSchemaNode: WorkSchemaNode;
+    workProjectSeriesSchemas: WorkProjectSeriesSchema[];
     intersectionItems: CarouselOption[];
     subscribers: CarouselOrderItem[];
-    workProjectSeriesSchemas: WorkProjectSeriesSchema[];
 }
 
 export interface CarouselOrderItem extends ItemEntityRead<CarouselOrder, CarouselOrderItem, WorkProjectSeriesSchema>, SelfSerializing<CarouselOrderItem, CarouselOrderItemDto, number>, IdSettable<number> {
@@ -1027,10 +1152,10 @@ export interface CarouselOrderItem extends ItemEntityRead<CarouselOrder, Carouse
     workProjectSeriesSchema: WorkProjectSeriesSchema;
     preferencePosition: number;
     active: boolean;
-    assignedCarousel: Carousel;
     carouselOption: CarouselOption;
-    entityA: CarouselOrder;
     entityB: WorkProjectSeriesSchema;
+    entityA: CarouselOrder;
+    assignedCarousel: Carousel;
     course: WorkProjectSeriesSchema;
 }
 
@@ -1044,8 +1169,8 @@ export interface WorkSchemaNodeAssignment extends IntersectionEntityRead<Organiz
     id: number;
     organization: Organization;
     workSchemaNode: WorkSchemaNode;
-    entityA: Organization;
     entityB: WorkSchemaNode;
+    entityA: Organization;
 }
 
 export interface WorkProjectSeriesAssignment extends SelfSerializing<WorkProjectSeriesAssignment, WorkProjectSeriesAssignmentDto, number> {
@@ -1068,46 +1193,46 @@ export interface WorkerDomain<T, W> {
     allSubDomains: WorkerGrouping<T, W>[];
 }
 
-export interface TessellationBox<T, W> extends Comparable<TessellationBox<T, W>>, ResourceMonitor {
-    id: number;
-    contents: CanTessellate<T, W>[];
-    workerGroupings: WorkerGrouping<T, W>[];
-    degreeOfNesting: number;
-    domains: WorkerDomain<T, W>[];
-    contentsIncludingParents: CanTessellate<T, W>[];
-    mappedWorkersIncludingParents: Worker<T, W>[];
-    mappedWorkersIncludingChildren: Worker<T, W>[];
-    unMappedWorkersThisLevel: Worker<T, W>[];
-    contentsIncludingChildren: CanTessellate<T, W>[];
-    unAssignedWorkersFullHierarchy: Worker<T, W>[];
-    domainsWithAvailability: WorkerDomain<T, W>[];
-}
-
 export interface TaskRequest<T, W> {
     taskSource: TaskSource<T, W>;
     entryToken: EntryToken<T, W>;
-    entryTokenSize: number;
     workerGroupingMap: { [index: string]: TaskCost };
+    entryTokenSize: number;
+}
+
+export interface TessellationBox<T, W> extends Comparable<TessellationBox<T, W>>, ResourceMonitor {
+    id: number;
+    contents: CanTessellate<T, W>[];
+    domains: WorkerDomain<T, W>[];
+    degreeOfNesting: number;
+    mappedWorkersIncludingChildren: Worker<T, W>[];
+    mappedWorkersIncludingParents: Worker<T, W>[];
+    contentsIncludingChildren: CanTessellate<T, W>[];
+    unMappedWorkersThisLevel: Worker<T, W>[];
+    contentsIncludingParents: CanTessellate<T, W>[];
+    unAssignedWorkersFullHierarchy: Worker<T, W>[];
+    domainsWithAvailability: WorkerDomain<T, W>[];
+    workerGroupings: WorkerGrouping<T, W>[];
 }
 
 export interface NoOverlapDomainBox extends AbstractBox<WorkProjectSeriesFactory, CycleWorkerGrouping>, TessellationBox<WorkProjectSeriesFactory, CycleWorkerGrouping> {
     childBoxes: NoOverlapDomainBox[];
     owner: Organization;
     contents: CanTessellate<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    workerGroupings: WorkerGrouping<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    completedCanTessellatesIncludingParents: CanTessellate<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    domains: WorkerDomain<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
     parents: NoOverlapDomainBox[];
     allParents: NoOverlapDomainBox[];
-    domains: WorkerDomain<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    mappedUnitsThisLevel: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    completedCanTessellates: CanTessellate<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    contentsIncludingParents: CanTessellate<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    mappedWorkersIncludingParents: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
     mappedWorkersIncludingChildren: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    unMappedWorkersThisLevel: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    mappedUnitsThisLevel: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    mappedWorkersIncludingParents: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    completedCanTessellates: CanTessellate<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
     contentsIncludingChildren: CanTessellate<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    unMappedWorkersThisLevel: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    contentsIncludingParents: CanTessellate<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    completedCanTessellatesIncludingParents: CanTessellate<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
     unAssignedWorkersFullHierarchy: Worker<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
     domainsWithAvailability: WorkerDomain<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    workerGroupings: WorkerGrouping<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
 }
 
 export interface AllocationCostFunctionGenerator extends BiFunction<WorkProjectSeriesFactory, TaskRequest<WorkProjectSeriesFactory, CycleWorkerGrouping>, CycleSubspanGroupCostFunction[]> {
@@ -1144,36 +1269,10 @@ export interface CycleSubspanDto extends Serializable, DtoWrapper<CycleSubspan, 
     dayOrdinal: number;
 }
 
-export interface EntityWithType<E, T, DT> {
-    type: T;
-}
-
 export interface UserRoleTypeClosure extends Closure<UserRoleType, UserRoleTypeClosure> {
     parent: UserRoleType;
     child: UserRoleType;
     nodes: UserRoleType[];
-}
-
-export interface Event {
-    id: string;
-    title: string;
-    description: string;
-    creationTime: DateAsString;
-    start: DateAsString;
-    end: DateAsString;
-    calendar: Calendar;
-    eventAttendances: EventAttendance[];
-    startTimeZone: ZoneId;
-    scheduleEventAttendances: EventAttendance[];
-}
-
-export interface PartyRole<T> {
-    name: string;
-    id: number;
-    thruDate: DateAsString;
-    roleType: T;
-    party: Party;
-    startDate: DateAsString;
 }
 
 export interface UserRoleTypeDto extends Serializable, TypeDto<UserRoleType, UserRoleTypeDto> {
@@ -1212,10 +1311,6 @@ export interface BuildMetricDto extends Serializable, DtoWrapper<BuildMetric, Bu
     queueTreeNodes: QueueTreeNodeDto[];
 }
 
-export interface RatingEntity {
-    rating: number;
-}
-
 export interface WorkProject {
     id: number;
     name: string;
@@ -1228,12 +1323,6 @@ export interface TaskSequenceSchema {
     name: string;
     description: string;
     taskSequenceSchemaItems: TaskSequenceSchemaItem[];
-}
-
-export interface ProviderRoleTypeClosure extends Closure<ProviderRoleType, ProviderRoleTypeClosure> {
-    parent: ProviderRoleType;
-    child: ProviderRoleType;
-    nodes: ProviderRoleType[];
 }
 
 export interface AssetRoleTypeClosure extends Closure<AssetRoleType, AssetRoleTypeClosure> {
@@ -1255,15 +1344,9 @@ export interface AssetType extends ClosureNode<AssetType, AssetTypeClosure>, Typ
     closuresAsChild: AssetTypeClosure[];
     entities: Asset[];
     allClosures: AssetTypeClosure[];
-    moveable: boolean;
     allNodes: AssetType[];
+    moveable: boolean;
     consumable: boolean;
-}
-
-export interface ClosureNode<N, C> extends LongIdentifiable {
-    closuresAsParent: C[];
-    closuresAsChild: C[];
-    closureManager: ClosureManager<N, C>;
 }
 
 export interface TimeDivisionDto extends Serializable, DtoWrapper<TimeDivision, TimeDivisionDto, number> {
@@ -1271,17 +1354,40 @@ export interface TimeDivisionDto extends Serializable, DtoWrapper<TimeDivision, 
     instant: DateAsString;
 }
 
-export interface PartyNodeRelationship extends Closure<PartyNode, PartyNodeRelationship>, EntityWithType<PartyNodeRelationship, PartyNodeRelationshipType, PartyNodeRelationshipTypeDto> {
-    name: string;
-    type: PartyNodeRelationshipType;
-    child: PartyNode;
-    parent: PartyNode;
-    nodes: PartyNode[];
+export interface EventAttendance {
+    id: number;
+    party: Party;
+    scheduleEvent: Event;
+}
+
+export interface RoleAvailabilityDto extends LongIdentifiable {
+    type: string;
+    cycleSubspanId: number;
+    availabilityCode: number;
+    roleEntityId: number;
+    baseEntityId: number;
+}
+
+export interface ClosureManagerInterface<N, C> {
+    allClosures: C[];
+    allNodes: N[];
+}
+
+export interface Closure<N, C> extends LongIdentifiable {
+    parent: N;
+    child: N;
+    weighting: number;
+    depth: number;
+    nodes: N[];
+}
+
+export interface PartyNodeRelationshipTypeDto extends Serializable, TypeDto<PartyNodeRelationshipType, PartyNodeRelationshipTypeDto> {
+    hierarchical: boolean;
 }
 
 export interface ItemEntityRead<C, I, E> extends LongIdentifiable, IntersectionEntityRead<C, E> {
-    entityA: C;
     entityB: E;
+    entityA: C;
 }
 
 export interface CycleSubspanJoinDto extends Serializable, DtoWrapper<CycleSubspanJoin, CycleSubspanJoinDto, number>, IntersectionDto<string, number> {
@@ -1296,9 +1402,6 @@ export interface CycleSubspanJoinDto extends Serializable, DtoWrapper<CycleSubsp
 export interface CarouselGroupOptionDto extends Serializable, DtoWrapper<CarouselGroupOption, CarouselGroupOptionDto, number>, IntersectionDto<number, number>, LongIdentifiable {
     carouselGroupId: number;
     workProjectSeriesSchemaId: number;
-}
-
-export interface IdSettable<IdClass> {
 }
 
 export interface CarouselOptionDto extends Serializable, IntersectionDto<number, number>, DtoWrapper<CarouselOption, CarouselOptionDto, number>, LongIdentifiable {
@@ -1336,22 +1439,16 @@ export interface WorkSchemaNodeDto extends Serializable, DtoWrapper<WorkSchemaNo
 
 export interface WorkerGrouping<T, W> {
     size: number;
-    workers: Worker<T, W>[];
     scarcityFactor: number;
-}
-
-export interface CanTessellate<T, W> {
-    size: number;
-    shape: Worker<T, W>[];
-    completedStatus: boolean;
+    workers: Worker<T, W>[];
 }
 
 export interface TaskSource<T, W> extends QueueProcessObserver {
-    maxUnallocatedTokenSize: number;
-    taskRequest: TaskRequest<T, W>;
-    nodeLinks: T[];
-    unusedTokenList: EntryToken<T, W>[];
     unusedDomains: WorkerDomain<T, W>[];
+    taskRequest: TaskRequest<T, W>;
+    unusedTokenList: EntryToken<T, W>[];
+    nodeLinks: T[];
+    maxUnallocatedTokenSize: number;
 }
 
 export interface TaskCost {
@@ -1360,14 +1457,20 @@ export interface TaskCost {
     finalValue: number;
 }
 
+export interface CanTessellate<T, W> {
+    size: number;
+    shape: Worker<T, W>[];
+    completedStatus: boolean;
+}
+
 export interface WorkSchemaNodeTaskSource extends DomainConstrainedTaskSource<WorkProjectSeriesFactory, CycleWorkerGrouping>, Observer {
-    totalExpectedAllocationVolume: number;
     workSchemaNode: WorkSchemaNode;
+    totalExpectedAllocationVolume: number;
     domainsWithAvailability: WorkerDomain<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
-    taskRequest: TaskRequest<WorkProjectSeriesFactory, CycleWorkerGrouping>;
-    nodeLinks: WorkProjectSeriesFactory[];
-    unusedTokenList: EntryToken<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
     unusedDomains: WorkerDomain<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    taskRequest: TaskRequest<WorkProjectSeriesFactory, CycleWorkerGrouping>;
+    unusedTokenList: EntryToken<WorkProjectSeriesFactory, CycleWorkerGrouping>[];
+    nodeLinks: WorkProjectSeriesFactory[];
 }
 
 export interface TemporalUnit {
@@ -1382,12 +1485,6 @@ export interface CarouselOrderDto extends Serializable, DtoWrapper<CarouselOrder
     carouselOrderItems: { [index: string]: CarouselOrderItemDto };
     userRoleId: number;
     carouselGroupId: number;
-}
-
-export interface EventAttendance {
-    id: number;
-    party: Party;
-    scheduleEvent: Event;
 }
 
 export interface QueueTreeNodeDto extends Serializable {
@@ -1413,29 +1510,6 @@ export interface AssetRoleTypeWorkTaskTypeSuitabilityDto extends Serializable, L
     idEntityC: number;
 }
 
-export interface TriIntersectionEntityRead<A, B, C> extends IntersectionEntityRead<A, B> {
-    entityC: C;
-    entityA: A;
-    entityB: B;
-}
-
-export interface SuitabilityEntity<T, U, V> extends TriIntersectionEntityRead<T, U, V>, RatingEntity {
-    entityC: V;
-    entityA: T;
-    entityB: U;
-}
-
-export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto extends Serializable, LongIdentifiable, DtoWrapper<ProviderRoleTypeWorkTaskTypeSuitability, ProviderRoleTypeWorkTaskTypeSuitabilityDto, number>, TriIntersectionDto<number, number, number> {
-    id: number;
-    rating: number;
-    partyId: number;
-    providerRoleTypeId: number;
-    providerRoleTypeName: string;
-    workTaskTypeId: number;
-    workTaskTypeName: string;
-    idEntityC: number;
-}
-
 export interface ReasonInterface<T> {
     reason: T;
 }
@@ -1445,19 +1519,6 @@ export interface ResourceRequirementItemDto extends Serializable, DtoWrapper<Res
     providerRoleType: ProviderRoleTypeDto;
     assetRoleType: AssetRoleTypeDto;
     id: number;
-}
-
-export interface ProviderRoleAvailabilityDto extends Serializable, DtoWrapper<ProviderRoleAvailability, ProviderRoleAvailabilityDto, number>, LongIdentifiable, IntersectionDto<number, number>, RoleAvailabilityDto {
-    providerRoleId: number;
-    partyId: number;
-}
-
-export interface RoleAvailability<T> extends IntersectionEntityRead<T, CycleSubspan> {
-    available: boolean;
-    availabilityCode: AvailabilityCode;
-    cycleSubspan: CycleSubspan;
-    entityA: T;
-    entityB: CycleSubspan;
 }
 
 export interface AssetTypeClosure extends Closure<AssetType, AssetTypeClosure> {
@@ -1481,25 +1542,11 @@ export interface AssetRoleAvailabilityDto extends Serializable, DtoWrapper<Asset
     assetId: number;
 }
 
-export interface ClosureManagerInterface<N, C> {
-    allClosures: C[];
-    allNodes: N[];
+export interface TriIntersectionDto<A, B, C> extends IntersectionDto<A, B> {
+    idEntityC: C;
 }
 
-export interface Closure<N, C> extends LongIdentifiable {
-    parent: N;
-    child: N;
-    depth: number;
-    nodes: N[];
-    weighting: number;
-}
-
-export interface PartyNodeRelationshipType extends TypeFor<PartyNodeRelationship, PartyNodeRelationshipType, PartyNodeRelationshipTypeDto>, SelfSerializing<PartyNodeRelationshipType, PartyNodeRelationshipTypeDto, number> {
-    entities: PartyNodeRelationship[];
-    id: number;
-    parentType: PartyNodeRelationshipType;
-    childTypeSet: PartyNodeRelationshipType[];
-    hierarchical: boolean;
+export interface IntersectionDto<A, B> {
 }
 
 export interface CollectionDto<ItemDto, IdTypeOfReferencedEntity> {
@@ -1571,21 +1618,6 @@ export interface CycleSubspanGroupCostFunction extends Function<CycleSubspanGrou
 export interface Observer {
 }
 
-export interface RoleAvailabilityDto extends LongIdentifiable {
-    type: string;
-    baseEntityId: number;
-    roleEntityId: number;
-    availabilityCode: number;
-    cycleSubspanId: number;
-}
-
-export interface PartyNodeRelationshipTypeDto extends Serializable, TypeDto<PartyNodeRelationshipType, PartyNodeRelationshipTypeDto> {
-    hierarchical: boolean;
-}
-
-export interface IntersectionDto<A, B> {
-}
-
 export interface CarouselLeanDto extends Serializable {
     id: number;
     carouselOrdinal: number;
@@ -1607,12 +1639,8 @@ export interface OrganizationTypeDto extends Serializable, TypeDto<OrganizationT
 }
 
 export interface DomainConstrainedTaskSource<T, W> extends TaskSource<T, W> {
-    domainsWithAvailability: WorkerDomain<T, W>[];
     domainConstrained: boolean;
-}
-
-export interface TriIntersectionDto<A, B, C> extends IntersectionDto<A, B> {
-    idEntityC: C;
+    domainsWithAvailability: WorkerDomain<T, W>[];
 }
 
 export interface Function<T, R> {
@@ -1623,6 +1651,8 @@ export type DateAsString = string;
 export type DayOfWeek = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
 
 export type AvailabilityCode = "NEVER" | "FALSE" | "MAYBE" | "TRUE";
+
+export type PersonNameStrategy = "FAMILY_NAME_FIRST_PERSONAL_NAME_SECOND" | "PERSONAL_NAME_FIRST_FAMILY_NAME_LAST";
 
 export type ReportStatus = "PENDING" | "PASS" | "FAIL";
 
