@@ -9,6 +9,7 @@ import {
   CycleSubspanDto,
   CycleSubspanWithJoinsListDto
 } from '@/api/generated-types/generated-types';
+import { useMemo } from 'react';
 
 export default function CycleSubspanCellWithJoins(props: CellWrapperProps) {
   return (
@@ -16,10 +17,6 @@ export default function CycleSubspanCellWithJoins(props: CellWrapperProps) {
       entityClass={EntityClassMap.cycleSubspan}
       InnerCell={InnerCycleSubspanCell}
       idKey={'columnId'}
-      className={
-        ''
-        // (props.columnIndex + 1) % 6 === 0 ? 'border-r border-r-gray-700' : ''
-      }
       {...props}
     />
   );
@@ -28,10 +25,17 @@ export default function CycleSubspanCellWithJoins(props: CellWrapperProps) {
 function InnerCycleSubspanCell({
   entity
 }: BaseLazyDtoUiProps<CycleSubspanWithJoinsListDto>) {
+  console.log(entity);
+
+  const entityDescription = useMemo(() => {
+    return (
+      entity?.timeSpan?.startTimeDivisionInstant ??
+      `${entity.zeroIndexedCycleDay + 1}.${entity.dayOrdinal}`
+    );
+  }, [entity]);
+
   const floatingTooltip = useFloatingTooltip(
-    <TooltipMemo
-      text={`${entity.zeroIndexedCycleDay + 1}: ${entity?.timeSpan?.startTimeDivisionInstant}`}
-    />
+    <TooltipMemo text={entityDescription} />
   );
 
   return (
@@ -42,7 +46,7 @@ function InnerCycleSubspanCell({
       )}
       {...floatingTooltip}
     >
-      {String(entity?.timeSpan?.startTimeDivisionInstant)}
+      {String(entityDescription)}
       {/*{entity.zeroIndexedCycleDay + 1}.{entity.dayOrdinal + 1}*/}
     </span>
   );

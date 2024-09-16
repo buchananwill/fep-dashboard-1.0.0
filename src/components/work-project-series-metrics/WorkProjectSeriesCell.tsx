@@ -20,8 +20,10 @@ export function InnerWorkProjectSeriesCell({
   entity
 }: BaseLazyDtoUiProps<WorkProjectSeriesWithSchemaLabelsDto>) {
   return (
-    <span className={'inline-block w-full truncate'}>
-      {getValue(entity, 'workTaskType.name')}
+    <span className={'center-all-margin inline-block w-full truncate pl-0.5'}>
+      {getValue(entity, 'workTaskType.knowledgeDomain.shortCode') ??
+        getValue(entity, 'workTaskType.knowledgeDomain.name')}
+      :{getValue(entity, 'workTaskType.knowledgeLevel.levelOrdinal')}
     </span>
   );
 }
