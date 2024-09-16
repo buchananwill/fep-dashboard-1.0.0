@@ -14,8 +14,6 @@ import {
   MemoizedFunction,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
-import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
-import { OrganizationTypeDto } from '@/api/zod-schemas/OrganizationTypeDtoSchema';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
 import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';
@@ -25,6 +23,17 @@ import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditab
 import { FlowNode } from '@/components/react-flow/generic/types';
 import InputValueListNode from '@/components/react-flow/generator-graph/InputValueListNode';
 import { LeftToRightEdge } from '@/components/react-flow/generic/components/edges/LeftToRightEdge';
+import {
+  OrganizationDto as OrgInterface,
+  OrganizationTypeDto
+} from '@/api/generated-types/generated-types';
+// import { Simplify } from 'type-fest';
+
+type Simplify<T> = {
+  [Key in keyof T]: T[Key];
+};
+
+type OrganizationDto = Simplify<OrgInterface>;
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,

@@ -1,8 +1,8 @@
-import { NodeProps } from '@xyflow/react';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import clsx from 'clsx';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import { NodeBase } from '@/components/react-flow/generic/types';
+import { NodeProps } from '@/types/xyflow-overrides';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 
 export default function OpenNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>

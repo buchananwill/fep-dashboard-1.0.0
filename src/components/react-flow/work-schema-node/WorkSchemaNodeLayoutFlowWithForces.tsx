@@ -20,7 +20,6 @@ import {
   DataLink,
   DataNodeDto,
   GraphSelectiveContextKeys,
-  HasStringId,
   MemoizedFunction,
   useGraphDispatch,
   useModalContent,
@@ -29,7 +28,7 @@ import {
 import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditableFlow';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto as WSNimport } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import {
   determineLocalResolution,
   validateHierarchy,
@@ -69,12 +68,12 @@ import { LeftToRightEdge } from '@/components/react-flow/generic/components/edge
 import { useHierarchicalDataLayoutMemo } from '@/components/react-flow/generic/hooks/useHierarchicalDataLayoutMemo';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 import {
-  HasPosition,
   hierarchicalLayoutMap,
   Layoutable
 } from '@/components/react-flow/generic/hooks/useForces';
-import { HierarchyPointNode } from 'd3';
-import { NestedWithStringId } from '@/components/react-flow/generic/hooks/useHierarchicalDataMemo';
+import { Simplify } from 'type-fest';
+
+type WorkSchemaNodeDto = Simplify<WSNimport>;
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 

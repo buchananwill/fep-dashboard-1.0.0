@@ -8,7 +8,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useEffect } from 'react';
 import { safeFunctionalSplice } from 'dto-stores/dist/functions/safeFunctionalSplice';
 import { useGlobalController } from 'selective-context';
-import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
+import { CarouselOptionDto } from '@/api/generated-types/generated-types';
 
 function useConditionalLazyDtoRequest(
   id: Identifier | undefined,

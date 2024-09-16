@@ -1,5 +1,7 @@
-import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
-import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
+import {
+  CarouselOptionDto,
+  CarouselOrderItemDto
+} from '@/api/generated-types/generated-types';
 
 export type CarouselOptionStateInterface = {
   id: number;

@@ -1,7 +1,7 @@
 'use client';
 import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
-import CheckBoxEntity from '@/app/test/checkbox-group-entity/CheckBoxEntity';
+import CheckBoxEntity from '@/components/generic/checkbox-group-entity/CheckBoxEntity';
 import { NamespacedHooks, useLazyDtoListListener } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';

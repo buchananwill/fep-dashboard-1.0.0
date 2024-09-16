@@ -25,7 +25,9 @@ export default async function CreateViaSunburst() {
     NestedWorkNodeDto<KnowledgeLevelSeriesGroup>
   >(getLevelSeriesTree('2'));
 
-  const colorized = colorizeKnowledgeDomains(data as KnowledgeLevelSeriesGroup);
+  const colorized = colorizeKnowledgeDomains(
+    data as KnowledgeLevelSeriesGroup
+  ) as KnowledgeLevelSeriesGroup;
 
   const knowledgeDomains = await Api.KnowledgeDomain.getAll();
 

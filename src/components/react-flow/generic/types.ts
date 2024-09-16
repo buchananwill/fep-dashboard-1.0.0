@@ -29,10 +29,7 @@ export interface NodeConvertor<T extends NodeDataType> {
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
-export type NodeBase<
-  NodeData extends Record<string, unknown> = Record<string, unknown>,
-  NodeType extends string = string
-> = {
+export type NodeBase<NodeData, NodeType extends string = string> = {
   /** Unique id of a node */
   id: string;
   /** Position of a node on the pane

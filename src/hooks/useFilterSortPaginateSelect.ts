@@ -3,10 +3,7 @@ import { Identifier } from 'dto-stores';
 import { Column, ColumnUid, StringPropertyKey } from '@/types';
 import { useClientSidePagination } from '@/hooks/useClientSidePagination';
 import { useDynamicColumnVisibility } from '@/hooks/useDynamicColumnVisibility';
-import {
-  FilterablePropertyKey,
-  useClientSideFiltering
-} from '@/hooks/useClientSideFiltering';
+import { useClientSideFiltering } from '@/hooks/useClientSideFiltering';
 import { useClientSideSorting } from '@/hooks/useClientSorting';
 import { useClientFilteredSortedPagination } from '@/hooks/useClientFilteredSortedPagination';
 import { useEntitySelection } from '@/hooks/useEntitySelection';

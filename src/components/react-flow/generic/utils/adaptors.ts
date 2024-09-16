@@ -12,10 +12,13 @@ import {
 } from 'react-d3-force-wrapper';
 
 import { HasNumberId } from '@/api/types';
+import { OrganizationDto } from '@/api/generated-types/generated-types';
+import { Simplify } from 'type-fest';
 import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
-import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
 
 const organizationNodeType = 'organization';
+
+// export type NodeDataType<T> = T extends Record<string, any> ? T : Simplify<T>;
 
 export type NodeDataType = HasNumberId & Record<string, unknown>;
 
@@ -37,14 +40,13 @@ function createNodeConvertor<T extends NodeDataType>(
     convertToReactFlowNode(nodeType, dataNode);
 }
 
-export const convertToOrganizationNode =
-  createNodeConvertor<OrganizationDto>(organizationNodeType);
+export type OrganizationDtoAsType = Simplify<OrganizationDto>;
 
-export const convertToClassificationNode =
-  createNodeConvertor('classificationNode');
+export const convertToOrganizationNode =
+  createNodeConvertor<OrganizationDtoAsType>(organizationNodeType);
 
 export const convertToWorkSchemaFlowNode = (
-  dataNode: DataNodeDto<WorkSchemaNodeDto> & Partial<Coordinate>
+  dataNode: DataNodeDto<Simplify<WorkSchemaNodeDto>> & Partial<Coordinate>
 ) => convertToReactFlowNode(dataNode.data.resolutionMode, dataNode);
 
 export function convertToReactFlowEdge<T extends HasNumberId>(

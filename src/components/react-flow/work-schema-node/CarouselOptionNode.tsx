@@ -1,5 +1,3 @@
-import { NodeProps } from '@xyflow/react';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import clsx from 'clsx';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -7,6 +5,8 @@ import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesS
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
 import { NodeBase } from '@/components/react-flow/generic/types';
+import { NodeProps } from '@/types/xyflow-overrides';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 
 export default function CarouselOptionNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>

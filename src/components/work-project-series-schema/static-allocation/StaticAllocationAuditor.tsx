@@ -10,6 +10,7 @@ import { useMemo } from 'react';
 import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
 import { getDeliveryAllocationSize } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDropZone';
 import { useGlobalController } from 'selective-context';
+import { WorkProjectSeriesSchema } from '@/api/generated-types/generated-types';
 
 export function getWorkProjectSeriesSchemaId(
   curr: StaticDeliveryAllocationItemDto
@@ -19,7 +20,7 @@ export function getWorkProjectSeriesSchemaId(
 }
 
 export function getAllocationCounterId(
-  wpssId: string,
+  wpssId: WorkProjectSeriesSchema['id'],
   deliveryAllocationSize: number
 ) {
   return `${wpssId}:${deliveryAllocationSize}`;

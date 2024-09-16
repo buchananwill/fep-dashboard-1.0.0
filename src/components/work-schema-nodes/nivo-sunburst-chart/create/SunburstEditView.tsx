@@ -1,15 +1,8 @@
 'use client';
 import { useGlobalListener } from 'selective-context';
-import {
-  knowledgeLevelSeriesGroupContextKey,
-  KnowledgeLevelGroupTemplate,
-  knowledgeLevelGroupTemplate
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
+import { knowledgeLevelSeriesGroupContextKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { WorkNodeResponsiveSunburst } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
-import {
-  KnowledgeLevelGroup,
-  KnowledgeLevelSeriesGroup
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
+import { KnowledgeLevelSeriesGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
 export default function SunburstEditView({
   knowledgeLevelSeriesGroup

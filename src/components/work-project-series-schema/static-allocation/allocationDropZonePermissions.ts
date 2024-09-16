@@ -1,5 +1,6 @@
 import { CycleSubspanJoinNestedDto } from '@/api/zod-schemas/CycleSubspanJoinNestedDtoSchema';
 import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 
 export function matchSize(
   sizesSet: Record<string, CycleSubspanJoinNestedDto>,
@@ -21,7 +22,7 @@ export function matchIsFirst(
 
 export function matchRow(
   item: StaticDeliveryAllocationItemDto,
-  workProjectSeriesSchemaId: string
+  workProjectSeriesSchemaId: WorkProjectSeriesSchemaDto['id']
 ) {
   return (
     item.staticDeliveryAllocation.deliveryAllocation

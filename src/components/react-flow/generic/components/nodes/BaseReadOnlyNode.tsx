@@ -1,5 +1,5 @@
 'use client';
-import { Handle, NodeProps, Position } from '@xyflow/react';
+import { Handle, Position } from '@xyflow/react';
 
 import {
   GraphSelectiveContextKeys,
@@ -11,6 +11,7 @@ import {
 import React, { useCallback } from 'react';
 import { HasNumberId } from '@/api/types';
 import { NodeBase } from '@/components/react-flow/generic/types';
+import { NodeProps } from '@/types/xyflow-overrides';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -18,7 +19,7 @@ export type GenericDivProps = React.DetailedHTMLProps<
 >;
 
 export function BaseReadOnlyNode<
-  NodeData extends HasNumberId & Record<string, unknown>,
+  NodeData extends HasNumberId & {},
   NodeType extends string,
   BaseNodeType extends NodeBase<NodeData, NodeType>
 >({

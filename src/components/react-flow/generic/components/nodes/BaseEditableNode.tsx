@@ -1,5 +1,5 @@
 'use client';
-import { Handle, NodeProps, Position } from '@xyflow/react';
+import { Handle, Position } from '@xyflow/react';
 
 import { usePopoverFix } from '@/components/react-flow/generic/hooks/usePopoverFix';
 import {
@@ -16,6 +16,7 @@ import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/components/react-flow/generic/components/nodes/NodeGraphEditCluster';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
+import { NodeProps } from '@/types/xyflow-overrides';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,

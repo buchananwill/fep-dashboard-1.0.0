@@ -2,36 +2,21 @@
 import { SetOptional } from 'type-fest';
 import {
   KnowledgeLevelGroup,
-  KnowledgeLevelSeriesGroup,
-  NestedWorkNode
+  KnowledgeLevelSeriesGroup
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import {
-  useGlobalController,
-  useGlobalDispatch,
-  useGlobalReadAny
-} from 'selective-context';
+import { useGlobalController, useGlobalDispatch } from 'selective-context';
 import { ChangesCallbackMap, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/literals';
 import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import {
-  CycleDto,
   HasName,
-  KnowledgeDomainDto,
-  KnowledgeLevelDto
+  KnowledgeDomainDto
 } from '@/api/generated-types/generated-types';
 import { HasNumberId } from '@/api/types';
-import { produce } from 'immer';
-import {
-  findChildOrError,
-  getHierarchyList,
-  joinPath
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
-import { Api } from '@/api/clientApi_';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
 import submitKnowledgeLevelSeriesGroup from '@/components/work-schema-nodes/nivo-sunburst-chart/create/submitAction';
 
@@ -105,100 +90,20 @@ export default function KnowledgeLevelSeriesGroupManager({
 
   const [joinedPath, selectionPath] = usePathSelectionListener(listenerKey);
   const selectionPathRef = useRef(selectionPath);
-  /*
-  useEffect(() => {
-    if (selectionPath.length > 0) {
-      const childId = joinPath(...selectionPath);
-      dispatch((klsg) => {
-        return produce(klsg, (draft) => {
-          const hierarchyList = getHierarchyList(
-            draft as NestedWorkNode,
-            childId
-          );
-          const hierarchyListElement = hierarchyList[hierarchyList.length - 1];
-          hierarchyListElement.selected = true;
-        });
-      });
-      if (selectionPathRef.current.length > 0) {
-        const childId = joinPath(...selectionPathRef.current);
-        dispatch((klsg) => {
-          return produce(klsg, (draft) => {
-            const hierarchyList = getHierarchyList(
-              draft as NestedWorkNode,
-              childId
-            );
-            const hierarchyListElement =
-              hierarchyList[hierarchyList.length - 1];
-            hierarchyListElement.selected = false;
-          });
-        });
-      }
-      selectionPathRef.current = selectionPath;
-    }
-  }, [selectionPath, dispatch]);
-  
- */
-
-  /*
-  useEffect(() => {
-    const [cycle] = selectedCycleIdList.map(
-      (cycleId) => readCycle(cycleId) as CycleDto
-    );
-    const [workTaskTypeName] = selectedWorkTaskTypeNameIdList.map(
-      (wttName) => readWorkTaskTypeName(wttName) as WorkTaskTypeNameDto
-    );
-    const [knowledgeLevel] = selectedKnowledgeLevelIdList.map(
-      (klName) => readKnowledgeLevel(klName) as KnowledgeLevelDto
-    );
-
-    if (selectionPathRef.current.length > 2) {
-      dispatch((group) => {
-        return produce(group, (draft) => {
-          const child = findChildOrError<
-            KnowledgeLevelSeriesGroup,
-            KnowledgeLevelGroup
-          >(
-            draft as KnowledgeLevelSeriesGroup,
-            joinPath(...selectionPathRef.current.slice(0, 2))
-          );
-          if (child.type === 'knowledgeLevelGroup') {
-            child.knowledgeLevel = knowledgeLevel;
-            child.workTaskTypeName = workTaskTypeName;
-            child.cycle = cycle;
-          }
-        });
-      });
-    }
-  }, [
-    selectedWorkTaskTypeNameIdList,
-    selectedCycleIdList,
-    selectedKnowledgeLevelIdList,
-    dispatch,
-    readWorkTaskTypeName,
-    readKnowledgeLevel,
-    readCycle
-  ]);
-    */
 
   return null;
 }
 
 export type KnowledgeLevelGroupTemplate = SetOptional<
   KnowledgeLevelGroup,
-  'cycle' | 'knowledgeLevel' | 'workTaskTypeName'
+  'knowledgeLevel' | 'workTaskTypeName'
 >;
 
 export const K_D_TEMPLATE_ID = 'template';
 type KLGTemplate = SetOptional<
   KnowledgeLevelGroup,
-  'cycle' | 'knowledgeLevel' | 'workTaskTypeName'
+  'knowledgeLevel' | 'workTaskTypeName'
 >;
-export const knowledgeLevelGroupTemplate: KLGTemplate = {
-  children: [],
-  type: 'knowledgeLevelGroup',
-  path: K_D_TEMPLATE_ID,
-  selected: true
-};
 
 export const BlankKnowledgeDomain: KnowledgeDomainDto = {
   name: '',
@@ -208,7 +113,7 @@ export const BlankKnowledgeDomain: KnowledgeDomainDto = {
 
 export type KLSGTemplate = SetOptional<
   KnowledgeLevelSeriesGroup,
-  'knowledgeLevelSeries'
+  'knowledgeLevelSeries' | 'cycle'
 >;
 
 export const klsgTemplate: KLSGTemplate = {

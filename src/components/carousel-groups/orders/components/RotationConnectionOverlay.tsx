@@ -16,7 +16,7 @@ export interface ConnectionVector {
 export const RotationConnectionMap = 'rotationConnectionMap';
 export default function RotationConnectionOverlay() {
   const { currentState } = useGlobalController({
-    initialValue: initialMap as Map<string, ConnectionVector>,
+    initialValue: initialMap as Map<number, ConnectionVector>,
     contextKey: RotationConnectionMap,
     listenerKey: ControllerKey
   });

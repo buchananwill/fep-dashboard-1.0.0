@@ -18,6 +18,7 @@ import { useGlobalListener } from 'selective-context';
 import { ObjectPlaceholder } from '@/api/literals';
 import { useStaticAllocationCellUpdater } from '@/components/work-project-series-schema/static-allocation/UseStaticAllocationCellUpdater';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { getNumberFromStringId } from 'react-d3-force-wrapper';
 
 export function getDeliveryAllocationSize(
   item: StaticDeliveryAllocationItemDto | undefined
@@ -62,7 +63,7 @@ export function StaticAllocationDropZone({
     (item: StaticDeliveryAllocationItemDto, monitor: DropTargetMonitor) => {
       const size = getDeliveryAllocationSize(item);
       return (
-        matchRow(item, rowId as string) &&
+        matchRow(item, rowId as number) &&
         matchSize(cycleSubspan.cycleSubspanJoins, size) &&
         matchIsFirst(
           cycleSubspan.cycleSubspanJoins,

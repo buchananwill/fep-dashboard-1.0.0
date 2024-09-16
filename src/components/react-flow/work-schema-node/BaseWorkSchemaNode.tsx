@@ -1,5 +1,4 @@
 'use client';
-import { Handle, NodeProps, Position } from '@xyflow/react';
 
 import { usePopoverFix } from '@/components/react-flow/generic/hooks/usePopoverFix';
 import {
@@ -13,10 +12,12 @@ import {
 } from 'react-d3-force-wrapper';
 import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/components/react-flow/generic/components/nodes/NodeGraphEditCluster';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 import { NodeBase } from '@/components/react-flow/generic/types';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import { NodeProps } from '@/types/xyflow-overrides';
+import { Handle, Position } from '@xyflow/react';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,

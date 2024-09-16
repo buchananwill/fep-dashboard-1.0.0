@@ -1,8 +1,8 @@
 'use client';
 import { useGlobalListener } from 'selective-context';
 import {
-  knowledgeLevelSeriesGroupContextKey,
-  knowledgeLevelGroupTemplate
+  klsgTemplate,
+  knowledgeLevelSeriesGroupContextKey
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { useMemo } from 'react';
 import { getCycleSubspansWithJoins } from '@/components/work-project-series-schema/static-allocation/getCycleSubspansWithJoins';
@@ -18,7 +18,7 @@ export default function CycleDataFetcher() {
   } = useGlobalListener({
     contextKey: knowledgeLevelSeriesGroupContextKey,
     listenerKey: 'cycleFetcher',
-    initialValue: knowledgeLevelGroupTemplate
+    initialValue: klsgTemplate
   });
   const dispatchCycleSubspans = NamespacedHooks.useDispatch(
     EntityClassMap.cycleSubspan,

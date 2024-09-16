@@ -2,9 +2,9 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useMemo, useRef } from 'react';
 import { useGlobalController } from 'selective-context';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
-import { BandwidthValidationTraversal } from '@/app/service-categories/[id]/roles/bandwidth-graph/types';
 import { OnSelectionChangeParams, useOnSelectionChange } from '@xyflow/react';
 import { ObjectPlaceholder } from '@/api/literals';
+import { BandwidthValidationTraversal } from '@/api/zod-schemas/BandwidthValidationTraversalSchema';
 
 const bandwidthValidationTraversal = 'bandwidthValidationTraversal';
 

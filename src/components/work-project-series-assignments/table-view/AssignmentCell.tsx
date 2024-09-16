@@ -5,13 +5,9 @@ import {
   CellIdReference
 } from '@/components/grids/CellQueryManager';
 import React, { memo, useCallback, useMemo } from 'react';
-import {
-  NamedEntityLabel,
-  EntityWithWorkTaskTypeShortCode
-} from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
-import { LazyDtoUiWrapper, NamespacedHooks, useReadAnyDto } from 'dto-stores';
+import { EntityWithWorkTaskTypeShortCode } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
+import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import { selectedAssignmentCell } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
 import { EmptyArray } from '@/api/literals';
@@ -79,7 +75,7 @@ function InnerAssignmentCell({
 
   const firstInDay = useMemo(() => {
     return readAnyDto(data[rowIndex][columnIndex].columnId)?.dayOrdinal === 0;
-  }, []);
+  }, [readAnyDto, data, rowIndex, columnIndex]);
 
   if (!showCell) return null;
 

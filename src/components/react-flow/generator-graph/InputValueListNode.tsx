@@ -1,13 +1,15 @@
 import { ChangeEvent, useCallback, useState } from 'react';
-import { Handle, Node, NodeProps, Position } from '@xyflow/react';
+import { Handle, Position } from '@xyflow/react';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
+import { NodeProps } from '@/types/xyflow-overrides';
+import { NodeBase } from '@/components/react-flow/generic/types';
 
 const handleStyle = { left: 10 };
 export interface TextList extends NodeDataType {
   valueList: string[];
 }
 
-export type TextValueListNode = Node<TextList, 'text'>;
+export type TextValueListNode = NodeBase<TextList, 'text'>;
 
 export default function InputValueListNode({
   data

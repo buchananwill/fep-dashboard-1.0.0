@@ -101,7 +101,7 @@ export function useEntitySelection<
         return sort as U[];
       });
     },
-    [dispatchSelected, filteredItems, sortFunction]
+    [dispatchSelected, filteredItems, sortFunction, normalizeId]
   );
   return { currentState, selectedKeys, onSelectionChange, dispatchSelected };
 }

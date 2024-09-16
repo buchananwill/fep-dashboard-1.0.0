@@ -13,7 +13,7 @@ export async function initWorkProjectSeriesSchemas(
   workTaskTypeList: WorkTaskTypeDto[]
 ) {
   const exampleList: PartialDeep<WorkProjectSeriesSchemaDto>[] =
-    workTaskTypeList.map((wtt) => ({ workTaskTypeId: wtt.id }));
+    workTaskTypeList.map((wtt) => ({ workTaskType: wtt }));
   data.periodsInReferenceCycle = 58;
   data.targetCycleId = 104;
   return initSafely(

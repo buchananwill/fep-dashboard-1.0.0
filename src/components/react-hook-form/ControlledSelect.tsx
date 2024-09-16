@@ -14,7 +14,7 @@ export type ItemAccessors<T extends SelectableItem> = {
   labelAccessor: TypedPaths<T, string | number>;
 };
 
-type FormSelectProps<T extends SelectableItem> = {
+export type FormSelectProps<T extends SelectableItem> = {
   selectedKeyAccessor?: keyof T;
   name: string;
   control: Control<any>;

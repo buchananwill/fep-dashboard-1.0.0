@@ -30,7 +30,7 @@ export default function GenerateStudentsButton() {
         .map(({ levelOrdinal, knowledgeLevelSeriesId, howMany }) => ({
           levelOrdinal,
           howMany,
-          serviceCategoryId: knowledgeLevelSeriesId
+          knowledgeLevelSeriesId
         }))
         .map((params) => initStudents(params));
       const array = await Promise.all(promises);

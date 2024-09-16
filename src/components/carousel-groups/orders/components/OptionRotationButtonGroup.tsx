@@ -7,7 +7,6 @@ import {
   useGlobalDispatch,
   useGlobalDispatchAndListener
 } from 'selective-context';
-import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
 import {
   CarouselOptionState,
   zIndexPopoverOverride
@@ -20,7 +19,6 @@ import {
   validateHamiltonianCycle
 } from '@/components/carousel-groups/orders/_functions/carouselOptionsCanConnect';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
 import { assignOrderItemToOption } from '@/components/carousel-groups/orders/_functions/assignOrderItemToOption';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
@@ -44,6 +42,10 @@ import {
   ConnectionVector,
   RotationConnectionMap
 } from '@/components/carousel-groups/orders/components/RotationConnectionOverlay';
+import {
+  CarouselDto,
+  CarouselOrderDto
+} from '@/api/generated-types/generated-types';
 
 export type OptionRotationDirection = 'forwards' | 'backwards';
 type RotationCycle = {
@@ -74,7 +76,7 @@ export default function OptionRotationButtonGroup() {
   });
 
   const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
-    Map<string, ConnectionVector>
+    Map<number, ConnectionVector>
   >(RotationConnectionMap);
 
   const { currentState, dispatchWithoutControl: dispatchFilteredOrders } =

@@ -33,4 +33,4 @@ export default function WorkProjectionSeriesSchemaSummary({
 const simpleAttributes: (
   | StringPropertyKey<WorkProjectSeriesSchemaDto>
   | NumberPropertyKey<WorkProjectSeriesSchemaDto>
-)[] = ['name', 'shortCode', 'userToProviderRatio', 'workProjectBandwidth'];
+)[] = ['name', 'userToProviderRatio', 'workProjectBandwidth'];

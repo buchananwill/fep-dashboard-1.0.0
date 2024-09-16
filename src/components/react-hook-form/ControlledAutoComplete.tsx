@@ -5,19 +5,11 @@ import {
   AutocompleteProps,
   SelectItemProps
 } from '@nextui-org/react';
-import React, {
-  ChangeEvent,
-  useCallback,
-  useMemo,
-  useRef,
-  useState
-} from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   ItemAccessors,
   SelectableItem
 } from '@/components/react-hook-form/ControlledSelect';
-import { HasId } from '@/api/types';
-import { TypedPaths } from '@/api/custom-types/typePaths';
 
 type ControlledAutoCompleteProps<T extends SelectableItem> = {
   selectedKeyAccessor?: string;
@@ -92,14 +84,14 @@ export function ControlledAutoComplete<T extends SelectableItem>({
         }
       }
     },
-    [props.allowsCustomValue]
+    [props.allowsCustomValue, onChange]
   );
 
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState, formState }) => {
+      render={({ field, formState }) => {
         const currentValue =
           selectedKeyAccessor && field.value
             ? field.value[selectedKeyAccessor] ?? field.value
@@ -126,9 +118,7 @@ export function ControlledAutoComplete<T extends SelectableItem>({
             errorMessage={formState.errors?.[name]?.message?.toString()}
             selectedKey={currentValueString ?? null}
             onClose={() => onOpenChange(true, field)}
-            onBlur={(e) => {
-              e;
-            }}
+            onBlur={() => {}}
             onSelectionChange={(value) => {
               console.log('selection change triggered', value);
               const valueOrCustom = value
@@ -146,7 +136,7 @@ export function ControlledAutoComplete<T extends SelectableItem>({
               }
             }}
           >
-            {childrenDefined}
+            {...childrenDefined}
           </Autocomplete>
         );
       }}

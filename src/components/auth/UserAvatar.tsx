@@ -1,6 +1,7 @@
 import { auth, signOut } from '@/auth';
 import { SignInGoogle } from '@/components/auth/SignInGoogle';
 import { SignInAzure } from '@/components/auth/SignInAzure';
+import { Image } from '@nextui-org/image';
 
 export default async function UserAvatar() {
   const session = await auth();
@@ -16,7 +17,7 @@ export default async function UserAvatar() {
     return (
       <div>
         <form
-          action={async (formdata) => {
+          action={async () => {
             'use server';
             await signOut();
           }}
@@ -29,7 +30,7 @@ export default async function UserAvatar() {
           >
             Sign out:
             {session.user.image ? (
-              <img
+              <Image
                 src={session.user.image}
                 alt="User Avatar"
                 className={'h-12 w-12 rounded-full'}

@@ -8,6 +8,7 @@ import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import WorkSchemaNodeGraph from '@/components/work-schema-nodes/_components/WorkSchemaNodeGraph';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { notFound } from 'next/navigation';
+import { GraphDto } from 'react-d3-force-wrapper';
 
 export default async function WorkSchemaNodeRootGraph({
   pathVariables,
@@ -20,7 +21,7 @@ export default async function WorkSchemaNodeRootGraph({
   });
 
   const flowData = convertGraphDtoToReactFlowState(
-    graphDto,
+    graphDto as GraphDto<WorkSchemaNodeDto>,
     convertToWorkSchemaFlowNode
   );
 

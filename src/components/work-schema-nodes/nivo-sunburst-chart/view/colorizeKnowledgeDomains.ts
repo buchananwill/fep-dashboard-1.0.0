@@ -36,7 +36,7 @@ function flatMapOfKnowledgeDomainGroups(
   }
 }
 
-export const colorizeKnowledgeDomains = (node: WorkNodeHierarchy) => {
+export function colorizeKnowledgeDomains<T extends WorkNodeHierarchy>(node: T) {
   const knowledgeDomainGroups = flatMapOfKnowledgeDomainGroups(node);
   const kdgMap = new Map<string, KnowledgeDomainGroup[]>();
   for (let knowledgeDomainGroup of knowledgeDomainGroups) {
@@ -60,5 +60,5 @@ export const colorizeKnowledgeDomains = (node: WorkNodeHierarchy) => {
     }
     colorScale++;
   }
-  return node;
-};
+  return node as T;
+}

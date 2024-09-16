@@ -8,16 +8,16 @@
  *   1. Read any Carousel.
  *   2. Read prime status of any Option
  * */
-import { SelectiveContextReadAll } from 'selective-context/dist/types';
-import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
 import {
   buildCompleteCycle,
   DirectedEdgePredicate
 } from '@/components/carousel-groups/orders/_functions/buildCompleteCycle';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
+import { CarouselDto } from '@/api/generated-types/generated-types';
+import { ReadAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
 
 export function getOptionConnectionValidator(
-  readAnyCarousel: SelectiveContextReadAll<CarouselDto>
+  readAnyCarousel: ReadAnyDto<CarouselDto>
 ) {
   return (
     optionA: CarouselOptionStateInterface,
@@ -38,7 +38,7 @@ export function getOptionConnectionValidator(
 
 export function findHamiltonianCycle(
   optionList: CarouselOptionStateInterface[],
-  readAnyCarousel: SelectiveContextReadAll<CarouselDto>
+  readAnyCarousel: ReadAnyDto<CarouselDto>
 ) {
   const optionConnectionValidator =
     getOptionConnectionValidator(readAnyCarousel);

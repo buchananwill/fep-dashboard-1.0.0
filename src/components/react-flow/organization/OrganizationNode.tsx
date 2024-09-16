@@ -1,4 +1,4 @@
-import { Edge, NodeProps, useEdges } from '@xyflow/react';
+import { Edge, useEdges } from '@xyflow/react';
 
 import React, { memo, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
@@ -13,6 +13,7 @@ import { isNumber } from 'lodash';
 import { AllocationSummary } from '@/components/react-flow/organization/allocationSummary';
 import NodeBundleSummaries from '@/components/react-flow/organization/NodeBundleSummaries';
 import { NodeBase } from '@/components/react-flow/generic/types';
+import { NodeProps } from '@/types/xyflow-overrides';
 
 const initialTotalMap = new Map<string, number>();
 

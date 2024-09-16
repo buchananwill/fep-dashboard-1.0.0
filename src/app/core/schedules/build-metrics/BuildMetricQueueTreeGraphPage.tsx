@@ -9,7 +9,7 @@ export default async function BuildMetricQueueTreeGraphPage({
   pathVariables
 }: LeafComponentProps) {
   const [buildMetricId] = getLastNVariables(pathVariables, 1);
-  const buildMetric = await Api.BuildMetric.getOne(buildMetricId);
+  const buildMetric = await Api.BuildMetric.getOne(parseInt(buildMetricId));
 
   return (
     <>

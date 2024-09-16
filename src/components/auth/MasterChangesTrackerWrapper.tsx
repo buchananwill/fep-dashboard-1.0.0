@@ -10,6 +10,7 @@ import { Badge } from '@nextui-org/badge';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Session } from 'next-auth';
+import { Image } from '@nextui-org/image';
 
 export interface OtherUnsavedChangesProps extends PropsWithChildren {
   session?: Session | null;
@@ -51,7 +52,7 @@ function UnsavedChangesToast({
               variant={'light'}
             >
               {session?.user?.image ? (
-                <img
+                <Image
                   src={session.user.image}
                   alt="User Avatar"
                   className={'rounded-full'}
@@ -75,7 +76,6 @@ function UnsavedChangesToast({
 function UnsavedChangesContent({
   unsavedFlag,
   handleCommit,
-  session,
   children
 }: UnsavedChangesProps & OtherUnsavedChangesProps) {
   const [isPending, startTransition] = useTransition();

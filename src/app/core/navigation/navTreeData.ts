@@ -1,9 +1,8 @@
 import { NavTree } from '@/app/core/navigation/types';
 import { cyclesNavTree } from '@/app/core/cycles/cyclesNavTree';
-import CyclesChooser from '@/app/core/cycles/cyclesChooser';
 import { schedulesNavTree } from '@/app/core/schedules/schedulesNavTree';
 import { WorkSchemaNodeNavTree } from '@/components/work-schema-nodes/workSchemaNodeNavTree';
-import { KnowledgeDomainsList } from '@/components/knowledge-domains/KnowledgeDomains';
+import { KnowledgeDomains } from '@/components/knowledge-domains/KnowledgeDomains';
 import KnowledgeLevelsHome from '@/components/knowledge-levels/KnowledgeLevelsTablePage';
 import WorkProjectSeriesSchemaHome from '@/components/work-project-series-schema/WorkProjectSeriesSchemaLevelPage';
 import { CarouselGroupsAndOrders } from '@/components/carousel-groups/CarouselGroupLevelPage';
@@ -14,7 +13,6 @@ import BuildSchedulePage from '@/app/core/auto-scheduling/BuildSchedulePage';
 import { feasibilityBranch } from '@/app/core/feasibility/FeasibilityHome';
 import { StaticAllocationPage } from '@/components/work-project-series-schema/static-allocation/StaticAllocationPage';
 import WorkTaskTypeTablePage from '@/components/work-task-types/WorkTaskTypeTablePage';
-import CreateWorkTaskType from '@/components/work-task-types/CreateWorkTaskType';
 import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
 import CyclesHome from '@/app/core/cycles/CyclesHome';
 import { rolePageTree } from '@/components/roles/rolePageTree';
@@ -26,7 +24,7 @@ export const navTreeData: NavTree = {
   knowledgeDomains: {
     type: 'branch',
     children: {},
-    component: KnowledgeDomainsList
+    component: KnowledgeDomains
   },
   knowledgeLevelSeries: {
     type: 'branch',

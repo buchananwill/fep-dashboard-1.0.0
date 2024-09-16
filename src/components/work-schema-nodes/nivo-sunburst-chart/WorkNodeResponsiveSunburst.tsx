@@ -82,7 +82,7 @@ type Datum = ComputedDatum<WorkNodeHierarchy>;
 
 export function getKdStringCode(data: KnowledgeDomainGroup) {
   return data.knowledgeDomains
-    .map((kd) => kd.shortCode)
+    .map((kd) => kd.shortCode ?? kd.name)
     .toSorted((a, b) => a.localeCompare(b))
     .join(',');
 }

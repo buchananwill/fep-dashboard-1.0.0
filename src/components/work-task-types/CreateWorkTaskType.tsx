@@ -4,21 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { Overlay } from '@/components/overlays/overlay';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@nextui-org/button';
-import {
-  KnowledgeDomainDto,
-  WorkTaskTypeDto
-} from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { WorkTaskTypeDtoSchema } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
-import { FormElementMap } from '@/components/react-hook-form/ControlledFormElement';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
-import {
-  ControlledSelect,
-  ItemAccessors
-} from '@/components/react-hook-form/ControlledSelect';
+import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';
 import { HasId } from '@/api/types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplete';
@@ -152,23 +144,6 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
     </Card>
   );
 }
-
-const WorkTaskTypeFormMap: FormElementMap<WorkTaskTypeDto> = {
-  name: 'Select',
-  knowledgeDomain: 'Select',
-  knowledgeLevelSeriesId: 'Select',
-  knowledgeLevel: 'Select'
-};
-
-export type OptionMap<T> = {
-  [Property in keyof T]: T[Property][];
-};
-
-const knowledgeDomainAccessors: ItemAccessors<KnowledgeDomainDto> = {
-  keyAccessor: 'id',
-  labelAccessor: 'name',
-  valueAccessor: 'id'
-};
 
 function idAccessor<T extends HasId>(item: T) {
   return String(item.id);

@@ -11,8 +11,8 @@ export const WorkSchemaNodeDtoSchema = z.object({
   knowledgeDomainId: z.number().optional(),
   knowledgeLevelId: z.number().optional(),
   name: z.string().optional(),
-  carouselGroupId: z.string().uuid().optional(),
-  carouselId: z.string().uuid().optional(),
+  carouselGroupId: z.number().optional(),
+  carouselId: z.number().optional(),
   workProjectSeriesSchemaId: z.number().optional(),
   resolutionMode: z.string()
 });

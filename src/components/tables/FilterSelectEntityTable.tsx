@@ -12,7 +12,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Identifier } from 'dto-stores';
 import { Column, ColumnUid } from '@/types';
-import { HasId, HasIdClass } from '@/api/types';
+import { HasIdClass } from '@/api/types';
 import { ColumnDropdown } from '@/components/generic/ColumnDropdown';
 import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect';
 import {

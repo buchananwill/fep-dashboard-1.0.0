@@ -1,4 +1,4 @@
-import { ForceGraphPage } from 'react-d3-force-wrapper';
+import { ForceGraphPage, GraphDto } from 'react-d3-force-wrapper';
 import { ReactFlowWrapper } from '@/components/react-flow/generic/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -22,6 +22,7 @@ import { getPathVariableSplitComponent } from '@/components/generic/PathVariable
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/functions/getLastNVariables';
+import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 
 async function WorkSchemaNodeAssignmentsPage({
   pathVariables,
@@ -47,7 +48,10 @@ async function WorkSchemaNodeAssignmentsPage({
     rootNodeIdList.map((rootNodeId) =>
       Api.WorkSchemaNode.getGraphByRootId({ rootId: rootNodeId }).then(
         (response) =>
-          convertGraphDtoToReactFlowState(response, convertToWorkSchemaFlowNode)
+          convertGraphDtoToReactFlowState(
+            response as GraphDto<WorkSchemaNodeDto>,
+            convertToWorkSchemaFlowNode
+          )
       )
     )
   );

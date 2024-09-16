@@ -2,11 +2,9 @@ import { KnowledgeDomainTable } from '@/components/tables/edit-tables/KnowledgeD
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';
-import PathVariableSplit from '@/components/generic/PathVariableSplit';
-import KnowledgeDomainSingle from '@/components/knowledge-domains/KnowledgeDomainSingle';
 import { Api } from '@/api/clientApi_';
 
-async function Home({}: LeafComponentProps) {
+export async function KnowledgeDomains({}: LeafComponentProps) {
   const knowledgeDomainList = await Api.KnowledgeDomain.getAll();
 
   return (
@@ -20,15 +18,5 @@ async function Home({}: LeafComponentProps) {
       />
       <KnowledgeDomainTable />
     </div>
-  );
-}
-
-export function KnowledgeDomainsList(props: LeafComponentProps) {
-  return (
-    <PathVariableSplit
-      homeComponent={Home}
-      subRouteComponent={KnowledgeDomainSingle}
-      {...props}
-    />
   );
 }

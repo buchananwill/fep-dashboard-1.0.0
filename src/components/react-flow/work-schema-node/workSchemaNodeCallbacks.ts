@@ -21,6 +21,8 @@ import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/wor
 import { FlowNode } from '@/components/react-flow/generic/types';
 import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
 import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/getGraphUpdaterWithNameDeDuplication';
+import { ReadAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
+import { MonoFunction } from '@/types';
 
 function cloneWorkSchemaNode(
   templateNode: FlowNode<WorkSchemaNodeDto>
@@ -62,7 +64,7 @@ const referenceProps: (keyof WorkSchemaNodeDto)[] = [
 export function validateHierarchy(
   parent: WorkSchemaNodeDto | undefined,
   child: WorkSchemaNodeDto | undefined,
-  getCarousel: (id: string) => CarouselDto | undefined
+  getCarousel: ReadAnyDto<CarouselDto>
 ): boolean {
   if (!parent || !child) return false;
   const childResolutionMode = child.resolutionMode;
@@ -140,7 +142,10 @@ export const workSchemaNodeGraphUpdater = middlewareCombiner<
     >,
     spyOnRequest
   ],
-  Api.WorkSchemaNode.putGraph
+  Api.WorkSchemaNode.putGraph as MonoFunction<
+    GraphDtoPutRequestBody<WorkSchemaNodeDto>,
+    any
+  >
 );
 
 type WorkSchemaNodeDataNodeDto = z.infer<
