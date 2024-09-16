@@ -2,63 +2,29 @@
 import React, { useCallback } from 'react';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 
-import { Column } from '@/types';
+import { Column, ColumnUid } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
 import { Paths } from 'type-fest';
 import { getValue } from '@/functions/allowingNestedFiltering';
+import { getDomainAlias } from '@/api/getDomainAlias';
+import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
+import { SimpleValueToString } from '@/components/tables/edit-tables/SimpleValueToString';
+import { startCase } from 'lodash';
+import { StringValueChip } from '@/components/generic/StringValueChip';
 
 export default function WorkProjectSeriesSelectorTable({
   workProjectSeries
 }: {
   workProjectSeries: WorkProjectSeriesWithSchemaLabelsDto[];
 }) {
-  const renderCell = useCallback(
-    (
-      workProjectSeriesLeanDto: WorkProjectSeriesWithSchemaLabelsDto,
-      columnKey: React.Key
-    ) => {
-      const cellValue =
-        workProjectSeriesLeanDto[
-          columnKey as Extract<
-            keyof Omit<
-              WorkProjectSeriesWithSchemaLabelsDto,
-              'workProjectSeriesSchema' | 'completedStatus' | 'workTaskType'
-            >,
-            string | number
-          >
-        ];
-
-      const entityKey =
-        columnKey as Paths<WorkProjectSeriesWithSchemaLabelsDto>;
-
-      switch (entityKey) {
-        case 'id':
-          return (
-            <div className={'inline-block w-32 truncate'}>
-              {workProjectSeriesLeanDto.id}
-            </div>
-          );
-        case 'workTaskType.name':
-          return (
-            <div className={'inline-block w-32 truncate'}>
-              {getValue(workProjectSeriesLeanDto, entityKey)}
-            </div>
-          );
-        default:
-          return cellValue;
-      }
-    },
-    []
-  );
-
   return (
     <>
       <FilterSelectEntityTable
         entities={workProjectSeries}
         initialColumns={WorkProjectSeriesColumnsInitial}
         filterProperty={'workTaskType.name'}
-        renderCell={renderCell}
+        renderCell={CellRenderFunction}
         columns={WorkProjectSeriesColumns}
         entityClass={EntityClassMap.workProjectSeries}
         idClass={'string'}
@@ -67,8 +33,8 @@ export default function WorkProjectSeriesSelectorTable({
   );
 }
 
-export const WorkProjectSeriesColumnsInitial: Paths<WorkProjectSeriesWithSchemaLabelsDto>[] =
-  ['id', 'workTaskType.name'];
+export const WorkProjectSeriesColumnsInitial: ColumnUid<WorkProjectSeriesWithSchemaLabelsDto>[] =
+  ['id', 'workTaskType.knowledgeDomain.name', 'workProjectSeriesSchema.name'];
 export const WorkProjectSeriesColumns: Column<WorkProjectSeriesWithSchemaLabelsDto>[] =
   [
     {
@@ -77,5 +43,34 @@ export const WorkProjectSeriesColumns: Column<WorkProjectSeriesWithSchemaLabelsD
       sortable: true
     },
     { name: 'Id', uid: 'id', sortable: false },
-    { name: 'Schedule Id', uid: 'scheduleId', sortable: true }
+    { name: 'Schedule Id', uid: 'scheduleId', sortable: true },
+    {
+      name: `${startCase(getDomainAlias('workProjectSeriesSchema'))} Name`,
+      uid: 'workProjectSeriesSchema.name',
+      sortable: true
+    },
+    { name: 'ShortCode', uid: 'workTaskType.knowledgeDomain.shortCode' },
+    {
+      name: getDomainAlias('knowledgeLevel'),
+      uid: 'workTaskType.knowledgeLevel.levelOrdinal',
+      sortable: true
+    },
+    {
+      name: getDomainAlias('knowledgeDomain'),
+      uid: 'workTaskType.knowledgeDomain.name',
+      sortable: true
+    }
   ];
+
+const CellRenderFunction =
+  getCellRenderFunction<WorkProjectSeriesWithSchemaLabelsDto>(
+    {
+      'workTaskType.name': SimpleValueToString,
+      id: SimpleValueToString,
+      'workProjectSeriesSchema.name': SimpleValueToString,
+      'workTaskType.knowledgeDomain.shortCode': StringValueChip,
+      'workTaskType.knowledgeLevel.levelOrdinal': SimpleValueToString,
+      'workTaskType.knowledgeDomain.name': SimpleValueToString
+    },
+    EntityClassMap.workProjectSeries
+  );

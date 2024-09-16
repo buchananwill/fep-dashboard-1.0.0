@@ -8,16 +8,12 @@ import {
   WORK_TASK_TYPE_COLUMNS
 } from '@/components/tables/selectorTables/WorkTaskTypeSelectorTable';
 import { Column, ColumnUid } from '@/types';
-import { get } from 'lodash';
 import { DeleteEntity } from '@/components/tables/edit-tables/DeleteEntity';
-import {
-  getCellRenderFunction,
-  NextUiCellComponentProps
-} from '@/components/tables/GetCellRenderFunction';
-import { HasId } from '@/api/types';
+import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
 import { StringValueChip } from '@/components/generic/StringValueChip';
 import { useFilterOutDeletedEntities } from '@/components/tables/edit-tables/useFilterOutDeletedEntities';
 import { useRouter } from 'next/navigation';
+import { SimpleValueToString } from '@/components/tables/edit-tables/SimpleValueToString';
 
 export default function WorkTaskTypeEditTable() {
   const entities = useFilterOutDeletedEntities<WorkTaskTypeDto>(
@@ -69,12 +65,3 @@ export const WorkTaskTypeCell = getCellRenderFunction<WorkTaskTypeDto>(
   },
   EntityClassMap.workTaskType
 );
-
-function SimpleValueToString<T extends HasId>({
-  entity,
-  path
-}: NextUiCellComponentProps<T>) {
-  const value = get(entity, path);
-
-  return String(value);
-}

@@ -17,6 +17,7 @@ import {
   WorkTaskTypeDto
 } from '@/api/generated-types/generated-types';
 import WorkProjectSeriesSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSelectorTable';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export default function TabbedSelectorTables({
   workTaskTypes,
@@ -36,7 +37,10 @@ export default function TabbedSelectorTables({
           </Tab>
         )}
         {providerRoles && (
-          <Tab key={EntityClassMap.providerRole} title={'Providers'}>
+          <Tab
+            key={EntityClassMap.providerRole}
+            title={getDomainAlias('Providers')}
+          >
             <ProviderRoleSelectorTable providerRoles={providerRoles} />
           </Tab>
         )}
@@ -65,8 +69,8 @@ export default function TabbedSelectorTables({
         )}
         {workProjectSeries && (
           <Tab
-            key={EntityClassMap.organization}
-            title={startCase(EntityClassMap.organization)}
+            key={EntityClassMap.workProjectSeries}
+            title={startCase(getDomainAlias(EntityClassMap.workProjectSeries))}
           >
             <WorkProjectSeriesSelectorTable
               workProjectSeries={workProjectSeries}
