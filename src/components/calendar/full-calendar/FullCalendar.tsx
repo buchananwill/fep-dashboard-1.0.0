@@ -20,6 +20,7 @@ export default function CalendarViewer(props: CalendarOptions) {
       plugins={plugins}
       locale={'en-GB'}
       firstDay={1}
+      height={'100%'}
       initialView="timeGridWeek"
       headerToolbar={{
         left: 'prev,next today',

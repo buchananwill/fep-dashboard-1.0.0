@@ -24,16 +24,16 @@ async function CalendarViewPage({ pathVariables }: LeafComponentProps) {
   );
 
   return (
-    <div className={'h-[95vh] w-[95vw]'}>
+    <div className={'h-[95vh] w-[95vw] overflow-clip p-4'}>
       <EditAddDeleteDtoControllerArray
         entityClass={eventSourceEntityClass}
         dtoList={sourcesColorised}
       />
-      <div className={'flex gap-2'}>
-        <SendEventsButton />
-        <PurgeEventsButton />
-      </div>
-      <CalendarWithShowHideSources sources={sourcesColorised} />
+      {/*<div className={'flex gap-2'}>*/}
+      {/*  <SendEventsButton />*/}
+      {/*  <PurgeEventsButton />*/}
+      {/*</div>*/}
+      <CalendarWithShowHideSources />
     </div>
   );
 }

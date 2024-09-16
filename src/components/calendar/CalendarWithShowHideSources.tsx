@@ -8,13 +8,11 @@ import { EmptyArray } from '@/api/literals';
 import { useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
 import { EventSourceSimple } from '@/api/custom-types/eventSourceSimple';
+import { Card } from '@nextui-org/card';
+import { ScrollShadow } from '@nextui-org/scroll-shadow';
 
 export const eventSourceEntityClass = 'eventSource';
-export default function CalendarWithShowHideSources({
-  sources
-}: {
-  sources: EventSourceSimple<KnowledgeDomainDto>[];
-}) {
+export default function CalendarWithShowHideSources() {
   let { currentState: selectedSourceIdList } = NamespacedHooks.useListen(
     eventSourceEntityClass,
     KEY_TYPES.SELECTED,
@@ -35,17 +33,21 @@ export default function CalendarWithShowHideSources({
   }, [currentState]);
 
   return (
-    <div className={'flex w-full'}>
-      <div className={'flex flex-col gap-2'}>
-        <CheckBoxEntity<number, EventSourceSimple<KnowledgeDomainDto>>
-          entityClass={eventSourceEntityClass}
-          labelAccessor={(kd) => kd.sourceData.name}
-          colorAccessor={(kdSource) => kdSource.color ?? 'dodgerblue'}
-        />
-      </div>
-      <div className={'w-[50vw]'}>
+    <div className={'flex h-[85vh] w-full justify-center gap-2'}>
+      <Card
+      // className={'flex h-full overflow-hidden rounded-xl border-4'}
+      >
+        <ScrollShadow className={' flex flex-col gap-2 overflow-auto p-2 px-3'}>
+          <CheckBoxEntity<number, EventSourceSimple<KnowledgeDomainDto>>
+            entityClass={eventSourceEntityClass}
+            labelAccessor={(kd) => kd.sourceData.name}
+            colorAccessor={(kdSource) => kdSource.color ?? 'dodgerblue'}
+          />
+        </ScrollShadow>
+      </Card>
+      <Card className={'h-full grow p-4'}>
         <CalendarViewer eventSources={sourcesFlattened} />
-      </div>
+      </Card>
     </div>
   );
 }
