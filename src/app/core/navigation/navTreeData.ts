@@ -18,6 +18,7 @@ import CreateWorkTaskType from '@/components/work-task-types/CreateWorkTaskType'
 import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
 import CyclesHome from '@/app/core/cycles/CyclesHome';
 import { rolePageTree } from '@/components/roles/rolePageTree';
+import CreateWorkTaskTypeWithAuth from '@/components/work-task-types/CreateWorkTaskTypeWithAuth';
 
 export const navTreeData: NavTree = {
   navigation: { type: 'leaf', component: NavigationHome },
@@ -35,7 +36,7 @@ export const navTreeData: NavTree = {
   workTaskTypes: {
     type: 'branch',
     children: {
-      create: { type: 'leaf', component: CreateWorkTaskType }
+      create: { type: 'leaf', component: CreateWorkTaskTypeWithAuth }
     },
     component: WorkTaskTypeTablePage
   },

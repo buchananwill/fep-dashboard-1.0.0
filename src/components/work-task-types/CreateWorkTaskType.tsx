@@ -2,7 +2,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, { ChangeEvent, useCallback, useMemo, useTransition } from 'react';
+import React, { useCallback, useMemo, useTransition } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Overlay } from '@/components/overlays/overlay';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
@@ -25,49 +25,8 @@ import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplet
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
 import { nameAccessor } from '@/functions/nameSetter';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
-
-const disable = false;
-
-type ControlledFormElement = HTMLSelectElement | HTMLInputElement;
-
-function useNestedSelectChangeHandler<T>(
-  nestedPropertyOptions: T[],
-  valueAccessor: (item: T) => string
-) {
-  return useCallback(
-    (
-      event: ChangeEvent<HTMLSelectElement>,
-      onChange: (...event: any[]) => void
-    ) => {
-      const updatedElement = nestedPropertyOptions.find(
-        (kdItem) => valueAccessor(kdItem) === event.target.value
-      );
-      console.log(event, updatedElement);
-      onChange(updatedElement);
-    },
-    [nestedPropertyOptions]
-  );
-}
-function useNestedAutoCompleteChangeHandler<T extends HasId>(
-  nestedPropertyOptions: T[],
-  labelAccessor: (item: T) => string
-) {
-  return useCallback(
-    (
-      selectionKey: React.Key | null,
-      onChange: (...event: any[]) => void,
-      setInputValue: (value: string) => void
-    ) => {
-      const updatedElement = nestedPropertyOptions.find(
-        (kdItem) => String(kdItem.id) === selectionKey
-      );
-      console.log(selectionKey, updatedElement);
-      onChange(updatedElement);
-      setInputValue(updatedElement ? labelAccessor(updatedElement) : '');
-    },
-    [nestedPropertyOptions]
-  );
-}
+import { useNestedAutoCompleteChangeHandler } from '@/components/work-task-types/useNestedAutoCompleteChangeHandler';
+import { useNestedSelectChangeHandler } from '@/components/work-task-types/useNestedSelectChangeHandler';
 
 const defaultWorkTaskTypeValues = {
   id: -1,
@@ -78,7 +37,6 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
     handleSubmit,
     formState: { errors },
     control,
-    register,
     watch
   } = useForm<WorkTaskTypeDto>({
     resolver: zodResolver(WorkTaskTypeDtoSchema),
@@ -127,23 +85,15 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
   const onSubmit: SubmitHandler<WorkTaskTypeDto> = async (data) => {
     startTransition(async () => {
       console.log('submitted', data);
-      if (!disable) {
-        const newWtt = await Api.WorkTaskType.postOne(data); // TODO: define posting action
-        // Handle post submit actions, e.g., redirect to a different page
-        appRouterInstance.push(`/core/work-task-types/create`); // TODO: set WTT redirect
-      } else {
-        alert('Sign in to enable');
-      }
+
+      const newWtt = await Api.WorkTaskType.postOne(data); // TODO: define posting action
+      // Handle post submit actions, e.g., redirect to a different page
+      appRouterInstance.push(`/core/work-task-types`); // TODO: set WTT redirect
     });
   };
 
   return (
     <Card className={'mt-8 w-64'}>
-      {disable && (
-        <Overlay>
-          <div className={'rounded-lg bg-white p-2'}>Sign in to Enable</div>
-        </Overlay>
-      )}
       <PendingOverlay pending={pending} />
       <form
         onSubmit={(event) => {

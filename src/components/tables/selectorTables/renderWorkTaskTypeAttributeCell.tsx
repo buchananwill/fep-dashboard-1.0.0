@@ -23,8 +23,9 @@ export function renderWorkTaskTypeAttributeCell(
       );
     case 'knowledgeLevel.levelOrdinal':
       return <span className="inline-block w-12  text-sm">{cellValue}</span>;
+    case 'knowledgeLevel.name':
     case 'knowledgeDomain.name':
-      return <span className={'inline-block '}>{cellValue}</span>;
+      return <span className={'inline-block'}>{cellValue}</span>;
     default:
       return cellValue;
   }

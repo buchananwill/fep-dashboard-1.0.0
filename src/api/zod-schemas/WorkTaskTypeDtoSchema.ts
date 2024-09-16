@@ -7,6 +7,6 @@ export const WorkTaskTypeDtoSchema = z.object({
   id: z.number(),
   knowledgeDomain: KnowledgeDomainDtoSchema,
   knowledgeLevel: KnowledgeLevelDtoSchema,
-  validationType: ValidationTypeDtoSchema,
+  validationType: ValidationTypeDtoSchema.optional()
 });
 export type WorkTaskTypeDto = z.infer<typeof WorkTaskTypeDtoSchema>;

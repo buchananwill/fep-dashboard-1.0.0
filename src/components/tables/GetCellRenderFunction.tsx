@@ -3,10 +3,12 @@ import { Paths } from 'type-fest';
 import React from 'react';
 
 export function getCellRenderFunction<T extends HasId>(
-  cellComponents: NextUiCellComponentRecord<T>,
+  cellComponents: NextUiCellComponentRecord<T> & {
+    action?: NextUiCellComponent<T>;
+  },
   entityClass: string
 ) {
-  return (entity: T, columnKey: React.Key) => {
+  return function RenderCell(entity: T, columnKey: React.Key) {
     const keyAsPath = columnKey as Paths<T>;
     const CellComponentOptional = cellComponents[keyAsPath];
 
