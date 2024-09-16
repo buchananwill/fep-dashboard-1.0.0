@@ -11,9 +11,12 @@ import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
 import clsx from 'clsx';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import {
+  WorkProjectSeriesSchemaDto,
+  WorkTaskTypeDto
+} from '@/api/generated-types/generated-types';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
-import { SetOptional } from 'type-fest';
+import { SetOptional, SetRequired } from 'type-fest';
 
 export function WorkProjectSeriesSchemaLabel({
   entity
@@ -21,13 +24,16 @@ export function WorkProjectSeriesSchemaLabel({
   return entity.name;
 }
 
-export function WorkProjectSeriesSchemaCode({
+export function EntityWithWorkTaskTypeShortCode({
   entity
-}: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
+}: SetRequired<
+  Partial<BaseLazyDtoUiProps<HasId & { workTaskType: WorkTaskTypeDto }>>,
+  'entity'
+>) {
   const subjectCode =
     entity.workTaskType.knowledgeDomain?.shortCode ??
     entity.workTaskType.knowledgeDomain?.name ??
-    entity.name;
+    entity.workTaskType.name;
   const backgroundColor = getShortCodeColor(subjectCode);
   return (
     <div

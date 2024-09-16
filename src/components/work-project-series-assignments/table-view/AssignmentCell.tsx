@@ -7,7 +7,7 @@ import {
 import React, { memo, useCallback, useMemo } from 'react';
 import {
   NamedEntityLabel,
-  WorkProjectSeriesSchemaCode
+  EntityWithWorkTaskTypeShortCode
 } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 import { LazyDtoUiWrapper, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -24,6 +24,7 @@ import {
   CycleSubspanWithJoinsListDto,
   WorkProjectSeriesAssignmentDto
 } from '@/api/generated-types/generated-types';
+import { InnerWorkProjectSeriesCell } from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
 
 export default function AssignmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;
@@ -93,24 +94,9 @@ function InnerAssignmentCell({
       )}
       {...tooltip}
     >
-      {
-        cellData && (
-          // cellData.length == 1 ? (
-          <LazyDtoUiWrapper
-            renderAs={WorkProjectSeriesSchemaCode}
-            entityId={cellData.workProjectSeries.workProjectSeriesSchemaId}
-            entityClass={EntityClassMap.workProjectSeriesSchema}
-            whileLoading={Loading}
-          />
-        )
-        //   : (
-        //     <div className={'flex h-full items-center justify-center'}>
-        //       C:{cellData.length}
-        //     </div>
-        //   )
-        // ) : (
-        //   ''
-      }
+      {cellData && (
+        <EntityWithWorkTaskTypeShortCode entity={cellData.workProjectSeries} />
+      )}
     </div>
   );
 }
@@ -124,13 +110,7 @@ function AssignmentTooltip({ content }: { content: AssignmentCellContent }) {
         'pointer-events-none flex flex-col rounded-md border border-amber-300 bg-amber-50 p-2 text-black'
       }
     >
-      <LazyDtoUiWrapper
-        key={content.id}
-        renderAs={NamedEntityLabel}
-        entityId={content.workProjectSeries.workProjectSeriesSchemaId}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        whileLoading={Loading}
-      />
+      <InnerWorkProjectSeriesCell entity={content.workProjectSeries} />
     </div>
   );
 }

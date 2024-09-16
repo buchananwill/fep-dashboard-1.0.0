@@ -35,15 +35,6 @@ async function WorkProjectSeriesAssignmentsForSchedule({
     constructUrl(['/api/v2/workProjectSeries/assignments/schedule', scheduleId])
   );
 
-  const strings: number[] = [
-    ...Object.values(workProjectSeriesAssignmentTableDto.cellIdCellContentMap)
-      .map(
-        (assignment) => assignment.workProjectSeries.workProjectSeriesSchemaId
-      )
-      .reduce((prev, curr) => prev.add(curr), new Set<number>())
-      .values()
-  ];
-
   const organizationList = workProjectSeriesAssignmentTableDto.rowList
     .filter((row) => row.entityClass === 'Organization')
     .map((row) => row.data as OrganizationDto);
@@ -57,11 +48,6 @@ async function WorkProjectSeriesAssignmentsForSchedule({
       <EditAddDeleteDtoControllerArray
         dtoList={organizationList}
         entityClass={EntityClassMap.organization}
-      />
-      <DataFetchingEditDtoControllerArray
-        idList={strings}
-        getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
       />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.cycleSubspan}

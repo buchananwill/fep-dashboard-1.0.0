@@ -39,22 +39,26 @@ export function useEntitySelection<
       : null;
   }, [sortedItems]);
 
+  const normalizeId = useCallback(
+    (id: number | string) => {
+      return typeof id === idClass
+        ? id
+        : typeof id === 'string'
+          ? getNumberFromStringId(id)
+          : String(id);
+    },
+    [idClass]
+  );
+
   const sortFunction = useCallback(
     (a: U, b: U) => {
       if (idMap) {
         return (idMap.get(a) ?? 0) - (idMap.get(b) ?? 0);
       } else {
-        const normaliseId = (id: number | string) => {
-          return typeof id === idClass
-            ? id
-            : typeof id === 'string'
-              ? getNumberFromStringId(id)
-              : String(id);
-        };
-        return compareNumbersOrStrings(normaliseId(a), normaliseId(b));
+        return compareNumbersOrStrings(normalizeId(a), normalizeId(b));
       }
     },
-    [idMap, idClass]
+    [idMap, normalizeId]
   );
 
   const {
@@ -89,7 +93,9 @@ export function useEntitySelection<
             .forEach((itemId) => selectionSet.add(itemId));
         } else {
           selectionSet.clear();
-          selected.forEach((item) => selectionSet.add(item as U));
+          selected.forEach((item) =>
+            selectionSet.add(normalizeId(item as string | number) as U)
+          );
         }
         const sort = [...selectionSet.values()].sort(sortFunction);
         return sort as U[];

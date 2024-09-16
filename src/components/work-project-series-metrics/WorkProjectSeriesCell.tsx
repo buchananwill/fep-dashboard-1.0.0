@@ -2,7 +2,10 @@ import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import DtoUiWrapperCell from '@/components/grids/DtoUiWrapperCell';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
+import {
+  WorkProjectSeriesDto,
+  WorkProjectSeriesWithSchemaLabelsDto
+} from '@/api/generated-types/generated-types';
 import { getValue } from '@/functions/allowingNestedFiltering';
 
 export default function WorkProjectSeriesCell(props: CellWrapperProps) {
@@ -18,7 +21,7 @@ export default function WorkProjectSeriesCell(props: CellWrapperProps) {
 
 export function InnerWorkProjectSeriesCell({
   entity
-}: BaseLazyDtoUiProps<WorkProjectSeriesWithSchemaLabelsDto>) {
+}: Partial<BaseLazyDtoUiProps<WorkProjectSeriesDto>>) {
   return (
     <span className={'center-all-margin inline-block w-full truncate pl-0.5'}>
       {getValue(entity, 'workTaskType.knowledgeDomain.shortCode') ??

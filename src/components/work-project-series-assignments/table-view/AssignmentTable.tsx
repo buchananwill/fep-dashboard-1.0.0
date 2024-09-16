@@ -60,7 +60,7 @@ export default function AssignmentTable({
     <>
       <FinderTableButton
         organizations={organizations}
-        workProjectSeriesSchemas={workProjectSeriesSchemas}
+        // workProjectSeriesSchemas={workProjectSeriesSchemas}
       />
       <CellQueryManager
         tableData={tableData}
