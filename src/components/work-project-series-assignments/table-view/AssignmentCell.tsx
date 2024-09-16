@@ -9,7 +9,7 @@ import {
   NamedEntityLabel,
   WorkProjectSeriesSchemaCode
 } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
-import { LazyDtoUiWrapper, NamespacedHooks } from 'dto-stores';
+import { LazyDtoUiWrapper, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 import { useGlobalDispatchAndListener } from 'selective-context';
@@ -20,7 +20,10 @@ import clsx from 'clsx';
 import VirtualizedOuterCell from '@/components/grids/VirtualizedCell';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { WorkProjectSeriesAssignmentDto } from '@/api/generated-types/generated-types';
+import {
+  CycleSubspanWithJoinsListDto,
+  WorkProjectSeriesAssignmentDto
+} from '@/api/generated-types/generated-types';
 
 export default function AssignmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;
@@ -29,7 +32,8 @@ export default function AssignmentCell(props: CellWrapperProps) {
 function InnerAssignmentCell({
   rowIndex,
   columnIndex,
-  cellData
+  cellData,
+  data
 }: InnerCellContent<WorkProjectSeriesAssignmentDto>) {
   const { dispatchWithoutControl, currentState } = useGlobalDispatchAndListener<
     number[]
@@ -40,21 +44,11 @@ function InnerAssignmentCell({
   });
   const listenerKey = `assignmentCell:${rowIndex}:${columnIndex}`;
 
-  // const schemaIdSet = useMemo(() => {
-  //   return cellData
-  //     ? cellData.reduce(
-  //         (prev, curr) =>
-  //           prev.add(curr.workProjectSeries.workProjectSeriesSchemaId),
-  //         new Set<string>()
-  //       )
-  //     : new Set<string>();
-  // }, [cellData]);
-
   const selectSchemaIdList = NamespacedHooks.useListen(
     EntityClassMap.workProjectSeriesSchema,
     KEY_TYPES.SELECTED,
     listenerKey,
-    EmptyArray as string[]
+    EmptyArray as number[]
   );
 
   const showCell = useMemo(() => {
@@ -77,7 +71,14 @@ function InnerAssignmentCell({
 
   const selected =
     currentState[0] === rowIndex && currentState[1] === columnIndex;
-  const lastInDay = (columnIndex + 1) % 6 === 0;
+
+  const readAnyDto = useReadAnyDto<CycleSubspanWithJoinsListDto>(
+    EntityClassMap.cycleSubspan
+  );
+
+  const firstInDay = useMemo(() => {
+    return readAnyDto(data[rowIndex][columnIndex].columnId)?.dayOrdinal === 0;
+  }, []);
 
   if (!showCell) return null;
 
@@ -87,7 +88,7 @@ function InnerAssignmentCell({
       className={clsx(
         cellData ? '' : 'bg-gray-200 opacity-50',
         selected ? 'border-sky-400' : '',
-        lastInDay ? 'border-r border-r-gray-700' : '',
+        firstInDay ? 'border-l border-l-gray-700' : '',
         'mb-auto ml-auto mr-auto mt-auto h-full w-full'
       )}
       {...tooltip}

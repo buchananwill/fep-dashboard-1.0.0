@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { MemoizedFunction } from 'react-d3-force-wrapper';
-import { WorkProjectSeriesAssignmentDto } from '@/api/zod-schemas/WorkProjectSeriesAssignmentDtoSchema';
 import { useGlobalController } from 'selective-context';
 import { Identifier, useEffectSyncWithDispatch } from 'dto-stores';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
+import { WorkProjectSeriesAssignmentDto } from '@/api/generated-types/generated-types';
 
 export const GetCellContentKey = 'getCellContent';
 export type AssignmentCellContent = WorkProjectSeriesAssignmentDto | undefined;

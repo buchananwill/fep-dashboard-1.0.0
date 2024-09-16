@@ -1,4 +1,5 @@
 import {
+  BaseDtoUiProps,
   BaseLazyDtoUiProps,
   LazyDtoUiWrapper,
   LazyDtoUiWrapperProps
@@ -12,6 +13,7 @@ import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
+import { SetOptional } from 'type-fest';
 
 export function WorkProjectSeriesSchemaLabel({
   entity
@@ -41,8 +43,16 @@ export function WorkProjectSeriesSchemaCode({
 
 export function NamedEntityLabel({
   entity,
+  dispatchWithoutControl,
+  entityClass,
+  dispatchDeletion,
+  deleted,
   ...divProps
-}: GenericDivProps & BaseLazyDtoUiProps<HasNameDto & HasId>) {
+}: GenericDivProps &
+  SetOptional<
+    BaseDtoUiProps<HasNameDto & HasId>,
+    'deleted' | 'dispatchDeletion'
+  >) {
   const tooltip = useFloatingTooltip(<TooltipMemo text={entity.name} />);
   return (
     <div {...tooltip} {...divProps}>

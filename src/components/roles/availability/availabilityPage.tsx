@@ -12,10 +12,13 @@ import {
   AvailabilityType
 } from '@/components/roles/availability/AvailabilityType';
 import { notFound } from 'next/navigation';
+import { GenericTableDto, HasNumberId } from '@/api/types';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types';
 
-export default async function AvailabilityPage({
-  params: { roleTypeId, roleCategory }
-}: RolePageProps) {
+export default async function AvailabilityPage<
+  Role extends HasNumberId,
+  Availability
+>({ params: { roleTypeId, roleCategory } }: RolePageProps) {
   if (roleCategory === 'user') {
     return notFound();
   }
@@ -29,12 +32,10 @@ export default async function AvailabilityPage({
   ]);
   const roleIdList: number[] = getIdList(roles);
   console.log(roleIdList);
-
-  const genericTable =
-    await Api[
-      availabilityConfig[roleCategory as AvailabilityType]
-        .entityClass as keyof Pick<typeof Api, AvailabilityEntityClass>
-    ].getDtoTableByRowIdList(roleIdList);
+  const entityClassForApi = availabilityConfig[roleCategory as AvailabilityType]
+    .entityClass as keyof Pick<typeof Api, AvailabilityEntityClass>;
+  const apiElement = Api[entityClassForApi];
+  const genericTable = await apiElement.getDtoTableByRowIdList(roleIdList);
 
   const tableProps = getTableProps(roles, cycleSubspanList);
 
@@ -48,10 +49,16 @@ export default async function AvailabilityPage({
         entityClass={EntityClassMap.cycleSubspan}
         dtoList={cycleSubspanList}
       />
-      {/* TODO: fix typing on this component. */}
-      <AvailabilityTable
+      <AvailabilityTable<Role, Availability>
         type={roleCategory}
-        tableData={genericTable}
+        tableData={
+          genericTable as GenericTableDto<
+            Role,
+            CycleSubspanDto,
+            Availability,
+            Availability
+          >
+        }
         {...tableProps}
       />
     </div>
