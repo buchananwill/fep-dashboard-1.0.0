@@ -16,7 +16,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'Classical Piano', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'Classical Piano', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
@@ -58,7 +58,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'Piano', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'Piano', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
@@ -93,7 +93,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'Classical Voice', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'Classical Voice', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
@@ -135,7 +135,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'Production', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'Production', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
@@ -191,7 +191,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [
+          knowledgeDomainDtoList: [
             { name: 'Drum Kit', id: -1 },
             { name: 'Production', id: -1 }
           ],
@@ -236,7 +236,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'Guitar', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'Guitar', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
@@ -278,7 +278,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'French Horn', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'French Horn', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
@@ -313,7 +313,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'Jazz/Pop Voice', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'Jazz/Pop Voice', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
@@ -355,7 +355,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'Double Bass', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'Double Bass', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
@@ -397,7 +397,7 @@ export const providerPostRequests = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainList: [{ name: 'DJ', id: -1 }],
+          knowledgeDomainDtoList: [{ name: 'DJ', id: -1 }],
 
           workTaskTypeNames: ['Teaching']
         },
