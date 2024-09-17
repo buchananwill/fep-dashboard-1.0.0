@@ -6,6 +6,5 @@ export const TimeSpanDtoSchema = z.object({
   id: z.number(),
   startTimeDivisionId: z.number(),
   endTimeDivisionId: z.number(),
-  name: z.string(),
+  name: z.string()
 });
-export type TimeSpanDto = z.infer<typeof TimeSpanDtoSchema>;

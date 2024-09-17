@@ -17,8 +17,6 @@ export const NestedItemSchema =
     children: z.lazy(() => FeasibilityReportTreeItemBasePayloadSchema.array())
   });
 
-export type NestedItem = z.infer<typeof NestedItemSchema>;
-
 export const FullReportDtoSchema = z.object({
   creationTime: z.date(),
   id: z.number(),

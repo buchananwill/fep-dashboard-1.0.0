@@ -6,7 +6,7 @@ import {
   useReadAnyDto
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/zod-schemas/ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema';
+import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/generated-types/generated-types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -16,12 +16,12 @@ import {
   SyncedColumnCellMemo,
   SyncedRowCellMemo
 } from '@/components/grids/SyncedCell';
-import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
+import { ProviderRoleDto } from '@/api/generated-types/generated-types';
 import { isNotUndefined } from '@/api/main';
-import { AssetRoleWorkTaskSuitabilityDto } from '@/api/zod-schemas/AssetRoleWorkTaskSuitabilityDtoSchema';
 import { Api } from '@/api/clientApi_';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import { CellComponentMemo } from '@/components/grids/CellComponent';
+import { AssetRoleWorkTaskSuitabilityDto } from '@/api/zod-schemas/AssetRoleWorkTaskSuitabilityDtoSchema';
 
 export type RoleTypes = (typeof EntityClassMap)[
   | 'assetRole'

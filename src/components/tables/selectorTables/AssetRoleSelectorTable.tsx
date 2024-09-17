@@ -5,7 +5,7 @@ import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { AssetRoleDto } from '@/api/zod-schemas/AssetRoleDtoSchema';
+import { AssetRoleDto } from '@/api/generated-types/generated-types';
 
 export default function AssetRoleSelectorTable({
   assetRoles

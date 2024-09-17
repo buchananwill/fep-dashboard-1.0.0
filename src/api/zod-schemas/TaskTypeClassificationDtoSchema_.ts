@@ -27,5 +27,3 @@ export const TaskTypeClassificationDtoSchema = z.object({
 export type TaskTypeClassificationDto = z.infer<
   typeof TaskTypeClassificationDtoSchema
 >;
-
-export type ClassificationType = z.infer<typeof ClassificationTypeEnum>;

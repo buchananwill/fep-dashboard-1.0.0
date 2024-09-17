@@ -1,7 +1,6 @@
 'use client';
 import { DataNodeDto } from 'react-d3-force-wrapper';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
-import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import { useTableProps } from '@/components/grids/useTableProps';
 import { useGlobalController, useGlobalDispatch } from 'selective-context';
@@ -26,6 +25,7 @@ import { HasIdClass } from '@/api/types';
 import { Api } from '@/api/clientApi_';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
+import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 
 interface EnrollmentTableProps {
   classes: DataNodeDto<OrganizationDto>[];

@@ -6,12 +6,12 @@ import {
 import { isNotUndefined } from '../main';
 
 import { constructUrl } from './template-base-endpoints';
-import { HasNumberIdDto } from '@/api/zod-schemas/HasNumberIdDtoSchema';
 import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
+import { HasNumberId } from '@/api/types';
 
 export type DepthOp = '>' | '>=' | '<' | '<=' | '=' | '!=';
 
-export interface GraphEndpointSet<T extends HasNumberIdDto> {
+export interface GraphEndpointSet<T extends HasNumberId> {
   getGraph: () => Promise<GraphDto<T>>;
   putGraph: (
     graphPutRequest: GraphDtoPutRequestBody<T>
@@ -29,7 +29,7 @@ export interface ByRootIdGraphRequest {
   depthOp?: DepthOp;
 }
 
-async function getGraphByRootId<T extends HasNumberIdDto>(
+async function getGraphByRootId<T extends HasNumberId>(
   { rootId, depth, depthOp }: ByRootIdGraphRequest,
   url: string
 ): Promise<GraphDto<T>> {
@@ -39,7 +39,7 @@ async function getGraphByRootId<T extends HasNumberIdDto>(
       : '';
   return getWithoutBody(`${url}/byRootId/${rootId}${depthParam}`);
 }
-async function getGraphByNodeList<T extends HasNumberIdDto>(
+async function getGraphByNodeList<T extends HasNumberId>(
   idList: number[],
   url: string
 ): Promise<GraphDto<T>> {
@@ -49,13 +49,13 @@ async function getGraphByNodeList<T extends HasNumberIdDto>(
   );
 }
 
-async function getRootNodeList<T extends HasNumberIdDto>(
+async function getRootNodeList<T extends HasNumberId>(
   url: string
 ): Promise<T[]> {
   return getWithoutBody(`${url}/rootNodeList`);
 }
 
-async function putGraph<T extends HasNumberIdDto>(
+async function putGraph<T extends HasNumberId>(
   graphPutRequestBody: GraphDtoPutRequestBody<T>,
   url: string
 ): Promise<GraphDto<T>> {
@@ -65,13 +65,13 @@ async function putGraph<T extends HasNumberIdDto>(
   >(graphPutRequestBody, url);
 }
 
-async function getGraph<T extends HasNumberIdDto>(
+async function getGraph<T extends HasNumberId>(
   url: string
 ): Promise<GraphDto<T>> {
   return getWithoutBody(url);
 }
 
-export function generateGraphEndpointSet<T extends HasNumberIdDto>(
+export function generateGraphEndpointSet<T extends HasNumberId>(
   path: string | string[]
 ): GraphEndpointSet<T> {
   const generatedUrl = constructUrl(path, 'graphs');

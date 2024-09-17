@@ -7,6 +7,5 @@ export const ProviderRoleDtoSchema = z.object({
   partyId: z.number(),
   knowledgeDomainId: z.number(),
   knowledgeDomainName: z.string(),
-  type: ProviderRoleTypeDtoSchema,
+  type: ProviderRoleTypeDtoSchema
 });
-export type ProviderRoleDto = z.infer<typeof ProviderRoleDtoSchema>;

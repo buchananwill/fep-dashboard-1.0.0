@@ -5,7 +5,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
-import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
+import { ProviderRoleDto } from '@/api/generated-types/generated-types';
 import clsx from 'clsx';
 import { SuitabilityCellData } from '@/components/roles/suitability/SuitabilityTable';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';

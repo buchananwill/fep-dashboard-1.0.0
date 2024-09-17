@@ -10,6 +10,5 @@ export const TaskTypeClassificationDtoSchema = z.object({
   partyClassificationItems: z.array(PartyClassificationItemDtoSchema),
   assetClassificationItems: z.array(AssetClassificationItemDtoSchema),
   classificationType: z.string(),
-  name: z.string(),
+  name: z.string()
 });
-export type TaskTypeClassificationDto = z.infer<typeof TaskTypeClassificationDtoSchema>;

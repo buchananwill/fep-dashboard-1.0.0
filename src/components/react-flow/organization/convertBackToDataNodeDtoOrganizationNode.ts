@@ -1,4 +1,4 @@
-import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/generated-types/generated-types';
 import {
   DataNode,
   DataNodeDto,

@@ -1,6 +1,5 @@
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import VirtualizedOuterCell from '@/components/grids/VirtualizedCell';
-import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { SetRequired } from 'type-fest';
 import { useGlobalListener } from 'selective-context';
@@ -10,6 +9,7 @@ import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { addEnrollment } from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTable';
 import { getNumberFromStringId } from 'react-d3-force-wrapper';
 import { Identifier } from 'dto-stores';
+import { ClosureDto } from '@/api/types';
 
 export function renderEnrollmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerEnrollmentCell} />;

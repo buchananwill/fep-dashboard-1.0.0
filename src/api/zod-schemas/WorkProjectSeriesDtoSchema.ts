@@ -7,6 +7,5 @@ export const WorkProjectSeriesDtoSchema = z.object({
   workTaskSeries: z.array(WorkTaskSeriesDtoSchema),
   workProjectSeriesSchemaId: z.number(),
   completedStatus: z.boolean(),
-  workTaskType: WorkTaskTypeDtoSchema,
+  workTaskType: WorkTaskTypeDtoSchema
 });
-export type WorkProjectSeriesDto = z.infer<typeof WorkProjectSeriesDtoSchema>;

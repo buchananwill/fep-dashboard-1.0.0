@@ -1,5 +1,5 @@
 import { incrementCloneSuffix } from 'react-d3-force-wrapper';
-import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/generated-types/generated-types';
 
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { FlowNode } from '@/components/react-flow/generic/types';

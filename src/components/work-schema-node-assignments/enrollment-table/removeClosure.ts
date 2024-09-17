@@ -1,7 +1,7 @@
-import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 import { ClosureMap } from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTable';
 import { getClosureTargetMap } from '@/components/work-schema-node-assignments/enrollment-table/getClosureTargetMap';
 import { produce } from 'immer';
+import { ClosureDto } from '@/api/types';
 
 function conditionallyUpdateClosureValue(
   intermediaryClosure: ClosureDto,

@@ -6,4 +6,3 @@ export const NewProviderRoleDtoSchema = z.object({
   lastName: z.string().min(1, 'Last name is required.'),
   partyId: z.number({ required_error: 'Transient id required' })
 });
-export type NewProviderRoleDto = z.infer<typeof NewProviderRoleDtoSchema>;

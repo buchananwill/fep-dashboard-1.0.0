@@ -2,7 +2,7 @@
 
 import { FC, useMemo } from 'react';
 import { CollectionItemChooserProps } from '@/components/types/collectionItemChooserProps';
-import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
+import { HasName } from '@/api/generated-types/generated-types';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
 import {
   EditAddDeleteDtoControllerArray,
@@ -23,7 +23,7 @@ export interface CollectionChooserTabGroupProps<T, U> {
 }
 
 export default function CollectionChooserTabGroup<
-  T extends HasId & HasNameDto,
+  T extends HasId & HasName,
   U extends HasId
 >({
   referencedItemData,

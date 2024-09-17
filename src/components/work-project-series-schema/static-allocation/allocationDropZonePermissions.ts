@@ -1,5 +1,5 @@
-import { CycleSubspanJoinNestedDto } from '@/api/zod-schemas/CycleSubspanJoinNestedDtoSchema';
-import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
+import { CycleSubspanJoinNestedDto } from '@/api/generated-types/generated-types';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 
 export function matchSize(

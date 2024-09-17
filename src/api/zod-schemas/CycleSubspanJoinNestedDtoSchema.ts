@@ -4,6 +4,5 @@ export const CycleSubspanJoinNestedDtoSchema = z.object({
   cycleSubspanId: z.number(),
   cycleSubspanGroupSize: z.number(),
   cycleSubspanGroupId: z.string().uuid(),
-  joinOrdinal: z.number(),
+  joinOrdinal: z.number()
 });
-export type CycleSubspanJoinNestedDto = z.infer<typeof CycleSubspanJoinNestedDtoSchema>;

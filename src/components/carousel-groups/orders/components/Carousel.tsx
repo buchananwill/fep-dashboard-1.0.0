@@ -1,5 +1,5 @@
 import { BaseLazyDtoUiProps, NamespacedHooks } from 'dto-stores';
-import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
+import { CarouselDto } from '@/api/generated-types/generated-types';
 import CarouselOption, {
   CarouselOptionState
 } from '@/components/carousel-groups/orders/components/CarouselOption';

@@ -8,9 +8,6 @@ import {
   IdReferencedIntersectionTableDto,
   IntersectionRequestParams
 } from '@/api/types';
-import { ProviderRoleDto } from '@/api/zod-schemas/ProviderRoleDtoSchema';
-import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
-import { ProviderRoleAvailabilityDto } from '@/api/zod-schemas/ProviderRoleAvailabilityDtoSchema';
 
 export interface IntersectionEndpoints<T, U, V> {
   getIntersectionTable: (

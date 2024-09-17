@@ -5,6 +5,5 @@ export const ServiceCategoryDtoSchema = z.object({
   knowledgeDomainDescriptor: z.string(),
   knowledgeLevelDescriptor: z.string(),
   knowledgeDomainIds: z.array(z.number()),
-  knowledgeLevelIds: z.array(z.number()),
+  knowledgeLevelIds: z.array(z.number())
 });
-export type ServiceCategoryDto = z.infer<typeof ServiceCategoryDtoSchema>;

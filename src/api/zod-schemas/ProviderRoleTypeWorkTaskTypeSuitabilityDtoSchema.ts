@@ -6,6 +6,5 @@ export const ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema = z.object({
   providerRoleTypeId: z.number(),
   providerRoleTypeName: z.string(),
   workTaskTypeId: z.number(),
-  workTaskTypeName: z.string(),
+  workTaskTypeName: z.string()
 });
-export type ProviderRoleTypeWorkTaskTypeSuitabilityDto = z.infer<typeof ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema>;

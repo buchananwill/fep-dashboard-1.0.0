@@ -2,7 +2,7 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
-import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';
+import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types';
 import StaticAllocationTable from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import {
   EditAddDeleteDtoControllerArray,

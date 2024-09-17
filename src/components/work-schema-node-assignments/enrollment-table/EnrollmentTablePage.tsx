@@ -1,11 +1,9 @@
 import { Api } from '@/api/clientApi_';
-import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import EnrollmentTable, {
   ClosureMap
 } from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTable';
 import { addClosure } from '@/components/work-schema-node-assignments/enrollment-table/addClosure';
-import { getClosureTargetMap } from '@/components/work-schema-node-assignments/enrollment-table/getClosureTargetMap';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 

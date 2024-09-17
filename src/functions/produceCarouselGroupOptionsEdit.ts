@@ -1,4 +1,4 @@
-import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
+import { CarouselGroupDto } from '@/api/generated-types/generated-types';
 import { makeTransientId } from '@/functions/makeTransientId';
 
 export function produceCarouselGroupOptionsEdit(

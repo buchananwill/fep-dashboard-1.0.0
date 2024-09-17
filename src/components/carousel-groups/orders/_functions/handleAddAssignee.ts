@@ -1,4 +1,4 @@
-import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
+import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
 import { produce } from 'immer';
 import { WriteAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';

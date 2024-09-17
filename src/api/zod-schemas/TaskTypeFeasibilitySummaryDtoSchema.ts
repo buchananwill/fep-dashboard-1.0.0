@@ -4,6 +4,5 @@ export const TaskTypeFeasibilitySummaryDtoSchema = z.object({
   passes: z.boolean(),
   children: z.array(TaskTypeFeasibilityDtoSchema),
   itemType: z.string(),
-  serialVersionUID: z.number(),
+  serialVersionUID: z.number()
 });
-export type TaskTypeFeasibilitySummaryDto = z.infer<typeof TaskTypeFeasibilitySummaryDtoSchema>;

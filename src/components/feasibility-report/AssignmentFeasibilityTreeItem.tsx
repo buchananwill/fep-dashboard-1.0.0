@@ -2,10 +2,10 @@ import {
   CustomTreeItem,
   StyledTreeItemProps
 } from '@/components/mui/CustomTreeItem';
-import { NodeAssignmentFeasibilityDto } from '@/api/zod-schemas/NodeAssignmentFeasibilityDtoSchema';
+import { NodeAssignmentFeasibilityDto } from '@/api/generated-types/generated-types';
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkSchemaNodeAssignmentDto } from '@/api/zod-schemas/WorkSchemaNodeAssignmentDtoSchema_';
+import { WorkSchemaNodeAssignmentDto } from '@/api/generated-types/generated-types';
 import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 
 export function Loading() {

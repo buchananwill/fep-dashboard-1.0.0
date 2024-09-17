@@ -15,9 +15,9 @@ import {
 } from '@/functions/cycles/groupCycleSubspansByDay';
 import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
 
-import { CycleSubspanGroupDto } from '@/api/zod-schemas/CycleSubspanGroupDtoSchema';
-import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
-import { CycleSubspanJoinDto } from '@/api/zod-schemas/CycleSubspanJoinDtoSchema';
+import { CycleSubspanGroupDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanJoinDto } from '@/api/generated-types/generated-types';
 import { makeTransientId } from '@/functions/makeTransientId';
 
 function updateGroupJoins(

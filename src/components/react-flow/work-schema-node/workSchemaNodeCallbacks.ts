@@ -19,7 +19,7 @@ import { z } from 'zod';
 import { ServerAction } from '@/components/react-flow/generic/hooks/useEditableFlow';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { FlowNode } from '@/components/react-flow/generic/types';
-import { CarouselDto } from '@/api/zod-schemas/CarouselDtoSchema';
+import { CarouselDto } from '@/api/generated-types/generated-types';
 import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/getGraphUpdaterWithNameDeDuplication';
 import { ReadAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
 import { MonoFunction } from '@/types';

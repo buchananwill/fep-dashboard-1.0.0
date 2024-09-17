@@ -4,10 +4,10 @@ import { useIdToEdgeMapMemo } from '@/components/react-flow/generic/hooks/useIdT
 import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useGlobalController } from 'selective-context';
 import { EditAddDeleteDtoControllerArray, InitialMap } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
 import WorkSchemaNodeLeafController from '@/components/work-schema-node-assignments/_components/WorkSchemaNodeLeafController';
 import React, { memo, useMemo, useRef } from 'react';

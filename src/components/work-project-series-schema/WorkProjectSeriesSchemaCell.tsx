@@ -5,14 +5,14 @@ import {
   NamespacedHooks,
   useWriteAnyDto
 } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import {
   CellWrapperProps,
   getCellIdReference
 } from '@/components/grids/getCellIdReference';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { memo, useCallback, useMemo } from 'react';
-import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import clsx from 'clsx';

@@ -5,7 +5,7 @@ import {
   postList
 } from '@/api/generated-actions/CycleSubspan';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
-import { CycleDto } from '@/api/zod-schemas/CycleDtoSchema';
+import { CycleDto } from '@/api/generated-types/generated-types';
 
 export async function initCycleSubspans(cycle: CycleDto) {
   const cycleLengthInDays = cycle.cycleLengthInDays;

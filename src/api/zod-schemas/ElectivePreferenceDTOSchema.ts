@@ -5,6 +5,5 @@ export const ElectivePreferenceDTOSchema = z.object({
   courseId: z.string(),
   preferencePosition: z.number(),
   assignedCarouselOptionId: z.number(),
-  active: z.boolean(),
+  active: z.boolean()
 });
-export type ElectivePreferenceDTO = z.infer<typeof ElectivePreferenceDTOSchema>;

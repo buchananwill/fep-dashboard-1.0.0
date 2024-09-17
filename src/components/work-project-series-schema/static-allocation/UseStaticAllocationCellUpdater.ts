@@ -3,7 +3,7 @@ import {
   joinCellId
 } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
 import { useWriteAnyDto } from 'dto-stores';
 import { useCallback } from 'react';
 

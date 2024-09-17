@@ -1,6 +1,6 @@
 'use server';
 
-import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types';
 import { postList, putList } from '@/api/generated-actions/CycleSubspan';
 
 export const interceptPut = async (dtoList: CycleSubspanDto[]) => {

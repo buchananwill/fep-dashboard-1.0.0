@@ -1,7 +1,7 @@
 import { ClosureMap } from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTable';
-import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { getClosureTargetMap } from '@/components/work-schema-node-assignments/enrollment-table/getClosureTargetMap';
+import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 
 export function addClosure(map: ClosureMap, c: ClosureDto) {
   const closureTargetMap = getClosureTargetMap(map, c.target);

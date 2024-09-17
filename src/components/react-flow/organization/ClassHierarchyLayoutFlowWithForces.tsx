@@ -25,8 +25,8 @@ import {
   useEffectSyncDeepEqualWithDispatch
 } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
-import { OrganizationTypeDto } from '@/api/zod-schemas/OrganizationTypeDtoSchema';
+import { OrganizationDto as OrgDto } from '@/api/generated-types/generated-types';
+import { OrganizationTypeDto } from '@/api/generated-types/generated-types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
 import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';
@@ -35,8 +35,10 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditableFlow';
 import { TopToBottomEdge } from '@/components/react-flow/generic/components/edges/TopToBottomEdge';
 import { FlowNode } from '@/components/react-flow/generic/types';
-import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 import { useOrientedDepthLayout } from '@/components/react-flow/organization/useOrientedDepthLayout';
+import { Simplify } from 'type-fest';
+
+type OrganizationDto = Simplify<OrgDto>;
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,

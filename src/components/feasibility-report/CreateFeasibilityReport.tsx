@@ -5,7 +5,7 @@ import { PressEvents } from '@react-types/shared';
 import { createFeasibilityReport } from '@/api/createFeasibilityAction';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-import { FeasibilityReportDto } from '@/api/zod-schemas/FeasibilityReportDtoSchema';
+import { FeasibilityReportDto } from '@/api/generated-types/generated-types';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 
 export default function CreateFeasibilityReport({

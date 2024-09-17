@@ -8,9 +8,9 @@ import { StepperContext } from '@/components/generic/stepper/stepperContextCreat
 import LandscapeStepper from '@/components/generic/stepper/LandscapeStepper';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
-import { CarouselGroupDto } from '@/api/zod-schemas/CarouselGroupDtoSchema';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
-import { CarouselLeanDto } from '@/api/zod-schemas/CarouselLeanDtoSchema';
+import { CarouselGroupDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { CarouselLeanDto } from '@/api/generated-types/generated-types';
 import { produceCarouselGroupOptionsEdit } from '@/functions/produceCarouselGroupOptionsEdit';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 

@@ -1,9 +1,9 @@
 import { useDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
-import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
+import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
 import clsx from 'clsx';
 import { ClashBadge } from '@/components/carousel-groups/orders/components/ClashBadge';
 import { useCarouselOrderModalTrigger } from '@/components/carousel-groups/orders/order-modal/CarouselOrderModal';

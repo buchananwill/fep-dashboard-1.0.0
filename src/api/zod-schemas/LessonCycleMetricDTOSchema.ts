@@ -4,6 +4,5 @@ export const LessonCycleMetricDTOSchema = z.object({
   lessonCycleId: z.string(),
   periodIdList: z.array(z.number()),
   infinityCostCount: z.number(),
-  finiteCostCount: z.number(),
+  finiteCostCount: z.number()
 });
-export type LessonCycleMetricDTO = z.infer<typeof LessonCycleMetricDTOSchema>;

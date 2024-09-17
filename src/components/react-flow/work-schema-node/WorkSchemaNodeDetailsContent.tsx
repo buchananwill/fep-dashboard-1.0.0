@@ -8,7 +8,7 @@ import {
   useLinkContext
 } from 'react-d3-force-wrapper';
 import { ObjectPlaceholder } from 'selective-context';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
@@ -22,7 +22,7 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { WorkProjectSeriesSchemaDto } from '@/api/zod-schemas/WorkProjectSeriesSchemaDtoSchema';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import WorkSchemaNodeModalTable from '@/components/work-project-series-schema/_components/WorkSchemaNodeModalTable';
 import EntityPropertyCheckbox from '@/components/generic/EntityPropertyCheckbox';
 import WorkProjectionSeriesSchemaSummary from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaSummary';
@@ -30,7 +30,7 @@ import { Spinner } from '@nextui-org/spinner';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { BooleanPropertyKey, NumberPropertyKey } from '@/types';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
-import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
+import { CarouselOptionDto } from '@/api/generated-types/generated-types';
 
 const listenerKey = 'workSchemaNodeModalContent';
 

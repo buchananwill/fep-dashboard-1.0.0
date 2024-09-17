@@ -2,7 +2,7 @@
 import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { DtoTable } from '@/components/tables/DtoTable';
-import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 import {
   BaseDtoStoreNumberInputProps,
   DtoStoreNumberInput

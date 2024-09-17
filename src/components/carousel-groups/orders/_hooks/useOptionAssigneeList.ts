@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { NamespacedHooks } from 'dto-stores';
-import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
@@ -19,7 +19,10 @@ export function useOptionAssigneeList(optionIdList: number[]) {
   return useMemo(() => {
     return masterList.filter((order) =>
       Object.values(order.carouselOrderItems).some(
-        (item) => optionIdList.includes(item.carouselOptionId) && item.active
+        (item) =>
+          item.carouselOptionId !== undefined &&
+          optionIdList.includes(item.carouselOptionId) &&
+          item.active
       )
     );
   }, [optionIdList, masterList]);

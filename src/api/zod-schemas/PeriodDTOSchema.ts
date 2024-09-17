@@ -8,6 +8,5 @@ export const PeriodDTOSchema = z.object({
   dayOfWeek: z.string(),
   dayOfCycle: z.number(),
   cycleLengthInDays: z.number(),
-  cycleId: z.string(),
+  cycleId: z.string()
 });
-export type PeriodDTO = z.infer<typeof PeriodDTOSchema>;

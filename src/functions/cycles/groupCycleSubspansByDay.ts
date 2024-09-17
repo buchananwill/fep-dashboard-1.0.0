@@ -6,8 +6,8 @@ import {
 
 import { StringObjectRecord } from '@/api/string-object-record';
 import { isNotUndefined } from '@/api/main';
-import { CycleDto } from '@/api/zod-schemas/CycleDtoSchema';
-import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
+import { CycleDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types';
 
 export interface CycleDay {
   zeroIndexedCycleDay: number;

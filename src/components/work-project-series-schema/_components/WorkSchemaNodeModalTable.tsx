@@ -8,7 +8,7 @@ import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect
 import { FilterSortPaginateTableContent } from '@/components/tables/FilterSortPaginateTableContent';
 import { Input } from '@nextui-org/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { workProjectSeriesSchemaRenderCellFunction } from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 

@@ -1,4 +1,4 @@
-import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 import { initSafely } from '@/utils/init-database-functions/initSafely';
 import {
   getDtoListByExampleList,

@@ -8,6 +8,5 @@ export const WorkTaskDtoSchema = z.object({
   workTaskTypeDto: WorkTaskTypeDtoSchema,
   taskLength: z.number(),
   completedDate: z.date(),
-  notes: z.string(),
+  notes: z.string()
 });
-export type WorkTaskDto = z.infer<typeof WorkTaskDtoSchema>;

@@ -7,6 +7,5 @@ export const AssetRoleTypeWorkTaskTypeSuitabilityDtoSchema = z.object({
   workTaskTypeName: z.string(),
   workTaskTypeId: z.number(),
   assetId: z.number(),
-  assetName: z.string(),
+  assetName: z.string()
 });
-export type AssetRoleTypeWorkTaskTypeSuitabilityDto = z.infer<typeof AssetRoleTypeWorkTaskTypeSuitabilityDtoSchema>;

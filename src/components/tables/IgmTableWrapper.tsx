@@ -4,16 +4,13 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { SubmitTableButton } from '@/components/generic/SubmitTableButton';
 
 import { TableProps } from '@nextui-org/react';
-import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
+import { HasName } from '@/api/generated-types/generated-types';
 import {
   IntersectionGeneratorMatrix,
   IntersectionGeneratorRowWithHeader
 } from '@/api/types';
 
-export interface IgmTableWrapperProps<
-  T extends HasNameDto,
-  U extends HasNameDto
-> {
+export interface IgmTableWrapperProps<T extends HasName, U extends HasName> {
   rowEntityClass: string;
   rows: T[];
   columns: U[];
@@ -22,10 +19,7 @@ export interface IgmTableWrapperProps<
   tableColumns: { name: string; uid: string }[];
 }
 
-export default function IgmTableWrapper<
-  T extends HasNameDto,
-  U extends HasNameDto
->({
+export default function IgmTableWrapper<T extends HasName, U extends HasName>({
   rowEntityClass,
   columns,
   rows,

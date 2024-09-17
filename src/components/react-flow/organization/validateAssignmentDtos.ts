@@ -1,4 +1,4 @@
-import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/generated-types/generated-types';
 import _ from 'lodash';
 import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
 import { WorkSchemaNodeAssignmentDtoSchema } from '@/api/zod-schemas/WorkSchemaNodeAssignmentDtoSchema_';

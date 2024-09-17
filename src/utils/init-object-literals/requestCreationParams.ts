@@ -1,4 +1,4 @@
-import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { PartialDeep } from 'type-fest';
 
 /**

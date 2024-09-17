@@ -10,6 +10,5 @@ export const EventDtoSchema = z.object({
   eventReasonType: z.string(),
   normalizedEventOutcome: z.number(),
   calendarId: z.string().uuid(),
-  ownerRoleId: z.number(),
+  ownerRoleId: z.number()
 });
-export type EventDto = z.infer<typeof EventDtoSchema>;

@@ -1,4 +1,4 @@
-import { KnowledgeLevelDto } from '@/api/zod-schemas/KnowledgeLevelDtoSchema';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 
 export function sortLevelsOnOrdinal(
   level1: KnowledgeLevelDto,

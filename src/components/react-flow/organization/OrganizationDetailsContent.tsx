@@ -19,7 +19,7 @@ import {
   useGraphListener
 } from 'react-d3-force-wrapper';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
-import { OrganizationDto } from '@/api/zod-schemas/OrganizationDtoSchema_';
+import { OrganizationDto } from '@/api/generated-types/generated-types';
 import {
   BaseDtoUiProps,
   BaseLazyDtoUiProps,
@@ -31,9 +31,9 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Select } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { produce } from 'immer';
-import { WorkSchemaNodeAssignmentDto } from '@/api/zod-schemas/WorkSchemaNodeAssignmentDtoSchema_';
+import { WorkSchemaNodeAssignmentDto } from '@/api/generated-types/generated-types';
 import { listenerKeyDetailsContent } from '@/app/_literals';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
 const whileLoading = () => null;

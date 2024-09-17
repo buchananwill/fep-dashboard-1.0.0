@@ -1,4 +1,4 @@
-import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
 import { useDrag } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import clsx from 'clsx';

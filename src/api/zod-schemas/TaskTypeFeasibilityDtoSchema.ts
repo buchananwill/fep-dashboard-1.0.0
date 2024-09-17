@@ -7,6 +7,5 @@ export const TaskTypeFeasibilityDtoSchema = z.object({
   rootTaskTypeClassification: TaskTypeClassificationDtoSchema,
   children: z.array(BandwidthFeasibilityLayerDtoSchema),
   passes: z.boolean(),
-  serialVersionUID: z.number(),
+  serialVersionUID: z.number()
 });
-export type TaskTypeFeasibilityDto = z.infer<typeof TaskTypeFeasibilityDtoSchema>;

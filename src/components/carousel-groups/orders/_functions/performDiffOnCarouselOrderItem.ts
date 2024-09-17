@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react';
-import { CarouselOrderItemDto } from '@/api/zod-schemas/CarouselOrderItemDtoSchema';
+import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
 import { handleAddAssignee } from '@/components/carousel-groups/orders/_functions/handleAddAssignee';
 import { handleRemoveAssignee } from '@/components/carousel-groups/orders/_functions/handleRemoveAssignee';
 import {
@@ -17,8 +17,8 @@ export function performDiffOnCarouselOrderItem(
   let updateSucceeded = false;
   const prevItem = orderItems.current[item.workProjectSeriesSchemaId];
   const prevOptionDefined =
-    prevItem && !!readAnyOption(prevItem.carouselOptionId);
-  const currOptionDefined = item && !!readAnyOption(item.carouselOptionId);
+    prevItem && !!readAnyOption(prevItem.carouselOptionId!);
+  const currOptionDefined = item && !!readAnyOption(item.carouselOptionId!);
   const activeMatch = prevItem?.active === item.active;
   const assignmentMatch = prevItem?.carouselOptionId === item.carouselOptionId;
   // match: true & true #1

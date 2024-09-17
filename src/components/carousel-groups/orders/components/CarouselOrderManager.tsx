@@ -7,12 +7,12 @@ import {
   useReadAnyDto,
   useWriteAnyDto
 } from 'dto-stores';
-import { CarouselOrderDto } from '@/api/zod-schemas/CarouselOrderDtoSchema';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types';
 import { SetStateAction, useEffect, useRef } from 'react';
 import { useGlobalReadAny } from 'selective-context';
 import { CarouselOptionState } from '@/components/carousel-groups/orders/components/CarouselOption';
 import { performDiffOnCarouselOrderItem } from '@/components/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
-import { CarouselOptionDto } from '@/api/zod-schemas/CarouselOptionDtoSchema';
+import { CarouselOptionDto } from '@/api/generated-types/generated-types';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { checkForClash } from '@/components/carousel-groups/orders/_functions/checkForClash';
 import { EmptyArray } from '@/api/literals';
@@ -70,7 +70,7 @@ export default function CarouselOrderManager({
     if (clashes.length > 0) {
       clashes.forEach((clashList) => {
         clashList.forEach((orderItem) => {
-          dispatchWriteAny(orderItem.carouselOptionId, (state) => {
+          dispatchWriteAny(orderItem.carouselOptionId!, (state) => {
             const nextMap = new Map(state.clashMap);
             nextMap.set(orderItem.carouselOrderId, clashList);
             return { ...state, clashMap: nextMap };

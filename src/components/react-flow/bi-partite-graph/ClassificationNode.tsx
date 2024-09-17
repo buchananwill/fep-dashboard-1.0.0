@@ -1,5 +1,5 @@
 'use client';
-import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { BaseReadOnlyNode } from '@/components/react-flow/generic/components/nodes/BaseReadOnlyNode';
 import React, { memo, useMemo } from 'react';
 import {

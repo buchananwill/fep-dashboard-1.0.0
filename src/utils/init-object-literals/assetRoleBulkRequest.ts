@@ -1,5 +1,5 @@
 import { RepeatPostRequest } from '@/api/types';
-import { WorkTaskTypeDto } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { getTemplateMergingFunction } from '@/utils/init-object-literals/getTemplateMergingFunction';
 import { createWholeSchoolPartials } from '@/utils/init-object-literals/createKnowledgeDomainLevelCrossProduct';
 import { createRequestRecordCombiner } from '@/utils/init-object-literals/createRequestRecordCombiner';
@@ -20,7 +20,7 @@ import {
   singleAlevelMaths
 } from '@/utils/init-object-literals/wttPartials';
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
-import { AssetRoleTypeDto } from '@/api/zod-schemas/AssetRoleTypeDtoSchema';
+import { AssetRoleTypeDto } from '@/api/generated-types/generated-types';
 import { AssetRolePostRequest } from '@/api/zod-schemas/AssetRolePostRequestSchema_';
 import { PartialDeep } from 'type-fest';
 

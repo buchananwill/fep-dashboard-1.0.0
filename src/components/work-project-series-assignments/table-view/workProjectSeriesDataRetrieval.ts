@@ -1,4 +1,3 @@
-import { WorkProjectSeriesAssignmentTableDto } from '@/api/zod-schemas/WorkProjectSeriesAssignmentTableDtoSchema_';
 import { CellIdReference } from '@/components/grids/CellQueryManager';
 import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {

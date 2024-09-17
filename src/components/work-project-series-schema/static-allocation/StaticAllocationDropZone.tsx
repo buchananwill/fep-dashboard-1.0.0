@@ -1,5 +1,5 @@
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
-import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import { getCellIdReference } from '@/components/grids/getCellIdReference';
@@ -7,7 +7,7 @@ import { useCallback } from 'react';
 import clsx from 'clsx';
 import { NamespacedHooks, useDtoStore, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CycleSubspanWithJoinsListDto } from '@/api/zod-schemas/CycleSubspanWithJoinsListDtoSchema_';
+import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types';
 import {
   matchIsFirst,
   matchRow,

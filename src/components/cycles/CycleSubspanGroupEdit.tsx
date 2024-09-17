@@ -2,7 +2,7 @@ import { BaseLazyDtoUiProps, useDtoStore } from 'dto-stores';
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { Checkbox } from '@nextui-org/checkbox';
 import { Chip } from '@nextui-org/chip';
-import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { CycleDto } from '@/api/generated-types/generated-types';

@@ -7,7 +7,7 @@ import {
 
 import { HasId } from '@/api/types';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
-import { HasNameDto } from '@/api/zod-schemas/HasNameDtoSchema';
+import { HasNameDto } from '@/api/generated-types/generated-types';
 import clsx from 'clsx';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
-import { CycleSubspanDto } from '@/api/zod-schemas/CycleSubspanDtoSchema';
-import { TimeSpanDto } from '@/api/zod-schemas/TimeSpanDtoSchema';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import { TimeSpanDto } from '@/api/generated-types/generated-types';
 import { TimeInput } from '@nextui-org/date-input';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { Time } from '@internationalized/date';
