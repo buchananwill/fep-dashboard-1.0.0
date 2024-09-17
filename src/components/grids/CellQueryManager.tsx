@@ -35,7 +35,10 @@ export default function CellQueryManager<T, U>({
   return null;
 }
 
-export interface CellIdReference {
-  rowId: Identifier;
-  columnId: Identifier;
+export interface CellIdReference<
+  T extends Identifier = Identifier,
+  U extends Identifier = Identifier
+> {
+  rowId: T;
+  columnId: U;
 }

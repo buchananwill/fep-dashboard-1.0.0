@@ -1,6 +1,6 @@
 import {
   Cell,
-  getCellId
+  joinCellId
 } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { StaticDeliveryAllocationItemDto } from '@/api/zod-schemas/StaticDeliveryAllocationItemDtoSchema';
@@ -16,7 +16,7 @@ function updateStaticAllocationTableCell(
   data: string | undefined
 ) {
   writeAnyCell(
-    getCellId(
+    joinCellId(
       EntityClassMap.staticDeliveryAllocationItem,
       rowId,
       cycleSubspanId

@@ -9,7 +9,7 @@ import {
 } from '@/components/grids/getCellIdReference';
 import {
   Cell,
-  getCellId
+  joinCellId
 } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import { ObjectPlaceholder } from '@/api/literals';
 
@@ -29,7 +29,7 @@ export default function VirtualizedOuterCellV2<T>({
 
   const cellIdReference = getCellIdReference({ data, rowIndex, columnIndex });
   const { currentState: cell } = useGlobalListener<Cell<T | undefined>>({
-    contextKey: `Cell:${getCellId(entityClass, cellIdReference.rowId, cellIdReference.columnId)}`,
+    contextKey: `Cell:${joinCellId(entityClass, cellIdReference.rowId, cellIdReference.columnId)}`,
     initialValue: ObjectPlaceholder as Cell<T | undefined>,
     listenerKey
   });

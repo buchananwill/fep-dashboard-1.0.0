@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 export function createRowIdColumnIdCells<T, U>(
   rowIdList: T[],
   columnIdList: U[]
@@ -8,4 +10,11 @@ export function createRowIdColumnIdCells<T, U>(
       columnId
     }));
   });
+}
+
+export function useRowIdColumnIdCells<T, U>(rowIdList: T[], columnIdList: U[]) {
+  return useMemo(
+    () => createRowIdColumnIdCells(rowIdList, columnIdList),
+    [rowIdList, columnIdList]
+  );
 }

@@ -111,7 +111,7 @@ export interface Cell<T> {
   data: T;
 }
 
-export function getCellId(
+export function joinCellId(
   entityClass: string,
   rowId: Identifier,
   columnId: Identifier
@@ -125,5 +125,5 @@ function createCell<T>(
   columnId: Identifier,
   data: T
 ) {
-  return { id: getCellId(entityClass, rowId, columnId), data };
+  return { id: joinCellId(entityClass, rowId, columnId), data };
 }
