@@ -23,13 +23,16 @@ async function WorkProjectSeriesSchemaLevelPage({
   );
   const availableCycles = await Api.Cycle.getAll();
 
-  const { workProjectSeriesSchemas: wpssData, workTaskTypes } =
-    await workProjectSeriesSchemaActionSequence({
-      knowledgeLevel: {
-        levelOrdinal: parseInt(levelOrdinal),
-        knowledgeLevelSeriesId: parseInt(knowledgeLevelSeriesId)
+  const wpssData = await Api.WorkProjectSeriesSchema.getDtoListByExampleList([
+    {
+      workTaskType: {
+        knowledgeLevel: {
+          levelOrdinal: parseInt(levelOrdinal),
+          knowledgeLevelSeriesId: parseInt(knowledgeLevelSeriesId)
+        }
       }
-    });
+    }
+  ]);
 
   return (
     <div className={'flex h-[100vh] w-[100vw]'}>
