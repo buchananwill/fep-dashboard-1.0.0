@@ -12,7 +12,7 @@ const suitabilityTemplate = {
         name: 'Classical Piano'
       }
     ],
-    knowledgeDomainExclusionList: [],
+
     workTaskTypeNames: ['Teaching']
   },
   roleTypeNames: ['Teacher'],
@@ -48,7 +48,7 @@ const providers = [
               name: 'Classical Piano'
             }
           ],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],

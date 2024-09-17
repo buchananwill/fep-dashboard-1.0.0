@@ -17,7 +17,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'Classical Piano', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -59,7 +59,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'Piano', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -94,7 +94,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'Classical Voice', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -136,7 +136,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'Production', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -195,7 +195,7 @@ export const providerPostRequests = [
             { name: 'Drum Kit', id: -1 },
             { name: 'Production', id: -1 }
           ],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -237,7 +237,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'Guitar', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -279,7 +279,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'French Horn', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -314,7 +314,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'Jazz/Pop Voice', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -356,7 +356,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'Double Bass', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
@@ -398,7 +398,7 @@ export const providerPostRequests = [
             }
           ],
           knowledgeDomainInclusionList: [{ name: 'DJ', id: -1 }],
-          knowledgeDomainExclusionList: [],
+
           workTaskTypeNames: ['Teaching']
         },
         roleTypeNames: ['Teacher'],
