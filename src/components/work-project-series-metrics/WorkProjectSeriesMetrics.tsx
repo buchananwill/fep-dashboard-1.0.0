@@ -2,24 +2,10 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { GenericTableDto } from '@/api/types';
-import {
-  CycleSubspanWithJoinsListDto,
-  WorkProjectSeriesDto,
-  WorkProjectSeriesMetricDto,
-  WorkProjectSeriesWithSchemaLabelsDto
-} from '@/api/generated-types/generated-types';
-import WorkProjectSeriesMetricTable from '@/components/work-project-series-metrics/WorkProjectSeriesMetricTable';
-import {
-  DataFetchingEditDtoControllerArray,
-  EditAddDeleteDtoControllerArray
-} from 'dto-stores';
+import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { EmptyArray } from '@/api/literals';
-import { Api } from '@/api/clientApi_';
-import WorkProjectSeriesTableDataFetcher, {
-  WorkProjectSeriesLeanDto
-} from '@/components/work-project-series-metrics/WorkProjectSeriesTableDataFetcher';
+import WorkProjectSeriesTableDataFetcher from '@/components/work-project-series-metrics/WorkProjectSeriesTableDataFetcher';
 
 export async function WorkProjectSeriesMetricsPage({
   pathVariables

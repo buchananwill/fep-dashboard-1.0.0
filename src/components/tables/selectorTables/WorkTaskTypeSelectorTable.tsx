@@ -37,13 +37,13 @@ export const WORK_TASK_TYPE_COLUMNS: Column<WorkTaskTypeDto>[] = [
 ];
 
 export default function WorkTaskTypeSelectorTable({
-  workTaskTypes
+  entities
 }: {
-  workTaskTypes: WorkTaskTypeDto[];
+  entities: WorkTaskTypeDto[];
 }) {
   return (
     <FilterSelectEntityTable
-      entities={workTaskTypes}
+      entities={entities}
       initialColumns={INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS}
       filterProperty={'name'}
       renderCell={renderWorkTaskTypeAttributeCell}

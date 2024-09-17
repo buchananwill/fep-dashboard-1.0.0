@@ -1335,7 +1335,7 @@ export interface WorkProjectSeriesDto
     DtoWrapper<WorkProjectSeries, WorkProjectSeriesDto, string> {
   id: string;
   scheduleId: number;
-  workTaskSeries: WorkTaskSeriesDto[];
+  workTaskSeries?: WorkTaskSeriesDto[];
   workProjectSeriesSchemaId: number;
   completedStatus: boolean;
   workTaskType: WorkTaskTypeDto;

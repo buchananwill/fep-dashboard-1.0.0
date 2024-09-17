@@ -8,9 +8,9 @@ import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-type
 import { Paths } from 'type-fest';
 
 export default function WorkProjectSeriesSchemaSelectorTable({
-  workProjectSeriesSchemas
+  entities
 }: {
-  workProjectSeriesSchemas: WorkProjectSeriesSchemaDto[];
+  entities: WorkProjectSeriesSchemaDto[];
 }) {
   const renderCell = useCallback(
     (
@@ -50,7 +50,7 @@ export default function WorkProjectSeriesSchemaSelectorTable({
   return (
     <>
       <FilterSelectEntityTable
-        entities={workProjectSeriesSchemas}
+        entities={entities}
         initialColumns={WorkProjectSeriesSchemaColumnsInitial}
         filterProperty={'name'}
         renderCell={renderCell}

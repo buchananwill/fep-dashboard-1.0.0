@@ -18,63 +18,61 @@ import {
 } from '@/api/generated-types/generated-types';
 import WorkProjectSeriesSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSelectorTable';
 import { getDomainAlias } from '@/api/getDomainAlias';
+import { EntityTypeMap } from '@/api/entity-type-map';
+import { ReactNode, useMemo } from 'react';
+import pluralize from 'pluralize';
+import { isNotUndefined } from '@/api/main';
+import { Simplify } from 'type-fest';
 
 export default function TabbedSelectorTables({
-  workTaskTypes,
-  providerRoles,
-  assetRoles,
-  workProjectSeriesSchemas,
-  organizations,
-  workProjectSeries,
+  data,
   ...divProps
-}: SelectorTableData & Omit<GenericDivProps, 'children'>) {
+}: { data: SelectorTableDataProps } & Omit<GenericDivProps, 'children'>) {
   return (
     <div {...divProps}>
-      <Tabs>
-        {workTaskTypes && (
+      <Tabs items={Object.entries(data)}>
+        {data.workTaskType && (
           <Tab key={EntityClassMap.workTaskType} title={'Work Task Types'}>
-            <WorkTaskTypeSelectorTable workTaskTypes={workTaskTypes} />
+            <WorkTaskTypeSelectorTable entities={data.workTaskType} />
           </Tab>
         )}
-        {providerRoles && (
+        {data.providerRole && (
           <Tab
             key={EntityClassMap.providerRole}
             title={getDomainAlias('Providers')}
           >
-            <ProviderRoleSelectorTable providerRoles={providerRoles} />
+            <ProviderRoleSelectorTable entities={data.providerRole} />
           </Tab>
         )}
-        {assetRoles && (
+        {data.assetRole && (
           <Tab key={EntityClassMap.assetRole} title={'Assets'}>
-            <AssetRoleSelectorTable assetRoles={assetRoles} />
+            <AssetRoleSelectorTable entities={data.assetRole} />
           </Tab>
         )}
-        {workProjectSeriesSchemas && (
+        {data.workProjectSeriesSchema && (
           <Tab
             key={EntityClassMap.workProjectSeriesSchema}
             title={startCase(EntityClassMap.workProjectSeriesSchema)}
           >
             <WorkProjectSeriesSchemaSelectorTable
-              workProjectSeriesSchemas={workProjectSeriesSchemas}
+              entities={data.workProjectSeriesSchema}
             />
           </Tab>
         )}
-        {organizations && (
+        {data.organization && (
           <Tab
             key={EntityClassMap.organization}
             title={startCase(EntityClassMap.organization)}
           >
-            <OrganizationSelectorTable organizations={organizations} />
+            <OrganizationSelectorTable entities={data.organization} />
           </Tab>
         )}
-        {workProjectSeries && (
+        {data.workProjectSeries && (
           <Tab
             key={EntityClassMap.workProjectSeries}
             title={startCase(getDomainAlias(EntityClassMap.workProjectSeries))}
           >
-            <WorkProjectSeriesSelectorTable
-              workProjectSeries={workProjectSeries}
-            />
+            <WorkProjectSeriesSelectorTable entities={data.workProjectSeries} />
           </Tab>
         )}
       </Tabs>
@@ -82,11 +80,6 @@ export default function TabbedSelectorTables({
   );
 }
 
-export interface SelectorTableData {
-  workTaskTypes?: WorkTaskTypeDto[];
-  providerRoles?: ProviderRoleDto[];
-  assetRoles?: AssetRoleDto[];
-  workProjectSeriesSchemas?: WorkProjectSeriesSchemaDto[];
-  organizations?: OrganizationDto[];
-  workProjectSeries?: WorkProjectSeriesWithSchemaLabelsDto[];
-}
+export type SelectorTableDataProps = {
+  [key in keyof EntityTypeMap]?: EntityTypeMap[key][];
+};

@@ -9,9 +9,9 @@ import { TypedPaths } from '@/api/custom-types/typePaths';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 
 export default function OrganizationSelectorTable({
-  organizations
+  entities
 }: {
-  organizations: OrganizationDto[];
+  entities: OrganizationDto[];
 }) {
   const renderCell = useCallback(
     (organization: OrganizationDto, columnKey: React.Key) => {
@@ -52,7 +52,7 @@ export default function OrganizationSelectorTable({
   return (
     <>
       <FilterSelectEntityTable
-        entities={organizations}
+        entities={entities}
         initialColumns={OrganizationColumnsInitial}
         filterProperty={'name'}
         renderCell={renderCell}

@@ -86,7 +86,7 @@ export default function StaticAllocationTable({
 
   return (
     <div className={'h-[90vh] w-[90vw] p-8 pt-12'}>
-      <FinderTableButton workProjectSeriesSchemas={rowList} />
+      <FinderTableButton workProjectSeriesSchema={rowList} />
 
       <CellQueryManager
         tableData={tableData}

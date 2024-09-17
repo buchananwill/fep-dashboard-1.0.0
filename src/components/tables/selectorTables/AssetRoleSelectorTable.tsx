@@ -8,9 +8,9 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { AssetRoleDto } from '@/api/generated-types/generated-types';
 
 export default function AssetRoleSelectorTable({
-  assetRoles
+  entities
 }: {
-  assetRoles: AssetRoleDto[];
+  entities: AssetRoleDto[];
 }) {
   const renderCell = useCallback(
     (assetRoleDto: AssetRoleDto, columnKey: React.Key) => {
@@ -52,7 +52,7 @@ export default function AssetRoleSelectorTable({
   return (
     <>
       <FilterSelectEntityTable
-        entities={assetRoles}
+        entities={entities}
         initialColumns={AssetRoleColumnsInitial}
         filterProperty={'assetName'}
         renderCell={renderCell}

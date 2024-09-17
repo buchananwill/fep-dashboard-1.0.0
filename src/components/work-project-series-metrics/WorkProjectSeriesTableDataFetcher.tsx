@@ -58,7 +58,11 @@ export default function WorkProjectSeriesTableDataFetcher({
   return (
     <>
       <div className={'h-[90vh] w-[90vw] p-8 pt-12'}>
-        <FinderTableButton workProjectSeries={workProjectSeries} />
+        <FinderTableButton
+          workProjectSeries={
+            workProjectSeries as unknown as WorkProjectSeriesDto[]
+          }
+        />
         <EditAddDeleteDtoControllerArray
           entityClass={EntityClassMap.cycleSubspan}
           dtoList={EmptyArray}

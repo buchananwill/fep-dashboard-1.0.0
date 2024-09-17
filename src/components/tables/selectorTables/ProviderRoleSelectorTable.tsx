@@ -8,9 +8,9 @@ import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 
 export default function ProviderRoleSelectorTable({
-  providerRoles
+  entities
 }: {
-  providerRoles: ProviderRoleDto[];
+  entities: ProviderRoleDto[];
 }) {
   const renderCell = React.useCallback(
     (providerRoleDto: ProviderRoleDto, columnKey: React.Key) => {
@@ -52,7 +52,7 @@ export default function ProviderRoleSelectorTable({
   return (
     <>
       <FilterSelectEntityTable
-        entities={providerRoles}
+        entities={entities}
         initialColumns={ProviderColumnsInitial}
         filterProperty={'partyName'}
         renderCell={renderCell}
