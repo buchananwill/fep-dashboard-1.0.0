@@ -7,7 +7,7 @@ const suitabilityTemplate = {
         knowledgeLevels: []
       }
     ],
-    knowledgeDomainInclusionList: [
+    knowledgeDomainList: [
       {
         name: 'Classical Piano'
       }
@@ -43,7 +43,7 @@ const providers = [
               knowledgeLevels: []
             }
           ],
-          knowledgeDomainInclusionList: [
+          knowledgeDomainList: [
             {
               name: 'Classical Piano'
             }
@@ -131,7 +131,7 @@ function replaceKnowledgeDomainInclusions(knowledgeDomainNames: string[]) {
     ...suitabilityTemplate,
     workTaskTypeMatrix: {
       ...suitabilityTemplate.workTaskTypeMatrix,
-      knowledgeDomainInclusionList: knowledgeDomainNames.map((name) => ({
+      knowledgeDomainList: knowledgeDomainNames.map((name) => ({
         name,
         id: -1
       }))
