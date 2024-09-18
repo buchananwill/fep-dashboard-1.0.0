@@ -2,11 +2,11 @@ import {
   CustomTreeItem,
   StyledTreeItemProps
 } from '@/components/mui/CustomTreeItem';
-import { NodeAssignmentFeasibilityDto } from '@/api/generated-types/generated-types';
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSchemaNodeAssignmentDto } from '@/api/generated-types/generated-types';
 import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
+import { NodeAssignmentFeasibilityDto } from '@/api/zod-schemas/NodeAssignmentFeasibilityDtoSchema';
 
 export function Loading() {
   return '...loading';
@@ -35,7 +35,7 @@ export default function AssignmentFeasibilityTreeItem({
   );
 }
 
-function NodeAssignmentSummary({
+export function NodeAssignmentSummary({
   entity
 }: BaseLazyDtoUiProps<WorkSchemaNodeAssignmentDto>) {
   if (entity.workSchemaNodeId === undefined) return null;

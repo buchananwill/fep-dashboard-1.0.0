@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import WorkTaskTypeSummary from '@/components/work-task-types/_components/WorkTaskTypeSummary';
 import { TaskTypeClassificationDto } from '@/api/zod-schemas/TaskTypeClassificationDtoSchema_';
 
-function TaskTypeClassificationSummary({
+export function TaskTypeClassificationSummary({
   entity
 }: BaseLazyDtoUiProps<TaskTypeClassificationDto>) {
   const children = useMemo(() => {
