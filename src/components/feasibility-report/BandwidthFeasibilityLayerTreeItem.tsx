@@ -1,8 +1,3 @@
-import { BandwidthFeasibilityLayer } from '@/components/feasibility-report/types';
-import {
-  CustomTreeItem,
-  StyledTreeItemProps
-} from '@/components/mui/CustomTreeItem';
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useMemo } from 'react';
@@ -36,36 +31,5 @@ export function TaskTypeClassificationSummary({
       </div>
       {...children}
     </div>
-  );
-}
-
-export default function BandwidthFeasibilityLayerTreeItem({
-  payload,
-  children,
-  itemType,
-  ...props
-}: { payload: BandwidthFeasibilityLayer } & StyledTreeItemProps) {
-  const layerItems = useMemo(() => {
-    return payload.bandwidthFeasibilityLayerItems.map((item) => (
-      <LazyDtoUiWrapper
-        key={`layerItem:${item.bandwidthFeasibilityLayerId}`}
-        renderAs={TaskTypeClassificationSummary}
-        entityId={item.taskTypeClassificationId}
-        entityClass={'TaskTypeClassification'}
-        whileLoading={() => '...loading'}
-      />
-    ));
-  }, [payload.bandwidthFeasibilityLayerItems]);
-
-  return (
-    <CustomTreeItem
-      {...props}
-      forceIconColor={true}
-      label={'Bandwidth feasibility layer'}
-      labelInfo={`Residual: ${payload.residual}`}
-    >
-      {...layerItems}
-      {children}
-    </CustomTreeItem>
   );
 }

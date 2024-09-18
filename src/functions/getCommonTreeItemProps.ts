@@ -1,13 +1,3 @@
-import { getLabelIcon } from '@/components/feasibility-report/FeasibilityReport';
-import { StyledTreeItemProps } from '@/components/mui/CustomTreeItem';
-
-import { FeasibilityReportTreeItemPayload } from '@/components/feasibility-report/types';
-
-type CommonTreeItemProps = Pick<
-  StyledTreeItemProps,
-  'itemId' | 'labelIcon' | 'color' | 'bgColor' | 'forceIconColor'
->;
-
 interface BaseReportItem {
   passes: boolean;
 }
@@ -18,17 +8,4 @@ export function getColor(payload: BaseReportItem) {
 
 export function getBgColor(payload: BaseReportItem) {
   return { bgColor: payload.passes ? '#e6f4ea' : '#f4e6e6' };
-}
-
-export function getCommonTreeItemProps(
-  payload: FeasibilityReportTreeItemPayload
-): CommonTreeItemProps {
-  const { id, itemType } = payload;
-  return {
-    itemId: `${itemType}:${id}`,
-    forceIconColor: true,
-    ...getLabelIcon(payload),
-    ...getColor(payload),
-    ...getBgColor(payload)
-  };
 }
