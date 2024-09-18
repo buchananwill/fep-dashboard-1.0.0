@@ -1,6 +1,5 @@
 'use client';
-import {
-  AccordionTree,
+import AccordionTree, {
   AccordionTreeItemProps
 } from '@/app/test/accordionTree';
 

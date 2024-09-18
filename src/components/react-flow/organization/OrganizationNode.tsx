@@ -14,11 +14,12 @@ import { AllocationSummary } from '@/components/react-flow/organization/allocati
 import NodeBundleSummaries from '@/components/react-flow/organization/NodeBundleSummaries';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
+import { Simplify } from 'type-fest';
 
 const initialTotalMap = new Map<string, number>();
 
 export function OrganizationNode(
-  nodeProps: NodeProps<NodeBase<OrganizationDto>>
+  nodeProps: NodeProps<NodeBase<Simplify<OrganizationDto>>>
 ) {
   const { selected, dragging, data } = nodeProps;
   const listenerKey = `organizationNode:${data.id}`;

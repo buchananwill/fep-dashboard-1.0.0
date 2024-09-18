@@ -1,6 +1,6 @@
 'use server';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { InteractionBasedValidationDto } from '@/api/generated-types/generated-types';
+import { InteractionBasedValidationDto } from '@/api/zod-schemas/InteractionBasedValidationDtoSchema';
 
 const {
   getPage,

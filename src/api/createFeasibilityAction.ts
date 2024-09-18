@@ -2,7 +2,7 @@
 
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { FeasibilityReportDto } from '@/api/generated-types/generated-types';
+import { FeasibilityReportDto } from '@/api/zod-schemas/FeasibilityReportDtoSchema';
 
 export async function createFeasibilityReport(cycleId: number) {
   return postEntitiesWithDifferentReturnType<

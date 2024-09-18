@@ -4,10 +4,11 @@ import { OrganizationDto } from '@/api/generated-types/generated-types';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { FlowNode } from '@/components/react-flow/generic/types';
 import { makeTransientId } from '@/functions/makeTransientId';
+import { Simplify } from 'type-fest';
 
 export function cloneOrganizationNode(
-  templateNode: FlowNode<OrganizationDto>
-): FlowNode<OrganizationDto> {
+  templateNode: FlowNode<Simplify<OrganizationDto>>
+): FlowNode<Simplify<OrganizationDto>> {
   const {
     data: { name }
   } = templateNode;
