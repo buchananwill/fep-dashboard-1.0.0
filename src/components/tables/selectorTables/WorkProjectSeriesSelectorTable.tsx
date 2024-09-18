@@ -1,26 +1,20 @@
 'use client';
-import React, { useCallback } from 'react';
+import React from 'react';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 
 import { Column, ColumnUid } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  WorkProjectSeriesDto,
-  WorkProjectSeriesWithSchemaLabelsDto
-} from '@/api/generated-types/generated-types';
-import { Paths } from 'type-fest';
-import { getValue } from '@/functions/allowingNestedFiltering';
+import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
-import { SimpleValueToString } from '@/components/tables/edit-tables/SimpleValueToString';
-import { startCase } from 'lodash';
-import { StringValueChip } from '@/components/generic/StringValueChip';
+import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
+import { StringValueChip } from '@/components/tables/StringValueChip';
+
+import { EntityTableProps } from '@/components/tables/types';
 
 export default function WorkProjectSeriesSelectorTable({
   entities
-}: {
-  entities: WorkProjectSeriesDto[];
-}) {
+}: EntityTableProps<'workProjectSeries'>) {
   return (
     <>
       <FilterSelectEntityTable
@@ -60,7 +54,7 @@ export const WorkProjectSeriesColumns: Column<WorkProjectSeriesDto>[] = [
   }
 ];
 
-const CellRenderFunction = getCellRenderFunction<WorkProjectSeriesDto>(
+const CellRenderFunction = getCellRenderFunction(
   {
     'workTaskType.name': SimpleValueToString,
     id: SimpleValueToString,

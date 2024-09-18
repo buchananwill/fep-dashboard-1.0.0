@@ -25,6 +25,6 @@ export function getCellIdReference<
   data: CellIdReference<T, U>[][];
   rowIndex: number;
   columnIndex: number;
-}) {
+}): CellIdReference | undefined {
   return data[rowIndex][columnIndex];
 }

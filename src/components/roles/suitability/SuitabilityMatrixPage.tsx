@@ -4,6 +4,7 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/literals';
 import WorkTaskTypeMatrix from '@/components/work-task-types/WorkTaskTypeMatrix';
+import FinderTableButton from '@/components/tables/FinderTableButton';
 
 export default async function SuitabilityMatrixPage({}: LeafComponentProps) {
   const knowledgeDomainDtos = await Api.KnowledgeDomain.getAll();
@@ -15,6 +16,10 @@ export default async function SuitabilityMatrixPage({}: LeafComponentProps) {
 
   return (
     <div className={'h-[100vh] w-[100vw] p-4'}>
+      <FinderTableButton
+        knowledgeDomain={knowledgeDomainDtos}
+        knowledgeLevel={initialKnowledgeLevels}
+      />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.knowledgeDomain}
         dtoList={knowledgeDomainDtos}

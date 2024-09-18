@@ -7,7 +7,7 @@ import {
   EditTextValueModalButtonProps
 } from '@/components/generic/EditTextValueModalButton';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { useUniqueStringFieldConstraint } from '@/components/tables/edit-tables/useUniqueStringFieldConstraint';
+import { useUniqueStringFieldConstraint } from '@/hooks/useUniqueStringFieldConstraint';
 
 export function EditStringUniqueConstraintButton<T extends HasId>(
   props: NextUiCellComponentProps<T> &

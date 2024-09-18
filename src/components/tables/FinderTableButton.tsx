@@ -1,15 +1,14 @@
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
-import TabbedSelectorTables, {
-  SelectorTableDataProps
-} from '@/components/tables/TabbedSelectorTables';
+import TabbedSelectorTables from '@/components/tables/TabbedSelectorTables';
+import { TabbedTablesDataProps } from '@/components/tables/types';
 
 export default function FinderTableButton(
-  tableButtonProps: SelectorTableDataProps
+  tableButtonProps: TabbedTablesDataProps
 ) {
   return (
-    <div className={'fixed left-1/2 top-2'}>
-      <Popover shouldCloseOnBlur={false}>
+    <div className={'absolute'}>
+      <Popover shouldCloseOnBlur={false} placement={'right'}>
         <PopoverTrigger>
           <Button variant={'light'}>Find</Button>
         </PopoverTrigger>

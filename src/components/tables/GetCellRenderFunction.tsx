@@ -1,12 +1,18 @@
 import { HasId } from '@/api/types';
 import { Paths } from 'type-fest';
 import React from 'react';
+import { EntityTypeKey } from '@/components/tables/types';
+import { EntityTypeMap } from '@/api/entity-type-map';
+import { EntityClassMap } from '@/api/entity-class-map';
 
-export function getCellRenderFunction<T extends HasId>(
+export function getCellRenderFunction<
+  U extends EntityTypeKey,
+  T extends EntityTypeMap[U]
+>(
   cellComponents: NextUiCellComponentRecord<T> & {
     action?: NextUiCellComponent<T>;
   },
-  entityClass: string
+  entityClass: (typeof EntityClassMap)[U]
 ) {
   return function RenderCell(entity: T, columnKey: React.Key) {
     const keyAsPath = columnKey as Paths<T>;

@@ -1,19 +1,18 @@
+'use client';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
-import { Identifier, NamespacedHooks, useDtoStore } from 'dto-stores';
+import { Identifier, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useRowIdColumnIdCells } from '@/components/grids/createRowIdColumnIdCells';
-import {
-  CellWrapperProps,
-  getCellIdReference
-} from '@/components/grids/getCellIdReference';
-import { useMemo } from 'react';
+import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreDispatchAndListener';
 import {
   KnowledgeDomainDto,
   KnowledgeLevelDto
 } from '@/api/generated-types/generated-types';
+import { useCellIdReferences } from '@/components/work-task-types/useCellIdReferences';
+import FallbackCell from '@/components/grids/FallbackCell';
 
 export default function WorkTaskTypeMatrix() {
   const { currentState: rowIdList } = NamespacedHooks.useListen<number[]>(
@@ -30,6 +29,8 @@ export default function WorkTaskTypeMatrix() {
   );
 
   const cells = useRowIdColumnIdCells(rowIdList, columnIdList);
+
+  console.log(cells);
 
   return (
     <VirtualizedTableWindowed
@@ -53,8 +54,10 @@ type CellWrapperPropsWithId<T extends Identifier = Identifier> =
   CellWrapperProps & { entityId: T };
 
 function KnowledgeDomainRowHeader(props: CellWrapperProps<number>) {
-  const { rowId } = useCellIdReferences<number, Identifier>(props);
+  const idReferences = useCellIdReferences<number, Identifier>(props);
 
+  if (!idReferences || !idReferences.rowId) return <FallbackCell {...props} />;
+  const rowId = idReferences.rowId as number;
   return <KnowledgeDomainCell {...props} entityId={rowId} />;
 }
 
@@ -88,13 +91,4 @@ function KnowledgeDomainCell({
   );
 
   return <div style={style}>{currentState.name}</div>;
-}
-
-function useCellIdReferences<T extends Identifier, U extends Identifier>(
-  props: CellWrapperProps<T, U>
-) {
-  const { data, columnIndex, rowIndex } = props;
-  return useMemo(() => {
-    return getCellIdReference<T, U>({ data, columnIndex, rowIndex });
-  }, [data, columnIndex, rowIndex]);
 }

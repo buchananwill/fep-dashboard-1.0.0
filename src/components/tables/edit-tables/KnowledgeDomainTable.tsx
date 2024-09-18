@@ -13,7 +13,7 @@ import {
   NextUiCellComponentProps
 } from '@/components/tables/GetCellRenderFunction';
 import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
-import { useFilterOutDeletedEntities } from '@/components/tables/edit-tables/useFilterOutDeletedEntities';
+import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { EditStringUniqueConstraintButton } from '@/components/tables/edit-tables/EditStringUniqueConstraintButton';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import { useMasterListToCreate } from '@/components/knowledge-levels/useMasterListToCreate';

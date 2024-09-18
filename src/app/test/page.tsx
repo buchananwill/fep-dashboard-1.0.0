@@ -1,34 +1,5 @@
-'use client';
-import AccordionTree, {
-  AccordionTreeItemProps
-} from '@/app/test/accordionTree';
+import SuitabilityMatrixPage from '@/components/roles/suitability/SuitabilityMatrixPage';
 
 export default function page() {
-  return <AccordionTree items={items} />;
+  return <SuitabilityMatrixPage pathVariables={[]} depth={0} />;
 }
-const items: AccordionTreeItemProps[] = [
-  {
-    title: 'Click me',
-    contentMain: <div className={'text-sm'}>Hello</div>,
-    contentChildren: [
-      {
-        title: 'Click inner!',
-        contentChildren: [
-          {
-            title: 'Inner click inner!!',
-            contentMain: 'ReHello!'
-          }
-        ]
-      },
-      {
-        title: 'Another Click inner!',
-        contentChildren: [
-          {
-            title: '2: Inner click inner!!',
-            contentMain: '2: ReHello!'
-          }
-        ]
-      }
-    ]
-  }
-];

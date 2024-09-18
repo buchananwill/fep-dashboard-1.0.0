@@ -3,17 +3,12 @@ import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import React, { useCallback } from 'react';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS,
-  WORK_TASK_TYPE_COLUMNS
-} from '@/components/tables/selectorTables/WorkTaskTypeSelectorTable';
 import { Column, ColumnUid } from '@/types';
-import { DeleteEntity } from '@/components/tables/edit-tables/DeleteEntity';
-import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
-import { StringValueChip } from '@/components/generic/StringValueChip';
-import { useFilterOutDeletedEntities } from '@/components/tables/edit-tables/useFilterOutDeletedEntities';
+import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { useRouter } from 'next/navigation';
-import { SimpleValueToString } from '@/components/tables/edit-tables/SimpleValueToString';
+import { WorkTaskTypeCell } from '@/components/tables/edit-tables/WorkTaskTypeCell';
+import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';
+import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
 
 export default function WorkTaskTypeEditTable() {
   const entities = useFilterOutDeletedEntities<WorkTaskTypeDto>(
@@ -53,15 +48,3 @@ const INITIAL_COLUMNS: ColumnUid<WorkTaskTypeDto>[] = [
   ...INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS,
   'action'
 ];
-
-export const WorkTaskTypeCell = getCellRenderFunction<WorkTaskTypeDto>(
-  {
-    name: SimpleValueToString,
-    'knowledgeDomain.name': SimpleValueToString,
-    'knowledgeDomain.shortCode': StringValueChip,
-    'knowledgeLevel.levelOrdinal': SimpleValueToString,
-    'knowledgeLevel.name': SimpleValueToString,
-    action: DeleteEntity
-  },
-  EntityClassMap.workTaskType
-);

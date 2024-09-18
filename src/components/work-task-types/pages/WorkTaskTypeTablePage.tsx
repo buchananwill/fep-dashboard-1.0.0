@@ -3,7 +3,7 @@ import { Api } from '@/api/clientApi_';
 import WorkTaskTypeEditTable from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { spyOnResponse } from '@/components/tables/edit-tables/spyOnResponse';
+import { spyOnResponse } from '@/functions/spyOnResponse';
 
 export default async function WorkTaskTypeTablePage({}: LeafComponentProps) {
   const wtts = await Api.WorkTaskType.getAll();

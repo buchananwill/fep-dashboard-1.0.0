@@ -53,12 +53,12 @@ export default async function SuitabilityPage(props: RolePageProps) {
         entityClass={suitabilityType}
         dtoList={roles}
       />
-      <FinderTableButton
-        providerRole={roleCategory === 'provider' ? roles : undefined}
-        assetRole={roleCategory === 'asset' ? roles : undefined}
-        workTaskType={workTaskTypes}
-      />
-      <div className={'mb-auto mt-auto h-[90vh] w-[90vw] p-8'}>
+      <div className={'relative mb-auto mt-auto h-[90vh] w-[90vw]'}>
+        <FinderTableButton
+          providerRole={roleCategory === 'provider' ? roles : undefined}
+          assetRole={roleCategory === 'asset' ? roles : undefined}
+          workTaskType={workTaskTypes}
+        />
         <SuitabilityTable
           roleTypeId={roleTypeIdInt}
           suitabilityType={suitabilityType as RoleTypes}

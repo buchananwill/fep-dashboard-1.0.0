@@ -8,7 +8,7 @@ import {
 } from '@/components/generic/EditTextDeleteEntityPopover';
 import { HasId } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { useUniqueStringFieldConstraint } from '@/components/tables/edit-tables/useUniqueStringFieldConstraint';
+import { useUniqueStringFieldConstraint } from '@/hooks/useUniqueStringFieldConstraint';
 
 export function RenameAndDeleteCell<T extends HasName & HasId>({
   entity,

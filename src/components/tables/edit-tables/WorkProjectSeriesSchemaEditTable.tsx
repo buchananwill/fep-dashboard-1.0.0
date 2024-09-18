@@ -8,12 +8,12 @@ import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
 import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
 import { AdjustAllocationInWrapper } from '@/components/work-project-series-schema/_components/AdjustAllocation';
-import { StringValueChip } from '@/components/generic/StringValueChip';
+import { StringValueChip } from '@/components/tables/StringValueChip';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { Column, ColumnUid } from '@/types';
 import { NestedDtoStoreNumberEditCell } from '@/components/tables/NestedDtoStoreNumberEditCell';
 import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
-import { useFilterOutDeletedEntities } from '@/components/tables/edit-tables/useFilterOutDeletedEntities';
+import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 
@@ -71,14 +71,16 @@ const initialColumns: ColumnUid<WorkProjectSeriesSchemaDto>[] = [
   'userToProviderRatio'
 ];
 
-export const workProjectSeriesSchemaRenderCellFunction =
-  getCellRenderFunction<WorkProjectSeriesSchemaDto>(
-    {
-      name: RenameAndDeleteCell,
-      userToProviderRatio: NestedDtoStoreNumberEditCell,
-      deliveryAllocations: AdjustAllocationInWrapper,
-      'workTaskType.knowledgeDomain.shortCode': StringValueChip,
-      'workTaskType.name': StringValueChip
-    },
-    entityType
-  );
+export const workProjectSeriesSchemaRenderCellFunction = getCellRenderFunction<
+  'workProjectSeriesSchema',
+  WorkProjectSeriesSchemaDto
+>(
+  {
+    name: RenameAndDeleteCell,
+    userToProviderRatio: NestedDtoStoreNumberEditCell,
+    deliveryAllocations: AdjustAllocationInWrapper,
+    'workTaskType.knowledgeDomain.shortCode': StringValueChip,
+    'workTaskType.name': StringValueChip
+  },
+  entityType
+);
