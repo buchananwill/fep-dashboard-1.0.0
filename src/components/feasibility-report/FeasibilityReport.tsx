@@ -13,7 +13,10 @@ export default function FeasibilityReport({ report }: { report: FullReport }) {
     <div className={'w-[75vw]'}>
       <AccordionTree
         items={[items]}
-        itemClasses={{ trigger: 'data-[hover=true]:opacity-50' }}
+        itemClasses={{
+          trigger: 'data-[hover=true]:opacity-50'
+        }}
+        className={'pr-0'}
       />
     </div>
   );

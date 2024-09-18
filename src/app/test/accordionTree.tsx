@@ -5,7 +5,6 @@ import {
   AccordionItemProps
 } from '@nextui-org/accordion';
 import { forwardRef, ReactNode } from 'react';
-import clsx from 'clsx';
 
 export interface AccordionTreeItemProps
   extends Omit<AccordionItemProps, 'children'> {
@@ -13,7 +12,8 @@ export interface AccordionTreeItemProps
   contentChildren?: AccordionTreeItemProps[];
 }
 
-export interface AccordionTreeProps extends Omit<AccordionProps, 'children'> {
+export interface AccordionTreeProps
+  extends Omit<AccordionProps, 'children' | 'ref'> {
   items: AccordionTreeItemProps[];
 }
 
@@ -22,7 +22,7 @@ const AccordionTree = forwardRef<HTMLDivElement, AccordionTreeProps>(
     const {
       items,
       itemClasses: propsItemClasses,
-      className: propsClassName,
+      className,
       isCompact = true,
       selectionMode = 'multiple',
       ...otherProps
@@ -30,11 +30,9 @@ const AccordionTree = forwardRef<HTMLDivElement, AccordionTreeProps>(
 
     const itemClasses = {
       ...propsItemClasses,
-      trigger: clsx('py-1', propsItemClasses?.trigger),
-      base: clsx('py-0', propsItemClasses?.base)
+      trigger: propsItemClasses?.trigger ?? 'py-1',
+      base: propsItemClasses?.base ?? 'py-0'
     };
-
-    const className = clsx(propsClassName);
 
     return (
       <Accordion
@@ -52,6 +50,7 @@ const AccordionTree = forwardRef<HTMLDivElement, AccordionTreeProps>(
               {contentMain && contentMain}
               {contentChildren && (
                 <AccordionTree
+                  {...props}
                   itemClasses={itemClasses}
                   isCompact={isCompact}
                   selectionMode={selectionMode}
