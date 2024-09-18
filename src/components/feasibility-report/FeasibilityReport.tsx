@@ -2,7 +2,7 @@
 
 import { FullReport } from '@/components/feasibility-report/types';
 import TransformToTreeItemProps from '@/components/feasibility-report/TransformToTreeItemProps';
-import { AccordionTree } from '@/app/test/accordionTree';
+import AccordionTree from '@/app/test/accordionTree';
 
 export const taskTypeClassification = 'TaskTypeClassification';
 
