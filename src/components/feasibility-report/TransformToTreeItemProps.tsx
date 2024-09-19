@@ -4,7 +4,7 @@ import {
   Loading,
   NodeAssignmentSummary
 } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
-import { AccordionTreeItemProps } from '@/app/test/accordionTree';
+import { AccordionTreeItemProps } from '@/components/generic/accordionTree';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
 import { LazyDtoUiWrapper } from 'dto-stores';

@@ -1,16 +1,8 @@
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { useCellIdReferences } from '@/components/work-task-types/useCellIdReferences';
 import MiniPieChart from '@/components/work-task-types/MiniPieChart';
-import {
-  DropTargetMonitor,
-  useDrag,
-  useDragDropManager,
-  useDrop
-} from 'react-dnd';
+import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
-import { assignOrderItemToOption } from '@/components/carousel-groups/orders/_functions/assignOrderItemToOption';
-import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
-import { canAssignToOrderItem } from '@/components/carousel-groups/orders/_functions/canAssignOptionToOrderItem';
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import {
@@ -19,29 +11,18 @@ import {
 } from '@/components/work-task-types/WorkTaskTypeMatrix';
 import { ObjectPlaceholder } from '@/api/literals';
 import { CellIndex } from '@/components/grids/createRowIdColumnIdCells';
-import { isUndefined } from 'lodash';
-import { isNotUndefined } from '@/api/main';
-
-function isWithinRange(
-  hoverCellIndex: CellIndex,
-  currentItem: CellIndex,
-  columnIndex: number,
-  rowIndex: number
-) {
-  if (!hoverCellIndex || !currentItem) return false;
-  const { columnIndex: ciTarget, rowIndex: riTarget } = hoverCellIndex;
-  const { columnIndex: ciDragging, rowIndex: riDragging } = currentItem;
-  const allDefined =
-    isNotUndefined(ciTarget) &&
-    isNotUndefined(ciDragging) &&
-    isNotUndefined(riTarget) &&
-    isNotUndefined(riDragging);
-  if (!allDefined) return false;
-  return (
-    liesBetweenOrEqual(ciTarget, ciDragging, columnIndex) &&
-    liesBetweenOrEqual(riTarget, riDragging, rowIndex)
-  );
-}
+import { isWithinRange } from '@/components/work-task-types/isWithinRange';
+import clsx from 'clsx';
+import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
+import { Popover } from '@nextui-org/react';
+import { Slider } from '@nextui-org/slider';
+import { Button } from '@nextui-org/button';
+import {
+  BoltIcon,
+  BoltSlashIcon,
+  LockClosedIcon,
+  LockOpenIcon
+} from '@heroicons/react/24/outline';
 
 export type NumberCell = CellIndex & { value: number };
 export type DropResult = {
@@ -56,15 +37,20 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
     rowIndex,
     columnIndex
   };
-  const [currentValue, setCurrentValue] = useState(Math.random());
+  const [currentCell, setCurrentCell] = useState<{
+    value: number;
+    isDynamic: boolean;
+  }>({ value: Math.random(), isDynamic: true });
+
+  const [open, setOpen] = useState(false);
 
   const cell = useMemo(() => {
     return {
       rowIndex,
       columnIndex,
-      value: currentValue
+      value: currentCell.value
     };
-  }, [rowIndex, columnIndex, currentValue]);
+  }, [rowIndex, columnIndex, currentCell]);
 
   const cellRef = useRef(cell);
   cellRef.current = cell;
@@ -117,34 +103,28 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
     hover: (item, monitor) => dispatchWithoutControl(cellIndex)
   }));
 
-  const currentItemRef = currentItem ? currentItem.current : undefined;
-
   const withinRange = useMemo(() => {
     return (
       currentItem &&
-      isWithinRange(hoverCellIndex, currentItem.current, columnIndex, rowIndex)
+      isWithinRange(hoverCellIndex, currentItem.current, {
+        columnIndex,
+        rowIndex
+      })
     );
   }, [hoverCellIndex, currentItem, columnIndex, rowIndex]);
 
   const withinRangeRef = useRef(withinRange);
   withinRangeRef.current = withinRange;
 
-  console.log(currentItem);
-
   useEffect(() => {
-    if (dropResult?.dragged && dropResult?.dropped) {
-      const withinRange = isWithinRange(
-        dropResult.dragged,
-        dropResult.dropped,
-        cell.columnIndex,
-        cell.rowIndex
-      );
-      console.log(withinRange);
+    if (dropResult?.dragged && dropResult?.dropped && currentCell.isDynamic) {
+      const { dragged, dropped } = dropResult;
+      const withinRange = isWithinRange(dragged, dropped, cell);
       if (withinRange) {
-        setCurrentValue(dropResult.dragged.value);
+        setCurrentCell((current) => ({ ...current, value: dragged.value }));
       }
     }
-  }, [dropResult, cell]);
+  }, [dropResult, cell, currentCell]);
 
   return (
     <div style={props.style}>
@@ -153,15 +133,62 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
           data-is-over={isOver}
           data-can-drop={canDrop && isOver}
           data-within-range={withinRange}
-          className={
-            ' rounded-lg outline-2 -outline-offset-2 outline-blue-500 data-[can-drop=true]:animate-pulse data-[within-range=true]:bg-sky-200 data-[is-over=true]:outline'
-          }
+          className={clsx(
+            ' rounded-lg outline-2 -outline-offset-2 outline-blue-500 data-[can-drop=true]:animate-pulse data-[within-range=true]:bg-sky-200 data-[is-over=true]:outline',
+            open && 'outline'
+          )}
         >
           {drag(
-            <div>
+            <div
+              onClick={() => {
+                setOpen((prev) => !prev);
+              }}
+              className={clsx(!currentCell.isDynamic && 'bg-yellow-100')}
+            >
+              <Popover
+                isOpen={open}
+                shouldCloseOnBlur={true}
+                showArrow={true}
+                onOpenChange={setOpen}
+                shouldCloseOnInteractOutside={() => true}
+              >
+                <PopoverTrigger>
+                  <div></div>
+                </PopoverTrigger>
+                <PopoverContent className={'flex flex-row gap-2'}>
+                  <Slider
+                    className={'w-24'}
+                    value={currentCell.value * 100}
+                    onChange={(result) => {
+                      if (typeof result === 'number') {
+                        setCurrentCell((prev) => ({
+                          ...prev,
+                          value: result / 100
+                        }));
+                      }
+                    }}
+                  ></Slider>
+                  <Button
+                    isIconOnly={true}
+                    className={clsx(
+                      'p-1',
+                      !currentCell.isDynamic && 'bg-yellow-100'
+                    )}
+                    size={'sm'}
+                    onPress={() =>
+                      setCurrentCell((prev) => ({
+                        ...prev,
+                        isDynamic: !prev.isDynamic
+                      }))
+                    }
+                  >
+                    {currentCell.isDynamic ? <BoltSlashIcon /> : <BoltIcon />}
+                  </Button>
+                </PopoverContent>
+              </Popover>
               <MiniPieChart
-                value={currentValue}
-                className={'h-full w-full p-1'}
+                value={currentCell.value}
+                className={'h-full w-full p-1 '}
                 strokeWidthRelative={0.4}
               />
             </div>
@@ -172,6 +199,16 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
   );
 }
 
-function liesBetweenOrEqual(bound1: number, bound2: number, value: number) {
-  return value >= Math.min(bound1, bound2) && value <= Math.max(bound1, bound2);
+const CellStates = ['dynamic', 'static-zero', 'static-non-zero'] as const;
+
+type CellState = (typeof CellStates)[number];
+
+const rotateCellState = rotateArrayConst<CellState>([...CellStates]);
+
+function rotateArrayConst<T>(arrayConst: T[]): (current: T) => T {
+  return (current: T) => {
+    const currentIndex = arrayConst.indexOf(current);
+    const nextIndex = (currentIndex + 1) % arrayConst.length;
+    return arrayConst[nextIndex];
+  };
 }

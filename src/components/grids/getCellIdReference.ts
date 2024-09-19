@@ -28,9 +28,14 @@ export function getCellIdReference<
   rowIndex: number;
   columnIndex: number;
 }): CellIdReference<T, U> | typeof NanIdReference {
-  const reference =
-    rowIndex !== undefined && columnIndex !== undefined
-      ? data[rowIndex][columnIndex]
-      : NanIdReference;
-  return reference ?? NanIdReference;
+  if (rowIndex !== undefined && columnIndex !== undefined && !!data) {
+    const row = data[rowIndex];
+    if (!!row) {
+      const cell = row[columnIndex];
+      if (!!cell) {
+        return cell;
+      }
+    }
+  }
+  return NanIdReference;
 }
