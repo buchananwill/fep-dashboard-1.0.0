@@ -64,7 +64,6 @@ export function liesOnBoundary(
   const rowBounds = getRowBounds(filteredBounds);
   const columnBounds = getColumnBounds(filteredBounds);
   const withinRange = isWithinRange(cellToTest, ...filteredBounds);
-  console.log(cellToTest, columnBounds, rowBounds, withinRange);
   return {
     top: equalsLowerBound(cellToTest.rowIndex, ...rowBounds) && withinRange,
     bottom: equalsUpperBound(cellToTest.rowIndex, ...rowBounds) && withinRange,

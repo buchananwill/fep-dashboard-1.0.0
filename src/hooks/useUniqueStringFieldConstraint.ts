@@ -22,9 +22,7 @@ export function useUniqueStringFieldConstraint<T extends HasId>(
 
   return useCallback(
     (input: string | undefined | null) => {
-      console.log('validating...');
       if (!input) {
-        console.log('input falsy');
         return {};
       }
       for (let id of currentState) {

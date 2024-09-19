@@ -186,8 +186,7 @@ export interface WorkTaskSeriesResourceRequirementItemDto extends Serializable {
 
 export interface WorkTaskTypeListMatrix {
   knowledgeLevelSeriesDtoList: KnowledgeLevelSeriesDto[];
-  knowledgeDomainDtoInclusionList: KnowledgeDomainDto[];
-  knowledgeDomainDtoExclusionList: KnowledgeDomainDto[];
+  knowledgeDomainDtoList: KnowledgeDomainDto[];
   workTaskTypeNames: string[];
 }
 

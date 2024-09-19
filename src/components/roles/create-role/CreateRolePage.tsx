@@ -3,23 +3,25 @@ import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/literals';
-import WorkTaskTypeMatrix from '@/components/work-task-types/WorkTaskTypeMatrix';
-import FinderTableButton from '@/components/tables/FinderTableButton';
 import SuitabilityCellManager from '@/components/roles/suitability/SuitabilityCellManager';
 import { getIdList } from '@/functions/getIdList';
-import { Tabs } from '@nextui-org/tabs';
-import { getWithoutBody } from '@/api/actions/template-actions';
-import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
-import { Tab } from '@nextui-org/react';
 import CreateRoleTabs from '@/components/roles/create-role/CreateRoleTabs';
-import { Card } from '@nextui-org/card';
+import RoleBaseDetails from '@/components/roles/create-role/RoleBaseDetails';
+import { RoleEntity } from '@/components/roles/types';
+import { singular } from 'pluralize';
+import RoleSubmissionHandler, {
+  WorkTaskTypeName
+} from '@/components/roles/create-role/RoleSubmissionHandler';
 
 export default async function CreateRolePage({
   pathVariables
 }: LeafComponentProps) {
-  const [roleType] = getLastNVariables(pathVariables, 2);
+  const [roleTypeVariable] = getLastNVariables(pathVariables, 2);
+  const roleType = singular(roleTypeVariable) as RoleEntity;
+  const EntityClassKey = EntityClassMap[`${roleType}RoleType`];
+  const roleTypes = await Api[EntityClassKey].getAll();
   const knowledgeDomainDtos = await Api.KnowledgeDomain.getAll();
   const knowledgeLevelSeriesDtos = await Api.KnowledgeLevelSeries.getAll();
   const workTaskTypeNames = await getNames();
@@ -32,11 +34,26 @@ export default async function CreateRolePage({
   const kLIdList = getIdList(initialKnowledgeLevels);
 
   return (
-    <div className={'h-[100vh] w-[100vw] p-4'}>
+    <div className={'flex h-[100vh] w-[100vw] p-4'}>
       <SuitabilityCellManager rowIdList={kdIdList} columnIdList={kLIdList} />
+      <RoleSubmissionHandler
+        createRoleAction={async (request) => {
+          'use server';
+          console.log(request);
+        }}
+        roleEntityType={roleType}
+      />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.knowledgeDomain}
         dtoList={knowledgeDomainDtos}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassKey}
+        dtoList={roleTypes}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={WorkTaskTypeName}
+        dtoList={workTaskTypeNames}
       />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.knowledgeLevelSeries}
@@ -46,7 +63,7 @@ export default async function CreateRolePage({
         entityClass={EntityClassMap.knowledgeLevel}
         dtoList={initialKnowledgeLevels}
       />
-
+      <RoleBaseDetails roleEntityType={roleType} />
       <CreateRoleTabs
         knowledgeDomains={knowledgeDomainDtos}
         knowledgeLevels={initialKnowledgeLevels}

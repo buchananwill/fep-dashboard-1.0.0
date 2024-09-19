@@ -31,9 +31,11 @@ export type DropResult = {
   dragged?: NumberCell;
   dropped?: NumberCell;
 };
-interface SuitabilityMatrixCell extends HasStringId {
+export interface SuitabilityMatrixCell extends HasStringId {
   value: number;
   isDynamic: boolean;
+  knowledgeLevelId: number;
+  knowledgeDomainId: number;
 }
 
 export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
@@ -93,7 +95,6 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
   ] = useDrop(() => ({
     accept: DragTypes.SUITABILITY_SECTOR,
     drop: (item, monitor) => {
-      console.log(item, cell);
       dispatchDrop({ dragged: item.current, dropped: cell });
       return { dragged: item, dropped: cell };
     },
@@ -191,6 +192,7 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
                     <Slider
                       className={'w-24'}
                       value={currentCell.value * 100}
+                      aria-label={'Suitability'}
                       isDisabled={
                         isWithinRange(
                           cell,

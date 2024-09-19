@@ -18,7 +18,7 @@ export default function CreateRoleTabs({
   knowledgeLevels
 }: CreateRoleProps) {
   return (
-    <Tabs>
+    <Tabs placement={'top'}>
       <Tab title={'Set Suitabilities'} id={'suitabilities'}>
         <div className={'h-[75vh] w-[75vw]'}>
           <FinderTableButton

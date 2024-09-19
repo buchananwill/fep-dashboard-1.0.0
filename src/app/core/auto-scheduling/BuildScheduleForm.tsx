@@ -85,9 +85,7 @@ export default function AutoBuildForm({
 
   const onSubmit: SubmitHandler<ScheduleParametersDto> = async (data) => {
     startTransition(async () => {
-      console.log('submitted', data);
       if (!disable) {
-        console.log(data);
         const pendingSchedule = await buildScheduleAction(1, data);
         // Handle post submit actions, e.g., redirect to a different page
         appRouterInstance.push(`/core/schedules/${pendingSchedule.id}`);

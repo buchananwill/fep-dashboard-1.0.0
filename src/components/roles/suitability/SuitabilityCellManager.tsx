@@ -17,7 +17,9 @@ export default function SuitabilityCellManager({
     return flattenDeep(cells).map(({ columnId, rowId }) => ({
       value: 0,
       isDynamic: true,
-      id: `${rowId}:${columnId}`
+      id: `${rowId}:${columnId}`,
+      knowledgeDomainId: rowId,
+      knowledgeLevelId: columnId
     }));
   }, [cells]);
 
