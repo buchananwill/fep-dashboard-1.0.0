@@ -1,5 +1,5 @@
 import { schoolDomainAliasMatcherRecord } from '@/utils/init-json-data/domain-aliasing/schoolDomainAliasMatcherRecord';
-import { camelCase, snakeCase } from 'lodash';
+import { camelCase, snakeCase, startCase } from 'lodash';
 import pluralize, { singular } from 'pluralize';
 import { EntityClassMap } from '@/api/entity-class-map';
 
@@ -58,3 +58,6 @@ const schoolDomainAliasRecord = createPatternMatchedDomainAliasSet(
 export const getDomainAlias = getDomainAliasingFunction(
   schoolDomainAliasRecord
 );
+
+export const getStartCaseDomainAlias = (value: string) =>
+  startCase(getDomainAlias(value));

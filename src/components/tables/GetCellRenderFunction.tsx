@@ -3,7 +3,7 @@ import { Paths } from 'type-fest';
 import React from 'react';
 import { EntityTypeKey } from '@/components/tables/types';
 import { EntityTypeMap } from '@/api/entity-type-map';
-import { EntityClassMap } from '@/api/entity-class-map';
+import { EntityClassMap, EntityNameSpace } from '@/api/entity-class-map';
 
 export function getCellRenderFunction<
   U extends EntityTypeKey,
@@ -12,7 +12,7 @@ export function getCellRenderFunction<
   cellComponents: NextUiCellComponentRecord<T> & {
     action?: NextUiCellComponent<T>;
   },
-  entityClass: (typeof EntityClassMap)[U]
+  entityClass: EntityNameSpace<U>
 ) {
   return function RenderCell(entity: T, columnKey: React.Key) {
     const keyAsPath = columnKey as Paths<T>;
@@ -35,7 +35,7 @@ export function getCellRenderFunction<
 }
 
 export type NextUiCellComponentRecord<T extends HasId> = {
-  [K in Paths<T>]?: NextUiCellComponent<T> | never;
+  [K in Paths<T>]?: K extends Paths<T> ? NextUiCellComponent<T> | never : never;
 };
 export type NextUiCellComponent<T extends HasId> = (
   props: NextUiCellComponentProps<T>

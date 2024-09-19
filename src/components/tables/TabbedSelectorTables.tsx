@@ -18,6 +18,7 @@ import {
 } from '@/components/tables/types';
 import { RenderTable } from '@/components/tables/RenderTable';
 import KnowledgeDomainSelectorTable from '@/components/tables/selectorTables/KnowledgeDomainSelectorTable';
+import KnowledgeLevelSelectorTable from '@/components/tables/selectorTables/KnowledgeLevelSelectorTable';
 
 export default function TabbedSelectorTables({
   data,
@@ -52,5 +53,6 @@ const TableMap = {
   assetRole: AssetRoleSelectorTable,
   organization: OrganizationSelectorTable,
   workProjectSeriesSchema: WorkProjectSeriesSchemaSelectorTable,
-  knowledgeDomain: KnowledgeDomainSelectorTable
+  knowledgeDomain: KnowledgeDomainSelectorTable,
+  knowledgeLevel: KnowledgeLevelSelectorTable
 } as const satisfies TableComponentMap;

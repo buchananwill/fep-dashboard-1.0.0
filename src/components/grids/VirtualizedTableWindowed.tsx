@@ -24,6 +24,8 @@ export interface VirtualizedTableProps<T> {
   renderCell: (props: GridChildComponentProps<T>) => ReactNode;
   renderSyncedRowCell: (props: GridChildComponentProps<T>) => ReactNode;
   renderSyncedColumnCell: (props: GridChildComponentProps<T>) => ReactNode;
+  cellSize?: number;
+  syncColumnWidth?: number;
 }
 
 export default function VirtualizedTableWindowed<T>({
@@ -32,7 +34,9 @@ export default function VirtualizedTableWindowed<T>({
   renderCell,
   renderSyncedColumnCell,
   renderSyncedRowCell,
-  itemData
+  itemData,
+  syncColumnWidth = defaultSyncColumnWidth,
+  cellSize = defaultCellSize
 }: VirtualizedTableProps<T>) {
   const [scrollBarWidth, setScrollBarWidth] = useState(DefaultScrollBarSize);
   const [scrollBarStatus, setScrollBarStatus] = useState({
@@ -95,7 +99,7 @@ export default function VirtualizedTableWindowed<T>({
   }, [rowCount, columnCount, scrollBarWidth]);
 
   return (
-    <AutoSizer onResize={onResize}>
+    <AutoSizer onResize={onResize} disableWidth={false}>
       {({ height, width }) => {
         return (
           <>
@@ -103,8 +107,8 @@ export default function VirtualizedTableWindowed<T>({
               style={{
                 display: 'grid',
                 gridTemplateAreas: `'. stickyRow' 'stickyCol main'`,
-                gridTemplateRows: '40px 1fr',
-                gridTemplateColumns: '100px 1fr',
+                gridTemplateRows: `${cellSize}px 1fr`,
+                gridTemplateColumns: `${syncColumnWidth}px 1fr`,
                 gap: '4px'
               }}
             >
@@ -115,15 +119,15 @@ export default function VirtualizedTableWindowed<T>({
                 <FixedSizeGrid
                   style={{ overflowX: 'hidden' }}
                   ref={syncedRow}
-                  columnWidth={defaultCellSize}
-                  rowHeight={defaultCellSize}
+                  columnWidth={cellSize}
+                  rowHeight={cellSize}
                   columnCount={columnCount}
-                  height={defaultCellSize}
+                  height={cellSize}
                   rowCount={1}
                   itemData={itemData}
                   width={
                     width -
-                    (defaultSyncColumnWidth +
+                    (syncColumnWidth +
                       (scrollBarStatus.vertical ? scrollBarWidth : 0))
                   }
                 >
@@ -138,17 +142,17 @@ export default function VirtualizedTableWindowed<T>({
                 <FixedSizeGrid
                   style={{ overflowY: 'hidden' }}
                   ref={syncedColumn}
-                  columnWidth={defaultSyncColumnWidth}
-                  rowHeight={defaultCellSize}
+                  columnWidth={syncColumnWidth}
+                  rowHeight={cellSize}
                   columnCount={1}
                   height={
                     height -
-                    (defaultCellSize +
+                    (cellSize +
                       (scrollBarStatus.horizontal ? scrollBarWidth : 0))
                   }
                   rowCount={rowCount}
                   itemData={itemData}
-                  width={defaultSyncColumnWidth}
+                  width={syncColumnWidth}
                 >
                   {renderSyncedColumnCell}
                 </FixedSizeGrid>
@@ -163,13 +167,13 @@ export default function VirtualizedTableWindowed<T>({
                     outerRef={mainContainer}
                     overscanRowCount={6}
                     overscanColumnCount={3}
-                    columnWidth={defaultCellSize}
-                    rowHeight={defaultCellSize}
+                    columnWidth={cellSize}
+                    rowHeight={cellSize}
                     columnCount={columnCount}
-                    height={height - defaultCellSize}
+                    height={height - cellSize}
                     rowCount={rowCount}
                     itemData={itemData}
-                    width={width - defaultSyncColumnWidth}
+                    width={width - syncColumnWidth}
                   >
                     {renderCell}
                   </FixedSizeGrid>

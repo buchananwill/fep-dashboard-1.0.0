@@ -14,6 +14,8 @@ export type CellWrapperProps<
 
 export type GenericIdReferenceCell = (props: CellWrapperProps) => ReactNode;
 
+const NanIdReference = { columnId: undefined, rowId: undefined } as const;
+
 export function getCellIdReference<
   T extends Identifier = Identifier,
   U extends Identifier = Identifier
@@ -25,6 +27,10 @@ export function getCellIdReference<
   data: CellIdReference<T, U>[][];
   rowIndex: number;
   columnIndex: number;
-}): CellIdReference | undefined {
-  return data[rowIndex][columnIndex];
+}): CellIdReference<T, U> | typeof NanIdReference {
+  const reference =
+    rowIndex !== undefined && columnIndex !== undefined
+      ? data[rowIndex][columnIndex]
+      : NanIdReference;
+  return reference ?? NanIdReference;
 }

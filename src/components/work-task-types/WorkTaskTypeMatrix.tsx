@@ -3,34 +3,48 @@ import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowe
 import { Identifier, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
-import { useRowIdColumnIdCells } from '@/components/grids/createRowIdColumnIdCells';
-import { CellWrapperProps } from '@/components/grids/getCellIdReference';
-import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreDispatchAndListener';
+import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
 import {
-  KnowledgeDomainDto,
-  KnowledgeLevelDto
-} from '@/api/generated-types/generated-types';
-import { useCellIdReferences } from '@/components/work-task-types/useCellIdReferences';
-import FallbackCell from '@/components/grids/FallbackCell';
+  CellIndex,
+  useRowIdColumnIdCells
+} from '@/components/grids/createRowIdColumnIdCells';
+import { CellWrapperProps } from '@/components/grids/getCellIdReference';
+import { KnowledgeDomainRowHeader } from '@/components/work-task-types/KnowledgeDomainRowHeader';
+import { KnowledgeLevelColumnHeader } from '@/components/work-task-types/KnowledgeLevelColumnHeader';
+import {
+  DropResult,
+  WorkTaskTypeMatrixCell
+} from '@/components/work-task-types/WorkTaskTypeMatrixCell';
+import { useGlobalController } from 'selective-context';
 
+const listenerKey = 'work-task-type-matrix';
+export const hoverTargetCellIndex = 'hover-target-cellIndex';
+export const dropResultContextKey = 'drop-result';
 export default function WorkTaskTypeMatrix() {
   const { currentState: rowIdList } = NamespacedHooks.useListen<number[]>(
     EntityClassMap.knowledgeDomain,
     KEY_TYPES.SELECTED,
-    'work-task-type-matrix',
+    listenerKey,
     EmptyArray
   );
   const { currentState: columnIdList } = NamespacedHooks.useListen<number[]>(
     EntityClassMap.knowledgeLevel,
     KEY_TYPES.SELECTED,
-    'work-task-type-matrix',
+    listenerKey,
     EmptyArray
   );
+  const hoverTarget = useGlobalController({
+    contextKey: hoverTargetCellIndex,
+    initialValue: ObjectPlaceholder as CellIndex,
+    listenerKey
+  });
+  const dropResult = useGlobalController({
+    contextKey: dropResultContextKey,
+    initialValue: ObjectPlaceholder as DropResult,
+    listenerKey
+  });
 
   const cells = useRowIdColumnIdCells(rowIdList, columnIdList);
-
-  console.log(cells);
 
   return (
     <VirtualizedTableWindowed
@@ -40,55 +54,10 @@ export default function WorkTaskTypeMatrix() {
       renderCell={WorkTaskTypeMatrixCell}
       renderSyncedRowCell={KnowledgeLevelColumnHeader}
       renderSyncedColumnCell={KnowledgeDomainRowHeader}
+      syncColumnWidth={200}
     />
   );
 }
 
-function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
-  const cellIdReference = useCellIdReferences(props);
-
-  return JSON.stringify(cellIdReference);
-}
-
-type CellWrapperPropsWithId<T extends Identifier = Identifier> =
+export type CellWrapperPropsWithId<T extends Identifier = Identifier> =
   CellWrapperProps & { entityId: T };
-
-function KnowledgeDomainRowHeader(props: CellWrapperProps<number>) {
-  const idReferences = useCellIdReferences<number, Identifier>(props);
-
-  if (!idReferences || !idReferences.rowId) return <FallbackCell {...props} />;
-  const rowId = idReferences.rowId as number;
-  return <KnowledgeDomainCell {...props} entityId={rowId} />;
-}
-
-function KnowledgeLevelColumnHeader(
-  props: CellWrapperProps<Identifier, number>
-) {
-  const { columnId } = useCellIdReferences(props);
-
-  return <KnowledgeLevelCell {...props} entityId={columnId} />;
-}
-
-function KnowledgeLevelCell({
-  entityId,
-  style
-}: CellWrapperPropsWithId<number>) {
-  const { currentState } = useDtoStoreDispatchAndListener<KnowledgeLevelDto>(
-    entityId,
-    EntityClassMap.knowledgeLevel
-  );
-
-  return <div style={style}>{currentState.levelOrdinal}</div>;
-}
-
-function KnowledgeDomainCell({
-  entityId,
-  style
-}: CellWrapperProps & { entityId: number }) {
-  const { currentState } = useDtoStoreDispatchAndListener<KnowledgeDomainDto>(
-    entityId,
-    EntityClassMap.knowledgeDomain
-  );
-
-  return <div style={style}>{currentState.name}</div>;
-}

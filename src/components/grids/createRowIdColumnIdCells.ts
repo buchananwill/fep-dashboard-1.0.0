@@ -1,5 +1,10 @@
 import { useMemo } from 'react';
 
+export interface CellIndex {
+  rowIndex: number | undefined;
+  columnIndex: number | undefined;
+}
+
 export function createRowIdColumnIdCells<T, U>(
   rowIdList: T[],
   columnIdList: U[]
