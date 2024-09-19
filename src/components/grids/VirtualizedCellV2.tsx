@@ -35,7 +35,7 @@ export default function VirtualizedOuterCellV2<T>({
   });
 
   return (
-    <div style={style} className={clsx(' h-full w-full')}>
+    <div style={style} className={clsx('h-full w-full')}>
       <InnerCell {...innerProps} cellData={cell.data} />
     </div>
   );

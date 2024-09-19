@@ -1,5 +1,5 @@
-import SuitabilityMatrixPage from '@/components/roles/suitability/SuitabilityMatrixPage';
+import CreateRolePage from '@/components/roles/create-role/CreateRolePage';
 
 export default function page() {
-  return <SuitabilityMatrixPage pathVariables={[]} depth={0} />;
+  return <CreateRolePage pathVariables={[]} depth={0} />;
 }

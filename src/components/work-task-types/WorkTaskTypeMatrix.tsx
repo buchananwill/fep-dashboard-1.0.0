@@ -16,6 +16,8 @@ import {
   WorkTaskTypeMatrixCell
 } from '@/components/work-task-types/WorkTaskTypeMatrixCell';
 import { useGlobalController } from 'selective-context';
+import { useMemo } from 'react';
+import { flattenDeep } from 'lodash';
 
 const listenerKey = 'work-task-type-matrix';
 export const hoverTargetCellIndex = 'hover-target-cellIndex';
@@ -33,12 +35,12 @@ export default function WorkTaskTypeMatrix() {
     listenerKey,
     EmptyArray
   );
-  const hoverTarget = useGlobalController({
+  useGlobalController({
     contextKey: hoverTargetCellIndex,
     initialValue: ObjectPlaceholder as CellIndex,
     listenerKey
   });
-  const dropResult = useGlobalController({
+  useGlobalController({
     contextKey: dropResultContextKey,
     initialValue: ObjectPlaceholder as DropResult,
     listenerKey
@@ -47,15 +49,17 @@ export default function WorkTaskTypeMatrix() {
   const cells = useRowIdColumnIdCells(rowIdList, columnIdList);
 
   return (
-    <VirtualizedTableWindowed
-      rowIdList={rowIdList}
-      columnIdList={columnIdList}
-      itemData={cells}
-      renderCell={WorkTaskTypeMatrixCell}
-      renderSyncedRowCell={KnowledgeLevelColumnHeader}
-      renderSyncedColumnCell={KnowledgeDomainRowHeader}
-      syncColumnWidth={200}
-    />
+    <>
+      <VirtualizedTableWindowed
+        rowIdList={rowIdList}
+        columnIdList={columnIdList}
+        itemData={cells}
+        renderCell={WorkTaskTypeMatrixCell}
+        renderSyncedRowCell={KnowledgeLevelColumnHeader}
+        renderSyncedColumnCell={KnowledgeDomainRowHeader}
+        syncColumnWidth={200}
+      />
+    </>
   );
 }
 

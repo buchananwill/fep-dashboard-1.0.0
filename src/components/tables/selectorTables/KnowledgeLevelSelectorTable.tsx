@@ -50,5 +50,9 @@ export const KnowledgeLevelColumns: Column<KnowledgeLevelDto>[] = [
   },
   { name: 'Id', uid: 'id', sortable: false },
 
-  { name: getStartCaseDomainAlias('levelOrdinal'), uid: 'levelOrdinal' }
+  {
+    name: getStartCaseDomainAlias('levelOrdinal'),
+    uid: 'levelOrdinal',
+    sortable: true
+  }
 ];

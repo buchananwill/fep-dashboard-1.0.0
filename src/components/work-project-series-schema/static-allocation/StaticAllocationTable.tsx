@@ -113,8 +113,8 @@ export interface Cell<T> {
 
 export function joinCellId(
   entityClass: string,
-  rowId: Identifier,
-  columnId: Identifier
+  rowId: Identifier | undefined,
+  columnId: Identifier | undefined
 ) {
   return `${entityClass}:${rowId}:${columnId}`;
 }

@@ -20,31 +20,35 @@ import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Popover } from '@nextui-org/react';
 import { Slider } from '@nextui-org/slider';
 import { Button } from '@nextui-org/button';
-import {
-  BoltSlashIcon,
-  LockClosedIcon,
-  LockOpenIcon,
-  XCircleIcon
-} from '@heroicons/react/24/outline';
+import { BoltSlashIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { BoltIcon } from '@heroicons/react/24/solid';
+import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreDispatchAndListener';
+import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
+import { HasStringId } from 'react-d3-force-wrapper';
 
 export type NumberCell = CellIndex & { value: number };
 export type DropResult = {
   dragged?: NumberCell;
   dropped?: NumberCell;
 };
+interface SuitabilityMatrixCell extends HasStringId {
+  value: number;
+  isDynamic: boolean;
+}
 
 export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
-  const cellIdReference = useCellIdReferences(props);
+  const { columnId, rowId } = useCellIdReferences(props);
+  const { currentState: currentCell, dispatchWithoutControl: setCurrentCell } =
+    useDtoStoreDispatchAndListener<SuitabilityMatrixCell>(
+      `${rowId}:${columnId}`,
+      CellEntityClass
+    );
+
   const { rowIndex, columnIndex } = props;
   const cellIndex = {
     rowIndex,
     columnIndex
   };
-  const [currentCell, setCurrentCell] = useState<{
-    value: number;
-    isDynamic: boolean;
-  }>({ value: Math.random(), isDynamic: true });
 
   const { isDynamic, value } = currentCell;
 

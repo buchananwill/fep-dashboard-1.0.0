@@ -7,7 +7,7 @@ import { RoleAspects } from '@/components/roles/rolePageTree';
 
 export type BaseRoleParams = {
   roleTypeId: string;
-  roleCategory: keyof typeof RoleCategories;
+  roleCategory: RoleEntity;
   roleAspect: RoleAspect;
 };
 

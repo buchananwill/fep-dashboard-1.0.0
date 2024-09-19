@@ -34,6 +34,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
     params: { roleCategory, roleTypeId }
   } = props;
   // List of all work task types to select
+
   // List of all provider roles of the layer type
   const roleEntityKey = getRoleEntityKey(roleCategory);
   const suitabilityType = EntityClassMap[roleEntityKey];
@@ -128,9 +129,4 @@ function RolePageWrapper({ pathVariables }: LeafComponentProps) {
 export const RoleTypeListComponent = getPathVariableSplitComponent(
   RoleTypeListMenu,
   RolePageWrapper
-);
-
-export const KnowledgeLevelSeriesRoleTypeList = getPathVariableSplitComponent(
-  KnowledgeLevelSeriesLinks,
-  RoleTypeListComponent
 );
