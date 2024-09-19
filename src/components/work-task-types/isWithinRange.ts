@@ -2,28 +2,75 @@ import { CellIndex } from '@/components/grids/createRowIdColumnIdCells';
 import { isNotUndefined } from '@/api/main';
 
 export function isWithinRange(
-  cellIndexA: CellIndex,
-  cellIndexB: CellIndex,
-  cellToTest: CellIndex
+  cellToTest: CellIndex,
+  ...bounds: (CellIndex | undefined)[]
 ): boolean {
-  if (!cellIndexA || !cellIndexB || !cellToTest) return false;
-  const { columnIndex: ciCellA, rowIndex: riCellA } = cellIndexA;
-  const { columnIndex: ciCellB, rowIndex: riCellB } = cellIndexB;
+  const filteredBounds = bounds ? bounds.filter(isNotUndefined) : [];
+  if (filteredBounds.length === 0 || !cellToTest) return false;
   const { columnIndex: ciTest, rowIndex: riTest } = cellToTest;
+  const rowBounds = getRowBounds(filteredBounds);
+  const columnBounds = getColumnBounds(filteredBounds);
   const allDefined =
-    isNotUndefined(ciCellA) &&
-    isNotUndefined(ciCellB) &&
-    isNotUndefined(riCellA) &&
-    isNotUndefined(riCellB) &&
+    rowBounds.length > 0 &&
+    columnBounds.length > 0 &&
     isNotUndefined(ciTest) &&
     isNotUndefined(riTest);
   if (!allDefined) return false;
   return (
-    liesBetweenOrEqual(ciCellA, ciCellB, ciTest) &&
-    liesBetweenOrEqual(riCellA, riCellB, riTest)
+    liesBetweenOrEqual(ciTest, ...columnBounds) &&
+    liesBetweenOrEqual(riTest, ...rowBounds)
   );
 }
 
-function liesBetweenOrEqual(bound1: number, bound2: number, value: number) {
-  return value >= Math.min(bound1, bound2) && value <= Math.max(bound1, bound2);
+function liesBetweenOrEqual(value: number, ...bounds: number[]) {
+  return value >= Math.min(...bounds) && value <= Math.max(...bounds);
+}
+
+function equalsLowerBound(value: number, ...bounds: number[]) {
+  return value === Math.min(...bounds);
+}
+
+function equalsUpperBound(value: number, ...bounds: number[]) {
+  return value === Math.max(...bounds);
+}
+
+interface BoundaryCheck {
+  top?: boolean;
+  bottom?: boolean;
+  left?: boolean;
+  right?: boolean;
+}
+
+function getRowBounds(filteredBounds: CellIndex[]) {
+  return filteredBounds.map((cell) => cell.rowIndex).filter(isNotUndefined);
+}
+
+function getColumnBounds(filteredBounds: CellIndex[]) {
+  return filteredBounds.map((cell) => cell.columnIndex).filter(isNotUndefined);
+}
+
+export function liesOnBoundary(
+  cellToTest: CellIndex,
+  ...bounds: (CellIndex | undefined)[]
+): BoundaryCheck {
+  const filteredBounds = bounds ? bounds.filter(isNotUndefined) : [];
+  if (
+    filteredBounds.length === 0 ||
+    !cellToTest ||
+    !isNotUndefined(cellToTest.rowIndex) ||
+    !isNotUndefined(cellToTest.columnIndex)
+  )
+    return {};
+  const rowBounds = getRowBounds(filteredBounds);
+  const columnBounds = getColumnBounds(filteredBounds);
+  const withinRange = isWithinRange(cellToTest, ...filteredBounds);
+  console.log(cellToTest, columnBounds, rowBounds, withinRange);
+  return {
+    top: equalsLowerBound(cellToTest.rowIndex, ...rowBounds) && withinRange,
+    bottom: equalsUpperBound(cellToTest.rowIndex, ...rowBounds) && withinRange,
+    left:
+      equalsLowerBound(cellToTest.columnIndex, ...columnBounds) && withinRange,
+    right:
+      equalsUpperBound(cellToTest.columnIndex, ...columnBounds) && withinRange
+  };
 }

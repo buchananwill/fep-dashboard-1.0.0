@@ -11,18 +11,22 @@ import {
 } from '@/components/work-task-types/WorkTaskTypeMatrix';
 import { ObjectPlaceholder } from '@/api/literals';
 import { CellIndex } from '@/components/grids/createRowIdColumnIdCells';
-import { isWithinRange } from '@/components/work-task-types/isWithinRange';
+import {
+  isWithinRange,
+  liesOnBoundary
+} from '@/components/work-task-types/isWithinRange';
 import clsx from 'clsx';
 import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Popover } from '@nextui-org/react';
 import { Slider } from '@nextui-org/slider';
 import { Button } from '@nextui-org/button';
 import {
-  BoltIcon,
   BoltSlashIcon,
   LockClosedIcon,
-  LockOpenIcon
+  LockOpenIcon,
+  XCircleIcon
 } from '@heroicons/react/24/outline';
+import { BoltIcon } from '@heroicons/react/24/solid';
 
 export type NumberCell = CellIndex & { value: number };
 export type DropResult = {
@@ -42,15 +46,17 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
     isDynamic: boolean;
   }>({ value: Math.random(), isDynamic: true });
 
+  const { isDynamic, value } = currentCell;
+
   const [open, setOpen] = useState(false);
 
   const cell = useMemo(() => {
     return {
       rowIndex,
       columnIndex,
-      value: currentCell.value
+      value
     };
-  }, [rowIndex, columnIndex, currentCell]);
+  }, [rowIndex, columnIndex, value]);
 
   const cellRef = useRef(cell);
   cellRef.current = cell;
@@ -106,10 +112,14 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
   const withinRange = useMemo(() => {
     return (
       currentItem &&
-      isWithinRange(hoverCellIndex, currentItem.current, {
-        columnIndex,
-        rowIndex
-      })
+      isWithinRange(
+        {
+          columnIndex,
+          rowIndex
+        },
+        hoverCellIndex,
+        currentItem.current
+      )
     );
   }, [hoverCellIndex, currentItem, columnIndex, rowIndex]);
 
@@ -117,14 +127,18 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
   withinRangeRef.current = withinRange;
 
   useEffect(() => {
-    if (dropResult?.dragged && dropResult?.dropped && currentCell.isDynamic) {
+    if (dropResult?.dragged && dropResult?.dropped && isDynamic) {
       const { dragged, dropped } = dropResult;
-      const withinRange = isWithinRange(dragged, dropped, cell);
+      const withinRange = isWithinRange(cell, dragged, dropped);
       if (withinRange) {
         setCurrentCell((current) => ({ ...current, value: dragged.value }));
       }
     }
-  }, [dropResult, cell, currentCell]);
+  }, [dropResult, cell, isDynamic]);
+
+  const isOnLastBoundary = useMemo(() => {
+    return liesOnBoundary(cell, dropResult?.dragged, dropResult?.dropped);
+  }, [cell, dropResult]);
 
   return (
     <div style={props.style}>
@@ -138,61 +152,92 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
             open && 'outline'
           )}
         >
-          {drag(
-            <div
-              onClick={() => {
-                setOpen((prev) => !prev);
-              }}
-              className={clsx(!currentCell.isDynamic && 'bg-yellow-100')}
-            >
-              <Popover
-                isOpen={open}
-                shouldCloseOnBlur={true}
-                showArrow={true}
-                onOpenChange={setOpen}
-                shouldCloseOnInteractOutside={() => true}
+          <div
+            className={clsx(
+              !currentCell.isDynamic && 'bg-yellow-100',
+              'box-content h-full w-full border-1 border-transparent',
+
+              isOnLastBoundary.top && 'border-t-red-500',
+              isOnLastBoundary.right && 'border-r-red-500',
+              isOnLastBoundary.left && 'border-l-red-500',
+              isOnLastBoundary.bottom && 'border-b-red-500',
+              isOnLastBoundary.top && isOnLastBoundary.left && 'rounded-tl',
+              isOnLastBoundary.top && isOnLastBoundary.right && 'rounded-tr',
+              isOnLastBoundary.bottom && isOnLastBoundary.left && 'rounded-bl',
+              isOnLastBoundary.bottom && isOnLastBoundary.right && 'rounded-br'
+            )}
+          >
+            {drag(
+              <div
+                onClick={() => {
+                  setOpen((prev) => !prev);
+                }}
               >
-                <PopoverTrigger>
-                  <div></div>
-                </PopoverTrigger>
-                <PopoverContent className={'flex flex-row gap-2'}>
-                  <Slider
-                    className={'w-24'}
-                    value={currentCell.value * 100}
-                    onChange={(result) => {
-                      if (typeof result === 'number') {
+                <Popover
+                  isOpen={open}
+                  shouldCloseOnBlur={true}
+                  showArrow={true}
+                  onOpenChange={setOpen}
+                  shouldCloseOnInteractOutside={() => true}
+                >
+                  <PopoverTrigger>
+                    <div></div>
+                  </PopoverTrigger>
+                  <PopoverContent className={'flex flex-row gap-2'}>
+                    <Slider
+                      className={'w-24'}
+                      value={currentCell.value * 100}
+                      isDisabled={
+                        isWithinRange(
+                          cell,
+                          dropResult.dropped,
+                          dropResult.dragged
+                        ) && currentCell.isDynamic
+                      }
+                      onChange={(result) => {
+                        if (typeof result === 'number') {
+                          setCurrentCell((prev) => ({
+                            ...prev,
+                            value: result / 100
+                          }));
+                        }
+                      }}
+                    ></Slider>
+                    <Button
+                      isIconOnly={true}
+                      variant={'bordered'}
+                      className={clsx(
+                        'p-1',
+                        !currentCell.isDynamic && 'bg-yellow-50'
+                      )}
+                      size={'sm'}
+                      onPress={() =>
                         setCurrentCell((prev) => ({
                           ...prev,
-                          value: result / 100
-                        }));
+                          isDynamic: !prev.isDynamic
+                        }))
                       }
-                    }}
-                  ></Slider>
-                  <Button
-                    isIconOnly={true}
-                    className={clsx(
-                      'p-1',
-                      !currentCell.isDynamic && 'bg-yellow-100'
-                    )}
-                    size={'sm'}
-                    onPress={() =>
-                      setCurrentCell((prev) => ({
-                        ...prev,
-                        isDynamic: !prev.isDynamic
-                      }))
-                    }
-                  >
-                    {currentCell.isDynamic ? <BoltSlashIcon /> : <BoltIcon />}
-                  </Button>
-                </PopoverContent>
-              </Popover>
-              <MiniPieChart
-                value={currentCell.value}
-                className={'h-full w-full p-1 '}
-                strokeWidthRelative={0.4}
-              />
-            </div>
-          )}
+                    >
+                      {currentCell.isDynamic ? (
+                        <BoltSlashIcon />
+                      ) : (
+                        <BoltIcon className={'fill-yellow-400'} />
+                      )}
+                    </Button>
+                  </PopoverContent>
+                </Popover>
+                {currentCell.value > 0 ? (
+                  <MiniPieChart
+                    value={currentCell.value}
+                    className={'h-full w-full p-1 '}
+                    strokeWidthRelative={0.4}
+                  />
+                ) : (
+                  <XCircleIcon className={'stroke-2 text-default-200'} />
+                )}
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>
