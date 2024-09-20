@@ -9,6 +9,7 @@ export type FormInputProps = {
 
 export const ControlledInput: React.FC<FormInputProps> = ({
   name,
+  value,
   ...props
 }) => {
   return (
@@ -19,6 +20,7 @@ export const ControlledInput: React.FC<FormInputProps> = ({
         return (
           <Input
             {...props}
+            name={name}
             isInvalid={!!formState.errors?.[name]?.message}
             errorMessage={formState.errors?.[name]?.message?.toString()}
             value={field.value}

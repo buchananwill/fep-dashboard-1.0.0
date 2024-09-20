@@ -14,6 +14,8 @@ import { singular } from 'pluralize';
 import RoleSubmissionHandler, {
   WorkTaskTypeName
 } from '@/components/roles/create-role/RoleSubmissionHandler';
+import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
+import { constructUrl } from '@/api/actions/template-base-endpoints';
 
 export default async function CreateRolePage({
   pathVariables
@@ -34,12 +36,15 @@ export default async function CreateRolePage({
   const kLIdList = getIdList(initialKnowledgeLevels);
 
   return (
-    <div className={'flex h-[100vh] w-[100vw] p-4'}>
+    <div className={'flex h-[100vh] w-[100vw] items-start gap-2 p-4'}>
       <SuitabilityCellManager rowIdList={kdIdList} columnIdList={kLIdList} />
       <RoleSubmissionHandler
         createRoleAction={async (request) => {
           'use server';
-          console.log(request);
+          return await postEntitiesWithDifferentReturnType(
+            request,
+            constructUrl('/api/v2/providerRoles/createFromRolePostRequest')
+          );
         }}
         roleEntityType={roleType}
       />
@@ -63,10 +68,11 @@ export default async function CreateRolePage({
         entityClass={EntityClassMap.knowledgeLevel}
         dtoList={initialKnowledgeLevels}
       />
-      <RoleBaseDetails roleEntityType={roleType} />
+      <RoleBaseDetails roleEntity={roleType} />
       <CreateRoleTabs
         knowledgeDomains={knowledgeDomainDtos}
         knowledgeLevels={initialKnowledgeLevels}
+        roleEntity={roleType}
       />
     </div>
   );

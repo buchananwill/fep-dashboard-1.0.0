@@ -7,20 +7,24 @@ import {
   KnowledgeDomainDto,
   KnowledgeLevelDto
 } from '@/api/generated-types/generated-types';
+import SelectTypeNames from '@/components/roles/create-role/SelectTypeNames';
+import { RoleEntity } from '@/components/roles/types';
 
 interface CreateRoleProps {
   knowledgeDomains: KnowledgeDomainDto[];
   knowledgeLevels: KnowledgeLevelDto[];
+  roleEntity: RoleEntity;
 }
 
 export default function CreateRoleTabs({
   knowledgeDomains,
-  knowledgeLevels
+  knowledgeLevels,
+  roleEntity
 }: CreateRoleProps) {
   return (
     <Tabs placement={'top'}>
       <Tab title={'Set Suitabilities'} id={'suitabilities'}>
-        <div className={'h-[75vh] w-[75vw]'}>
+        <div className={'relative flex h-[75vh] w-[75vw] gap-2'}>
           <FinderTableButton
             knowledgeDomain={knowledgeDomains}
             knowledgeLevel={knowledgeLevels}

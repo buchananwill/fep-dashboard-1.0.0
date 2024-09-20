@@ -18,9 +18,9 @@ import {
 
 const defaultPersonValues = {
   id: -1,
-  personalName: '',
-  familyName: '',
-  dateOfBirth: '1985-12-25'
+  fName: '',
+  lName: '',
+  dateOfBirth: '1985-10-21'
 };
 
 export default function CreatePersonForm({
@@ -69,31 +69,34 @@ export default function CreatePersonForm({
   };
 
   return (
-    <Card className={'mt-8 w-64'}>
+    <Card className={'w-64'}>
       <PendingOverlay pending={pending} />
       <form
         onSubmit={(event) => {
           console.warn(errors);
           handleSubmit(onSubmit)(event);
         }}
+        autoComplete={'on'}
       >
         <CardHeader className={'items-center justify-center align-middle '}>
           New Person
         </CardHeader>
         <CardBody className={'items-center justify-center gap-2'}>
           <ControlledInput
-            name={'personalName'}
+            name={'fName'}
             control={control}
-            aria-label={'Personal Name'}
-            label={'Personal Name'}
-            placeholder={'Enter personal name'}
+            aria-label={'First Name'}
+            label={'First Name'}
+            placeholder={'Enter first name'}
+            autoComplete={'on'}
           />
           <ControlledInput
-            name={'familyName'}
+            name={'lName'}
             control={control}
-            aria-label={'Family Name'}
-            label={'Family Name'}
-            placeholder={'Enter family name'}
+            aria-label={'Last Name'}
+            label={'Last Name'}
+            placeholder={'Enter last name'}
+            autoComplete={'on'}
           />
 
           <DatePicker

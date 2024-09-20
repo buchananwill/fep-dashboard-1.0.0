@@ -23,7 +23,7 @@ export function useEntitySelection<
   U extends Identifier
 >(
   entityClass: string,
-  filteredItems: MutableRefObject<T[]>,
+  filteredItems?: MutableRefObject<T[]>,
   idClass?: 'string' | 'number',
   forceString = true,
   sortedItems?: T[]
@@ -77,6 +77,8 @@ export function useEntitySelection<
     EmptyArray as T[]
   );
 
+  console.log(currentState, entityClass);
+
   const selectedKeys = useMemo(() => {
     return forceString
       ? new Set<string>(selectedList.map((ident) => String(ident)))
@@ -88,7 +90,11 @@ export function useEntitySelection<
       dispatchSelected((currentSelection) => {
         const selectionSet = new Set(currentSelection);
         if (selected === 'all') {
-          filteredItems.current
+          let allItems = currentState;
+          if (filteredItems) {
+            allItems = filteredItems.current;
+          }
+          allItems
             .map((item) => item.id)
             .forEach((itemId) => selectionSet.add(itemId));
         } else {
@@ -101,7 +107,7 @@ export function useEntitySelection<
         return sort as U[];
       });
     },
-    [dispatchSelected, filteredItems, sortFunction, normalizeId]
+    [dispatchSelected, sortFunction, normalizeId, filteredItems, currentState]
   );
   return { currentState, selectedKeys, onSelectionChange, dispatchSelected };
 }

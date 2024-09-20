@@ -98,7 +98,8 @@ export default function RoleSubmissionHandler<T>({
             suitabilities: suitabilityRequests
           };
           console.log(request);
-          await createRoleAction(request);
+          const response = await createRoleAction(request);
+          console.log(response);
         }
       }
     };
