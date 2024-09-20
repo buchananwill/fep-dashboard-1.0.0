@@ -292,7 +292,7 @@ export interface Identifiable<I> {
 export interface DateAndTimeAndZoneDto extends Serializable {
   dateTime: DateAsString;
   date: DateAsString;
-  timeZone: ZoneId;
+  timeZone: string | null;
 }
 
 export interface DtoWrapper<E, D, I> extends Identifiable<I>, Serializable {}

@@ -1,6 +1,7 @@
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { EventInput_FC } from '@/components/calendar/full-calendar/types';
 import { formatInTimeZone } from 'date-fns-tz';
+import { EventDto } from '@/api/generated-types/generated-types';
 
 export function flattenTimesIntoEvent(event: OutlookEvent): EventInput_FC {
   return {

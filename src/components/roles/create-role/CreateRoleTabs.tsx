@@ -7,9 +7,11 @@ import {
   KnowledgeDomainDto,
   KnowledgeLevelDto
 } from '@/api/generated-types/generated-types';
-import SelectTypeNames from '@/components/roles/create-role/SelectTypeNames';
 import { RoleEntity } from '@/components/roles/types';
 import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
+import { useMemo } from 'react';
+import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
+import { useEditableEvents } from '@/components/roles/create-role/useEditableEvents';
 
 interface CreateRoleProps {
   knowledgeDomains: KnowledgeDomainDto[];
@@ -22,6 +24,14 @@ export default function CreateRoleTabs({
   knowledgeLevels,
   roleEntity
 }: CreateRoleProps) {
+  const { currentState, ...callbacks } = useEditableEvents();
+
+  const events = useMemo(() => {
+    return currentState
+      .map(flattenTimesIntoEvent)
+      .map((event) => ({ ...event, editable: true, overlap: false }));
+  }, [currentState]);
+
   return (
     <Tabs
       placement={'top'}
@@ -39,11 +49,13 @@ export default function CreateRoleTabs({
       <Tab title={'Set Availabilities'} id={'availabilities'}>
         <div className={'w-full'}>
           <CalendarViewer
+            events={events}
             headerToolbar={{
               left: '',
               center: 'title',
               right: ''
             }}
+            {...callbacks}
           ></CalendarViewer>
         </div>
       </Tab>

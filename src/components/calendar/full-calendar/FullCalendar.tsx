@@ -2,6 +2,7 @@
 import FullCalendar from '@fullcalendar/react';
 import timegrid from '@fullcalendar/timegrid';
 import { CalendarOptions } from '@fullcalendar/core';
+import interaction from '@fullcalendar/interaction';
 
 export default function CalendarViewer({
   headerToolbar,
@@ -16,9 +17,6 @@ export default function CalendarViewer({
           month: '2-digit'
         }).format(props.date)
       }
-      eventClick={(info) => {
-        alert(JSON.stringify(info.event));
-      }}
       titleFormat={{ day: '2-digit', month: '2-digit' }}
       plugins={plugins}
       locale={'en-GB'}
@@ -36,4 +34,4 @@ export default function CalendarViewer({
   );
 }
 
-const plugins = [timegrid];
+const plugins = [timegrid, interaction];

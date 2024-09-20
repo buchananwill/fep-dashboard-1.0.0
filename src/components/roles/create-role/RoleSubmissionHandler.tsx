@@ -1,10 +1,11 @@
 'use client';
 import {
+  AvailabilityPostRequest,
   HasName,
   RolePostRequest,
   SuitabilityPostRequest
 } from '@/api/generated-types/generated-types';
-import { useGlobalController } from 'selective-context';
+import { useGlobalController, useGlobalReadAny } from 'selective-context';
 import { RoleEntity } from '@/components/roles/types';
 import { getCreationContextKey } from '@/components/roles/create-role/RoleBaseDetails';
 import { useMemo } from 'react';
@@ -20,6 +21,12 @@ import {
   useReadSelectedEntities
 } from '@/api/typed-dto-store-hooks';
 import { HasNumberId } from '@/api/types';
+import { EditableEvents } from '@/components/roles/create-role/useEditableEvents';
+import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
+import { DayOfWeekArray } from '@/api/date-and-time';
+import { DateTimeTimeZone } from '@microsoft/microsoft-graph-types';
+import { RequiredDeep } from 'type-fest';
+import { format } from 'date-fns';
 
 const listenerKey = 'create-controller';
 export const WorkTaskTypeName = 'WorkTaskTypeName';
@@ -46,16 +53,15 @@ export default function RoleSubmissionHandler<T>({
   const readAnyWttName = useReadAnyDto<HasName & HasNumberId>(WorkTaskTypeName);
   const roleTypeNames = useReadSelectedEntities(`${roleEntityType}RoleType`);
   const readAnyKnowledgeDomain = useReadAnyDtoTyped('knowledgeDomain');
-  // const readAnyKnowledgeLevelSeries = useReadAnyDtoTyped(
-  //   'knowledgeLevelSeries'
-  // );
   const readAnyKnowledgeLevel = useReadAnyDtoTyped('knowledgeLevel');
+  const readAny = useGlobalReadAny();
 
   const submitRequest = useMemo(() => {
     return {
       memoizedFunction: async (baseEntity: T) => {
         if (!createRoleAction) console.error('no action');
         else {
+          const rtNames = roleTypeNames().map((type) => type.name);
           const wttNames = wttTaskNameIdList
             .map((id) => readAnyWttName(id))
             .filter(isNotUndefined)
@@ -86,15 +92,23 @@ export default function RoleSubmissionHandler<T>({
                     workTaskTypeNames: wttNames
                   },
                   rating: cell.value,
-                  roleTypeNames: roleTypeNames().map((type) => type.name)
+                  roleTypeNames: rtNames
                 };
                 return suitabilityRequest;
               } else return undefined;
             })
             .filter(isNotUndefined);
+          const events = readAny(EditableEvents) as OutlookEvent[];
+          const availabilityRequests = events
+            .map((event) => outlookEventToAvailability(event))
+            .map((availability) => ({
+              ...availability,
+              roleTypeNames: rtNames
+            }));
+
           const request: RolePostRequest<T> = {
             baseEntity,
-            availabilities: [],
+            availabilities: availabilityRequests,
             suitabilities: suitabilityRequests
           };
           console.log(request);
@@ -122,4 +136,29 @@ export default function RoleSubmissionHandler<T>({
   useEffectSyncToMemo(dispatch, submitRequest);
 
   return null;
+}
+
+function getDayOfWeek(dateTimeTimeZone: RequiredDeep<DateTimeTimeZone>) {
+  return DayOfWeekArray[
+    (new Date(dateTimeTimeZone.dateTime).getDay() + 6) % 7
+  ].toUpperCase() as DayOfWeek;
+}
+
+function toLocalTime(dateTimeString: string) {
+  return format(new Date(dateTimeString), 'HH:mm');
+}
+
+function outlookEventToAvailability(
+  event: OutlookEvent
+): AvailabilityPostRequest {
+  const { start, end } = event;
+  if (!start || !end || !start.dateTime || !end.dateTime)
+    throw new Error('Start or end missing' + JSON.stringify(event));
+  return {
+    roleTypeNames: [],
+    startTime: toLocalTime(start.dateTime),
+    endTime: toLocalTime(end.dateTime),
+    availabilityCode: 'TRUE',
+    day: getDayOfWeek(start as RequiredDeep<DateTimeTimeZone>)
+  };
 }
