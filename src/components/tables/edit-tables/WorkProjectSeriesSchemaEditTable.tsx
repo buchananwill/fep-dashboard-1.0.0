@@ -71,16 +71,13 @@ const initialColumns: ColumnUid<WorkProjectSeriesSchemaDto>[] = [
   'userToProviderRatio'
 ];
 
-export const workProjectSeriesSchemaRenderCellFunction = getCellRenderFunction<
+export const workProjectSeriesSchemaRenderCellFunction = getCellRenderFunction(
   'workProjectSeriesSchema',
-  WorkProjectSeriesSchemaDto
->(
   {
     name: RenameAndDeleteCell,
     userToProviderRatio: NestedDtoStoreNumberEditCell,
     deliveryAllocations: AdjustAllocationInWrapper,
     'workTaskType.knowledgeDomain.shortCode': StringValueChip,
     'workTaskType.name': StringValueChip
-  },
-  entityType
+  }
 );

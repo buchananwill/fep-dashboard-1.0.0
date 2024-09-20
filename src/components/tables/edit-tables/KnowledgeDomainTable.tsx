@@ -84,10 +84,7 @@ const columns: Column<KnowledgeDomainDto>[] = [
 
 const entityType = EntityClassMap.knowledgeDomain;
 
-const cellRenderFunction = getCellRenderFunction<KnowledgeDomainDto>(
-  {
-    name: RenameAndDeleteCell,
-    shortCode: ShortCodeEditButtonCell
-  },
-  entityType
-);
+const cellRenderFunction = getCellRenderFunction('knowledgeDomain', {
+  name: RenameAndDeleteCell,
+  shortCode: ShortCodeEditButtonCell
+});

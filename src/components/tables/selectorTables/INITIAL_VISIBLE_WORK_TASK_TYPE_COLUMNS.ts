@@ -1,7 +1,8 @@
 import { Paths } from 'type-fest';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { ColumnUid } from '@/types';
 
-export const INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS: Paths<WorkTaskTypeDto>[] =
+export const INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS: ColumnUid<WorkTaskTypeDto>[] =
   [
     'name',
     'knowledgeDomain.name',

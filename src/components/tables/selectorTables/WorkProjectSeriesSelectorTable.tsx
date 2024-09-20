@@ -54,13 +54,10 @@ export const WorkProjectSeriesColumns: Column<WorkProjectSeriesDto>[] = [
   }
 ];
 
-const CellRenderFunction = getCellRenderFunction(
-  {
-    'workTaskType.name': SimpleValueToString,
-    id: SimpleValueToString,
-    'workTaskType.knowledgeDomain.shortCode': StringValueChip,
-    'workTaskType.knowledgeLevel.levelOrdinal': SimpleValueToString,
-    'workTaskType.knowledgeDomain.name': SimpleValueToString
-  },
-  EntityClassMap.workProjectSeries
-);
+const CellRenderFunction = getCellRenderFunction('workProjectSeries', {
+  'workTaskType.name': SimpleValueToString,
+  id: SimpleValueToString,
+  'workTaskType.knowledgeDomain.shortCode': StringValueChip,
+  'workTaskType.knowledgeLevel.levelOrdinal': SimpleValueToString,
+  'workTaskType.knowledgeDomain.name': SimpleValueToString
+});

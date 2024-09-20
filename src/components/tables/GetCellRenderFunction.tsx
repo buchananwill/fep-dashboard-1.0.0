@@ -1,21 +1,18 @@
-import { HasId } from '@/api/types';
-import { Paths } from 'type-fest';
+import { HasId, HasNumberId } from '@/api/types';
 import React from 'react';
 import { EntityTypeKey } from '@/components/tables/types';
 import { EntityTypeMap } from '@/api/entity-type-map';
-import { EntityClassMap, EntityNameSpace } from '@/api/entity-class-map';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { ColumnUid } from '@/types';
+import { OneOf } from '@/components/types/oneOf';
+import { HasStringId } from 'react-d3-force-wrapper';
 
 export function getCellRenderFunction<
   U extends EntityTypeKey,
-  T extends EntityTypeMap[U]
->(
-  cellComponents: NextUiCellComponentRecord<T> & {
-    action?: NextUiCellComponent<T>;
-  },
-  entityClass: EntityNameSpace<U>
-) {
+  T extends EntityTypeMap[U] = EntityTypeMap[U]
+>(entityTypeKey: U, cellComponents: NextUiCellComponentRecord<T>) {
   return function RenderCell(entity: T, columnKey: React.Key) {
-    const keyAsPath = columnKey as Paths<T>;
+    const keyAsPath = columnKey as ColumnUid<T>;
     const CellComponentOptional = cellComponents[keyAsPath];
 
     if (CellComponentOptional !== undefined) {
@@ -25,7 +22,7 @@ export function getCellRenderFunction<
         <CellComponentDefined
           path={keyAsPath}
           entity={entity}
-          entityClass={entityClass}
+          entityClass={EntityClassMap[entityTypeKey]}
         />
       );
     } else {
@@ -34,8 +31,10 @@ export function getCellRenderFunction<
   };
 }
 
-export type NextUiCellComponentRecord<T extends HasId> = {
-  [K in Paths<T>]?: K extends Paths<T> ? NextUiCellComponent<T> | never : never;
+export type NextUiCellComponentRecord<
+  T extends OneOf<[HasNumberId, HasStringId]>
+> = {
+  [K in ColumnUid<T>]?: NextUiCellComponent<T>;
 };
 export type NextUiCellComponent<T extends HasId> = (
   props: NextUiCellComponentProps<T>
@@ -44,5 +43,5 @@ export type NextUiCellComponent<T extends HasId> = (
 export interface NextUiCellComponentProps<T extends HasId> {
   entity: T;
   entityClass: string;
-  path: Paths<T>;
+  path: ColumnUid<T>;
 }

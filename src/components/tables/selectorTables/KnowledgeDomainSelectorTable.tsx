@@ -11,11 +11,11 @@ import React from 'react';
 import { startCase } from 'lodash';
 
 export const KnowledgeDomainReadOnlyCell = getCellRenderFunction(
+  'knowledgeDomain',
   {
     name: SimpleValueToString,
     shortCode: StringValueChip
-  },
-  EntityClassMap.knowledgeDomain
+  }
 );
 
 export default function KnowledgeDomainSelectorTable({

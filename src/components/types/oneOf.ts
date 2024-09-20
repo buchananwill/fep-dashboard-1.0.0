@@ -12,14 +12,14 @@ import { Paths } from 'type-fest';
 
 type OnlyFirst<F, S> = F & { [Key in keyof Omit<S, keyof F>]?: never };
 
-type MergeTypes<TypesArray extends any[], Output = {}> = TypesArray extends [
-  infer Head,
-  ...infer Rest
-]
+export type MergeTypes<
+  TypesArray extends any[],
+  Output = {}
+> = TypesArray extends [infer Head, ...infer Rest]
   ? MergeTypes<Rest, Output & Head>
   : Output;
 
-type OneOf<
+export type OneOf<
   TypesArray extends any[],
   Output = never,
   AllProperties = MergeTypes<TypesArray>

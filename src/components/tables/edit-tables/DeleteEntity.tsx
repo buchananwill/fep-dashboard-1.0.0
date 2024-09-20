@@ -7,7 +7,8 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 
 export function DeleteEntity<T extends HasId>({
   entity,
-  entityClass
+  entityClass,
+  path
 }: NextUiCellComponentProps<T>) {
   const { dispatchDeletion, deleted } = useDtoStoreDelete(
     entity.id,
