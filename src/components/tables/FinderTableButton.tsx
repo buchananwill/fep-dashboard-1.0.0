@@ -10,7 +10,9 @@ export default function FinderTableButton(
     <div className={'absolute'}>
       <Popover shouldCloseOnBlur={false} placement={'right'}>
         <PopoverTrigger>
-          <Button variant={'light'}>Find</Button>
+          <Button variant={'ghost'} color={'primary'}>
+            Find
+          </Button>
         </PopoverTrigger>
         <PopoverContent className={'p-4'}>
           <TabbedSelectorTables

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { BASE_500 } from '@/components/react-flow/generic/utils/colors';
+import { interpolate, interpolateLab } from 'd3';
 
 type MiniPieChartProps = {
   value: number; // value between 0 and 1
@@ -27,6 +29,8 @@ const MiniPieChart: React.FC<MiniPieChartProps> = ({
     circumference * (1 - normalizedValue)
   }`;
 
+  const color = ramp(value);
+
   return (
     <svg
       className={className}
@@ -50,7 +54,7 @@ const MiniPieChart: React.FC<MiniPieChartProps> = ({
         cy={size / 2}
         r={radius}
         fill="transparent"
-        stroke="#4caf50"
+        stroke={color}
         strokeWidth={strokeWidth}
         strokeDasharray={strokeDasharray}
         strokeDashoffset={circumference / 4} // start at 12 o'clock
@@ -61,3 +65,7 @@ const MiniPieChart: React.FC<MiniPieChartProps> = ({
 };
 
 export default MiniPieChart;
+
+const green = BASE_500.green;
+const red = BASE_500.red;
+const ramp = interpolateLab(red.cssHSLA, green.cssHSLA);
