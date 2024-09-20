@@ -3,7 +3,10 @@ import FullCalendar from '@fullcalendar/react';
 import timegrid from '@fullcalendar/timegrid';
 import { CalendarOptions } from '@fullcalendar/core';
 
-export default function CalendarViewer(props: CalendarOptions) {
+export default function CalendarViewer({
+  headerToolbar,
+  ...props
+}: CalendarOptions) {
   return (
     <FullCalendar
       {...props}
@@ -22,11 +25,13 @@ export default function CalendarViewer(props: CalendarOptions) {
       firstDay={1}
       height={'100%'}
       initialView="timeGridWeek"
-      headerToolbar={{
-        left: 'prev,next today',
-        center: 'title',
-        right: 'timeGridWeek,timeGridDay'
-      }}
+      headerToolbar={
+        headerToolbar ?? {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'timeGridWeek,timeGridDay'
+        }
+      }
     />
   );
 }

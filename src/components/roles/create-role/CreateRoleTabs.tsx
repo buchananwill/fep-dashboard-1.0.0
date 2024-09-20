@@ -9,6 +9,7 @@ import {
 } from '@/api/generated-types/generated-types';
 import SelectTypeNames from '@/components/roles/create-role/SelectTypeNames';
 import { RoleEntity } from '@/components/roles/types';
+import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 
 interface CreateRoleProps {
   knowledgeDomains: KnowledgeDomainDto[];
@@ -22,14 +23,28 @@ export default function CreateRoleTabs({
   roleEntity
 }: CreateRoleProps) {
   return (
-    <Tabs placement={'top'}>
+    <Tabs
+      placement={'top'}
+      classNames={{
+        panel: 'relative flex h-[75vh] w-[75vw] gap-2'
+      }}
+    >
       <Tab title={'Set Suitabilities'} id={'suitabilities'}>
-        <div className={'relative flex h-[75vh] w-[75vw] gap-2'}>
-          <FinderTableButton
-            knowledgeDomain={knowledgeDomains}
-            knowledgeLevel={knowledgeLevels}
-          />
-          <WorkTaskTypeMatrix />
+        <FinderTableButton
+          knowledgeDomain={knowledgeDomains}
+          knowledgeLevel={knowledgeLevels}
+        />
+        <WorkTaskTypeMatrix />
+      </Tab>
+      <Tab title={'Set Availabilities'} id={'availabilities'}>
+        <div className={'w-full'}>
+          <CalendarViewer
+            headerToolbar={{
+              left: '',
+              center: 'title',
+              right: ''
+            }}
+          ></CalendarViewer>
         </div>
       </Tab>
     </Tabs>
