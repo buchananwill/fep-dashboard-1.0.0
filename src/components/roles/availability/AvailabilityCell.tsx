@@ -14,18 +14,32 @@ import {
 import { AvailabilityType } from '@/components/roles/availability/AvailabilityType';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { startCase } from 'lodash';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { CheckCircleIcon, NoSymbolIcon } from '@heroicons/react/24/outline';
+import { QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-function getAvailabilityColor(availabilityCode: number) {
+function getAvailabilityBgColor(availabilityCode: number) {
   switch (availabilityCode) {
     case 0:
-      return 'bg-gray-200';
+      return 'bg-rose-50';
     case 1:
-      return 'bg-rose-200';
+      return 'bg-gray-50';
     case 2:
-      return 'bg-amber-200';
+      return 'bg-amber-50';
     case 3:
-      return 'bg-emerald-200';
+      return 'bg-emerald-50';
+  }
+}
+function getAvailabilityTextColor(availabilityCode: number) {
+  switch (availabilityCode) {
+    case 0:
+      return 'text-rose-500';
+    case 1:
+      return 'text-gray-500';
+    case 2:
+      return 'text-amber-500';
+    case 3:
+      return 'text-emerald-500';
   }
 }
 
@@ -82,18 +96,45 @@ export const MemoProviderRoleAvailabilityCell = React.memo(
 export const MemoAssetRoleAvailabilityCell = React.memo(AssetAvailabilityCell);
 
 function InnerCell(props: BaseDtoUiProps<RoleAvailabilityDto>) {
-  const availabilityColor = getAvailabilityColor(props.entity.availabilityCode);
+  const availabilityBgColor = getAvailabilityBgColor(
+    props.entity.availabilityCode
+  );
+  const availabilityTextColor = getAvailabilityTextColor(
+    props.entity.availabilityCode
+  );
+
+  const Icon = useMemo(() => {
+    return AvailabilityIcons[props.entity.availabilityCode];
+  }, [props.entity.availabilityCode]);
 
   return (
-    <DtoStoreNumberInput<RoleAvailabilityDto>
-      className={clsx(
-        'mb-auto ml-auto mr-auto mt-auto max-h-[92%] max-w-[92%] text-center',
-        availabilityColor
-      )}
-      numberKey={'availabilityCode'}
-      min={0}
-      max={3}
-      {...props}
-    />
+    <div className={'relative flex h-full w-full'}>
+      <DtoStoreNumberInput<RoleAvailabilityDto>
+        className={clsx(
+          'mb-auto ml-auto mr-auto mt-auto h-full w-full text-center',
+          availabilityBgColor
+        )}
+        numberKey={'availabilityCode'}
+        min={0}
+        max={3}
+        {...props}
+      />
+      <div className={'pointer-events-none absolute h-full w-full p-0.5'}>
+        <Icon
+          className={clsx(
+            'rounded-lg',
+            availabilityBgColor,
+            availabilityTextColor
+          )}
+        ></Icon>
+      </div>
+    </div>
   );
 }
+
+const AvailabilityIcons = [
+  NoSymbolIcon,
+  XMarkIcon,
+  QuestionMarkCircleIcon,
+  CheckCircleIcon
+] as const;
