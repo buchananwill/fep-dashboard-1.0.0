@@ -8,5 +8,8 @@ export const AssetRoleWorkTaskSuitabilityDtoSchema = z.object({
   workTaskTypeId: z.number(),
   assetId: z.number(),
   assetName: z.string(),
+  isDynamic: z.boolean().optional()
 });
-export type AssetRoleWorkTaskSuitabilityDto = z.infer<typeof AssetRoleWorkTaskSuitabilityDtoSchema>;
+export type AssetRoleWorkTaskSuitabilityDto = z.infer<
+  typeof AssetRoleWorkTaskSuitabilityDtoSchema
+>;

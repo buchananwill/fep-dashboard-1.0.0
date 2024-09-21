@@ -131,7 +131,7 @@ export default function CreateRoleForm({
     const suitabilities = cellIdList
       .map((id) => readAnyDto(id))
       .filter(isNotUndefined)
-      .filter((cell) => cell.value > 0)
+      .filter((cell) => cell.rating > 0)
       .map((cell) => {
         const knowledgeLevel = readAnyKnowledgeLevel(cell.knowledgeLevelId);
         const knowledgeDomain = readAnyKnowledgeDomain(cell.knowledgeDomainId);
@@ -148,7 +148,7 @@ export default function CreateRoleForm({
               ],
               workTaskTypeNames: getWttNameStrings()
             },
-            rating: cell.value,
+            rating: cell.rating,
             roleTypeNames: getRoleTypeNames()
           };
           return suitabilityRequest;

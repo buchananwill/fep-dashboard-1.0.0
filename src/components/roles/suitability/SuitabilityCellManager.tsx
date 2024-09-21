@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { flattenDeep } from 'lodash';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { useRowIdColumnIdCells } from '@/components/grids/createRowIdColumnIdCells';
+import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
 
 export const CellEntityClass = 'Cell';
 export default function SuitabilityCellManager({
@@ -13,13 +14,13 @@ export default function SuitabilityCellManager({
 }) {
   const cells = useRowIdColumnIdCells(rowIdList, columnIdList);
 
-  const joinedIdCells = useMemo(() => {
+  const joinedIdCells: SuitabilityMatrixCell[] = useMemo(() => {
     return flattenDeep(cells).map(({ columnId, rowId }) => ({
-      value: 0,
-      isDynamic: true,
+      rating: 0,
+      isDynamic: false,
       id: `${rowId}:${columnId}`,
-      knowledgeDomainId: rowId,
-      knowledgeLevelId: columnId
+      knowledgeDomainId: rowId as number,
+      knowledgeLevelId: columnId as number
     }));
   }, [cells]);
 

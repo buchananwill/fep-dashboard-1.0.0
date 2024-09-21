@@ -9,7 +9,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { ProviderRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/generated-types/generated-types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import {
@@ -22,6 +22,13 @@ import { Api } from '@/api/clientApi_';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import { CellComponentMemo } from '@/components/grids/CellComponent';
 import { AssetRoleWorkTaskSuitabilityDto } from '@/api/zod-schemas/AssetRoleWorkTaskSuitabilityDtoSchema';
+import { useGlobalController } from 'selective-context';
+import { CellIndex } from '@/components/grids/createRowIdColumnIdCells';
+import { DropResult } from '@/components/work-task-types/GenericSuitabilityCell';
+import {
+  dropResultContextKey,
+  hoverTargetCellIndex
+} from '@/components/work-task-types/WorkTaskTypeMatrix';
 
 export type RoleTypes = (typeof EntityClassMap)[
   | 'assetRole'
@@ -104,6 +111,17 @@ export default function SuitabilityTable({
     listenerKey,
     EmptyArray as SuitabilityEntity[]
   );
+
+  useGlobalController({
+    contextKey: hoverTargetCellIndex,
+    initialValue: ObjectPlaceholder as CellIndex,
+    listenerKey
+  });
+  useGlobalController({
+    contextKey: dropResultContextKey,
+    initialValue: ObjectPlaceholder as DropResult,
+    listenerKey
+  });
 
   const readAnyRole = useReadAnyDto<ProviderRoleDto>(suitabilityType);
   const baseEntityIdList = useMemo(() => {

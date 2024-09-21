@@ -11,13 +11,11 @@ import {
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { KnowledgeDomainRowHeader } from '@/components/work-task-types/KnowledgeDomainRowHeader';
 import { KnowledgeLevelColumnHeader } from '@/components/work-task-types/KnowledgeLevelColumnHeader';
-import {
-  DropResult,
-  WorkTaskTypeMatrixCell
-} from '@/components/work-task-types/WorkTaskTypeMatrixCell';
+import { WorkTaskTypeMatrixCell } from '@/components/work-task-types/WorkTaskTypeMatrixCell';
 import { useGlobalController } from 'selective-context';
 import { useMemo } from 'react';
 import { flattenDeep } from 'lodash';
+import { DropResult } from '@/components/work-task-types/GenericSuitabilityCell';
 
 const listenerKey = 'work-task-type-matrix';
 export const hoverTargetCellIndex = 'hover-target-cellIndex';

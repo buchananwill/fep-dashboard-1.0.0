@@ -71,7 +71,7 @@ export default function RoleSubmissionHandler<T>({
     return cellIdList
       .map((id) => readAnyDto(id))
       .filter(isNotUndefined)
-      .filter((cell) => cell.value > 0)
+      .filter((cell) => cell.rating > 0)
       .map((cell) => {
         const knowledgeLevel = readAnyKnowledgeLevel(cell.knowledgeLevelId);
         const knowledgeDomain = readAnyKnowledgeDomain(cell.knowledgeDomainId);
@@ -88,7 +88,7 @@ export default function RoleSubmissionHandler<T>({
               ],
               workTaskTypeNames: getWttNameStrings()
             },
-            rating: cell.value,
+            rating: cell.rating,
             roleTypeNames: getRoleTypeNames()
           };
           return suitabilityRequest;

@@ -3,8 +3,18 @@ import {
   ConditionalNumberClassName,
   DtoStoreNumberInput
 } from '@/components/generic/DtoStoreNumberInput';
-import React, { CSSProperties } from 'react';
-import { LazyDtoUiWrapper } from 'dto-stores';
+import React, {
+  CSSProperties,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useState
+} from 'react';
+import {
+  BaseLazyDtoUiProps,
+  LazyDtoUiWrapper,
+  useLazyDtoStore
+} from 'dto-stores';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import clsx from 'clsx';
 import { areEqual } from 'react-window';
@@ -12,6 +22,13 @@ import {
   SuitabilityConditions,
   SuitabilityEntity
 } from '@/components/roles/suitability/SuitabilityTable';
+import { CellWrapperProps } from '@/components/grids/getCellIdReference';
+import { GenericSuitabilityCell } from '@/components/work-task-types/GenericSuitabilityCell';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { joinRowAndColumnId } from '@/components/work-task-types/WorkTaskTypeMatrixCell';
+import { DispatchState } from '@/types';
 
 const conditionalNumberFormatting: ConditionalNumberClassName[] = [
   { startAt: -1, className: 'opacity-50' },
@@ -47,31 +64,17 @@ export const CellComponent = ({
     : undefined;
 
   return (
-    <div
-      style={style}
-      className={clsx(
-        columnIndex % 2 === 1 ? 'bg-purple-50' : 'bg-sky-50',
-        'flex '
-      )}
-    >
+    <div style={style}>
       {datumElement ? (
-        <LazyDtoUiWrapper<
-          SuitabilityEntity,
-          BaseDtoStoreNumberInputProps<SuitabilityEntity>
-        >
+        <LazyDtoUiWrapper
           entityClass={suitabilityEntityType}
-          renderAs={DtoStoreNumberInput}
+          renderAs={CellInnerWrapper}
+          wrapper={{ rowIndex, columnIndex }}
           whileLoading={() => (
             <div className={'relative'}>
               <PendingOverlay pending={true} />
             </div>
           )}
-          numberKey={'rating'}
-          min={0}
-          allowFloat={true}
-          onFocus={() => console.log(datumElement, data)}
-          className={clsx('h-[90%] w-[90%] p-2 text-sm', 'm-auto')}
-          conditionalValueClassNames={conditionalNumberFormatting}
           entityId={datumElement.id}
         />
       ) : (
@@ -80,5 +83,65 @@ export const CellComponent = ({
     </div>
   );
 };
+
+function CellInnerWrapper({
+  entity,
+  dispatchWithoutControl,
+  entityClass,
+  children,
+  wrapper
+}: BaseLazyDtoUiProps<SuitabilityEntity> & {
+  wrapper: Pick<CellWrapperProps, 'rowIndex' | 'columnIndex'>;
+}) {
+  const { entity: workTaskType } = useLazyDtoStore<WorkTaskTypeDto>(
+    entity?.workTaskTypeId,
+    EntityClassMap.workTaskType
+  );
+
+  const currentCell: SuitabilityMatrixCell | undefined = useMemo(() => {
+    if (workTaskType) {
+      const { knowledgeDomain, knowledgeLevel } = workTaskType;
+      return {
+        id: joinRowAndColumnId(knowledgeDomain?.id, knowledgeLevel?.id),
+        knowledgeDomainId: knowledgeDomain?.id ?? -1,
+        knowledgeLevelId: knowledgeLevel?.id ?? -1,
+        isDynamic: entity?.isDynamic,
+        rating: entity?.rating ?? 0
+      };
+    } else return undefined;
+  }, [workTaskType, entity]);
+
+  const setCurrentCell: DispatchState<SuitabilityMatrixCell> = useCallback(
+    (suitabilityMatrixCellDispatch: SetStateAction<SuitabilityMatrixCell>) => {
+      if (dispatchWithoutControl) {
+        dispatchWithoutControl((prevEntity) => {
+          const update = { ...prevEntity };
+          if (typeof suitabilityMatrixCellDispatch === 'function') {
+            return suitabilityMatrixCellDispatch(
+              update as unknown as SuitabilityMatrixCell
+            ) as unknown as SuitabilityEntity;
+          } else {
+            update.rating = suitabilityMatrixCellDispatch.rating;
+            update.isDynamic = suitabilityMatrixCellDispatch.isDynamic;
+          }
+          return update;
+        });
+      }
+    },
+    [dispatchWithoutControl]
+  );
+
+  console.log(currentCell, entity, workTaskType);
+
+  return (
+    currentCell && (
+      <GenericSuitabilityCell
+        {...wrapper}
+        currentCell={currentCell}
+        setCurrentCell={setCurrentCell}
+      />
+    )
+  );
+}
 
 export const CellComponentMemo = React.memo(CellComponent, areEqual);

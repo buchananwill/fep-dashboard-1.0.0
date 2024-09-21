@@ -1244,6 +1244,7 @@ export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto
     TriIntersectionDto<number, number, number> {
   id: number;
   rating: number;
+  isDynamic?: boolean;
   partyId: number;
   providerRoleTypeId: number;
   providerRoleTypeName: string;
