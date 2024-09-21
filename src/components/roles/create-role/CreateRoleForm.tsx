@@ -42,7 +42,6 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { HasNumberId } from '@/api/types';
 import { outlookEventToAvailability } from '@/components/roles/create-role/RoleSubmissionHandler';
 import { InitialMap, NamespacedHooks, useReadAnyDto } from 'dto-stores';
-import { SuitabilityMatrixCell } from '@/components/work-task-types/WorkTaskTypeMatrixCell';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -61,6 +60,7 @@ import {
   MutationCounter,
   RoleType
 } from '@/components/roles/create-role/types';
+import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
 
 const listenerKey = 'create-role-form';
 export default function CreateRoleForm({

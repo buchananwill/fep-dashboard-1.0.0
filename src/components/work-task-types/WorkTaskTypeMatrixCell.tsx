@@ -24,21 +24,15 @@ import { BoltSlashIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { BoltIcon } from '@heroicons/react/24/solid';
 import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreDispatchAndListener';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
-import { HasStringId } from 'react-d3-force-wrapper';
 
 import { useMutationDispatch } from '@/components/roles/create-role/useMutationDispatch';
+import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
 
 export type NumberCell = CellIndex & { value: number };
 export type DropResult = {
   dragged?: NumberCell;
   dropped?: NumberCell;
 };
-export interface SuitabilityMatrixCell extends HasStringId {
-  value: number;
-  isDynamic: boolean;
-  knowledgeLevelId: number;
-  knowledgeDomainId: number;
-}
 
 export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
   const mutationDispatch = useMutationDispatch('suitabilityCell');

@@ -13,7 +13,6 @@ import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { SuitabilityMatrixCell } from '@/components/work-task-types/WorkTaskTypeMatrixCell';
 import { isNotUndefined } from '@/api/main';
 import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
 import {
@@ -28,6 +27,7 @@ import { DateTimeTimeZone } from '@microsoft/microsoft-graph-types';
 import { RequiredDeep } from 'type-fest';
 import { format } from 'date-fns';
 import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
+import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
 
 const listenerKey = 'create-controller';
 export default function RoleSubmissionHandler<T>({
