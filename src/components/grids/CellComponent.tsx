@@ -93,54 +93,14 @@ function CellInnerWrapper({
 }: BaseLazyDtoUiProps<SuitabilityEntity> & {
   wrapper: Pick<CellWrapperProps, 'rowIndex' | 'columnIndex'>;
 }) {
-  const { entity: workTaskType } = useLazyDtoStore<WorkTaskTypeDto>(
-    entity?.workTaskTypeId,
-    EntityClassMap.workTaskType
-  );
-
-  const currentCell: SuitabilityMatrixCell | undefined = useMemo(() => {
-    if (workTaskType) {
-      const { knowledgeDomain, knowledgeLevel } = workTaskType;
-      return {
-        id: joinRowAndColumnId(knowledgeDomain?.id, knowledgeLevel?.id),
-        knowledgeDomainId: knowledgeDomain?.id ?? -1,
-        knowledgeLevelId: knowledgeLevel?.id ?? -1,
-        isDynamic: entity?.isDynamic,
-        rating: entity?.rating ?? 0
-      };
-    } else return undefined;
-  }, [workTaskType, entity]);
-
-  const setCurrentCell: DispatchState<SuitabilityMatrixCell> = useCallback(
-    (suitabilityMatrixCellDispatch: SetStateAction<SuitabilityMatrixCell>) => {
-      if (dispatchWithoutControl) {
-        dispatchWithoutControl((prevEntity) => {
-          const update = { ...prevEntity };
-          if (typeof suitabilityMatrixCellDispatch === 'function') {
-            return suitabilityMatrixCellDispatch(
-              update as unknown as SuitabilityMatrixCell
-            ) as unknown as SuitabilityEntity;
-          } else {
-            update.rating = suitabilityMatrixCellDispatch.rating;
-            update.isDynamic = suitabilityMatrixCellDispatch.isDynamic;
-          }
-          return update;
-        });
-      }
-    },
-    [dispatchWithoutControl]
-  );
-
-  console.log(currentCell, entity, workTaskType);
-
   return (
-    currentCell && (
-      <GenericSuitabilityCell
-        {...wrapper}
-        currentCell={currentCell}
-        setCurrentCell={setCurrentCell}
-      />
-    )
+    <GenericSuitabilityCell
+      {...wrapper}
+      currentCell={entity}
+      setCurrentCell={
+        dispatchWithoutControl as DispatchState<SuitabilityMatrixCell>
+      }
+    />
   );
 }
 

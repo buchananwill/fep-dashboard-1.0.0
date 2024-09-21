@@ -35,7 +35,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -90,7 +90,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -144,7 +144,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -199,7 +199,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -276,7 +276,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -334,7 +334,7 @@ Content-Type: application/json
       "roleTypeNames": [
         "Teacher"
       ],
-      "rating": 1
+      "rating": 0.1
     }
   ],
   "availabilities": [
@@ -392,7 +392,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -447,7 +447,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -493,7 +493,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -548,7 +548,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -603,7 +603,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Teacher"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
