@@ -10,7 +10,13 @@ import {
   RolePostRequest,
   SuitabilityPostRequest
 } from '@/api/generated-types/generated-types';
-import { FieldError, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  FieldError,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  useFormContext
+} from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
@@ -57,13 +63,7 @@ export default function CreateRoleForm({
   createRoleAction?: (request: RolePostRequest<PersonDto>) => Promise<any>;
   redirectUrl: string;
 }) {
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    watch,
-    setValue
-  } = useForm<RolePostRequest<PersonDto>>({
+  const methods = useForm<RolePostRequest<PersonDto>>({
     resolver: zodResolver(ProviderRolePostRequestSchema),
     defaultValues: {
       baseEntity: defaultPersonValues,
@@ -71,6 +71,13 @@ export default function CreateRoleForm({
       availabilities: []
     }
   });
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    watch,
+    setValue
+  } = methods;
 
   const readAnyDto = useReadAnyDto<CreateRoleCell>(CellEntityClass);
   const { currentState: cellIdList } = NamespacedHooks.useListen<string[]>(
@@ -240,7 +247,7 @@ export default function CreateRoleForm({
   console.log(roleSelectionErrors);
 
   return (
-    <>
+    <FormProvider {...methods}>
       <Card className={'h-full w-64'}>
         <PendingOverlay pending={pending} />
         <form
@@ -257,31 +264,7 @@ export default function CreateRoleForm({
             New Role
           </CardHeader>
           <CardBody className={'items-center justify-center gap-2'}>
-            <h1>Person</h1>
-            <ControlledInput
-              name={'baseEntity.fName'}
-              control={control}
-              aria-label={'First Name'}
-              label={'First Name'}
-              placeholder={'Enter first name'}
-              autoComplete={'on'}
-            />
-            <ControlledInput
-              name={'baseEntity.lName'}
-              control={control}
-              aria-label={'Last Name'}
-              label={'Last Name'}
-              placeholder={'Enter last name'}
-              autoComplete={'on'}
-            />
-            <DatePicker
-              name={'baseEntity.dateOfBirth'}
-              aria-label={'Date of Birth'}
-              label={'Date of Birth'}
-              value={parseDate(dateOfBirth)}
-              showMonthAndYearPickers={true}
-              onChange={setDateValue}
-            />
+            {roleEntity === 'provider' && <PersonNested></PersonNested>}
             <Divider />
             <h1>Role</h1>
             <FilteredEntitySelector<RoleType>
@@ -333,7 +316,7 @@ export default function CreateRoleForm({
         knowledgeLevels={knowledgeLevels}
         roleEntity={roleEntity}
       />
-    </>
+    </FormProvider>
   );
 }
 const undefinedSubmission = {
@@ -365,3 +348,48 @@ const hasWorkTaskTypeMatrixArray = (
     errors.every((e) => typeof e === 'object' && 'workTaskTypeMatrix' in e)
   );
 };
+
+function PersonNested() {
+  const { control, watch, setValue } =
+    useFormContext<RolePostRequest<PersonDto>>();
+
+  const dateOfBirth = watch('baseEntity.dateOfBirth');
+
+  const setDateValue = useCallback(
+    (value: CalendarDate) => {
+      const isoString = value.toString();
+      setValue('baseEntity.dateOfBirth', isoString);
+    },
+    [setValue]
+  );
+
+  return (
+    <>
+      <h1>Person</h1>
+      <ControlledInput
+        name={'baseEntity.fName'}
+        control={control}
+        aria-label={'First Name'}
+        label={'First Name'}
+        placeholder={'Enter first name'}
+        autoComplete={'on'}
+      />
+      <ControlledInput
+        name={'baseEntity.lName'}
+        control={control}
+        aria-label={'Last Name'}
+        label={'Last Name'}
+        placeholder={'Enter last name'}
+        autoComplete={'on'}
+      />
+      <DatePicker
+        name={'baseEntity.dateOfBirth'}
+        aria-label={'Date of Birth'}
+        label={'Date of Birth'}
+        value={parseDate(dateOfBirth)}
+        showMonthAndYearPickers={true}
+        onChange={setDateValue}
+      />
+    </>
+  );
+}
