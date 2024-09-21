@@ -9,7 +9,6 @@ import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
 import { RoleEntity } from '@/components/roles/types';
 import pluralize, { singular } from 'pluralize';
-import RoleSubmissionHandler from '@/components/roles/create-role/RoleSubmissionHandler';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import CreateRoleForm from '@/components/roles/create-role/CreateRoleForm';
@@ -40,16 +39,6 @@ export default async function CreateRolePage({
   return (
     <div className={'flex h-[100vh] w-[100vw] items-start gap-2 p-4'}>
       <SuitabilityCellManager rowIdList={kdIdList} columnIdList={kLIdList} />
-      <RoleSubmissionHandler
-        createRoleAction={async (request) => {
-          'use server';
-          return await postEntitiesWithDifferentReturnType(
-            request,
-            constructUrl('/api/v2/providerRoles/createFromRolePostRequest')
-          );
-        }}
-        roleEntityType={roleType}
-      />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.knowledgeDomain}
         dtoList={knowledgeDomainDtos}

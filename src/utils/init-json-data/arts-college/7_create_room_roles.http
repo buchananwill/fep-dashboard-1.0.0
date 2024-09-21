@@ -109,7 +109,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Studio"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -211,7 +211,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Studio"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -413,7 +413,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Studio"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -606,7 +606,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Studio"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [
@@ -695,7 +695,7 @@ Content-Type: application/json
         "roleTypeNames": [
           "Studio"
         ],
-        "rating": 4
+        "rating": 1
       }
     ],
     "availabilities": [

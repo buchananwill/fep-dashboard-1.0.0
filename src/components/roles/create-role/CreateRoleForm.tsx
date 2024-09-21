@@ -8,19 +8,12 @@ import {
   KnowledgeLevelDto,
   PersonDto,
   RolePostRequest,
-  SuitabilityPostRequest,
-  WorkTaskTypeListMatrix
+  SuitabilityPostRequest
 } from '@/api/generated-types/generated-types';
 import { FieldError, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useTransition
-} from 'react';
+import React, { useCallback, useMemo, useTransition } from 'react';
 import { CalendarDate, parseDate } from '@internationalized/date';
 import { defaultPersonValues } from '@/components/roles/CreatePersonForm';
 import { ProviderRolePostRequestSchema } from '@/api/zod-schemas/RolePostRequestSchemas';
@@ -31,17 +24,12 @@ import { DatePicker } from '@nextui-org/date-picker';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
 import { isNotUndefined } from '@/api/main';
-import {
-  useGlobalListener,
-  useGlobalListenerGroup,
-  useGlobalReadAny
-} from 'selective-context';
-import { getCreationContextKey } from '@/components/roles/create-role/RoleBaseDetails';
+import { useGlobalReadAny } from 'selective-context';
 import FilteredEntitySelector from '@/components/generic/FilteredEntitySelector';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { HasNumberId } from '@/api/types';
 import { outlookEventToAvailability } from '@/components/roles/create-role/RoleSubmissionHandler';
-import { InitialMap, NamespacedHooks, useReadAnyDto } from 'dto-stores';
+import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -51,16 +39,9 @@ import {
 } from '@/api/typed-dto-store-hooks';
 import { EditableEvents } from '@/components/roles/create-role/useEditableEvents';
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
-import {
-  mutationContextKeyList,
-  MutationCounterContextKey,
-  WorkTaskTypeName
-} from '@/components/roles/create-role/literals';
-import {
-  MutationCounter,
-  RoleType
-} from '@/components/roles/create-role/types';
-import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
+import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
+import { RoleType } from '@/components/roles/create-role/types';
+import { CreateRoleCell } from '@/components/work-task-types/suitabilityMatrixCell';
 
 const listenerKey = 'create-role-form';
 export default function CreateRoleForm({
@@ -91,13 +72,7 @@ export default function CreateRoleForm({
     }
   });
 
-  const { currentState } = useGlobalListener({
-    contextKey: getCreationContextKey(roleEntity),
-    initialValue: undefinedSubmission,
-    listenerKey: 'role-base-details'
-  });
-
-  const readAnyDto = useReadAnyDto<SuitabilityMatrixCell>(CellEntityClass);
+  const readAnyDto = useReadAnyDto<CreateRoleCell>(CellEntityClass);
   const { currentState: cellIdList } = NamespacedHooks.useListen<string[]>(
     CellEntityClass,
     KEY_TYPES.ID_LIST,
