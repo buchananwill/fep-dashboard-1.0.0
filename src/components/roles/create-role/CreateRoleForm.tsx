@@ -8,7 +8,8 @@ import {
   KnowledgeLevelDto,
   PersonDto,
   RolePostRequest,
-  SuitabilityPostRequest
+  SuitabilityPostRequest,
+  WorkTaskTypeListMatrix
 } from '@/api/generated-types/generated-types';
 import { FieldError, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -132,7 +133,6 @@ export default function CreateRoleForm({
       .filter(isNotUndefined)
       .filter((cell) => cell.value > 0)
       .map((cell) => {
-        console.log(cell);
         const knowledgeLevel = readAnyKnowledgeLevel(cell.knowledgeLevelId);
         const knowledgeDomain = readAnyKnowledgeDomain(cell.knowledgeDomainId);
         if (knowledgeLevel && knowledgeDomain) {
@@ -173,28 +173,60 @@ export default function CreateRoleForm({
         ...availability,
         roleTypeNames: getRoleTypeNames()
       }));
-    console.log(availabilities);
     setValue('availabilities', availabilities);
   }, [readAny, getRoleTypeNames, setValue]);
 
   const roleSelectionErrors = useMemo(() => {
-    const { availabilities, suitabilities } = errors;
-    let errorMessage = '';
-    if (availabilities) {
-      if (Array.isArray(availabilities)) {
-        console.log(availabilities);
-        const errorsAvail = availabilities as AvailabilityPostRequest[];
-        errorMessage = errorsAvail
-          .map((aError) => aError?.roleTypeNames as any)
-          .filter(isNotUndefined)
-          .filter((maybeError) => typeof maybeError === 'object')
-          .map((fieldError) => fieldError as FieldError)
-          .map((fieldError) => fieldError?.message)
-          .filter(isNotUndefined)
-          .join(', ');
-      }
+    const { availabilities } = errors;
+
+    if (!availabilities) {
+      return ''; // No errors
     }
-    return errorMessage;
+
+    // Check if availabilities are of the correct type
+    if (isAvailabilityPostRequestArray(availabilities)) {
+      // Filter through and build the error message
+      return availabilities
+        .filter(isNotUndefined)
+        .map((aError) => aError.roleTypeNames)
+        .filter(isNotUndefined)
+        .filter(isFieldError)
+        .map((fieldError) => fieldError.message)
+        .join(', ');
+    }
+
+    return '';
+  }, [errors]);
+
+  const [rolesFromSuitabilities, workTaskTypeNameErrors] = useMemo(() => {
+    const { suitabilities } = errors;
+
+    if (!suitabilities) {
+      return ['', '']; // No errors
+    }
+
+    // Check if availabilities are of the correct type
+    if (hasWorkTaskTypeMatrixArray(suitabilities)) {
+      // Filter through and build the error message
+      const roleTypeNameErrors = suitabilities
+        .filter(isNotUndefined)
+        .map((aError) => aError.roleTypeNames)
+        .filter(isNotUndefined)
+        .filter(isFieldError)
+        .map((fieldError) => fieldError.message)
+        .join(', ');
+      const workTaskTypeNameErrors = suitabilities
+        .filter(isNotUndefined)
+        .map((aError) => aError.workTaskTypeMatrix)
+        .filter(isNotUndefined)
+        .map((matrix) => matrix.workTaskTypeNames)
+        .filter(isFieldError)
+        .map((fieldError) => fieldError.message)
+        .filter(isNotUndefined)
+        .join(', ');
+      return [roleTypeNameErrors, workTaskTypeNameErrors];
+    }
+    return ['', ''];
   }, [errors]);
 
   const appRouterInstance = useRouter();
@@ -282,8 +314,11 @@ export default function CreateRoleForm({
               labelAccessor={'name'}
               label={'Role Type'}
               className={'w-full'}
-              isInvalid={roleSelectionErrors.length > 0}
-              errorMessage={roleSelectionErrors}
+              isInvalid={
+                roleSelectionErrors.length > 0 ||
+                rolesFromSuitabilities.length > 0
+              }
+              errorMessage={roleSelectionErrors || rolesFromSuitabilities}
             />
             <FilteredEntitySelector<HasNumberId & HasName>
               entityClass={WorkTaskTypeName}
@@ -291,6 +326,8 @@ export default function CreateRoleForm({
               selectionMode={'multiple'}
               label={'Task Types'}
               className={'w-full'}
+              isInvalid={workTaskTypeNameErrors.length > 0}
+              errorMessage={workTaskTypeNameErrors}
             />
           </CardBody>
           <CardFooter
@@ -329,3 +366,27 @@ const undefinedSubmission = {
 };
 
 // type FieldWithErrors
+
+// Custom type guard to check if an object is FieldError
+const isFieldError = (error: unknown): error is FieldError => {
+  return !!(error && typeof error === 'object' && 'message' in error);
+};
+
+// Custom type guard to check if an error is an array of AvailabilityPostRequest
+const isAvailabilityPostRequestArray = (
+  errors: unknown
+): errors is AvailabilityPostRequest[] => {
+  return (
+    Array.isArray(errors) &&
+    errors.every((e) => typeof e === 'object' && 'roleTypeNames' in e)
+  );
+};
+
+const hasWorkTaskTypeMatrixArray = (
+  errors: unknown
+): errors is { workTaskTypeMatrix: unknown }[] => {
+  return (
+    Array.isArray(errors) &&
+    errors.every((e) => typeof e === 'object' && 'workTaskTypeMatrix' in e)
+  );
+};

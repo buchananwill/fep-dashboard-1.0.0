@@ -79,6 +79,13 @@ export default async function CreateRolePage({
         knowledgeDomainDtos={knowledgeDomainDtos}
         knowledgeLevels={initialKnowledgeLevels}
         redirectUrl={`/core/${pluralize(roleType)}`}
+        createRoleAction={async (request) => {
+          'use server';
+          return await postEntitiesWithDifferentReturnType(
+            request,
+            constructUrl('/api/v2/providerRoles/createFromRolePostRequest')
+          );
+        }}
       />
     </div>
   );
