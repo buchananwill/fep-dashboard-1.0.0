@@ -36,7 +36,7 @@ export default function CreateRoleTabs({
     <Tabs
       placement={'top'}
       classNames={{
-        panel: 'relative flex h-[75vh] w-[75vw] gap-2'
+        panel: 'relative flex h-[80vh] w-[75vw] gap-2'
       }}
     >
       <Tab title={'Set Suitabilities'} id={'suitabilities'}>

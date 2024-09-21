@@ -16,7 +16,7 @@ import {
   parseDate
 } from '@internationalized/date';
 
-const defaultPersonValues = {
+export const defaultPersonValues = {
   id: -1,
   fName: '',
   lName: '',

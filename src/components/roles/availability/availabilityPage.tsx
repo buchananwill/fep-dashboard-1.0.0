@@ -31,7 +31,6 @@ export default async function AvailabilityPage<
     { parentCycleId: 1 }
   ]);
   const roleIdList: number[] = getIdList(roles);
-  console.log(roleIdList);
   const entityClassForApi = availabilityConfig[roleCategory as AvailabilityType]
     .entityClass as keyof Pick<typeof Api, AvailabilityEntityClass>;
   const apiElement = Api[entityClassForApi];

@@ -26,6 +26,8 @@ import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
 import { HasStringId } from 'react-d3-force-wrapper';
 
+import { useMutationDispatch } from '@/components/roles/create-role/useMutationDispatch';
+
 export type NumberCell = CellIndex & { value: number };
 export type DropResult = {
   dragged?: NumberCell;
@@ -39,6 +41,7 @@ export interface SuitabilityMatrixCell extends HasStringId {
 }
 
 export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
+  const mutationDispatch = useMutationDispatch('suitabilityCell');
   const { columnId, rowId } = useCellIdReferences(props);
   const { currentState: currentCell, dispatchWithoutControl: setCurrentCell } =
     useDtoStoreDispatchAndListener<SuitabilityMatrixCell>(
@@ -137,9 +140,10 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
       const withinRange = isWithinRange(cell, dragged, dropped);
       if (withinRange) {
         setCurrentCell((current) => ({ ...current, value: dragged.value }));
+        mutationDispatch();
       }
     }
-  }, [dropResult, cell, isDynamic]);
+  }, [dropResult, cell, isDynamic, setCurrentCell, mutationDispatch]);
 
   const isOnLastBoundary = useMemo(() => {
     return liesOnBoundary(cell, dropResult?.dragged, dropResult?.dropped);
@@ -202,6 +206,7 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
                       }
                       onChange={(result) => {
                         if (typeof result === 'number') {
+                          mutationDispatch();
                           setCurrentCell((prev) => ({
                             ...prev,
                             value: result / 100

@@ -26,13 +26,10 @@ export function useEditableEvents() {
       dispatch((events) =>
         events.map((event) => {
           if (event.id !== editedEvent.id) {
-            console.log('ignoring');
             return event;
           } else {
-            console.log('editing');
             let response = event;
             const { start, end } = editedEvent;
-            console.log(start, end);
             if (start) {
               response = produce(response, (draft) => {
                 draft.start = toDateAndTimeAndZoneDto(start);
@@ -53,7 +50,6 @@ export function useEditableEvents() {
 
   const eventResize = useCallback(
     (eventUpdate: EventResizeDoneArg) => {
-      console.log(eventUpdate.event, eventUpdate.oldEvent);
       editEvent(eventUpdate.event);
     },
     [editEvent]
@@ -62,7 +58,6 @@ export function useEditableEvents() {
   const eventDrop = useCallback(
     (droppedEvent: EventDropArg) => {
       const { event, oldEvent } = droppedEvent;
-      console.log(oldEvent, event);
       editEvent(event);
     },
     [editEvent]

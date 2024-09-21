@@ -77,8 +77,6 @@ export function useEntitySelection<
     EmptyArray as T[]
   );
 
-  console.log(currentState, entityClass);
-
   const selectedKeys = useMemo(() => {
     return forceString
       ? new Set<string>(selectedList.map((ident) => String(ident)))

@@ -40,7 +40,6 @@ export default function RoleBaseDetails({
   return (
     <div className={'flex flex-col gap-4'}>
       {baseEntity}
-
       <SelectTypeNames roleEntity={roleEntity} />
     </div>
   );

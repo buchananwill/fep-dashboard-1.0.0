@@ -1,6 +1,7 @@
 import { Control, Controller } from 'react-hook-form';
 import { Input, InputProps } from '@nextui-org/input';
 import React from 'react';
+import { get } from 'lodash';
 
 export type FormInputProps = {
   name: string;
@@ -21,8 +22,14 @@ export const ControlledInput: React.FC<FormInputProps> = ({
           <Input
             {...props}
             name={name}
-            isInvalid={!!formState.errors?.[name]?.message}
-            errorMessage={formState.errors?.[name]?.message?.toString()}
+            isInvalid={
+              formState.errors && !!get(formState.errors, name)?.message
+            }
+            errorMessage={
+              formState.errors
+                ? get(formState.errors, name)?.message?.toString()
+                : null
+            }
             value={field.value}
             onChange={field.onChange}
           />

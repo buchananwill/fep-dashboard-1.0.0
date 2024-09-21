@@ -7,15 +7,17 @@ import SuitabilityCellManager from '@/components/roles/suitability/SuitabilityCe
 import { getIdList } from '@/functions/getIdList';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
-import CreateRoleTabs from '@/components/roles/create-role/CreateRoleTabs';
-import RoleBaseDetails from '@/components/roles/create-role/RoleBaseDetails';
 import { RoleEntity } from '@/components/roles/types';
-import { singular } from 'pluralize';
-import RoleSubmissionHandler, {
-  WorkTaskTypeName
-} from '@/components/roles/create-role/RoleSubmissionHandler';
+import pluralize, { singular } from 'pluralize';
+import RoleSubmissionHandler from '@/components/roles/create-role/RoleSubmissionHandler';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
+import CreateRoleForm from '@/components/roles/create-role/CreateRoleForm';
+import {
+  initialMutationList,
+  MutationCounterContextKey,
+  WorkTaskTypeName
+} from '@/components/roles/create-role/literals';
 
 export default async function CreateRolePage({
   pathVariables
@@ -68,11 +70,15 @@ export default async function CreateRolePage({
         entityClass={EntityClassMap.knowledgeLevel}
         dtoList={initialKnowledgeLevels}
       />
-      <RoleBaseDetails roleEntity={roleType} />
-      <CreateRoleTabs
-        knowledgeDomains={knowledgeDomainDtos}
-        knowledgeLevels={initialKnowledgeLevels}
+      <EditAddDeleteDtoControllerArray
+        entityClass={MutationCounterContextKey}
+        dtoList={initialMutationList}
+      />
+      <CreateRoleForm
         roleEntity={roleType}
+        knowledgeDomainDtos={knowledgeDomainDtos}
+        knowledgeLevels={initialKnowledgeLevels}
+        redirectUrl={`/core/${pluralize(roleType)}`}
       />
     </div>
   );
