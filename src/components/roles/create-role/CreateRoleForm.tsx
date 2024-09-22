@@ -2,57 +2,31 @@
 import CreateRoleTabs from '@/components/roles/create-role/CreateRoleTabs';
 import { RoleEntity } from '@/components/roles/types';
 import {
-  HasName,
   KnowledgeDomainDto,
   KnowledgeLevelDto,
   PersonDto,
-  RolePostRequest,
-  SuitabilityPostRequest
+  RolePostRequest
 } from '@/api/generated-types/generated-types';
-import {
-  FieldErrors,
-  FormProvider,
-  SubmitHandler,
-  useForm
-} from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, { useCallback, useMemo, useTransition } from 'react';
+import React, { useCallback, useTransition } from 'react';
 import { defaultPersonValues } from '@/components/roles/CreatePersonForm';
 import { ProviderRolePostRequestSchema } from '@/api/zod-schemas/RolePostRequestSchemas';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
-import { isNotUndefined } from '@/api/main';
-import { useGlobalReadAny } from 'selective-context';
-import FilteredEntitySelector from '@/components/generic/FilteredEntitySelector';
-import { EntityClassMap } from '@/api/entity-class-map';
-import { HasNumberId } from '@/api/types';
-import { outlookEventToAvailability } from '@/components/roles/create-role/RoleSubmissionHandler';
-import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
-import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
-import {
-  useReadAnyDtoTyped,
-  useReadSelectedEntities
-} from '@/api/typed-dto-store-hooks';
-import { EditableEvents } from '@/components/roles/create-role/useEditableEvents';
-import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
-import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
-import { RoleType } from '@/components/roles/create-role/types';
-import { CreateRoleCell } from '@/components/work-task-types/suitabilityMatrixCell';
 import { PersonNestedInForm } from '@/components/roles/create-role/PersonNestedInForm';
-import {
-  flattenArrayErrorsAndRender,
-  PathRenderedErrorMap,
-  RenderErrorsMap
-} from '@/components/roles/create-role/FlattenArrayErrorsAndRender';
 import { ErrorMessage } from '@hookform/error-message';
 import { ErrorDiv } from '@/components/roles/create-role/ErrorDiv';
+import { RoleAspectSelectors } from '@/components/roles/create-role/RoleAspectSelectors';
+import { useRoleTypeAndTaskTypeSelections } from '@/components/roles/create-role/useRoleTypeAndTaskTypeSelections';
+import { useCompileSuitabilityRequests } from '@/components/roles/create-role/useCompileSuitabilityRequests';
+import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
 
-const listenerKey = 'create-role-form';
+export const listenerKey = 'create-role-form';
+
 export default function CreateRoleForm({
   roleEntity,
   knowledgeDomainDtos,
@@ -77,90 +51,28 @@ export default function CreateRoleForm({
   const {
     handleSubmit,
     formState: { errors },
-    control,
-    watch,
     setValue
   } = methods;
 
-  const readAnyDto = useReadAnyDto<CreateRoleCell>(CellEntityClass);
-  const { currentState: cellIdList } = NamespacedHooks.useListen<string[]>(
-    CellEntityClass,
-    KEY_TYPES.ID_LIST,
-    listenerKey,
-    EmptyArray
+  const { readAny, getWttNameStrings, getRoleTypeNames } =
+    useRoleTypeAndTaskTypeSelections(roleEntity);
+  const compileSuitabilityRequestWithoutSetting = useCompileSuitabilityRequests(
+    getWttNameStrings,
+    getRoleTypeNames
   );
-  const { currentState: wttTaskNameIdList } = NamespacedHooks.useListen(
-    WorkTaskTypeName,
-    KEY_TYPES.SELECTED,
-    listenerKey,
-    EmptyArray
-  );
-  const readAnyWttName = useReadAnyDto<HasName & HasNumberId>(WorkTaskTypeName);
-  const roleTypeNames = useReadSelectedEntities(`${roleEntity}RoleType`);
-  const readAnyKnowledgeDomain = useReadAnyDtoTyped('knowledgeDomain');
-  const readAnyKnowledgeLevel = useReadAnyDtoTyped('knowledgeLevel');
-  const readAny = useGlobalReadAny();
-
-  const getWttNameStrings = useCallback(() => {
-    return wttTaskNameIdList
-      .map((id) => readAnyWttName(id))
-      .filter(isNotUndefined)
-      .map((name) => name.name);
-  }, [wttTaskNameIdList, readAnyWttName]);
-
-  const getRoleTypeNames = useCallback(() => {
-    return roleTypeNames().map((type) => type.name);
-  }, [roleTypeNames]);
 
   const compileSuitabilityRequests = useCallback(() => {
-    const suitabilities = cellIdList
-      .map((id) => readAnyDto(id))
-      .filter(isNotUndefined)
-      .filter((cell) => cell.rating > 0)
-      .map((cell) => {
-        const knowledgeLevel = readAnyKnowledgeLevel(cell.knowledgeLevelId);
-        const knowledgeDomain = readAnyKnowledgeDomain(cell.knowledgeDomainId);
-        if (knowledgeLevel && knowledgeDomain) {
-          const suitabilityRequest: SuitabilityPostRequest = {
-            workTaskTypeMatrix: {
-              knowledgeDomainDtoList: [knowledgeDomain],
-              knowledgeLevelSeriesDtoList: [
-                {
-                  name: '',
-                  id: knowledgeLevel.knowledgeLevelSeriesId,
-                  knowledgeLevels: [knowledgeLevel]
-                }
-              ],
-              workTaskTypeNames: getWttNameStrings()
-            },
-            rating: cell.rating,
-            roleTypeNames: getRoleTypeNames()
-          };
-          return suitabilityRequest;
-        } else return undefined;
-      })
-      .filter(isNotUndefined);
-    setValue('suitabilities', suitabilities);
-  }, [
-    cellIdList,
-    getRoleTypeNames,
-    getWttNameStrings,
-    readAnyDto,
-    readAnyKnowledgeDomain,
-    readAnyKnowledgeLevel,
-    setValue
-  ]);
+    setValue('suitabilities', compileSuitabilityRequestWithoutSetting());
+  }, [compileSuitabilityRequestWithoutSetting, setValue]);
 
-  const compileAvailabilities = useCallback(() => {
-    const availabilities = (readAny(EditableEvents) as OutlookEvent[])
-      .map((event) => outlookEventToAvailability(event))
-      .map((availability) => ({
-        ...availability,
-        roleTypeNames: getRoleTypeNames()
-      }));
-    setValue('availabilities', availabilities);
-  }, [readAny, getRoleTypeNames, setValue]);
-
+  const compileAvailabilitiesWithoutSetting = useCompileAvailabilities(
+    readAny,
+    getRoleTypeNames
+  );
+  const compileAvailabilities = useCallback(
+    () => setValue('availabilities', compileAvailabilitiesWithoutSetting()),
+    [setValue, compileAvailabilitiesWithoutSetting]
+  );
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
 
@@ -175,21 +87,6 @@ export default function CreateRoleForm({
       }
     });
   };
-
-  const suitabilityErrors: PathRenderedErrorMap<SuitabilityPostRequest> =
-    useMemo(() => {
-      const errorList = errors?.suitabilities;
-      if (errorList) {
-        return flattenArrayErrorsAndRender(
-          errorList as FieldErrors<SuitabilityPostRequest>[],
-          SuitabilitiesErrorMap
-        );
-      } else return {};
-    }, [errors]);
-
-  const taskNameErrors =
-    suitabilityErrors.each?.['workTaskTypeMatrix.workTaskTypeNames'];
-  const roleTypeErrors = suitabilityErrors.each?.roleTypeNames;
 
   return (
     <FormProvider {...methods}>
@@ -212,24 +109,7 @@ export default function CreateRoleForm({
               <PersonNestedInForm></PersonNestedInForm>
             )}
             <Divider />
-            <h1>Role</h1>
-            <FilteredEntitySelector<RoleType>
-              entityClass={EntityClassMap[`${roleEntity}RoleType`]}
-              labelAccessor={'name'}
-              label={'Role Type'}
-              className={'w-full'}
-              isInvalid={!!roleTypeErrors?.length}
-              errorMessage={<>{roleTypeErrors && roleTypeErrors}</>}
-            />
-            <FilteredEntitySelector<HasNumberId & HasName>
-              entityClass={WorkTaskTypeName}
-              labelAccessor={'name'}
-              selectionMode={'multiple'}
-              label={'Task Types'}
-              className={'w-full'}
-              isInvalid={!!taskNameErrors?.length}
-              errorMessage={<>{taskNameErrors && taskNameErrors}</>}
-            />
+            <RoleAspectSelectors roleEntity={roleEntity} />
           </CardBody>
           <CardFooter
             className={'flex flex-col items-center justify-center align-middle'}
@@ -261,12 +141,3 @@ export default function CreateRoleForm({
     </FormProvider>
   );
 }
-
-const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {
-  each: {
-    'workTaskTypeMatrix.workTaskTypeNames': (props) =>
-      props.errors?.message && <span>{props.errors.message}</span>,
-    roleTypeNames: (props) =>
-      props.errors?.message && <span>{props.errors.message}</span>
-  }
-};
