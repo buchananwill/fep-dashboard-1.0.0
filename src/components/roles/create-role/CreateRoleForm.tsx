@@ -12,21 +12,18 @@ import {
 } from '@/api/generated-types/generated-types';
 import {
   FieldError,
+  FieldErrors,
   FormProvider,
   SubmitHandler,
-  useForm,
-  useFormContext
+  useForm
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
-import { CalendarDate, parseDate } from '@internationalized/date';
 import { defaultPersonValues } from '@/components/roles/CreatePersonForm';
 import { ProviderRolePostRequestSchema } from '@/api/zod-schemas/RolePostRequestSchemas';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
-import { DatePicker } from '@nextui-org/date-picker';
 import { Button } from '@nextui-org/button';
 import { Divider } from '@nextui-org/divider';
 import { isNotUndefined } from '@/api/main';
@@ -48,6 +45,19 @@ import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
 import { RoleType } from '@/components/roles/create-role/types';
 import { CreateRoleCell } from '@/components/work-task-types/suitabilityMatrixCell';
+import { PersonNestedInForm } from '@/components/roles/create-role/PersonNestedInForm';
+import { Paths } from 'type-fest';
+import { FieldValues } from 'react-hook-form/dist/types';
+import { GenericDivProps } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
+import {
+  ErrorsProps,
+  flattenArrayErrorsAndRender,
+  OnlyStringPaths,
+  PathRenderedErrorMap,
+  RenderErrorsMap,
+  renderFieldErrorsItem
+} from '@/components/roles/create-role/FlattenArrayErrorsAndRender';
+import { ErrorMessage } from '@hookform/error-message';
 
 const listenerKey = 'create-role-form';
 export default function CreateRoleForm({
@@ -78,6 +88,8 @@ export default function CreateRoleForm({
     watch,
     setValue
   } = methods;
+
+  console.log(errors);
 
   const readAnyDto = useReadAnyDto<CreateRoleCell>(CellEntityClass);
   const { currentState: cellIdList } = NamespacedHooks.useListen<string[]>(
@@ -213,15 +225,6 @@ export default function CreateRoleForm({
 
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
-  const dateOfBirth = watch('baseEntity.dateOfBirth');
-
-  const setDateValue = useCallback(
-    (value: CalendarDate) => {
-      const isoString = value.toString();
-      setValue('baseEntity.dateOfBirth', isoString);
-    },
-    [setValue]
-  );
 
   const onSubmit: SubmitHandler<RolePostRequest<PersonDto>> = async (data) => {
     startTransition(async () => {
@@ -244,7 +247,28 @@ export default function CreateRoleForm({
       : [];
   }, [errors]);
 
-  console.log(roleSelectionErrors);
+  const suitabilityErrors: PathRenderedErrorMap<SuitabilityPostRequest> =
+    useMemo(() => {
+      const errorList = errors?.suitabilities;
+      if (errorList) {
+        return flattenArrayErrorsAndRender(
+          errorList as FieldErrors<SuitabilityPostRequest>[],
+          SuitabilitiesErrorMap
+        );
+      } else return {};
+    }, [errors]);
+
+  const taskNameErrors =
+    suitabilityErrors.each?.['workTaskTypeMatrix.workTaskTypeNames'];
+  const roleTypeErrors = suitabilityErrors.each?.roleTypeNames;
+
+  // const requestErrors = useMemo(() => {
+  //   const errorNodes: PathRenderedErrorMap<RolePostRequest<any>> = {};
+  //   if (errors) {
+  //     renderFieldErrorsItem(RolePostRequestMap, errorNodes, errors);
+  //   }
+  //   return errorNodes;
+  // }, [errors]);
 
   return (
     <FormProvider {...methods}>
@@ -264,7 +288,9 @@ export default function CreateRoleForm({
             New Role
           </CardHeader>
           <CardBody className={'items-center justify-center gap-2'}>
-            {roleEntity === 'provider' && <PersonNested></PersonNested>}
+            {roleEntity === 'provider' && (
+              <PersonNestedInForm></PersonNestedInForm>
+            )}
             <Divider />
             <h1>Role</h1>
             <FilteredEntitySelector<RoleType>
@@ -272,11 +298,8 @@ export default function CreateRoleForm({
               labelAccessor={'name'}
               label={'Role Type'}
               className={'w-full'}
-              isInvalid={
-                roleSelectionErrors.length > 0 ||
-                rolesFromSuitabilities.length > 0
-              }
-              errorMessage={roleSelectionErrors || rolesFromSuitabilities}
+              isInvalid={!!roleTypeErrors?.length}
+              errorMessage={<>{roleTypeErrors && roleTypeErrors}</>}
             />
             <FilteredEntitySelector<HasNumberId & HasName>
               entityClass={WorkTaskTypeName}
@@ -284,8 +307,8 @@ export default function CreateRoleForm({
               selectionMode={'multiple'}
               label={'Task Types'}
               className={'w-full'}
-              isInvalid={workTaskTypeNameErrors.length > 0}
-              errorMessage={workTaskTypeNameErrors}
+              isInvalid={!!taskNameErrors?.length}
+              errorMessage={<>{taskNameErrors && taskNameErrors}</>}
             />
           </CardBody>
           <CardFooter
@@ -295,17 +318,16 @@ export default function CreateRoleForm({
               Submit
             </Button>
             <div className={'flex w-64 flex-col gap-2 overflow-clip p-2'}>
-              {fieldErrors &&
-                fieldErrors.map((message, index) => (
-                  <div
-                    key={index}
-                    className={
-                      'w-full text-wrap rounded-lg bg-danger-50 p-2 text-sm text-danger-500'
-                    }
-                  >
-                    {message}
-                  </div>
-                ))}
+              {['suitabilities', 'availabilities'].map((item) => (
+                <ErrorMessage
+                  key={item}
+                  errors={errors}
+                  name={item}
+                  render={({ message }) =>
+                    message?.length && <ErrorDiv message={message} />
+                  }
+                />
+              ))}
             </div>
           </CardFooter>
         </form>
@@ -319,6 +341,23 @@ export default function CreateRoleForm({
     </FormProvider>
   );
 }
+
+function ErrorDiv<T extends FieldValues>({
+  message,
+  ...props
+}: { message: string } & GenericDivProps) {
+  return (
+    <div
+      {...props}
+      className={
+        'w-full text-wrap rounded-lg bg-danger-50 p-2 text-sm text-danger-500'
+      }
+    >
+      {message}
+    </div>
+  );
+}
+
 const undefinedSubmission = {
   memoizedFunction: (...input: any) => console.error('No action defined.')
 };
@@ -349,47 +388,20 @@ const hasWorkTaskTypeMatrixArray = (
   );
 };
 
-function PersonNested() {
-  const { control, watch, setValue } =
-    useFormContext<RolePostRequest<PersonDto>>();
+const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {
+  each: {
+    'workTaskTypeMatrix.workTaskTypeNames': (props) =>
+      props.errors?.message && <span>{props.errors.message}</span>,
+    roleTypeNames: (props) =>
+      props.errors?.message && <span>{props.errors.message}</span>
+  }
+};
 
-  const dateOfBirth = watch('baseEntity.dateOfBirth');
-
-  const setDateValue = useCallback(
-    (value: CalendarDate) => {
-      const isoString = value.toString();
-      setValue('baseEntity.dateOfBirth', isoString);
-    },
-    [setValue]
-  );
-
-  return (
-    <>
-      <h1>Person</h1>
-      <ControlledInput
-        name={'baseEntity.fName'}
-        control={control}
-        aria-label={'First Name'}
-        label={'First Name'}
-        placeholder={'Enter first name'}
-        autoComplete={'on'}
-      />
-      <ControlledInput
-        name={'baseEntity.lName'}
-        control={control}
-        aria-label={'Last Name'}
-        label={'Last Name'}
-        placeholder={'Enter last name'}
-        autoComplete={'on'}
-      />
-      <DatePicker
-        name={'baseEntity.dateOfBirth'}
-        aria-label={'Date of Birth'}
-        label={'Date of Birth'}
-        value={parseDate(dateOfBirth)}
-        showMonthAndYearPickers={true}
-        onChange={setDateValue}
-      />
-    </>
-  );
-}
+const RolePostRequestMap: RenderErrorsMap<RolePostRequest<FieldValues>> = {
+  each: {
+    suitabilities: (props) =>
+      props.errors?.message && <ErrorDiv message={props.errors.message} />,
+    availabilities: (props) =>
+      props.errors?.message && <ErrorDiv message={props.errors.message} />
+  }
+};

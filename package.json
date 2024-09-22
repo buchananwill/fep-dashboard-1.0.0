@@ -19,6 +19,7 @@
     "@fullcalendar/react": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
     "@heroicons/react": "^2.0.18",
+    "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.3.4",
     "@internationalized/date": "^3.5.5",
     "@microsoft/microsoft-graph-client": "^3.0.7",
