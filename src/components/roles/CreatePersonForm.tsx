@@ -84,7 +84,6 @@ export default function CreatePersonForm({
         <CardBody className={'items-center justify-center gap-2'}>
           <ControlledInput
             name={'fName'}
-            control={control}
             aria-label={'First Name'}
             label={'First Name'}
             placeholder={'Enter first name'}
@@ -92,7 +91,6 @@ export default function CreatePersonForm({
           />
           <ControlledInput
             name={'lName'}
-            control={control}
             aria-label={'Last Name'}
             label={'Last Name'}
             placeholder={'Enter last name'}

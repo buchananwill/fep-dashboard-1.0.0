@@ -2,7 +2,6 @@ import { Control, Controller } from 'react-hook-form';
 import { Select, SelectItemProps, SelectProps } from '@nextui-org/react';
 import React, { ChangeEvent, useMemo } from 'react';
 import { SelectItem } from '@nextui-org/select';
-import { RequireAllOrNone, Simplify } from 'type-fest';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 import { HasId } from '@/api/types';
 

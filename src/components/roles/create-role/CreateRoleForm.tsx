@@ -4,15 +4,11 @@ import { RoleEntity } from '@/components/roles/types';
 import {
   KnowledgeDomainDto,
   KnowledgeLevelDto,
-  PersonDto,
   RolePostRequest
 } from '@/api/generated-types/generated-types';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { FieldName, SubmitHandler, useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import React, { useCallback, useTransition } from 'react';
-import { defaultPersonValues } from '@/components/roles/CreatePersonForm';
-import { ProviderRolePostRequestSchema } from '@/api/zod-schemas/RolePostRequestSchemas';
+import React, { useCallback, useMemo, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { Button } from '@nextui-org/button';
@@ -24,30 +20,32 @@ import { RoleAspectSelectors } from '@/components/roles/create-role/RoleAspectSe
 import { useRoleTypeAndTaskTypeSelections } from '@/components/roles/create-role/useRoleTypeAndTaskTypeSelections';
 import { useCompileSuitabilityRequests } from '@/components/roles/create-role/useCompileSuitabilityRequests';
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
+import { AssetNestedInForm } from '@/components/roles/create-role/AssetNestedInForm';
+import { FieldValues } from 'react-hook-form/dist/types';
 
 export const listenerKey = 'create-role-form';
 
-export default function CreateRoleForm({
+export interface RoleFormProps<T extends FieldValues> {
+  roleEntity: RoleEntity;
+  knowledgeDomainDtos: KnowledgeDomainDto[];
+  knowledgeLevels: KnowledgeLevelDto[];
+  createRoleAction?: (request: RolePostRequest<T>) => Promise<any>;
+  redirectUrl: string;
+}
+
+export default function CreateRoleForm<T extends FieldValues>({
   roleEntity,
   knowledgeDomainDtos,
   knowledgeLevels,
   createRoleAction,
   redirectUrl
-}: {
-  roleEntity: RoleEntity;
-  knowledgeDomainDtos: KnowledgeDomainDto[];
-  knowledgeLevels: KnowledgeLevelDto[];
-  createRoleAction?: (request: RolePostRequest<PersonDto>) => Promise<any>;
-  redirectUrl: string;
-}) {
-  const methods = useForm<RolePostRequest<PersonDto>>({
-    resolver: zodResolver(ProviderRolePostRequestSchema),
-    defaultValues: {
-      baseEntity: defaultPersonValues,
-      suitabilities: [],
-      availabilities: []
-    }
-  });
+}: RoleFormProps<T>) {
+  const listFields = useMemo(
+    () =>
+      ['suitabilities', 'availabilities'] as FieldName<RolePostRequest<T>>[],
+    []
+  );
+  const methods = useFormContext<RolePostRequest<T>>();
   const {
     handleSubmit,
     formState: { errors },
@@ -76,7 +74,7 @@ export default function CreateRoleForm({
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
 
-  const onSubmit: SubmitHandler<RolePostRequest<PersonDto>> = async (data) => {
+  const onSubmit: SubmitHandler<RolePostRequest<T>> = async (data) => {
     startTransition(async () => {
       if (createRoleAction) {
         await createRoleAction(data);
@@ -89,7 +87,7 @@ export default function CreateRoleForm({
   };
 
   return (
-    <FormProvider {...methods}>
+    <>
       <Card className={'h-full w-64'}>
         <PendingOverlay pending={pending} />
         <form
@@ -108,6 +106,7 @@ export default function CreateRoleForm({
             {roleEntity === 'provider' && (
               <PersonNestedInForm></PersonNestedInForm>
             )}
+            {roleEntity === 'asset' && <AssetNestedInForm />}
             <Divider />
             <RoleAspectSelectors roleEntity={roleEntity} />
           </CardBody>
@@ -118,7 +117,7 @@ export default function CreateRoleForm({
               Submit
             </Button>
             <div className={'flex w-64 flex-col gap-2 overflow-clip p-2'}>
-              {['suitabilities', 'availabilities'].map((item) => (
+              {listFields.map((item) => (
                 <ErrorMessage
                   key={item}
                   errors={errors}
@@ -138,6 +137,6 @@ export default function CreateRoleForm({
         knowledgeLevels={knowledgeLevels}
         roleEntity={roleEntity}
       />
-    </FormProvider>
+    </>
   );
 }

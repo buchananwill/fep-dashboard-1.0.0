@@ -17,6 +17,7 @@ import {
   MutationCounterContextKey,
   WorkTaskTypeName
 } from '@/components/roles/create-role/literals';
+import FormWrapper from '@/components/roles/create-role/FormWrapper';
 
 export default async function CreateRolePage({
   pathVariables
@@ -63,7 +64,7 @@ export default async function CreateRolePage({
         entityClass={MutationCounterContextKey}
         dtoList={initialMutationList}
       />
-      <CreateRoleForm
+      <FormWrapper
         roleEntity={roleType}
         knowledgeDomainDtos={knowledgeDomainDtos}
         knowledgeLevels={initialKnowledgeLevels}
@@ -72,10 +73,23 @@ export default async function CreateRolePage({
           'use server';
           return await postEntitiesWithDifferentReturnType(
             request,
-            constructUrl('/api/v2/providerRoles/createFromRolePostRequest')
+            constructUrl(
+              `/api/v2/${getRoleTypeSections(roleType)}/createFromRolePostRequest`
+            )
           );
         }}
       />
     </div>
   );
+}
+
+function getRoleTypeSections(roleType: RoleEntity): string {
+  switch (roleType) {
+    case 'provider':
+      return 'providerRoles';
+    case 'asset':
+      return 'assets/roles';
+    case 'user':
+      return 'userRoles';
+  }
 }

@@ -29,6 +29,7 @@ export type BaseDtoStoreNumberInputProps<T extends HasId> = Omit<
   numberKey: NumberPropertyKey<T>;
   allowFloat?: boolean;
   conditionalValueClassNames?: ConditionalNumberClassName[];
+  hideSpinner?: boolean;
 } & Partial<Pick<BaseDtoUiProps<T>, 'dispatchDeletion' | 'deleted'>>;
 
 export type MergedDtoStoreNumberInputProps<T extends HasId> =
@@ -44,6 +45,7 @@ export function DtoStoreNumberInput<T extends HasId>({
   deleted,
   allowFloat = false,
   conditionalValueClassNames,
+  hideSpinner = true,
   ...inputProps
 }: MergedDtoStoreNumberInputProps<T>) {
   const { max, min } = inputProps;
@@ -92,7 +94,12 @@ export function DtoStoreNumberInput<T extends HasId>({
       pattern={'[0-9]'}
       value={removeLeadingZeroStringConversion(currentNumberValue, allowFloat)}
       onChange={(e) => update(e)}
-      className={clsx(className, 'number-input', rangeClassName)}
+      className={clsx(
+        className,
+        'number-input',
+        hideSpinner && 'no-spinner',
+        rangeClassName
+      )}
       aria-label={inputProps['aria-label'] ?? String(numberKey)}
     />
   );

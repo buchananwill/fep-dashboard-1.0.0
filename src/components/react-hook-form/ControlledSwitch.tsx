@@ -1,26 +1,27 @@
-import { Control, Controller, Path, useFormContext } from 'react-hook-form';
-import { Input, InputProps } from '@nextui-org/input';
-import React from 'react';
-import { get } from 'lodash';
 import { FieldValues } from 'react-hook-form/dist/types';
+import { Switch, SwitchProps } from '@nextui-org/react';
+import { Controller, Path, useFormContext } from 'react-hook-form';
+import { get } from 'lodash';
+import React from 'react';
 
-export type FormInputProps<T extends FieldValues> = {
+export type FormSwitchProps<T extends FieldValues> = {
   name: Path<T>;
-} & Omit<InputProps, 'name'>;
+} & Omit<SwitchProps, 'name'>;
 
-export const ControlledInput = <T extends FieldValues>({
+export default function ControlledSwitch<T extends FieldValues>({
   name,
-  value,
+  children,
   ...props
-}: FormInputProps<T>) => {
+}: FormSwitchProps<T>) {
   const { control } = useFormContext<T>();
+
   return (
     <Controller
       name={name}
       control={control}
       render={({ field, fieldState, formState }) => {
         return (
-          <Input
+          <Switch
             {...props}
             name={name}
             isInvalid={
@@ -33,9 +34,11 @@ export const ControlledInput = <T extends FieldValues>({
             }
             value={field.value}
             onChange={field.onChange}
-          />
+          >
+            {children}
+          </Switch>
         );
       }}
     ></Controller>
   );
-};
+}

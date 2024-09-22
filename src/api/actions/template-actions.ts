@@ -160,6 +160,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
       // Check for error response type
       const contentType = response.headers.get('content-type') || '';
       if (contentType.includes('application/json')) {
+        console.error(response);
         // Handle JSON response for errors
         const errorJson = await response.json();
         console.error(errorJson);

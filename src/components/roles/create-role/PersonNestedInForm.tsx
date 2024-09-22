@@ -5,12 +5,12 @@ import { CalendarDate, parseDate } from '@internationalized/date';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { DatePicker } from '@nextui-org/date-picker';
 
-type BaseEntityPerson = {
-  baseEntity: PersonDto;
+export type BaseEntity<T> = {
+  baseEntity: T;
 };
 
 export function PersonNestedInForm() {
-  const { control, watch, setValue } = useFormContext<BaseEntityPerson>();
+  const { control, watch, setValue } = useFormContext<BaseEntity<PersonDto>>();
 
   const dateOfBirth = watch('baseEntity.dateOfBirth');
 
