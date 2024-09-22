@@ -82,8 +82,6 @@ export default function CreateRoleForm({
     setValue
   } = methods;
 
-  console.log(errors);
-
   const readAnyDto = useReadAnyDto<CreateRoleCell>(CellEntityClass);
   const { currentState: cellIdList } = NamespacedHooks.useListen<string[]>(
     CellEntityClass,
@@ -201,7 +199,6 @@ export default function CreateRoleForm({
           onSubmit={(event) => {
             compileAvailabilities();
             compileSuitabilityRequests();
-            console.log(event);
             console.warn(errors);
             handleSubmit(onSubmit)(event);
           }}
