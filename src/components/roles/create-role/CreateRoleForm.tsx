@@ -2,7 +2,6 @@
 import CreateRoleTabs from '@/components/roles/create-role/CreateRoleTabs';
 import { RoleEntity } from '@/components/roles/types';
 import {
-  AvailabilityPostRequest,
   HasName,
   KnowledgeDomainDto,
   KnowledgeLevelDto,
@@ -11,7 +10,6 @@ import {
   SuitabilityPostRequest
 } from '@/api/generated-types/generated-types';
 import {
-  FieldError,
   FieldErrors,
   FormProvider,
   SubmitHandler,
@@ -46,18 +44,13 @@ import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
 import { RoleType } from '@/components/roles/create-role/types';
 import { CreateRoleCell } from '@/components/work-task-types/suitabilityMatrixCell';
 import { PersonNestedInForm } from '@/components/roles/create-role/PersonNestedInForm';
-import { Paths } from 'type-fest';
-import { FieldValues } from 'react-hook-form/dist/types';
-import { GenericDivProps } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import {
-  ErrorsProps,
   flattenArrayErrorsAndRender,
-  OnlyStringPaths,
   PathRenderedErrorMap,
-  RenderErrorsMap,
-  renderFieldErrorsItem
+  RenderErrorsMap
 } from '@/components/roles/create-role/FlattenArrayErrorsAndRender';
 import { ErrorMessage } from '@hookform/error-message';
+import { ErrorDiv } from '@/components/roles/create-role/ErrorDiv';
 
 const listenerKey = 'create-role-form';
 export default function CreateRoleForm({
@@ -170,59 +163,6 @@ export default function CreateRoleForm({
     setValue('availabilities', availabilities);
   }, [readAny, getRoleTypeNames, setValue]);
 
-  const roleSelectionErrors = useMemo(() => {
-    const { availabilities } = errors;
-
-    if (!availabilities) {
-      return ''; // No errors
-    }
-
-    // Check if availabilities are of the correct type
-    if (isAvailabilityPostRequestArray(availabilities)) {
-      // Filter through and build the error message
-      return availabilities
-        .filter(isNotUndefined)
-        .map((aError) => aError.roleTypeNames)
-        .filter(isNotUndefined)
-        .filter(isFieldError)
-        .map((fieldError) => fieldError.message)
-        .join(', ');
-    }
-
-    return '';
-  }, [errors]);
-
-  const [rolesFromSuitabilities, workTaskTypeNameErrors] = useMemo(() => {
-    const { suitabilities } = errors;
-
-    if (!suitabilities) {
-      return ['', '']; // No errors
-    }
-
-    // Check if availabilities are of the correct type
-    if (hasWorkTaskTypeMatrixArray(suitabilities)) {
-      // Filter through and build the error message
-      const roleTypeNameErrors = suitabilities
-        .filter(isNotUndefined)
-        .map((aError) => aError.roleTypeNames)
-        .filter(isNotUndefined)
-        .filter(isFieldError)
-        .map((fieldError) => fieldError.message)
-        .join(', ');
-      const workTaskTypeNameErrors = suitabilities
-        .filter(isNotUndefined)
-        .map((aError) => aError.workTaskTypeMatrix)
-        .filter(isNotUndefined)
-        .map((matrix) => matrix.workTaskTypeNames)
-        .filter(isFieldError)
-        .map((fieldError) => fieldError.message)
-        .filter(isNotUndefined)
-        .join(', ');
-      return [roleTypeNameErrors, workTaskTypeNameErrors];
-    }
-    return ['', ''];
-  }, [errors]);
-
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
 
@@ -238,15 +178,6 @@ export default function CreateRoleForm({
     });
   };
 
-  const fieldErrors = useMemo(() => {
-    console.log(errors);
-    return errors
-      ? Object.values(errors)
-          .map((error) => error.message)
-          .filter((message) => message && message.length > 0)
-      : [];
-  }, [errors]);
-
   const suitabilityErrors: PathRenderedErrorMap<SuitabilityPostRequest> =
     useMemo(() => {
       const errorList = errors?.suitabilities;
@@ -261,14 +192,6 @@ export default function CreateRoleForm({
   const taskNameErrors =
     suitabilityErrors.each?.['workTaskTypeMatrix.workTaskTypeNames'];
   const roleTypeErrors = suitabilityErrors.each?.roleTypeNames;
-
-  // const requestErrors = useMemo(() => {
-  //   const errorNodes: PathRenderedErrorMap<RolePostRequest<any>> = {};
-  //   if (errors) {
-  //     renderFieldErrorsItem(RolePostRequestMap, errorNodes, errors);
-  //   }
-  //   return errorNodes;
-  // }, [errors]);
 
   return (
     <FormProvider {...methods}>
@@ -342,66 +265,11 @@ export default function CreateRoleForm({
   );
 }
 
-function ErrorDiv<T extends FieldValues>({
-  message,
-  ...props
-}: { message: string } & GenericDivProps) {
-  return (
-    <div
-      {...props}
-      className={
-        'w-full text-wrap rounded-lg bg-danger-50 p-2 text-sm text-danger-500'
-      }
-    >
-      {message}
-    </div>
-  );
-}
-
-const undefinedSubmission = {
-  memoizedFunction: (...input: any) => console.error('No action defined.')
-};
-
-// type FieldWithErrors
-
-// Custom type guard to check if an object is FieldError
-const isFieldError = (error: unknown): error is FieldError => {
-  return !!(error && typeof error === 'object' && 'message' in error);
-};
-
-// Custom type guard to check if an error is an array of AvailabilityPostRequest
-const isAvailabilityPostRequestArray = (
-  errors: unknown
-): errors is AvailabilityPostRequest[] => {
-  return (
-    Array.isArray(errors) &&
-    errors.every((e) => typeof e === 'object' && 'roleTypeNames' in e)
-  );
-};
-
-const hasWorkTaskTypeMatrixArray = (
-  errors: unknown
-): errors is { workTaskTypeMatrix: unknown }[] => {
-  return (
-    Array.isArray(errors) &&
-    errors.every((e) => typeof e === 'object' && 'workTaskTypeMatrix' in e)
-  );
-};
-
 const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {
   each: {
     'workTaskTypeMatrix.workTaskTypeNames': (props) =>
       props.errors?.message && <span>{props.errors.message}</span>,
     roleTypeNames: (props) =>
       props.errors?.message && <span>{props.errors.message}</span>
-  }
-};
-
-const RolePostRequestMap: RenderErrorsMap<RolePostRequest<FieldValues>> = {
-  each: {
-    suitabilities: (props) =>
-      props.errors?.message && <ErrorDiv message={props.errors.message} />,
-    availabilities: (props) =>
-      props.errors?.message && <ErrorDiv message={props.errors.message} />
   }
 };

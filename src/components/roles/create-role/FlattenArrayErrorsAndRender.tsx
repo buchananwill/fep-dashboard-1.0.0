@@ -29,7 +29,7 @@ export type PathRenderedErrorMap<T extends FieldValues> = Partial<{
 export function renderFieldErrorsItem<T extends FieldValues>(
   renderErrorsAs: RenderErrorsMap<T>,
   response: PathRenderedErrorMap<T>,
-  nextItemErrors: Partial<T>
+  nextItemErrors: T
 ) {
   if (renderErrorsAs.root) {
     const RootRender = renderErrorsAs.root;
