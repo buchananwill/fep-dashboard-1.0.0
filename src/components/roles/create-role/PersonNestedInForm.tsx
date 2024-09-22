@@ -27,7 +27,6 @@ export function PersonNestedInForm() {
       <h1>Person</h1>
       <ControlledInput
         name={'baseEntity.fName'}
-        control={control}
         aria-label={'First Name'}
         label={'First Name'}
         placeholder={'Enter first name'}
@@ -35,7 +34,6 @@ export function PersonNestedInForm() {
       />
       <ControlledInput
         name={'baseEntity.lName'}
-        control={control}
         aria-label={'Last Name'}
         label={'Last Name'}
         placeholder={'Enter last name'}
@@ -46,7 +44,6 @@ export function PersonNestedInForm() {
         aria-label={'Date of Birth'}
         label={'Date of Birth'}
         value={parseDate(dateOfBirth)}
-        showMonthAndYearPickers={true}
         onChange={setDateValue}
       />
     </>

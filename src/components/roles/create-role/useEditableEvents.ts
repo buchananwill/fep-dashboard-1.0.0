@@ -100,7 +100,7 @@ function createEvent(
   };
 }
 
-function getTimeZone(date: Date): NullableOption<string> {
+export function getTimeZone(date: Date): NullableOption<string> {
   const zone = Intl.DateTimeFormat('en-GB', { timeZoneName: 'short' })
     .format(date)
     .split(', ')
