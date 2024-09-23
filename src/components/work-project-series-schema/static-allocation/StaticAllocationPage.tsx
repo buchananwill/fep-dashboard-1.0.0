@@ -23,6 +23,10 @@ import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellM
 import { getCellDataIdReferenceOrUndefined } from '@/components/work-project-series-schema/static-allocation/getCellDataOrUndefined';
 import { getTableProps } from '@/components/grids/useTableProps';
 import { createCell } from '@/components/work-project-series-schema/static-allocation/createCell';
+import { IdListLinkCard } from '@/components/generic/IdListLinkCard';
+import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
+import { Suspense } from 'react';
+import Loading from '@/app/core/loading';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,
@@ -31,7 +35,15 @@ export type StaticAllocationTableDto = GenericTableDto<
   number
 >;
 
-export async function StaticAllocationPage({
+function StaticAllocationPage(props: LeafComponentProps) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <InnerStaticAllocationPage {...props} />
+    </Suspense>
+  );
+}
+
+async function InnerStaticAllocationPage({
   pathVariables
 }: LeafComponentProps) {
   const [cycleId] = getLastNVariables(pathVariables, 1);
@@ -96,3 +108,24 @@ export async function StaticAllocationPage({
     </>
   );
 }
+
+async function ChooseCycleReference({
+  pathVariables,
+  depth
+}: LeafComponentProps) {
+  const cycleIdList = await Api.Cycle.getIdList();
+
+  return (
+    <IdListLinkCard
+      pathVariables={pathVariables}
+      depth={depth + 1}
+      idList={cycleIdList}
+      entityClass={EntityClassMap.cycle}
+    />
+  );
+}
+
+export const StaticAllocationHome = getPathVariableSplitComponent(
+  ChooseCycleReference,
+  StaticAllocationPage
+);

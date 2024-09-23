@@ -1,6 +1,5 @@
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkProjectSeriesSchemaEditTable from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
-import { workProjectSeriesSchemaActionSequence } from '@/components/work-project-series-schema/_functions/workProjectSeriesSchemaActionSequence';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import {
   deleteIdList,
@@ -33,8 +32,6 @@ async function WorkProjectSeriesSchemaLevelPage({
       }
     }
   ]);
-
-  console.log(availableCycles);
 
   return (
     <div className={'flex h-[100vh] w-[100vw]'}>
