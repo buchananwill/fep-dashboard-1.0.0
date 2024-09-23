@@ -40,11 +40,11 @@ export default function WorkTaskTypeEditTable() {
 }
 
 const COLUMNS: Column<WorkTaskTypeDto>[] = [
-  { name: 'Delete', uid: 'action', sortable: false },
+  { name: 'Delete', uid: 'id', sortable: false },
   ...WORK_TASK_TYPE_COLUMNS
 ];
 
 const INITIAL_COLUMNS: ColumnUid<WorkTaskTypeDto>[] = [
   ...INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS,
-  'action'
+  'id'
 ];

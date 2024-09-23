@@ -11,10 +11,7 @@ import { WorkSchemaNodeAssignmentsHome } from '@/components/work-schema-node-ass
 import NavigationHome from '@/app/core/navigation/NavigationHome';
 import BuildSchedulePage from '@/app/core/auto-scheduling/BuildSchedulePage';
 import { feasibilityBranch } from '@/app/core/feasibility/FeasibilityHome';
-import {
-  StaticAllocationHome,
-  StaticAllocationPage
-} from '@/components/work-project-series-schema/static-allocation/StaticAllocationPage';
+import { StaticAllocationHome } from '@/components/work-project-series-schema/static-allocation/StaticAllocationPage';
 import WorkTaskTypeTablePage from '@/components/work-task-types/pages/WorkTaskTypeTablePage';
 import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
 import CyclesHome from '@/app/core/cycles/CyclesHome';

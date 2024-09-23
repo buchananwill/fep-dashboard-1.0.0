@@ -11,6 +11,7 @@ import {
   getCellIdReference,
   OuterCellProps
 } from '@/components/grids/getCellIdReference';
+import { isNotUndefined } from '@/api/main';
 
 export default function VirtualizedOuterCell<T>({
   rowIndex,
@@ -34,7 +35,10 @@ export default function VirtualizedOuterCell<T>({
 
   const cellData: T | undefined = useMemo(() => {
     const assignmentCell = getCellIdReference({ data, rowIndex, columnIndex });
-    return memoizedFunction(assignmentCell);
+    const { columnId, rowId } = assignmentCell;
+    if (assignmentCell && isNotUndefined(columnId) && isNotUndefined(rowId))
+      return memoizedFunction({ columnId, rowId });
+    else return undefined;
   }, [memoizedFunction, columnIndex, rowIndex, data]);
 
   return (

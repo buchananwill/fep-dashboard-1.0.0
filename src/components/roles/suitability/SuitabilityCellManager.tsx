@@ -2,7 +2,10 @@ import { useMemo } from 'react';
 import { flattenDeep } from 'lodash';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { useRowIdColumnIdCells } from '@/components/grids/createRowIdColumnIdCells';
-import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
+import {
+  CreateRoleCell,
+  SuitabilityMatrixCell
+} from '@/components/work-task-types/suitabilityMatrixCell';
 
 export const CellEntityClass = 'Cell';
 export default function SuitabilityCellManager({
@@ -14,7 +17,7 @@ export default function SuitabilityCellManager({
 }) {
   const cells = useRowIdColumnIdCells(rowIdList, columnIdList);
 
-  const joinedIdCells: SuitabilityMatrixCell[] = useMemo(() => {
+  const joinedIdCells: CreateRoleCell[] = useMemo(() => {
     return flattenDeep(cells).map(({ columnId, rowId }) => ({
       rating: 0,
       isDynamic: false,

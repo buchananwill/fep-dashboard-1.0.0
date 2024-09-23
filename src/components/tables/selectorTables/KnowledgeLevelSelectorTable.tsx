@@ -9,15 +9,12 @@ import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import React from 'react';
 
-export const KnowledgeLevelReadOnlyCell = getCellRenderFunction<
+export const KnowledgeLevelReadOnlyCell = getCellRenderFunction(
   'knowledgeLevel',
-  KnowledgeLevelDto
->(
   {
     name: SimpleValueToString,
     levelOrdinal: StringValueChip
-  },
-  EntityClassMap.knowledgeLevel
+  }
 );
 
 export default function KnowledgeLevelSelectorTable({

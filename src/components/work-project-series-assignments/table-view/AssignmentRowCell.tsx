@@ -19,7 +19,7 @@ export default function AssignmentRowCell({
 }: CellWrapperProps) {
   const cellIdReference = getCellIdReference({ data, rowIndex, columnIndex });
   const { entity } = useDtoStore<AssignmentTableRow>({
-    entityId: cellIdReference.rowId,
+    entityId: cellIdReference.rowId ?? NaN,
     entityClass: AssignmentTableRowClassName,
     listenerKey: `headerColumnCell:${rowIndex}`
   });

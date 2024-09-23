@@ -34,14 +34,17 @@ export default function DtoUiWrapperCell<T extends Entity>(
   if (data.length === 0) return null;
   const cellIdReference = getCellIdReference({ data, columnIndex, rowIndex });
 
+  const element = cellIdReference[idKey];
   return (
-    <div style={style} className={clsx('flex overflow-hidden', className)}>
-      <LazyDtoUiWrapper
-        entityClass={entityClass}
-        entityId={cellIdReference[idKey]}
-        renderAs={InnerCell}
-        whileLoading={Loading}
-      />
-    </div>
+    element && (
+      <div style={style} className={clsx('flex overflow-hidden', className)}>
+        <LazyDtoUiWrapper
+          entityClass={entityClass}
+          entityId={element}
+          renderAs={InnerCell}
+          whileLoading={Loading}
+        />
+      </div>
+    )
   );
 }
