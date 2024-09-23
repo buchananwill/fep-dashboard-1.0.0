@@ -7,8 +7,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Vivaldi",
-      "familyName": "Chalmers"
+      "fName": "Vivaldi",
+      "lName": "Chalmers"
     },
     "suitabilities": [
       {
@@ -20,7 +20,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "Classical Piano",
               "id": -1,
@@ -63,8 +63,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Johannes",
-      "familyName": "Bruckner"
+      "fName": "Johannes",
+      "lName": "Bruckner"
     },
     "suitabilities": [
       {
@@ -76,7 +76,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "Piano",
               "id": -1
@@ -117,8 +117,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Rachel",
-      "familyName": "Mahler"
+      "fName": "Rachel",
+      "lName": "Mahler"
     },
     "suitabilities": [
       {
@@ -130,7 +130,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "Classical Voice",
               "id": -1
@@ -172,8 +172,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Sabine",
-      "familyName": "Handel"
+      "fName": "Sabine",
+      "lName": "Handel"
     },
     "suitabilities": [
       {
@@ -185,7 +185,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "Production",
               "id": -1
@@ -245,8 +245,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Ionia",
-      "familyName": "Grieg"
+      "fName": "Ionia",
+      "lName": "Grieg"
     },
     "suitabilities": [
       {
@@ -258,7 +258,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "Drum Kit",
               "id": -1
@@ -303,8 +303,8 @@ Content-Type: application/json
   "baseEntity": {
     "id": 0,
     "dateOfBirth": "1990-09-25",
-    "personalName": "FAKE",
-    "familyName": "DRUM_TEACHER"
+    "fName": "FAKE",
+    "lName": "DRUM_TEACHER"
   },
   "suitabilities": [
     {
@@ -316,7 +316,7 @@ Content-Type: application/json
             "knowledgeLevels": []
           }
         ],
-        "knowledgeDomainDtoInclusionList": [
+        "knowledgeDomainDtoList": [
           {
             "name": "Drum Kit",
             "id": -1
@@ -362,8 +362,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Julian",
-      "familyName": "Sibelius"
+      "fName": "Julian",
+      "lName": "Sibelius"
     },
     "suitabilities": [
       {
@@ -375,7 +375,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "Guitar",
               "id": -1
@@ -420,8 +420,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Camille",
-      "familyName": "Proust"
+      "fName": "Camille",
+      "lName": "Proust"
     },
     "suitabilities": [
       {
@@ -433,7 +433,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "French Horn",
               "id": -1
@@ -466,8 +466,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Gustavia",
-      "familyName": "Van Beethoven"
+      "fName": "Gustavia",
+      "lName": "Van Beethoven"
     },
     "suitabilities": [
       {
@@ -479,7 +479,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "Jazz/Pop Voice",
               "id": -1
@@ -521,8 +521,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Jacob",
-      "familyName": "Holst"
+      "fName": "Jacob",
+      "lName": "Holst"
     },
     "suitabilities": [
       {
@@ -534,7 +534,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "Double Bass",
               "id": -1
@@ -576,8 +576,8 @@ Content-Type: application/json
     "baseEntity": {
       "id": 0,
       "dateOfBirth": "1990-09-25",
-      "personalName": "Karol",
-      "familyName": "Pope"
+      "fName": "Karol",
+      "lName": "Pope"
     },
     "suitabilities": [
       {
@@ -589,7 +589,7 @@ Content-Type: application/json
               "knowledgeLevels": []
             }
           ],
-          "knowledgeDomainDtoInclusionList": [
+          "knowledgeDomainDtoList": [
             {
               "name": "DJ",
               "id": -1
