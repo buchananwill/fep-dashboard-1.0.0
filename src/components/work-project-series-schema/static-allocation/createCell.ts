@@ -10,7 +10,7 @@ export function joinCellId(
   rowId: Identifier | undefined,
   columnId: Identifier | undefined
 ) {
-  return `${entityClass}:${rowId}:${columnId}`;
+  return `${entityClass}/${rowId}/${columnId}`;
 }
 
 export function createCell<T>(
