@@ -21,7 +21,7 @@ function InnerStaticAllocationCell({
 }: InnerCellContent<string | undefined>) {
   if (cellData === undefined) return <StaticAllocationDropZone {...props} />;
   else {
-    console.log(cellData);
+    console.log('cell data is defined:', cellData);
     return <StaticAllocationOccupied {...props} cellData={cellData} />;
   }
 }

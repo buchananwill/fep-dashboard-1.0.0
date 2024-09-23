@@ -20,6 +20,8 @@ export function StaticAllocationDraggable(props: {
     item: entity
   }));
 
+  if (isDragging) console.log(entity);
+
   const style = { width: `${deliveryAllocationSize * defaultCellSize}px` };
 
   return disabled ? (

@@ -7,11 +7,11 @@ import {
   getCellIdReference,
   OuterCellProps
 } from '@/components/grids/getCellIdReference';
+import { ObjectPlaceholder } from '@/api/literals';
 import {
   Cell,
   joinCellId
-} from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
-import { ObjectPlaceholder } from '@/api/literals';
+} from '@/components/work-project-series-schema/static-allocation/createCell';
 
 export default function VirtualizedOuterCellV2<T>({
   rowIndex,

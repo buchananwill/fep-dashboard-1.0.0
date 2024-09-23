@@ -1,18 +1,19 @@
 import {
   BaseDtoUiProps,
   DtoUiWrapper,
-  InitialMap,
   NamespacedHooks,
   useWriteAnyDto
 } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import {
+  StaticDeliveryAllocationItemDto,
+  WorkProjectSeriesSchemaDto
+} from '@/api/generated-types/generated-types';
 import {
   CellWrapperProps,
   getCellIdReference
 } from '@/components/grids/getCellIdReference';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { memo, useCallback, useMemo } from 'react';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
+import { memo, useCallback } from 'react';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import clsx from 'clsx';
@@ -23,14 +24,7 @@ import { ObjectPlaceholder } from '@/api/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
-import { StaticAllocationDraggable } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDraggable';
-import { DeliveryAllocationDto } from '@/api/generated-types/generated-types';
-import {
-  allocationCounter,
-  getAllocationCounterId,
-  AllocationCounter
-} from '@/components/work-project-series-schema/static-allocation/StaticAllocationAuditor';
-import { getDeliveryAllocationSize } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDropZone';
+import { StaticAllocationDispensor } from '@/components/work-project-series-schema/StaticAllocationDispensor';
 
 function InnerWorkProjectSeriesSchemaCell({
   entity
@@ -62,7 +56,7 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
     initialValue: ObjectPlaceholder as Record<string, number[]>
   });
 
-  const staticAllocationCellUpdater = useStaticAllocationCellUpdater(rowId);
+  const staticAllocationCellUpdater = useStaticAllocationCellUpdater(rowId!);
   const writeAnyStaticAllocation =
     useWriteAnyDto<StaticDeliveryAllocationItemDto>(
       EntityClassMap.staticDeliveryAllocationItem
@@ -111,24 +105,26 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
         currentItem && canDrop && 'animate-pulse bg-rose-200'
       )}
     >
-      <Popover>
-        <PopoverTrigger>
-          <Button variant={'light'} className={'px-0.5'}>
+      {rowId && (
+        <Popover>
+          <PopoverTrigger>
+            <Button variant={'light'} className={'px-0.5'}>
+              <DtoUiWrapper
+                entityClass={EntityClassMap.workProjectSeriesSchema}
+                entityId={rowId}
+                renderAs={InnerWorkProjectSeriesSchemaCell}
+              />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
             <DtoUiWrapper
               entityClass={EntityClassMap.workProjectSeriesSchema}
               entityId={rowId}
-              renderAs={InnerWorkProjectSeriesSchemaCell}
+              renderAs={StaticAllocationDispensor}
             />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <DtoUiWrapper
-            entityClass={EntityClassMap.workProjectSeriesSchema}
-            entityId={rowId}
-            renderAs={StaticAllocationDispensor}
-          />
-        </PopoverContent>
-      </Popover>
+          </PopoverContent>
+        </Popover>
+      )}
     </div>
   );
 }
@@ -136,105 +132,3 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
 export const MemoWorkProjectSeriesSchemaCell = memo(
   WorkProjectSeriesSchemaCell
 );
-
-const TWO_FIVE_SIX = Math.pow(2, 8);
-
-const PRODUCTION_STATIC_CYCLE_ID = 1;
-
-function getTransientStaticAllocationId(
-  deliveryAllocation: DeliveryAllocationDto,
-  used: number
-) {
-  return (deliveryAllocation.id * TWO_FIVE_SIX + used) * -1;
-}
-
-function getCount(unusedAllocation: StaticDeliveryAllocationItemDto) {
-  return unusedAllocation.staticDeliveryAllocation.deliveryAllocation.count;
-}
-
-function getUsed(
-  idToCounterMap: Map<string, AllocationCounter>,
-  entity: WorkProjectSeriesSchemaDto,
-  deliveryAllocationSize: number
-) {
-  return (
-    idToCounterMap.get(
-      `${getAllocationCounterId(entity.id, deliveryAllocationSize)}`
-    )?.count ?? 0
-  );
-}
-
-export function StaticAllocationDispensor({
-  entity
-}: BaseDtoUiProps<WorkProjectSeriesSchemaDto>) {
-  const allocationCounterIds = useMemo(() => {
-    return Object.values(entity.deliveryAllocations).map(
-      (deliveryAllocation) => {
-        return getAllocationCounterId(
-          entity.id,
-          deliveryAllocation.deliveryAllocationSize
-        );
-      }
-    );
-  }, [entity]);
-
-  const { currentState: idToCounterMap } = useGlobalListener<
-    Map<string, AllocationCounter>
-  >({
-    contextKey: allocationCounter,
-    listenerKey: `StaticAllocationDispensor:${entity.id}`,
-    initialValue: InitialMap as Map<string, AllocationCounter>
-  });
-
-  console.log(idToCounterMap);
-
-  const unusedAllocations: StaticDeliveryAllocationItemDto[] = useMemo(() => {
-    return Object.values(entity.deliveryAllocations).map(
-      (deliveryAllocation) => {
-        const used = getUsed(
-          idToCounterMap,
-          entity,
-          deliveryAllocation.deliveryAllocationSize
-        );
-        return {
-          id: getTransientStaticAllocationId(deliveryAllocation, used),
-          cycleSubspanGroupId: '',
-          staticDeliveryAllocation: {
-            id: deliveryAllocation.id,
-            cycleId: PRODUCTION_STATIC_CYCLE_ID,
-            deliveryAllocation: deliveryAllocation
-          },
-          workProjectSeriesSchemaId:
-            deliveryAllocation.workProjectSeriesSchemaId
-        } as StaticDeliveryAllocationItemDto;
-      }
-    );
-  }, [entity, idToCounterMap]);
-
-  return (
-    <table>
-      <tbody>
-        {unusedAllocations.map((unusedAllocation) => {
-          const remaining =
-            getCount(unusedAllocation) -
-            getUsed(
-              idToCounterMap,
-              entity,
-              getDeliveryAllocationSize(unusedAllocation)
-            );
-          return (
-            <tr key={unusedAllocation.id}>
-              <td>{remaining}</td>
-              <td>
-                <StaticAllocationDraggable
-                  entity={unusedAllocation}
-                  disabled={remaining === 0}
-                />
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
-}

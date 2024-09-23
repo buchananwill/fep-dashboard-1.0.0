@@ -19,6 +19,10 @@ import {
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
+import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
+import { getCellDataIdReferenceOrUndefined } from '@/components/work-project-series-schema/static-allocation/getCellDataOrUndefined';
+import { getTableProps } from '@/components/grids/useTableProps';
+import { createCell } from '@/components/work-project-series-schema/static-allocation/createCell';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,
@@ -42,6 +46,22 @@ export async function StaticAllocationPage({
     staticDeliveryTable.cellIdCellContentMap
   );
 
+  const cellDataOrUndefined =
+    getCellDataIdReferenceOrUndefined(staticDeliveryTable);
+  const initialList = getTableProps(
+    staticDeliveryTable.rowList,
+    staticDeliveryTable.columnList
+  )
+    .itemData.flatMap((list) => [...list])
+    .map(({ rowId, columnId }) =>
+      createCell(
+        EntityClassMap.staticDeliveryAllocationItem,
+        String(rowId),
+        String(columnId),
+        cellDataOrUndefined.memoizedFunction({ rowId, columnId })
+      )
+    );
+
   return (
     <>
       <EditAddDeleteDtoControllerArray
@@ -60,8 +80,8 @@ export async function StaticAllocationPage({
         dtoList={staticDeliveryTable.rowList}
       />
       <EditAddDeleteDtoControllerArray
-        entityClass={'Cell'}
-        dtoList={EmptyArray}
+        entityClass={CellEntityClass}
+        dtoList={initialList}
       />
       <StaticAllocationAuditor />
       <MasterMapController

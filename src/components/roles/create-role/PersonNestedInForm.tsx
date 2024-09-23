@@ -1,9 +1,19 @@
 import { PersonDto } from '@/api/generated-types/generated-types';
 import { useFormContext } from 'react-hook-form';
 import React, { useCallback } from 'react';
-import { CalendarDate, parseDate } from '@internationalized/date';
+import {
+  CalendarDate,
+  getLocalTimeZone,
+  parseAbsolute,
+  parseDate,
+  parseZonedDateTime,
+  ZonedDateTime
+} from '@internationalized/date';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { DatePicker } from '@nextui-org/date-picker';
+import { addHours, format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
+import { NullableOption } from '@microsoft/microsoft-graph-types';
 
 export type BaseEntity<T> = {
   baseEntity: T;
@@ -15,12 +25,32 @@ export function PersonNestedInForm() {
   const dateOfBirth = watch('baseEntity.dateOfBirth');
 
   const setDateValue = useCallback(
-    (value: CalendarDate) => {
-      const isoString = value.toString();
-      setValue('baseEntity.dateOfBirth', isoString);
+    (value: ZonedDateTime) => {
+      console.log(value);
+      const dateOnly = format(value.toDate(), 'yyyy-MM-dd');
+      console.log(dateOnly);
+      setValue('baseEntity.dateOfBirth', dateOnly);
     },
     [setValue]
   );
+
+  console.log(dateOfBirth);
+
+  const currentDateTime = addHours(
+    parseDate(dateOfBirth).toDate(getLocalTimeZone()),
+    12
+  );
+  const nowFormatted = formatInTimeZone(
+    currentDateTime,
+    getLocalTimeZone(),
+    "yyyy-MM-dd'T'HH:mm:ssXXX"
+  );
+
+  console.log(nowFormatted, new Date(nowFormatted));
+
+  const zonedDateTime = parseAbsolute(nowFormatted, 'Europe/London');
+
+  console.log(currentDateTime, zonedDateTime, getTimeZone(currentDateTime));
 
   return (
     <>
@@ -43,9 +73,18 @@ export function PersonNestedInForm() {
         name={'baseEntity.dateOfBirth'}
         aria-label={'Date of Birth'}
         label={'Date of Birth'}
-        value={parseDate(dateOfBirth)}
+        value={zonedDateTime}
+        showMonthAndYearPickers={true}
         onChange={setDateValue}
       />
     </>
   );
+}
+
+export function getTimeZone(date: Date): NullableOption<string> {
+  const zone = Intl.DateTimeFormat('en-GB', { timeZoneName: 'long' })
+    .format(date)
+    .split(', ')
+    .pop();
+  return zone === undefined ? null : zone;
 }

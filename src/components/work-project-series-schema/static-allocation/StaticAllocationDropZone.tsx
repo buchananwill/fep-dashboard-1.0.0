@@ -1,5 +1,8 @@
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
+import {
+  CycleSubspanWithJoinsListDto,
+  StaticDeliveryAllocationItemDto
+} from '@/api/generated-types/generated-types';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import { getCellIdReference } from '@/components/grids/getCellIdReference';
@@ -7,7 +10,6 @@ import { useCallback } from 'react';
 import clsx from 'clsx';
 import { NamespacedHooks, useDtoStore, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types';
 import {
   matchIsFirst,
   matchRow,
@@ -18,7 +20,6 @@ import { useGlobalListener } from 'selective-context';
 import { ObjectPlaceholder } from '@/api/literals';
 import { useStaticAllocationCellUpdater } from '@/components/work-project-series-schema/static-allocation/UseStaticAllocationCellUpdater';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { getNumberFromStringId } from 'react-d3-force-wrapper';
 
 export function getDeliveryAllocationSize(
   item: StaticDeliveryAllocationItemDto | undefined
@@ -54,7 +55,7 @@ export function StaticAllocationDropZone({
 
   const listenerKey = `cell:${rowIndex}:${columnIndex}`;
   const { entity: cycleSubspan } = useDtoStore<CycleSubspanWithJoinsListDto>({
-    entityId: columnId,
+    entityId: columnId ?? NaN,
     entityClass: EntityClassMap.cycleSubspan,
     listenerKey: listenerKey
   });
@@ -62,19 +63,16 @@ export function StaticAllocationDropZone({
   const canDropCallback = useCallback(
     (item: StaticDeliveryAllocationItemDto, monitor: DropTargetMonitor) => {
       const size = getDeliveryAllocationSize(item);
-      return (
-        matchRow(item, rowId as number) &&
-        matchSize(cycleSubspan.cycleSubspanJoins, size) &&
-        matchIsFirst(
-          cycleSubspan.cycleSubspanJoins,
-          size,
-          item.cycleSubspanGroupId
-        )
-      );
+
+      const rowMatched = matchRow(item, rowId as number);
+      const sizeMatched = matchSize(cycleSubspan.cycleSubspanJoins, size);
+      const isFirst = matchIsFirst(cycleSubspan.cycleSubspanJoins, size);
+      if (rowMatched) console.log(rowMatched, sizeMatched, isFirst);
+      return rowMatched && sizeMatched && isFirst;
     },
     [rowId, cycleSubspan]
   );
-  const localMemoizedUpdater = useStaticAllocationCellUpdater(rowId);
+  const localMemoizedUpdater = useStaticAllocationCellUpdater(rowId ?? NaN);
 
   const dispatchMasterList = NamespacedHooks.useDispatch<
     StaticDeliveryAllocationItemDto[]
@@ -102,7 +100,9 @@ export function StaticAllocationDropZone({
       const newGroupId =
         cycleSubspan.cycleSubspanJoins[getDeliveryAllocationSize(item)]
           .cycleSubspanGroupId;
-      cycleSubspanGroupMapCurrent[newGroupId].forEach((cycleSubspanId) => {
+      const cycleSubspanIds = cycleSubspanGroupMapCurrent[newGroupId];
+      console.log(cycleSubspanIds);
+      cycleSubspanIds.forEach((cycleSubspanId) => {
         localMemoizedUpdater(String(item.id), cycleSubspanId);
       });
 
@@ -125,6 +125,8 @@ export function StaticAllocationDropZone({
           })
         );
       } else {
+        console.log('adding new static item');
+        console.log(cycleSubspanGroupId, item);
         dispatchAdded((list) => [...list, item.id]);
         dispatchMasterList((list) => [
           ...list,

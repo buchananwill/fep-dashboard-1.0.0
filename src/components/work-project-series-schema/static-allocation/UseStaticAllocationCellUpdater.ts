@@ -1,11 +1,12 @@
-import {
-  Cell,
-  joinCellId
-} from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
 import { useWriteAnyDto } from 'dto-stores';
 import { useCallback } from 'react';
+import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
+import {
+  Cell,
+  joinCellId
+} from '@/components/work-project-series-schema/static-allocation/createCell';
 
 function updateStaticAllocationTableCell(
   writeAnyCell: {
@@ -29,7 +30,7 @@ function updateStaticAllocationTableCell(
 }
 
 export function useStaticAllocationCellUpdater(rowId: string | number) {
-  const writeAnyCell = useWriteAnyDto('Cell');
+  const writeAnyCell = useWriteAnyDto(CellEntityClass);
   return useCallback(
     (data: string | undefined, cycleSubspanId: number) => {
       updateStaticAllocationTableCell(

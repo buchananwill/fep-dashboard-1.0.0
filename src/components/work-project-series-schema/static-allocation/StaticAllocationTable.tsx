@@ -7,19 +7,16 @@ import {
   getCellDataOrUndefined
 } from '@/components/work-project-series-schema/static-allocation/getCellDataOrUndefined';
 import CycleSubspanCellWithJoins from '@/components/grids/CycleSubspanCellWithJoins';
-import {
-  Identifier,
-  NamespacedHooks,
-  useEffectSyncWithDispatch
-} from 'dto-stores';
-import { EntityClassMap } from '@/api/entity-class-map';
+import { NamespacedHooks, useEffectSyncWithDispatch } from 'dto-stores';
 import { MemoWorkProjectSeriesSchemaCell } from '@/components/work-project-series-schema/WorkProjectSeriesSchemaCell';
 import StaticAllocationCell from '@/components/work-project-series-schema/static-allocation/StaticAllocationCell';
 import { memo, useMemo } from 'react';
 import { useGlobalController } from 'selective-context';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { useFilteredRows } from '@/components/work-project-series-schema/static-allocation/useFilteredRows';
+import { useTableProps } from '@/components/grids/useTableProps';
+import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
+import { createCell } from '@/components/work-project-series-schema/static-allocation/createCell';
 
 export const cycleSubspanGroupMap = 'CycleSubspanGroupMap';
 
@@ -29,16 +26,21 @@ export default function StaticAllocationTable({
   tableData: StaticAllocationTableDto;
 }) {
   const { rowList, columnList } = tableData;
-  const tableProps = useFilteredRows(
-    tableData,
-    EntityClassMap.workProjectSeriesSchema
-  );
+  // const tableProps = useFilteredRows(
+  //   tableData,
+  //   EntityClassMap.workProjectSeriesSchema
+  // );
+  //
+  //
+
+  const tableProps = useTableProps(rowList, columnList);
 
   const cycleSubspanGroupIdToCycleSubspanIdList = useMemo(
     () =>
       columnList.reduce(
         (prev, curr) => {
-          const { cycleSubspanJoins } = curr;
+          const { cycleSubspanJoins, joinsIfNotFirst } = curr;
+          // Loop to collect the cycleSubspans that are the first of a group.
           Object.values(cycleSubspanJoins).forEach((join) => {
             let list = prev[join.cycleSubspanGroupId];
             if (list === undefined) {
@@ -46,6 +48,17 @@ export default function StaticAllocationTable({
               prev[join.cycleSubspanGroupId] = list;
             }
             list.push(curr.id);
+          });
+          // Nested loop to collect the cycleSubspans that are "nth != first" of a group.
+          Object.values(joinsIfNotFirst).forEach((joinList) => {
+            joinList.forEach((join) => {
+              let list = prev[join.cycleSubspanGroupId];
+              if (list === undefined) {
+                list = [];
+                prev[join.cycleSubspanGroupId] = list;
+              }
+              list.push(curr.id);
+            });
           });
           return prev;
         },
@@ -61,7 +74,7 @@ export default function StaticAllocationTable({
   });
 
   const dispatchCells = NamespacedHooks.useDispatch(
-    'Cell',
+    CellEntityClass,
     KEY_TYPES.MASTER_LIST
   );
 
@@ -72,7 +85,7 @@ export default function StaticAllocationTable({
       .flatMap((list) => [...list])
       .map(({ rowId, columnId }) =>
         createCell(
-          EntityClassMap.staticDeliveryAllocationItem,
+          CellEntityClass,
           String(rowId),
           String(columnId),
           cellDataOrUndefined.memoizedFunction({ rowId, columnId })
@@ -80,7 +93,7 @@ export default function StaticAllocationTable({
       );
   }, [tableProps.itemData, tableData]);
 
-  console.log(tableData);
+  console.log(tableData, flattened);
 
   useEffectSyncWithDispatch(flattened, dispatchCells);
 
@@ -105,25 +118,3 @@ export default function StaticAllocationTable({
 export const MemoCycleSubspanCell = memo(CycleSubspanCellWithJoins);
 
 const MemoStaticAllocationCell = memo(StaticAllocationCell);
-
-export interface Cell<T> {
-  id: string;
-  data: T;
-}
-
-export function joinCellId(
-  entityClass: string,
-  rowId: Identifier | undefined,
-  columnId: Identifier | undefined
-) {
-  return `${entityClass}:${rowId}:${columnId}`;
-}
-
-function createCell<T>(
-  entityClass: string,
-  rowId: Identifier,
-  columnId: Identifier,
-  data: T
-) {
-  return { id: joinCellId(entityClass, rowId, columnId), data };
-}
