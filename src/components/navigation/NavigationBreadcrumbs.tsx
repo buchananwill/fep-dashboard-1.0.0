@@ -23,6 +23,7 @@ export default function NavigationBreadcrumbs({
       <Breadcrumbs className={'h-4'}>
         {pathVariables.map((pathVariable, index) => (
           <BreadcrumbItem
+            className={'text-default-700'}
             key={index}
             href={`/core/${pathVariables.slice(0, index + 1).join('/')}`}
           >

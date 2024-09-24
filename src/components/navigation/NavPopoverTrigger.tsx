@@ -12,10 +12,11 @@ export default function NavPopoverTrigger() {
         <PopoverTrigger>
           <Button
             isIconOnly={true}
-            className={clsx('h-12 w-12 rounded-full p-1')}
+            className={clsx('h-12 w-12 rounded-full p-1 ')}
             variant={'light'}
+            color={'primary'}
           >
-            <GlobeAltIcon />
+            <GlobeAltIcon className={'text-black'} />
           </Button>
         </PopoverTrigger>
         <PopoverContent>
