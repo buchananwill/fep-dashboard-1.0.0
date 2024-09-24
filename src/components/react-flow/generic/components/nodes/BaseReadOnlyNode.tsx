@@ -12,11 +12,7 @@ import React, { useCallback } from 'react';
 import { HasNumberId } from '@/api/types';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
-
-export type GenericDivProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
+import { GenericDivProps } from '@/types';
 
 export function BaseReadOnlyNode<
   NodeData extends HasNumberId & {},

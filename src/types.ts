@@ -97,3 +97,7 @@ export type ValueList<ReferenceType> = {
   [Property in keyof ReferenceType]: ReferenceType[Property][];
 };
 export type PartialValueList<T> = Partial<ValueList<T>>;
+export type GenericDivProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;

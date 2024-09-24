@@ -5,19 +5,22 @@ import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/breadcrumbs';
 
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { HasUuidDtoSchema } from '@/api/zod-schemas/HasUuidDtoSchema';
-import { ZodError } from 'zod';
+import { useGlobalDispatch } from 'selective-context';
+import { useMemo } from 'react';
+import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
+import { JSX } from 'react/jsx-runtime';
 
+export const navigationBreadcrumbs = 'navigation-breadcrumbs';
 export default function NavigationBreadcrumbs({
   pathVariables
 }: LeafComponentProps) {
-  return (
-    <div
-      className={
-        'fixed bottom-0 left-1/2 z-50 flex justify-center rounded bg-white bg-opacity-80 p-2'
-      }
-      style={{ transform: 'translate(-50%, 0%)' }}
-    >
-      <Breadcrumbs>
+  const { dispatchWithoutListen } = useGlobalDispatch<JSX.Element>(
+    navigationBreadcrumbs
+  );
+
+  const breadCrumbsRender = useMemo(() => {
+    return (
+      <Breadcrumbs className={'h-4'}>
         {pathVariables.map((pathVariable, index) => (
           <BreadcrumbItem
             key={index}
@@ -29,8 +32,31 @@ export default function NavigationBreadcrumbs({
           </BreadcrumbItem>
         ))}
       </Breadcrumbs>
-    </div>
-  );
+    );
+  }, [pathVariables]);
+
+  useEffectSyncToMemo(dispatchWithoutListen, breadCrumbsRender);
+
+  return null;
+  // <div
+  //   className={
+  //     'fixed bottom-0 left-1/2 z-50 flex justify-center rounded bg-white bg-opacity-80 p-2'
+  //   }
+  //   style={{ transform: 'translate(-50%, 0%)' }}
+  // >
+  //   <Breadcrumbs>
+  //     {pathVariables.map((pathVariable, index) => (
+  //       <BreadcrumbItem
+  //         key={index}
+  //         href={`/core/${pathVariables.slice(0, index + 1).join('/')}`}
+  //       >
+  //         {isUuid(pathVariable)
+  //           ? pathVariable
+  //           : startCase(getDomainAlias(pathVariable))}
+  //       </BreadcrumbItem>
+  //     ))}
+  //   </Breadcrumbs>
+  // </div>
 }
 
 function isUuid(testString: string) {
