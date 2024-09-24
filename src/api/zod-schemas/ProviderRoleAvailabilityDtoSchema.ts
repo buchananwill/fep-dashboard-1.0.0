@@ -4,5 +4,6 @@ export const ProviderRoleAvailabilityDtoSchema = z.object({
   providerRoleId: z.number(),
   partyId: z.number(),
   cycleSubspanId: z.number(),
-  availabilityCode: z.number()
+  availabilityCode: z.number(),
 });
+export type ProviderRoleAvailabilityDto = z.infer<typeof ProviderRoleAvailabilityDtoSchema>;

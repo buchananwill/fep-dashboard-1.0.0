@@ -7,5 +7,6 @@ export const CycleSubspanLeanDtoSchema = z.object({
   zeroIndexedCycleDay: z.number(),
   timeSpanId: z.number(),
   parentCycleId: z.number(),
-  name: z.string()
+  name: z.string(),
 });
+export type CycleSubspanLeanDto = z.infer<typeof CycleSubspanLeanDtoSchema>;

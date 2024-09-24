@@ -4,5 +4,6 @@ import { z } from 'zod';
 export const ProviderRolePostRequestSchema = z.object({
   workTaskTypeExampleList: z.array(WorkTaskTypeDtoSchema),
   roleTypeExample: ProviderRoleTypeDtoSchema,
-  rating: z.number()
+  rating: z.number(),
 });
+export type ProviderRolePostRequest = z.infer<typeof ProviderRolePostRequestSchema>;

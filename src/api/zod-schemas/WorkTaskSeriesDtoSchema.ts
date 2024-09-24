@@ -4,6 +4,7 @@ export const WorkTaskSeriesDtoSchema = z.object({
   id: z.number(),
   workTaskTypeId: z.number(),
   cycleSubSpanGroupSize: z.number(),
-  cycleSubSpanGroupId: z.string().uuid(),
-  workTaskSeriesUnits: z.array(WorkTaskSeriesUnitDtoSchema)
+  cycleSubspanGroupId: z.number(),
+  workTaskSeriesUnits: z.array(WorkTaskSeriesUnitDtoSchema),
 });
+export type WorkTaskSeriesDto = z.infer<typeof WorkTaskSeriesDtoSchema>;

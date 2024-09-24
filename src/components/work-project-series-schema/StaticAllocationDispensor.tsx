@@ -75,7 +75,7 @@ export function StaticAllocationDispensor({
         );
         return {
           id: idDecrementer(), //getTransientStaticAllocationId(deliveryAllocation, used),
-          cycleSubspanGroupId: '',
+          cycleSubspanGroupId: NaN,
           staticDeliveryAllocation: {
             id: deliveryAllocation.id,
             cycleId: PRODUCTION_STATIC_CYCLE_ID,

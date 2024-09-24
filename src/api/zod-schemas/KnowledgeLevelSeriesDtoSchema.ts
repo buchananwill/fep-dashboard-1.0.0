@@ -1,8 +1,9 @@
 import { KnowledgeLevelDtoSchema } from './KnowledgeLevelDtoSchema';
 import { z } from 'zod';
 export const KnowledgeLevelSeriesDtoSchema = z.object({
-  name: z.string().optional(),
+  name: z.string(),
   id: z.number(),
-  knowledgeLevelDescriptor: z.string().optional(),
-  knowledgeLevels: z.array(KnowledgeLevelDtoSchema)
+  knowledgeLevelDescriptor: z.string(),
+  knowledgeLevels: z.array(KnowledgeLevelDtoSchema),
 });
+export type KnowledgeLevelSeriesDto = z.infer<typeof KnowledgeLevelSeriesDtoSchema>;

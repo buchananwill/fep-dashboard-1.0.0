@@ -12,7 +12,7 @@ export function matchSize(
 export function matchIsFirst(
   sizesSet: Record<string, CycleSubspanJoinNestedDto>,
   size: number,
-  cycleSubspanGroupId?: string
+  cycleSubspanGroupId?: number
 ) {
   return (
     sizesSet[size]?.joinOrdinal === 1 &&

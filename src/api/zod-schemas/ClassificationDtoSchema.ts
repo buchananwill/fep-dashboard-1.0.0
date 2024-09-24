@@ -6,5 +6,6 @@ export const ClassificationDtoSchema = z.object({
   memberIdList: z.array(z.number()),
   classificationReferenceType: z.string(),
   classificationReferenceId: z.number(),
-  bandwidth: z.number()
+  bandwidth: z.number(),
 });
+export type ClassificationDto = z.infer<typeof ClassificationDtoSchema>;

@@ -31,7 +31,7 @@ export function getDeliveryAllocationSize(
 }
 
 function itemAlreadyExisted(item: StaticDeliveryAllocationItemDto) {
-  return item.id > 0 || item.cycleSubspanGroupId !== '';
+  return item.id > 0 || !isNaN(item.cycleSubspanGroupId);
 }
 
 function getCycleSubspanGroupId(

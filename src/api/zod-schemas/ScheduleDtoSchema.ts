@@ -6,5 +6,6 @@ export const ScheduleDtoSchema = z.object({
   thruDate: z.date(),
   active: z.boolean(),
   cycleId: z.number(),
-  status: z.string()
+  status: z.string(),
 });
+export type ScheduleDto = z.infer<typeof ScheduleDtoSchema>;

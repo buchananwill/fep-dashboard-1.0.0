@@ -12,5 +12,6 @@ export const UserRoleDtoSchema = z.object({
   partyId: z.number(),
   partyType: z.string(),
   partyDateOfBirth: zDateOnly,
-  userRoleType: UserRoleTypeDtoSchema
+  userRoleType: UserRoleTypeDtoSchema,
 });
+export type UserRoleDto = z.infer<typeof UserRoleDtoSchema>;

@@ -7,5 +7,6 @@ export const CycleSubspanGroupEditDtoSchema = z.object({
   name: z.string(),
   zeroIndexedCycleDay: z.number(),
   sizesStartingAtCycleSubspanId: z.array(z.number()),
-  maxGroupSize: z.number()
+  maxGroupSize: z.number(),
 });
+export type CycleSubspanGroupEditDto = z.infer<typeof CycleSubspanGroupEditDtoSchema>;

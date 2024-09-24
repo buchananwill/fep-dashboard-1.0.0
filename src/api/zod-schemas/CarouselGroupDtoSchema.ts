@@ -7,5 +7,6 @@ export const CarouselGroupDtoSchema = z.object({
   name: z.string(),
   carousels: z.array(CarouselLeanDtoSchema),
   carouselGroupOptions: z.array(CarouselGroupOptionDtoSchema),
-  knowledgeLevel: KnowledgeLevelDtoSchema
+  knowledgeLevel: KnowledgeLevelDtoSchema,
 });
+export type CarouselGroupDto = z.infer<typeof CarouselGroupDtoSchema>;

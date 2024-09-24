@@ -2,7 +2,7 @@ import { StaticDeliveryAllocationDtoSchema } from './StaticDeliveryAllocationDto
 import { z } from 'zod';
 export const StaticDeliveryAllocationItemDtoSchema = z.object({
   id: z.number(),
-  cycleSubspanGroupId: z.string().uuid(),
+  cycleSubspanGroupId: z.number(),
   staticDeliveryAllocation: StaticDeliveryAllocationDtoSchema,
 });
 export type StaticDeliveryAllocationItemDto = z.infer<typeof StaticDeliveryAllocationItemDtoSchema>;
