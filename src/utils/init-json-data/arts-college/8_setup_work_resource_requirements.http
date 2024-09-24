@@ -62,7 +62,7 @@ Content-Type: application/json
           ]
         }
       ],
-      "knowledgeDomainDtoInclusionList": [
+      "knowledgeDomainDtoList": [
         {
           "id": 1,
           "name": "Music Theory",
@@ -207,7 +207,6 @@ Content-Type: application/json
           "name": "DJ"
         }
       ],
-      "knowledgeDomainDtoExclusionList": [],
       "workTaskTypeNames": ["Teaching"]
     }
   }

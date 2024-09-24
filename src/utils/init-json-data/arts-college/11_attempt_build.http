@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "autoBuildParametersDto": {
-        "multiStepUndoTimeoutMs": 40000,
+        "multiStepUndoTimeoutMs": 10000,
         "multiUndoIncrement": 5,
         "saveBuild": true,
         "forceSaveMetrics": false

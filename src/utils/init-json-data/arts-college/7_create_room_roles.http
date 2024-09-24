@@ -18,9 +18,6 @@ Content-Type: application/json
         "workTaskTypeMatrix": {
           "knowledgeLevelSeriesDtoList": [
             {
-              "name": "Courses",
-              "id": 2,
-              "knowledgeLevels": [  {
                 "name": "Streams",
                 "id": 1,
                 "knowledgeLevels": [
@@ -67,9 +64,8 @@ Content-Type: application/json
                       "knowledgeLevelSeriesId": 2
                     }
                   ]
-                }]
-            }
-          ],
+                }],
+
           "knowledgeDomainDtoList": [
             {
               "name": "Ensemble Rehearsals",
