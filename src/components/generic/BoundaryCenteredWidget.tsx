@@ -6,7 +6,6 @@ import { navigationBreadcrumbs } from '@/components/navigation/NavigationBreadcr
 import { JSX } from 'react/jsx-runtime';
 import clsx from 'clsx';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
-import { DragTypes } from '@/components/react-dnd/literals';
 
 export function BoundaryCenteredWidget({ children }: PropsWithChildren) {
   const [boundaryType, setBoundaryType] = useState<BoundaryType>('bottom');
