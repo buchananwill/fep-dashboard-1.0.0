@@ -10,7 +10,8 @@ import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
 import {
   convertToOrganizationNode,
-  convertToWorkSchemaFlowNode
+  convertToWorkSchemaFlowNode,
+  WorkSchemaNodeDto
 } from '@/components/react-flow/generic/utils/adaptors';
 import { defaultForceGraphPageOptions } from '@/components/work-schema-node-assignments/defaultForceGraphPageOptions';
 import { Api } from '@/api/clientApi_';
@@ -22,7 +23,6 @@ import { getPathVariableSplitComponent } from '@/components/generic/PathVariable
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/functions/getLastNVariables';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 
 async function WorkSchemaNodeAssignmentsPage({
   pathVariables,

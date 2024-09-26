@@ -28,7 +28,6 @@ import {
 import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditableFlow';
-import { WorkSchemaNodeDto as WSNimport } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 import {
   determineLocalResolution,
   validateHierarchy,
@@ -36,7 +35,10 @@ import {
   workSchemaNodeCloneFunctionWrapper,
   workSchemaNodeGraphUpdater
 } from '@/components/react-flow/work-schema-node/workSchemaNodeCallbacks';
-import { convertToWorkSchemaFlowNode } from '@/components/react-flow/generic/utils/adaptors';
+import {
+  convertToWorkSchemaFlowNode,
+  WorkSchemaNodeDto
+} from '@/components/react-flow/generic/utils/adaptors';
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/WorkSchemaNodeDetailsContent';
 import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
@@ -72,8 +74,6 @@ import {
   Layoutable
 } from '@/components/react-flow/generic/hooks/useForces';
 import { Simplify } from 'type-fest';
-
-type WorkSchemaNodeDto = Simplify<WSNimport>;
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 

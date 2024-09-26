@@ -1,7 +1,7 @@
 import { DataNode } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { isNotUndefined } from '@/api/main';
+import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 
 interface GraphRollupData {
   readLeafSchema: (id: string) => WorkProjectSeriesSchemaDto | undefined;

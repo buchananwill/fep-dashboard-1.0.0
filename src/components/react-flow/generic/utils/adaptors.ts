@@ -14,7 +14,8 @@ import {
 import { HasNumberId } from '@/api/types';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 import { Simplify } from 'type-fest';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+import { z } from 'zod';
+import { WorkSchemaNodeDtoSchema } from '@/api/generated-schemas/schemas';
 
 const organizationNodeType = 'organization';
 
@@ -76,3 +77,5 @@ export function convertDataNodeDtoListToFlowNodeList<T extends NodeDataType>(
 export function convertClosureDtoListToEdgeList(list: ClosureDto[]) {
   return list.map((l) => convertToReactFlowEdge(l));
 }
+
+export type WorkSchemaNodeDto = z.infer<typeof WorkSchemaNodeDtoSchema>;

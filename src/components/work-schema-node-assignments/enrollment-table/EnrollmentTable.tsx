@@ -21,11 +21,10 @@ import {
 import RenderOrganizationCell from '@/components/work-project-series-assignments/table-view/RenderOrganizationCell';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { ChangesCallbackMap } from 'dto-stores';
-import { HasIdClass } from '@/api/types';
+import { ClosureDto, HasIdClass } from '@/api/types';
 import { Api } from '@/api/clientApi_';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
-import { ClosureDto } from '@/api/zod-schemas/ClosureDtoSchema';
 
 interface EnrollmentTableProps {
   classes: DataNodeDto<OrganizationDto>[];

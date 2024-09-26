@@ -1,6 +1,6 @@
 'use server';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { FeasibilityReportDto } from '@/api/zod-schemas/FeasibilityReportDtoSchema';
+import { FeasibilityReportDto } from '@/api/old-zod-schemas/FeasibilityReportDtoSchema';
 
 const {
   getPage,

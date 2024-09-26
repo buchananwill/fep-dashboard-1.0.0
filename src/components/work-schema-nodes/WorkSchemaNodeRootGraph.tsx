@@ -1,6 +1,9 @@
 import { Api } from '@/api/clientApi_';
 import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
-import { convertToWorkSchemaFlowNode } from '@/components/react-flow/generic/utils/adaptors';
+import {
+  convertToWorkSchemaFlowNode,
+  WorkSchemaNodeDto
+} from '@/components/react-flow/generic/utils/adaptors';
 import { workSchemaNodeForceGraphOptions } from '@/components/work-schema-nodes/workSchemaNodeForceGraphOptions';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
@@ -8,7 +11,6 @@ import WorkSchemaNodeGraph from '@/components/work-schema-nodes/_components/Work
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { notFound } from 'next/navigation';
 import { GraphDto } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeDto } from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
 
 export default async function WorkSchemaNodeRootGraph({
   pathVariables,

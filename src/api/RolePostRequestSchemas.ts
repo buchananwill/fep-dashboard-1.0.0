@@ -1,6 +1,8 @@
-import { PersonDtoSchema } from '@/api/zod-schemas/PersonDtoSchema';
-import { AssetDtoSchema } from '@/api/zod-schemas/AssetDtoSchema';
 import { createRolePostRequestSchema } from '@/api/create-role-post-request-schema';
+import {
+  AssetDtoSchema,
+  PersonDtoSchema
+} from '@/api/generated-schemas/schemas';
 
 export const ProviderRolePostRequestSchema =
   createRolePostRequestSchema(PersonDtoSchema);

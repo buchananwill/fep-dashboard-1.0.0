@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TaskTypeClassificationDtoSchema } from '@/api/zod-schemas/TaskTypeClassificationDtoSchema_';
+import { TaskTypeClassificationDtoSchema } from '@/api/old-zod-schemas/TaskTypeClassificationDtoSchema_';
 export const TaskTypeFeasibilityDtoSchema = z.object({
   id: z.number(),
   feasibilityReportId: z.number(),

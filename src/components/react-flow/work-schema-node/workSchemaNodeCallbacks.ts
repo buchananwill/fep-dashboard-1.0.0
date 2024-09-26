@@ -4,10 +4,7 @@ import {
   incrementCloneSuffix,
   reMapNodeIdWithoutValidating
 } from 'react-d3-force-wrapper';
-import {
-  WorkSchemaNodeDto,
-  WorkSchemaNodeDtoSchema
-} from '@/api/zod-schemas/WorkSchemaNodeDtoSchema_';
+
 import { createDataNodeDtoSchema } from '@/api/zod-mods';
 import {
   Middleware,
@@ -23,6 +20,8 @@ import { CarouselDto } from '@/api/generated-types/generated-types';
 import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/getGraphUpdaterWithNameDeDuplication';
 import { ReadAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
 import { MonoFunction } from '@/types';
+import { WorkSchemaNodeDtoSchema } from '@/api/generated-schemas/schemas';
+import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 
 function cloneWorkSchemaNode(
   templateNode: FlowNode<WorkSchemaNodeDto>
@@ -30,11 +29,13 @@ function cloneWorkSchemaNode(
   const {
     data: { name }
   } = templateNode;
-  let cloneName = name ? incrementCloneSuffix(name) : undefined;
+  let cloneName = name ? incrementCloneSuffix(name) : crypto.randomUUID();
   const clonedNode = structuredClone(templateNode);
 
   clonedNode.data.workSchemaNodeAssignmentIds = [];
-  clonedNode.data.name = cloneName;
+  if ('data' in clonedNode) {
+    clonedNode.data.name = cloneName;
+  }
   const parentResolutionMode = templateNode.data.resolutionMode;
   clonedNode.data.resolutionMode = getChildResolutionMode(parentResolutionMode);
   referenceProps.forEach((prop) => delete clonedNode.data[prop]);

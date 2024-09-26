@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   AssetRolePostRequestSchema,
   ProviderRolePostRequestSchema
-} from '@/api/zod-schemas/RolePostRequestSchemas';
+} from '@/api/RolePostRequestSchemas';
 import { defaultPersonValues } from '@/components/roles/CreatePersonForm';
 import { FieldValues } from 'react-hook-form/dist/types';
 import CreateRoleForm, {

@@ -18,7 +18,7 @@ import { ObjectPlaceholder } from '@/api/literals';
 import clsx from 'clsx';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
-import { BandwidthValidationLayer } from '@/api/zod-schemas/BandwidthValidationLayerSchema';
+import { BandwidthValidationLayer } from '@/api/old-zod-schemas/BandwidthValidationLayerSchema';
 import { NodeProps } from '@/types/xyflow-overrides';
 
 type BaseClassification = NodeDataType & {

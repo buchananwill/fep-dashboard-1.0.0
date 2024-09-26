@@ -6,7 +6,7 @@ import { createFeasibilityReport } from '@/api/createFeasibilityAction';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { FeasibilityReportDto } from '@/api/zod-schemas/FeasibilityReportDtoSchema';
+import { FeasibilityReportDto } from '@/api/old-zod-schemas/FeasibilityReportDtoSchema';
 
 export default function CreateFeasibilityReport({
   cycleId,

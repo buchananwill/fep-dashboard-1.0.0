@@ -21,8 +21,8 @@ import {
 } from '@/utils/init-object-literals/wttPartials';
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
 import { AssetRoleTypeDto } from '@/api/generated-types/generated-types';
-import { AssetRolePostRequest } from '@/api/zod-schemas/AssetRolePostRequestSchema_';
 import { PartialDeep } from 'type-fest';
+import { AssetRolePostRequest } from '@/api/old-zod-schemas/AssetRolePostRequestSchema_';
 
 const assetRoleTypeExample: Partial<AssetRoleTypeDto> = {
   name: 'Class Room'

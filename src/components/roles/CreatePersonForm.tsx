@@ -7,7 +7,6 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@nextui-org/button';
 import { PersonDto } from '@/api/generated-types/generated-types';
-import { PersonDtoSchema } from '@/api/zod-schemas/PersonDtoSchema';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { DatePicker } from '@nextui-org/date-picker';
 import {
@@ -15,6 +14,7 @@ import {
   getLocalTimeZone,
   parseDate
 } from '@internationalized/date';
+import { PersonDtoSchema } from '@/api/generated-schemas/schemas';
 
 export const defaultPersonValues = {
   id: -1,

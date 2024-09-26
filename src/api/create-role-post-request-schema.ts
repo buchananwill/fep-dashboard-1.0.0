@@ -1,6 +1,8 @@
 import { z } from 'zod';
-import { SuitabilityPostRequestSchema } from '@/api/zod-schemas/SuitabilityPostRequestSchema_';
-import { AvailabilityPostRequestSchema } from '@/api/zod-schemas/AvailabilityPostRequestSchema_';
+import {
+  AvailabilityPostRequestSchema,
+  SuitabilityPostRequestSchema
+} from '@/api/generated-schemas/schemas';
 
 export function createRolePostRequestSchema<T extends z.ZodTypeAny>(
   dataSchema: T

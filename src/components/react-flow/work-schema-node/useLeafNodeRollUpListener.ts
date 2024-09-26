@@ -7,9 +7,9 @@ import { ObjectPlaceholder } from '@/api/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import {
   CarouselOptionDto,
-  WorkProjectSeriesSchemaDto,
-  WorkSchemaNodeDto
+  WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 
 export interface AllocationRollup {
   id: Identifier;

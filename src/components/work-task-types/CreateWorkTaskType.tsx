@@ -7,7 +7,6 @@ import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@nextui-org/button';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
-import { WorkTaskTypeDtoSchema } from '@/api/zod-schemas/WorkTaskTypeDtoSchema';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
 import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';
@@ -19,6 +18,7 @@ import { nameAccessor } from '@/functions/nameSetter';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
 import { useNestedAutoCompleteChangeHandler } from '@/components/work-task-types/useNestedAutoCompleteChangeHandler';
 import { useNestedSelectChangeHandler } from '@/components/work-task-types/useNestedSelectChangeHandler';
+import { WorkTaskTypeDtoSchema } from '@/api/generated-schemas/schemas';
 
 const defaultWorkTaskTypeValues = {
   id: -1,

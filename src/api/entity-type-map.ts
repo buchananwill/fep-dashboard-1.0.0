@@ -12,6 +12,7 @@ import {
   CarouselOptionDto,
   CarouselOrderDto,
   CarouselOrderItemDto,
+  CycleDto,
   CycleSubspanDto,
   CycleSubspanGroupDto,
   KnowledgeDomainDto,
@@ -38,11 +39,8 @@ import {
   WorkSchemaNodeDto,
   WorkTaskTypeDto
 } from './generated-types/generated-types';
-import { InteractionBasedValidationDto } from '@/api/zod-schemas/InteractionBasedValidationDtoSchema';
-import { CycleDto } from '@/api/zod-schemas/CycleDtoSchema';
-import { FeasibilityReportDto } from '@/api/zod-schemas/FeasibilityReportDtoSchema';
-import { Simplify } from 'type-fest';
-import { SimplifyDeep } from 'type-fest/source/merge-deep';
+import { FeasibilityReportDto } from '@/api/old-zod-schemas/FeasibilityReportDtoSchema';
+import { InteractionBasedValidationDto } from '@/api/old-zod-schemas/InteractionBasedValidationDtoSchema';
 
 export type EntityTypeMap = {
   asset: AssetDto;

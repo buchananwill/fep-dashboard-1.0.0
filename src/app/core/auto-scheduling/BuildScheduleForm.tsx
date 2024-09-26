@@ -11,13 +11,13 @@ import { Button } from '@nextui-org/button';
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { Overlay } from '@/components/overlays/overlay';
 import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
-import { ScheduleParametersDtoSchema } from '@/api/zod-schemas/ScheduleParametersDtoSchema';
 import { startCase } from 'lodash';
 import FixedOrderMultiSelect, {
   FixedOrderSelectable
 } from '@/app/core/auto-scheduling/FixedOrderMultiSelect';
 import { MultiValue } from 'react-select';
 import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
+import { ScheduleParametersDtoSchema } from '@/api/generated-schemas/schemas';
 
 export default function AutoBuildForm({
   defaultMultiStepUndoTimeout,

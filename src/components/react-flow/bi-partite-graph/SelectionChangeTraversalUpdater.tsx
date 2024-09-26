@@ -4,7 +4,7 @@ import { useGlobalController } from 'selective-context';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { OnSelectionChangeParams, useOnSelectionChange } from '@xyflow/react';
 import { ObjectPlaceholder } from '@/api/literals';
-import { BandwidthValidationTraversal } from '@/api/zod-schemas/BandwidthValidationTraversalSchema';
+import { BandwidthValidationTraversal } from '@/api/old-zod-schemas/BandwidthValidationTraversalSchema';
 
 const bandwidthValidationTraversal = 'bandwidthValidationTraversal';
 

@@ -15,7 +15,7 @@ import { Button } from '@nextui-org/button';
 import { postOne } from '@/api/generated-actions/Cycle';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { CycleDto } from '@/api/generated-types/generated-types';
-import { CycleDtoSchema } from '@/api/zod-schemas/CycleDtoSchema';
+import { CycleDtoSchema } from '@/api/generated-schemas/schemas';
 
 const dayArray = DayOfWeekArray.map((day) => ({
   name: day,
