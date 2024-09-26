@@ -36,7 +36,7 @@ export function getDayOfWeek(dateTimeTimeZone: RequiredDeep<DateTimeTimeZone>) {
 }
 
 export function toLocalTime(dateTimeString: string) {
-  return format(new Date(dateTimeString), 'HH:mm');
+  return format(new Date(dateTimeString), 'HH:mm:SS');
 }
 
 export function outlookEventToAvailability(

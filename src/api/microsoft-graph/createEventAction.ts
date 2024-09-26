@@ -29,7 +29,7 @@ const testEvent: OutlookEvent = {
     content: 'Jane Doe'
   },
   start: {
-    dateTime: '2024-09-09T13:00:00',
+    dateTime: '2024-09-09T13:00:00:00',
     timeZone: 'Europe/London'
   },
   end: {

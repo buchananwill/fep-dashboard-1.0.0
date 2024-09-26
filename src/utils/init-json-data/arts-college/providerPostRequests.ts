@@ -27,15 +27,15 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'TUESDAY',
-        startTime: '10:00',
-        endTime: '12:00',
+        startTime: '10:00:00',
+        endTime: '12:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'THURSDAY',
-        startTime: '10:00',
-        endTime: '12:00',
+        startTime: '10:00:00',
+        endTime: '12:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -69,8 +69,8 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'WEDNESDAY',
-        startTime: '17:00',
-        endTime: '20:00',
+        startTime: '17:00:00',
+        endTime: '20:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -104,15 +104,15 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'TUESDAY',
-        startTime: '10:00',
-        endTime: '16:00',
+        startTime: '10:00:00',
+        endTime: '16:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'THURSDAY',
         startTime: '14:00',
-        endTime: '20:00',
+        endTime: '20:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -147,28 +147,28 @@ export const providerPostRequests = [
       {
         day: 'TUESDAY',
         startTime: '9:00',
-        endTime: '17:00',
+        endTime: '17:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'MONDAY',
-        startTime: '12:00',
-        endTime: '17:00',
+        startTime: '12:00:00',
+        endTime: '17:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'WEDNESDAY',
-        startTime: '12:00',
-        endTime: '17:00',
+        startTime: '12:00:00',
+        endTime: '17:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'THURSDAY',
-        startTime: '12:00',
-        endTime: '17:00',
+        startTime: '12:00:00',
+        endTime: '17:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -205,15 +205,15 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'WEDNESDAY',
-        startTime: '10:00',
-        endTime: '20:00',
+        startTime: '10:00:00',
+        endTime: '20:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'THURSDAY',
-        startTime: '10:00',
-        endTime: '20:00',
+        startTime: '10:00:00',
+        endTime: '20:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -247,15 +247,15 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'MONDAY',
-        startTime: '14:15',
-        endTime: '15:15',
+        startTime: '14:15:00',
+        endTime: '15:15:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'THURSDAY',
-        startTime: '10:00',
-        endTime: '12:00',
+        startTime: '10:00:00',
+        endTime: '12:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -289,8 +289,8 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'WEDNESDAY',
-        startTime: '11:00',
-        endTime: '13:00',
+        startTime: '11:00:00',
+        endTime: '13:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -324,15 +324,15 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'TUESDAY',
-        startTime: '10:00',
-        endTime: '12:00',
+        startTime: '10:00:00',
+        endTime: '12:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'THURSDAY',
-        startTime: '10:00',
-        endTime: '12:00',
+        startTime: '10:00:00',
+        endTime: '12:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -366,15 +366,15 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'WEDNESDAY',
-        startTime: '11:00',
-        endTime: '12:00',
+        startTime: '11:00:00',
+        endTime: '12:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       },
       {
         day: 'FRIDAY',
-        startTime: '11:00',
-        endTime: '12:00',
+        startTime: '11:00:00',
+        endTime: '12:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }
@@ -408,8 +408,8 @@ export const providerPostRequests = [
     availabilities: [
       {
         day: 'WEDNESDAY',
-        startTime: '17:00',
-        endTime: '20:00',
+        startTime: '17:00:00',
+        endTime: '20:00:00',
         roleTypeNames: ['Teacher'],
         availabilityCode: 'TRUE'
       }

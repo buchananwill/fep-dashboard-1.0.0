@@ -31,15 +31,15 @@
   "availabilities": [
     {
       "day": "WEDNESDAY",
-      "startTime": "10:00",
-      "endTime": "20:00",
+      "startTime": "10:00:00",
+      "endTime": "20:00:00",
       "roleTypeNames": ["Studio"],
       "availabilityCode": "TRUE"
     },
     {
       "day": "THURSDAY",
-      "startTime": "10:00",
-      "endTime": "20:00",
+      "startTime": "10:00:00",
+      "endTime": "20:00:00",
       "roleTypeNames": ["Studio"],
       "availabilityCode": "TRUE"
     }

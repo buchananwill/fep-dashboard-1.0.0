@@ -49,7 +49,8 @@ export default function CreateRoleForm<T extends FieldValues>({
   const {
     handleSubmit,
     formState: { errors },
-    setValue
+    setValue,
+    getValues
   } = methods;
 
   const { readAny, getWttNameStrings, getRoleTypeNames } =
@@ -94,6 +95,7 @@ export default function CreateRoleForm<T extends FieldValues>({
           onSubmit={(event) => {
             compileAvailabilities();
             compileSuitabilityRequests();
+            console.log(getValues('availabilities'));
             console.warn(errors);
             handleSubmit(onSubmit)(event);
           }}

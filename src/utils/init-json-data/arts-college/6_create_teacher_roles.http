@@ -41,8 +41,8 @@ Content-Type: application/json
     "availabilities": [
       {
         "day": "TUESDAY",
-        "startTime": "10:00",
-        "endTime": "12:00",
+        "startTime": "10:00:00",
+        "endTime": "12:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -50,8 +50,8 @@ Content-Type: application/json
       },
       {
         "day": "THURSDAY",
-        "startTime": "10:00",
-        "endTime": "12:00",
+        "startTime": "10:00:00",
+        "endTime": "12:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -97,7 +97,7 @@ Content-Type: application/json
       {
         "day": "WEDNESDAY",
         "startTime": "17:00",
-        "endTime": "20:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -105,7 +105,7 @@ Content-Type: application/json
       },{
         "day": "THURSDAY",
         "startTime": "17:00",
-        "endTime": "20:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -150,8 +150,8 @@ Content-Type: application/json
     "availabilities": [
       {
         "day": "TUESDAY",
-        "startTime": "10:00",
-        "endTime": "16:00",
+        "startTime": "10:00:00",
+        "endTime": "16:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -160,7 +160,7 @@ Content-Type: application/json
       {
         "day": "THURSDAY",
         "startTime": "14:00",
-        "endTime": "20:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -205,7 +205,7 @@ Content-Type: application/json
     "availabilities": [
       {
         "day": "TUESDAY",
-        "startTime": "09:00",
+        "startTime": "09:00:00",
         "endTime": "17:00",
         "roleTypeNames": [
           "Teacher"
@@ -214,7 +214,7 @@ Content-Type: application/json
       },
       {
         "day": "MONDAY",
-        "startTime": "12:00",
+        "startTime": "12:00:00",
         "endTime": "17:00",
         "roleTypeNames": [
           "Teacher"
@@ -223,7 +223,7 @@ Content-Type: application/json
       },
       {
         "day": "WEDNESDAY",
-        "startTime": "12:00",
+        "startTime": "12:00:00",
         "endTime": "17:00",
         "roleTypeNames": [
           "Teacher"
@@ -232,7 +232,7 @@ Content-Type: application/json
       },
       {
         "day": "THURSDAY",
-        "startTime": "12:00",
+        "startTime": "12:00:00",
         "endTime": "17:00",
         "roleTypeNames": [
           "Teacher"
@@ -282,8 +282,8 @@ Content-Type: application/json
     "availabilities": [
       {
         "day": "WEDNESDAY",
-        "startTime": "10:00",
-        "endTime": "20:00",
+        "startTime": "10:00:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -291,8 +291,8 @@ Content-Type: application/json
       },
       {
         "day": "THURSDAY",
-        "startTime": "10:00",
-        "endTime": "20:00",
+        "startTime": "10:00:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -340,8 +340,8 @@ Content-Type: application/json
   "availabilities": [
     {
       "day": "WEDNESDAY",
-      "startTime": "10:00",
-      "endTime": "20:00",
+      "startTime": "10:00:00",
+      "endTime": "20:00:00",
       "roleTypeNames": [
         "Teacher"
       ],
@@ -349,8 +349,8 @@ Content-Type: application/json
     },
     {
       "day": "THURSDAY",
-      "startTime": "10:00",
-      "endTime": "20:00",
+      "startTime": "10:00:00",
+      "endTime": "20:00:00",
       "roleTypeNames": [
         "Teacher"
       ],
@@ -398,7 +398,7 @@ Content-Type: application/json
     "availabilities": [
       {
         "day": "TUESDAY",
-        "startTime": "14:15",
+        "startTime": "14:15:00",
         "endTime": "17:00",
         "roleTypeNames": [
           "Teacher"
@@ -407,8 +407,8 @@ Content-Type: application/json
       },
       {
         "day": "FRIDAY",
-        "startTime": "15:15",
-        "endTime": "20:00",
+        "startTime": "15:15:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -453,8 +453,8 @@ Content-Type: application/json
     "availabilities": [
       {
         "day": "WEDNESDAY",
-        "startTime": "11:00",
-        "endTime": "13:00",
+        "startTime": "11:00:00",
+        "endTime": "13:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -499,8 +499,8 @@ Content-Type: application/json
     "availabilities": [
       {
         "day": "MONDAY",
-        "startTime": "10:00",
-        "endTime": "20:00",
+        "startTime": "10:00:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -508,8 +508,8 @@ Content-Type: application/json
       },
       {
         "day": "TUESDAY",
-        "startTime": "10:00",
-        "endTime": "20:00",
+        "startTime": "10:00:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -554,8 +554,8 @@ Content-Type: application/json
     "availabilities": [
       {
         "day": "WEDNESDAY",
-        "startTime": "11:00",
-        "endTime": "12:00",
+        "startTime": "11:00:00",
+        "endTime": "12:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -563,8 +563,8 @@ Content-Type: application/json
       },
       {
         "day": "FRIDAY",
-        "startTime": "12:00",
-        "endTime": "13:00",
+        "startTime": "12:00:00",
+        "endTime": "13:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
@@ -610,7 +610,7 @@ Content-Type: application/json
       {
         "day": "WEDNESDAY",
         "startTime": "17:00",
-        "endTime": "20:00",
+        "endTime": "20:00:00",
         "roleTypeNames": [
           "Teacher"
         ],
