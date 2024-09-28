@@ -17,7 +17,7 @@ import {
 import { getLevelSeriesTree } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/NivoSunburstChartPage';
 import KnowledgeLevelSeriesGroupManager from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import SelectionCallout from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/SelectionCallout';
-import { colorizeKnowledgeDomains } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
+import { colorizeKnowledgeDomainGroups } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
 
 export const workTaskTypeName = 'workTaskTypeName';
 export default async function CreateViaSunburst() {
@@ -25,7 +25,7 @@ export default async function CreateViaSunburst() {
     NestedWorkNodeDto<KnowledgeLevelSeriesGroup>
   >(getLevelSeriesTree('2'));
 
-  const colorized = colorizeKnowledgeDomains(
+  const colorized = colorizeKnowledgeDomainGroups(
     data as KnowledgeLevelSeriesGroup
   ) as KnowledgeLevelSeriesGroup;
 

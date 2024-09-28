@@ -9,7 +9,7 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import WorkSchemaNodesHome from '@/components/work-schema-nodes/WorkSchemaNodesHome';
-import { colorizeKnowledgeDomains } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
+import { colorizeKnowledgeDomainGroups } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
 
 const nestedBundleEndpoint = (rootId: string) =>
   constructUrl(
@@ -32,7 +32,7 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
     NestedWorkNodeDto<KnowledgeLevelSeriesGroup>
   >(getLevelSeriesTree('2'));
 
-  const colorizeKnowledgeDomains1 = colorizeKnowledgeDomains(data);
+  const colorizeKnowledgeDomains1 = colorizeKnowledgeDomainGroups(data);
   return (
     <div className={'h-[80vh] w-[80vw]'}>
       <WorkNodeResponsiveSunburst data={colorizeKnowledgeDomains1} />

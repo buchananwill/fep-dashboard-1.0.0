@@ -4,6 +4,7 @@ import {
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { hsl, interpolateRainbow } from 'd3';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 
 export function getColorWithinSpace(
   scalePosition: number,
@@ -36,7 +37,7 @@ function flatMapOfKnowledgeDomainGroups(
   }
 }
 
-export function colorizeKnowledgeDomains<T extends WorkNodeHierarchy>(node: T) {
+function createKDGmap(node: WorkNodeHierarchy) {
   const knowledgeDomainGroups = flatMapOfKnowledgeDomainGroups(node);
   const kdgMap = new Map<string, KnowledgeDomainGroup[]>();
   for (let knowledgeDomainGroup of knowledgeDomainGroups) {
@@ -51,6 +52,13 @@ export function colorizeKnowledgeDomains<T extends WorkNodeHierarchy>(node: T) {
     }
     list.push(knowledgeDomainGroup);
   }
+  return kdgMap;
+}
+
+export function colorizeKnowledgeDomainGroups<T extends WorkNodeHierarchy>(
+  node: T
+) {
+  const kdgMap = createKDGmap(node);
   const differentKCount = kdgMap.size;
   let colorScale = 0;
   for (let kdgList of kdgMap.values()) {
@@ -60,5 +68,32 @@ export function colorizeKnowledgeDomains<T extends WorkNodeHierarchy>(node: T) {
     }
     colorScale++;
   }
+  return node as T;
+}
+export function colorizeKnowledgeDomainsWithColorDtos<
+  T extends WorkNodeHierarchy
+>(node: T, colors: any[]) {
+  const kdNameListMap = new Map<string, KnowledgeDomainDto[]>();
+  flatMapOfKnowledgeDomainGroups(node)
+    .flatMap((kdg) => kdg.knowledgeDomains)
+    .forEach((kd) => {
+      let list = kdNameListMap.get(kd.name);
+      if (!list) {
+        list = [];
+        kdNameListMap.set(kd.name, list);
+      }
+      list.push(kd);
+    });
+
+  const listOfLists = [...kdNameListMap.values()];
+  for (let i = 0; i < listOfLists.length; i++) {
+    const kdList = listOfLists[i];
+    const colorIndex = i % colors.length;
+    const color = colors[colorIndex];
+    for (let kdListElement of kdList) {
+      kdListElement.color = color;
+    }
+  }
+
   return node as T;
 }

@@ -8,7 +8,10 @@ Content-Type: application/json
   "knowledgeLevelSeries": {
     "name": "Streams",
     "knowledgeLevelDescriptor": "Stream",
-    "knowledgeLevelIds": [1, 2],
+    "knowledgeLevelIds": [
+      1,
+      2
+    ],
     "id": 1
   },
   "children": [
@@ -21,7 +24,11 @@ Content-Type: application/json
         "cycleLengthInDays": 7,
         "cycleLengthInWeeks": 1,
         "maxGroupSize": 4,
-        "cycleSubspanGroupSizes": [2, 3, 4]
+        "cycleSubspanGroupSizes": [
+          2,
+          3,
+          4
+        ]
       },
       "workTaskTypeName": {
         "name": "Teaching",
@@ -63,7 +70,15 @@ Content-Type: application/json
                 {
                   "name": "Music Theory",
                   "id": 1,
-                  "shortCode": "MT"
+                  "shortCode": "MT",
+                  "color": {
+                    "name": "red",
+                    "r": 239,
+                    "g": 67,
+                    "b": 67,
+                    "a": 1,
+                    "id": -6
+                  }
                 }
               ]
             }
@@ -97,7 +112,15 @@ Content-Type: application/json
                 {
                   "name": "Transcription",
                   "id": 2,
-                  "shortCode": "Tr"
+                  "shortCode": "Tr",
+                  "color": {
+                    "name": "orange",
+                    "r": 249,
+                    "g": 116,
+                    "b": 21,
+                    "a": 1,
+                    "id": -7
+                  }
                 }
               ]
             }
@@ -133,7 +156,15 @@ Content-Type: application/json
                 {
                   "name": "Aural Skills",
                   "id": 3,
-                  "shortCode": "AS"
+                  "shortCode": "AS",
+                  "color": {
+                    "name": "amber",
+                    "r": 245,
+                    "g": 159,
+                    "b": 10,
+                    "a": 1,
+                    "id": -8
+                  }
                 }
               ]
             }
@@ -168,7 +199,15 @@ Content-Type: application/json
                 {
                   "name": "Keyboard Skills",
                   "id": 4,
-                  "shortCode": "KS"
+                  "shortCode": "KS",
+                  "color": {
+                    "name": "yellow",
+                    "r": 231,
+                    "g": 176,
+                    "b": 8,
+                    "a": 1,
+                    "id": -9
+                  }
                 }
               ]
             }
@@ -203,7 +242,15 @@ Content-Type: application/json
                 {
                   "name": "Composition",
                   "id": 5,
-                  "shortCode": "Co"
+                  "shortCode": "Co",
+                  "color": {
+                    "name": "lime",
+                    "r": 130,
+                    "g": 203,
+                    "b": 21,
+                    "a": 1,
+                    "id": -10
+                  }
                 }
               ]
             }
@@ -221,7 +268,15 @@ Content-Type: application/json
                 {
                   "id": 6,
                   "name": "Pop Styles",
-                  "shortCode": "PS"
+                  "shortCode": "PS",
+                  "color": {
+                    "name": "green",
+                    "r": 33,
+                    "g": 196,
+                    "b": 93,
+                    "a": 1,
+                    "id": -11
+                  }
                 }
               ],
               "children": [
@@ -249,7 +304,15 @@ Content-Type: application/json
                 {
                   "id": 7,
                   "name": "Production: Sequencing",
-                  "shortCode": "Ps"
+                  "shortCode": "Ps",
+                  "color": {
+                    "name": "emerald",
+                    "r": 16,
+                    "g": 183,
+                    "b": 127,
+                    "a": 1,
+                    "id": -12
+                  }
                 }
               ],
               "children": [
@@ -334,7 +397,15 @@ Content-Type: application/json
                 {
                   "name": "Music Theory",
                   "id": 1,
-                  "shortCode": "MT"
+                  "shortCode": "MT",
+                  "color": {
+                    "name": "red",
+                    "r": 239,
+                    "g": 67,
+                    "b": 67,
+                    "a": 1,
+                    "id": -6
+                  }
                 }
               ]
             }
@@ -369,7 +440,15 @@ Content-Type: application/json
                 {
                   "name": "Transcription",
                   "id": 2,
-                  "shortCode": "Tr"
+                  "shortCode": "Tr",
+                  "color": {
+                    "name": "orange",
+                    "r": 249,
+                    "g": 116,
+                    "b": 21,
+                    "a": 1,
+                    "id": -7
+                  }
                 }
               ]
             }
@@ -404,7 +483,15 @@ Content-Type: application/json
                 {
                   "name": "Aural Skills",
                   "id": 3,
-                  "shortCode": "AS"
+                  "shortCode": "AS",
+                  "color": {
+                    "name": "amber",
+                    "r": 245,
+                    "g": 159,
+                    "b": 10,
+                    "a": 1,
+                    "id": -8
+                  }
                 }
               ]
             }
@@ -439,7 +526,15 @@ Content-Type: application/json
                 {
                   "name": "Keyboard Skills",
                   "id": 4,
-                  "shortCode": "KS"
+                  "shortCode": "KS",
+                  "color": {
+                    "name": "yellow",
+                    "r": 231,
+                    "g": 176,
+                    "b": 8,
+                    "a": 1,
+                    "id": -9
+                  }
                 }
               ]
             }
@@ -474,7 +569,15 @@ Content-Type: application/json
                 {
                   "name": "Composition",
                   "id": 5,
-                  "shortCode": "Co"
+                  "shortCode": "Co",
+                  "color": {
+                    "name": "lime",
+                    "r": 130,
+                    "g": 203,
+                    "b": 21,
+                    "a": 1,
+                    "id": -10
+                  }
                 }
               ]
             }
@@ -509,7 +612,15 @@ Content-Type: application/json
                 {
                   "name": "UCAS Applications",
                   "id": 8,
-                  "shortCode": "UA"
+                  "shortCode": "UA",
+                  "color": {
+                    "name": "teal",
+                    "r": 20,
+                    "g": 184,
+                    "b": 165,
+                    "a": 1,
+                    "id": -13
+                  }
                 }
               ]
             },
@@ -537,7 +648,15 @@ Content-Type: application/json
                 {
                   "name": "Arranging",
                   "id": 9,
-                  "shortCode": "Ar"
+                  "shortCode": "Ar",
+                  "color": {
+                    "name": "cyan",
+                    "r": 7,
+                    "g": 182,
+                    "b": 213,
+                    "a": 1,
+                    "id": -14
+                  }
                 }
               ]
             }
@@ -554,7 +673,13 @@ Content-Type: application/json
         "cycleLengthInDays": 7,
         "cycleLengthInWeeks": 1,
         "maxGroupSize": 4,
-        "cycleSubspanGroupSizes": [2, 3, 4, 6,8]
+        "cycleSubspanGroupSizes": [
+          2,
+          3,
+          4,
+          6,
+          8
+        ]
       },
       "workTaskTypeName": {
         "name": "Teaching",
@@ -596,7 +721,15 @@ Content-Type: application/json
                 {
                   "name": "Reflection/PT",
                   "id": 10,
-                  "shortCode": "RP"
+                  "shortCode": "RP",
+                  "color": {
+                    "name": "sky",
+                    "r": 13,
+                    "g": 162,
+                    "b": 231,
+                    "a": 1,
+                    "id": -15
+                  }
                 }
               ]
             },
@@ -633,7 +766,15 @@ Content-Type: application/json
                 {
                   "name": "Ensemble Rehearsals",
                   "id": 11,
-                  "shortCode": "ER"
+                  "shortCode": "ER",
+                  "color": {
+                    "name": "blue",
+                    "r": 65,
+                    "g": 133,
+                    "b": 241,
+                    "a": 1,
+                    "id": -16
+                  }
                 }
               ]
             },
@@ -661,7 +802,15 @@ Content-Type: application/json
                 {
                   "name": "No Name",
                   "id": 12,
-                  "shortCode": "NN"
+                  "shortCode": "NN",
+                  "color": {
+                    "name": "indigo",
+                    "r": 100,
+                    "g": 103,
+                    "b": 242,
+                    "a": 1,
+                    "id": -17
+                  }
                 }
               ]
             },
@@ -713,7 +862,15 @@ Content-Type: application/json
                 {
                   "name": "Purple English",
                   "id": 13,
-                  "shortCode": "En"
+                  "shortCode": "En",
+                  "color": {
+                    "name": "violet",
+                    "r": 137,
+                    "g": 90,
+                    "b": 246,
+                    "a": 1,
+                    "id": -18
+                  }
                 }
               ]
             },
@@ -741,7 +898,15 @@ Content-Type: application/json
                 {
                   "name": "Project Lab",
                   "id": 14,
-                  "shortCode": "PL"
+                  "shortCode": "PL",
+                  "color": {
+                    "name": "purple",
+                    "r": 168,
+                    "g": 85,
+                    "b": 247,
+                    "a": 1,
+                    "id": -19
+                  }
                 }
               ]
             },
@@ -769,7 +934,15 @@ Content-Type: application/json
                 {
                   "name": "World Music",
                   "id": 15,
-                  "shortCode": "WM"
+                  "shortCode": "WM",
+                  "color": {
+                    "name": "fuchsia",
+                    "r": 236,
+                    "g": 70,
+                    "b": 153,
+                    "a": 1,
+                    "id": -20
+                  }
                 }
               ]
             },
@@ -797,7 +970,15 @@ Content-Type: application/json
                 {
                   "name": "Production: Recording",
                   "id": 16,
-                  "shortCode": "Pr"
+                  "shortCode": "Pr",
+                  "color": {
+                    "name": "rose",
+                    "r": 244,
+                    "g": 62,
+                    "b": 92,
+                    "a": 1,
+                    "id": -21
+                  }
                 }
               ]
             },
@@ -808,7 +989,15 @@ Content-Type: application/json
                 {
                   "name": "Performance Class/Reflective Writing",
                   "id": 17,
-                  "shortCode": "PW"
+                  "shortCode": "PW",
+                  "color": {
+                    "name": "red",
+                    "r": 239,
+                    "g": 67,
+                    "b": 67,
+                    "a": 1,
+                    "id": -6
+                  }
                 }
               ],
               "children": [
@@ -850,7 +1039,19 @@ Content-Type: application/json
               ],
               "id": "1:3:1:10",
               "knowledgeDomains": [
-                { "id": 18, "shortCode": "HD", "name": "Hand Drumming" }
+                {
+                  "id": 18,
+                  "shortCode": "HD",
+                  "name": "Hand Drumming",
+                  "color": {
+                    "name": "orange",
+                    "r": 249,
+                    "g": 116,
+                    "b": 21,
+                    "a": 1,
+                    "id": -7
+                  }
+                }
               ]
             }
           ]
