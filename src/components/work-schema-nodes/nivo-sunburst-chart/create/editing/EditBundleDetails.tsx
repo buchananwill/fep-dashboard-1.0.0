@@ -16,7 +16,7 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import {
   klsgTemplate,
-  knowledgeLevelSeriesGroupContextKey
+  KnowledgeLevelSeriesGroupContextKey
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
 import { findChildOfType } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
@@ -34,7 +34,7 @@ const listenerKey = 'bundleModal';
 function BundleModalContent({ onClose }: { onClose: () => void }) {
   const { currentState, dispatchWithoutControl } = useGlobalDispatchAndListener(
     {
-      contextKey: knowledgeLevelSeriesGroupContextKey,
+      contextKey: KnowledgeLevelSeriesGroupContextKey,
       listenerKey: listenerKey,
       initialValue: klsgTemplate
     }

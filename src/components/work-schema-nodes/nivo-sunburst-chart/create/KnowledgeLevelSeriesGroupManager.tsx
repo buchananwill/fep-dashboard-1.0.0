@@ -23,14 +23,14 @@ import submitKnowledgeLevelSeriesGroup from '@/components/work-schema-nodes/nivo
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
 const listenerKey = 'klg-controller';
-export const knowledgeLevelSeriesGroupContextKey = 'knowledgeLevelSeriesGroup';
+export const KnowledgeLevelSeriesGroupContextKey = 'knowledgeLevelSeriesGroup';
 export default function KnowledgeLevelSeriesGroupManager({
   initialGroup
 }: {
-  initialGroup: KLSGTemplate;
+  initialGroup: KnowledgeLevelSeriesGroupTemplate;
 }) {
   const { dispatch, currentState } = useGlobalController({
-    contextKey: knowledgeLevelSeriesGroupContextKey,
+    contextKey: KnowledgeLevelSeriesGroupContextKey,
     initialValue: initialGroup,
     listenerKey: listenerKey
   });
@@ -64,7 +64,7 @@ export default function KnowledgeLevelSeriesGroupManager({
     handleCommit,
     hasChanges,
     dispatchUnsavedFlag,
-    knowledgeLevelSeriesGroupContextKey
+    KnowledgeLevelSeriesGroupContextKey
   );
 
   const { currentState: selectedKnowledgeLevelIdList } =
@@ -96,14 +96,10 @@ export default function KnowledgeLevelSeriesGroupManager({
 
 export type KnowledgeLevelGroupTemplate = SetOptional<
   KnowledgeLevelGroup,
-  'knowledgeLevel' | 'workTaskTypeName'
+  'knowledgeLevel'
 >;
 
 export const K_D_TEMPLATE_ID = 'template';
-type KLGTemplate = SetOptional<
-  KnowledgeLevelGroup,
-  'knowledgeLevel' | 'workTaskTypeName'
->;
 
 export const BlankKnowledgeDomain: KnowledgeDomainDto = {
   name: '',
@@ -111,12 +107,12 @@ export const BlankKnowledgeDomain: KnowledgeDomainDto = {
   shortCode: 'NA'
 };
 
-export type KLSGTemplate = SetOptional<
+export type KnowledgeLevelSeriesGroupTemplate = SetOptional<
   KnowledgeLevelSeriesGroup,
-  'knowledgeLevelSeries' | 'cycle'
+  'knowledgeLevelSeries' | 'cycle' | 'workTaskTypeName'
 >;
 
-export const klsgTemplate: KLSGTemplate = {
+export const klsgTemplate: KnowledgeLevelSeriesGroupTemplate = {
   path: 'template',
   type: 'knowledgeLevelSeriesGroup',
   children: []

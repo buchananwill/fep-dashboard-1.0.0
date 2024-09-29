@@ -3,7 +3,7 @@ import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/SelectionController';
 import {
   klsgTemplate,
-  knowledgeLevelSeriesGroupContextKey
+  KnowledgeLevelSeriesGroupContextKey
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import React, { useCallback, useMemo, useTransition } from 'react';
 import {
@@ -40,7 +40,7 @@ export default function NestedWorkNodeChildSelector({
 } & Omit<SelectProps, 'children'>) {
   const listenerKey = `${discriminator}:selectChild`;
   const { currentState } = useGlobalListener({
-    contextKey: knowledgeLevelSeriesGroupContextKey,
+    contextKey: KnowledgeLevelSeriesGroupContextKey,
     initialValue: klsgTemplate,
     listenerKey
   });

@@ -2,7 +2,7 @@
 import { useGlobalListener } from 'selective-context';
 import {
   klsgTemplate,
-  knowledgeLevelSeriesGroupContextKey
+  KnowledgeLevelSeriesGroupContextKey
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { useMemo } from 'react';
 import { getCycleSubspansWithJoins } from '@/components/work-project-series-schema/static-allocation/getCycleSubspansWithJoins';
@@ -16,7 +16,7 @@ export default function CycleDataFetcher() {
   const {
     currentState: { cycle }
   } = useGlobalListener({
-    contextKey: knowledgeLevelSeriesGroupContextKey,
+    contextKey: KnowledgeLevelSeriesGroupContextKey,
     listenerKey: 'cycleFetcher',
     initialValue: klsgTemplate
   });

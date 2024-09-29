@@ -1,4 +1,4 @@
-import { knowledgeLevelSeriesGroupContextKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
+import { KnowledgeLevelSeriesGroupContextKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { useGlobalDispatch } from 'selective-context';
 import React, { SetStateAction, useCallback } from 'react';
 import { Button, ButtonProps } from '@nextui-org/button';
@@ -14,7 +14,7 @@ export default function WorkNodeHierarchyButton({
   ...buttonProps
 }: { editCommand: WorkNodeHierarchyProducer } & Omit<ButtonProps, 'onPress'>) {
   const { dispatchWithoutListen: dispatch } =
-    useGlobalDispatch<WorkNodeHierarchy>(knowledgeLevelSeriesGroupContextKey);
+    useGlobalDispatch<WorkNodeHierarchy>(KnowledgeLevelSeriesGroupContextKey);
 
   const onPress = useCallback(() => {
     dispatch(editCommand);
