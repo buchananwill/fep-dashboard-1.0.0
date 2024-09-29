@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/button';
+import { Button, ButtonProps } from '@nextui-org/button';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import EditTextValueModal from '@/components/modals/EditTextValueModal';
 import { useModalEditEntityTextAttribute } from '@/hooks/useModalEditEntityTextAttribute';
@@ -9,7 +9,9 @@ import { EditTextDeletePopoverProps } from '@/components/generic/EditTextDeleteE
 import { get } from 'lodash';
 
 export type EditTextValueModalButtonProps<T extends HasId> =
-  EditTextDeletePopoverProps<T> & Omit<BaseDtoUiProps<T>, 'deleted'>;
+  EditTextDeletePopoverProps<T> &
+    Omit<BaseDtoUiProps<T>, 'deleted'> &
+    Partial<Omit<ButtonProps, keyof EditTextDeletePopoverProps<T>>>;
 
 export function EditTextModalButton<T extends HasId>({
   entityClass,
@@ -17,7 +19,8 @@ export function EditTextModalButton<T extends HasId>({
   dispatchWithoutControl,
   classNames,
   stringPath,
-  validateInput
+  validateInput,
+  ...otherButtonProps
 }: EditTextValueModalButtonProps<T>) {
   const {
     onOpen,
@@ -40,7 +43,11 @@ export function EditTextModalButton<T extends HasId>({
 
   return (
     <>
-      <Button className={`${classNames?.button}`} onPress={onOpen}>
+      <Button
+        className={`${classNames?.button}`}
+        onPress={onOpen}
+        {...otherButtonProps}
+      >
         <span className={' ... truncate'}>{get(entity, stringPath)}</span>
         <PendingOverlay pending={isOpen} />
       </Button>

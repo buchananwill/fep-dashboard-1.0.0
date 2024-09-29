@@ -11,9 +11,11 @@ import { useUniqueStringFieldConstraint } from '@/hooks/useUniqueStringFieldCons
 
 export function EditStringUniqueConstraintButton<T extends HasId>(
   props: NextUiCellComponentProps<T> &
-    Pick<EditTextValueModalButtonProps<T>, 'classNames'>
+    Partial<
+      Omit<EditTextValueModalButtonProps<T>, keyof NextUiCellComponentProps<T>>
+    >
 ) {
-  const { entityClass, entity, path, classNames } = props;
+  const { entityClass, entity, path, classNames, ...otherProps } = props;
 
   const validateInput = useUniqueStringFieldConstraint(
     entityClass,
@@ -31,6 +33,7 @@ export function EditStringUniqueConstraintButton<T extends HasId>(
       entityClass={entityClass}
       validateInput={validateInput}
       dispatchWithoutControl={dispatchWithoutListen}
+      {...otherProps}
     />
   );
 }

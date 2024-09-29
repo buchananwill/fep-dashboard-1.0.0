@@ -1,12 +1,15 @@
 'use client';
-import React, { useMemo } from 'react';
+import React, { CSSProperties, useMemo } from 'react';
 
 import { EntityClassMap } from '@/api/entity-class-map';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
 import { Column } from '@/types';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import {
+  ColorDto,
+  KnowledgeDomainDto
+} from '@/api/generated-types/generated-types';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import {
   getCellRenderFunction,
@@ -57,19 +60,49 @@ const getDomainFactory = () => {
 
 const domainFactory = getDomainFactory();
 
+export function parseToCssRgba(color: ColorDto | undefined) {
+  if (!color) return undefined;
+  const { r, g, b, a } = color;
+
+  // Ensure that r, g, and b are integers between 0 and 255, and a is a float between 0 and 1.
+  const red = Math.min(255, Math.max(0, r));
+  const green = Math.min(255, Math.max(0, g));
+  const blue = Math.min(255, Math.max(0, b));
+  const alpha = Math.min(1, Math.max(0, a));
+
+  // Return the CSS rgba string
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+}
+
 function ShortCodeEditButtonCell(
   props: NextUiCellComponentProps<KnowledgeDomainDto>
 ) {
   const classNames = useMemo(() => {
     const {
-      entity: { shortCode }
+      entity: { shortCode, color }
     } = props;
     const shortCodeColor = getShortCodeColor(shortCode ?? '');
     return shortCodeColor !== 'bg-white' ? { button: shortCodeColor } : {};
   }, [props]);
 
+  const style = useMemo(() => {
+    const {
+      entity: { shortCode, color }
+    } = props;
+    return parseToCssRgba(color);
+  }, []);
+
+  const styleAndClassnames = useMemo(() => {
+    if (style) {
+      const cssStyle: CSSProperties = {
+        backgroundColor: style
+      };
+      return { style: cssStyle };
+    } else return { classNames };
+  }, [style, classNames]);
+
   return (
-    <EditStringUniqueConstraintButton {...props} classNames={classNames} />
+    <EditStringUniqueConstraintButton {...props} {...styleAndClassnames} />
   );
 }
 
