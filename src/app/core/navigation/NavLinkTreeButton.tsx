@@ -63,7 +63,7 @@ export function NavLinkTreeButton({
       const navKey = camelCase(displayName) as NavigationType;
       const Icon = navLinkIcons[navKey];
       return (
-        <Card>
+        <Card className={'scale-in'}>
           <Popover triggerScaleOnOpen={false}>
             <PopoverTrigger>
               <Button

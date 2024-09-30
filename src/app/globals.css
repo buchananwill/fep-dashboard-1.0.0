@@ -219,3 +219,19 @@ canvas {
         opacity: 0.5;
     }
 }
+
+.scale-in {
+    transform: scale(0); /* Initial state */
+    animation: scaleUp 500ms ease-out forwards;
+}
+
+/* Keyframes to scale the element */
+@keyframes scaleUp {
+    0% {
+        transform: scale(0); /* Start scaled down */
+    }
+    100% {
+        transform: scale(1); /* End at full size */
+    }
+}
+
