@@ -19,22 +19,35 @@ import { CycleDto } from '@/api/generated-types/generated-types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { MemoEditButton } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/WorkNodeHierarchyButton';
 import { getHours } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
+import { useGlobalListener } from 'selective-context';
+import {
+  klsgTemplate,
+  KnowledgeLevelSeriesGroupContextKey
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
 export default function LeafEditGroup({
   selectionLength,
   selectionSplitRef,
   deselectRemovedId
 }: ButtonEditGroupProps) {
-  const cycleMap = useSelectedEntityMap<CycleDto>(EntityClassMap.cycle);
+  const listenerKey = useUuidListenerKey();
+  const {
+    currentState: { cycle }
+  } = useGlobalListener({
+    contextKey: KnowledgeLevelSeriesGroupContextKey,
+    initialValue: klsgTemplate,
+    listenerKey
+  });
 
   const cycleSubspanGroupSizeItems = useMemo(() => {
-    if (cycleMap.currentState.size === 0) return [];
-    const cycleDto = [...cycleMap.currentState.values()][0];
-    return cycleDto.cycleSubspanGroupSizes.map((size, index) => ({
+    if (!cycle) return [];
+
+    return cycle.cycleSubspanGroupSizes.map((size, index) => ({
       id: index,
       value: size
     }));
-  }, [cycleMap]);
+  }, [cycle]);
 
   const [sizeToAdd, setSizeToAdd] = useState<
     { id: number; value: number } | undefined
