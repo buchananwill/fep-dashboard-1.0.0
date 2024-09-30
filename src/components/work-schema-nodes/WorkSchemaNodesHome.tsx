@@ -1,8 +1,8 @@
 import { Api } from '@/api/clientApi_';
-import { Link } from '@nextui-org/link';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import WorkSchemaNodeRootGraph from '@/components/work-schema-nodes/WorkSchemaNodeRootGraph';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
+import { LinkButton } from '@/components/navigation/LinkButton';
 
 async function Home({ pathVariables }: LeafComponentProps) {
   const rootNodeList = await Api.WorkSchemaNode.getRootNodeList();
@@ -10,12 +10,12 @@ async function Home({ pathVariables }: LeafComponentProps) {
   return (
     <div className={'flex flex-col gap-2'}>
       {rootNodeList.map((node) => (
-        <Link
+        <LinkButton
           key={node.id}
           href={`/core/${pathVariables.join('/')}/${node.id}`}
         >
           {node.name ?? `Work Schema Node: ${node.id}`}
-        </Link>
+        </LinkButton>
       ))}
     </div>
   );

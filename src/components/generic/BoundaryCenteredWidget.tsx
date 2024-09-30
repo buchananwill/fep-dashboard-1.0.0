@@ -6,6 +6,7 @@ import { navigationBreadcrumbs } from '@/components/navigation/NavigationBreadcr
 import { JSX } from 'react/jsx-runtime';
 import clsx from 'clsx';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
+import { motion } from 'framer-motion';
 
 export function BoundaryCenteredWidget({ children }: PropsWithChildren) {
   const [boundaryType, setBoundaryType] = useState<BoundaryType>('bottom');
@@ -90,30 +91,32 @@ export function BoundaryCenteredWidget({ children }: PropsWithChildren) {
             ></div>
           </div>
         )}
-      {drag(
-        <div
-          className={clsx(
-            'pointer-events-auto z-40 flex w-fit  flex-col items-center bg-primary-100 bg-opacity-50 transition-colors-opacity hover:bg-opacity-100',
-            classNameWidget
-          )}
-        >
-          {boundaryType === 'top' ? (
-            currentState ? (
-              currentState
-            ) : (
-              <div className={'h-4'}></div>
-            )
-          ) : null}
-          {children}
-          {boundaryType !== 'top' ? (
-            currentState ? (
-              currentState
-            ) : (
-              <div className={'h-4'}></div>
-            )
-          ) : null}
-        </div>
-      )}
+      <motion.div layout>
+        {drag(
+          <div
+            className={clsx(
+              'pointer-events-auto z-40 flex w-fit  flex-col items-center bg-primary-100 bg-opacity-50 transition-colors-opacity hover:bg-opacity-100',
+              classNameWidget
+            )}
+          >
+            {boundaryType === 'top' ? (
+              currentState ? (
+                currentState
+              ) : (
+                <div className={'h-4'}></div>
+              )
+            ) : null}
+            {children}
+            {boundaryType !== 'top' ? (
+              currentState ? (
+                currentState
+              ) : (
+                <div className={'h-4'}></div>
+              )
+            ) : null}
+          </div>
+        )}
+      </motion.div>
     </div>
   );
 }
