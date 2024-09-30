@@ -8,7 +8,6 @@ import {
 } from '@/api/generated-types/generated-types';
 
 export type DeliveryAllocationBase = Partial<HasNumberId> & {
-  selected?: boolean;
   path: string;
   color?: string;
 };

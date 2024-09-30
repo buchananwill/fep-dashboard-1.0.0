@@ -12,6 +12,7 @@ import {
   findKnowledgeDomainGroup,
   removeChildAnyLevel
 } from './knowledgeLevelGroupFunctions';
+import { parseToCssRgba } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 
 export const addBundle = produce<WorkNodeHierarchy, [string]>(addBundleMutable);
 export const produceKnowledgeDomainGroup = produce<WorkNodeHierarchy, [string]>(
@@ -24,6 +25,11 @@ export const replaceKnowledgeDomainsInGroup = produce<
 >((draft, selectionPath, knowledgeDomainsReplacement) => {
   const kDomainGroup = findKnowledgeDomainGroup(draft, selectionPath);
   kDomainGroup.knowledgeDomains = knowledgeDomainsReplacement;
+  if (knowledgeDomainsReplacement.length === 1) {
+    kDomainGroup.color = parseToCssRgba(knowledgeDomainsReplacement[0].color);
+  } else {
+    delete kDomainGroup.color;
+  }
 });
 
 export const addDeliveryAllocationList = produce<

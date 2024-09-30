@@ -96,9 +96,13 @@ function customChildColors(parent: Datum, child: Datum) {
   const {
     data: { type, color: colorFixed }
   } = child;
-  if (type === 'knowledgeDomainGroup') {
+  if (type === 'knowledgeDomainGroup' && colorFixed) {
     return colorFixed;
-  } else if (type === 'leaf' || type === 'leafList') {
+  } else if (
+    type === 'leaf' ||
+    type === 'leafList' ||
+    type === 'knowledgeDomainGroup'
+  ) {
     return getInheritedColorGenerator({
       from: 'color',
       modifiers: [['brighter', 0.1]]

@@ -72,8 +72,7 @@ export function addDeliveryAllocationListToKdg(
   const daList: DeliveryAllocationList = {
     path: joinPath(knowledgeDomainGroup.path, deliveryAllocationSize),
     type: 'leafList',
-    children: [],
-    selected: false
+    children: []
   };
   knowledgeDomainGroup.children.push(daList);
   knowledgeDomainGroup.children.sort(
@@ -83,7 +82,7 @@ export function addDeliveryAllocationListToKdg(
   return daList;
 }
 
-export function splitPath(path: string) {
+export function splitPath(path: string): string[] {
   return path.split('/');
 }
 
@@ -117,11 +116,13 @@ export function makeChildPath(parent: WorkNodeHierarchy) {
 export function makeNewBundle(
   knowledgeLevelGroup: KnowledgeLevelGroup
 ): Bundle {
+  const childPath = makeChildPath(knowledgeLevelGroup as WorkNodeHierarchy);
+  const lastPathItem = splitPath(childPath).pop();
   const newBundle: Bundle = {
-    path: makeChildPath(knowledgeLevelGroup as WorkNodeHierarchy),
+    path: childPath,
     children: [],
     type: 'bundle',
-    selected: false
+    name: `Bundle ${lastPathItem}`
   };
   newBundle.children.push(makeKnowledgeDomainGroup(newBundle));
   return newBundle;
@@ -280,8 +281,7 @@ export function addLeafToThisList(find: DeliveryAllocationList, size: number) {
   const leaf: DeliveryAllocationLeaf = {
     path: makeChildPath(find),
     type: 'leaf',
-    size: size,
-    selected: false
+    size: size
   };
   find.children.push(leaf);
 }
@@ -322,8 +322,7 @@ export function makeKnowledgeDomainGroup(bundle: Bundle): KnowledgeDomainGroup {
     type: 'knowledgeDomainGroup',
     children: [],
     knowledgeDomains: [],
-    path: makeChildPath(bundle),
-    selected: false
+    path: makeChildPath(bundle)
   };
 }
 
@@ -334,9 +333,9 @@ export function addKnowledgeDomainGroup(
   const bundle = findChildOfWorkNodeHierarchy(draft, bundleId);
   if (bundle.type === 'bundle') {
     bundle.children.push(makeKnowledgeDomainGroup(bundle));
-    bundle.children.forEach((kdgc, index, array) => {
-      kdgc.color = getColorWithinSpace(index, array.length);
-    });
+    // bundle.children.forEach((kdgc, index, array) => {
+    //   kdgc.color = getColorWithinSpace(index, array.length);
+    // });
   }
 }
 

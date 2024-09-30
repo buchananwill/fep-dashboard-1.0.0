@@ -23,6 +23,7 @@ import { SelectItem } from '@nextui-org/select';
 import { MonoFunction } from '@/types';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { getHours } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export default function NestedWorkNodeChildSelector({
   selectionPath,
@@ -182,7 +183,9 @@ function nodeLabelAccessor(node: WorkNodeHierarchy) {
       return node.knowledgeLevel?.name ?? node.path;
     }
     case 'knowledgeDomainGroup': {
-      return node.knowledgeDomains.map((kd) => kd.name).join(', ');
+      return node.knowledgeDomains.length > 0
+        ? node.knowledgeDomains.map((kd) => kd.name).join(', ')
+        : `no ${getDomainAlias('knowledgeDomains')}`;
     }
     case 'leafList': {
       return ['Size: ', getHours(parseInt(pathOf[pathOf.length - 1]))].join('');
