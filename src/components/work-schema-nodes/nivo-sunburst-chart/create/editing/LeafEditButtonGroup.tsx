@@ -76,7 +76,7 @@ export default function LeafEditGroup({
     <>
       <MemoEditButton
         editCommand={handleAddDeliveryAllocationLeaf}
-        isDisabled={selectionLength < knowledgeDomainGroupDepth || !sizeToAdd}
+        isDisabled={selectionLength <= knowledgeDomainGroupDepth || !sizeToAdd}
       >
         Add: {getHours(sizeToAdd?.value ?? 1)}
       </MemoEditButton>

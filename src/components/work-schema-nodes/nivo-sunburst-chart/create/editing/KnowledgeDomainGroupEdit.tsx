@@ -10,7 +10,10 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/literals';
 import { Select, Selection } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
-import { KnowledgeDomain } from '@/api/generated-types/generated-types';
+import {
+  KnowledgeDomain,
+  KnowledgeDomainDto
+} from '@/api/generated-types/generated-types';
 import { useCallback, useMemo, useRef } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { replaceKnowledgeDomainsInGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupProducers';
@@ -28,12 +31,12 @@ export function KnowledgeDomainGroupEdit({
 }) {
   const { path, knowledgeDomains } = knowledgeDomainGroup;
   const { currentState } = NamespacedHooks.useListen<
-    Map<string, KnowledgeDomain>
+    Map<string, KnowledgeDomainDto>
   >(
     EntityClassMap.knowledgeDomain,
     KEY_TYPES.MASTER_MAP,
     `edit:${knowledgeDomainGroup.path}`,
-    InitialMap as Map<string, KnowledgeDomain>
+    InitialMap as Map<string, KnowledgeDomainDto>
   );
 
   const selectionKeys = useMemo(() => {

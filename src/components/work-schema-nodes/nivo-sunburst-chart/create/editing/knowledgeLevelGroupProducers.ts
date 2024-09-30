@@ -26,23 +26,6 @@ export const replaceKnowledgeDomainsInGroup = produce<
   kDomainGroup.knowledgeDomains = knowledgeDomainsReplacement;
 });
 
-/* Removed while the selection dropdown is handling it.
-export const removeKnowledgeDomainsFromGroup = produce<
-  NestedWorkNode,
-  [string, number[]]
->((draft, knowledgeDomainGroupId, knowledgeDomainId) => {
-  const knowledgeDomainGroup = findKnowledgeDomainGroup(
-    draft,
-    knowledgeDomainGroupId
-  );
-  knowledgeDomainGroup.knowledgeDomains =
-    knowledgeDomainGroup.knowledgeDomains.filter(
-      (kd) => kd.id !== knowledgeDomainId
-    );
-});
-
- */
-
 export const addDeliveryAllocationList = produce<
   NestedWorkNode,
   [string, number]

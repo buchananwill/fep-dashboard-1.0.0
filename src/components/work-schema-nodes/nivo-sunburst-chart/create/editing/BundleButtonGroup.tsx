@@ -6,6 +6,8 @@ import {
 import React from 'react';
 import { SelectionSplitRef } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
 import { MemoEditButton } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/WorkNodeHierarchyButton';
+
+import { EditWorkNodeDetails } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditWorkNodeDetails';
 import { EditBundleDetails } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditBundleDetails';
 
 export type ButtonEditGroupProps = {

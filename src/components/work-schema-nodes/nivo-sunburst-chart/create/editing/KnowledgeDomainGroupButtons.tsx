@@ -6,12 +6,12 @@ import {
 import React from 'react';
 import { ButtonEditGroupProps } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/BundleButtonGroup';
 import { MemoEditButton } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/WorkNodeHierarchyButton';
+import { EditKnowledgeDomainDetails } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditKnowledgeDomainGroupDetails';
 
-export default function KnowledgeDomainGroupButtons({
-  selectionSplitRef,
-  deselectRemovedId,
-  selectionLength
-}: ButtonEditGroupProps) {
+export default function KnowledgeDomainGroupButtons(
+  props: ButtonEditGroupProps
+) {
+  const { selectionSplitRef, deselectRemovedId, selectionLength } = props;
   const { handleAddKnowledgeDomainGroup, handleRemoveKDG } =
     useKnowledgeDomainGroupEdits(selectionSplitRef, deselectRemovedId);
 
@@ -19,7 +19,7 @@ export default function KnowledgeDomainGroupButtons({
     <>
       <MemoEditButton
         editCommand={handleAddKnowledgeDomainGroup}
-        isDisabled={selectionLength < bundleDepth}
+        isDisabled={selectionLength < knowledgeDomainGroupDepth}
       >
         Add
       </MemoEditButton>
@@ -29,6 +29,7 @@ export default function KnowledgeDomainGroupButtons({
       >
         Remove
       </MemoEditButton>
+      <EditKnowledgeDomainDetails {...props} />
     </>
   );
 }

@@ -7,6 +7,7 @@ import {
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 import {
   Bundle,
+  KnowledgeDomainGroup,
   NestedWorkNode
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
@@ -15,46 +16,55 @@ import { DeSelectRemovedId } from '@/components/work-schema-nodes/nivo-sunburst-
 import { SelectionSplitRef } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
 import { EditWorkNodeDetails } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditWorkNodeDetails';
 import { useModalTreeCopy } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/useModalTreeCopy';
+import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 
 const listenerKey = 'bundleModal';
 
-function BundleModalContent({ onClose }: { onClose: () => void }) {
+function KnowledgeDomainModalContent({ onClose }: { onClose: () => void }) {
   const { modalCopy, setModalCopy, path, confirmChanges } =
     useModalTreeCopy(onClose);
 
-  const bundle = useMemo(() => {
+  const knowledgeDomainGroup = useMemo(() => {
     const childOfType = findChildOfType(
       modalCopy as NestedWorkNode,
       path,
-      'bundle'
+      'knowledgeDomainGroup'
     );
-    if (childOfType?.type === 'bundle') return childOfType as Bundle;
+    if (childOfType?.type === 'knowledgeDomainGroup')
+      return childOfType as KnowledgeDomainGroup;
     else return undefined;
   }, [path, modalCopy]);
 
-  const setName = useCallback(
-    (newName: string) => {
-      if (!bundle) return;
-
-      setModalCopy((prevCopy) =>
-        replaceChildInTree(prevCopy, bundle?.path ?? '', {
-          ...bundle,
-          name: newName
-        })
-      );
-    },
-    [setModalCopy, bundle]
-  );
-  if (!bundle) return null;
+  // const setName = useCallback(
+  //   (newName: string) => {
+  //     if (!knowledgeDomainGroup) return;
+  //
+  //     setModalCopy((prevCopy) =>
+  //       replaceChildInTree(prevCopy, knowledgeDomainGroup?.path ?? '', {
+  //         ...knowledgeDomainGroup,
+  //         name: newName
+  //       })
+  //     );
+  //   },
+  //   [setModalCopy, knowledgeDomainGroup]
+  // );
+  if (!knowledgeDomainGroup) return null;
 
   return (
     <>
       <ModalHeader className="flex flex-col gap-1">
-        <FocusToEdit onValueChange={setName} value={bundle.name ?? ''}>
-          {bundle.name ?? 'no name'}
-        </FocusToEdit>
+        {getStartCaseDomainAlias('knowledgeDomainGroup')}
       </ModalHeader>
-      <ModalBody></ModalBody>
+      <ModalBody>
+        {
+          <KnowledgeDomainGroupEdit
+            dispatch={setModalCopy}
+            currentTree={modalCopy}
+            currentPath={path}
+            knowledgeDomainGroup={knowledgeDomainGroup}
+          />
+        }
+      </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>
           Cancel
@@ -67,10 +77,15 @@ function BundleModalContent({ onClose }: { onClose: () => void }) {
   );
 }
 
-export function EditBundleDetails(props: {
+export function EditKnowledgeDomainDetails(props: {
   deselectRemovedId: DeSelectRemovedId;
   selectionLength: number;
   selectionSplitRef: SelectionSplitRef;
 }) {
-  return <EditWorkNodeDetails {...props} modalContent={BundleModalContent} />;
+  return (
+    <EditWorkNodeDetails
+      {...props}
+      modalContent={KnowledgeDomainModalContent}
+    />
+  );
 }
