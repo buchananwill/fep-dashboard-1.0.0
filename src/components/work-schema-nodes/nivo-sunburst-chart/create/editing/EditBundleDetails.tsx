@@ -19,7 +19,10 @@ import {
   KnowledgeLevelSeriesGroupContextKey
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
-import { findChildOfType } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
+import {
+  findChildOfType,
+  replaceChildInTree
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 import {
   Bundle,
   KnowledgeLevelSeriesGroup,
@@ -54,7 +57,20 @@ function BundleModalContent({ onClose }: { onClose: () => void }) {
     if (childOfType?.type === 'bundle') return childOfType as Bundle;
     else return undefined;
   }, [path, modalCopy]);
-  const [name, setName] = useState(bundle?.name ?? '');
+
+  const setName = useCallback(
+    (newName: string) => {
+      if (!bundle) return;
+
+      setModalCopy((prevCopy) =>
+        replaceChildInTree(prevCopy, bundle?.path ?? '', {
+          ...bundle,
+          name: newName
+        })
+      );
+    },
+    [setModalCopy, bundle]
+  );
 
   const confirmChanges = useCallback(() => {
     dispatchWithoutControl(mutableRefObject.current);
@@ -66,8 +82,8 @@ function BundleModalContent({ onClose }: { onClose: () => void }) {
   return (
     <>
       <ModalHeader className="flex flex-col gap-1">
-        <FocusToEdit onValueChange={setName} value={name}>
-          {name}
+        <FocusToEdit onValueChange={setName} value={bundle.name ?? ''}>
+          {bundle.name}
         </FocusToEdit>
       </ModalHeader>
       <ModalBody>

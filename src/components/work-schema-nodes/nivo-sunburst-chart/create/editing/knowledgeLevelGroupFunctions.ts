@@ -18,6 +18,7 @@ import { WritableDraft } from 'immer/src/types/types-external';
 import { interpolateRainbow } from 'd3';
 import { getColorWithinSpace } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
 import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
+import * as child_process from 'node:child_process';
 
 export type Parent<T> = {
   children: T[];
@@ -34,12 +35,14 @@ export function makeKnowledgeLevelGroup(
   parent: KnowledgeLevelSeriesGroupTemplate,
   knowledgeLevel: KnowledgeLevelDto
 ): KnowledgeLevelGroup {
-  return {
+  const newLevelGroup: KnowledgeLevelGroup = {
     knowledgeLevel,
     children: [],
     type: 'knowledgeLevelGroup',
     path: makeChildPath(parent as WorkNodeHierarchy)
   };
+  newLevelGroup.children.push(makeNewBundle(newLevelGroup));
+  return newLevelGroup;
 }
 
 export function getKnowledgeDomainGroup(
@@ -114,12 +117,14 @@ export function makeChildPath(parent: WorkNodeHierarchy) {
 export function makeNewBundle(
   knowledgeLevelGroup: KnowledgeLevelGroup
 ): Bundle {
-  return {
+  const newBundle: Bundle = {
     path: makeChildPath(knowledgeLevelGroup as WorkNodeHierarchy),
     children: [],
     type: 'bundle',
     selected: false
   };
+  newBundle.children.push(makeKnowledgeDomainGroup(newBundle));
+  return newBundle;
 }
 
 export function findChildOrError<T extends Parent<U>, U extends HasPath>(
@@ -154,6 +159,50 @@ export function findChildOfType(
       nextParent = find;
     }
   }
+}
+
+export function replaceChildInTree<
+  T extends WorkNodeHierarchy,
+  Root extends NestedWorkNode
+>(root: Root, selectionPath: string, replacement: T): Root {
+  const splitted = splitPath(selectionPath);
+  if (splitted.length < 2) return root;
+  const hierarchyList = getHierarchyList(root, selectionPath);
+  let nextChild = hierarchyList[hierarchyList.length - 1];
+  for (let i = 0; i < hierarchyList.length - 1; i++) {
+    const nextParent = hierarchyList[
+      hierarchyList.length - (i + 2)
+    ] as NestedWorkNode;
+    if (nextChild.type === replacement.type) {
+      nextChild = replaceChild(
+        nextParent as NestedWorkNode,
+        replacement as (typeof nextParent)['children'][number]
+      );
+    } else {
+      nextChild = replaceChild(
+        nextParent as NestedWorkNode,
+        nextChild as (typeof nextParent)['children'][number]
+      );
+    }
+  }
+  if (nextChild.type !== root.type) {
+    throw new Error(
+      `Hierarchy list did not resolve to correct root: ${root.type} !== ${nextChild.type}`
+    );
+  }
+  return nextChild as Root;
+}
+
+function replaceChild<
+  Parent extends NestedWorkNode,
+  Child extends NestedWorkNode['children'][number]
+>(parent: Parent, child: Child): Parent {
+  return {
+    ...parent,
+    children: parent.children.map((childInList) =>
+      childInList.path === child.path ? child : childInList
+    )
+  };
 }
 
 export function findChildOfWorkNodeHierarchy(
@@ -212,7 +261,10 @@ export function getHierarchyList(
   return hierarchyList;
 }
 
-export function removeChildAnyLevel(root: WorkNodeHierarchy, childId: string) {
+export function removeChildAnyLevel(
+  root: WorkNodeHierarchy,
+  childId: string
+): WorkNodeHierarchy[] | undefined {
   const hierarchyList = getHierarchyList(root as NestedWorkNode, childId);
   const [immediateParent, child] = hierarchyList.slice(
     hierarchyList.length - 2
@@ -220,7 +272,7 @@ export function removeChildAnyLevel(root: WorkNodeHierarchy, childId: string) {
   if (immediateParent.type !== 'leaf') {
     const children = immediateParent.children as WorkNodeHierarchy[];
     const indexOf = children.indexOf(child);
-    children.splice(indexOf, 1);
+    return children.splice(indexOf, 1);
   }
 }
 
@@ -265,19 +317,23 @@ export function addLeafToKnowledgeDomainGroupChild(
   addLeafToThisList(list, size);
 }
 
+export function makeKnowledgeDomainGroup(bundle: Bundle): KnowledgeDomainGroup {
+  return {
+    type: 'knowledgeDomainGroup',
+    children: [],
+    knowledgeDomains: [],
+    path: makeChildPath(bundle),
+    selected: false
+  };
+}
+
 export function addKnowledgeDomainGroup(
   draft: WorkNodeHierarchy,
   bundleId: string
 ) {
   const bundle = findChildOfWorkNodeHierarchy(draft, bundleId);
   if (bundle.type === 'bundle') {
-    bundle.children.push({
-      type: 'knowledgeDomainGroup',
-      children: [],
-      knowledgeDomains: [],
-      path: makeChildPath(bundle),
-      selected: false
-    });
+    bundle.children.push(makeKnowledgeDomainGroup(bundle));
     bundle.children.forEach((kdgc, index, array) => {
       kdgc.color = getColorWithinSpace(index, array.length);
     });
