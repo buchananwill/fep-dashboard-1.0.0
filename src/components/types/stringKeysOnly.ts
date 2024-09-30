@@ -10,7 +10,7 @@ import { Handle, Optional } from '@/components/react-flow/generic/types';
 type Constrained<T extends Record<string, unknown>> = { constrainedData: T };
 
 // Utility type to check if a type contains only string keys
-type HasOnlyStringKeys<T> = {
+export type HasOnlyStringKeys<T> = {
   [K in keyof T]: K extends string ? T[K] : never;
 };
 

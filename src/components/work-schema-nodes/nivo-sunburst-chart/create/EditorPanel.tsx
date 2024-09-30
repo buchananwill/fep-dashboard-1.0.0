@@ -14,7 +14,7 @@ export default function EditorPanel({
       <SelectionController
         initialKnowledgeLevelSeriesGroup={initialKnowledgeLevelSeriesGroup}
       />
-      <div className={'flex flex-col gap-2'}>
+      <div className={'flex w-full max-w-[45%] flex-col  gap-2 '}>
         <TopLevelSelectors />
         <Selectors />
       </div>

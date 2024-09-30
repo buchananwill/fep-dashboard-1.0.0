@@ -1,6 +1,8 @@
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { split } from 'lodash';
+import { set, split } from 'lodash';
 import { Draft, produce } from 'immer';
+import { Get, Paths } from 'type-fest';
+import { HasOnlyStringKeys } from '@/components/types/stringKeysOnly';
 
 export function updateNestedValueWithImmer<T, PType>(
   entity: T,
@@ -57,4 +59,12 @@ export function updateNestedValue<T, PType>(
   } else {
     throw new Error('Paths did not result in mutable field; or other error.');
   }
+}
+
+export function updateNestedValueWithLodash<
+  TState extends HasOnlyStringKeys<TState>,
+  TPath extends Paths<TState> & string,
+  TPathType extends Get<TState, TPath>
+>(entity: TState, path: TPath, value: TPathType) {
+  return set({ ...entity }, path, value);
 }

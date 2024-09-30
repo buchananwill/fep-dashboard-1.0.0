@@ -8,6 +8,7 @@ import { useCallback } from 'react';
 import { parseTen } from '@/api/date-and-time';
 import { SelectItem } from '@nextui-org/select';
 import { get } from 'lodash';
+import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 
 export function ControlledSelector<
   ID_CLASS extends Identifier,
@@ -24,12 +25,13 @@ export function ControlledSelector<
   entityId: ID_CLASS | null;
   entityClass: string;
   idType?: 'string' | 'number';
-  selectionCallback?: (selection: T | null) => void;
+  selectionCallback?: (selection: T | undefined) => void;
 } & Omit<
   SelectProps,
   'onSelectionChange' | 'selectedKeys' | 'items' | 'selectionMode' | 'children'
 >) {
   const listenerKey = useUuidListenerKey();
+  const label = getStartCaseDomainAlias(entityClass);
 
   const { currentState } = NamespacedHooks.useListen(
     entityClass,
@@ -49,21 +51,24 @@ export function ControlledSelector<
         if (value.size === 1) {
           const selectedKey = String([...value.values()][0]);
           const id = idType === 'string' ? selectedKey : parseTen(selectedKey);
-          const newItem = currentState.find((item) => item.id === id) ?? null;
+          const newItem =
+            currentState.find((item) => item.id === id) ?? undefined;
           console.log(id, newItem);
           selectionCallback(newItem);
         } else {
-          selectionCallback(null);
+          selectionCallback(undefined);
         }
       }
     },
-    [selectionCallback, currentState]
+    [idType, selectionCallback, currentState]
   );
 
   return (
     <Select
       {...selectProps}
       items={currentState}
+      aria-label={selectProps['aria-label'] ?? label}
+      label={selectProps.label ?? label}
       selectionMode={'single'}
       selectedKeys={entityId ? [String(entityId)] : EmptyArray}
       onSelectionChange={onSelectionChange}

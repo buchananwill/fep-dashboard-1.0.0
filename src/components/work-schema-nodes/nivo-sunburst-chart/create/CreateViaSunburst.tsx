@@ -9,15 +9,8 @@ import { getNames } from '@/components/work-task-types/getNamesServerAction';
 import CycleDataFetcher from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CycleDataFetcher';
 import SunburstEditView from '@/components/work-schema-nodes/nivo-sunburst-chart/create/SunburstEditView';
 import EditorPanel from '@/components/work-schema-nodes/nivo-sunburst-chart/create/EditorPanel';
-import { getWithoutBody } from '@/api/actions/template-actions';
-import {
-  KnowledgeLevelSeriesGroup,
-  NestedWorkNodeDto
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { getLevelSeriesTree } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/NivoSunburstChartPage';
 import KnowledgeLevelSeriesGroupManager from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import SelectionCallout from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/SelectionCallout';
-import { colorizeKnowledgeDomainGroups } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
 import { initDefaults } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/templateKnowledgeLevelSeriesGroup';
 import { get } from 'lodash';
 
