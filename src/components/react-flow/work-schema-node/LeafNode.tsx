@@ -5,7 +5,8 @@ import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-type
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
+import { parseToCssRgba } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 
 export default function LeafNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>
@@ -19,6 +20,11 @@ export default function LeafNode(
 
   return (
     <BaseWorkSchemaNode
+      style={{
+        backgroundColor: entity
+          ? parseToCssRgba(entity.workTaskType.knowledgeDomain?.color)
+          : undefined
+      }}
       {...props}
       className={clsx(
         'relative flex flex-col gap-1 rounded-md border-black bg-white p-2 transition-colors-opacity',

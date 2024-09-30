@@ -15,9 +15,9 @@ import NodeGraphEditCluster from '@/components/react-flow/generic/components/nod
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
 import { NodeBase } from '@/components/react-flow/generic/types';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { NodeProps } from '@/types/xyflow-overrides';
 import { Handle, Position } from '@xyflow/react';
+import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 
 export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
@@ -122,7 +122,7 @@ export function BaseWorkSchemaNode({
       />
       <div className={className} style={style}>
         <div className={'flex items-center gap-1'}>
-          {totalThisNode}
+          <span className={'rounded-xl bg-white p-1'}>{totalThisNode}</span>
           <EditClusterMemo
             showAddChild={canHaveChild}
             addChild={addChild}
