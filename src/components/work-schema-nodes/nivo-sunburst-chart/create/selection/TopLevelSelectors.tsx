@@ -8,18 +8,13 @@ import {
 } from '@/api/generated-types/generated-types';
 import { HasNumberId } from '@/api/types';
 import { useGlobalDispatchAndListener } from 'selective-context';
-import {
-  KnowledgeLevelSeriesGroupContextKey,
-  KnowledgeLevelSeriesGroupTemplate
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
+import { KnowledgeLevelSeriesGroupContextKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { TemplateKnowledgeLevelSeriesGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/templateKnowledgeLevelSeriesGroup';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { ControlledSelector } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ControlledSelector';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { useNestedUpdateCallback } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/useNestedUpdateCallback';
 import { ReactNode, useCallback, useRef } from 'react';
-import { DispatchState } from '@/types';
-import { KnowledgeLevelSeriesGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { useDisclosure } from '@nextui-org/use-disclosure';
 import {
   Modal,
@@ -29,7 +24,6 @@ import {
   ModalHeader,
   ModalProps
 } from '@nextui-org/modal';
-import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
 import { ConfirmActionModalProps } from '@/components/modals/EditTextValueModal';
 

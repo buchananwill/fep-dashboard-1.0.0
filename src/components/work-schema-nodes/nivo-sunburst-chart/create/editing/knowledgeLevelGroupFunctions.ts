@@ -4,14 +4,20 @@ import {
   DeliveryAllocationLeaf,
   DeliveryAllocationList,
   KnowledgeDomainGroup,
+  KnowledgeLevelGroup,
+  KnowledgeLevelSeriesGroup,
   NestedWorkNode,
   NestedWorkNodeDiscriminator,
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { KnowledgeLevelGroupTemplate } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
+import {
+  KnowledgeLevelGroupTemplate,
+  KnowledgeLevelSeriesGroupTemplate
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { WritableDraft } from 'immer/src/types/types-external';
 import { interpolateRainbow } from 'd3';
 import { getColorWithinSpace } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 
 export type Parent<T> = {
   children: T[];
@@ -22,6 +28,18 @@ function childNotFoundError(
   type: NestedWorkNodeDiscriminator
 ) {
   throw Error(`Did not find ${type} on path ${selectionPath}`);
+}
+
+export function makeKnowledgeLevelGroup(
+  parent: KnowledgeLevelSeriesGroupTemplate,
+  knowledgeLevel: KnowledgeLevelDto
+): KnowledgeLevelGroup {
+  return {
+    knowledgeLevel,
+    children: [],
+    type: 'knowledgeLevelGroup',
+    path: makeChildPath(parent as WorkNodeHierarchy)
+  };
 }
 
 export function getKnowledgeDomainGroup(
@@ -94,7 +112,7 @@ export function makeChildPath(parent: WorkNodeHierarchy) {
 }
 
 export function makeNewBundle(
-  knowledgeLevelGroup: KnowledgeLevelGroupTemplate
+  knowledgeLevelGroup: KnowledgeLevelGroup
 ): Bundle {
   return {
     path: makeChildPath(knowledgeLevelGroup as WorkNodeHierarchy),

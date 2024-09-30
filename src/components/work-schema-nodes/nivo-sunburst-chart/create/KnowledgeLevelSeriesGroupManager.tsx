@@ -13,12 +13,14 @@ import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-c
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   HasName,
-  KnowledgeDomainDto
+  KnowledgeDomainDto,
+  KnowledgeLevelDto
 } from '@/api/generated-types/generated-types';
 import { HasNumberId } from '@/api/types';
 import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
 import submitKnowledgeLevelSeriesGroup from '@/components/work-schema-nodes/nivo-sunburst-chart/create/submitAction';
+import { makeKnowledgeLevelGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 
 type WorkTaskTypeNameDto = HasName & HasNumberId;
 
@@ -35,6 +37,17 @@ export default function KnowledgeLevelSeriesGroupManager({
     listenerKey: listenerKey
   });
   const mutableRefObject = useRef(currentState);
+
+  const knowledgeLevels = currentState.knowledgeLevelSeries?.knowledgeLevels;
+
+  useEffect(() => {
+    dispatch((previousGroup) =>
+      initializeKnowledgeLevelGroups(
+        { ...previousGroup, children: [] },
+        knowledgeLevels ?? []
+      )
+    );
+  }, [knowledgeLevels, dispatch]);
 
   const readCycle = useReadAnyDto(EntityClassMap.cycle);
   const readWorkTaskTypeName = useReadAnyDto(workTaskTypeName);
@@ -92,6 +105,16 @@ export default function KnowledgeLevelSeriesGroupManager({
   const selectionPathRef = useRef(selectionPath);
 
   return null;
+}
+
+function initializeKnowledgeLevelGroups(
+  template: KnowledgeLevelSeriesGroupTemplate,
+  knowledgeLevels: KnowledgeLevelDto[]
+) {
+  return knowledgeLevels.reduce((prev, curr) => {
+    const knowledgeLevelGroup = makeKnowledgeLevelGroup(prev, curr);
+    return { ...prev, children: [...prev.children, knowledgeLevelGroup] };
+  }, template);
 }
 
 export type KnowledgeLevelGroupTemplate = SetOptional<
