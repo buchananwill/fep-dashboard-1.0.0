@@ -24,13 +24,13 @@ export const getLevelSeriesTree = (id: string) =>
 
 async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   const [rootId] = getLastNVariables(pathVariables, 1);
-  // const { data } = await getWithoutBody<NestedWorkNodeDto>(
-  //   nestedBundleEndpoint(rootId)
-  // );
+  const { data } = await getWithoutBody<NestedWorkNodeDto>(
+    nestedBundleEndpoint(rootId)
+  );
 
-  const { data } = await getWithoutBody<
-    NestedWorkNodeDto<KnowledgeLevelSeriesGroup>
-  >(getLevelSeriesTree('2'));
+  // const { data } = await getWithoutBody<
+  //   NestedWorkNodeDto<KnowledgeLevelSeriesGroup>
+  // >(getLevelSeriesTree('2'));
 
   const colorizeKnowledgeDomains1 = colorizeKnowledgeDomainGroups(data);
   return (
