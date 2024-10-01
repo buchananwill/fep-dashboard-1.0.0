@@ -11,8 +11,8 @@ import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import SendEventsButton from '@/components/calendar/CreateEventButton';
-import PurgeEventsButton from '@/components/calendar/PurgeEventsButton';
+import RootCard from '@/app/core/navigation/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 async function CalendarViewPage({ pathVariables }: LeafComponentProps) {
   const [scheduleId] = getLastNVariables(pathVariables, 1);
@@ -24,38 +24,46 @@ async function CalendarViewPage({ pathVariables }: LeafComponentProps) {
   );
 
   return (
-    <div className={'h-[95vh] w-[95vw] overflow-clip p-4'}>
-      <EditAddDeleteDtoControllerArray
-        entityClass={eventSourceEntityClass}
-        dtoList={sourcesColorised}
-      />
-      {/*<div className={'flex gap-2'}>*/}
-      {/*  <SendEventsButton />*/}
-      {/*  <PurgeEventsButton />*/}
-      {/*</div>*/}
-      <CalendarWithShowHideSources />
+    <div className={'p-2'}>
+      <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
+        <div className={'h-[90vh] w-[90vw] p-2'}>
+          <EditAddDeleteDtoControllerArray
+            entityClass={eventSourceEntityClass}
+            dtoList={sourcesColorised}
+          />
+          {/*<div className={'flex gap-2'}>*/}
+          {/*  <SendEventsButton />*/}
+          {/*  <PurgeEventsButton />*/}
+          {/*</div>*/}
+          <CalendarWithShowHideSources />
+        </div>
+      </RootCard>
     </div>
   );
 }
 
-async function CalendarChooserPage({}: LeafComponentProps) {
+async function CalendarChooserPage({ pathVariables }: LeafComponentProps) {
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([
     { status: 'PASS' }
   ]);
   return (
-    <>
-      <h1>Completed Schedules</h1>
-      <div className={'flex flex-col'}>
-        {passingSchedules.map((passingSchedule) => (
-          <LinkButton
-            href={`/core/schedules/calendar-view/${passingSchedule.id}`}
-            key={passingSchedule.id}
-          >
-            Schedule {passingSchedule.id}
-          </LinkButton>
-        ))}
-      </div>
-    </>
+    <div className={'p-4'}>
+      <RootCard
+        layoutId={getRootCardLayoutId(pathVariables)}
+        displayHeader={'Completed Schedules'}
+      >
+        <div className={'flex flex-col'}>
+          {passingSchedules.map((passingSchedule) => (
+            <LinkButton
+              href={`/core/schedules/calendar-view/${passingSchedule.id}`}
+              key={passingSchedule.id}
+            >
+              Schedule {passingSchedule.id}
+            </LinkButton>
+          ))}
+        </div>
+      </RootCard>
+    </div>
   );
 }
 

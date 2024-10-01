@@ -20,6 +20,8 @@ import {
   WorkProjectSeriesAssignmentDto
 } from '@/api/generated-types/generated-types';
 import React from 'react';
+import RootCard from '@/app/core/navigation/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 async function WorkProjectSeriesAssignmentsForSchedule({
   pathVariables,
@@ -40,23 +42,27 @@ async function WorkProjectSeriesAssignmentsForSchedule({
     .map((row) => row.data as OrganizationDto);
 
   return (
-    <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8 pt-16'}>
-      <EditAddDeleteDtoControllerArray
-        dtoList={workProjectSeriesAssignmentTableDto.rowList}
-        entityClass={AssignmentTableRowClassName}
-      />
-      <EditAddDeleteDtoControllerArray
-        dtoList={organizationList}
-        entityClass={EntityClassMap.organization}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.cycleSubspan}
-        dtoList={workProjectSeriesAssignmentTableDto.columnList}
-      />
-      <AssignmentTable
-        tableData={workProjectSeriesAssignmentTableDto}
-        organizations={organizationList}
-      />
+    <div className={'p-4'}>
+      <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
+        <div className={'h-[90vh] w-[90vw]'}>
+          <EditAddDeleteDtoControllerArray
+            dtoList={workProjectSeriesAssignmentTableDto.rowList}
+            entityClass={AssignmentTableRowClassName}
+          />
+          <EditAddDeleteDtoControllerArray
+            dtoList={organizationList}
+            entityClass={EntityClassMap.organization}
+          />
+          <EditAddDeleteDtoControllerArray
+            entityClass={EntityClassMap.cycleSubspan}
+            dtoList={workProjectSeriesAssignmentTableDto.columnList}
+          />
+          <AssignmentTable
+            tableData={workProjectSeriesAssignmentTableDto}
+            organizations={organizationList}
+          />
+        </div>
+      </RootCard>
     </div>
   );
 }

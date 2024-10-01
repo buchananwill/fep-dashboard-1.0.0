@@ -3,8 +3,13 @@ import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import TableViewFallbackPage from '@/components/work-project-series-assignments/table-view/TableViewFallbackPage';
 import { LinkButton } from '@/components/navigation/LinkButton';
+import { Root } from 'postcss';
+import RootCard from '@/app/core/navigation/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
-export default async function WorkProjectSeriesAssignmentTableView({}: LeafComponentProps) {
+export default async function WorkProjectSeriesAssignmentTableView({
+  pathVariables
+}: LeafComponentProps) {
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([
     { status: 'PASS' }
   ]);
@@ -12,22 +17,26 @@ export default async function WorkProjectSeriesAssignmentTableView({}: LeafCompo
     return 'No successfully completed schedules available.';
 
   return (
-    <>
-      <h1>Completed Schedules</h1>
-      <div className={'flex flex-col'}>
-        {passingSchedules.map((passingSchedule) => (
-          <LinkButton
-            href={`/core/schedules/work-project-series-assignments/${passingSchedule.id}`}
-            key={passingSchedule.id}
-          >
-            Schedule {passingSchedule.id}
+    <div className={'p-4'}>
+      <RootCard
+        layoutId={getRootCardLayoutId(pathVariables)}
+        displayHeader={'Completed Schedules'}
+      >
+        <div className={'flex flex-col'}>
+          {passingSchedules.map((passingSchedule) => (
+            <LinkButton
+              href={`/core/schedules/work-project-series-assignments/${passingSchedule.id}`}
+              key={passingSchedule.id}
+            >
+              Schedule {passingSchedule.id}
+            </LinkButton>
+          ))}
+          <LinkButton href={'/core/schedules/build-metric-queue-tree-graph'}>
+            Build Metrics
           </LinkButton>
-        ))}
-        <LinkButton href={'/core/schedules/build-metric-queue-tree-graph'}>
-          Build Metrics
-        </LinkButton>
-      </div>
-    </>
+        </div>
+      </RootCard>
+    </div>
   );
 }
 
