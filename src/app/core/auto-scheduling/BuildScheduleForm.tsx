@@ -96,7 +96,7 @@ export default function AutoBuildForm({
   };
 
   return (
-    <Card className={'mt-8 w-96 overflow-visible'}>
+    <div className={'w-96 overflow-visible'}>
       {disable && (
         <Overlay>
           <div className={'rounded-lg bg-white p-2'}>Sign in to Enable</div>
@@ -109,60 +109,66 @@ export default function AutoBuildForm({
           handleSubmit(onSubmit)(event);
         }}
       >
-        <CardHeader className={'items-center justify-center align-middle '}>
-          Auto Build Parameters
-        </CardHeader>
-        <CardBody
-          className={'items-center justify-center gap-2 overflow-visible'}
-        >
-          <ControlledSlider
-            control={control}
-            maxValue={60_000}
-            minValue={1_000}
-            step={500}
-            size={'sm'}
-            name={'autoBuildParametersDto.multiStepUndoTimeoutMs'}
-            aria-label={'Multi-Undo Timeout'}
-            hideValue={false}
-            label={'Multi-Undo Timeout (ms):'}
-          />
-          <ControlledSlider
-            control={control}
-            maxValue={10}
-            minValue={1}
-            step={1}
-            size={'sm'}
-            name={'autoBuildParametersDto.multiUndoIncrement'}
-            aria-label={'multi-undo increment'}
-            hideValue={false}
-            label={'Multi-undo increment:'}
-          />
-          <label className={'text-sm text-default-500'}>
-            Save Build:
-            <input
-              {...register('autoBuildParametersDto.saveBuild')}
-              type={'checkbox'}
-              className={'checkbox-input ml-2'}
+        <div className={'flex flex-col gap-2'}>
+          <h1 className={'items-center justify-center align-middle '}>
+            Auto Build Parameters
+          </h1>
+          <div className={'items-center justify-center gap-2 overflow-visible'}>
+            <ControlledSlider
+              control={control}
+              maxValue={60_000}
+              minValue={1_000}
+              step={500}
+              size={'sm'}
+              name={'autoBuildParametersDto.multiStepUndoTimeoutMs'}
+              aria-label={'Multi-Undo Timeout'}
+              hideValue={false}
+              label={'Multi-Undo Timeout (ms):'}
             />
-          </label>
-          <label className={'text-sm text-default-500'}>
-            Force Save Metrics:
-            <input
-              {...register('autoBuildParametersDto.forceSaveMetrics')}
-              type={'checkbox'}
-              className={'checkbox-input ml-2'}
+            <ControlledSlider
+              control={control}
+              maxValue={10}
+              minValue={1}
+              step={1}
+              size={'sm'}
+              name={'autoBuildParametersDto.multiUndoIncrement'}
+              aria-label={'multi-undo increment'}
+              hideValue={false}
+              label={'Multi-undo increment:'}
             />
-          </label>
-          <FixedOrderMultiSelect
-            options={costParameterOptions}
-            currentOptions={selectedCostParameterOptions}
-            onChange={handleSelectionChange}
-          />
-        </CardBody>
-        <CardFooter className={'justify-center'}>
-          <Button type={'submit'}>Submit</Button>
-        </CardFooter>
+            <div
+              className={
+                'center-horizontal-with-margin flex w-fit flex-col py-2 text-right'
+              }
+            >
+              <label className={'text-sm text-default-500'}>
+                Save Build:
+                <input
+                  {...register('autoBuildParametersDto.saveBuild')}
+                  type={'checkbox'}
+                  className={'checkbox-input ml-2'}
+                />
+              </label>
+              <label className={'text-sm text-default-500'}>
+                Force Save Metrics:
+                <input
+                  {...register('autoBuildParametersDto.forceSaveMetrics')}
+                  type={'checkbox'}
+                  className={'checkbox-input ml-2'}
+                />
+              </label>
+            </div>
+            <FixedOrderMultiSelect
+              options={costParameterOptions}
+              currentOptions={selectedCostParameterOptions}
+              onChange={handleSelectionChange}
+            />
+          </div>
+          <div className={'justify-center text-center'}>
+            <Button type={'submit'}>Submit</Button>
+          </div>
+        </div>
       </form>
-    </Card>
+    </div>
   );
 }
