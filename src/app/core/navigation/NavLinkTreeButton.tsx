@@ -15,6 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import { NavLinkDescriptionsDefault } from '@/components/navigation/navLinkDescriptions';
 import { getDomainAlias } from '@/api/getDomainAlias';
+import RootCard from '@/app/core/navigation/RootCard';
 
 export function NavLinkTreeButton({
   navLinkNode,
@@ -61,33 +62,17 @@ export function NavLinkTreeButton({
       return <>{...childrenElements}</>;
     case 1: {
       const navKey = camelCase(displayName) as NavigationType;
-      const Icon = navLinkIcons[navKey];
       return (
-        <Card className={'scale-in'}>
-          <Popover triggerScaleOnOpen={false}>
-            <PopoverTrigger>
-              <Button
-                variant={'light'}
-                className={'rounded-none italic text-default-500'}
-              >
-                <CardHeader
-                  className={'flex justify-between  border-default-200 '}
-                >
-                  {Icon && <Icon className={'h-8 w-8'} />}
-                  {aliasName}
-                </CardHeader>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className={'max-w-lg'}>
-              {NavLinkDescriptionsDefault[navKey]}
-            </PopoverContent>
-          </Popover>
-          <CardBody className={'pt-0'}>
-            <DisplayThisLevel displayLabel={DisplayLabelElement}>
-              {...childrenElements}
-            </DisplayThisLevel>
-          </CardBody>
-        </Card>
+        <RootCard
+          navLinkNode={navLinkNode}
+          aliasName={aliasName}
+          navigationType={navKey}
+        >
+          {' '}
+          <DisplayThisLevel displayLabel={DisplayLabelElement}>
+            {...childrenElements}
+          </DisplayThisLevel>
+        </RootCard>
       );
     }
     default:

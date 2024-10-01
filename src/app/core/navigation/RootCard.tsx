@@ -22,10 +22,11 @@ export default function RootCard({
   aliasName: string;
 } & PropsWithChildren) {
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
+  console.log('root display name:', displayName);
 
   return (
     <motion.div layoutId={displayName}>
-      <Card className={'scale-in'}>
+      <Card className={'h-full'}>
         <Popover triggerScaleOnOpen={false}>
           <PopoverTrigger>
             <Button
