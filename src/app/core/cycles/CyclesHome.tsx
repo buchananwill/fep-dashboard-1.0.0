@@ -18,12 +18,13 @@ const cycleLinks: NavLinkTree = {
 export default async function CyclesHome({
   pathVariables
 }: LeafComponentProps) {
-  console.log(cycleLinks, pathVariables);
   return (
-    <NavLinkTreeButton
-      navLinkNode={cycleLinks}
-      renderHeaderAs={WrappedHeader}
-      renderLinkAs={WrappedLink}
-    />
+    <div className={'p-4'}>
+      <NavLinkTreeButton
+        navLinkNode={cycleLinks}
+        renderHeaderAs={WrappedHeader}
+        renderLinkAs={WrappedLink}
+      />
+    </div>
   );
 }

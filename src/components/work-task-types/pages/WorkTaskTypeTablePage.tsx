@@ -11,15 +11,17 @@ export default async function WorkTaskTypeTablePage({
   const wtts = await Api.WorkTaskType.getAll();
 
   return (
-    <RootCard layoutId={'/' + ['core', ...pathVariables].join('/')}>
-      <EditAddDeleteDtoControllerArray
-        dtoList={wtts}
-        entityClass={EntityClassMap.workTaskType}
-        postServerAction={Api.WorkTaskType.postList}
-        deleteServerAction={Api.WorkTaskType.deleteIdList}
-        updateServerAction={Api.WorkTaskType.putList}
-      />
-      <WorkTaskTypeEditTable />
-    </RootCard>
+    <div className={'p-4'}>
+      <RootCard layoutId={'/' + ['core', ...pathVariables].join('/')}>
+        <EditAddDeleteDtoControllerArray
+          dtoList={wtts}
+          entityClass={EntityClassMap.workTaskType}
+          postServerAction={Api.WorkTaskType.postList}
+          deleteServerAction={Api.WorkTaskType.deleteIdList}
+          updateServerAction={Api.WorkTaskType.putList}
+        />
+        <WorkTaskTypeEditTable />
+      </RootCard>
+    </div>
   );
 }

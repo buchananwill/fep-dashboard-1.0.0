@@ -14,6 +14,9 @@ import {
 import { notFound } from 'next/navigation';
 import { GenericTableDto, HasNumberId } from '@/api/types';
 import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import RootCard from '@/app/core/navigation/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import pluralize from 'pluralize';
 
 export default async function AvailabilityPage<
   Role extends HasNumberId,
@@ -39,27 +42,29 @@ export default async function AvailabilityPage<
   const tableProps = getTableProps(roles, cycleSubspanList);
 
   return (
-    <div className={'ml-auto mr-auto h-[100vh] w-[100vw] p-8'}>
-      <EditAddDeleteDtoControllerArray
-        entityClass={entityClassMapElement}
-        dtoList={genericTable.rowList}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.cycleSubspan}
-        dtoList={cycleSubspanList}
-      />
-      <AvailabilityTable<Role, Availability>
-        type={roleCategory}
-        tableData={
-          genericTable as GenericTableDto<
-            Role,
-            CycleSubspanDto,
-            Availability,
-            Availability
-          >
-        }
-        {...tableProps}
-      />
-    </div>
+    <RootCard layoutId={getRootCardLayoutId([pluralize(roleCategory)])}>
+      <div className={'h-[90vh] w-[90vw]'}>
+        <EditAddDeleteDtoControllerArray
+          entityClass={entityClassMapElement}
+          dtoList={genericTable.rowList}
+        />
+        <EditAddDeleteDtoControllerArray
+          entityClass={EntityClassMap.cycleSubspan}
+          dtoList={cycleSubspanList}
+        />
+        <AvailabilityTable<Role, Availability>
+          type={roleCategory}
+          tableData={
+            genericTable as GenericTableDto<
+              Role,
+              CycleSubspanDto,
+              Availability,
+              Availability
+            >
+          }
+          {...tableProps}
+        />
+      </div>
+    </RootCard>
   );
 }

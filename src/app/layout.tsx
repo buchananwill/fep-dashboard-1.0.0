@@ -33,7 +33,7 @@ export default async function RootLayout({
             <UserAvatar />
           </MasterChangesTrackWrapper>
           <div className={'flex'}>
-            <div className={'center-all-margin'}>{children}</div>
+            <div className={'center-all-margin '}>{children}</div>
           </div>
           <TooltipSingleton />
           <NavPopoverTrigger />

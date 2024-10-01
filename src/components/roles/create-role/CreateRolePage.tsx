@@ -11,13 +11,14 @@ import { RoleEntity } from '@/components/roles/types';
 import pluralize, { singular } from 'pluralize';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import CreateRoleForm from '@/components/roles/create-role/CreateRoleForm';
 import {
   initialMutationList,
   MutationCounterContextKey,
   WorkTaskTypeName
 } from '@/components/roles/create-role/literals';
 import FormWrapper from '@/components/roles/create-role/FormWrapper';
+import RootCard from '@/app/core/navigation/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 export default async function CreateRolePage({
   pathVariables
@@ -38,48 +39,50 @@ export default async function CreateRolePage({
   const kLIdList = getIdList(initialKnowledgeLevels);
 
   return (
-    <div className={'flex h-[100vh] w-[100vw] items-start gap-2 p-4'}>
-      <SuitabilityCellManager rowIdList={kdIdList} columnIdList={kLIdList} />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.knowledgeDomain}
-        dtoList={knowledgeDomainDtos}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassKey}
-        dtoList={roleTypes}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={WorkTaskTypeName}
-        dtoList={workTaskTypeNames}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.knowledgeLevelSeries}
-        dtoList={knowledgeLevelSeriesDtos}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.knowledgeLevel}
-        dtoList={initialKnowledgeLevels}
-      />
-      <EditAddDeleteDtoControllerArray
-        entityClass={MutationCounterContextKey}
-        dtoList={initialMutationList}
-      />
-      <FormWrapper
-        roleEntity={roleType}
-        knowledgeDomainDtos={knowledgeDomainDtos}
-        knowledgeLevels={initialKnowledgeLevels}
-        redirectUrl={`/core/${pluralize(roleType)}`}
-        createRoleAction={async (request) => {
-          'use server';
-          return await postEntitiesWithDifferentReturnType(
-            request,
-            constructUrl(
-              `/api/v2/${getRoleTypeSections(roleType)}/createFromRolePostRequest`
-            )
-          );
-        }}
-      />
-    </div>
+    <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
+      <div className={'m-2 flex h-[90vh] w-[90vw] items-start gap-2'}>
+        <SuitabilityCellManager rowIdList={kdIdList} columnIdList={kLIdList} />
+        <EditAddDeleteDtoControllerArray
+          entityClass={EntityClassMap.knowledgeDomain}
+          dtoList={knowledgeDomainDtos}
+        />
+        <EditAddDeleteDtoControllerArray
+          entityClass={EntityClassKey}
+          dtoList={roleTypes}
+        />
+        <EditAddDeleteDtoControllerArray
+          entityClass={WorkTaskTypeName}
+          dtoList={workTaskTypeNames}
+        />
+        <EditAddDeleteDtoControllerArray
+          entityClass={EntityClassMap.knowledgeLevelSeries}
+          dtoList={knowledgeLevelSeriesDtos}
+        />
+        <EditAddDeleteDtoControllerArray
+          entityClass={EntityClassMap.knowledgeLevel}
+          dtoList={initialKnowledgeLevels}
+        />
+        <EditAddDeleteDtoControllerArray
+          entityClass={MutationCounterContextKey}
+          dtoList={initialMutationList}
+        />
+        <FormWrapper
+          roleEntity={roleType}
+          knowledgeDomainDtos={knowledgeDomainDtos}
+          knowledgeLevels={initialKnowledgeLevels}
+          redirectUrl={`/core/${pluralize(roleType)}`}
+          createRoleAction={async (request) => {
+            'use server';
+            return await postEntitiesWithDifferentReturnType(
+              request,
+              constructUrl(
+                `/api/v2/${getRoleTypeSections(roleType)}/createFromRolePostRequest`
+              )
+            );
+          }}
+        />
+      </div>
+    </RootCard>
   );
 }
 

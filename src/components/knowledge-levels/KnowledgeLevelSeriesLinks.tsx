@@ -8,6 +8,8 @@ import {
   NavigationType,
   navKeyList
 } from '@/components/navigation/navLinkIcons';
+import { getFirstNVariables } from '@/components/work-task-types/getRootCardLayoutId';
+import { camelCase } from 'lodash';
 
 export function getNavIndex(searchElement: NavigationType) {
   return navKeyList.indexOf(searchElement);
@@ -17,6 +19,9 @@ export async function KnowledgeLevelSeriesLinks({
   pathVariables,
   depth
 }: LeafComponentProps) {
+  const useCaseName = pathVariables.join('-');
+
+  const navIndex = getNavIndex(camelCase(useCaseName) as NavigationType);
   const all = await Api.KnowledgeLevelSeries.getAll().then((r) => {
     return Promise.all(
       r.map((levelSeries, index) =>
@@ -24,16 +29,15 @@ export async function KnowledgeLevelSeriesLinks({
           levelSeries,
           index,
           pathVariables,
-          depth + 1
+          depth + 1,
+          navIndex
         )
       )
     );
   });
 
-  const navIndex = getNavIndex('knowledgeLevelSeries');
-
   const navTree: NavLinkTree = {
-    displayName: 'knowledgeLevelSeries',
+    displayName: useCaseName,
     children: all,
     indexList: [navIndex],
     link: ['core', ...pathVariables],
@@ -41,10 +45,12 @@ export async function KnowledgeLevelSeriesLinks({
   };
 
   return (
-    <NavLinkTreeButton
-      navLinkNode={navTree}
-      renderHeaderAs={WrappedHeader}
-      renderLinkAs={WrappedLink}
-    />
+    <div className={'p-4'}>
+      <NavLinkTreeButton
+        navLinkNode={navTree}
+        renderHeaderAs={WrappedHeader}
+        renderLinkAs={WrappedLink}
+      />
+    </div>
   );
 }

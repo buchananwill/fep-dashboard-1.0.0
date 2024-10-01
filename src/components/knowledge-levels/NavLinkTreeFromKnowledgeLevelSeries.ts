@@ -6,9 +6,11 @@ export async function navLinkTreeFromKnowledgeLevelSeries(
   series: KnowledgeLevelSeriesDto,
   seriesIndex: number,
   pathVariables: string[],
-  depth: number
+  depth: number,
+  replaceFirstIndex?: number
 ): Promise<NavLinkTree> {
-  const navIndex = navKeyList.indexOf('knowledgeLevelSeries');
+  const navIndex =
+    replaceFirstIndex ?? navKeyList.indexOf('knowledgeLevelSeries');
   const { knowledgeLevels } = series;
   const baseLinks = ['core', ...pathVariables, String(series.id)];
   const levelLinkTree: NavLinkTree[] = knowledgeLevels.map((level, index) => ({

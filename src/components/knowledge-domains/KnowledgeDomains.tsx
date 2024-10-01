@@ -11,19 +11,21 @@ export async function KnowledgeDomains({ pathVariables }: LeafComponentProps) {
   const knowledgeDomainList = await Api.KnowledgeDomain.getAll();
 
   return (
-    <RootCard
-      layoutId={'/' + ['core', ...pathVariables].join('/')}
-      displayHeader={pluralize(getStartCaseDomainAlias('knowledgeDomain'))}
-      navigationType={'knowledgeDomains'}
-    >
-      <EditAddDeleteDtoControllerArray
-        dtoList={knowledgeDomainList}
-        entityClass={EntityClassMap.knowledgeDomain}
-        updateServerAction={Api.KnowledgeDomain.putList}
-        deleteServerAction={Api.KnowledgeDomain.deleteIdList}
-        postServerAction={Api.KnowledgeDomain.postList}
-      />
-      <KnowledgeDomainTable />
-    </RootCard>
+    <div className={'p-4'}>
+      <RootCard
+        layoutId={'/' + ['core', ...pathVariables].join('/')}
+        displayHeader={pluralize(getStartCaseDomainAlias('knowledgeDomain'))}
+        navigationType={'knowledgeDomains'}
+      >
+        <EditAddDeleteDtoControllerArray
+          dtoList={knowledgeDomainList}
+          entityClass={EntityClassMap.knowledgeDomain}
+          updateServerAction={Api.KnowledgeDomain.putList}
+          deleteServerAction={Api.KnowledgeDomain.deleteIdList}
+          postServerAction={Api.KnowledgeDomain.postList}
+        />
+        <KnowledgeDomainTable />
+      </RootCard>
+    </div>
   );
 }

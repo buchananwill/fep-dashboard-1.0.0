@@ -33,7 +33,7 @@ async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
   ]);
 
   return (
-    <>
+    <div className={'p-4'}>
       <EditAddDeleteDtoControllerArray
         dtoList={wpssData}
         entityClass={EntityClassMap.workProjectSeriesSchema}
@@ -46,7 +46,7 @@ async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
         dtoList={availableCycles}
       />
       <WorkProjectSeriesSchemaEditTable {...props} />
-    </>
+    </div>
   );
 }
 

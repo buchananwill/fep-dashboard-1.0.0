@@ -44,26 +44,12 @@ function RoleAspectMenu({ pathVariables, depth }: LeafComponentProps) {
     [getNavIndex(roleType as NavigationType)]
   );
   return (
-    <NavLinkTreeButton
-      navLinkNode={navLinkTree}
-      renderHeaderAs={WrappedHeader}
-      renderLinkAs={WrappedLink}
-    />
+    <div className={'p-4'}>
+      <NavLinkTreeButton
+        navLinkNode={navLinkTree}
+        renderHeaderAs={WrappedHeader}
+        renderLinkAs={WrappedLink}
+      />
+    </div>
   );
 }
-/*
-
-<RootCard layoutId={getRootCardLayoutId(pathVariables)}>
-      {Object.keys(roleTypeBranches).map((aspect) => {
-        return (
-          <LinkButton
-            href={getCoreEntityLink(pathVariables.slice(0, depth), [aspect])}
-            key={aspect}
-          >
-            {startCase(aspect)}
-          </LinkButton>
-        );
-      })}
-    </RootCard>
-
-* */

@@ -87,20 +87,41 @@ export async function RoleTypeListMenu(props: LeafComponentProps) {
 
   const roleTypeList = await roleTypeApi.getAll();
   return (
-    <RootCard
-      layoutId={getRootCardLayoutId(pathVariables)}
-      displayHeader={startCase(pathVariables[0])}
-    >
-      {roleTypeList.map((roleType) => (
-        <LinkButton
-          href={getCoreEntityLink(pathVariables.slice(0, depth), [roleType.id])}
-          key={roleType.id}
-        >
-          {roleType.name}
-        </LinkButton>
-      ))}
-    </RootCard>
+    <div className={'p-4'}>
+      <RootCard
+        layoutId={getRootCardLayoutId(pathVariables)}
+        displayHeader={startCase(pathVariables[0])}
+      >
+        {roleTypeList.map((roleType) => (
+          <LinkButton
+            href={getCoreEntityLink(pathVariables.slice(0, depth), [
+              roleType.id
+            ])}
+            key={roleType.id}
+          >
+            {roleType.name}
+          </LinkButton>
+        ))}
+      </RootCard>
+    </div>
   );
+}
+
+function getRoleAspectPage(
+  roleAspectValid: 'suitability' | 'availability',
+  params: {
+    roleTypeId: string;
+    roleAspect: 'suitability' | 'availability';
+    roleCategory: 'provider' | 'asset' | 'user';
+  }
+) {
+  switch (roleAspectValid) {
+    case 'suitability': {
+      return <SuitabilityPage params={params} />;
+    }
+    case 'availability':
+      return <AvailabilityPage params={params} />;
+  }
 }
 
 function RolePageWrapper({ pathVariables }: LeafComponentProps) {
@@ -117,13 +138,9 @@ function RolePageWrapper({ pathVariables }: LeafComponentProps) {
     roleTypeId
   };
 
-  switch (roleAspectValid) {
-    case 'suitability': {
-      return <SuitabilityPage params={params} />;
-    }
-    case 'availability':
-      return <AvailabilityPage params={params} />;
-  }
+  const aspectPage = getRoleAspectPage(roleAspectValid, params);
+
+  return <div className={'p-4'}>{aspectPage}</div>;
 }
 
 export const RoleTypeListComponent = getPathVariableSplitComponent(

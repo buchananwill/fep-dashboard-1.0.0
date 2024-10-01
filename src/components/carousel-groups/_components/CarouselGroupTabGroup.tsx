@@ -60,26 +60,26 @@ export default function CarouselGroupTabGroup({
   );
 
   return (
-    <Card className={'w-fit'}>
+    <div className={'flex flex-col gap-2'}>
       <EditAddDeleteDtoControllerArray
         entityClass={collectionEntityClass}
         dtoList={collectionData}
         {...{ deleteServerAction, postServerAction, updateServerAction }}
       />
-      <CardHeader className={'flex'}>
+      <div className={'flex'}>
         <Button onPress={handleOnPress}>Add Carousel Group</Button>
         <div className={'grow text-center'}>
           Carousel Groups Year {knowledgeLevel.levelOrdinal}{' '}
         </div>
-      </CardHeader>
-      <CardBody>
+      </div>
+      <div>
         <CollectionChooserTabGroup
           collectionData={collectionDataState}
           {...otherProps}
           collectionItemChooser={CarouselGroupOptionChooser}
         />
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 }
 
