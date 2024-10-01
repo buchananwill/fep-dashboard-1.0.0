@@ -24,7 +24,12 @@ export default function RootCard({
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
 
   return (
-    <motion.div layoutId={displayName}>
+    <motion.div
+      layoutId={displayName}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ scale: 0 }}
+    >
       <Card className={'h-full'}>
         <Popover triggerScaleOnOpen={false}>
           <PopoverTrigger>

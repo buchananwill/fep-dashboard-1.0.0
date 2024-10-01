@@ -7,7 +7,7 @@ import NavigationBreadcrumbs from '@/components/navigation/NavigationBreadcrumbs
 export function ResolveNavTree({
   navTree,
   depth,
-  pathVariables
+  pathVariables = []
 }: {
   navTree: NavTreeNode;
   pathVariables: string[];

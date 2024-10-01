@@ -1,4 +1,4 @@
-import { NavTree } from '@/app/core/navigation/types';
+import { NavTree, NavTreeNode } from '@/app/core/navigation/types';
 import { cyclesNavTree } from '@/app/core/cycles/cyclesNavTree';
 import { schedulesNavTree } from '@/app/core/schedules/schedulesNavTree';
 import { WorkSchemaNodeNavTree } from '@/components/work-schema-nodes/workSchemaNodeNavTree';
@@ -18,53 +18,59 @@ import CyclesHome from '@/app/core/cycles/CyclesHome';
 import { rolePageTree } from '@/components/roles/rolePageTree';
 import CreateWorkTaskTypeWithAuth from '@/components/work-task-types/CreateWorkTaskTypeWithAuth';
 
-export const navTreeData: NavTree = {
-  navigation: { type: 'leaf', component: NavigationHome },
-  cycles: { type: 'branch', children: cyclesNavTree, component: CyclesHome },
-  knowledgeDomains: {
-    type: 'branch',
-    children: {},
-    component: KnowledgeDomains
-  },
-  knowledgeLevelSeries: {
-    type: 'branch',
-    children: {},
-    component: KnowledgeLevelsHome
-  },
-  workTaskTypes: {
-    type: 'branch',
-    children: {
-      create: { type: 'leaf', component: CreateWorkTaskTypeWithAuth }
+export const navTreeData: NavTreeNode = {
+  type: 'branch',
+  component: NavigationHome,
+  children: {
+    navigation: { type: 'leaf', component: NavigationHome },
+    cycles: { type: 'branch', children: cyclesNavTree, component: CyclesHome },
+    knowledgeDomains: {
+      type: 'branch',
+      children: {},
+      component: KnowledgeDomains
     },
-    component: WorkTaskTypeTablePage
-  },
-  workProjectSeriesSchemas: {
-    type: 'branch',
-    children: {
-      staticAllocations: { type: 'leaf', component: StaticAllocationHome }
+    knowledgeLevelSeries: {
+      type: 'branch',
+      children: {},
+      component: KnowledgeLevelsHome
     },
-    component: WorkProjectSeriesSchemaHome
-  },
-  users: rolePageTree,
-  providers: rolePageTree,
-  assets: rolePageTree,
-  carouselGroups: {
-    type: 'branch',
-    children: { orders: { type: 'leaf', component: CarouselGroupOrdersHome } },
-    component: CarouselGroupsAndOrders
-  },
-  workSchemaNodes: WorkSchemaNodeNavTree,
-  workSchemaNodeAssignments: {
-    type: 'branch',
-    component: WorkSchemaNodeAssignmentsHome,
-    children: {
-      enrollments: {
-        type: 'leaf',
-        component: EnrollmentTablePage
+    workTaskTypes: {
+      type: 'branch',
+      children: {
+        create: { type: 'leaf', component: CreateWorkTaskTypeWithAuth }
+      },
+      component: WorkTaskTypeTablePage
+    },
+    workProjectSeriesSchemas: {
+      type: 'branch',
+      children: {
+        staticAllocations: { type: 'leaf', component: StaticAllocationHome }
+      },
+      component: WorkProjectSeriesSchemaHome
+    },
+    users: rolePageTree,
+    providers: rolePageTree,
+    assets: rolePageTree,
+    carouselGroups: {
+      type: 'branch',
+      children: {
+        orders: { type: 'leaf', component: CarouselGroupOrdersHome }
+      },
+      component: CarouselGroupsAndOrders
+    },
+    workSchemaNodes: WorkSchemaNodeNavTree,
+    workSchemaNodeAssignments: {
+      type: 'branch',
+      component: WorkSchemaNodeAssignmentsHome,
+      children: {
+        enrollments: {
+          type: 'leaf',
+          component: EnrollmentTablePage
+        }
       }
-    }
-  },
-  feasibility: feasibilityBranch,
-  autoScheduling: { type: 'leaf', component: BuildSchedulePage },
-  schedules: schedulesNavTree
+    },
+    feasibility: feasibilityBranch,
+    autoScheduling: { type: 'leaf', component: BuildSchedulePage },
+    schedules: schedulesNavTree
+  }
 } as const;

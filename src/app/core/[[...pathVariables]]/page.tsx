@@ -9,7 +9,7 @@ export default async function page({
   return (
     <ResolveNavTree
       navTree={navTreeData}
-      pathVariables={pathVariables}
+      pathVariables={pathVariables ?? []}
       depth={0}
     />
   );
