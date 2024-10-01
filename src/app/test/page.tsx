@@ -1,35 +1,30 @@
+'use client';
+import { NavCards } from '@/app/test/cards';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { BASE_500 } from '@/components/react-flow/generic/utils/colors';
-import { color } from 'd3';
-import { isNotUndefined } from '@/api/main';
-import { makeTransientId } from '@/functions/makeTransientId';
-import data from '@/utils/init-json-data/arts-college/courses.json';
-import { colorizeKnowledgeDomainsWithColorDtos } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
-import { KnowledgeLevelSeriesGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
 export default function page() {
-  const colorDtoList = Object.entries(BASE_500)
-    .map(([name, colorObject], index) => {
-      {
-        const colorRgb = color(colorObject.cssHSLA)?.rgb();
-        if (colorRgb) {
-          const { r, g, b, opacity } = colorRgb;
-          return {
-            name,
-            r: Math.round(r),
-            g: Math.round(g),
-            b: Math.round(b),
-            a: opacity,
-            id: makeTransientId(index + 1)
-          };
-        } else return undefined;
-      }
-    })
-    .filter(isNotUndefined);
-
-  const domainsWithColorDtos = colorizeKnowledgeDomainsWithColorDtos(
-    data as unknown as KnowledgeLevelSeriesGroup,
-    colorDtoList.slice(5)
+  return (
+    <div className={'grid grid-cols-2 gap-4'}>
+      {NavCards.map((navCard) => {
+        return (
+          <Link href={navCard.path} key={navCard.path}>
+            <motion.div
+              layoutId={navCard.path}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                backgroundColor: BASE_500.sky.cssHSLA,
+                color: '#ffffff'
+              }}
+            >
+              {navCard.displayName}
+            </motion.div>
+          </Link>
+        );
+      })}
+    </div>
   );
-
-  return JSON.stringify(domainsWithColorDtos);
 }
