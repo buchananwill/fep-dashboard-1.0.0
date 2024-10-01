@@ -19,7 +19,7 @@ import { LinkButton } from '@/components/navigation/LinkButton';
 import { notFound } from 'next/navigation';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
-import { singular } from 'pluralize';
+import pluralize, { singular } from 'pluralize';
 import AvailabilityPage from '@/components/roles/availability/availabilityPage';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import FinderTableButton from '@/components/tables/FinderTableButton';
@@ -33,7 +33,7 @@ export function getRoleEntityKey(roleCategory: 'user' | 'provider' | 'asset') {
 
 export default async function SuitabilityPage(props: RolePageProps) {
   const {
-    params: { roleCategory, roleTypeId }
+    params: { roleCategory, roleTypeId, roleAspect }
   } = props;
   // List of all work task types to select
 
@@ -47,7 +47,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
   let workTaskTypes = await Api.WorkTaskType.getAll();
 
   return (
-    <div className={'flex gap-4 p-8'}>
+    <RootCard layoutId={getRootCardLayoutId([pluralize(roleCategory)])}>
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.workTaskType}
         dtoList={workTaskTypes}
@@ -67,7 +67,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
           suitabilityType={suitabilityType as RoleTypes}
         />
       </div>
-    </div>
+    </RootCard>
   );
 }
 

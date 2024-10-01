@@ -22,6 +22,7 @@ export default function RootCard({
   navigationType?: NavigationType;
   displayHeader?: string;
 } & PropsWithChildren) {
+  console.log(layoutId);
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
   const navLinkDescription = navigationType
     ? NavLinkDescriptionsDefault[navigationType]
