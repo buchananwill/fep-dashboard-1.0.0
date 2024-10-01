@@ -3,13 +3,15 @@ import { Api } from '@/api/clientApi_';
 import WorkTaskTypeEditTable from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { spyOnResponse } from '@/functions/spyOnResponse';
+import RootCard from '@/app/core/navigation/RootCard';
 
-export default async function WorkTaskTypeTablePage({}: LeafComponentProps) {
+export default async function WorkTaskTypeTablePage({
+  pathVariables
+}: LeafComponentProps) {
   const wtts = await Api.WorkTaskType.getAll();
 
   return (
-    <>
+    <RootCard layoutId={'/' + ['core', ...pathVariables].join('/')}>
       <EditAddDeleteDtoControllerArray
         dtoList={wtts}
         entityClass={EntityClassMap.workTaskType}
@@ -18,6 +20,6 @@ export default async function WorkTaskTypeTablePage({}: LeafComponentProps) {
         updateServerAction={Api.WorkTaskType.putList}
       />
       <WorkTaskTypeEditTable />
-    </>
+    </RootCard>
   );
 }

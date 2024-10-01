@@ -19,12 +19,16 @@ import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFe
 import { useNestedAutoCompleteChangeHandler } from '@/components/work-task-types/useNestedAutoCompleteChangeHandler';
 import { useNestedSelectChangeHandler } from '@/components/work-task-types/useNestedSelectChangeHandler';
 import { WorkTaskTypeDtoSchema } from '@/api/generated-schemas/schemas';
+import RootCard from '@/app/core/navigation/RootCard';
+import { LinkButton } from '@/components/navigation/LinkButton';
 
 const defaultWorkTaskTypeValues = {
   id: -1,
   name: 'Planning'
 };
-export default function CreateWorkTaskType({}: LeafComponentProps) {
+export default function CreateWorkTaskType({
+  pathVariables
+}: LeafComponentProps) {
   const {
     handleSubmit,
     formState: { errors },
@@ -82,8 +86,11 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
     });
   };
 
+  const workTaskTypesLayoutId =
+    '/' + ['core', ...pathVariables].slice(0, 2).join('/');
+
   return (
-    <Card className={'mt-8 w-64'}>
+    <RootCard layoutId={workTaskTypesLayoutId}>
       <PendingOverlay pending={pending} />
       <form
         onSubmit={(event) => {
@@ -135,11 +142,14 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
             placeholder={`Choose a ${getDomainAlias('knowledgeLevel')}`}
           />
         </CardBody>
-        <CardFooter className={'justify-center'}>
+        <CardFooter className={'justify-center gap-2'}>
+          <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
+            Cancel
+          </LinkButton>
           <Button type={'submit'}>Submit</Button>
         </CardFooter>
       </form>
-    </Card>
+    </RootCard>
   );
 }
 

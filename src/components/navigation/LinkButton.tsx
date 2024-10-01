@@ -2,18 +2,25 @@ import { LinkProps } from '@nextui-org/link';
 import Link from 'next/link';
 import { LinkTreeElementProps } from '@/app/core/navigation/types';
 import clsx from 'clsx';
+import { ButtonProps } from '@nextui-org/button';
+import { Get } from 'type-fest';
 
 export function LinkButton({
   href,
   children,
-  className
-}: Required<Pick<LinkProps, 'href' | 'children'>> & { className?: string }) {
+  className,
+  color = 'primary'
+}: Required<Pick<LinkProps, 'href' | 'children'>> & {
+  className?: string;
+  color?: Get<ButtonProps, 'color'>;
+}) {
   return (
     <Link
       href={href}
       className={clsx(
         className,
-        'm-0.5 h-fit w-fit rounded-xl bg-transparent p-0.5 px-2 text-primary outline-offset-2 outline-primary-400 duration-250 transition-colors-opacity hover:bg-primary-100'
+        'm-0.5 h-fit w-fit rounded-xl bg-transparent p-0.5 px-2 outline-offset-2 duration-250 transition-colors-opacity',
+        colorClassNames[color]
       )}
     >
       {children}
@@ -32,3 +39,11 @@ export function NoLinkHeader({ displayLabel }: LinkTreeElementProps) {
     </div>
   );
 }
+
+const colorClassNames: Partial<{
+  [Key in Exclude<ButtonProps['color'], undefined>]: string;
+}> = {
+  primary: 'text-primary  hover:bg-primary-100 outline-primary-400',
+  danger: 'text-danger  hover:bg-danger-100 outline-danger-400',
+  warning: 'text-warning  hover:bg-warning-100 outline-warning-400'
+};

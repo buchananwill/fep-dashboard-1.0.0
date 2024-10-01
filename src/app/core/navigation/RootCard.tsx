@@ -10,6 +10,7 @@ import {
 } from '@/components/navigation/navLinkIcons';
 import { PropsWithChildren } from 'react';
 import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 
 export default function RootCard({
   layoutId,
@@ -30,6 +31,7 @@ export default function RootCard({
       animate={{ opacity: 1 }}
       exit={{ scale: 0 }}
       transition={{ duration: 0.7 }}
+      layout
     >
       <Card className={'h-full'}>
         {displayHeader && (
@@ -52,7 +54,9 @@ export default function RootCard({
             </PopoverContent>
           </Popover>
         )}
-        <CardBody className={'pt-0'}>{children}</CardBody>
+        <CardBody className={clsx(displayHeader && 'pt-0')}>
+          {children}
+        </CardBody>
       </Card>
     </motion.div>
   );
