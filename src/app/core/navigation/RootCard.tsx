@@ -22,7 +22,6 @@ export default function RootCard({
   aliasName: string;
 } & PropsWithChildren) {
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
-  console.log('root display name:', displayName);
 
   return (
     <motion.div layoutId={displayName}>

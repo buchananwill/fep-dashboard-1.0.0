@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react';
-import Loading from '@/app/core/loading';
+import When_loading from '@/app/core/when_loading';
 
 export default function CoreLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  return <Suspense fallback={<Loading />}>{children}</Suspense>;
+  return <Suspense fallback={<When_loading />}>{children}</Suspense>;
 }

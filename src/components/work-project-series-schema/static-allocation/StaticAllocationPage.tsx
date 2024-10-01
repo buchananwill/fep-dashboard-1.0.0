@@ -26,7 +26,7 @@ import { createCell } from '@/components/work-project-series-schema/static-alloc
 import { IdListLinkCard } from '@/components/generic/IdListLinkCard';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { Suspense } from 'react';
-import Loading from '@/app/core/loading';
+import When_loading from '@/app/core/when_loading';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,
@@ -37,7 +37,7 @@ export type StaticAllocationTableDto = GenericTableDto<
 
 function StaticAllocationPage(props: LeafComponentProps) {
   return (
-    <Suspense fallback={<Loading />}>
+    <Suspense fallback={<When_loading />}>
       <InnerStaticAllocationPage {...props} />
     </Suspense>
   );
