@@ -4,12 +4,18 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
 import RootCard from '@/app/core/navigation/RootCard';
+import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
+import pluralize from 'pluralize';
 
 export async function KnowledgeDomains({ pathVariables }: LeafComponentProps) {
   const knowledgeDomainList = await Api.KnowledgeDomain.getAll();
 
   return (
-    <RootCard layoutId={'/' + ['core', ...pathVariables].join('/')}>
+    <RootCard
+      layoutId={'/' + ['core', ...pathVariables].join('/')}
+      displayHeader={pluralize(getStartCaseDomainAlias('knowledgeDomain'))}
+      navigationType={'knowledgeDomains'}
+    >
       <EditAddDeleteDtoControllerArray
         dtoList={knowledgeDomainList}
         entityClass={EntityClassMap.knowledgeDomain}

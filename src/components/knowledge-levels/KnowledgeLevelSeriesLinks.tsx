@@ -4,6 +4,7 @@ import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';
 import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
 import { WrappedLink } from '@/app/core/navigation/WrappedLink';
 import { navLinkTreeFromKnowledgeLevelSeries } from '@/components/knowledge-levels/NavLinkTreeFromKnowledgeLevelSeries';
+import { navKeyList } from '@/components/navigation/navLinkIcons';
 
 export async function KnowledgeLevelSeriesLinks({
   pathVariables,
@@ -16,26 +17,28 @@ export async function KnowledgeLevelSeriesLinks({
           levelSeries,
           index,
           pathVariables,
-          depth
+          depth + 1
         )
       )
     );
   });
 
+  console.log(all);
+  const navIndex = navKeyList.indexOf('knowledgeLevelSeries');
+
   const navTree: NavLinkTree = {
     displayName: 'knowledgeLevelSeries',
     children: all,
-    indexList: []
+    indexList: [navIndex],
+    link: ['core', ...pathVariables],
+    disableLinkThisLevel: true
   };
 
   return (
-    <div className={'flex gap-2'}>
-      <NavLinkTreeButton
-        navLinkNode={navTree}
-        renderHeaderAs={WrappedHeader}
-        renderLinkAs={WrappedLink}
-      />
-    </div>
+    <NavLinkTreeButton
+      navLinkNode={navTree}
+      renderHeaderAs={WrappedHeader}
+      renderLinkAs={WrappedLink}
+    />
   );
 }
-

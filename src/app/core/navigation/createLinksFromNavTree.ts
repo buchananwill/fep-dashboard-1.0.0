@@ -7,7 +7,8 @@ export function createLinksFromNavTree(
   indexList: number[]
 ): NavLinkTree {
   const displayName = startCase(ancestorPath[ancestorPath.length - 1]);
-  const disableLinkThisLevel = ancestorPath?.length > 0;
+  const link = ancestorPath.map(kebabCase);
+  const disableLinkThisLevel = link.length === 0;
   if (tree.type === 'leaf') {
     return {
       link: ancestorPath.map(kebabCase),
@@ -27,7 +28,7 @@ export function createLinksFromNavTree(
     const { component } = tree;
     if (component) {
       return {
-        link: ancestorPath.map(kebabCase),
+        link,
         children: linksFromHere,
         displayName,
         indexList,
@@ -38,7 +39,7 @@ export function createLinksFromNavTree(
         children: linksFromHere,
         displayName,
         indexList,
-        link: [],
+        link,
         disableLinkThisLevel
       };
     }
@@ -48,7 +49,7 @@ export function createLinksFromNavTree(
       children: linksFromHere,
       displayName,
       indexList,
-      link: [],
+      link,
       disableLinkThisLevel
     };
   }

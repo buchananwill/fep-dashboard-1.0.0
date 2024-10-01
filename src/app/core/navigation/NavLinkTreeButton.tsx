@@ -49,7 +49,7 @@ export function NavLinkTreeButton({
     />
   ));
   const DisplayThisLevel =
-    link.length > 0 && disableLinkThisLevel
+    link.length > 0 && !disableLinkThisLevel
       ? ({
           displayLabel,
           children

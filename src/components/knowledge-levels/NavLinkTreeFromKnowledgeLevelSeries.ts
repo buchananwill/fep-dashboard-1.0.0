@@ -1,5 +1,6 @@
 import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 import { NavLinkTree } from '@/app/core/navigation/types';
+import { navKeyList } from '@/components/navigation/navLinkIcons';
 
 export async function navLinkTreeFromKnowledgeLevelSeries(
   series: KnowledgeLevelSeriesDto,
@@ -7,17 +8,18 @@ export async function navLinkTreeFromKnowledgeLevelSeries(
   pathVariables: string[],
   depth: number
 ): Promise<NavLinkTree> {
+  const navIndex = navKeyList.indexOf('knowledgeLevelSeries');
   const { knowledgeLevels } = series;
   const baseLinks = ['core', ...pathVariables, String(series.id)];
   const levelLinkTree: NavLinkTree[] = knowledgeLevels.map((level, index) => ({
     displayName: level.name,
     link: [...baseLinks, String(level.levelOrdinal)],
-    indexList: [seriesIndex + 1, index + 1],
+    indexList: [navIndex, seriesIndex + 1, index + 1],
     children: []
   }));
   return {
     displayName: series.name,
-    indexList: [seriesIndex + 1],
+    indexList: [navIndex, seriesIndex + 1],
     children: levelLinkTree,
     link: baseLinks
   };

@@ -26,7 +26,7 @@ export default function RootCard({
   return (
     <motion.div
       layoutId={layoutId}
-      // initial={{ opacity: 0 }}
+      initial={{ opacity: 0.5 }}
       animate={{ opacity: 1 }}
       exit={{ scale: 0 }}
       transition={{ duration: 0.7 }}
