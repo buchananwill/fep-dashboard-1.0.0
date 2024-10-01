@@ -24,6 +24,8 @@ import AvailabilityPage from '@/components/roles/availability/availabilityPage';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
+import RootCard from '@/app/core/navigation/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 export function getRoleEntityKey(roleCategory: 'user' | 'provider' | 'asset') {
   return `${roleCategory}Role` as keyof typeof EntityClassMap;
@@ -85,21 +87,19 @@ export async function RoleTypeListMenu(props: LeafComponentProps) {
 
   const roleTypeList = await roleTypeApi.getAll();
   return (
-    <Card>
-      <CardHeader>{startCase(pathVariables[0])}</CardHeader>
-      <CardBody>
-        {roleTypeList.map((roleType) => (
-          <LinkButton
-            href={getCoreEntityLink(pathVariables.slice(0, depth), [
-              roleType.id
-            ])}
-            key={roleType.id}
-          >
-            {roleType.name}
-          </LinkButton>
-        ))}
-      </CardBody>
-    </Card>
+    <RootCard
+      layoutId={getRootCardLayoutId(pathVariables)}
+      displayHeader={startCase(pathVariables[0])}
+    >
+      {roleTypeList.map((roleType) => (
+        <LinkButton
+          href={getCoreEntityLink(pathVariables.slice(0, depth), [roleType.id])}
+          key={roleType.id}
+        >
+          {roleType.name}
+        </LinkButton>
+      ))}
+    </RootCard>
   );
 }
 

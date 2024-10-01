@@ -4,7 +4,14 @@ import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';
 import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
 import { WrappedLink } from '@/app/core/navigation/WrappedLink';
 import { navLinkTreeFromKnowledgeLevelSeries } from '@/components/knowledge-levels/NavLinkTreeFromKnowledgeLevelSeries';
-import { navKeyList } from '@/components/navigation/navLinkIcons';
+import {
+  NavigationType,
+  navKeyList
+} from '@/components/navigation/navLinkIcons';
+
+export function getNavIndex(searchElement: NavigationType) {
+  return navKeyList.indexOf(searchElement);
+}
 
 export async function KnowledgeLevelSeriesLinks({
   pathVariables,
@@ -23,7 +30,7 @@ export async function KnowledgeLevelSeriesLinks({
     );
   });
 
-  const navIndex = navKeyList.indexOf('knowledgeLevelSeries');
+  const navIndex = getNavIndex('knowledgeLevelSeries');
 
   const navTree: NavLinkTree = {
     displayName: 'knowledgeLevelSeries',

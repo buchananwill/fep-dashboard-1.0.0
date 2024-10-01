@@ -4,9 +4,14 @@ import { cyclesNavTree } from '@/app/core/cycles/cyclesNavTree';
 import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';
 import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
 import { WrappedLink } from '@/app/core/navigation/WrappedLink';
+import { getNavIndex } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 
 const cycleLinks: NavLinkTree = {
-  ...createLinksFromNavTree(cyclesNavTree, ['core', 'cycles'], [1]),
+  ...createLinksFromNavTree(
+    cyclesNavTree,
+    ['core', 'cycles'],
+    [getNavIndex('cycles')]
+  ),
   link: ['core', 'cycles'],
   disableLinkThisLevel: true
 };

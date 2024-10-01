@@ -23,6 +23,9 @@ export default function RootCard({
   displayHeader?: string;
 } & PropsWithChildren) {
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
+  const navLinkDescription = navigationType
+    ? NavLinkDescriptionsDefault[navigationType]
+    : null;
 
   return (
     <motion.div
@@ -34,26 +37,32 @@ export default function RootCard({
       layout
     >
       <Card className={'h-full'}>
-        {displayHeader && (
-          <Popover triggerScaleOnOpen={false}>
-            <PopoverTrigger>
-              <Button
-                variant={'light'}
-                className={'rounded-none italic text-default-500'}
-              >
-                <CardHeader
-                  className={'flex justify-between  border-default-200 '}
+        {displayHeader &&
+          (navLinkDescription ? (
+            <Popover triggerScaleOnOpen={false}>
+              <PopoverTrigger>
+                <Button
+                  variant={'light'}
+                  className={'rounded-none italic text-default-500'}
                 >
-                  {Icon && <Icon className={'h-8 w-8'} />}
-                  {displayHeader}
-                </CardHeader>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className={'max-w-lg'}>
-              {navigationType && NavLinkDescriptionsDefault[navigationType]}
-            </PopoverContent>
-          </Popover>
-        )}
+                  <CardHeader
+                    className={'flex justify-between  border-default-200 '}
+                  >
+                    {Icon && <Icon className={'h-8 w-8'} />}
+                    {displayHeader}
+                  </CardHeader>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className={'max-w-lg'}>
+                {navigationType && navLinkDescription}
+              </PopoverContent>
+            </Popover>
+          ) : (
+            <CardHeader className={'flex justify-between  border-default-200 '}>
+              {Icon && <Icon className={'h-8 w-8'} />}
+              {displayHeader}
+            </CardHeader>
+          ))}
         <CardBody className={clsx(displayHeader && 'pt-0')}>
           {children}
         </CardBody>
