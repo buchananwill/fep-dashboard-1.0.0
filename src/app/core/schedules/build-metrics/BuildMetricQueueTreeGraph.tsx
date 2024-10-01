@@ -97,7 +97,6 @@ export default function BuildMetricQueueTreeGraph({
 }
 
 function CustomTooltip({ point }: PointTooltipProps) {
-  console.log(point);
   return (
     <div className={'border-2 bg-white'}>
       <table className={'flex flex-col p-0.5'}>

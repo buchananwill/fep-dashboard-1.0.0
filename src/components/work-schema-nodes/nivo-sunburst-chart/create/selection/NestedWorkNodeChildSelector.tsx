@@ -123,7 +123,6 @@ function InnerSelector({
 
   const onSelectionChange = useCallback(
     (selection: Selection) => {
-      console.log(selection);
       startTransition(() => {
         if (selection === 'all') {
           throw new Error('Only single selection is supported');

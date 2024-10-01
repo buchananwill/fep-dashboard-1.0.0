@@ -35,7 +35,6 @@ export function AdjustAllocation({
   }, [cycle]);
 
   const currentAllocations = useMemo(() => {
-    console.log(workProjectSeriesSchemaDto, cycleSubspanGroupSizes, cycle);
     return cycleSubspanGroupSizes.map((size: number) => {
       const allocations = workProjectSeriesSchemaDto
         ? workProjectSeriesSchemaDto.deliveryAllocations
@@ -81,7 +80,6 @@ export function AdjustAllocation({
     },
     [workProjectSeriesSchemaDto, dispatchWithoutControl, currentAllocations]
   );
-  console.log('rendering adjustment component', currentAllocations);
 
   return (
     <div className=" flex items-center justify-start gap-1 align-middle">

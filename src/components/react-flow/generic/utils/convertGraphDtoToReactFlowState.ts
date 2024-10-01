@@ -23,7 +23,3 @@ export function convertGraphDtoToReactFlowState<T extends NodeDataType>(
     .filter((l) => l.value === 1);
   return { dataNodes, dataLinks };
 }
-
-function callback(property: string, newValue: any) {
-  console.log(property, ' changed to:', newValue);
-}

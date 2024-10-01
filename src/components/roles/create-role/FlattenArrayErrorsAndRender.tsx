@@ -60,7 +60,6 @@ export function renderFieldErrorsItem<T extends FieldValues>(
         const errorsAtPath = get(nextItemErrors, key) as FieldErrors<
           Get<T, typeof key>
         >;
-        console.log(key, value, errorsAtPath);
         if (errorsAtPath)
           list.push(<Value key={`${key}.${index}`} errors={errorsAtPath} />);
       });

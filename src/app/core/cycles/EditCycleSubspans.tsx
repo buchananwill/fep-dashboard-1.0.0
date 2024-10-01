@@ -9,7 +9,6 @@ export default async function EditCycleSubspans({
   pathVariables,
   depth
 }: LeafComponentProps) {
-  console.log(pathVariables, depth);
   const [cycleIdString] = getLastNVariables(pathVariables, 1);
   const cycleId = parseInt(cycleIdString);
   const cycle = await getOne(cycleId);

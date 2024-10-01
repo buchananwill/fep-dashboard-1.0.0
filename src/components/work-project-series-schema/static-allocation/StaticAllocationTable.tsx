@@ -93,8 +93,6 @@ export default function StaticAllocationTable({
       );
   }, [tableProps.itemData, tableData]);
 
-  console.log(tableData, flattened);
-
   useEffectSyncWithDispatch(flattened, dispatchCells);
 
   return (

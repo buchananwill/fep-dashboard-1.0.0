@@ -24,7 +24,6 @@ export default function WorkProjectSeriesMetricTable({
     number[]
   >;
 }) {
-  console.log(tableData);
   const tableProps = useTableProps(tableData.rowList, tableData.columnList);
   return (
     <>

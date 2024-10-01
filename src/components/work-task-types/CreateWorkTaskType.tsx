@@ -76,8 +76,6 @@ export default function CreateWorkTaskType({}: LeafComponentProps) {
 
   const onSubmit: SubmitHandler<WorkTaskTypeDto> = async (data) => {
     startTransition(async () => {
-      console.log('submitted', data);
-
       const newWtt = await Api.WorkTaskType.postOne(data); // TODO: define posting action
       // Handle post submit actions, e.g., redirect to a different page
       appRouterInstance.push(`/core/work-task-types`); // TODO: set WTT redirect

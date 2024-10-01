@@ -17,19 +17,15 @@ function conditionallyUpdateClosureValue(
 }
 
 export function removeClosure(map: ClosureMap, closure: ClosureDto) {
-  console.log(map);
   // Delete this closure
   const closureTargetMap = getClosureTargetMap(map, closure.target);
   delete closureTargetMap[String(closure.source)];
-
-  console.log('direct closure removed:', closure);
 
   // Split into direct and indirect closures
   const indirectClosuresToCheck = [] as ClosureDto[];
   const survivingClosuresToTry = [] as ClosureDto[];
   // Clean up indirect connections
   for (let closure of Object.values(closureTargetMap)) {
-    console.log('partitioning closure:', closure);
     if (closure.value > 1) {
       indirectClosuresToCheck.push(closure);
     } else if (closure.value === 1) {
@@ -39,12 +35,6 @@ export function removeClosure(map: ClosureMap, closure: ClosureDto) {
   // Sort on proximity
   indirectClosuresToCheck.sort((a, b) => a.value - b.value);
   indirectClosuresToCheck.push(closure);
-  console.log(
-    'indirect:',
-    indirectClosuresToCheck,
-    'direct:',
-    survivingClosuresToTry
-  );
 
   // Look for a connection and either delete or add the closure to the possible paths.
   for (let indirectClosure of indirectClosuresToCheck) {

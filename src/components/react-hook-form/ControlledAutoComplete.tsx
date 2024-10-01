@@ -65,21 +65,10 @@ export function ControlledAutoComplete<T extends SelectableItem>({
 
   const onOpenChange = useCallback(
     (isClosing: boolean, field: ControllerRenderProps) => {
-      console.log(
-        'open change handler',
-        !field.value,
-        isClosing,
-        props.allowsCustomValue
-      );
-      const triggerCondition =
-        isClosing && props.allowsCustomValue && !field.value;
-      console.log('trigger set', triggerCondition);
       if (isClosing && props.allowsCustomValue && !field.value) {
         if (onChange) {
-          console.log('updating the field externally');
           onChange(inputRef.current, field.onChange, setInputValue);
         } else {
-          console.log('updating the field internally');
           field.onChange(inputRef.current);
         }
       }
@@ -100,14 +89,6 @@ export function ControlledAutoComplete<T extends SelectableItem>({
           ? String(currentValue)
           : currentValue;
 
-        console.log(
-          currentValue,
-          selectedKeyAccessor,
-          field.value,
-          currentValueString,
-          inputValue
-        );
-
         return (
           <Autocomplete
             {...props}
@@ -120,7 +101,6 @@ export function ControlledAutoComplete<T extends SelectableItem>({
             onClose={() => onOpenChange(true, field)}
             onBlur={() => {}}
             onSelectionChange={(value) => {
-              console.log('selection change triggered', value);
               const valueOrCustom = value
                 ? value
                 : props.allowsCustomValue

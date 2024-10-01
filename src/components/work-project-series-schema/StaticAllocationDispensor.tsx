@@ -63,8 +63,6 @@ export function StaticAllocationDispensor({
     initialValue: InitialMap as Map<string, AllocationCounter>
   });
 
-  console.log(idToCounterMap);
-
   const unusedAllocations: StaticDeliveryAllocationItemDto[] = useMemo(() => {
     return Object.values(entity.deliveryAllocations).map(
       (deliveryAllocation) => {

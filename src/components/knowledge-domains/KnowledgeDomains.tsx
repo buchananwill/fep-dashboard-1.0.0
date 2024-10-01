@@ -3,12 +3,13 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
+import RootCard from '@/app/core/navigation/RootCard';
 
-export async function KnowledgeDomains({}: LeafComponentProps) {
+export async function KnowledgeDomains({ pathVariables }: LeafComponentProps) {
   const knowledgeDomainList = await Api.KnowledgeDomain.getAll();
 
   return (
-    <div className={'p-4'}>
+    <RootCard layoutId={pathVariables.join('/')}>
       <EditAddDeleteDtoControllerArray
         dtoList={knowledgeDomainList}
         entityClass={EntityClassMap.knowledgeDomain}
@@ -17,6 +18,6 @@ export async function KnowledgeDomains({}: LeafComponentProps) {
         postServerAction={Api.KnowledgeDomain.postList}
       />
       <KnowledgeDomainTable />
-    </div>
+    </RootCard>
   );
 }

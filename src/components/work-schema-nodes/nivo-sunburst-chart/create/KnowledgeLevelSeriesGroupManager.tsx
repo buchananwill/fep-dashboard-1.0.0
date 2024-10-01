@@ -69,7 +69,6 @@ export default function KnowledgeLevelSeriesGroupManager({
     const response = await submitKnowledgeLevelSeriesGroup(
       mutableRefObject.current as KnowledgeLevelSeriesGroup
     );
-    console.log(response);
     setHasChanges(false);
   }, []);
 

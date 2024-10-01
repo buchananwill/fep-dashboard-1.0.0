@@ -25,8 +25,6 @@ export default function CycleSubspanCellWithJoins(props: CellWrapperProps) {
 function InnerCycleSubspanCell({
   entity
 }: BaseLazyDtoUiProps<CycleSubspanWithJoinsListDto>) {
-  console.log(entity);
-
   const entityDescription = useMemo(() => {
     return (
       entity?.timeSpan?.startTimeDivisionInstant ??

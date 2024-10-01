@@ -24,6 +24,4 @@ export async function deleteEventsAction(idList: string[]) {
       counter++;
     }
   }
-
-  console.log(responses);
 }

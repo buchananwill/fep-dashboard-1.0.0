@@ -128,11 +128,8 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   runningRef.current = running;
 
   const checkToggleFirstAndAfter = useCallback(() => {
-    console.log('checking toggle');
     if (runningRef.current && toggle) {
-      console.log('sim is running');
       toggle();
-      console.log('current running status: ', runningRef.current);
     }
   }, [toggle]);
 

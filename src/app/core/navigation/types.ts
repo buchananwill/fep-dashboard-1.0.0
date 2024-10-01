@@ -26,7 +26,8 @@ export type NavTreeNode = NavTreeBranch | NavTreeLeaf | NavTree;
 
 export interface NavLinkTree {
   displayName: string;
-  link?: string[];
+  link: string[];
+  disableLinkThisLevel?: boolean;
   indexList: number[];
   children: NavLinkTree[];
 }

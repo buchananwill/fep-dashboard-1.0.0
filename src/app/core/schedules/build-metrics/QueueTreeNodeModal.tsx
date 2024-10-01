@@ -17,7 +17,6 @@ export default function QueueTreeNodeModal({
   ...modalProps
 }: { queueTreeNode?: QueueTreeNodeDto } & Omit<ModalProps, 'children'>) {
   if (!queueTreeNode) return null;
-  console.log(queueTreeNode);
 
   return (
     <Modal {...modalProps}>

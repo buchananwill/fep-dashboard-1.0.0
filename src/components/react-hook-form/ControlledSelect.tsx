@@ -77,15 +77,9 @@ export function ControlledSelect<T extends SelectableItem>({
             errorMessage={formState.errors?.[name]?.message?.toString()}
             selectedKeys={[currentValueString]}
             onChange={(value) => {
-              console.log(value);
               if (onChange) {
-                console.log('external change handler branch', value);
                 onChange(value, field.onChange);
               } else {
-                console.log(
-                  'internal change handler branch',
-                  typeof value.target.value
-                );
                 field.onChange(value.target.value);
               }
             }}

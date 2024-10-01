@@ -21,8 +21,6 @@ export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
       CellEntityClass
     );
 
-  console.log(currentCell, setCurrentCell);
-
   return (
     <div style={props.style}>
       <GenericSuitabilityCell

@@ -20,8 +20,6 @@ export function StaticAllocationOccupied(
 ) {
   const { cellData, columnIndex, rowIndex } = props;
 
-  console.log(cellData);
-
   const { entity } = useDtoStore<StaticDeliveryAllocationItemDto>({
     entityId: cellData,
     entityClass,

@@ -12,7 +12,6 @@ export function useNestedSelectChangeHandler<T>(
       const updatedElement = nestedPropertyOptions.find(
         (kdItem) => valueAccessor(kdItem) === event.target.value
       );
-      console.log(event, updatedElement);
       onChange(updatedElement);
     },
     [nestedPropertyOptions, valueAccessor]

@@ -8,7 +8,6 @@ export function useSimpleApiFetcher<T>(serverAction: () => Promise<T[]>) {
     const fetchEntities = async () => {
       const kdList = await serverAction();
       setEntities(kdList);
-      console.log(kdList);
     };
     fetchEntities();
   }, [serverAction]);

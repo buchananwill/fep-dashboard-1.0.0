@@ -61,8 +61,6 @@ export function OrganizationNode(
     listenerKey: listenerKey
   });
 
-  console.log(workSchemaNodeAssignment?.workSchemaNodeId);
-
   const allocationRollupOrZero = useMemo(() => {
     return workSchemaNodeAssignment?.workSchemaNodeId ? allocationRollup : 0;
   }, [workSchemaNodeAssignment?.workSchemaNodeId, allocationRollup]);

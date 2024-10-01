@@ -7,12 +7,14 @@ export function createLinksFromNavTree(
   indexList: number[]
 ): NavLinkTree {
   const displayName = startCase(ancestorPath[ancestorPath.length - 1]);
+  const disableLinkThisLevel = ancestorPath?.length > 0;
   if (tree.type === 'leaf') {
     return {
       link: ancestorPath.map(kebabCase),
       children: [],
       displayName,
-      indexList
+      indexList,
+      disableLinkThisLevel
     };
   }
   if (tree.type === 'branch') {
@@ -28,14 +30,27 @@ export function createLinksFromNavTree(
         link: ancestorPath.map(kebabCase),
         children: linksFromHere,
         displayName,
-        indexList
+        indexList,
+        disableLinkThisLevel
       };
     } else {
-      return { children: linksFromHere, displayName, indexList };
+      return {
+        children: linksFromHere,
+        displayName,
+        indexList,
+        link: [],
+        disableLinkThisLevel
+      };
     }
   } else {
     const linksFromHere = getLinksFromHere(tree, ancestorPath, indexList);
-    return { children: linksFromHere, displayName, indexList };
+    return {
+      children: linksFromHere,
+      displayName,
+      indexList,
+      link: [],
+      disableLinkThisLevel
+    };
   }
 }
 

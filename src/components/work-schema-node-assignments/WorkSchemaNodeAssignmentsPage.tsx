@@ -64,19 +64,12 @@ async function WorkSchemaNodeAssignmentsPage({
     { dataNodes: [], dataLinks: [] }
   );
 
-  // const classGraph = await getWithoutBody<GraphDto<OrganizationDto>>(
-  //   constructUrl(
-  //     `/api/v2/organizations/graphs/byOrganizationType/${orgType.id}`
-  //   )
-  // );
   const classesAndWorkGroups =
     await Api.Organization.getGraphByNodeList(idList);
   const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
     classesAndWorkGroups, //classGraph,
     convertToOrganizationNode
   );
-
-  console.log(dataNodes);
 
   return (
     <>

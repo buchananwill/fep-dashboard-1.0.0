@@ -338,11 +338,6 @@ export function addKnowledgeDomainGroup(
     // });
   }
 }
-
-export function deProxify(proxy: any) {
-  return proxy ? JSON.parse(JSON.stringify(proxy)) : 'falsy';
-}
-
 export function addBundleMutable(
   draft: WorkNodeHierarchy,
   selectionPath: string
@@ -352,9 +347,7 @@ export function addBundleMutable(
     selectionPath,
     'knowledgeLevelGroup'
   );
-  const notProxy = deProxify(knowledgeLevelGroupOptional);
 
-  console.log(notProxy);
   if (
     knowledgeLevelGroupOptional &&
     knowledgeLevelGroupOptional.type === 'knowledgeLevelGroup'

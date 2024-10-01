@@ -121,7 +121,7 @@ const maxOneOf: (keyof WorkSchemaNodeDto)[] = [
 
 function spyOnRequest<T, U>(currentRequest: ServerAction<T, U>) {
   return (request: T) => {
-    console.log(request);
+    console.log(request); // KEEP LOG
     return currentRequest(request);
   };
 }

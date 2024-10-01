@@ -27,7 +27,6 @@ export function useUniqueStringFieldConstraint<T extends HasId>(
       }
       for (let id of currentState) {
         const dto = readAnyDto(id);
-        console.log(dto);
         if (dto) {
           const currentValue = get(dto, path);
           if (currentValue === input && dto.id !== entity.id) {

@@ -8,11 +8,10 @@ export default function Layout({ children }: PropsWithChildren) {
   const pathname = usePathname();
   const sizeClassName =
     pathname.split('/').pop() === 'thing' ? 'w-72 h-72' : 'w-44 h-44';
-  console.log('rendering');
   const renderCount = useRef(0);
   useEffect(() => {
     renderCount.current++;
-    console.log(renderCount.current);
+    console.log(renderCount.current); // KEEP LOG
   });
 
   return (

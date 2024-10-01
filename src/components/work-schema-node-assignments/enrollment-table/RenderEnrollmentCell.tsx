@@ -60,11 +60,11 @@ function Enrollment(
 }
 
 const undefinedRemoveClosure = {
-  memoizedFunction: (closure: ClosureDto) => console.log(closure)
+  memoizedFunction: (closure: ClosureDto) => console.log(closure) // KEEP LOG
 };
 const undefinedAddClosure = {
   memoizedFunction: (source: number, target: number) =>
-    console.log(source, target)
+    console.log(source, target) // KEEP LOG
 };
 
 function NoEnrollment(props: InnerCellContent) {

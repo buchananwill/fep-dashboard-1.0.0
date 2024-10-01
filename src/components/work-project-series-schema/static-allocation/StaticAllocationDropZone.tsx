@@ -67,7 +67,6 @@ export function StaticAllocationDropZone({
       const rowMatched = matchRow(item, rowId as number);
       const sizeMatched = matchSize(cycleSubspan.cycleSubspanJoins, size);
       const isFirst = matchIsFirst(cycleSubspan.cycleSubspanJoins, size);
-      if (rowMatched) console.log(rowMatched, sizeMatched, isFirst);
       return rowMatched && sizeMatched && isFirst;
     },
     [rowId, cycleSubspan]
@@ -101,7 +100,6 @@ export function StaticAllocationDropZone({
         cycleSubspan.cycleSubspanJoins[getDeliveryAllocationSize(item)]
           .cycleSubspanGroupId;
       const cycleSubspanIds = cycleSubspanGroupMapCurrent[newGroupId];
-      console.log(cycleSubspanIds);
       cycleSubspanIds.forEach((cycleSubspanId) => {
         localMemoizedUpdater(String(item.id), cycleSubspanId);
       });
@@ -125,8 +123,6 @@ export function StaticAllocationDropZone({
           })
         );
       } else {
-        console.log('adding new static item');
-        console.log(cycleSubspanGroupId, item);
         dispatchAdded((list) => [...list, item.id]);
         dispatchMasterList((list) => [
           ...list,

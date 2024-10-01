@@ -30,7 +30,6 @@ function modifySpacing(
     strength *
     ratio *
     (spacing / Math.abs(spacing));
-  console.log(spacingDelta);
   if (!node.fx && !node.fy) node[dimension] -= spacingDelta;
   if (!quadLeaf.data.fx && !quadLeaf.data.fy)
     quadLeaf.data[dimension] += spacingDelta;
@@ -62,7 +61,6 @@ function getCollide() {
   let strength = 0.5;
   let gap = 0;
   function force(alpha: number) {
-    console.log('strength:', strength);
     const tree = quadtree(
       nodes,
       (d) => d.x || 0,

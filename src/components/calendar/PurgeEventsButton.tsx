@@ -15,7 +15,7 @@ export default function PurgeEventsButton() {
     const value: OutlookEvent[] = events.value;
     const idList = value.map((event) => event.id);
     const response = await deleteEventsAction(idList as string[]);
-    console.log(response);
+    console.log(response); // KEEP LOG
   }, []);
 
   return <Button onPress={onPress}>Purge</Button>;

@@ -26,7 +26,8 @@ export function NavLinkTreeButton({
   renderHeaderAs: HeaderWithoutLink;
   renderLinkAs: LinkWithChildLinks;
 }) {
-  const { link, displayName, children, indexList } = navLinkNode;
+  const { link, displayName, children, indexList, disableLinkThisLevel } =
+    navLinkNode;
   const aliasName = startCase(getDomainAlias(displayName));
 
   const DisplayLabelElement = (
@@ -47,16 +48,17 @@ export function NavLinkTreeButton({
       key={`${navTreeLink.indexList.join('.')}`}
     />
   ));
-  const DisplayThisLevel = link
-    ? ({
-        displayLabel,
-        children
-      }: LinkTreeElementProps & PropsWithChildren) => (
-        <LinkComponent link={link} displayLabel={displayLabel}>
-          {children}
-        </LinkComponent>
-      )
-    : HeaderComponent;
+  const DisplayThisLevel =
+    link.length > 0 && disableLinkThisLevel
+      ? ({
+          displayLabel,
+          children
+        }: LinkTreeElementProps & PropsWithChildren) => (
+          <LinkComponent link={link} displayLabel={displayLabel}>
+            {children}
+          </LinkComponent>
+        )
+      : HeaderComponent;
   switch (indexList.length) {
     case 0:
       return <>{...childrenElements}</>;
@@ -64,8 +66,8 @@ export function NavLinkTreeButton({
       const navKey = camelCase(displayName) as NavigationType;
       return (
         <RootCard
-          navLinkNode={navLinkNode}
-          aliasName={aliasName}
+          layoutId={link.join('/')}
+          displayHeader={aliasName}
           navigationType={navKey}
         >
           {' '}

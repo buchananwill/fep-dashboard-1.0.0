@@ -43,9 +43,7 @@ export function ControlledSelector<
   const onSelectionChange = useCallback(
     (value: Selection) => {
       if (!selectionCallback) {
-        console.error('no selection callback defined');
       } else {
-        console.log(value);
         if (value === 'all' || value.size > 1)
           throw new Error('Only single selection supported.');
         if (value.size === 1) {
@@ -53,7 +51,6 @@ export function ControlledSelector<
           const id = idType === 'string' ? selectedKey : parseTen(selectedKey);
           const newItem =
             currentState.find((item) => item.id === id) ?? undefined;
-          console.log(id, newItem);
           selectionCallback(newItem);
         } else {
           selectionCallback(undefined);
