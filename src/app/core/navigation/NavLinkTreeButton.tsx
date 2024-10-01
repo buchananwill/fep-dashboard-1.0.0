@@ -66,7 +66,7 @@ export function NavLinkTreeButton({
       const navKey = camelCase(displayName) as NavigationType;
       return (
         <RootCard
-          layoutId={link.join('/')}
+          layoutId={'/' + link.join('/')}
           displayHeader={aliasName}
           navigationType={navKey}
         >

@@ -9,7 +9,7 @@ export async function KnowledgeDomains({ pathVariables }: LeafComponentProps) {
   const knowledgeDomainList = await Api.KnowledgeDomain.getAll();
 
   return (
-    <RootCard layoutId={['core', ...pathVariables].join('/')}>
+    <RootCard layoutId={'/' + ['core', ...pathVariables].join('/')}>
       <EditAddDeleteDtoControllerArray
         dtoList={knowledgeDomainList}
         entityClass={EntityClassMap.knowledgeDomain}
