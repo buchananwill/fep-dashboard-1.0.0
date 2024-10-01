@@ -8,7 +8,7 @@ import {
   NavigationType,
   navLinkIcons
 } from '@/components/navigation/navLinkIcons';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
@@ -20,7 +20,7 @@ export default function RootCard({
 }: {
   layoutId: string;
   navigationType?: NavigationType;
-  displayHeader?: string;
+  displayHeader?: string | ReactNode;
 } & PropsWithChildren) {
   console.log(layoutId);
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
