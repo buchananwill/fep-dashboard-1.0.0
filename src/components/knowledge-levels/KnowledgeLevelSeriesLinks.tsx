@@ -23,7 +23,6 @@ export async function KnowledgeLevelSeriesLinks({
     );
   });
 
-  console.log(all);
   const navIndex = navKeyList.indexOf('knowledgeLevelSeries');
 
   const navTree: NavLinkTree = {

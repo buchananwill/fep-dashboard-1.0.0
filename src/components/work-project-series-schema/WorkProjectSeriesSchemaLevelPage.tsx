@@ -13,9 +13,8 @@ import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLeve
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 
-async function WorkProjectSeriesSchemaLevelPage({
-  pathVariables
-}: LeafComponentProps) {
+async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
+  const { pathVariables } = props;
   const [knowledgeLevelSeriesId, levelOrdinal] = getLastNVariables(
     pathVariables,
     2
@@ -34,7 +33,7 @@ async function WorkProjectSeriesSchemaLevelPage({
   ]);
 
   return (
-    <div className={'flex h-[100vh] w-[100vw]'}>
+    <>
       <EditAddDeleteDtoControllerArray
         dtoList={wpssData}
         entityClass={EntityClassMap.workProjectSeriesSchema}
@@ -46,8 +45,8 @@ async function WorkProjectSeriesSchemaLevelPage({
         entityClass={EntityClassMap.cycle}
         dtoList={availableCycles}
       />
-      <WorkProjectSeriesSchemaEditTable />
-    </div>
+      <WorkProjectSeriesSchemaEditTable {...props} />
+    </>
   );
 }
 

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
+import { CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@nextui-org/button';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
@@ -21,11 +21,13 @@ import { useNestedSelectChangeHandler } from '@/components/work-task-types/useNe
 import { WorkTaskTypeDtoSchema } from '@/api/generated-schemas/schemas';
 import RootCard from '@/app/core/navigation/RootCard';
 import { LinkButton } from '@/components/navigation/LinkButton';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 const defaultWorkTaskTypeValues = {
   id: -1,
   name: 'Planning'
 };
+
 export default function CreateWorkTaskType({
   pathVariables
 }: LeafComponentProps) {
@@ -86,8 +88,7 @@ export default function CreateWorkTaskType({
     });
   };
 
-  const workTaskTypesLayoutId =
-    '/' + ['core', ...pathVariables].slice(0, 2).join('/');
+  const workTaskTypesLayoutId = getRootCardLayoutId(pathVariables);
 
   return (
     <RootCard layoutId={workTaskTypesLayoutId}>

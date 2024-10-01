@@ -14,32 +14,36 @@ import { Column, ColumnUid } from '@/types';
 import { NestedDtoStoreNumberEditCell } from '@/components/tables/NestedDtoStoreNumberEditCell';
 import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
+import RootCard from '@/app/core/navigation/RootCard';
+import { LeafComponentProps } from '@/app/core/navigation/types';
+
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 
-export default function WorkProjectSeriesSchemaEditTable() {
+export default function WorkProjectSeriesSchemaEditTable({
+  pathVariables
+}: LeafComponentProps) {
   const entities =
     useFilterOutDeletedEntities<WorkProjectSeriesSchemaDto>(entityType);
 
   return (
-    <Card className={'center-all-margin'}>
-      <CardBody>
-        <FilterSelectEntityTable
-          entityClass={entityType}
-          entities={entities}
-          columns={columns}
-          selectionMode={'none'}
-          initialColumns={initialColumns}
-          filterProperty={'name'}
-          renderCell={workProjectSeriesSchemaRenderCellFunction}
-          isCompact={true}
-          classNames={{
-            wrapper: 'w-[90vw] h-[70vh]',
-            td: 'py-0.5'
-          }}
-        />
-      </CardBody>
-    </Card>
+    <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
+      <FilterSelectEntityTable
+        entityClass={entityType}
+        entities={entities}
+        columns={columns}
+        selectionMode={'none'}
+        initialColumns={initialColumns}
+        filterProperty={'name'}
+        renderCell={workProjectSeriesSchemaRenderCellFunction}
+        isCompact={true}
+        classNames={{
+          wrapper: 'w-[90vw] h-[70vh]',
+          td: 'py-0.5'
+        }}
+      />
+    </RootCard>
   );
 }
 

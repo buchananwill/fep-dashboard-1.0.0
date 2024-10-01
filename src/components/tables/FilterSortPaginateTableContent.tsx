@@ -10,7 +10,8 @@ import {
   TableProps,
   TableRow
 } from '@nextui-org/react';
-import { Column } from '@/types';
+import { Column, GenericDivProps } from '@/types';
+import clsx from 'clsx';
 
 export type TableCellRenderer<T extends HasIdClass<Identifier>> = (
   entity: T,
@@ -25,8 +26,17 @@ export type TableContentProps<T extends HasIdClass<Identifier>> = TableProps & {
 export function FilterSortPaginateTableContent<
   T extends HasIdClass<Identifier>
 >({ headerColumns, visibleItems, renderCell, ...props }: TableContentProps<T>) {
+  const mergedProps = {
+    ...props,
+    classNames: {
+      base: 'base-nothing-class',
+      wrapper: 'wrapper-nothing-class'
+    }
+    // BaseComponent: DoubleDivBaseComponent
+  };
+
   return (
-    <Table {...props}>
+    <Table {...props} BaseComponent={DoubleDivBaseComponent}>
       <TableHeader columns={headerColumns}>
         {(column) => (
           <TableColumn
@@ -48,5 +58,13 @@ export function FilterSortPaginateTableContent<
         )}
       </TableBody>
     </Table>
+  );
+}
+
+function DoubleDivBaseComponent({ className, ...props }: GenericDivProps) {
+  return (
+    <div className={'h-fit w-fit overflow-clip rounded-large shadow-small'}>
+      <div className={clsx(className, 'double-div-base')} {...props} />
+    </div>
   );
 }

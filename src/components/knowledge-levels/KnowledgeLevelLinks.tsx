@@ -7,6 +7,9 @@ import { LinkButton } from '@/components/navigation/LinkButton';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import RootCard from '@/app/core/navigation/RootCard';
+
 export async function KnowledgeLevelLinks({
   depth,
   pathVariables
@@ -15,24 +18,24 @@ export async function KnowledgeLevelLinks({
   const kLevels = await getKnowledgeLevelsByExample([
     { knowledgeLevelSeriesId: knowledgeSeriesId }
   ]).then((r) => r.sort((l1, l2) => l1.levelOrdinal - l2.levelOrdinal));
+  const rootCardLayoutId = getRootCardLayoutId(pathVariables);
+
   return (
-    <Card>
-      <CardHeader>
-        {startCase(getDomainAlias(pathVariables[depth - 2]))}
-      </CardHeader>
-      <CardBody>
-        {kLevels.map((kLevel) => (
-          <LinkButton
-            href={getCoreEntityLink(pathVariables.slice(0, depth - 1), [
-              knowledgeSeriesId,
-              kLevel.levelOrdinal
-            ])}
-            key={kLevel.id}
-          >
-            {kLevel.name}
-          </LinkButton>
-        ))}
-      </CardBody>
-    </Card>
+    <RootCard
+      layoutId={rootCardLayoutId}
+      displayHeader={startCase(getDomainAlias(pathVariables[depth - 2]))}
+    >
+      {kLevels.map((kLevel) => (
+        <LinkButton
+          href={getCoreEntityLink(pathVariables.slice(0, depth - 1), [
+            knowledgeSeriesId,
+            kLevel.levelOrdinal
+          ])}
+          key={kLevel.id}
+        >
+          {kLevel.name}
+        </LinkButton>
+      ))}
+    </RootCard>
   );
 }
