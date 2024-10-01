@@ -9,6 +9,7 @@ import {
   navLinkIcons
 } from '@/components/navigation/navLinkIcons';
 import { PropsWithChildren } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function RootCard({
   layoutId,
@@ -21,14 +22,14 @@ export default function RootCard({
   displayHeader?: string;
 } & PropsWithChildren) {
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
-  console.log(layoutId);
 
   return (
     <motion.div
       layoutId={layoutId}
-      initial={{ opacity: 0 }}
+      // initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ scale: 0 }}
+      transition={{ duration: 0.7 }}
     >
       <Card className={'h-full'}>
         {displayHeader && (
