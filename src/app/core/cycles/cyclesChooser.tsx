@@ -9,7 +9,7 @@ export default function CyclesChooser({
   return (
     <LinkListResourcePage
       entityClass={EntityClassMap.cycle}
-      pathVariables={['core', ...pathVariables]}
+      pathVariables={[...pathVariables]}
       depth={depth}
     />
   );

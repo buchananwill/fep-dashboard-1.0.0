@@ -5,40 +5,60 @@ import { NavTreeNode } from '@/app/core/navigation/types';
 import NavigationBreadcrumbs from '@/components/navigation/NavigationBreadcrumbs';
 
 export function ResolveNavTree({
-  navTree,
+  currentNode,
   depth,
-  pathVariables = []
+  pathVariables = [],
+  rootNode
 }: {
-  navTree: NavTreeNode;
+  currentNode: NavTreeNode;
+  rootNode: NavTreeNode;
   pathVariables: string[];
   depth: number;
 }) {
-  if (navTree.type === 'leaf') {
-    const LeafNode = navTree.component;
+  if (currentNode.type === 'leaf') {
+    const LeafNode = currentNode.component;
     return (
       <>
         <NavigationBreadcrumbs pathVariables={pathVariables} depth={depth} />
         <LeafNode pathVariables={pathVariables} depth={depth} />
       </>
     );
-  } else if (navTree.type === 'branch') {
+  } else if (currentNode.type === 'branch') {
     if (pathVariables.length > depth) {
       const rootKey = getMatchString(pathVariables, depth);
-      const nextTree = navTree.children;
+      const nextTree = currentNode.children;
       const nextMatch =
         nextTree[rootKey as keyof Omit<typeof nextTree, 'component' | 'type'>];
       if (nextMatch) {
         return (
           <ResolveNavTree
-            navTree={nextMatch}
+            currentNode={nextMatch}
             pathVariables={pathVariables}
             depth={depth + 1}
+            rootNode={rootNode}
           />
         );
       }
     }
-    const Component = navTree.component;
-    if (!Component) notFound();
+    const Component = currentNode.component;
+    if (!Component) {
+      if (pathVariables.length === 0) {
+        console.error('no path variables');
+        notFound();
+      } else {
+        const fewerVariables = [...pathVariables];
+        fewerVariables.pop();
+        return (
+          <ResolveNavTree
+            currentNode={rootNode}
+            rootNode={rootNode}
+            pathVariables={fewerVariables}
+            depth={depth - 1}
+          />
+        );
+      }
+    }
+
     return (
       <>
         <NavigationBreadcrumbs pathVariables={pathVariables} depth={depth} />
@@ -51,13 +71,14 @@ export function ResolveNavTree({
       notFound();
     }
     const rootKey = getMatchString(pathVariables, depth);
-    const nextTreeNode = navTree[rootKey];
+    const nextTreeNode = currentNode[rootKey];
     if (!nextTreeNode) notFound();
     return (
       <ResolveNavTree
-        navTree={nextTreeNode}
+        currentNode={nextTreeNode}
         pathVariables={pathVariables}
         depth={depth + 1}
+        rootNode={rootNode}
       />
     );
   }

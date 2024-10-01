@@ -8,7 +8,8 @@ export default async function page({
 }) {
   return (
     <ResolveNavTree
-      navTree={navTreeData}
+      currentNode={navTreeData}
+      rootNode={navTreeData}
       pathVariables={pathVariables ?? []}
       depth={0}
     />

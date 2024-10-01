@@ -40,7 +40,7 @@ export function createLinksFromNavTree(
         displayName,
         indexList,
         link,
-        disableLinkThisLevel
+        disableLinkThisLevel: true
       };
     }
   } else {
