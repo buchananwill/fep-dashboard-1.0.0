@@ -146,7 +146,9 @@ export default function CreateWorkTaskType({
           <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
             Cancel
           </LinkButton>
-          <Button type={'submit'}>Submit</Button>
+          <Button type={'submit'} color={'success'}>
+            Submit
+          </Button>
         </CardFooter>
       </form>
     </RootCard>

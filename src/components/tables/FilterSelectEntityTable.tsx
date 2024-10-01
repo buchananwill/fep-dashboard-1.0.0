@@ -165,7 +165,13 @@ export default function FilterSelectEntityTable<
     return (
       <div className="flex items-center justify-between px-2 py-2">
         {addRow && (
-          <Button onPress={addRow} isIconOnly className={'p-1'}>
+          <Button
+            onPress={addRow}
+            isIconOnly
+            className={'p-1'}
+            variant={'light'}
+            color={'primary'}
+          >
             <PlusCircleIcon />
           </Button>
         )}
