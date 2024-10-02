@@ -5,26 +5,22 @@ import {
   BuildMetricTableFallback,
   WorkProjectSeriesMetricFallback
 } from '@/app/core/schedules/build-metrics/BuildMetricListHome';
+import { NavTreeChildren } from '@/app/core/navigation/types';
 
-export const scheduleChildren = {
+export const scheduleChildren: NavTreeChildren = {
   workProjectSeriesAssignments: {
-    type: 'leaf',
     component: WorkProjectSeriesAssignmentsPage
   },
   calendarView: {
-    type: 'leaf',
     component: CalendarViewPageSplit
   },
   buildMetricQueueTreeGraph: {
-    type: 'leaf',
     component: BuildMetricQueueTreeGraphFallback
   },
   buildMetricTable: {
-    type: 'leaf',
     component: BuildMetricTableFallback
   },
   workProjectSeriesMetrics: {
-    type: 'leaf',
     component: WorkProjectSeriesMetricFallback
   }
 } as const;

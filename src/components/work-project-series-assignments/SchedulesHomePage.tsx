@@ -5,7 +5,7 @@ import { WrappedLink } from '@/app/core/navigation/WrappedLink';
 import { scheduleChildren } from '@/app/core/schedules/scheduleChildren';
 
 const links = createLinksFromNavTree(
-  scheduleChildren,
+  { children: scheduleChildren },
   ['core', 'schedules'],
   [16]
 );

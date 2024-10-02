@@ -1,7 +1,8 @@
 import {
   LeafComponentProps,
   NavTreeBranch,
-  NavTreeNode
+  NavTreeChildren,
+  NavTreeTypes
 } from '@/app/core/navigation/types';
 import SuitabilityPage, {
   RoleTypeListComponent
@@ -18,14 +19,13 @@ import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';
 import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
 import { WrappedLink } from '@/app/core/navigation/WrappedLink';
 
-const roleTypeBranches: NavTreeNode = {
-  suitability: { type: 'leaf', component: RoleTypeListComponent },
-  availability: { type: 'leaf', component: RoleTypeListComponent },
-  createNewRole: { type: 'leaf', component: CreateRolePage }
+const roleTypeBranches: NavTreeChildren = {
+  suitability: { component: RoleTypeListComponent },
+  availability: { component: RoleTypeListComponent },
+  createNewRole: { component: CreateRolePage }
 };
 
 export const rolePageTree: NavTreeBranch = {
-  type: 'branch',
   component: RoleAspectMenu,
   children: roleTypeBranches
 };

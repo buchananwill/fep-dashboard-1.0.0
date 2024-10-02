@@ -1,68 +1,42 @@
 import { kebabCase, startCase } from 'lodash';
-import { NavLinkTree, NavTree, NavTreeNode } from '@/app/core/navigation/types';
+import {
+  NavLinkTree,
+  NavTreeBranch,
+  NavTreeChildren
+} from '@/app/core/navigation/types';
 
 export function createLinksFromNavTree(
-  tree: NavTreeNode,
-  ancestorPath: string[],
-  indexList: number[]
+  tree: NavTreeBranch,
+  ancestorPath: string[] = [],
+  indexList: number[] = []
 ): NavLinkTree {
-  const displayName = startCase(ancestorPath[ancestorPath.length - 1]);
-  const link = ancestorPath.map(kebabCase);
-  const disableLinkThisLevel = link.length === 0;
-  if (tree.type === 'leaf') {
-    return {
-      link: ancestorPath.map(kebabCase),
-      children: [],
-      displayName,
-      indexList,
-      disableLinkThisLevel
-    };
-  }
-  if (tree.type === 'branch') {
-    const childNodes = tree.children;
-    const linksFromHere: NavLinkTree[] = getLinksFromHere(
-      childNodes,
-      ancestorPath,
-      indexList
-    );
-    const { component } = tree;
-    if (component) {
-      return {
-        link,
-        children: linksFromHere,
-        displayName,
-        indexList,
-        disableLinkThisLevel
-      };
-    } else {
-      return {
-        children: linksFromHere,
-        displayName,
-        indexList,
-        link,
-        disableLinkThisLevel: true
-      };
-    }
-  } else {
-    const linksFromHere = getLinksFromHere(tree, ancestorPath, indexList);
-    return {
-      children: linksFromHere,
-      displayName,
-      indexList,
-      link,
-      disableLinkThisLevel
-    };
-  }
+  const { displayName, link } = createLinkInfo(ancestorPath);
+  const disableLinkThisLevel = link.length === 0 || !tree.component;
+  const linksFromHere = tree.children
+    ? getLinksFromHere(tree.children, ancestorPath, indexList)
+    : [];
+  return {
+    displayName,
+    link,
+    children: linksFromHere,
+    indexList,
+    disableLinkThisLevel
+  };
 }
-
+function createLinkInfo(ancestorPath: string[]) {
+  const displayName = startCase(
+    ancestorPath[ancestorPath.length - 1] || 'home'
+  );
+  const link = ancestorPath.map(kebabCase);
+  return { displayName, link };
+}
 function getLinksFromHere(
-  childNodes: NavTree,
+  childNodes: NavTreeChildren,
   ancestorPath: string[],
   indexList: number[]
-) {
-  return Object.entries(childNodes).map(([link, value], index) => {
-    const pathToHere = [...ancestorPath, link];
-
+): NavLinkTree[] {
+  return Object.entries(childNodes).map(([key, value], index) => {
+    const pathToHere = [...ancestorPath, key];
     return createLinksFromNavTree(value, pathToHere, [...indexList, index + 1]);
   });
 }

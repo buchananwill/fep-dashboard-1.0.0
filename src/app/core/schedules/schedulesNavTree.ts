@@ -3,7 +3,6 @@ import SchedulesHomePage from '@/components/work-project-series-assignments/Sche
 import { scheduleChildren } from '@/app/core/schedules/scheduleChildren';
 
 export const schedulesNavTree: NavTreeBranch = {
-  type: 'branch',
   component: SchedulesHomePage,
   children: scheduleChildren
 };
