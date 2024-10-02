@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { LibraryProvidersWrapper } from '@/components/providers/LibraryProvidersWrapper';
-import React from 'react';
+import React, { Suspense } from 'react';
 import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
 import { steps } from '@/components/react-joyride/steps';
 import TooltipSingleton from '@/components/tooltip/TooltipSingleton';
@@ -10,6 +10,7 @@ import NavPopoverTrigger from '@/components/navigation/NavPopoverTrigger';
 import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTrackerWrapper';
 import UserAvatar from '@/components/auth/UserAvatar';
 import { auth } from '@/auth';
+import When_loading from '@/app/core/when_loading';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -33,7 +34,9 @@ export default async function RootLayout({
             <UserAvatar />
           </MasterChangesTrackWrapper>
           <div className={'flex'}>
-            <div className={'center-all-margin '}>{children}</div>
+            <div className={'center-all-margin '}>
+              <Suspense fallback={<When_loading />}>{children}</Suspense>
+            </div>
           </div>
           <TooltipSingleton />
           <NavPopoverTrigger />

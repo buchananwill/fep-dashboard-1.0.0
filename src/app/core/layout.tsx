@@ -1,10 +1,20 @@
-import React, { Suspense } from 'react';
-import When_loading from '@/app/core/when_loading';
+'use client';
+import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import { FrozenRouter } from '@/components/generic/FrozenRouter';
 
 export default function CoreLayout({
   children
 }: {
   children: React.ReactNode;
 }) {
-  return <Suspense fallback={<When_loading />}>{children}</Suspense>;
+  const pathname = usePathname();
+  return (
+    <AnimatePresence mode={'popLayout'}>
+      <motion.div key={pathname}>
+        <FrozenRouter>{children}</FrozenRouter>
+      </motion.div>
+    </AnimatePresence>
+  );
 }
