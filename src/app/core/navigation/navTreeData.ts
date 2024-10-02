@@ -1,4 +1,4 @@
-import { NavTreeTypes } from '@/app/core/navigation/types';
+import { NavTreeNode, NavTreeTypes } from '@/app/core/navigation/types';
 import { cyclesNavTree } from '@/app/core/cycles/cyclesNavTree';
 import { schedulesNavTree } from '@/app/core/schedules/schedulesNavTree';
 import { WorkSchemaNodeNavTree } from '@/components/work-schema-nodes/workSchemaNodeNavTree';
@@ -18,7 +18,7 @@ import CyclesHome from '@/app/core/cycles/CyclesHome';
 import { rolePageTree } from '@/components/roles/rolePageTree';
 import CreateWorkTaskTypeWithAuth from '@/components/work-task-types/CreateWorkTaskTypeWithAuth';
 
-export const navTreeData: NavTreeTypes = {
+export const navTreeData: NavTreeNode = {
   component: NavigationHome,
   children: {
     navigation: { component: NavigationHome },
