@@ -8,7 +8,7 @@ import { getNavIndex } from '@/components/knowledge-levels/KnowledgeLevelSeriesL
 
 const cycleLinks: NavLinkTree = {
   ...createLinksFromNavTree(
-    cyclesNavTree,
+    { children: cyclesNavTree },
     ['core', 'cycles'],
     [getNavIndex('cycles')]
   ),

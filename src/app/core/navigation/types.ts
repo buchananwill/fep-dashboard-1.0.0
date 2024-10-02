@@ -1,4 +1,5 @@
 import { PropsWithChildren, ReactElement, ReactNode } from 'react';
+import { RequireAtLeastOne } from 'type-fest';
 
 export interface LeafComponentProps {
   pathVariables: string[];
@@ -11,10 +12,10 @@ export interface NavTreeChildren {
   [key: string]: NavTreeBranch;
 }
 
-export type NavTreeBranch = {
+export type NavTreeBranch = RequireAtLeastOne<{
   children?: NavTreeChildren;
   component?: LeafComponent;
-};
+}>;
 
 export type NavTreeTypes = NavTreeBranch | NavTreeChildren;
 
