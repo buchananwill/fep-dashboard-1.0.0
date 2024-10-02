@@ -1,12 +1,12 @@
 import { kebabCase, startCase } from 'lodash';
 import {
   NavLinkTree,
-  NavTreeBranch,
+  NavTreeNode,
   NavTreeChildren
 } from '@/app/core/navigation/types';
 
 export function createLinksFromNavTree(
-  tree: NavTreeBranch,
+  tree: NavTreeNode,
   ancestorPath: string[] = [],
   indexList: number[] = []
 ): NavLinkTree {

@@ -9,15 +9,15 @@ export interface LeafComponentProps {
 export type LeafComponent = (props: LeafComponentProps) => ReactNode;
 
 export interface NavTreeChildren {
-  [key: string]: NavTreeBranch;
+  [key: string]: NavTreeNode;
 }
 
-export type NavTreeBranch = RequireAtLeastOne<{
+export type NavTreeNode = RequireAtLeastOne<{
   children?: NavTreeChildren;
   component?: LeafComponent;
 }>;
 
-export type NavTreeTypes = NavTreeBranch | NavTreeChildren;
+export type NavTreeTypes = NavTreeNode | NavTreeChildren;
 
 export interface NavLinkTree {
   displayName: string;

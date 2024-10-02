@@ -1,6 +1,6 @@
 import {
   LeafComponentProps,
-  NavTreeBranch,
+  NavTreeNode,
   NavTreeChildren,
   NavTreeTypes
 } from '@/app/core/navigation/types';
@@ -25,7 +25,7 @@ const roleTypeBranches: NavTreeChildren = {
   createNewRole: { component: CreateRolePage }
 };
 
-export const rolePageTree: NavTreeBranch = {
+export const rolePageTree: NavTreeNode = {
   component: RoleAspectMenu,
   children: roleTypeBranches
 };

@@ -1,12 +1,12 @@
 import { LinkButton } from '@/components/navigation/LinkButton';
 import CreateFeasibilityReportPage from '@/app/core/feasibility/CreateFeasibilityReportPage';
 import { ViewFeasibilityReportHome } from '@/app/core/feasibility/ViewFeasibilityReportHome';
-import { LeafComponentProps, NavTreeBranch } from '@/app/core/navigation/types';
+import { LeafComponentProps, NavTreeNode } from '@/app/core/navigation/types';
 import { startCase } from 'lodash';
 import RootCard from '@/app/core/navigation/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
-export const feasibilityBranch: NavTreeBranch = {
+export const feasibilityBranch: NavTreeNode = {
   type: 'branch',
   children: {
     create: { type: 'leaf', component: CreateFeasibilityReportPage },

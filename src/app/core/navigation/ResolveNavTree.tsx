@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import React from 'react';
 import { camelCase } from 'lodash';
-import { NavTreeBranch } from '@/app/core/navigation/types';
+import { NavTreeNode } from '@/app/core/navigation/types';
 import NavigationBreadcrumbs from '@/components/navigation/NavigationBreadcrumbs';
 
 export function ResolveNavTree({
@@ -10,8 +10,8 @@ export function ResolveNavTree({
   pathVariables = [],
   rootNode
 }: {
-  currentNode: NavTreeBranch;
-  rootNode: NavTreeBranch;
+  currentNode: NavTreeNode;
+  rootNode: NavTreeNode;
   pathVariables: string[];
   depth: number;
 }) {
@@ -19,7 +19,7 @@ export function ResolveNavTree({
   const rootKey = pathVariables[depth]
     ? camelCase(pathVariables[depth])
     : undefined;
-  // Case 1: Recurse deeper if there are more path variables and children exist
+  // Case 1: Recurse deeper if there are more path variables, AND we can assign one directly to a child
   if (rootKey && children && children[rootKey]) {
     return (
       <ResolveNavTree
@@ -30,33 +30,26 @@ export function ResolveNavTree({
       />
     );
   }
-  // Case 2: Render component if present, else backtrack or not found
+  // Case 2: Render the Component at this node if present, passing the list of variables to the Component.
   if (Component) {
     return (
       <>
-        {' '}
-        <NavigationBreadcrumbs
-          pathVariables={pathVariables}
-          depth={depth}
-        />{' '}
-        <Component pathVariables={pathVariables} depth={depth} />{' '}
+        <NavigationBreadcrumbs pathVariables={pathVariables} depth={depth} />
+        <Component pathVariables={pathVariables} depth={depth} />
       </>
     );
   }
-  // Case 3: Backtrack to previous level or trigger notFound
-  if (depth > 0) {
+  // Case 3: Remove the last variable and start over.
+  if (pathVariables.length > 0) {
+    const slicedPathVariable = pathVariables.slice(0, -1);
     return (
       <ResolveNavTree
         currentNode={rootNode}
-        pathVariables={pathVariables.slice(0, -1)}
-        depth={depth - 1}
+        pathVariables={slicedPathVariable}
+        depth={0}
         rootNode={rootNode}
       />
     );
   }
   notFound(); // Handle unresolved paths
-}
-
-export function getMatchString(pathVariables: string[], depth: number) {
-  return camelCase(pathVariables[depth]);
 }
