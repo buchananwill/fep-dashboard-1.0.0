@@ -4,10 +4,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import NavPopoverContent from '@/components/navigation/NavPopoverContent';
 import clsx from 'clsx';
 import { BoundaryCenteredWidget } from '@/components/generic/BoundaryCenteredWidget';
+import { navigationBreadcrumbs } from '@/components/navigation/NavigationBreadcrumbs';
 
 export default function NavPopoverTrigger() {
   return (
-    <BoundaryCenteredWidget>
+    <BoundaryCenteredWidget contentContextKey={navigationBreadcrumbs}>
       <Popover>
         <PopoverTrigger>
           <Button

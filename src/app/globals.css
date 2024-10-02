@@ -235,3 +235,15 @@ canvas {
     }
 }
 
+.bulge-top {
+    border-radius: 64px 64px 12px 12px;
+}
+.bulge-bottom {
+    border-radius: 12px 12px 64px 64px;
+}
+.bulge-left {
+    border-radius: 64px 12px 12px 64px;
+}
+.bulge-right {
+    border-radius: 12px 64px 64px 12px;
+}

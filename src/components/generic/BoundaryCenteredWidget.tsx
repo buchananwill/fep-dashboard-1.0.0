@@ -8,7 +8,10 @@ import clsx from 'clsx';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { motion } from 'framer-motion';
 
-export function BoundaryCenteredWidget({ children }: PropsWithChildren) {
+export function BoundaryCenteredWidget({
+  children,
+  contentContextKey
+}: PropsWithChildren & { contentContextKey: string }) {
   const [boundaryType, setBoundaryType] = useState<BoundaryType>('bottom');
   const dropCallback = useCallback((item: {}, monitor: DropTargetMonitor) => {
     const clientOffset = monitor.getClientOffset();
@@ -58,15 +61,15 @@ export function BoundaryCenteredWidget({ children }: PropsWithChildren) {
   const classNameWidget = ClassNameWidget[boundaryType].className;
 
   const { currentState } = useGlobalController<JSX.Element | null>({
-    contextKey: navigationBreadcrumbs,
+    contextKey: contentContextKey,
     initialValue: null,
-    listenerKey: 'widget'
+    listenerKey: `widget:${contentContextKey}`
   });
 
   return (
     <div
       className={clsx(
-        'pointer-events-none fixed left-0 top-0 z-40 flex h-[100vh] w-[100vw] bg-opacity-0',
+        'pointer-events-none fixed left-0 top-0 z-40 flex h-[100vh] w-[100vw] bg-opacity-0 p-6',
         classNameOverlay
       )}
     >
@@ -131,16 +134,16 @@ type BoundaryPosAttMap = {
 
 const ClassNameWidget: BoundaryPosAttMap = {
   bottom: {
-    className: 'bottom-0 left-1/2 rounded-t-full pb-4 px-4'
+    className: 'bulge-top pb-4 px-4'
   },
   top: {
-    className: 'top-0 left-1/2  rounded-b-full pt-4 px-4'
+    className: 'bulge-bottom pt-4 px-4'
   },
   left: {
-    className: ' left-0 top-1/2 rounded-r-full pr-6 py-2 pl-2'
+    className: 'bulge-right pr-6 py-2 pl-2'
   },
   right: {
-    className: ' right-0 top-1/2  rounded-l-full  pl-6 py-2 pr-2'
+    className: 'bulge-left pl-6 py-2 pr-2'
   }
 };
 
