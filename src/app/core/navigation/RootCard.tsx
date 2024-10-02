@@ -32,42 +32,52 @@ export default function RootCard({
     <motion.div
       layoutId={layoutId}
       initial={{ opacity: 0.5 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: 1, scale: 1 }}
       exit={{ scale: 0 }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: 0.8 }}
       layout
     >
-      <Card className={'h-full'}>
-        {displayHeader &&
-          (navLinkDescription ? (
-            <Popover triggerScaleOnOpen={false}>
-              <PopoverTrigger>
-                <Button
-                  variant={'light'}
-                  className={'rounded-none italic text-default-500'}
-                >
-                  <CardHeader
-                    className={'flex justify-between  border-default-200 '}
+      <motion.div
+        className={'h-full'}
+        layoutId={`${layoutId}-inner`}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <Card className={'h-full'}>
+          {displayHeader &&
+            (navLinkDescription ? (
+              <Popover triggerScaleOnOpen={false}>
+                <PopoverTrigger>
+                  <Button
+                    variant={'light'}
+                    className={'rounded-none italic text-default-500'}
                   >
-                    {Icon && <Icon className={'h-8 w-8'} />}
-                    {displayHeader}
-                  </CardHeader>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className={'max-w-lg'}>
-                {navigationType && navLinkDescription}
-              </PopoverContent>
-            </Popover>
-          ) : (
-            <CardHeader className={'flex justify-between  border-default-200 '}>
-              {Icon && <Icon className={'h-8 w-8'} />}
-              {displayHeader}
-            </CardHeader>
-          ))}
-        <CardBody className={clsx(displayHeader && 'pt-0')}>
-          {children}
-        </CardBody>
-      </Card>
+                    <CardHeader
+                      className={'flex justify-between  border-default-200 '}
+                    >
+                      {Icon && <Icon className={'h-8 w-8'} />}
+                      {displayHeader}
+                    </CardHeader>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className={'max-w-lg'}>
+                  {navigationType && navLinkDescription}
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <CardHeader
+                className={'flex justify-between  border-default-200 '}
+              >
+                {Icon && <Icon className={'h-8 w-8'} />}
+                {displayHeader}
+              </CardHeader>
+            ))}
+          <CardBody className={clsx(displayHeader && 'pt-0')}>
+            {children}
+          </CardBody>
+        </Card>
+      </motion.div>
     </motion.div>
   );
 }
