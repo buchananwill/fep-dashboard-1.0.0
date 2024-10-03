@@ -6,10 +6,7 @@ import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
 import { Column } from '@/types';
-import {
-  ColorDto,
-  KnowledgeDomainDto
-} from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import {
   getCellRenderFunction,
@@ -20,6 +17,7 @@ import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities
 import { EditStringUniqueConstraintButton } from '@/components/tables/edit-tables/EditStringUniqueConstraintButton';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import { useMasterListToCreate } from '@/components/knowledge-levels/useMasterListToCreate';
+import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 
 export function KnowledgeDomainTable() {
   const entities = useFilterOutDeletedEntities<KnowledgeDomainDto>(entityType);
@@ -60,20 +58,6 @@ const getDomainFactory = () => {
 
 const domainFactory = getDomainFactory();
 
-export function parseToCssRgba(color: ColorDto | undefined) {
-  if (!color) return undefined;
-  const { r, g, b, a } = color;
-
-  // Ensure that r, g, and b are integers between 0 and 255, and a is a float between 0 and 1.
-  const red = Math.min(255, Math.max(0, r));
-  const green = Math.min(255, Math.max(0, g));
-  const blue = Math.min(255, Math.max(0, b));
-  const alpha = Math.min(1, Math.max(0, a));
-
-  // Return the CSS rgba string
-  return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-}
-
 function ShortCodeEditButtonCell(
   props: NextUiCellComponentProps<KnowledgeDomainDto>
 ) {
@@ -85,12 +69,12 @@ function ShortCodeEditButtonCell(
     return shortCodeColor !== 'bg-white' ? { button: shortCodeColor } : {};
   }, [props]);
 
+  const {
+    entity: { color }
+  } = props;
   const style = useMemo(() => {
-    const {
-      entity: { shortCode, color }
-    } = props;
     return parseToCssRgba(color);
-  }, []);
+  }, [color]);
 
   const styleAndClassnames = useMemo(() => {
     if (style) {

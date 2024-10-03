@@ -12,7 +12,8 @@ import {
   findKnowledgeDomainGroup,
   removeChildAnyLevel
 } from './knowledgeLevelGroupFunctions';
-import { parseToCssRgba } from '@/components/tables/edit-tables/KnowledgeDomainTable';
+
+import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 
 export const addBundle = produce<WorkNodeHierarchy, [string]>(addBundleMutable);
 export const produceKnowledgeDomainGroup = produce<WorkNodeHierarchy, [string]>(

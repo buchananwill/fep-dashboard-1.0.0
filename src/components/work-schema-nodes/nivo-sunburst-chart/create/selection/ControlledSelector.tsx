@@ -64,7 +64,7 @@ export function ControlledSelector<
     <Select
       {...selectProps}
       items={currentState}
-      aria-label={selectProps['aria-label'] ?? label}
+      aria-label={getStartCaseDomainAlias(selectProps['aria-label'] ?? label)}
       label={selectProps.label ?? label}
       selectionMode={'single'}
       selectedKeys={entityId ? [String(entityId)] : EmptyArray}

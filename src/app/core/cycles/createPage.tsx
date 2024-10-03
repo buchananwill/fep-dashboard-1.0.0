@@ -15,7 +15,7 @@ import { Button } from '@nextui-org/button';
 import { postOne } from '@/api/generated-actions/Cycle';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { CycleDto } from '@/api/generated-types/generated-types';
-import { CycleDtoSchema } from '@/api/generated-schemas/schemas';
+import { CycleDtoSchema } from '@/api/generated-schemas/schemas_';
 
 const dayArray = DayOfWeekArray.map((day) => ({
   name: day,
@@ -33,8 +33,7 @@ export default function CreatePage() {
     defaultValues: {
       id: ABSOLUTE_SMALLEST_TRANSIENT_ID,
       cycleDayZero: 'MONDAY',
-      cycleLengthInWeeks: 2,
-      maxGroupSize: 2
+      cycleLengthInWeeks: 2
     }
   });
 

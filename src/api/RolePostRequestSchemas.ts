@@ -2,7 +2,7 @@ import { createRolePostRequestSchema } from '@/api/create-role-post-request-sche
 import {
   AssetDtoSchema,
   PersonDtoSchema
-} from '@/api/generated-schemas/schemas';
+} from '@/api/generated-schemas/schemas_';
 
 export const ProviderRolePostRequestSchema =
   createRolePostRequestSchema(PersonDtoSchema);

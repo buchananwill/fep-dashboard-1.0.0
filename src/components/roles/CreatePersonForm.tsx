@@ -14,7 +14,7 @@ import {
   getLocalTimeZone,
   parseDate
 } from '@internationalized/date';
-import { PersonDtoSchema } from '@/api/generated-schemas/schemas';
+import { PersonDtoSchema } from '@/api/generated-schemas/schemas_';
 
 export const defaultPersonValues = {
   id: -1,

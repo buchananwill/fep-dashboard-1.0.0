@@ -17,6 +17,9 @@ import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrol
 import CyclesHome from '@/app/core/cycles/CyclesHome';
 import { rolePageTree } from '@/components/roles/rolePageTree';
 import CreateWorkTaskTypeWithAuth from '@/components/work-task-types/CreateWorkTaskTypeWithAuth';
+import CreateUserRoleForm from '@/components/user-role/create-user-role/CreateUserRoleForm';
+import { CreateUserRolePage } from '@/components/user-role/create-user-role/CreateUserRolePage';
+import UserRoleTablePage from '@/components/user-role/table-page/UserRoleTablePage';
 
 export const navTreeData: NavTreeNode = {
   component: NavigationHome,
@@ -41,7 +44,12 @@ export const navTreeData: NavTreeNode = {
       },
       component: WorkProjectSeriesSchemaHome
     },
-    users: rolePageTree,
+    users: {
+      component: UserRoleTablePage,
+      children: {
+        create: { component: CreateUserRolePage }
+      }
+    },
     providers: rolePageTree,
     assets: rolePageTree,
     carouselGroups: {

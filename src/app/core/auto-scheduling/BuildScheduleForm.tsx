@@ -17,7 +17,7 @@ import FixedOrderMultiSelect, {
 } from '@/app/core/auto-scheduling/FixedOrderMultiSelect';
 import { MultiValue } from 'react-select';
 import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
-import { ScheduleParametersDtoSchema } from '@/api/generated-schemas/schemas';
+import { ScheduleParametersDtoSchema } from '@/api/generated-schemas/schemas_';
 
 export default function AutoBuildForm({
   defaultMultiStepUndoTimeout,

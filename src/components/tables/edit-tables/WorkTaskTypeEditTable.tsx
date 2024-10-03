@@ -10,16 +10,19 @@ import { WorkTaskTypeCell } from '@/components/tables/edit-tables/WorkTaskTypeCe
 import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';
 import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
 
+export function useNavigationCallback(href: string) {
+  const appRouterInstance = useRouter();
+
+  return useCallback(() => {
+    appRouterInstance.push(href);
+  }, [appRouterInstance, href]);
+}
+
 export default function WorkTaskTypeEditTable() {
   const entities = useFilterOutDeletedEntities<WorkTaskTypeDto>(
     EntityClassMap.workTaskType
   );
-
-  const appRouterInstance = useRouter();
-
-  const goToCreate = useCallback(() => {
-    appRouterInstance.push('/core/work-task-types/create');
-  }, [appRouterInstance]);
+  const goToCreate = useNavigationCallback('/core/work-task-types/create');
 
   return (
     <FilterSelectEntityTable

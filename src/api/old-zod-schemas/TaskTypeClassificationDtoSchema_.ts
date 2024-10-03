@@ -5,7 +5,7 @@ import { AssetClassificationItemDtoSchema } from '@/api/old-zod-schemas/AssetCla
 import {
   AssetRoleTypeDtoSchema,
   ProviderRoleTypeDtoSchema
-} from '@/api/generated-schemas/schemas';
+} from '@/api/generated-schemas/schemas_';
 
 export const ClassificationTypeEnum = z.enum([
   'WORK_TASK_TYPE_TO_ASSET',

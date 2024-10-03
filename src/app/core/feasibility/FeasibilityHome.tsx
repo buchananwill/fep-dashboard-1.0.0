@@ -6,14 +6,13 @@ import { startCase } from 'lodash';
 import RootCard from '@/app/core/navigation/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
-export const feasibilityBranch: NavTreeNode = {
-  type: 'branch',
+export const feasibilityBranch = {
   children: {
-    create: { type: 'leaf', component: CreateFeasibilityReportPage },
-    view: { type: 'leaf', component: ViewFeasibilityReportHome }
+    create: { component: CreateFeasibilityReportPage },
+    view: { component: ViewFeasibilityReportHome }
   },
   component: FeasibilityHome
-};
+} as const;
 
 export default function FeasibilityHome(props: LeafComponentProps) {
   return (

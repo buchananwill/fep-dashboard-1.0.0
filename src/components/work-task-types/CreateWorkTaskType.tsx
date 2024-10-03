@@ -18,7 +18,7 @@ import { nameAccessor } from '@/functions/nameSetter';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
 import { useNestedAutoCompleteChangeHandler } from '@/components/work-task-types/useNestedAutoCompleteChangeHandler';
 import { useNestedSelectChangeHandler } from '@/components/work-task-types/useNestedSelectChangeHandler';
-import { WorkTaskTypeDtoSchema } from '@/api/generated-schemas/schemas';
+import { WorkTaskTypeDtoSchema } from '@/api/generated-schemas/schemas_';
 import RootCard from '@/app/core/navigation/RootCard';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';

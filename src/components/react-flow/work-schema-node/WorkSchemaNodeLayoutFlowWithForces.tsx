@@ -337,13 +337,7 @@ const TemplateWorkSchemaNode: DataNodeDto<WorkSchemaNodeDto> = {
     allowBundle: true,
     preferCarousel: false,
     workSchemaNodeAssignmentIds: [],
-    resolutionMode: 'OPEN',
-    workProjectSeriesSchemaId: null,
-    knowledgeDomainId: null,
-    carouselGroupId: null,
-    carouselOptionId: null,
-    knowledgeLevelId: null,
-    carouselId: null
+    resolutionMode: 'OPEN'
   },
   id: 0,
   distanceFromRoot: 0

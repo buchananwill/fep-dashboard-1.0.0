@@ -5,7 +5,7 @@ import {
   AssetRoleDtoSchema,
   ProviderRoleDtoSchema,
   UserRoleDtoSchema
-} from '@/api/generated-schemas/schemas';
+} from '@/api/generated-schemas/schemas_';
 
 export type BaseRoleParams = {
   roleTypeId: string;

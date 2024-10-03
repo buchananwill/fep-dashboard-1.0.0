@@ -2,7 +2,7 @@ import { z } from 'zod';
 import {
   ProviderRoleTypeDtoSchema,
   WorkTaskTypeDtoSchema
-} from '@/api/generated-schemas/schemas';
+} from '@/api/generated-schemas/schemas_';
 export const ProviderRolePostRequestSchema = z.object({
   workTaskTypeExampleList: z.array(WorkTaskTypeDtoSchema.partial()),
   providerRoleTypeExample: ProviderRoleTypeDtoSchema.partial(),

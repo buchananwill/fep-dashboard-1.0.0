@@ -6,7 +6,8 @@ import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/Bas
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
-import { parseToCssRgba } from '@/components/tables/edit-tables/KnowledgeDomainTable';
+
+import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 
 export default function LeafNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>

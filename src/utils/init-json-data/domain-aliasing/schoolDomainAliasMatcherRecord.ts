@@ -3,6 +3,7 @@ export const schoolDomainAliasMatcherRecord: Record<string, string> = {
   cycleSubspanGroup: 'periodGroup',
   knowledgeDomain: 'subject',
   knowledgeLevel: 'level',
+  knowledgeLevelSeries: 'levelSeries',
   workTaskSeries: 'lesson',
   workProjectSeries: 'lessonSeries',
   workProjectSeriesSchema: 'lessonDeliveryModel',

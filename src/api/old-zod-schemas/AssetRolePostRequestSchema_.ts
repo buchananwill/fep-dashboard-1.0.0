@@ -2,7 +2,7 @@ import { z } from 'zod';
 import {
   AssetRoleTypeDtoSchema,
   WorkTaskTypeDtoSchema
-} from '@/api/generated-schemas/schemas';
+} from '@/api/generated-schemas/schemas_';
 export const AssetRolePostRequestSchema = z.object({
   workTaskTypeExampleList: z.array(WorkTaskTypeDtoSchema.partial()),
   roleTypeExample: AssetRoleTypeDtoSchema.partial(),

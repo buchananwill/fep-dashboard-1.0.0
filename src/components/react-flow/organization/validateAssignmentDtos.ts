@@ -1,7 +1,7 @@
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 import _ from 'lodash';
 import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
-import { WorkSchemaNodeAssignmentDtoSchema } from '@/api/generated-schemas/schemas';
+import { WorkSchemaNodeAssignmentDtoSchema } from '@/api/generated-schemas/schemas_';
 
 export function validateAssignmentDtos(
   putUpdatedGraph: (

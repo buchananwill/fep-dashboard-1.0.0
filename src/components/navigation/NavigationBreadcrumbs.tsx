@@ -8,7 +8,7 @@ import { useGlobalDispatch } from 'selective-context';
 import { useMemo } from 'react';
 import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
 import { JSX } from 'react/jsx-runtime';
-import { HasUuidDtoSchema } from '@/api/generated-schemas/schemas';
+import { HasUuidDtoSchema } from '@/api/generated-schemas/schemas_';
 import Link from 'next/link';
 
 export const navigationBreadcrumbs = 'navigation-breadcrumbs';

@@ -1,4 +1,6 @@
+import { InteractionBasedValidationDtoSchema } from '@/api/generated-schemas/schemas_';
 import { z } from 'zod';
-export const InteractionBasedValidationDtoSchema = z.object({
-});
-export type InteractionBasedValidationDto = z.infer<typeof InteractionBasedValidationDtoSchema>;
+
+export type InteractionBasedValidationDto = z.infer<
+  typeof InteractionBasedValidationDtoSchema
+>;

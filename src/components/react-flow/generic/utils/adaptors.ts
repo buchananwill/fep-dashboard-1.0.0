@@ -15,7 +15,7 @@ import { HasNumberId } from '@/api/types';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 import { Simplify } from 'type-fest';
 import { z } from 'zod';
-import { WorkSchemaNodeDtoSchema } from '@/api/generated-schemas/schemas';
+import { WorkSchemaNodeDtoSchema } from '@/api/generated-schemas/schemas_';
 
 const organizationNodeType = 'organization';
 

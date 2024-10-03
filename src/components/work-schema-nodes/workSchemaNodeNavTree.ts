@@ -6,10 +6,11 @@ import CreateViaSunburst from '@/components/work-schema-nodes/nivo-sunburst-char
 
 export const WorkSchemaNodeNavTree: NavTreeNode = {
   component: WorkSchemaNodesHome,
-  type: 'branch',
   children: {
-    create: { type: 'leaf', component: CreateWorkSchemaNode },
-    sunburstChart: { type: 'leaf', component: SunburstChartHome },
-    createViaSunburst: { type: 'leaf', component: CreateViaSunburst }
+    create: {
+      component: CreateWorkSchemaNode
+    },
+    sunburstChart: { component: SunburstChartHome },
+    createViaSunburst: { component: CreateViaSunburst }
   }
 };
