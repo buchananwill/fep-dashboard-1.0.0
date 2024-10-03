@@ -8,10 +8,15 @@ import { getPathVariableSplitComponent } from '@/components/generic/PathVariable
 import WorkSchemaNodesHome from '@/components/work-schema-nodes/WorkSchemaNodesHome';
 import { colorizeKnowledgeDomainGroups } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
 import { camelCase } from 'lodash';
-import { isNotUndefined } from '@/api/main';
+import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 
 async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
-  const [chartType] = getLastNVariables(pathVariables, 2);
+  const ignoreMoreThanFourVariableUntilKnowledgeLevelIsImplemented =
+    pathVariables.slice(0, 4);
+  const [chartType] = getLastNVariables(
+    ignoreMoreThanFourVariableUntilKnowledgeLevelIsImplemented,
+    2
+  );
   const param =
     camelCase(chartType) === 'byKnowledgeLevelSeries'
       ? '?workTaskTypeName=Teaching'
@@ -19,7 +24,9 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   const { data } = await getWithoutBody<NestedWorkNodeDto>(
     `${constructUrl([
       '/api/v2',
-      ...pathVariables.map(camelCase)
+      ...ignoreMoreThanFourVariableUntilKnowledgeLevelIsImplemented.map(
+        camelCase
+      )
     ])}${param ?? ''}`
   );
 
@@ -31,7 +38,12 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   );
 }
 
-export const SunburstChartHome = getPathVariableSplitComponent(
+export const SunburstChartByRootIdHome = getPathVariableSplitComponent(
   WorkSchemaNodesHome,
   NivoSunburstChartPage
 );
+export const SunburstChartByKnowledgeLevelSeries =
+  getPathVariableSplitComponent(
+    KnowledgeLevelSeriesLinks,
+    NivoSunburstChartPage
+  );
