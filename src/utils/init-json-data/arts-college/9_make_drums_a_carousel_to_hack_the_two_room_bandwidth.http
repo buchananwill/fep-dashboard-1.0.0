@@ -1,5 +1,5 @@
 ###
-PUT http://localhost:8080/api/v2/workSchemaNode/graphs
+PUT http://localhost:8080/api/v2/workSchemaNodes/graphs
 Content-Type: application/json
 
 {
