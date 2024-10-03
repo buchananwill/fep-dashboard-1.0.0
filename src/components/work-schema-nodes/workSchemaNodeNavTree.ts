@@ -10,7 +10,16 @@ export const WorkSchemaNodeNavTree: NavTreeNode = {
     create: {
       component: CreateWorkSchemaNode
     },
-    sunburstChart: { component: SunburstChartHome },
+    sunburstChart: {
+      children: {
+        byRootId: {
+          component: SunburstChartHome
+        },
+        byKnowledgeLevelSeries: {
+          component: SunburstChartHome
+        }
+      }
+    },
     createViaSunburst: { component: CreateViaSunburst }
   }
 };
