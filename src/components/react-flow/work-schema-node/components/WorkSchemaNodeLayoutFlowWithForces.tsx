@@ -119,7 +119,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       source: DataNode<WorkSchemaNodeDto> | undefined,
       target: DataNode<WorkSchemaNodeDto> | undefined
     ) => {
-      validateHierarchy(source?.data, target?.data, readAnyCarousel);
+      return validateHierarchy(source?.data, target?.data, readAnyCarousel);
     },
     [readAnyCarousel]
   );

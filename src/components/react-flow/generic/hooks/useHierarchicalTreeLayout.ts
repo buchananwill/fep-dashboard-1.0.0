@@ -15,7 +15,6 @@ export function useHierarchicalTreeLayout(
     idToChildIdMap,
     options
   );
-  console.log({ layoutMemo, idToChildIdMap });
   usePreComputedPositionForce(layoutMemo as Map<string, Layoutable>);
 }
 

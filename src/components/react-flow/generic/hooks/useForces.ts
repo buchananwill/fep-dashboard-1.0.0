@@ -58,8 +58,6 @@ export function useForces(
   const localRef = useRef(InitialMap as Map<string, Layoutable>);
   localRef.current = currentState.current;
 
-  console.log({ currentState, localRef });
-
   const overrideForces = useMemo(() => {
     const xResolver = getHierarchyLayoutResolver(localRef, 'y');
     const yResolver = getHierarchyLayoutResolver(localRef, 'x');

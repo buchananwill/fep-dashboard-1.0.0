@@ -10,7 +10,6 @@ export function usePreComputedPositionForce(
   const layoutMemoRef = useRef(InitialMap as Map<string, Layoutable>);
 
   layoutMemoRef.current = layoutMemo;
-  console.log({ layoutMemo });
 
   useGlobalController({
     contextKey: hierarchicalLayoutMap,

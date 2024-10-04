@@ -17,7 +17,6 @@ function getOrientationCorrector(orientation: 'horizontal' | 'vertical') {
     map: Map<string, HierarchyPointNode<T>>,
     index: number
   ) {
-    console.log({ map });
     if (orientation === 'vertical') {
       [...map.values()].forEach((hpn) => {
         const { x, y } = hpn;
@@ -48,7 +47,6 @@ export function useTreeHierarchicalDataLayoutMemo(
       .map(flattenHierarchicalLayoutDataStructure)
       .map(correctOrientation);
   }, [rootNodeList, options]);
-  console.log({ rootNodeList, memoedMap });
   return memoedMap as Map<string, Layoutable>[];
 }
 
@@ -64,6 +62,5 @@ function flattenHierarchicalLayoutDataStructure<T extends HasStringId>(
         responseMap.set(key, value)
       );
     });
-  console.log({ responseMap });
   return responseMap;
 }

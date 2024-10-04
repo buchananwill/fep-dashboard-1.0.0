@@ -22,13 +22,10 @@ export default function RootCard({
   navigationType?: NavigationType;
   displayHeader?: string | ReactNode;
 } & PropsWithChildren) {
-  console.log(layoutId);
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
   const navLinkDescription = navigationType
     ? NavLinkDescriptionsDefault[navigationType]
     : null;
-
-  console.log('re-rendering');
 
   return (
     <motion.div

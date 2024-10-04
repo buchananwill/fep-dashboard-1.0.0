@@ -158,11 +158,11 @@ export function validateWorkSchemaNodeDataNodeDto(
 ) {
   const dataNodeDto = reMapNodeIdWithoutValidating(dataNode);
   let parsedNode: WorkSchemaNodeDataNodeDto | undefined = undefined;
-  try {
-    parsedNode = WorkSchemaNodeDataNodeDtoSchema.parse(dataNodeDto);
-  } catch (e) {
-    console.warn(e);
-  }
+  // try {
+  parsedNode = WorkSchemaNodeDataNodeDtoSchema.parse(dataNodeDto);
+  // } catch (e) {
+  //   console.warn(e);
+  // }
   if (parsedNode !== undefined) {
     const definedNode = parsedNode as WorkSchemaNodeDataNodeDto;
     const countReferenceKeys = maxOneOf

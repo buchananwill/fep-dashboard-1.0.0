@@ -635,7 +635,7 @@ export const WorkSchemaNodeDtoSchema = zod.object({
   id: zod.number().int(),
   knowledgeDomainId: zod.number().int().optional(),
   knowledgeLevelId: zod.number().int().optional(),
-  name: zod.string(),
+  name: zod.string().optional(),
   carouselGroupId: zod.number().int().optional(),
   carouselId: zod.number().int().optional(),
   workProjectSeriesSchemaId: zod.number().int().optional(),

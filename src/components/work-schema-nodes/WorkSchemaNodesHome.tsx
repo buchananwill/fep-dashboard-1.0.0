@@ -21,7 +21,6 @@ async function Home({ pathVariables }: LeafComponentProps) {
 
   const arrays = chunk(sortedByNameThenId, chunkSize);
 
-  console.log({ chunkSize, arrays });
   return (
     <div className={'p-4'}>
       <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
