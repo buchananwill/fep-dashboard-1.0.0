@@ -1,10 +1,10 @@
 import { Tab, Tabs } from '@nextui-org/tabs';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { CollectionItemChooserProps } from '@/components/types/collectionItemChooserProps';
 import { useGlobalListener } from 'selective-context';
-import { HasName } from '@/api/generated-types/generated-types';
-import { HasUuid } from '@/api/types';
+import { HasId } from '@/api/types';
 import { initialMap } from '@/app/_literals';
+import { HasName } from 'react-d3-force-wrapper';
 
 export interface InnerWrapperProps {
   collectionEntityClass: string;
@@ -12,7 +12,7 @@ export interface InnerWrapperProps {
   itemContextKeys: string[];
 }
 
-export default function InnerWrapper<T extends HasUuid & HasName>({
+export default function InnerWrapper<T extends HasId & HasName>({
   collectionItemChooser: ItemChooser,
   itemContextKeys,
   collectionEntityClass
@@ -23,12 +23,17 @@ export default function InnerWrapper<T extends HasUuid & HasName>({
     listenerKey: 'innerWrapper'
   });
 
+  const items = useMemo(() => {
+    return [...currentState.values()];
+  }, [currentState]);
+
   return (
     <Tabs
       aria-label={'collection tabs'}
       size={'lg'}
-      items={[...currentState.values()]}
+      items={items}
       isVertical={true}
+      destroyInactiveTabPanel={false}
     >
       {(item) => (
         <Tab key={item.id} title={item.name}>

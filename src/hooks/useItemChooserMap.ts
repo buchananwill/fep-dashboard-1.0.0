@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 
 import { initialMap } from '@/app/_literals';
+import { Identifier } from 'dto-stores';
 
 export function useItemChooserMap<T>(
   referencedItemContextKeys: string[],

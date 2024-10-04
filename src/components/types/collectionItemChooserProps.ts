@@ -1,5 +1,7 @@
+import { Identifier } from 'dto-stores';
+
 export interface CollectionItemChooserProps {
-  collectionId: string;
+  collectionId: Identifier;
   entityClass: string;
   referencedItemContextKeys: string[];
 }

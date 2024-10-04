@@ -2,13 +2,13 @@
 
 import { FC, useMemo } from 'react';
 import { CollectionItemChooserProps } from '@/components/types/collectionItemChooserProps';
-import { HasName } from '@/api/generated-types/generated-types';
 import InnerWrapper from '@/components/collection-chooser-tab-group/InnerWrapper';
 import {
   EditAddDeleteDtoControllerArray,
   MasterMapController
 } from 'dto-stores';
 import { HasId } from '@/api/types';
+import { HasName } from 'react-d3-force-wrapper';
 
 export interface CollectionChooserTabGroupProps<T, U> {
   collectionData: T[];

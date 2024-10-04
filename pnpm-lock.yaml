@@ -105,8 +105,8 @@ importers:
         specifier: ^3.1.3
         version: 3.1.3(date-fns@3.6.0)
       dto-stores:
-        specifier: 3.1.1
-        version: 3.1.1(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
+        specifier: ^4.0.0
+        version: 4.0.0(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1))
       fast-cartesian:
         specifier: ^9.0.0
         version: 9.0.0
@@ -2734,8 +2734,8 @@ packages:
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
 
-  dto-stores@3.1.1:
-    resolution: {integrity: sha512-5KkZYJupDjHQLJnJmPC/whhB/K7wWuR1d+nsneg2oc+Qx3U6c4olIRXBC8aQXiJ/AS6ljLPHIx767GrKemKIhQ==}
+  dto-stores@4.0.0:
+    resolution: {integrity: sha512-cma4XV55hHGW3Mz0YOymSNYg+ytkbnbkbH9f06j6UgBWx+VYp/HYmnmlL/pud64lsWw53F8UzANpgx11S3ge4g==}
     peerDependencies:
       lodash: ^4.17.21
       react: ^18.3.1
@@ -8230,7 +8230,7 @@ snapshots:
       '@babel/runtime': 7.24.7
       csstype: 3.1.3
 
-  dto-stores@3.1.1(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
+  dto-stores@4.0.0(lodash@4.17.21)(react@18.3.1)(selective-context@2.0.2(react@18.3.1)):
     dependencies:
       lodash: 4.17.21
       react: 18.3.1

@@ -28,6 +28,8 @@ export default function RootCard({
     ? NavLinkDescriptionsDefault[navigationType]
     : null;
 
+  console.log('re-rendering');
+
   return (
     <motion.div
       layoutId={layoutId}
