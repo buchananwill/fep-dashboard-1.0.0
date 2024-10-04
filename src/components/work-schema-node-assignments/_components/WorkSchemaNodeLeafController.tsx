@@ -1,6 +1,6 @@
 import { DataNode } from 'react-d3-force-wrapper';
 
-import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
+import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/functions/useLeafNodeRollUpListener';
 import { Identifier, NamespacedHooks, useDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';

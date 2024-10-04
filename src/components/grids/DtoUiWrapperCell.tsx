@@ -10,7 +10,7 @@ import {
 } from 'dto-stores';
 import { ReactNode } from 'react';
 import clsx from 'clsx';
-import { GenericDivProps } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
+import { GenericDivProps } from '@/components/react-flow/work-schema-node/components/BaseWorkSchemaNode';
 import { getCellIdReference } from '@/components/grids/getCellIdReference';
 import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 

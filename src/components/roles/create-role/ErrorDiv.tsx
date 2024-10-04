@@ -1,4 +1,4 @@
-import { GenericDivProps } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
+import { GenericDivProps } from '@/components/react-flow/work-schema-node/components/BaseWorkSchemaNode';
 import React from 'react';
 import clsx from 'clsx';
 

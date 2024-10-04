@@ -2,7 +2,7 @@ import { DataNode, HasNumberId } from 'react-d3-force-wrapper';
 import { Connection } from '@xyflow/react';
 import { DispatchState } from '@/types';
 import { useCallback } from 'react';
-import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
+import { recalculateDepths } from '@/components/react-flow/generic/utils/recalculateDepths';
 
 export function useValidateAndUpdateDepth<T extends HasNumberId>(
   checkToggleFirstAndAfter: () => void,

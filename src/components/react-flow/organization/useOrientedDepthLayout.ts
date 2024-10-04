@@ -3,7 +3,7 @@ import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 import { HasPosition } from '@/components/react-flow/generic/hooks/useForces';
 import { useMemo } from 'react';
 import { HasStringId } from 'react-d3-force-wrapper';
-import { usePreComputedPositionForce } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
+import { usePreComputedPositionForce } from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeLayoutFlowWithForces';
 
 export function useOrientedDepthLayout<T extends NodeDataType>(
   nodes: FlowNode<T>[],

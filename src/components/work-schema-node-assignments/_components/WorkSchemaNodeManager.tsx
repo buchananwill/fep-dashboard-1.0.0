@@ -5,13 +5,13 @@ import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/use
 import { useGlobalController } from 'selective-context';
 import { EditAddDeleteDtoControllerArray, InitialMap } from 'dto-stores';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
-import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
+import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/functions/useWorkSchemaNodeRollupMemo';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
-import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
+import { RollupUpdater } from '@/components/react-flow/work-schema-node/components/RollupUpdater';
 import WorkSchemaNodeLeafController from '@/components/work-schema-node-assignments/_components/WorkSchemaNodeLeafController';
 import React, { memo, useMemo, useRef } from 'react';
 import { isEqual } from 'lodash';
-import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/WorkSchemaNodeLayoutFlowWithForces';
+import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeLayoutFlowWithForces';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 
 export default function WorkSchemaNodeManager({

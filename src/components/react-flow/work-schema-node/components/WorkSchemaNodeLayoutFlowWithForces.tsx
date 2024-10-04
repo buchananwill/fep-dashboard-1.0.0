@@ -29,13 +29,13 @@ import {
   validateWorkSchemaNodeDataNodeDto,
   workSchemaNodeCloneFunctionWrapper,
   workSchemaNodeGraphUpdater
-} from '@/components/react-flow/work-schema-node/workSchemaNodeCallbacks';
+} from '@/components/react-flow/work-schema-node/functions/workSchemaNodeCallbacks';
 import {
   convertToWorkSchemaFlowNode,
   WorkSchemaNodeDto
 } from '@/components/react-flow/generic/utils/adaptors';
 import { EntityClassMap } from '@/api/entity-class-map';
-import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/WorkSchemaNodeDetailsContent';
+import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeDetailsContent';
 import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { Button } from '@nextui-org/button';
 import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
@@ -55,14 +55,14 @@ import {
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
-import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
-import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';
+import { recalculateDepths } from '@/components/react-flow/generic/utils/recalculateDepths';
+import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/components/UnassignedRootButton';
 import { useGlobalController } from 'selective-context';
-import { RollupUpdater } from '@/components/react-flow/work-schema-node/RollupUpdater';
+import { RollupUpdater } from '@/components/react-flow/work-schema-node/components/RollupUpdater';
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
 import { useIdToEdgeMapMemo } from '@/components/react-flow/generic/hooks/useIdToEdgeMapMemo';
 import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
-import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/useWorkSchemaNodeRollupMemo';
+import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/functions/useWorkSchemaNodeRollupMemo';
 import { LeftToRightEdge } from '@/components/react-flow/generic/components/edges/LeftToRightEdge';
 import { useHierarchicalDataLayoutMemo } from '@/components/react-flow/generic/hooks/useHierarchicalDataLayoutMemo';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
@@ -70,8 +70,8 @@ import {
   hierarchicalLayoutMap,
   Layoutable
 } from '@/components/react-flow/generic/hooks/useForces';
-import { useValidateAndUpdateDepth } from '@/components/react-flow/work-schema-node/useValidateAndUpdateDepth';
-import { useCheckToggleFirstAndAfter } from '@/components/react-flow/work-schema-node/useCheckToggleFirstAndAfter';
+import { useValidateAndUpdateDepth } from '@/components/react-flow/generic/hooks/useValidateAndUpdateDepth';
+import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 

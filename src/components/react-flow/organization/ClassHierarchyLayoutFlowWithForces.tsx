@@ -37,8 +37,8 @@ import { TopToBottomEdge } from '@/components/react-flow/generic/components/edge
 import { FlowNode } from '@/components/react-flow/generic/types';
 import { useOrientedDepthLayout } from '@/components/react-flow/organization/useOrientedDepthLayout';
 import { Simplify } from 'type-fest';
-import { useValidateAndUpdateDepth } from '@/components/react-flow/work-schema-node/useValidateAndUpdateDepth';
-import { useCheckToggleFirstAndAfter } from '@/components/react-flow/work-schema-node/useCheckToggleFirstAndAfter';
+import { useValidateAndUpdateDepth } from '@/components/react-flow/generic/hooks/useValidateAndUpdateDepth';
+import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
 import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
 

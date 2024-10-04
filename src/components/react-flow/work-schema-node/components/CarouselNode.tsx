@@ -1,28 +1,21 @@
 import clsx from 'clsx';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
-import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/BaseWorkSchemaNode';
-import { CarouselOptionDto } from '@/api/generated-types/generated-types';
+import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/components/BaseWorkSchemaNode';
+import { CarouselDto } from '@/api/generated-types/generated-types';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
 import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 
-export default function CarouselOptionNode(
+export default function CarouselNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>
 ) {
   const { selected, dragging, data } = props;
 
-  const { entity } = useLazyDtoStore<CarouselOptionDto>(
-    data.carouselOptionId ?? NaN,
-    EntityClassMap.carouselOption
+  const { entity } = useLazyDtoStore<CarouselDto>(
+    data.carouselId ?? NaN,
+    EntityClassMap.carousel
   );
-
-  const { entity: workProjectSeriesSchema } =
-    useLazyDtoStore<WorkProjectSeriesSchemaDto>(
-      entity?.workProjectSeriesSchemaId ?? '',
-      EntityClassMap.workProjectSeriesSchema
-    );
 
   return (
     <BaseWorkSchemaNode
@@ -32,7 +25,7 @@ export default function CarouselOptionNode(
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}
-      label={`Option: ${workProjectSeriesSchema && workProjectSeriesSchema.name}`}
+      label={`Carousel ${entity?.name ?? data.name ?? ''}`}
     ></BaseWorkSchemaNode>
   );
 }

@@ -13,7 +13,7 @@ import {
 import React, { useCallback, useMemo } from 'react';
 import NodeGraphEditCluster from '@/components/react-flow/generic/components/nodes/NodeGraphEditCluster';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/useLeafNodeRollUpListener';
+import { useLeafNodeRollUpListener } from '@/components/react-flow/work-schema-node/functions/useLeafNodeRollUpListener';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
 import { Handle, Position } from '@xyflow/react';
