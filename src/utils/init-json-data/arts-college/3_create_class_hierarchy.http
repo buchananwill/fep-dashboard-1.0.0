@@ -7,19 +7,19 @@ Content-Type: application/json
     "nodes": [
       {
         "data": {
-          "id": 13,
+          "id": 1,
           "name": "All Students",
           "type": {
             "id": 1,
             "name": "Class"
           },
           "workSchemaNodeAssignment": {
-            "id": 13,
-            "organizationId": 13,
+            "id": 1,
+            "organizationId": 1,
             "workSchemaNodeId": 27
           }
         },
-        "id": 13,
+        "id": 1,
         "distanceFromRoot": 0
       },
       {
@@ -210,7 +210,7 @@ Content-Type: application/json
       },
       {
         "data": {
-          "id": 1,
+          "id": 13,
           "name": "Music Theory 1",
           "type": {
             "id": 1,
@@ -222,7 +222,7 @@ Content-Type: application/json
             "workSchemaNodeId": 1
           }
         },
-        "id": 1,
+        "id": 13,
         "distanceFromRoot": 1
       },
       {
@@ -247,7 +247,7 @@ Content-Type: application/json
       {
         "id": 25,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 12,
         "value": 1,
         "weighting": 1
@@ -383,7 +383,7 @@ Content-Type: application/json
       {
         "id": 55,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": -1152921504606846976,
         "value": 2,
         "weighting": 1
@@ -391,15 +391,15 @@ Content-Type: application/json
       {
         "id": 14,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
-        "target": 1,
+        "source": 1,
+        "target": 13,
         "value": 1,
         "weighting": 1
       },
       {
         "id": 15,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 2,
         "value": 1,
         "weighting": 1
@@ -407,7 +407,7 @@ Content-Type: application/json
       {
         "id": 16,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 3,
         "value": 1,
         "weighting": 1
@@ -415,7 +415,7 @@ Content-Type: application/json
       {
         "id": 17,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 4,
         "value": 1,
         "weighting": 1
@@ -423,7 +423,7 @@ Content-Type: application/json
       {
         "id": 18,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 5,
         "value": 1,
         "weighting": 1
@@ -431,7 +431,7 @@ Content-Type: application/json
       {
         "id": 19,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 6,
         "value": 1,
         "weighting": 1
@@ -439,7 +439,7 @@ Content-Type: application/json
       {
         "id": 20,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 7,
         "value": 1,
         "weighting": 1
@@ -447,7 +447,7 @@ Content-Type: application/json
       {
         "id": 21,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 8,
         "value": 1,
         "weighting": 1
@@ -455,7 +455,7 @@ Content-Type: application/json
       {
         "id": 22,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 9,
         "value": 1,
         "weighting": 1
@@ -463,7 +463,7 @@ Content-Type: application/json
       {
         "id": 23,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 10,
         "value": 1,
         "weighting": 1
@@ -471,7 +471,7 @@ Content-Type: application/json
       {
         "id": 24,
         "closureType": "com.futuredyme.Entities.Party.Organization.OrganizationRelationship",
-        "source": 13,
+        "source": 1,
         "target": 11,
         "value": 1,
         "weighting": 1

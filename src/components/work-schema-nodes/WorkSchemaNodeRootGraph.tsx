@@ -30,7 +30,7 @@ export default async function WorkSchemaNodeRootGraph({
   const schemas = await Api.WorkProjectSeriesSchema.getAll();
 
   const unassignedRootList = await getWithoutBody<WorkSchemaNodeDto[]>(
-    constructUrl('/api/v2/workSchemaNode/rootNodesWithNoAssignments')
+    constructUrl('/api/v2/workSchemaNodes/rootNodesWithNoAssignments')
   );
 
   return (

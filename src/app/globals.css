@@ -247,3 +247,9 @@ canvas {
 .bulge-right {
     border-radius: 12px 64px 64px 12px;
 }
+
+.react-flow .react-flow__handle {
+    width: 30px;
+    height: 14px;
+    border-radius: 3px;
+}

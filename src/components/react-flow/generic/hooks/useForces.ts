@@ -12,11 +12,11 @@ import {
   useDirectSimRefEditsDispatch,
   useGraphDispatch
 } from 'react-d3-force-wrapper';
-import { InitialSetRef } from '@/components/react-flow/bi-partite-graph/BandwidthLayoutFlowWithForces';
 import { collide } from '@/components/react-flow/generic/utils/collide';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 import { get } from 'lodash';
 import { InitialMap } from 'dto-stores';
+import { InitialSetRef } from '@/components/react-flow/literals';
 
 export const draggingNodeKey = 'dragging-node';
 

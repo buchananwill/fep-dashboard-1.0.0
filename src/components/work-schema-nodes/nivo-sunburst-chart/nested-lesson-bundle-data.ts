@@ -49,7 +49,7 @@ export type KnowledgeLevelGroup = {
 export type KnowledgeLevelSeriesGroup = {
   type: 'knowledgeLevelSeriesGroup';
   knowledgeLevelSeries: KnowledgeLevelSeriesDto;
-  cycle: CycleDto;
+  cycle?: CycleDto;
   workTaskTypeName: HasName & HasNumberId;
   organizationTypeName?: string;
   children: KnowledgeLevelGroup[];

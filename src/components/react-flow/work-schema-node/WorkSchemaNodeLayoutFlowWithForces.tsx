@@ -7,17 +7,12 @@ import React, {
   useMemo,
   useRef
 } from 'react';
-import {
-  Background,
-  BackgroundVariant,
-  Connection,
-  Panel,
-  ReactFlow
-} from '@xyflow/react';
+import { Background, BackgroundVariant, Panel, ReactFlow } from '@xyflow/react';
 import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
 
 import {
   DataLink,
+  DataNode,
   DataNodeDto,
   GraphSelectiveContextKeys,
   MemoizedFunction,
@@ -55,8 +50,10 @@ import {
 import { EmptyArray } from '@/api/literals';
 import { Spinner } from '@nextui-org/spinner';
 import { FlowNode, NodeValidator } from '@/components/react-flow/generic/types';
-import { CarouselDto } from '@/api/generated-types/generated-types';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import {
+  CarouselDto,
+  WorkProjectSeriesSchemaDto
+} from '@/api/generated-types/generated-types';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { recalculateDepths } from '@/components/react-flow/work-schema-node/recalculateDepths';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/UnassignedRootButton';
@@ -73,7 +70,8 @@ import {
   hierarchicalLayoutMap,
   Layoutable
 } from '@/components/react-flow/generic/hooks/useForces';
-import { Simplify } from 'type-fest';
+import { useValidateAndUpdateDepth } from '@/components/react-flow/work-schema-node/useValidateAndUpdateDepth';
+import { useCheckToggleFirstAndAfter } from '@/components/react-flow/work-schema-node/useCheckToggleFirstAndAfter';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -122,16 +120,8 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     EntityClassMap.workSchemaNode,
     validateWorkSchemaNodeDataNodeDto as NodeValidator<WorkSchemaNodeDto>
   );
-
-  const { toggle, running } = flowOverlayProps;
-  const runningRef = useRef(running);
-  runningRef.current = running;
-
-  const checkToggleFirstAndAfter = useCallback(() => {
-    if (runningRef.current && toggle) {
-      toggle();
-    }
-  }, [toggle]);
+  const checkToggleFirstAndAfter =
+    useCheckToggleFirstAndAfter(flowOverlayProps);
 
   const { nodesFromContext, edgesFromContext } = contextData;
 
@@ -156,43 +146,23 @@ export function WorkSchemaNodeLayoutFlowWithForces({
 
   const readAnyCarousel = useReadAnyDto<CarouselDto>(EntityClassMap.carousel);
 
-  const interceptedOnConnect = useCallback(
-    (connection: Connection) => {
-      checkToggleFirstAndAfter();
-      const { source, target } = connection;
-      if (source && target) {
-        const nodeSource = idToNodeMap.get(source);
-        const nodeTarget = idToNodeMap.get(target);
-
-        const validation =
-          nodeTarget?.distanceFromRoot === 0 &&
-          validateHierarchy(
-            nodeSource?.data,
-            nodeTarget?.data,
-            readAnyCarousel
-          );
-        if (validation && nodeSource && nodeTarget) {
-          onConnect(connection);
-          dispatchNodes((prevNodes) =>
-            recalculateDepths(
-              prevNodes,
-              nodeTarget,
-              idToChildIdMap,
-              idToNodeMap,
-              nodeSource.distanceFromRoot
-            )
-          );
-        }
-      }
+  const validateWorkSchemaNodeHierarchy = useCallback(
+    (
+      source: DataNode<WorkSchemaNodeDto> | undefined,
+      target: DataNode<WorkSchemaNodeDto> | undefined
+    ) => {
+      validateHierarchy(source?.data, target?.data, readAnyCarousel);
     },
-    [
-      onConnect,
-      idToNodeMap,
-      readAnyCarousel,
-      dispatchNodes,
-      idToChildIdMap,
-      checkToggleFirstAndAfter
-    ]
+    [readAnyCarousel]
+  );
+
+  const interceptedOnConnect = useValidateAndUpdateDepth(
+    checkToggleFirstAndAfter,
+    idToNodeMap,
+    onConnect,
+    dispatchNodes,
+    idToChildIdMap,
+    validateWorkSchemaNodeHierarchy
   );
 
   const { dispatchWithoutListen: dispatchDeleteLinksFunction } =
