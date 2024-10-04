@@ -14,10 +14,10 @@ import { Column, ColumnUid } from '@/types';
 import { NestedDtoStoreNumberEditCell } from '@/components/tables/NestedDtoStoreNumberEditCell';
 import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
-import RootCard from '@/app/core/navigation/RootCard';
-import { LeafComponentProps } from '@/app/core/navigation/types';
+import RootCard from '@/components/generic/RootCard';
 
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 

@@ -1,5 +1,5 @@
-import { navTreeData } from '@/app/core/navigation/navTreeData';
-import { ResolveNavTree } from '@/app/core/navigation/ResolveNavTree';
+import { navTreeData } from '@/app/core/navigation/data/navTreeData';
+import { ResolveNavTree } from '@/app/core/navigation/data/ResolveNavTree';
 
 export default async function page({
   params: { pathVariables }

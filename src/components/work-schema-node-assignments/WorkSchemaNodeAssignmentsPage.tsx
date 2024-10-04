@@ -18,11 +18,11 @@ import { Api } from '@/api/clientApi_';
 import WorkSchemaNodeManager from '@/components/work-schema-node-assignments/_components/WorkSchemaNodeManager';
 import { EmptyArray } from '@/api/literals';
 import React from 'react';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/functions/getLastNVariables';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function WorkSchemaNodeAssignmentsPage({
   pathVariables,

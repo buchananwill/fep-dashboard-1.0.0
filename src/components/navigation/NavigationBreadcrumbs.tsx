@@ -1,5 +1,4 @@
 'use client';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { startCase } from 'lodash';
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/breadcrumbs';
 
@@ -10,6 +9,7 @@ import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
 import { JSX } from 'react/jsx-runtime';
 import { HasUuidDtoSchema } from '@/api/generated-schemas/schemas_';
 import Link from 'next/link';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export const navigationBreadcrumbs = 'navigation-breadcrumbs';
 export default function NavigationBreadcrumbs({

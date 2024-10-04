@@ -1,4 +1,3 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { parseTen } from '@/api/date-and-time';
 import { getDtoListByExampleList as getKnowledgeLevelsByExample } from '@/api/generated-actions/KnowledgeLevel';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
@@ -8,7 +7,8 @@ import { getDomainAlias } from '@/api/getDomainAlias';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export async function KnowledgeLevelLinks({
   depth,

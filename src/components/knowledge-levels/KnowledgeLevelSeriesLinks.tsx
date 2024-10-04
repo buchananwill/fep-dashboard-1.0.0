@@ -1,8 +1,8 @@
-import { LeafComponentProps, NavLinkTree } from '@/app/core/navigation/types';
+import { NavLinkTree } from '@/app/core/navigation/links/types';
 import { Api } from '@/api/clientApi_';
-import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';
-import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
-import { WrappedLink } from '@/app/core/navigation/WrappedLink';
+import { NavLinkTreeButton } from '@/app/core/navigation/links/NavLinkTreeButton';
+import { WrappedHeader } from '@/app/core/navigation/links/WrappedHeader';
+import { WrappedLink } from '@/app/core/navigation/links/WrappedLink';
 import { navLinkTreeFromKnowledgeLevelSeries } from '@/components/knowledge-levels/NavLinkTreeFromKnowledgeLevelSeries';
 import {
   NavigationType,
@@ -10,6 +10,7 @@ import {
 } from '@/components/navigation/navLinkIcons';
 import { getFirstNVariables } from '@/components/work-task-types/getRootCardLayoutId';
 import { camelCase } from 'lodash';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export function getNavIndex(searchElement: NavigationType) {
   return navKeyList.indexOf(searchElement);

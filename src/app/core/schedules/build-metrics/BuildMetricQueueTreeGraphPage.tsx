@@ -1,9 +1,9 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import BuildMetricQueueTreeGraph from '@/app/core/schedules/build-metrics/BuildMetricQueueTreeGraph';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import React from 'react';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function BuildMetricQueueTreeGraphPage({
   pathVariables

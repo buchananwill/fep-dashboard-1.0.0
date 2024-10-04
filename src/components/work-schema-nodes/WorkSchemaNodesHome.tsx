@@ -1,11 +1,11 @@
 import { Api } from '@/api/clientApi_';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import WorkSchemaNodeRootGraph from '@/components/work-schema-nodes/WorkSchemaNodeRootGraph';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { chunk, sortBy } from 'lodash';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 const DESIRED_COLUMN_NUMBER = 3;
 

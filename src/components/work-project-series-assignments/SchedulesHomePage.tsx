@@ -1,7 +1,7 @@
-import { createLinksFromNavTree } from '@/app/core/navigation/createLinksFromNavTree';
-import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';
-import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
-import { WrappedLink } from '@/app/core/navigation/WrappedLink';
+import { createLinksFromNavTree } from '@/app/core/navigation/links/createLinksFromNavTree';
+import { NavLinkTreeButton } from '@/app/core/navigation/links/NavLinkTreeButton';
+import { WrappedHeader } from '@/app/core/navigation/links/WrappedHeader';
+import { WrappedLink } from '@/app/core/navigation/links/WrappedLink';
 import { scheduleChildren } from '@/app/core/schedules/scheduleChildren';
 
 const links = createLinksFromNavTree(

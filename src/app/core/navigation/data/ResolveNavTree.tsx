@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import React from 'react';
 import { camelCase } from 'lodash';
-import { NavTreeNode } from '@/app/core/navigation/types';
 import NavigationBreadcrumbs from '@/components/navigation/NavigationBreadcrumbs';
+import { NavTreeNode } from '@/app/core/navigation/data/types';
 
 export function ResolveNavTree({
   currentNode,

@@ -1,12 +1,9 @@
-import { navTreeData } from '@/app/core/navigation/navTreeData';
-import { createLinksFromNavTree } from '@/app/core/navigation/createLinksFromNavTree';
-import { NavLinkTreeButton } from '@/app/core/navigation/NavLinkTreeButton';
-import { WrappedLink } from '@/app/core/navigation/WrappedLink';
-import { WrappedHeader } from '@/app/core/navigation/WrappedHeader';
+import { NavLinkTreeButton } from '@/app/core/navigation/links/NavLinkTreeButton';
+import { WrappedLink } from '@/app/core/navigation/links/WrappedLink';
+import { WrappedHeader } from '@/app/core/navigation/links/WrappedHeader';
+import { linksFromNavTree } from '@/app/core/navigation/links/linksFromNavTree';
 
-export default function NavigationHome() {
-  const linksFromNavTree = createLinksFromNavTree(navTreeData, ['core'], []);
-
+export default async function NavigationHome() {
   return (
     <div className={'grid grid-cols-1 gap-2 p-4 md:grid-cols-3 lg:grid-cols-5'}>
       <NavLinkTreeButton

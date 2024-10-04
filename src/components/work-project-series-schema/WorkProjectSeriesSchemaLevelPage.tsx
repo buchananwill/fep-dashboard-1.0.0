@@ -6,12 +6,12 @@ import {
   postList,
   putList
 } from '@/api/generated-actions/WorkProjectSeriesSchema';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
   const { pathVariables } = props;

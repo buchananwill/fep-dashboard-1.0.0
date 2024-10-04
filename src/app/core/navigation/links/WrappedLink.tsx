@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
-import { NavTreeLinkWrapper } from '@/app/core/navigation/NavTreeLinkWrapper';
-import { LinkButtonThatJoinsList } from '@/app/core/navigation/LinkButtonThatJoinsList';
-import { LinkTreeElementProps } from '@/app/core/navigation/types';
+import { NavTreeLinkWrapper } from '@/app/core/navigation/links/NavTreeLinkWrapper';
+import { LinkButtonThatJoinsList } from '@/app/core/navigation/links/LinkButtonThatJoinsList';
+import { LinkTreeElementProps } from '@/app/core/navigation/links/types';
 
 export function WrappedLink({
   link,

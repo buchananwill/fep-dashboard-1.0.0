@@ -1,11 +1,11 @@
 import { Api } from '@/api/clientApi_';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import EnrollmentTable, {
   ClosureMap
 } from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTable';
 import { addClosure } from '@/components/work-schema-node-assignments/enrollment-table/addClosure';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function EnrollmentTablePage({}: LeafComponentProps) {
   const orgList = await Api.Organization.getDtoListByExampleList([

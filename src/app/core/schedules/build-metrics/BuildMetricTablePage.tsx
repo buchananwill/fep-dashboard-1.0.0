@@ -1,4 +1,3 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import BuildMetricTable from '@/app/core/schedules/build-metrics/BuildMetricTable';
@@ -10,6 +9,7 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import React from 'react';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function BuildMetricTablePage({
   pathVariables

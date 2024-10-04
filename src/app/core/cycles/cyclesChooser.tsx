@@ -1,6 +1,7 @@
 import { LinkListResourcePage } from '@/components/generic/LinkListResourcePage';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { LeafComponentProps } from '@/app/core/navigation/types';
+
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default function CyclesChooser({
   pathVariables,

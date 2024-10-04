@@ -1,23 +1,4 @@
 import { PropsWithChildren, ReactElement, ReactNode } from 'react';
-import { RequireAtLeastOne } from 'type-fest';
-
-export interface LeafComponentProps {
-  pathVariables: string[];
-  depth: number;
-}
-
-export type LeafComponent = (props: LeafComponentProps) => ReactNode;
-
-export interface NavTreeChildren {
-  [key: string]: NavTreeNode;
-}
-
-export type NavTreeNode = RequireAtLeastOne<{
-  children?: NavTreeChildren;
-  component?: LeafComponent;
-}>;
-
-export type NavTreeTypes = NavTreeNode | NavTreeChildren;
 
 export interface NavLinkTree {
   displayName: string;

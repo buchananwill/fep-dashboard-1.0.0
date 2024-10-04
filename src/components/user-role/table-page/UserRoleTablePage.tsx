@@ -1,11 +1,11 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import UserRoleEditTable from '@/components/user-role/table-page/UserRoleEditTable';
 import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function UserRoleTablePage({
   pathVariables,

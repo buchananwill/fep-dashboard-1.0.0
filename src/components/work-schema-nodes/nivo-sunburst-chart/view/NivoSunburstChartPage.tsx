@@ -2,13 +2,13 @@ import { WorkNodeResponsiveSunburst } from '@/components/work-schema-nodes/nivo-
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { NestedWorkNodeDto } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import WorkSchemaNodesHome from '@/components/work-schema-nodes/WorkSchemaNodesHome';
 import { colorizeKnowledgeDomainGroups } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
 import { camelCase } from 'lodash';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   const ignoreMoreThanFourVariableUntilKnowledgeLevelIsImplemented =

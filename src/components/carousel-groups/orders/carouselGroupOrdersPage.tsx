@@ -11,7 +11,6 @@ import RotationConnectionOverlay from '@/components/carousel-groups/orders/compo
 import { getCarouselGroups } from '@/components/carousel-groups/orders/getCarouselGroups';
 import { EmptyArray } from '@/api/literals';
 import { transformOptionForClientState } from '@/components/carousel-groups/orders/_functions/transformOptionForClientState';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
@@ -20,6 +19,7 @@ import { Api } from '@/api/clientApi_';
 import CarouselOrderModal from '@/components/carousel-groups/orders/order-modal/CarouselOrderModal';
 import { notFound } from 'next/navigation';
 import { CarouselOrderDto } from '@/api/generated-types/generated-types';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   const [id, levelOrdinal] = getLastNVariables(pathVariables, 2);

@@ -4,8 +4,8 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { getHeatMapSeriesList } from '@/api/actions-custom/getHeatMapSeriesList';
 import { EmptyArray } from '@/api/literals';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function carouselGroupHeatMapPage({
   pathVariables

@@ -5,7 +5,8 @@ import {
   BuildMetricTableFallback,
   WorkProjectSeriesMetricFallback
 } from '@/app/core/schedules/build-metrics/BuildMetricListHome';
-import { NavTreeChildren } from '@/app/core/navigation/types';
+
+import { NavTreeChildren } from '@/app/core/navigation/data/types';
 
 export const scheduleChildren: NavTreeChildren = {
   workProjectSeriesAssignments: {

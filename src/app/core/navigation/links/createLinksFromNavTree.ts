@@ -1,9 +1,6 @@
 import { kebabCase, startCase } from 'lodash';
-import {
-  NavLinkTree,
-  NavTreeNode,
-  NavTreeChildren
-} from '@/app/core/navigation/types';
+import { NavLinkTree } from '@/app/core/navigation/links/types';
+import { NavTreeChildren, NavTreeNode } from '@/app/core/navigation/data/types';
 
 export function createLinksFromNavTree(
   tree: NavTreeNode,

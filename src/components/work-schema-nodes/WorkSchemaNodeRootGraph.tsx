@@ -8,9 +8,9 @@ import { workSchemaNodeForceGraphOptions } from '@/components/work-schema-nodes/
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import WorkSchemaNodeGraph from '@/components/work-schema-nodes/_components/WorkSchemaNodeGraph';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { notFound } from 'next/navigation';
 import { GraphDto } from 'react-d3-force-wrapper';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function WorkSchemaNodeRootGraph({
   pathVariables,

@@ -1,10 +1,10 @@
 import { EntityClassMap } from '@/api/entity-class-map';
 import KnowledgeLevelTable from '@/components/knowledge-levels/KnowledgeLevelTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { Api } from '@/api/clientApi_';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function KnowledgeLevelsTablePage({
   pathVariables,

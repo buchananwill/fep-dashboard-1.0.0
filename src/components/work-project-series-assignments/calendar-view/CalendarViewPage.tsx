@@ -6,13 +6,13 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import CalendarWithShowHideSources, {
   eventSourceEntityClass
 } from '@/components/calendar/CalendarWithShowHideSources';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function CalendarViewPage({ pathVariables }: LeafComponentProps) {
   const [scheduleId] = getLastNVariables(pathVariables, 1);

@@ -5,9 +5,9 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Overlay } from '@/components/overlays/overlay';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import RootCard from '@/app/core/navigation/RootCard';
-import { LeafComponentProps } from '@/app/core/navigation/types';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 const MULTI_STEP_UNDO_MS = parseTen(process.env.MULTI_STEP_UNDO_MS!);
 const MULTI_UNDO_INCREMENT = parseTen(process.env.MULTI_UNDO_INCREMENT!);

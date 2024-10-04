@@ -14,7 +14,7 @@ import {
 import { notFound } from 'next/navigation';
 import { GenericTableDto, HasNumberId } from '@/api/types';
 import { CycleSubspanDto } from '@/api/generated-types/generated-types';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import pluralize from 'pluralize';
 

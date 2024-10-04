@@ -1,6 +1,6 @@
 import { LinkProps } from '@nextui-org/link';
 import Link from 'next/link';
-import { LinkTreeElementProps } from '@/app/core/navigation/types';
+import { LinkTreeElementProps } from '@/app/core/navigation/links/types';
 import clsx from 'clsx';
 import { ButtonProps } from '@nextui-org/button';
 import { Get } from 'type-fest';

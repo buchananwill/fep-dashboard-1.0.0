@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
-import { NavTreeLinkWrapper } from '@/app/core/navigation/NavTreeLinkWrapper';
+import { NavTreeLinkWrapper } from '@/app/core/navigation/links/NavTreeLinkWrapper';
 import { NoLinkHeader } from '@/components/navigation/LinkButton';
-import { LinkTreeElementProps } from '@/app/core/navigation/types';
+import { LinkTreeElementProps } from '@/app/core/navigation/links/types';
 
 export function WrappedHeader({
   children,

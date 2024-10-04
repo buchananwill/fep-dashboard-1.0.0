@@ -10,8 +10,8 @@ import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable
 import { Column, ColumnUid } from '@/types';
 import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 const entityType = EntityClassMap.userRole;
 

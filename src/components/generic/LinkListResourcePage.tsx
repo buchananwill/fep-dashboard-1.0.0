@@ -1,10 +1,10 @@
 import { EntityApiKey } from '@/api/types';
 import { Api } from '@/api/clientApi_';
-import { LinkButtonThatJoinsList } from '@/app/core/navigation/LinkButtonThatJoinsList';
-import { LeafComponentProps } from '@/app/core/navigation/types';
+import { LinkButtonThatJoinsList } from '@/app/core/navigation/links/LinkButtonThatJoinsList';
 import { startCase } from 'lodash';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export async function LinkListResourcePage({
   entityClass,

@@ -1,4 +1,3 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
@@ -27,6 +26,7 @@ import { IdListLinkCard } from '@/components/generic/IdListLinkCard';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { Suspense } from 'react';
 import When_loading from '@/app/core/when_loading';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,

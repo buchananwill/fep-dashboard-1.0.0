@@ -12,13 +12,13 @@ import {
 import { Api } from '@/api/clientApi_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { FullReport } from '@/components/feasibility-report/types';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { getLastNVariables } from '@/functions/getLastNVariables';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function ViewFeasibilityReportPage({
   pathVariables

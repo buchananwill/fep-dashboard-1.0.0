@@ -8,13 +8,13 @@ import {
   postList,
   putList
 } from '@/api/generated-actions/CarouselGroup';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/functions/getLastNVariables';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function CarouselGroupLevelPage({
   depth,

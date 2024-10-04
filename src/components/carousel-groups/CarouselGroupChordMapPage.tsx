@@ -1,7 +1,7 @@
 import { getChordMap } from '@/api/actions-custom/getHeatMapSeriesList';
 import ChordMapCarouselOrders from '@/components/carousel-groups/_components/ChordMapCarouselOrders';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function carouselGroupChordMapPage({
   pathVariables

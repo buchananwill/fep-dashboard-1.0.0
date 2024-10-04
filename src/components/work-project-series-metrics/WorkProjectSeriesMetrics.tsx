@@ -1,4 +1,3 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
@@ -6,6 +5,7 @@ import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/gene
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkProjectSeriesTableDataFetcher from '@/components/work-project-series-metrics/WorkProjectSeriesTableDataFetcher';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export async function WorkProjectSeriesMetricsPage({
   pathVariables

@@ -1,11 +1,11 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import ViewFeasibilityReportPage from '@/app/core/feasibility/ViewFeasibilityReportPage';
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function FeasibilityReportLinks({ pathVariables }: LeafComponentProps) {
   const feasibilityReportList = await Api.FeasibilityReport.getAll();

@@ -1,9 +1,9 @@
 import CycleViewer from '@/components/cycles/CycleViewer';
 import { getOne } from '@/api/generated-actions/Cycle';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import CyclesChooser from '@/app/core/cycles/cyclesChooser';
 import { getLastNVariables } from '@/functions/getLastNVariables';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function EditCycleSubspans({
   pathVariables,

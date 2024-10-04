@@ -9,12 +9,12 @@
 
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import CreateUserRoleForm from '@/components/user-role/create-user-role/CreateUserRoleForm';
 import { UserRoleDto } from '@/api/generated-types/generated-types';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export async function CreateUserRolePage({
   pathVariables

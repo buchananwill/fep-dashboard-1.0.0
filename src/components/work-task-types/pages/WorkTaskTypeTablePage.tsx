@@ -1,9 +1,9 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
 import WorkTaskTypeEditTable from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function WorkTaskTypeTablePage({
   pathVariables

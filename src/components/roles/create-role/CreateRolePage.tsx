@@ -1,4 +1,3 @@
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -17,8 +16,9 @@ import {
   WorkTaskTypeName
 } from '@/components/roles/create-role/literals';
 import FormWrapper from '@/components/roles/create-role/FormWrapper';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function CreateRolePage({
   pathVariables

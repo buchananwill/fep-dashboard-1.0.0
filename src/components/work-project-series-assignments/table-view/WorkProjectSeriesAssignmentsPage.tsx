@@ -9,7 +9,6 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import AssignmentTable, {
   AssignmentTableRowClassName
 } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import WorkProjectSeriesAssignmentTableView from '@/components/work-project-series-assignments/table-view/WorkProjectSeriesAssignmentTableView';
@@ -20,8 +19,9 @@ import {
   WorkProjectSeriesAssignmentDto
 } from '@/api/generated-types/generated-types';
 import React from 'react';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function WorkProjectSeriesAssignmentsForSchedule({
   pathVariables,

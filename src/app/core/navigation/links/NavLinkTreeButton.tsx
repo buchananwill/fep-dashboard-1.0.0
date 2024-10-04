@@ -4,7 +4,7 @@ import {
   LinkTreeElementProps,
   LinkWithChildLinks,
   NavLinkTree
-} from '@/app/core/navigation/types';
+} from '@/app/core/navigation/links/types';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import {
   NavigationType,
@@ -15,7 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import { NavLinkDescriptionsDefault } from '@/components/navigation/navLinkDescriptions';
 import { getDomainAlias } from '@/api/getDomainAlias';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 
 export function NavLinkTreeButton({
   navLinkNode,

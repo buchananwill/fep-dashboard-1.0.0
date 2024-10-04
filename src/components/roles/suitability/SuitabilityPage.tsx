@@ -12,7 +12,6 @@ import {
   RoleEntity,
   RolePageProps
 } from '@/components/roles/types';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { startCase } from 'lodash';
 import { LinkButton } from '@/components/navigation/LinkButton';
@@ -24,8 +23,9 @@ import AvailabilityPage from '@/components/roles/availability/availabilityPage';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export function getRoleEntityKey(roleCategory: 'user' | 'provider' | 'asset') {
   return `${roleCategory}Role` as keyof typeof EntityClassMap;

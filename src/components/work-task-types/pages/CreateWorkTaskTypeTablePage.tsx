@@ -6,10 +6,10 @@ import { getWorkTaskTypeTableLookUp } from '@/utils/init-json-data/service-categ
 import { createRows } from '@/functions/createRows';
 import columns from '@/utils/init-json-data/service-categories/KnowledgeLevel.json';
 import WorkTaskTypeIgmTable from '@/components/work-task-types/_components/WorkTaskTypeIgmTable';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { Api } from '@/api/clientApi_';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 const rowEntityName = 'Lesson Type';
 async function CreateWorkTaskTypeTablePage({

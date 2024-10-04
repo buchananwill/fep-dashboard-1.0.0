@@ -1,11 +1,11 @@
 import { KnowledgeDomainTable } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { LeafComponentProps } from '@/app/core/navigation/types';
 import { Api } from '@/api/clientApi_';
-import RootCard from '@/app/core/navigation/RootCard';
+import RootCard from '@/components/generic/RootCard';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import pluralize from 'pluralize';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export async function KnowledgeDomains({ pathVariables }: LeafComponentProps) {
   const knowledgeDomainList = await Api.KnowledgeDomain.getAll();
