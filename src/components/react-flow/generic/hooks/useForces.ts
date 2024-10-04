@@ -1,6 +1,6 @@
 import { useNodesInitialized, useReactFlow } from '@xyflow/react';
 import { MutableRefObject, useMemo, useRef } from 'react';
-import { forceX, forceY, HierarchyPointNode, Simulation } from 'd3';
+import { forceX, forceY, Simulation } from 'd3';
 
 import { useGlobalController, useGlobalListener } from 'selective-context';
 
@@ -13,10 +13,10 @@ import {
   useGraphDispatch
 } from 'react-d3-force-wrapper';
 import { collide } from '@/components/react-flow/generic/utils/collide';
-import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
-import { get } from 'lodash';
 import { InitialMap } from 'dto-stores';
 import { InitialSetRef } from '@/components/react-flow/literals';
+import { getHierarchyLayoutResolver } from '@/components/react-flow/generic/hooks/getTreeHierarchyLayoutResolver';
+import { hierarchicalLayoutMap } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 
 export const draggingNodeKey = 'dragging-node';
 
@@ -34,18 +34,6 @@ export type HasPosition = {
 };
 
 export type Layoutable = HasPosition & HasStringId;
-
-function getHierarchyLayoutResolver<T extends NodeDataType>(
-  layoutMap: MutableRefObject<Map<string, Layoutable>>,
-  dimension: keyof Pick<HierarchyPointNode<any>, 'x' | 'y'>
-) {
-  return (node: FlowNode<T>, index: number) => {
-    const hasPosition = layoutMap.current.get(node.id);
-    return hasPosition ? get(hasPosition, dimension, 0) : 0;
-  };
-}
-
-export const hierarchicalLayoutMap = 'hierarchicalLayoutMap';
 
 export function useForces(
   applyFitView?: boolean
@@ -69,6 +57,8 @@ export function useForces(
 
   const localRef = useRef(InitialMap as Map<string, Layoutable>);
   localRef.current = currentState.current;
+
+  console.log({ currentState, localRef });
 
   const overrideForces = useMemo(() => {
     const xResolver = getHierarchyLayoutResolver(localRef, 'y');

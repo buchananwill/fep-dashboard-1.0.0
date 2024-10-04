@@ -4,8 +4,7 @@ import React, {
   PropsWithChildren,
   useCallback,
   useEffect,
-  useMemo,
-  useRef
+  useMemo
 } from 'react';
 import { Background, BackgroundVariant, Panel, ReactFlow } from '@xyflow/react';
 import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
@@ -64,42 +63,11 @@ import { useIdToEdgeMapMemo } from '@/components/react-flow/generic/hooks/useIdT
 import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/functions/useWorkSchemaNodeRollupMemo';
 import { LeftToRightEdge } from '@/components/react-flow/generic/components/edges/LeftToRightEdge';
-import { useHierarchicalDataLayoutMemo } from '@/components/react-flow/generic/hooks/useHierarchicalDataLayoutMemo';
-import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
-import {
-  hierarchicalLayoutMap,
-  Layoutable
-} from '@/components/react-flow/generic/hooks/useForces';
 import { useValidateAndUpdateDepth } from '@/components/react-flow/generic/hooks/useValidateAndUpdateDepth';
 import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
+import { useHierarchicalTreeLayout } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
-
-const options: HierarchicalDataOptions = {
-  nodeSize: [50, 400],
-  orientation: 'horizontal'
-};
-
-export function usePreComputedPositionForce(
-  layoutMemo: Map<string, Layoutable>
-) {
-  const layoutMemoRef = useRef(InitialMap as Map<string, Layoutable>);
-
-  layoutMemoRef.current = layoutMemo;
-
-  useGlobalController({
-    contextKey: hierarchicalLayoutMap,
-    listenerKey: 'workSchemaNodeLayout',
-    initialValue: layoutMemoRef
-  });
-}
-
-export function useHierarchicalTreeLayout(
-  idToChildIdMap: Map<string, Set<string>>
-) {
-  const [layoutMemo] = useHierarchicalDataLayoutMemo(idToChildIdMap, options);
-  usePreComputedPositionForce(layoutMemo as Map<string, Layoutable>);
-}
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children

@@ -9,12 +9,15 @@ import {
 import { useMemo } from 'react';
 import { HierarchyPointNode } from 'd3';
 import { HasStringId } from 'react-d3-force-wrapper';
+import { constructUrl } from '@/api/actions/template-base-endpoints';
+import { Layoutable } from '@/components/react-flow/generic/hooks/useForces';
 
 function getOrientationCorrector(orientation: 'horizontal' | 'vertical') {
   return function correctOrientation<T extends HasStringId>(
     map: Map<string, HierarchyPointNode<T>>,
     index: number
   ) {
+    console.log({ map });
     if (orientation === 'vertical') {
       [...map.values()].forEach((hpn) => {
         const { x, y } = hpn;
@@ -28,13 +31,15 @@ function getOrientationCorrector(orientation: 'horizontal' | 'vertical') {
   };
 }
 
-export function useHierarchicalDataLayoutMemo(
+export function useTreeHierarchicalDataLayoutMemo(
   childMap: StringIdHierarchyMap,
   options?: HierarchicalDataOptions
-) {
+): Map<string, Layoutable>[] {
   const rootNodeList = useHierarchicalDataMemo(childMap);
 
-  return useMemo(() => {
+  const memoedMap = useMemo(() => {
+    if (rootNodeList.length === 0)
+      return [new Map()] as Map<string, Layoutable>[];
     const correctOrientation = getOrientationCorrector(
       options?.orientation ?? 'horizontal'
     );
@@ -43,6 +48,8 @@ export function useHierarchicalDataLayoutMemo(
       .map(flattenHierarchicalLayoutDataStructure)
       .map(correctOrientation);
   }, [rootNodeList, options]);
+  console.log({ rootNodeList, memoedMap });
+  return memoedMap as Map<string, Layoutable>[];
 }
 
 function flattenHierarchicalLayoutDataStructure<T extends HasStringId>(
@@ -57,5 +64,6 @@ function flattenHierarchicalLayoutDataStructure<T extends HasStringId>(
         responseMap.set(key, value)
       );
     });
+  console.log({ responseMap });
   return responseMap;
 }
