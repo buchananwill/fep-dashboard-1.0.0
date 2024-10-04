@@ -4,7 +4,7 @@ import {
   DataNodeDto,
   reMapNodeIdWithoutValidating
 } from 'react-d3-force-wrapper';
-import { OrganizationDataNodeDtoSchema } from '@/components/react-flow/organization/organizationCallbacks';
+import { OrganizationDataNodeDtoSchema } from '@/components/react-flow/organization/functions/organizationCallbacks';
 
 export function convertBackToDataNodeDtoOrganizationNode(
   node: DataNode<OrganizationDto>

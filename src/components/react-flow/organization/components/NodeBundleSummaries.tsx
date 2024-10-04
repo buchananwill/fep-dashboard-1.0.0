@@ -1,6 +1,7 @@
 import { Chip } from '@nextui-org/chip';
 import React from 'react';
-import { AllocationSummary } from '@/components/react-flow/organization/allocationSummary';
+
+import { AllocationSummary } from '@/components/react-flow/organization/types';
 
 export default function NodeBundleSummaries({
   summaries

@@ -6,8 +6,8 @@ import { FlowOverlay } from '@/components/react-flow/generic/components/generic/
 import {
   cloneFunctionWrapper,
   organizationGraphUpdater
-} from '@/components/react-flow/organization/organizationCallbacks';
-import OrganizationDetailsContent from '@/components/react-flow/organization/OrganizationDetailsContent';
+} from '@/components/react-flow/organization/functions/organizationCallbacks';
+import OrganizationDetailsContent from '@/components/react-flow/organization/components/OrganizationDetailsContent';
 
 import {
   DataLink,
@@ -17,8 +17,7 @@ import {
   useModalContent,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
-import { AllocationTotal } from '@/components/react-flow/organization/allocationTotal';
-import { OrganizationNode } from '@/components/react-flow/organization/OrganizationNode';
+import { OrganizationNode } from '@/components/react-flow/organization/components/OrganizationNode';
 import {
   EditAddDeleteDtoControllerArray,
   NamespacedHooks,
@@ -28,19 +27,20 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { OrganizationDto as OrgDto } from '@/api/generated-types/generated-types';
 import { OrganizationTypeDto } from '@/api/generated-types/generated-types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/convertBackToDataNodeDtoOrganizationNode';
+import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/functions/convertBackToDataNodeDtoOrganizationNode';
 import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';
 import { convertToOrganizationNode } from '@/components/react-flow/generic/utils/adaptors';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditableFlow';
 import { TopToBottomEdge } from '@/components/react-flow/generic/components/edges/TopToBottomEdge';
 import { FlowNode } from '@/components/react-flow/generic/types';
-import { useOrientedDepthLayout } from '@/components/react-flow/organization/useOrientedDepthLayout';
+import { useOrientedDepthLayout } from '@/components/react-flow/generic/hooks/useOrientedDepthLayout';
 import { Simplify } from 'type-fest';
 import { useValidateAndUpdateDepth } from '@/components/react-flow/generic/hooks/useValidateAndUpdateDepth';
 import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
 import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
+import { AllocationTotal } from '@/components/react-flow/organization/types';
 
 type OrganizationDto = Simplify<OrgDto>;
 

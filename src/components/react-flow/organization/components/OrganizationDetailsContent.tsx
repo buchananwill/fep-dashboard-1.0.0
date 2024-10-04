@@ -36,7 +36,6 @@ import { listenerKeyDetailsContent } from '@/app/_literals';
 import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
-const whileLoading = () => null;
 export default function OrganizationDetailsContent({
   onClose
 }: Partial<NodeModalContentProps>) {

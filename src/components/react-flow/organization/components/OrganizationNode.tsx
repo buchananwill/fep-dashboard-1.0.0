@@ -10,11 +10,11 @@ import {
   useGlobalListenerGroup
 } from 'selective-context';
 import { isNumber } from 'lodash';
-import { AllocationSummary } from '@/components/react-flow/organization/allocationSummary';
-import NodeBundleSummaries from '@/components/react-flow/organization/NodeBundleSummaries';
+import NodeBundleSummaries from '@/components/react-flow/organization/components/NodeBundleSummaries';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
 import { Simplify } from 'type-fest';
+import { AllocationSummary } from '@/components/react-flow/organization/types';
 
 const initialTotalMap = new Map<string, number>();
 
