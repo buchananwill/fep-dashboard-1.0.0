@@ -9,6 +9,6 @@ export default async function submitKnowledgeLevelSeries(
 ) {
   return postEntitiesWithDifferentReturnType(
     data,
-    constructUrl('/api/v2/workSchemaNode/knowledgeLevelSeriesGroup')
+    constructUrl('/api/v2/workSchemaNodes/knowledgeLevelSeriesGroup')
   );
 }

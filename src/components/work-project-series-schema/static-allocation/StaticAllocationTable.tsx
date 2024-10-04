@@ -26,12 +26,6 @@ export default function StaticAllocationTable({
   tableData: StaticAllocationTableDto;
 }) {
   const { rowList, columnList } = tableData;
-  // const tableProps = useFilteredRows(
-  //   tableData,
-  //   EntityClassMap.workProjectSeriesSchema
-  // );
-  //
-  //
 
   const tableProps = useTableProps(rowList, columnList);
 
