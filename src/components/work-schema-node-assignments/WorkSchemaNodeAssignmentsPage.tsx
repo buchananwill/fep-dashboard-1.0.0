@@ -29,15 +29,15 @@ async function WorkSchemaNodeAssignmentsPage({
   depth
 }: LeafComponentProps) {
   const [levelOrdinal] = getLastNVariables(pathVariables, 1);
-  const [orgType] = await getDtoListByExampleList([
-    // { name: `Year ${levelOrdinal}` }
-    // { name: 'Class' },
+  const organizationTypeDtos = await getDtoListByExampleList([
+    { name: `Year ${levelOrdinal}` },
+    { name: 'Class' },
     { name: 'Work Group' }
   ]);
+  const [orgType] = organizationTypeDtos;
 
   const orgList = await Api.Organization.getDtoListByExampleList([
-    { type: { name: 'Work Group' } },
-    { type: { name: 'Class' } }
+    ...organizationTypeDtos.map((typeDto) => ({ type: typeDto }))
   ]);
 
   const idList = orgList.map((org) => org.id);

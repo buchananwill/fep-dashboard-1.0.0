@@ -78,9 +78,9 @@ export function OrganizationNode(
 
   const summaries: AllocationSummary[] = useMemo(() => {
     return [
-      { label: 'Local', amount: allocationRollupOrZero / 4 },
-      { label: 'Inherited', amount: inheritedTotal / 4 },
-      { label: 'Total', amount: (allocationRollupOrZero + inheritedTotal) / 4 }
+      { label: 'Local', amount: allocationRollupOrZero },
+      { label: 'Inherited', amount: inheritedTotal },
+      { label: 'Total', amount: allocationRollupOrZero + inheritedTotal }
     ];
   }, [allocationRollupOrZero, inheritedTotal]);
 
