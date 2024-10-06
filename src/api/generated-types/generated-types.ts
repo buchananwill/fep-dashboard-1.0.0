@@ -130,13 +130,6 @@ export interface IntersectionTableRequestBody<T, U> {
   idListTypeU: U[];
 }
 
-export interface TabularDTO<H, D> {
-  numberOfRows: number;
-  numberOfColumns: number;
-  headerData: H[];
-  cellDataAndMetaData: CellDataAndMetaData<D>[];
-}
-
 export interface BreakDto {
   startTime: DateAsString;
   endTime: DateAsString;

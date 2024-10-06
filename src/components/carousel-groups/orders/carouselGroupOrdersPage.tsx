@@ -43,6 +43,8 @@ async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   const carouselDtoList =
     await Api.Carousel.getDtoListByBodyList(carouselIdList);
   const optionStateList = transformOptionForClientState(carouselDtoList);
+  const workProjectSeriesSchemaDtos =
+    await Api.WorkProjectSeriesSchema.getDtoListByBodyList(schemaIdList);
 
   return (
     <>
@@ -56,10 +58,9 @@ async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
         dtoList={optionStateList}
       />
       <MasterMapController entityClass={CarouselOptionState} />
-      <DataFetchingEditDtoControllerArray
-        idList={schemaIdList}
+      <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.workProjectSeriesSchema}
-        getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}
+        dtoList={workProjectSeriesSchemaDtos}
       />
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}

@@ -8,11 +8,11 @@ export const SelectionPathKey = 'selectionPath';
 export default function SelectionController({
   initialKnowledgeLevelSeriesGroup
 }: {
-  initialKnowledgeLevelSeriesGroup: KnowledgeLevelSeriesGroupTemplate;
+  initialKnowledgeLevelSeriesGroup?: KnowledgeLevelSeriesGroupTemplate;
 }) {
   useGlobalController({
     contextKey: SelectionPathKey,
-    initialValue: initialKnowledgeLevelSeriesGroup.path ?? '',
+    initialValue: initialKnowledgeLevelSeriesGroup?.path ?? '',
     listenerKey: 'edit-buttons'
   });
 

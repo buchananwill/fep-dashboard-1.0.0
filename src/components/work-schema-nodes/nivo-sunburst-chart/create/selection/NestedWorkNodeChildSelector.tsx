@@ -22,7 +22,7 @@ import { Select, Selection, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { MonoFunction } from '@/types';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { getHours } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
+import { getCycleSubspanSize } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
 import { getDomainAlias } from '@/api/getDomainAlias';
 
 export default function NestedWorkNodeChildSelector({
@@ -173,7 +173,7 @@ function nodeLabelAccessor(node: WorkNodeHierarchy) {
   const pathOf = splitPathOf(node);
   switch (node.type) {
     case 'leaf': {
-      return getHours(node.size);
+      return getCycleSubspanSize(node.size);
     }
     case 'bundle': {
       return node.name ?? node.path;
@@ -187,7 +187,10 @@ function nodeLabelAccessor(node: WorkNodeHierarchy) {
         : `no ${getDomainAlias('knowledgeDomains')}`;
     }
     case 'leafList': {
-      return ['Size: ', getHours(parseInt(pathOf[pathOf.length - 1]))].join('');
+      return [
+        'Size: ',
+        getCycleSubspanSize(parseInt(pathOf[pathOf.length - 1]))
+      ].join('');
     }
     default: {
       return node.path;

@@ -1,7 +1,7 @@
 import { ComputedDatum } from '@nivo/sunburst';
 import { WorkNodeHierarchy } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import {
-  getHours,
+  getCycleSubspanSize,
   getKdStringCode
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
 
@@ -15,7 +15,7 @@ export function getWorkNodeHierarchyLabel(data: WorkNodeHierarchy) {
       return `${kdStringCode}`;
     }
     case 'leaf': {
-      return `${data.size / 4}hrs`;
+      return `${data.size}`;
     }
     case 'bundle':
       return data.name ?? data.path;
@@ -32,7 +32,7 @@ export function nestedWorkNodeArcLabel(
   computedData: ComputedDatum<WorkNodeHierarchy>
 ) {
   const { data, value, parent } = computedData;
-  const hours = getHours(value);
+  const hours = getCycleSubspanSize(value);
   const nodeHierarchyLabel = getWorkNodeHierarchyLabel(data);
   switch (data.type) {
     case 'bundle':

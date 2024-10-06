@@ -8,7 +8,7 @@ import { initSafely } from '@/utils/init-database-functions/initSafely';
 import { CycleDto } from '@/api/generated-types/generated-types';
 
 export async function initCycleSubspans(cycle: CycleDto) {
-  const cycleLengthInDays = cycle.cycleLengthInDays;
+  const cycleLengthInDays = cycle.cycleLengthInWeeks * 7;
   const daysWithinNewCycle = data
     .filter(
       (cycleSubspan) => cycleSubspan.zeroIndexedCycleDay < cycleLengthInDays

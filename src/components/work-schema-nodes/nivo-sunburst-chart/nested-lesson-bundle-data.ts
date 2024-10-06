@@ -1,11 +1,11 @@
 import { HasIdClass, HasNumberId } from '@/api/types';
 import {
   CycleDto,
-  HasName,
   KnowledgeDomainDto,
   KnowledgeLevelDto,
   KnowledgeLevelSeriesDto
 } from '@/api/generated-types/generated-types';
+import { HasName } from 'react-d3-force-wrapper';
 
 export type DeliveryAllocationBase = Partial<HasNumberId> & {
   path: string;

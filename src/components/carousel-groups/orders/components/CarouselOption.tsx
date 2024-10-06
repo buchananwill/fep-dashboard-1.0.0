@@ -1,5 +1,6 @@
 'use client';
 import {
+  useDtoStore,
   useDtoStoreDispatch,
   useLazyDtoStore,
   useWriteAnyDto
@@ -91,15 +92,18 @@ export default function CarouselOption({
     );
 
   // Subscribe to schema and work type data.
-  const { entity: schema } = useLazyDtoStore<WorkProjectSeriesSchemaDto>(
-    workProjectSeriesSchemaId,
-    EntityClassMap.workProjectSeriesSchema
-  );
+  const { entity: schema } = useDtoStore<WorkProjectSeriesSchemaDto>({
+    entityId: workProjectSeriesSchemaId,
+    entityClass: EntityClassMap.workProjectSeriesSchema,
+    listenerKey: `carouselOption:${entity.id}`
+  });
 
-  const { entity: workTaskType } = useLazyDtoStore<WorkTaskTypeDto>(
-    schema?.workTaskType?.id ?? NaN,
-    EntityClassMap.workTaskType
-  );
+  // const { entity: workTaskType } = useLazyDtoStore<WorkTaskTypeDto>(
+  //   schema?.workTaskType?.id ?? NaN,
+  //   EntityClassMap.workTaskType
+  // );
+
+  const workTaskType = schema?.workTaskType;
 
   // Get the dispatch for editing any dropped order.
   const dispatchWriteAny = useWriteAnyDto<CarouselOrderDto>(

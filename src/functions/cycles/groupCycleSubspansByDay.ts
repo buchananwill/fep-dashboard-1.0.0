@@ -34,7 +34,7 @@ export function groupCycleSubspansByDay<T extends CycleSubspanDto>(
   // @ts-ignore
   const startDay = DayOfWeekArray.indexOf(DayOfWeekObject[cycle.cycleDayZero]);
 
-  for (let i = 0; i < cycle.cycleLengthInDays; i++) {
+  for (let i = 0; i < cycle.cycleLengthInWeeks * 7; i++) {
     const dayNum = (startDay + i) % 7;
     cycleDays.push({ zeroIndexedCycleDay: i, day: DayOfWeekArray[dayNum] });
     const groupedByCycleDayElement = groupedByCycleDay[i];
@@ -50,7 +50,7 @@ export function createCycleDays<T extends CycleSubspanDto>(cycle: CycleDto) {
   // @ts-ignore
   const startDay = DayOfWeekArray.indexOf(DayOfWeekObject[cycle.cycleDayZero]);
 
-  for (let i = 0; i < cycle.cycleLengthInDays; i++) {
+  for (let i = 0; i < cycle.cycleLengthInWeeks * 7; i++) {
     const dayNum = (startDay + i) % 7;
     cycleDays.push({ zeroIndexedCycleDay: i, day: DayOfWeekArray[dayNum] });
   }

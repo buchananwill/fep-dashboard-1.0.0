@@ -7,7 +7,7 @@ import { ButtonEditGroupProps } from '@/components/work-schema-nodes/nivo-sunbur
 import { MemoEditButton } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/WorkNodeHierarchyButton';
 import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
 import { getTypeDepth } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { getHours } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
+import { getCycleSubspanSize } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
 
 export default function LeafListButtonGroup({
   selectionLength,
@@ -22,7 +22,7 @@ export default function LeafListButtonGroup({
 
   const hours = useMemo(() => {
     const hours = parseInt(splitPath[getTypeDepth('leafList')]);
-    return isNaN(hours) ? '' : getHours(hours);
+    return isNaN(hours) ? '' : getCycleSubspanSize(hours);
   }, [splitPath]);
 
   return (

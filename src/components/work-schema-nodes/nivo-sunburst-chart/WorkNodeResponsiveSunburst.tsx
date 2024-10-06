@@ -12,10 +12,13 @@ import {
 import { getInheritedColorGenerator } from '@nivo/colors';
 import { patternDotsDef } from '@nivo/core';
 import { useGlobalDispatch } from 'selective-context';
-import { SelectionPathKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/SelectionController';
+import SelectionController, {
+  SelectionPathKey
+} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/SelectionController';
 import React, { useCallback } from 'react';
 import { SelectionLayer } from '@/components/work-schema-nodes/nivo-sunburst-chart/selection-layer/SelectionLayer';
 import { nestedWorkNodeArcLabel } from '@/components/work-schema-nodes/nivo-sunburst-chart/nestedWorkNodeArcLabel';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 function callOutLayer(props: SunburstCustomLayerProps<WorkNodeHierarchy>) {
   props.arcGenerator;
@@ -39,42 +42,41 @@ export function WorkNodeResponsiveSunburst({
   );
 
   return (
-    <ResponsiveSunburst
-      layers={['arcs', 'arcLabels', SelectionLayer]}
-      theme={{
-        text: {
-          fontSize: 12,
-          outlineWidth: 0,
-          outlineColor: 'transparent'
+    <>
+      <SelectionController
+        initialKnowledgeLevelSeriesGroup={
+          data.type === 'knowledgeLevelSeriesGroup' ? data : undefined
         }
-      }}
-      data={data}
-      margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
-      id={'path'}
-      value="size"
-      cornerRadius={10}
-      borderWidth={2}
-      borderColor={{ from: 'color', modifiers: [] }}
-      onClick={handleClick}
-      defs={[
-        patternDotsDef('dots', {
-          color: '#a1a1a1',
-          size: 3,
-          padding: 1,
-          stagger: false,
-          background: '#ffffff'
-        })
-      ]}
-      colors={{ scheme: 'set3' }}
-      childColor={customChildColors}
-      enableArcLabels={true}
-      arcLabel={nestedWorkNodeArcLabel}
-      arcLabelsSkipAngle={5}
-      arcLabelsTextColor={{
-        from: 'color',
-        modifiers: [['darker', 2]]
-      }}
-    />
+      />
+
+      <ResponsiveSunburst
+        layers={['arcs', 'arcLabels', SelectionLayer]}
+        theme={{
+          text: {
+            fontSize: 12,
+            outlineWidth: 0,
+            outlineColor: 'transparent'
+          }
+        }}
+        data={data}
+        margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+        id={'path'}
+        value="size"
+        cornerRadius={10}
+        borderWidth={2}
+        borderColor={{ from: 'color', modifiers: [] }}
+        onClick={handleClick}
+        colors={{ scheme: 'set3' }}
+        childColor={customChildColors}
+        enableArcLabels={true}
+        arcLabel={nestedWorkNodeArcLabel}
+        arcLabelsSkipAngle={5}
+        arcLabelsTextColor={{
+          from: 'color',
+          modifiers: [['darker', 2]]
+        }}
+      />
+    </>
   );
 }
 
@@ -87,8 +89,8 @@ export function getKdStringCode(data: KnowledgeDomainGroup) {
     .join(',');
 }
 
-export function getHours(value: number) {
-  return `${value / 4} hrs`;
+export function getCycleSubspanSize(value: number) {
+  return `${value} ${getDomainAlias('cycleSubspan')}s`;
 }
 
 function customChildColors(parent: Datum, child: Datum) {

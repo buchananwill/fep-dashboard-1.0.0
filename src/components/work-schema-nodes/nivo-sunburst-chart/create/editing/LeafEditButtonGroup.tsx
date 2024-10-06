@@ -18,7 +18,7 @@ import { useSelectedEntityMap } from '@/hooks/useEntitySelection';
 import { CycleDto } from '@/api/generated-types/generated-types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { MemoEditButton } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/WorkNodeHierarchyButton';
-import { getHours } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
+import { getCycleSubspanSize } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
 import { useGlobalListener } from 'selective-context';
 import {
   klsgTemplate,
@@ -78,7 +78,7 @@ export default function LeafEditGroup({
         editCommand={handleAddDeliveryAllocationLeaf}
         isDisabled={selectionLength <= knowledgeDomainGroupDepth || !sizeToAdd}
       >
-        Add: {getHours(sizeToAdd?.value ?? 1)}
+        Add: {getCycleSubspanSize(sizeToAdd?.value ?? 1)}
       </MemoEditButton>
       <Dropdown placement="bottom-end">
         <DropdownTrigger>
@@ -96,7 +96,9 @@ export default function LeafEditGroup({
           items={cycleSubspanGroupSizeItems}
         >
           {(item) => (
-            <DropdownItem key={item.id}>{getHours(item.value)}</DropdownItem>
+            <DropdownItem key={item.id}>
+              {getCycleSubspanSize(item.value)}
+            </DropdownItem>
           )}
         </DropdownMenu>
       </Dropdown>
