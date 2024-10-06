@@ -216,13 +216,16 @@ export default function CarouselOption({
 
   // Compute dynamic styling
   let fallBackColor: 'default' | 'warning' = 'default';
+  let fallBackColorBg: 'bg-default-300' | 'bg-warning-300' = 'bg-default-300';
   if (currentItem && currentItemType === DragTypes.CAROUSEL_ORDER_ITEM) {
     const orderItem = currentItem as CarouselOrderItemDto;
     if (
       entity.carouselOrderAssignees.includes(orderItem.carouselOrderId) &&
       entity.workProjectSeriesSchemaId !== orderItem.workProjectSeriesSchemaId
-    )
+    ) {
       fallBackColor = 'warning';
+      fallBackColorBg = 'bg-warning-300';
+    }
   }
 
   const loading = !schema || !workTaskType;
@@ -249,26 +252,30 @@ export default function CarouselOption({
           {loading ? (
             <PendingOverlay pending={true} />
           ) : (
-            <ButtonGroup className={'flex h-full w-full justify-between'}>
+            <div className={'flex h-full w-full justify-between'}>
               <Popover style={zIndexPopoverOverride}>
                 <PopoverTrigger>
-                  <Button
+                  <button
                     className={clsx(
-                      'flex w-full justify-between pl-2 pr-1',
+                      'flex h-full w-full justify-between rounded-lg pl-2 pr-1',
+                      canDrop ? 'bg-primary-300' : fallBackColorBg,
                       textFade
                     )}
-                    color={canDrop ? 'primary' : fallBackColor}
                   >
                     <span className={'truncate'}>
                       {workTaskType.knowledgeDomain?.name}
                     </span>
-                    <Chip
-                      className={clsx(badgeColor, textFade)}
+                    <div
+                      className={clsx(
+                        badgeColor,
+                        textFade,
+                        'min-w-10 rounded-full p-1'
+                      )}
                       ref={assignChipRef}
                     >
                       {entity.carouselOrderAssignees.length}
-                    </Chip>
-                  </Button>
+                    </div>
+                  </button>
                 </PopoverTrigger>
                 <PopoverContent
                   className={clsx(
@@ -280,9 +287,12 @@ export default function CarouselOption({
                   <OrderItemAssigneeList carouselOptionDto={entity} />
                 </PopoverContent>
               </Popover>
-              <Button
-                className={'relative w-fit min-w-0 px-1'}
-                onPress={() =>
+              <button
+                className={clsx(
+                  'relative flex h-full w-fit rounded-lg p-1',
+                  canDrop ? 'bg-primary-300' : fallBackColorBg
+                )}
+                onClick={() =>
                   highlightSubject((list) => {
                     if (isHighlighted)
                       return list.filter(
@@ -292,7 +302,6 @@ export default function CarouselOption({
                     else return [...list, entity.workProjectSeriesSchemaId];
                   })
                 }
-                color={canDrop ? 'primary' : fallBackColor}
               >
                 <AcademicCapIconFilled
                   className={clsx(
@@ -310,18 +319,19 @@ export default function CarouselOption({
                     textFade
                   )}
                 />
-              </Button>
-              <Button
-                isIconOnly
-                isDisabled={!canPrime}
+              </button>
+              <button
+                disabled={!canPrime}
                 className={clsx(
-                  'w-fit min-w-0 px-1  opacity-100',
-                  !canDrop && 'data-[disabled]:bg-default-300'
+                  'inline-block h-full w-fit rounded-lg px-1 opacity-100',
+                  !canDrop && 'data-[disabled]:bg-default-300',
+                  isPrimed
+                    ? 'bg-success-400'
+                    : canDrop
+                      ? 'bg-primary-400'
+                      : fallBackColorBg
                 )}
-                color={
-                  isPrimed ? 'success' : canDrop ? 'primary' : fallBackColor
-                }
-                onPress={() => {
+                onClick={() => {
                   dispatchRotationPrime((list) => {
                     if (isPrimed)
                       return list.filter((idItem) => idItem !== entity.id);
@@ -337,8 +347,8 @@ export default function CarouselOption({
                     !canPrime && 'opacity-0'
                   )}
                 />
-              </Button>
-            </ButtonGroup>
+              </button>
+            </div>
           )}
         </div>
       )}

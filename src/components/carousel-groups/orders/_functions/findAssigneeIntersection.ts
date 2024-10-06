@@ -2,17 +2,21 @@ import { Identifier } from 'dto-stores';
 import { isNotUndefined } from '@/api/main';
 import { InitialSet } from '@/app/_literals';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 export function findAssigneeIntersection(
   rotationPrimeList: number[],
   readAnyOption: (
     optionID: Identifier
   ) => CarouselOptionStateInterface | undefined
-) {
-  const assigneesFilteredList = rotationPrimeList
+): Set<string> {
+  const optionStateList = rotationPrimeList
     .map((optionId) => readAnyOption(optionId))
-    .filter(isNotUndefined)
-    .map((option) => new Set(option.carouselOrderAssignees)); // Convert each list to a set
+    .filter(isNotUndefined);
+
+  const assigneesFilteredList = optionStateList.map(
+    (option) => new Set(option.carouselOrderAssignees)
+  ); // Convert each list to a set
 
   if (assigneesFilteredList.length === 0) {
     return InitialSet as Set<string>;

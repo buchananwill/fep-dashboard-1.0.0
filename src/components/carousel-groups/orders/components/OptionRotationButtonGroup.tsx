@@ -46,6 +46,7 @@ import {
   CarouselDto,
   CarouselOrderDto
 } from '@/api/generated-types/generated-types';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 export type OptionRotationDirection = 'forwards' | 'backwards';
 type RotationCycle = {
@@ -91,11 +92,18 @@ export default function OptionRotationButtonGroup() {
   const filteredOrders = filteredOrdersRef.current;
 
   useEffect(() => {
-    filteredOrdersRef.current = findAssigneeIntersection(
-      rotationPrimeList,
-      readAnyOption
-    );
-    dispatchFilteredOrders(filteredOrdersRef.current);
+    const deferredUpdate = async () => {
+      let id = idDecrementer();
+      const label = `finding-intersection${id}`;
+      console.time(label);
+      filteredOrdersRef.current = findAssigneeIntersection(
+        rotationPrimeList,
+        readAnyOption
+      );
+      dispatchFilteredOrders(filteredOrdersRef.current);
+      console.timeEnd(label);
+    };
+    deferredUpdate();
   }, [dispatchFilteredOrders, rotationPrimeList, readAnyOption]);
 
   const { dispatch: dispatchRotationTargets } = useGlobalController({

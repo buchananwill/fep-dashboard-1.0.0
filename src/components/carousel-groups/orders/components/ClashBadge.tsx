@@ -5,15 +5,21 @@ export function ClashBadge({
   show,
   className,
   children,
+  content,
   ...otherProps
 }: Omit<BadgeProps, 'color'> & { show: boolean }) {
   return (
-    <Badge
-      className={clsx(show ? '' : 'hidden')}
-      color={'danger'}
-      {...otherProps}
-    >
+    <div className={'relative inline-block h-full w-full'}>
       {children}
-    </Badge>
+      {show && (
+        <span
+          className={
+            'absolute right-0 top-0 -translate-y-1/2 translate-x-1/2 transform rounded-full bg-red-500 px-2 py-1 text-xs font-bold text-white'
+          }
+        >
+          {content}
+        </span>
+      )}
+    </div>
   );
 }
