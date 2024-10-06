@@ -95,7 +95,7 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
   return (
     <div className={'grid grid-cols-1 gap-1'}>
       {sortedOptionStateList.map((optionProps) => (
-        <CarouselOption key={optionProps.entity.id} {...optionProps} />
+        <MemoCarouselOption key={optionProps.entity.id} {...optionProps} />
       ))}
     </div>
   );

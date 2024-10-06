@@ -34,7 +34,10 @@ import {
   CarouselOptionStateInterface,
   OptionRotationTarget
 } from '@/components/carousel-groups/orders/_types';
-import { HighlightedSubjects } from '@/components/carousel-groups/orders/_literals';
+import {
+  HighlightedSubjects,
+  RotationPrime
+} from '@/components/carousel-groups/orders/_literals';
 import { canAssignToOrderItem } from '@/components/carousel-groups/orders/_functions/canAssignOptionToOrderItem';
 import { ClashBadge } from '@/components/carousel-groups/orders/components/ClashBadge';
 import { getAssigneeCountColor } from '@/components/carousel-groups/orders/_functions/getAssigneeCountColor';
@@ -145,7 +148,7 @@ export default function CarouselOption({
     currentState: rotationPrimeList,
     dispatchWithoutControl: dispatchRotationPrime
   } = useGlobalDispatchAndListener({
-    contextKey: 'rotationPrime',
+    contextKey: RotationPrime,
     listenerKey: listenerKey,
     initialValue: EmptyArray
   });
