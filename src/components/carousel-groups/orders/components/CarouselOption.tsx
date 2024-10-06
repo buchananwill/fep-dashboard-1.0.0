@@ -1,15 +1,8 @@
 'use client';
-import {
-  useDtoStore,
-  useDtoStoreDispatch,
-  useLazyDtoStore,
-  useWriteAnyDto
-} from 'dto-stores';
+import { useDtoStore, useDtoStoreDispatch, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@nextui-org/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { useEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 
@@ -20,8 +13,6 @@ import {
   useGlobalListener
 } from 'selective-context';
 import clsx from 'clsx';
-import { Chip } from '@nextui-org/chip';
-import { ButtonGroup } from '@nextui-org/react';
 import { AcademicCapIcon } from '@heroicons/react/24/outline';
 import {
   AcademicCapIcon as AcademicCapIconFilled,
@@ -50,9 +41,9 @@ import { initialMap } from '@/app/_literals';
 import {
   CarouselOrderDto,
   CarouselOrderItemDto,
-  WorkProjectSeriesSchemaDto,
-  WorkTaskTypeDto
+  WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
+import { Popover } from 'react-tiny-popover';
 
 export const CarouselOptionState = 'CarouselOptionState';
 export const zIndexPopoverOverride = { zIndex: 50 };
@@ -234,6 +225,8 @@ export default function CarouselOption({
 
   const textFade = assigneeCount === 0 ? 'text-gray-400' : undefined;
 
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
   const badgeColor = useMemo(() => {
     return schema
       ? getAssigneeCountColor(assigneeCount, schema)
@@ -241,7 +234,7 @@ export default function CarouselOption({
   }, [assigneeCount, schema]);
 
   return (
-    <ClashBadge show={entity.clashMap.size > 0} content={entity.clashMap.size}>
+    <ClashMemo show={entity.clashMap.size > 0} content={entity.clashMap.size}>
       {drop(
         <div
           className={clsx(
@@ -253,39 +246,36 @@ export default function CarouselOption({
             <PendingOverlay pending={true} />
           ) : (
             <div className={'flex h-full w-full justify-between'}>
-              <Popover style={zIndexPopoverOverride}>
-                <PopoverTrigger>
-                  <button
-                    className={clsx(
-                      'flex h-full w-full justify-between rounded-lg pl-2 pr-1',
-                      canDrop ? 'bg-primary-300' : fallBackColorBg,
-                      textFade
-                    )}
-                  >
-                    <span className={'truncate'}>
-                      {workTaskType.knowledgeDomain?.name}
-                    </span>
-                    <div
-                      className={clsx(
-                        badgeColor,
-                        textFade,
-                        'min-w-10 rounded-full p-1'
-                      )}
-                      ref={assignChipRef}
-                    >
-                      {entity.carouselOrderAssignees.length}
-                    </div>
-                  </button>
-                </PopoverTrigger>
-                <PopoverContent
+              <Popover
+                isOpen={isPopoverOpen}
+                content={
+                  <div className={'rounded-large bg-white p-2 shadow-large'}>
+                    <OrderItemAssigneeList carouselOptionDto={entity} />
+                  </div>
+                }
+              >
+                <button
+                  onClick={() => setIsPopoverOpen((prev) => !prev)}
                   className={clsx(
-                    !!currentItem && 'opacity-10 ',
-                    'transition-opacity'
+                    'flex h-full w-full justify-between rounded-lg pl-2 pr-1',
+                    canDrop ? 'bg-primary-300' : fallBackColorBg,
+                    textFade
                   )}
                 >
-                  <div></div>
-                  <OrderItemAssigneeList carouselOptionDto={entity} />
-                </PopoverContent>
+                  <span className={'truncate'}>
+                    {workTaskType.knowledgeDomain?.name}
+                  </span>
+                  <div
+                    className={clsx(
+                      badgeColor,
+                      textFade,
+                      'min-w-10 rounded-full p-1'
+                    )}
+                    ref={assignChipRef}
+                  >
+                    {entity.carouselOrderAssignees.length}
+                  </div>
+                </button>
               </Popover>
               <button
                 className={clsx(
@@ -303,7 +293,7 @@ export default function CarouselOption({
                   })
                 }
               >
-                <AcademicCapIconFilled
+                <MemoCapFilled
                   className={clsx(
                     'w-6',
                     isHighlighted && 'text-red-500',
@@ -311,7 +301,7 @@ export default function CarouselOption({
                     'absolute transition-colors-opacity'
                   )}
                 />
-                <AcademicCapIcon
+                <MemoCap
                   className={clsx(
                     'w-6',
                     isHighlighted && 'opacity-0',
@@ -339,7 +329,7 @@ export default function CarouselOption({
                   });
                 }}
               >
-                <ArrowDownIcon
+                <ArrowMemo
                   className={clsx(
                     'w-6 px-0 py-0.5',
                     isPrimed && 'animate-bounce-less',
@@ -352,6 +342,11 @@ export default function CarouselOption({
           )}
         </div>
       )}
-    </ClashBadge>
+    </ClashMemo>
   );
 }
+
+const MemoCap = memo(AcademicCapIcon);
+const MemoCapFilled = memo(AcademicCapIconFilled);
+const ClashMemo = memo(ClashBadge);
+const ArrowMemo = memo(ArrowDownIcon);

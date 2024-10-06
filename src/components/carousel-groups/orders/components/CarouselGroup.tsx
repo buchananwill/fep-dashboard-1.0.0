@@ -102,9 +102,9 @@ export default function CarouselGroup(params: DtoStoreParams) {
   if (!entity) return null;
 
   return (
-    <Card>
+    <div className={'m-4 rounded-xl p-4 shadow-large'}>
       <PendingOverlay pending={isPending} />
-      <CardHeader className={'grid w-full grid-cols-3'}>
+      <div className={'grid w-full grid-cols-3'}>
         <TwoStageClick
           primedMessage={
             'This will remove all manual assignments and re-calculate the Carousel Options.'
@@ -115,8 +115,8 @@ export default function CarouselGroup(params: DtoStoreParams) {
           Reset...
         </TwoStageClick>
         <OptionRotationButtonGroup />
-      </CardHeader>
-      <CardBody>
+      </div>
+      <div>
         <div
           className={'grid gap-1 p-4'}
           style={{
@@ -140,8 +140,8 @@ export default function CarouselGroup(params: DtoStoreParams) {
             )}
           />
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </div>
   );
 }
 
