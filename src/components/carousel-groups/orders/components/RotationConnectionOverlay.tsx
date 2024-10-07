@@ -6,11 +6,11 @@ import { curveBasis, interpolateObject, line } from 'd3';
 import { isNotNull, isNotUndefined } from '@/api/main';
 import { ControllerKey, initialMap } from '@/app/_literals';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
-import { HasId } from '@/api/types';
+import { HasId, HasNumberId } from '@/api/types';
 
 export interface ConnectionVector {
-  source?: Coordinate & HasId;
-  target?: Coordinate & HasId;
+  source?: Coordinate & HasNumberId;
+  target?: Coordinate & HasNumberId;
 }
 
 export const RotationConnectionMap = 'rotationConnectionMap';

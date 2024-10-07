@@ -62,4 +62,4 @@ function ShowAssigneesButtonInner(props: {
   );
 }
 
-export const ShowAssigneesButton = memo(ShowAssigneesButtonInner);
+export const ShowAssigneesButton = ShowAssigneesButtonInner; // memo(ShowAssigneesButtonInner);

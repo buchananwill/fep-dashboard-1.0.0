@@ -1,15 +1,16 @@
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useGlobalDispatch } from 'selective-context';
 import {
   ConnectionVector,
   RotationConnectionMap
 } from '@/components/carousel-groups/orders/components/RotationConnectionOverlay';
+import { Coordinate } from '@/components/react-flow/generic/types';
+import { HasId } from '@/api/types';
 
 export function useRotationOverlayPositioning(
   isPrimed: boolean,
   isAntiPrimed: boolean,
-  workProjectSeriesSchemaId: number,
   entity: CarouselOptionStateInterface
 ) {
   // Chip location calculation condition: primed or anti-primed
@@ -18,6 +19,18 @@ export function useRotationOverlayPositioning(
     Map<number, ConnectionVector>
   >(RotationConnectionMap);
   const primeState = useRef({ prime: false, antiPrime: false });
+
+  const elementRef = assignChipRef.current;
+
+  const center: (Coordinate & HasId) | undefined = useMemo(() => {
+    if (!elementRef) return undefined;
+    const { top, left, width, height } = elementRef.getBoundingClientRect();
+    return {
+      x: left + width / 2,
+      y: top + height / 2,
+      id: entity.id
+    };
+  }, [elementRef, entity]);
 
   /*
    *  Use prime/anti-prime to signal connection location.
@@ -29,19 +42,12 @@ export function useRotationOverlayPositioning(
     const antiPrimeChange = primeState.current.antiPrime !== isAntiPrimed;
 
     if (
-      assignChipRef.current &&
+      center &&
       (primeChange || antiPrimeChange || isPrimed || isAntiPrimed)
     ) {
-      const { top, left, width, height } =
-        assignChipRef.current.getBoundingClientRect();
-      const center = {
-        x: left + width / 2,
-        y: top + height / 2
-      };
-
       dispatchConnectionMap((currentMap) => {
         const map = new Map(currentMap);
-        const currentConnection = map.get(workProjectSeriesSchemaId);
+        const currentConnection = map.get(entity.workProjectSeriesSchemaId);
         const updatedConnection: ConnectionVector = {
           ...currentConnection
         };
@@ -60,7 +66,7 @@ export function useRotationOverlayPositioning(
               ? undefined
               : updatedConnection.target;
         }
-        map.set(workProjectSeriesSchemaId, updatedConnection);
+        map.set(entity.workProjectSeriesSchemaId, updatedConnection);
         return map;
       });
     }

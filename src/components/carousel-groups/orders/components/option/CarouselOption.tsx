@@ -35,6 +35,7 @@ import {
 import { RotationPrimeButton } from '@/components/carousel-groups/orders/components/option/RotationPrimeButton';
 import { HighlightMatchingSchemasButton } from '@/components/carousel-groups/orders/components/option/HighlightMatchingSchemasButton';
 import { ShowAssigneesButton } from '@/components/carousel-groups/orders/components/option/ShowAssigneesButton';
+import { motion } from 'framer-motion';
 
 export const CarouselOptionState = 'CarouselOptionState';
 
@@ -177,7 +178,11 @@ export default function CarouselOption({
           {loading ? (
             <PendingOverlay pending={true} />
           ) : (
-            <div className={'flex h-full w-full justify-between'}>
+            <motion.div
+              className={'flex h-full w-full justify-between'}
+              layoutId={`carousel-option:${entity.id}`}
+              layout
+            >
               <ShowAssigneesButton
                 textFade={textFade}
                 canDrop={canDrop}
@@ -219,7 +224,7 @@ export default function CarouselOption({
                 }}
                 textFade={textFade}
               />
-            </div>
+            </motion.div>
           )}
         </div>
       )}
