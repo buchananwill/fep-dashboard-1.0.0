@@ -177,7 +177,7 @@ export default function CarouselOption({
           {loading ? (
             <PendingOverlay pending={true} />
           ) : (
-            <ButtonGroup className={'flex h-full w-full justify-between'}>
+            <div className={'flex h-full w-full justify-between'}>
               <ShowAssigneesButton
                 textFade={textFade}
                 canDrop={canDrop}
@@ -219,7 +219,7 @@ export default function CarouselOption({
                 }}
                 textFade={textFade}
               />
-            </ButtonGroup>
+            </div>
           )}
         </div>
       )}
