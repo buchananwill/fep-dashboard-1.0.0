@@ -24,7 +24,6 @@ function ShowAssigneesButtonInner(props: {
   const assignChipRef = useRotationOverlayPositioning(
     props.isPrimed ?? false,
     props.isAntiPrimed ?? false,
-    props.carouselOptionDto.workProjectSeriesSchemaId,
     props.carouselOptionDto
   );
 

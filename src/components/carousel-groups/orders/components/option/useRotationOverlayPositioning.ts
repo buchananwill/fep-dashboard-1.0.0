@@ -22,7 +22,7 @@ export function useRotationOverlayPositioning(
 
   const elementRef = assignChipRef.current;
 
-  const center: (Coordinate & HasId) | undefined = useMemo(() => {
+  const localNode: (Coordinate & HasId) | undefined = useMemo(() => {
     if (!elementRef) return undefined;
     const { top, left, width, height } = elementRef.getBoundingClientRect();
     return {
@@ -42,31 +42,55 @@ export function useRotationOverlayPositioning(
     const antiPrimeChange = primeState.current.antiPrime !== isAntiPrimed;
 
     if (
-      center &&
+      localNode &&
       (primeChange || antiPrimeChange || isPrimed || isAntiPrimed)
     ) {
       dispatchConnectionMap((currentMap) => {
-        const map = new Map(currentMap);
-        const currentConnection = map.get(entity.workProjectSeriesSchemaId);
-        const updatedConnection: ConnectionVector = {
-          ...currentConnection
-        };
-        if (isPrimed) {
-          updatedConnection.source = { ...center, id: entity.id };
-        } else if (!isPrimed && primeChange) {
-          updatedConnection.source =
-            updatedConnection.source?.id === entity.id
-              ? undefined
-              : updatedConnection.source;
-        } else if (isAntiPrimed) {
-          updatedConnection.target = { ...center, id: entity.id };
-        } else if (!isAntiPrimed && antiPrimeChange) {
-          updatedConnection.target =
-            updatedConnection.target?.id === entity.id
-              ? undefined
-              : updatedConnection.target;
+        let map = currentMap;
+        const currentConnection = currentMap.get(
+          entity.workProjectSeriesSchemaId
+        );
+        let currentSource = currentConnection?.source;
+        let currentTarget = currentConnection?.target;
+        // Start out with the update being the current
+        let updatedConnection = currentConnection;
+
+        // Check a series of conditions and maybe reassign...
+
+        // Condition to set the local node as the source
+        if (isPrimed && currentSource !== localNode) {
+          updatedConnection = { ...updatedConnection, source: localNode };
+          console.log({ currentConnection, updatedConnection });
         }
-        map.set(entity.workProjectSeriesSchemaId, updatedConnection);
+        // condition to remove the local node as the source
+        else if (
+          !isPrimed &&
+          primeChange &&
+          currentSource?.id === localNode.id
+        ) {
+          updatedConnection = { ...updatedConnection, source: undefined };
+          console.log({ currentConnection, updatedConnection });
+        }
+        // condition to set the local node as the target
+        else if (isAntiPrimed && currentTarget !== localNode) {
+          updatedConnection = { ...updatedConnection, target: localNode };
+          console.log({ currentConnection, updatedConnection });
+        }
+        // condition to remove the local node as the target
+        else if (
+          !isAntiPrimed &&
+          antiPrimeChange &&
+          currentTarget?.id === localNode.id
+        ) {
+          updatedConnection = { ...updatedConnection, target: undefined };
+          console.log({ currentConnection, updatedConnection });
+        }
+
+        // If the references no longer match, we now update the map
+        if (updatedConnection && currentConnection !== updatedConnection) {
+          map = new Map(map);
+          map.set(entity.workProjectSeriesSchemaId, updatedConnection);
+        }
         return map;
       });
     }
