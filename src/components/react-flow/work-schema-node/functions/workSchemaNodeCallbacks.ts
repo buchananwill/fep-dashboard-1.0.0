@@ -18,7 +18,7 @@ import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/wor
 import { FlowNode } from '@/components/react-flow/generic/types';
 import { CarouselDto } from '@/api/generated-types/generated-types';
 import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/functions/getGraphUpdaterWithNameDeDuplication';
-import { ReadAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
+import { ReadAnyDto } from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 import { MonoFunction } from '@/types';
 import { WorkSchemaNodeDtoSchema } from '@/api/generated-schemas/schemas_';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';

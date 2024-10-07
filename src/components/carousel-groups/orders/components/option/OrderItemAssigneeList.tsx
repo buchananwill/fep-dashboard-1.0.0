@@ -1,5 +1,5 @@
 import { useSingleOptionAssigneeList } from '@/components/carousel-groups/orders/_hooks/useOrderItemAssigneeList';
-import CarouselOrderItem from './CarouselOrderItem';
+import CarouselOrderItem from '../order/CarouselOrderItem';
 
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 

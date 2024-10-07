@@ -1,6 +1,6 @@
 import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
 import { produce } from 'immer';
-import { WriteAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
+import { WriteAnyDto } from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 
 export function handleRemoveAssignee(

@@ -1,5 +1,5 @@
 import { EntityClassMap } from '@/api/entity-class-map';
-import CarouselOrder from '@/components/carousel-groups/orders/components/CarouselOrder';
+import CarouselOrder from '@/components/carousel-groups/orders/components/order/CarouselOrder';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 
 export default function CarouselOrderList({

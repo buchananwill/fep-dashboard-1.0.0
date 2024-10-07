@@ -1,4 +1,4 @@
-import { WriteAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
+import { WriteAnyDto } from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 import { produce } from 'immer';
 import {
   CarouselOptionDto,

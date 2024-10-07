@@ -10,7 +10,7 @@ import {
 import { CarouselOrderDto } from '@/api/generated-types/generated-types';
 import { SetStateAction, useEffect, useRef } from 'react';
 import { useGlobalReadAny } from 'selective-context';
-import { CarouselOptionState } from '@/components/carousel-groups/orders/components/CarouselOption';
+import { CarouselOptionState } from '@/components/carousel-groups/orders/components/option/CarouselOption';
 import { performDiffOnCarouselOrderItem } from '@/components/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
 import { CarouselOptionDto } from '@/api/generated-types/generated-types';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';

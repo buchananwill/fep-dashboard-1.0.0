@@ -5,7 +5,7 @@ import { handleRemoveAssignee } from '@/components/carousel-groups/orders/_funct
 import {
   ReadAnyDto,
   WriteAnyDto
-} from '@/components/carousel-groups/orders/components/CarouselOrderManager';
+} from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 
 export function performDiffOnCarouselOrderItem(

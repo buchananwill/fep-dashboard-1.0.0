@@ -1,6 +1,6 @@
 import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
 import { CarouselOptionDto } from '@/api/generated-types/generated-types';
-import { CarouselOptionState } from '@/components/carousel-groups/orders/components/CarouselOption';
+import { CarouselOptionState } from '@/components/carousel-groups/orders/components/option/CarouselOption';
 import { SetRequired } from 'type-fest';
 
 type HasDefinedOptionId = SetRequired<CarouselOrderItemDto, 'carouselOptionId'>;

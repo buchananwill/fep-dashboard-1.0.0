@@ -2,7 +2,7 @@ import { BaseLazyDtoUiProps, NamespacedHooks } from 'dto-stores';
 import { CarouselDto } from '@/api/generated-types/generated-types';
 import CarouselOption, {
   CarouselOptionState
-} from '@/components/carousel-groups/orders/components/CarouselOption';
+} from '@/components/carousel-groups/orders/components/option/CarouselOption';
 import { memo, useEffect, useMemo, useRef } from 'react';
 import { useGlobalListener, useGlobalListenerGroup } from 'selective-context';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';

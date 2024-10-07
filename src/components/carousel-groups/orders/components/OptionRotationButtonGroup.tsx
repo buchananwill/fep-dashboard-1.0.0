@@ -7,10 +7,7 @@ import {
   useGlobalDispatch,
   useGlobalDispatchAndListener
 } from 'selective-context';
-import {
-  CarouselOptionState,
-  zIndexPopoverOverride
-} from '@/components/carousel-groups/orders/components/CarouselOption';
+import { CarouselOptionState } from '@/components/carousel-groups/orders/components/option/CarouselOption';
 import { isNotUndefined } from '@/api/main';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -22,7 +19,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { assignOrderItemToOption } from '@/components/carousel-groups/orders/_functions/assignOrderItemToOption';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import CarouselOrderList from '@/components/carousel-groups/orders/components/CarouselOrderList';
+import CarouselOrderList from '@/components/carousel-groups/orders/components/order/CarouselOrderList';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
 import clsx from 'clsx';
@@ -47,6 +44,7 @@ import {
   CarouselOrderDto
 } from '@/api/generated-types/generated-types';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
+import { zIndexPopoverOverride } from '@/components/carousel-groups/orders/components/option/ShowAssigneesButton';
 
 export type OptionRotationDirection = 'forwards' | 'backwards';
 type RotationCycle = {
@@ -92,18 +90,11 @@ export default function OptionRotationButtonGroup() {
   const filteredOrders = filteredOrdersRef.current;
 
   useEffect(() => {
-    const deferredUpdate = async () => {
-      let id = idDecrementer();
-      const label = `finding-intersection${id}`;
-      console.time(label);
-      filteredOrdersRef.current = findAssigneeIntersection(
-        rotationPrimeList,
-        readAnyOption
-      );
-      dispatchFilteredOrders(filteredOrdersRef.current);
-      console.timeEnd(label);
-    };
-    deferredUpdate();
+    filteredOrdersRef.current = findAssigneeIntersection(
+      rotationPrimeList,
+      readAnyOption
+    );
+    dispatchFilteredOrders(filteredOrdersRef.current);
   }, [dispatchFilteredOrders, rotationPrimeList, readAnyOption]);
 
   const { dispatch: dispatchRotationTargets } = useGlobalController({

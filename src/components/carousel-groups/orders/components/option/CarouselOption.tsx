@@ -2,22 +2,16 @@
 import { useDtoStore, useDtoStoreDispatch, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
-
-import OrderItemAssigneeList from '@/components/carousel-groups/orders/components/OrderItemAssigneeList';
 import {
   useGlobalDispatch,
   useGlobalDispatchAndListener,
   useGlobalListener
 } from 'selective-context';
 import clsx from 'clsx';
-import { AcademicCapIcon } from '@heroicons/react/24/outline';
-import {
-  AcademicCapIcon as AcademicCapIconFilled,
-  ArrowDownIcon
-} from '@heroicons/react/24/solid';
+import { ButtonGroup } from '@nextui-org/react';
 import { assignOrderItemToOption } from '@/components/carousel-groups/orders/_functions/assignOrderItemToOption';
 
 import { OptionRotationTargets } from '@/components/carousel-groups/orders/components/OptionRotationButtonGroup';
@@ -30,7 +24,7 @@ import {
   RotationPrime
 } from '@/components/carousel-groups/orders/_literals';
 import { canAssignToOrderItem } from '@/components/carousel-groups/orders/_functions/canAssignOptionToOrderItem';
-import { ClashBadge } from '@/components/carousel-groups/orders/components/ClashBadge';
+import { ClashBadge } from '@/components/generic/ClashBadge';
 import { getAssigneeCountColor } from '@/components/carousel-groups/orders/_functions/getAssigneeCountColor';
 import { EmptyArray } from '@/api/literals';
 import {
@@ -43,10 +37,12 @@ import {
   CarouselOrderItemDto,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
-import { Popover } from 'react-tiny-popover';
+import { RotationPrimeButton } from '@/components/carousel-groups/orders/components/option/RotationPrimeButton';
+import { HighlightMatchingSchemasButton } from '@/components/carousel-groups/orders/components/option/HighlightMatchingSchemasButton';
+import { ShowAssigneesButton } from '@/components/carousel-groups/orders/components/option/ShowAssigneesButton';
 
 export const CarouselOptionState = 'CarouselOptionState';
-export const zIndexPopoverOverride = { zIndex: 50 };
+
 export default function CarouselOption({
   entity,
   canPrime
@@ -207,7 +203,6 @@ export default function CarouselOption({
 
   // Compute dynamic styling
   let fallBackColor: 'default' | 'warning' = 'default';
-  let fallBackColorBg: 'bg-default-300' | 'bg-warning-300' = 'bg-default-300';
   if (currentItem && currentItemType === DragTypes.CAROUSEL_ORDER_ITEM) {
     const orderItem = currentItem as CarouselOrderItemDto;
     if (
@@ -215,7 +210,6 @@ export default function CarouselOption({
       entity.workProjectSeriesSchemaId !== orderItem.workProjectSeriesSchemaId
     ) {
       fallBackColor = 'warning';
-      fallBackColorBg = 'bg-warning-300';
     }
   }
 
@@ -225,8 +219,6 @@ export default function CarouselOption({
 
   const textFade = assigneeCount === 0 ? 'text-gray-400' : undefined;
 
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-
   const badgeColor = useMemo(() => {
     return schema
       ? getAssigneeCountColor(assigneeCount, schema)
@@ -234,7 +226,7 @@ export default function CarouselOption({
   }, [assigneeCount, schema]);
 
   return (
-    <ClashMemo show={entity.clashMap.size > 0} content={entity.clashMap.size}>
+    <ClashBadge show={entity.clashMap.size > 0} content={entity.clashMap.size}>
       {drop(
         <div
           className={clsx(
@@ -245,44 +237,20 @@ export default function CarouselOption({
           {loading ? (
             <PendingOverlay pending={true} />
           ) : (
-            <div className={'flex h-full w-full justify-between'}>
-              <Popover
-                isOpen={isPopoverOpen}
-                content={
-                  <div className={'rounded-large bg-white p-2 shadow-large'}>
-                    <OrderItemAssigneeList carouselOptionDto={entity} />
-                  </div>
-                }
-              >
-                <button
-                  onClick={() => setIsPopoverOpen((prev) => !prev)}
-                  className={clsx(
-                    'flex h-full w-full justify-between rounded-lg pl-2 pr-1',
-                    canDrop ? 'bg-primary-300' : fallBackColorBg,
-                    textFade
-                  )}
-                >
-                  <span className={'truncate'}>
-                    {workTaskType.knowledgeDomain?.name}
-                  </span>
-                  <div
-                    className={clsx(
-                      badgeColor,
-                      textFade,
-                      'min-w-10 rounded-full p-1'
-                    )}
-                    ref={assignChipRef}
-                  >
-                    {entity.carouselOrderAssignees.length}
-                  </div>
-                </button>
-              </Popover>
-              <button
-                className={clsx(
-                  'relative flex h-full w-fit rounded-lg p-1',
-                  canDrop ? 'bg-primary-300' : fallBackColorBg
-                )}
-                onClick={() =>
+            <ButtonGroup className={'flex h-full w-full justify-between'}>
+              <ShowAssigneesButton
+                textFade={textFade}
+                canDrop={canDrop}
+                fallBackColor={fallBackColor}
+                workTaskType={workTaskType}
+                badgeColor={badgeColor}
+                ref={assignChipRef}
+                strings={entity.carouselOrderAssignees}
+                dragHappening={!!currentItem}
+                carouselOptionDto={entity}
+              />
+              <HighlightMatchingSchemasButton
+                onPress={() =>
                   highlightSubject((list) => {
                     if (isHighlighted)
                       return list.filter(
@@ -292,61 +260,31 @@ export default function CarouselOption({
                     else return [...list, entity.workProjectSeriesSchemaId];
                   })
                 }
-              >
-                <MemoCapFilled
-                  className={clsx(
-                    'w-6',
-                    isHighlighted && 'text-red-500',
-                    !isHighlighted && 'opacity-0',
-                    'absolute transition-colors-opacity'
-                  )}
-                />
-                <MemoCap
-                  className={clsx(
-                    'w-6',
-                    isHighlighted && 'opacity-0',
-                    'transition-colors-opacity',
-                    textFade
-                  )}
-                />
-              </button>
-              <button
-                disabled={!canPrime}
-                className={clsx(
-                  'inline-block h-full w-fit rounded-lg px-1 opacity-100',
-                  !canDrop && 'data-[disabled]:bg-default-300',
-                  isPrimed
-                    ? 'bg-success-400'
-                    : canDrop
-                      ? 'bg-primary-400'
-                      : fallBackColorBg
-                )}
-                onClick={() => {
+                canDrop={canDrop}
+                fallBackColor={fallBackColor}
+                highlighted={isHighlighted}
+                textFade={textFade}
+              />
+              <RotationPrimeButton
+                canPrime={canPrime}
+                canDrop={canDrop}
+                primed={isPrimed}
+                fallBackColor={fallBackColor}
+                onPress={() => {
                   dispatchRotationPrime((list) => {
                     if (isPrimed)
                       return list.filter((idItem) => idItem !== entity.id);
                     else return [...list, entity.id];
                   });
                 }}
-              >
-                <ArrowMemo
-                  className={clsx(
-                    'w-6 px-0 py-0.5',
-                    isPrimed && 'animate-bounce-less',
-                    textFade,
-                    !canPrime && 'opacity-0'
-                  )}
-                />
-              </button>
-            </div>
+                textFade={textFade}
+              />
+            </ButtonGroup>
           )}
         </div>
       )}
-    </ClashMemo>
+    </ClashBadge>
   );
 }
 
-const MemoCap = memo(AcademicCapIcon);
-const MemoCapFilled = memo(AcademicCapIconFilled);
 const ClashMemo = memo(ClashBadge);
-const ArrowMemo = memo(ArrowDownIcon);

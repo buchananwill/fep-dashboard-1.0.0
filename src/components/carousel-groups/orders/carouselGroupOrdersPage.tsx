@@ -6,7 +6,7 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import CarouselGroup from '@/components/carousel-groups/orders/components/CarouselGroup';
-import { CarouselOptionState } from '@/components/carousel-groups/orders/components/CarouselOption';
+import { CarouselOptionState } from '@/components/carousel-groups/orders/components/option/CarouselOption';
 import RotationConnectionOverlay from '@/components/carousel-groups/orders/components/RotationConnectionOverlay';
 import { getCarouselGroups } from '@/components/carousel-groups/orders/getCarouselGroups';
 import { EmptyArray } from '@/api/literals';

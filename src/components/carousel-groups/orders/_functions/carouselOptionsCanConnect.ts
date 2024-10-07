@@ -14,7 +14,7 @@ import {
 } from '@/components/carousel-groups/orders/_functions/buildCompleteCycle';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { CarouselDto } from '@/api/generated-types/generated-types';
-import { ReadAnyDto } from '@/components/carousel-groups/orders/components/CarouselOrderManager';
+import { ReadAnyDto } from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 
 export function getOptionConnectionValidator(
   readAnyCarousel: ReadAnyDto<CarouselDto>
