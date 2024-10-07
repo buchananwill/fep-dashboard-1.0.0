@@ -9,9 +9,9 @@ import {
 import { DtoUiWrapper } from 'dto-stores';
 import { IntersectionGeneratorRowWithHeader } from '@/api/types';
 import { NumberPropertyKey } from '@/types';
-import { HasName } from '@/api/generated-types/generated-types';
+import { HasNameDto } from '@/api/generated-types/generated-types';
 
-export default function IgmTable<T extends HasName>({
+export default function IgmTable<T extends HasNameDto>({
   rowEntityClass,
   tableRows,
   tableColumns,

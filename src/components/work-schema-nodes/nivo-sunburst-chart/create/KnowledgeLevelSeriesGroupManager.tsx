@@ -12,7 +12,7 @@ import { EmptyArray } from '@/api/literals';
 import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  HasName,
+  HasNameDto,
   KnowledgeDomainDto,
   KnowledgeLevelDto
 } from '@/api/generated-types/generated-types';
@@ -22,7 +22,7 @@ import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHas
 import submitKnowledgeLevelSeriesGroup from '@/components/work-schema-nodes/nivo-sunburst-chart/create/submitAction';
 import { makeKnowledgeLevelGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 
-type WorkTaskTypeNameDto = HasName & HasNumberId;
+type WorkTaskTypeNameDto = HasNameDto & HasNumberId;
 
 const listenerKey = 'klg-controller';
 export const KnowledgeLevelSeriesGroupContextKey = 'knowledgeLevelSeriesGroup';

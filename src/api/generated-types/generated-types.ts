@@ -130,10 +130,6 @@ export interface IntersectionTableRequestBody<T, U> {
   idListTypeU: U[];
 }
 
-export interface HasName {
-  name: string;
-}
-
 export interface BreakDto {
   startTime: DateAsString;
   endTime: DateAsString;

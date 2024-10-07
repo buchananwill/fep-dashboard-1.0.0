@@ -4,7 +4,7 @@ import {
   RenderErrorsMap
 } from '@/components/roles/create-role/FlattenArrayErrorsAndRender';
 import {
-  HasName,
+  HasNameDto,
   RolePostRequest,
   SuitabilityPostRequest
 } from '@/api/generated-types/generated-types';
@@ -26,7 +26,11 @@ const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {
   }
 };
 
-export function RoleAspectSelectors({ roleEntity }: { roleEntity: RoleEntity }) {
+export function RoleAspectSelectors({
+  roleEntity
+}: {
+  roleEntity: RoleEntity;
+}) {
   const {
     formState: { errors }
   } = useFormContext<RolePostRequest<any>>();
@@ -57,7 +61,7 @@ export function RoleAspectSelectors({ roleEntity }: { roleEntity: RoleEntity }) 
         isInvalid={!!roleTypeErrors?.length}
         errorMessage={<>{roleTypeErrors && roleTypeErrors}</>}
       />
-      <FilteredEntitySelector<HasNumberId & HasName>
+      <FilteredEntitySelector<HasNumberId & HasNameDto>
         entityClass={WorkTaskTypeName}
         labelAccessor={'name'}
         selectionMode={'multiple'}

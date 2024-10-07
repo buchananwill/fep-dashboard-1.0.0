@@ -7,7 +7,7 @@ import {
 
 import { HasId } from '@/api/types';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
-import { HasName } from '@/api/generated-types/generated-types';
+import { HasNameDto } from '@/api/generated-types/generated-types';
 import clsx from 'clsx';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
@@ -56,7 +56,7 @@ export function NamedEntityLabel({
   ...divProps
 }: GenericDivProps &
   SetOptional<
-    BaseDtoUiProps<HasName & HasId>,
+    BaseDtoUiProps<HasNameDto & HasId>,
     'deleted' | 'dispatchDeletion'
   >) {
   const tooltip = useFloatingTooltip(<TooltipMemo text={entity.name} />);
@@ -69,7 +69,7 @@ export function NamedEntityLabel({
 
 export function NamedEntityLabelWrapper(
   props: Omit<
-    LazyDtoUiWrapperProps<HasName & HasId, GenericDivProps>,
+    LazyDtoUiWrapperProps<HasNameDto & HasId, GenericDivProps>,
     'renderAs' | 'whileLoading'
   >
 ) {

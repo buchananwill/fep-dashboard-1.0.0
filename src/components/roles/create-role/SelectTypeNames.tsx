@@ -6,7 +6,7 @@ import { RoleEntity } from '@/components/roles/types';
 import { OneOf } from '@/components/types/oneOf';
 import {
   AssetRoleTypeDto,
-  HasName,
+  HasNameDto,
   ProviderRoleTypeDto,
   UserRoleTypeDto
 } from '@/api/generated-types/generated-types';

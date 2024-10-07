@@ -3,7 +3,7 @@ import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSer
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
-import { HasName } from '@/api/generated-types/generated-types';
+import { HasNameDto } from '@/api/generated-types/generated-types';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import { HasId } from '@/api/types';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
@@ -17,7 +17,7 @@ export default function RenderOrganizationCell({
 }: CellWrapperProps & { location?: 'rowId' | 'columnId' }) {
   return (
     <div style={style} className={'flex'}>
-      <LazyDtoUiWrapper<HasId & HasName, GenericDivProps>
+      <LazyDtoUiWrapper<HasId & HasNameDto, GenericDivProps>
         renderAs={(props) => (
           <NamedEntityLabel
             {...props}

@@ -1,5 +1,5 @@
 import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunction';
-import { HasName } from '@/api/generated-types/generated-types';
+import { HasNameDto } from '@/api/generated-types/generated-types';
 import { DtoUiWrapper } from 'dto-stores';
 import React from 'react';
 import {
@@ -10,7 +10,7 @@ import { HasId } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 import { useUniqueStringFieldConstraint } from '@/hooks/useUniqueStringFieldConstraint';
 
-export function RenameAndDeleteCell<T extends HasName & HasId>({
+export function RenameAndDeleteCell<T extends HasNameDto & HasId>({
   entity,
   entityClass
 }: NextUiCellComponentProps<T>) {
@@ -31,7 +31,7 @@ export function RenameAndDeleteCell<T extends HasName & HasId>({
   );
 }
 
-function getRenameAndDeleteTableCell<T extends HasId & HasName>(
+function getRenameAndDeleteTableCell<T extends HasId & HasNameDto>(
   entityClass: string
 ) {
   return function RenameAndDeleteComposedCell(

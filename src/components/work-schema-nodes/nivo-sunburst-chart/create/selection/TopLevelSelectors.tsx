@@ -3,7 +3,7 @@ import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-c
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   CycleDto,
-  HasName,
+  HasNameDto,
   KnowledgeLevelSeriesDto
 } from '@/api/generated-types/generated-types';
 import { HasNumberId } from '@/api/types';
@@ -81,7 +81,7 @@ export default function TopLevelSelectors() {
           selectionCallback={interceptSeriesChange}
         />
       </div>
-      <ControlledSelector<number, HasName & HasNumberId>
+      <ControlledSelector<number, HasNameDto & HasNumberId>
         aria-label={'Task Type'}
         entityClass={workTaskTypeName}
         entityId={currentState.workTaskTypeName?.id ?? null}
