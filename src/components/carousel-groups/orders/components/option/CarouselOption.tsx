@@ -2,11 +2,10 @@
 import { useDtoStore, useDtoStoreDispatch, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { memo, useEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import {
-  useGlobalDispatch,
   useGlobalDispatchAndListener,
   useGlobalListener
 } from 'selective-context';
@@ -27,10 +26,6 @@ import { canAssignToOrderItem } from '@/components/carousel-groups/orders/_funct
 import { ClashBadge } from '@/components/generic/ClashBadge';
 import { getAssigneeCountColor } from '@/components/carousel-groups/orders/_functions/getAssigneeCountColor';
 import { EmptyArray } from '@/api/literals';
-import {
-  ConnectionVector,
-  RotationConnectionMap
-} from '@/components/carousel-groups/orders/components/RotationConnectionOverlay';
 import { initialMap } from '@/app/_literals';
 import {
   CarouselOrderDto,
@@ -51,13 +46,6 @@ export default function CarouselOption({
   canPrime?: boolean;
 }) {
   const { workProjectSeriesSchemaId } = entity;
-
-  // Chip location calculation condition: primed or anti-primed
-  const assignChipRef = useRef<HTMLDivElement | null>(null);
-  const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
-    Map<number, ConnectionVector>
-  >(RotationConnectionMap);
-  const primeState = useRef({ prime: false, antiPrime: false });
 
   // Highlighting subject section.
   const listenerKey = `${CarouselOptionState}:${entity.id}`;
@@ -153,54 +141,6 @@ export default function CarouselOption({
 
   const isAntiPrimed = rotationTargetsMap.has(entity.id);
 
-  /*
-   *  Use prime/anti-prime to signal connection location.
-   *  CURRENTLY: HAS TO RUN EVERY RENDER, IN CASE THE ORDER OF OPTIONS CHANGED.
-   *  TODO: Track the carousel option order?
-   * */
-  useEffect(() => {
-    const primeChange = primeState.current.prime !== isPrimed;
-    const antiPrimeChange = primeState.current.antiPrime !== isAntiPrimed;
-
-    if (
-      assignChipRef.current &&
-      (primeChange || antiPrimeChange || isPrimed || isAntiPrimed)
-    ) {
-      const { top, left, width, height } =
-        assignChipRef.current.getBoundingClientRect();
-      const center = {
-        x: left + width / 2,
-        y: top + height / 2
-      };
-
-      dispatchConnectionMap((currentMap) => {
-        const map = new Map(currentMap);
-        const currentConnection = map.get(workProjectSeriesSchemaId);
-        const updatedConnection: ConnectionVector = {
-          ...currentConnection
-        };
-        if (isPrimed) {
-          updatedConnection.source = { ...center, id: entity.id };
-        } else if (!isPrimed && primeChange) {
-          updatedConnection.source =
-            updatedConnection.source?.id === entity.id
-              ? undefined
-              : updatedConnection.source;
-        } else if (isAntiPrimed) {
-          updatedConnection.target = { ...center, id: entity.id };
-        } else if (!isAntiPrimed && antiPrimeChange) {
-          updatedConnection.target =
-            updatedConnection.target?.id === entity.id
-              ? undefined
-              : updatedConnection.target;
-        }
-        map.set(workProjectSeriesSchemaId, updatedConnection);
-        return map;
-      });
-    }
-    primeState.current = { prime: isPrimed, antiPrime: isAntiPrimed };
-  });
-
   // Compute dynamic styling
   let fallBackColor: 'default' | 'warning' = 'default';
   if (currentItem && currentItemType === DragTypes.CAROUSEL_ORDER_ITEM) {
@@ -244,10 +184,10 @@ export default function CarouselOption({
                 fallBackColor={fallBackColor}
                 workTaskType={workTaskType}
                 badgeColor={badgeColor}
-                ref={assignChipRef}
-                strings={entity.carouselOrderAssignees}
                 dragHappening={!!currentItem}
                 carouselOptionDto={entity}
+                isAntiPrimed={isAntiPrimed}
+                isPrimed={isPrimed}
               />
               <HighlightMatchingSchemasButton
                 onPress={() =>

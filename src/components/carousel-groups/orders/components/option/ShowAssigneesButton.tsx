@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import { Chip } from '@nextui-org/chip';
 import OrderItemAssigneeList from '@/components/carousel-groups/orders/components/option/OrderItemAssigneeList';
 import { memo } from 'react';
+import { useRotationOverlayPositioning } from '@/components/carousel-groups/orders/components/option/useRotationOverlayPositioning';
 
 export const zIndexPopoverOverride = { zIndex: 50 };
 
@@ -15,11 +16,18 @@ function ShowAssigneesButtonInner(props: {
   fallBackColor: 'default' | 'warning';
   workTaskType?: WorkTaskTypeDto | undefined;
   badgeColor: string;
-  ref: React.MutableRefObject<HTMLDivElement | null>;
-  strings: string[];
   dragHappening?: boolean;
   carouselOptionDto: CarouselOptionStateInterface;
+  isPrimed?: boolean;
+  isAntiPrimed?: boolean;
 }) {
+  const assignChipRef = useRotationOverlayPositioning(
+    props.isPrimed ?? false,
+    props.isAntiPrimed ?? false,
+    props.carouselOptionDto.workProjectSeriesSchemaId,
+    props.carouselOptionDto
+  );
+
   return (
     <Popover style={zIndexPopoverOverride}>
       <PopoverTrigger>
@@ -35,9 +43,9 @@ function ShowAssigneesButtonInner(props: {
           </span>
           <Chip
             className={clsx(props.badgeColor, props.textFade)}
-            ref={props.ref}
+            ref={assignChipRef}
           >
-            {props.strings.length}
+            {props.carouselOptionDto.carouselOrderAssignees.length}
           </Chip>
         </Button>
       </PopoverTrigger>
