@@ -3,21 +3,15 @@ import {
   KnowledgeLevelSeriesGroup
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { DispatchState } from '@/types';
-import { getWorkNodeHierarchyLabel } from '@/components/work-schema-nodes/nivo-sunburst-chart/nestedWorkNodeArcLabel';
 import { InitialMap, NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { EmptyArray } from '@/api/literals';
 import { Select, Selection } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
-import {
-  KnowledgeDomain,
-  KnowledgeDomainDto
-} from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import { useCallback, useMemo, useRef } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { replaceKnowledgeDomainsInGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupProducers';
-import * as os from 'node:os';
 
 export function KnowledgeDomainGroupEdit({
   knowledgeDomainGroup,
@@ -29,7 +23,7 @@ export function KnowledgeDomainGroupEdit({
   currentPath: string;
   knowledgeDomainGroup: KnowledgeDomainGroup;
 }) {
-  const { path, knowledgeDomains } = knowledgeDomainGroup;
+  const { knowledgeDomains } = knowledgeDomainGroup;
   const { currentState } = NamespacedHooks.useListen<
     Map<string, KnowledgeDomainDto>
   >(

@@ -4,12 +4,9 @@ import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { HasName } from '@/api/generated-types/generated-types';
-import { HasNumberId } from '@/api/types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useCallback } from 'react';
 import { isNotUndefined } from '@/api/main';
-import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
 
 export function useReadAnyDtoTyped<
   U extends EntityTypeKey,

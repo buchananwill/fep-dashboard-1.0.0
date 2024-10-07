@@ -170,7 +170,10 @@ export default function SuitabilityTable({
         dtoList={EmptyArray}
         mergeInitialWithProp={true}
         updateServerAction={
-          api.putList as CommitServerAction<SuitabilityEntity>
+          api.putList as CommitServerAction<
+            SuitabilityEntity,
+            SuitabilityEntity[]
+          >
         }
       />
       <VirtualizedTableWindowed

@@ -609,7 +609,7 @@ export const UserRoleDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
   startDate: zod.string().datetime(),
-  thruDate: zod.string().datetime().nullable(),
+  thruDate: zod.string().datetime().optional(),
   knowledgeLevelSeriesName: zod.string(),
   knowledgeLevelSeriesId: zod.number().int(),
   partyName: zod.string().min(1, 'Please supply a name'),

@@ -56,7 +56,6 @@ export const defaultUserRoleValues: UserRoleDto = {
   startDate: '2024-12-21T21:12:00Z',
   knowledgeLevelSeriesName: '',
   knowledgeLevelSeriesId: NaN,
-  thruDate: null,
   partyName: '',
   partyId: -1,
   partyType: 'PERSON',

@@ -1,33 +1,10 @@
 'use client';
-import {
-  AvailabilityPostRequest,
-  HasName,
-  RolePostRequest,
-  SuitabilityPostRequest
-} from '@/api/generated-types/generated-types';
-import { useGlobalController, useGlobalReadAny } from 'selective-context';
-import { RoleEntity } from '@/components/roles/types';
-import { getCreationContextKey } from '@/components/roles/create-role/RoleBaseDetails';
-import { useCallback, useMemo } from 'react';
-import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
-import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
-import { isNotUndefined } from '@/api/main';
-import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
-import {
-  useReadAnyDtoTyped,
-  useReadSelectedEntities
-} from '@/api/typed-dto-store-hooks';
-import { HasNumberId } from '@/api/types';
-import { EditableEvents } from '@/components/roles/create-role/useEditableEvents';
+import { AvailabilityPostRequest } from '@/api/generated-types/generated-types';
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { DayOfWeekArray } from '@/api/date-and-time';
 import { DateTimeTimeZone } from '@microsoft/microsoft-graph-types';
 import { RequiredDeep } from 'type-fest';
 import { format } from 'date-fns';
-import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
-import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
 
 export function getDayOfWeek(dateTimeTimeZone: RequiredDeep<DateTimeTimeZone>) {
   return DayOfWeekArray[

@@ -130,6 +130,10 @@ export interface IntersectionTableRequestBody<T, U> {
   idListTypeU: U[];
 }
 
+export interface HasName {
+  name: string;
+}
+
 export interface BreakDto {
   startTime: DateAsString;
   endTime: DateAsString;
@@ -305,7 +309,7 @@ export interface EventDto extends Serializable {
 export interface DateAndTimeAndZoneDto extends Serializable {
   dateTime: DateAsString;
   date: DateAsString;
-  timeZone: ZoneId;
+  timeZone: string;
 }
 
 export interface KnowledgeLevelDto

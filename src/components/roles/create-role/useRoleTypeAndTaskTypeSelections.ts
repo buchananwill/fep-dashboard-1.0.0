@@ -2,15 +2,17 @@ import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { HasName } from '@/api/generated-types/generated-types';
 import { HasNumberId } from '@/api/types';
 import { useReadSelectedEntities } from '@/api/typed-dto-store-hooks';
 import { useGlobalReadAny } from 'selective-context';
 import { useCallback } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { listenerKey } from '@/components/roles/create-role/CreateRoleForm';
+import { HasName } from 'react-d3-force-wrapper';
 
-export function useRoleTypeAndTaskTypeSelections(roleEntity: 'provider' | 'asset' | 'user') {
+export function useRoleTypeAndTaskTypeSelections(
+  roleEntity: 'provider' | 'asset' | 'user'
+) {
   const { currentState: wttTaskNameIdList } = NamespacedHooks.useListen(
     WorkTaskTypeName,
     KEY_TYPES.SELECTED,
