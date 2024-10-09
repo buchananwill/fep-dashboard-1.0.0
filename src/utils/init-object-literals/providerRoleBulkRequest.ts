@@ -20,13 +20,13 @@ import {
 } from '@/utils/init-object-literals/wttPartials';
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
 
-const providerRoleTypeExample: Partial<ProviderRoleTypeDto> = {
+const roleTypeExample: Partial<ProviderRoleTypeDto> = {
   name: 'Teacher'
 };
 
 const templateRequest: ProviderRolePostRequest = {
-  providerRoleTypeExample,
-  rating: 4,
+  roleTypeExample: roleTypeExample,
+  rating: 1,
   workTaskTypeExampleList: []
 };
 

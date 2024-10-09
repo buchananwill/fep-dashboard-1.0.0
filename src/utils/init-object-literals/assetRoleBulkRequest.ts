@@ -30,7 +30,7 @@ const assetRoleTypeExample: Partial<AssetRoleTypeDto> = {
 
 const templateRequest: AssetRolePostRequest = {
   roleTypeExample: assetRoleTypeExample,
-  rating: 4,
+  rating: 1,
   workTaskTypeExampleList: []
 };
 
