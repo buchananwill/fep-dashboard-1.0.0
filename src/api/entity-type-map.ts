@@ -19,6 +19,7 @@ import {
   KnowledgeLevelDto,
   KnowledgeLevelSeriesDto,
   OrganizationDto,
+  OrganizationLeafTotalAllocationFeasibilityDto,
   OrganizationTypeDto,
   PersonDto,
   ProviderRoleAvailabilityDto,

@@ -8,11 +8,13 @@ import {
   LeafComponentProps,
   NavTreeNode
 } from '@/app/core/navigation/data/types';
+import OrganizationFeasibilityTable from '@/components/feasibility-report/organizations/OrganizationFeasibilityTable';
 
 export const feasibilityBranch = {
   children: {
     create: { component: CreateFeasibilityReportPage },
-    view: { component: ViewFeasibilityReportHome }
+    view: { component: ViewFeasibilityReportHome },
+    organizations: { component: OrganizationFeasibilityTable }
   },
   component: FeasibilityHome
 } as const;

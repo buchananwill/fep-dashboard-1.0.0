@@ -25,18 +25,18 @@ export type TableContentProps<T extends HasIdClass<Identifier>> = TableProps & {
 
 export function FilterSortPaginateTableContent<
   T extends HasIdClass<Identifier>
->({ headerColumns, visibleItems, renderCell, ...props }: TableContentProps<T>) {
-  const mergedProps = {
-    ...props,
-    classNames: {
-      base: 'base-nothing-class',
-      wrapper: 'wrapper-nothing-class'
-    }
-    // BaseComponent: DoubleDivBaseComponent
-  };
-
+>({
+  headerColumns,
+  visibleItems,
+  renderCell,
+  ...props
+}: Omit<TableContentProps<T>, 'BaseComponent'>) {
   return (
-    <Table {...props} BaseComponent={DoubleDivBaseComponent}>
+    <Table
+      // @ts-ignore
+      {...props}
+      BaseComponent={DoubleDivBaseComponent}
+    >
       <TableHeader columns={headerColumns}>
         {(column) => (
           <TableColumn

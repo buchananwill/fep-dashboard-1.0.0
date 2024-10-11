@@ -14,7 +14,6 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { FullReport } from '@/components/feasibility-report/types';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { ClockIcon } from '@heroicons/react/24/outline';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
