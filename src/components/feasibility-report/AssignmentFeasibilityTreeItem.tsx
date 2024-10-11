@@ -2,10 +2,7 @@ import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSchemaNodeAssignmentDto } from '@/api/generated-types/generated-types';
 import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
-
-export function Loading() {
-  return '...loading';
-}
+import { Loading } from '@/components/feasibility-report/Loading';
 
 export function NodeAssignmentSummary({
   entity

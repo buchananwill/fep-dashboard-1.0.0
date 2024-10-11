@@ -5,9 +5,9 @@ import {
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { InnerWorkProjectSeriesCell } from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Loading } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 import React from 'react';
 import { getValue } from '@/functions/allowingNestedFiltering';
+import { Loading } from '@/components/feasibility-report/Loading';
 
 export function WorkProjectSeriesNodeLink({
   nodeLink: { workProjectSeriesId }

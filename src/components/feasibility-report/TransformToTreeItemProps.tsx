@@ -1,9 +1,6 @@
 import { FeasibilityReportTreeItemPayload } from '@/components/feasibility-report/types';
 import { TaskTypeClassificationSummary } from '@/components/feasibility-report/BandwidthFeasibilityLayerTreeItem';
-import {
-  Loading,
-  NodeAssignmentSummary
-} from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
+import { NodeAssignmentSummary } from '@/components/feasibility-report/AssignmentFeasibilityTreeItem';
 import { AccordionTreeItemProps } from '@/components/generic/accordionTree';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
@@ -14,6 +11,7 @@ import { NamedEntityLabelWrapper } from '@/components/feasibility-report/WorkPro
 import { taskTypeClassification } from '@/components/feasibility-report/FeasibilityReport';
 import { getBgColor, getColor } from '@/functions/getCommonTreeItemProps';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import { Loading } from '@/components/feasibility-report/Loading';
 
 export type FeasibilityReportTreeItemProps = {
   payload: FeasibilityReportTreeItemPayload;
