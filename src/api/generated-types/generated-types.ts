@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-10-11 14:41:53.
+// Generated using typescript-generator version 3.2.1263 on 2024-10-11 21:03:14.
 
 export interface AutoBuildParametersDto extends Serializable {
     multiStepUndoTimeoutMs: number;
@@ -247,6 +247,22 @@ export interface OrganizationLeafTotalAllocationFeasibilityDto extends Serializa
     cycleId: number;
     totalAllocationAllSizes: number;
     residualCycleSubspanCount: number;
+}
+
+export interface TaskAreaPerKnowledgeDomain {
+    id: number;
+    taskArea: number;
+    name: string;
+    shortCode: string;
+    color: any;
+}
+
+export interface TaskAreaPerKnowledgeDomainDto extends Serializable {
+    id: number;
+    taskArea: number;
+    name: string;
+    shortCode: string;
+    color: ColorDto;
 }
 
 export interface EventSource<T> {
@@ -541,8 +557,8 @@ export interface AssetRoleTypeWorkTaskTypeSuitabilityDto extends Serializable, D
     workTaskTypeId: number;
     assetId: number;
     assetName: string;
-    dynamic: boolean;
     idEntityC: number;
+    dynamic: boolean;
 }
 
 export interface CarouselGroupOptionDto extends Serializable, DtoWrapper<any, CarouselGroupOptionDto, number>, IntersectionDto<number, number> {
@@ -633,9 +649,9 @@ export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto extends Serializable
 export interface RoleAvailabilityDto {
     type: string;
     availabilityCode: number;
-    cycleSubspanId: number;
-    roleEntityId: number;
     baseEntityId: number;
+    roleEntityId: number;
+    cycleSubspanId: number;
     id: number;
 }
 
@@ -802,6 +818,36 @@ export interface PersonDto extends Serializable, DtoWrapper<any, PersonDto, numb
     lName: string;
 }
 
+export interface BitSetResourceFlowQuery {
+    taskBitSet: BitSet;
+    taskCounts: number[];
+    items: { [index: string]: number };
+}
+
+export interface ResourceFlowQuery {
+    workTaskTypeIdToLoadMap: { [index: string]: number };
+}
+
+export interface ResourceFlowQueryTree {
+    items: { [index: string]: number };
+}
+
+export interface ResourceFlowResponse {
+    flowAchieved: number;
+    flowRequested: number;
+    outcome: boolean;
+}
+
+export interface TrieNode {
+    taskTypeId: number;
+    taskCount: number;
+    children: { [index: string]: TrieNode };
+    query: ResourceFlowQuery;
+}
+
+export interface WorkTaskTypeTrie {
+}
+
 export interface ResourceRequirementItemRequest {
     providerRoleTypeName: string;
     assetRoleTypeName: string;
@@ -940,6 +986,10 @@ export interface NestedDto<T> {
     data: T;
 }
 
+export interface BitSet extends Cloneable, Serializable {
+    empty: boolean;
+}
+
 export interface DtoWrapper<E, D, I> extends Serializable {
     id: I;
 }
@@ -957,6 +1007,9 @@ export interface TriIntersectionDto<A, B, C> extends IntersectionDto<A, B> {
 export interface TypeDto<T, D> extends DtoWrapper<T, D, number> {
     name: string;
     id: number;
+}
+
+export interface Cloneable {
 }
 
 export type DateAsString = string;

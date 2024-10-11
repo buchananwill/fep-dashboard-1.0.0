@@ -12,7 +12,9 @@ export default async function OrganizationSummary({
       <th colSpan={2} scope={'rowgroup'} className={'text-right'}>
         {organizationDto.name}
       </th>
-      <th className={'text-right'}>{organizationDto.type.name}</th>
+      <td className={'text-right text-xs italic'}>
+        {organizationDto.type.name}
+      </td>
     </tr>
   );
 }

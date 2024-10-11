@@ -3,21 +3,36 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import {
   OrganizationLeafCycleSubspanGroupFeasibilityDto,
-  OrganizationLeafTotalAllocationFeasibilityDto
+  OrganizationLeafTotalAllocationFeasibilityDto,
+  ResourceFlowResponse,
+  TaskAreaPerKnowledgeDomainDto
 } from '@/api/generated-types/generated-types';
 
-export const getOrganizationLeafTotals = (cycleId: number) =>
-  getWithoutBody<OrganizationLeafTotalAllocationFeasibilityDto[]>(
-    constructUrl(
-      `/api/v2/schedule/feasibilityReport/organizationLeafTotals/${cycleId}`
-    )
+const feasibilityEndpoint = `/api/v2/schedule/feasibilityReport`;
+
+export const getOrganizationLeafTotals = (cycleId: number) => {
+  return getWithoutBody<OrganizationLeafTotalAllocationFeasibilityDto[]>(
+    constructUrl(`${feasibilityEndpoint}/organizationLeafTotals/${cycleId}`)
   );
+};
 export const getOrganizationLeafCycleSubspanGroups = (
   cycleId: number,
   organizationId: number
 ) =>
   getWithoutBody<OrganizationLeafCycleSubspanGroupFeasibilityDto[]>(
     constructUrl(
-      `/api/v2/schedule/feasibilityReport/organizationLeafCycleSubspanGroups/${cycleId}/${organizationId}`
+      `${feasibilityEndpoint}/organizationLeafCycleSubspanGroups/${cycleId}/${organizationId}`
     )
+  );
+
+export const getKnowledgeDomainTaskAreas = () =>
+  getWithoutBody<TaskAreaPerKnowledgeDomainDto[]>(
+    constructUrl(`${feasibilityEndpoint}/taskAreaPerKnowledgeDomain`)
+  );
+
+export const getKnowledgeDomainResourceFlowResponse = (
+  knowledgeDomainId: number
+) =>
+  getWithoutBody<ResourceFlowResponse>(
+    constructUrl(`${feasibilityEndpoint}/knowledgeDomains/${knowledgeDomainId}`)
   );

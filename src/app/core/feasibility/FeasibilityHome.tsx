@@ -1,20 +1,15 @@
 import { LinkButton } from '@/components/navigation/LinkButton';
-import CreateFeasibilityReportPage from '@/app/core/feasibility/CreateFeasibilityReportPage';
-import { ViewFeasibilityReportHome } from '@/app/core/feasibility/ViewFeasibilityReportHome';
 import { startCase } from 'lodash';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
-import {
-  LeafComponentProps,
-  NavTreeNode
-} from '@/app/core/navigation/data/types';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import OrganizationFeasibilityTable from '@/components/feasibility-report/organizations/OrganizationFeasibilityTable';
+import KnowledgeDomainFeasibilityTable from '@/components/feasibility-report/knowledge-domains/KnowledgeDomainFeasibilityTable';
 
 export const feasibilityBranch = {
   children: {
-    create: { component: CreateFeasibilityReportPage },
-    view: { component: ViewFeasibilityReportHome },
-    organizations: { component: OrganizationFeasibilityTable }
+    organizations: { component: OrganizationFeasibilityTable },
+    knowledgeDomains: { component: KnowledgeDomainFeasibilityTable }
   },
   component: FeasibilityHome
 } as const;
