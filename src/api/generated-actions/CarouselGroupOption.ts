@@ -33,7 +33,7 @@ const {
           getIntersectionTable
 } = generateIntersectionEndpointSet<
   CarouselGroupOptionDto,
-  string,
+  number,
   number
 >(
   '/api/v2/carouselGroups/options'

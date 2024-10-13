@@ -17,7 +17,8 @@ import {
   SquaresPlusIcon,
   TableCellsIcon,
   TagIcon,
-  UserGroupIcon
+  UserGroupIcon,
+  WrenchScrewdriverIcon
 } from '@heroicons/react/24/outline';
 
 // 16 is a good square number for the core nav menu. One-in-one-out from now on!
@@ -26,7 +27,7 @@ export const navLinkIcons = {
   cycles: ClockIcon,
   knowledgeDomains: AcademicCapIcon,
   knowledgeLevelSeries: ChartBarIcon,
-  workTaskTypes: TableCellsIcon,
+  workTaskTypes: TagIcon,
   workProjectSeriesSchemas: SquaresPlusIcon,
   providers: BriefcaseIcon,
   assets: BuildingOfficeIcon,
@@ -47,5 +48,6 @@ const unusedIcons = {
   RectangleGroupIcon,
   RectangleStackIcon,
   ListBulletIcon,
-  TagIcon
+  WrenchScrewdriverIcon,
+  TableCellsIcon
 };

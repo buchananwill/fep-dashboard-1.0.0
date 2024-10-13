@@ -14,6 +14,7 @@ export function DeleteEntity<T extends HasId>({
     entity.id,
     entityClass
   );
+  console.log('rendering');
 
   const handleDelete = useCallback(() => {
     dispatchDeletion((list) => [...list, entity.id]);

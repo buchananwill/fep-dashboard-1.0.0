@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-10-11 21:03:14.
+// Generated using typescript-generator version 3.2.1263 on 2024-10-13 18:16:41.
 
 export interface AutoBuildParametersDto extends Serializable {
     multiStepUndoTimeoutMs: number;
@@ -44,60 +44,10 @@ export interface CycleSubspanWithJoinsListDto extends Serializable {
     joinsIfNotFirst: { [index: string]: CycleSubspanJoinNestedDto[] };
 }
 
-export interface AssetClassificationItemDto extends Serializable {
-    id: number;
-    taskTypeClassificationId: number;
-    assetId: number;
-}
-
-export interface BandwidthFeasibilityLayerDto extends Serializable, BaseReportItemDto, HasResidual {
-    taskTypeClassificationFeasibilityId: number;
-    layerOrdinal: number;
-    bandwidthFeasibilityLayerItems: BandwidthFeasibilityLayerItemDto[];
-    residual: number;
-}
-
-export interface BandwidthFeasibilityLayerItemDto extends Serializable {
-    id: number;
-    bandwidthFeasibilityLayerId: number;
-    taskTypeClassificationId: number;
-}
-
-export interface CycleSubspanGroupSnapshotDto extends Serializable {
-    id: number;
-    count: number;
-    size: number;
-    ownerId: number;
-    ownerType: string;
-    residual: number;
-}
-
-export interface FeasibilityReportDto extends Serializable, DtoWrapper<any, FeasibilityReportDto, number> {
-    creationTime: DateAsString;
-    id: number;
-    cycleId: number;
-    cycleSubspanCountSnapshot: number;
-    feasibilityReportCsgSnapshots: CycleSubspanGroupSnapshotDto[];
-    reportStatus: string;
-}
-
-export interface FullReportDto extends Serializable, BaseReportItemDto, HasCycleSubspanGroupSnapshotList, NestedReportItemReportItem<NestedReportItemReportItem<any>> {
-    creationTime: DateAsString;
-    children: NestedReportItemReportItem<any>[];
-    cycleId: number;
-    cycleSubspanCountSnapshot: number;
-    cycleSubspanGroupSnapshotDtoList: CycleSubspanGroupSnapshotDto[];
-    taskTypeClassifications: TaskTypeClassificationDto[];
-    reportStatus: string;
-}
-
 export interface BaseReportItemDto {
     id: number;
     passes: boolean;
     itemType: string;
-}
-
-export interface HasCycleSubspanGroupSnapshotList {
 }
 
 export interface HasCycleSubspanRequirement {
@@ -107,64 +57,6 @@ export interface HasResidual {
 }
 
 export interface NestedReportItemReportItem<T> extends BaseReportItemDto {
-}
-
-export interface NodeAssignmentFeasibilityDto extends Serializable, BaseReportItemDto, HasResidual, HasCycleSubspanRequirement, HasCycleSubspanGroupSnapshotList {
-    cycleSubspanRequirement: number;
-    residual: number;
-    feasibilityReportId: number;
-    workSchemaNodeAssignmentId: number;
-    cycleSubspanGroupSnapshotDtoList: CycleSubspanGroupSnapshotDto[];
-}
-
-export interface NodeAssignmentFeasibilitySummaryDto extends Serializable, NestedReportItemReportItem<NodeAssignmentFeasibilityDto>, BaseReportItemDto {
-    children: NodeAssignmentFeasibilityDto[];
-}
-
-export interface PartyClassificationItemDto extends Serializable {
-    id: number;
-    taskTypeClassificationId: number;
-    partyId: number;
-}
-
-export interface TaskTypeClassificationDto extends Serializable {
-    id: number;
-    cycleSubspanTotal: number;
-    feasibilityReportId: number;
-    taskTypeClassificationItems: TaskTypeClassificationItemDto[];
-    partyClassificationItems: PartyClassificationItemDto[];
-    assetClassificationItems: AssetClassificationItemDto[];
-    classificationType: string;
-    name: string;
-}
-
-export interface TaskTypeClassificationItemDto extends Serializable {
-    id: number;
-    taskTypeClassificationId: number;
-    workTaskTypeId: number;
-}
-
-export interface TaskTypeFeasibilityDto extends Serializable, BaseReportItemDto, NestedReportItemReportItem<BandwidthFeasibilityLayerDto> {
-    feasibilityReportId: number;
-    rootTaskTypeClassification: TaskTypeClassificationDto;
-    children: BandwidthFeasibilityLayerDto[];
-}
-
-export interface TaskTypeFeasibilitySummaryDto extends Serializable, NestedReportItemReportItem<TaskTypeFeasibilityDto>, BaseReportItemDto {
-    children: TaskTypeFeasibilityDto[];
-}
-
-export interface WorkSchemaNodeFeasibilityDto extends Serializable, BaseReportItemDto, HasResidual, HasCycleSubspanRequirement, NestedReportItemReportItem<WorkSchemaNodeFeasibilityDto>, HasCycleSubspanGroupSnapshotList {
-    workSchemaNodeId: number;
-    feasibilityReportId: number;
-    cycleSubspanRequirement: number;
-    cycleSubspanGroupSnapshotDtoList: CycleSubspanGroupSnapshotDto[];
-    residual: number;
-    children: WorkSchemaNodeFeasibilityDto[];
-}
-
-export interface WorkSchemaNodeFeasibilitySummaryDto extends Serializable, NestedReportItemReportItem<WorkSchemaNodeFeasibilityDto>, BaseReportItemDto {
-    children: WorkSchemaNodeFeasibilityDto[];
 }
 
 export interface GenericTableRecord<Row, Column, CellContent, RowId, ColumnId, CellId, CellReference> {
@@ -557,8 +449,8 @@ export interface AssetRoleTypeWorkTaskTypeSuitabilityDto extends Serializable, D
     workTaskTypeId: number;
     assetId: number;
     assetName: string;
-    idEntityC: number;
     dynamic: boolean;
+    idEntityC: number;
 }
 
 export interface CarouselGroupOptionDto extends Serializable, DtoWrapper<any, CarouselGroupOptionDto, number>, IntersectionDto<number, number> {
@@ -648,10 +540,10 @@ export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto extends Serializable
 
 export interface RoleAvailabilityDto {
     type: string;
-    availabilityCode: number;
+    cycleSubspanId: number;
     baseEntityId: number;
     roleEntityId: number;
-    cycleSubspanId: number;
+    availabilityCode: number;
     id: number;
 }
 
@@ -737,6 +629,8 @@ export interface WorkTaskTypeDto extends Serializable, TypeDto<any, WorkTaskType
     knowledgeDomain: KnowledgeDomainDto;
     knowledgeLevel?: KnowledgeLevelDto;
     validationType?: ValidationTypeDto;
+    partyClassificationSetId?: number;
+    assetClassificationSetId: number;
     knowledgeLevelSeriesId?: number;
 }
 
@@ -846,6 +740,13 @@ export interface TrieNode {
 }
 
 export interface WorkTaskTypeTrie {
+}
+
+export interface ResourceRequirementItemDto extends Serializable, DtoWrapper<any, ResourceRequirementItemDto, number> {
+    workTaskTypeId: number;
+    providerRoleType?: ProviderRoleTypeDto;
+    assetRoleType?: AssetRoleTypeDto;
+    id: number;
 }
 
 export interface ResourceRequirementItemRequest {

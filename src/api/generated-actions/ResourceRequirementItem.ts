@@ -1,5 +1,5 @@
 'use server';
-import { CarouselGroupDto } from '@/api/generated-types/generated-types';
+import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {
@@ -17,10 +17,10 @@ getDtoListByBodyList,
 getDtoListByParamList,
 getDtoListByExampleList
 } = generateBaseEndpointSet<
-  CarouselGroupDto,
+  ResourceRequirementItemDto,
   number
 >(
-  '/api/v2/carouselGroups'
+  '/api/v2/workTaskTypes/resourceRequirements'
 );
 
 

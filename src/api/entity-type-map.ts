@@ -26,6 +26,7 @@ import {
   ProviderRoleDto,
   ProviderRoleTypeDto,
   ProviderRoleTypeWorkTaskTypeSuitabilityDto,
+  ResourceRequirementItemDto,
   ScheduleDto,
   StaticDeliveryAllocationItemDto,
   TimeDivisionDto,
@@ -72,6 +73,7 @@ export type EntityTypeMap = {
   providerRoleAvailability: ProviderRoleAvailabilityDto;
   providerRoleType: ProviderRoleTypeDto;
   providerRoleTypeWorkTaskTypeSuitability: ProviderRoleTypeWorkTaskTypeSuitabilityDto;
+  resourceRequirementItem: ResourceRequirementItemDto;
   schedule: ScheduleDto;
   staticDeliveryAllocationItem: StaticDeliveryAllocationItemDto;
   timeDivision: TimeDivisionDto;

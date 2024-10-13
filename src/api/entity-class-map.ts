@@ -1,6 +1,3 @@
-import { EntityTypeKey } from '@/components/tables/types';
-import { EntityTypeMap } from '@/api/entity-type-map';
-
 export const EntityClassMap = {
   buildMetric: 'BuildMetric',
   asset: 'Asset',
@@ -18,7 +15,6 @@ export const EntityClassMap = {
   cycle: 'Cycle',
   cycleSubspan: 'CycleSubspan',
   cycleSubspanGroup: 'CycleSubspanGroup',
-  feasibilityReport: 'FeasibilityReport',
   interactionBasedValidation: 'InteractionBasedValidation',
   knowledgeDomain: 'KnowledgeDomain',
   knowledgeLevel: 'KnowledgeLevel',
@@ -31,6 +27,7 @@ export const EntityClassMap = {
   providerRoleType: 'ProviderRoleType',
   providerRoleTypeWorkTaskTypeSuitability:
     'ProviderRoleTypeWorkTaskTypeSuitability',
+  resourceRequirementItem: 'ResourceRequirementItem',
   schedule: 'Schedule',
   staticDeliveryAllocationItem: 'StaticDeliveryAllocationItem',
   timeDivision: 'TimeDivision',
@@ -44,13 +41,7 @@ export const EntityClassMap = {
   workSchemaNode: 'WorkSchemaNode',
   workSchemaNodeAssignment: 'WorkSchemaNodeAssignment',
   workTaskType: 'WorkTaskType'
-} as const satisfies NameSpaceMap<EntityTypeMap>;
+} as const;
 
 export type EntityClass = (typeof EntityClassMap)[keyof typeof EntityClassMap];
-
-type NameSpaceMap<T> = {
-  [Key in keyof T]: string;
-};
-
-export type EntityNameSpace<T extends EntityTypeKey> =
-  (typeof EntityClassMap)[T];
+export {};

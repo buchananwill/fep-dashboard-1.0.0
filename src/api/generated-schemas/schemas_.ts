@@ -48,13 +48,13 @@ export const CycleSubspanWithJoinsListDtoSchema = zod.object({
   parentCycleId: zod.number().int(),
   name: zod.string(),
   cycleSubspanJoins: zod.record(
-    zod.number().int(),
+    zod.string(),
     zod.lazy(() => CycleSubspanJoinNestedDtoSchema)
   ),
   zeroIndexedCycleDay: zod.number().int(),
   dayOrdinal: zod.number().int(),
   joinsIfNotFirst: zod.record(
-    zod.number().int(),
+    zod.string(),
     zod.array(zod.lazy(() => CycleSubspanJoinNestedDtoSchema))
   )
 });
@@ -62,7 +62,7 @@ export const CycleSubspanWithJoinsListDtoSchema = zod.object({
 export const HierarchyEnrollmentRequestSchema = zod.object({
   scheduleId: zod.number().int(),
   organizationIdToUserRoleIdList: zod.record(
-    zod.number().int(),
+    zod.string(),
     zod.array(zod.number().int())
   )
 });
@@ -122,36 +122,11 @@ export const StaticDeliveryAllocationItemDtoSchema = zod.object({
 
 export const SuitabilityPostRequestSchema = zod.object({
   workTaskTypeMatrix: zod.lazy(() => WorkTaskTypeListMatrixSchema),
-  roleTypeNames: zod.array(zod.string()),
+  roleTypeNames: zod
+    .array(zod.string())
+    .min(1, { message: 'Please provide exactly one role type' })
+    .max(1, { message: 'Please provide exactly one role type' }),
   rating: zod.number()
-});
-
-export const TestDtoSchema = zod.object({
-  isString: zod.string(),
-  stringList: zod.array(zod.string()).min(1).max(10)
-});
-
-export const TestPersonClassSchema = zod.object({
-  id: zod.number().int(),
-  dateOfBirth: zod.date(),
-  fName: zod
-    .string()
-    .regex(/\S/, { message: 'Must not be blank' })
-    .min(1, { message: 'Please supply a name.' }),
-  lName: zod
-    .string()
-    .regex(/\S/, { message: 'Must not be blank' })
-    .min(1, { message: 'Please supply a name.' })
-});
-
-export const TestPersonRecordSchema = zod.object({
-  id: zod.number().int(),
-  dateOfBirth: zod.date(),
-  fName: zod
-    .string()
-    .regex(/\S/, { message: 'Must not be blank' })
-    .min(1, { message: 'Please supply a name.' }),
-  lName: zod.string()
 });
 
 export const ValidationErrorMessagesSchema = zod.object({});
@@ -182,7 +157,6 @@ export const WorkProjectSeriesSchemaWithLabelsDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
   workTaskType: zod.lazy(() => WorkTaskTypeDtoSchema),
-  workProjectBandwidth: zod.number().int(),
   userToProviderRatio: zod.number()
 });
 
@@ -234,63 +208,6 @@ export const WorkTaskTypeResourceRequirementPostRequestSchema = zod.object({
   workTaskTypeMatrix: zod.lazy(() => WorkTaskTypeListMatrixSchema)
 });
 
-export const AssetRolePostRequestSchema = zod.object({
-  workTaskTypeExampleList: zod.array(zod.lazy(() => WorkTaskTypeDtoSchema)),
-  roleTypeExample: zod.lazy(() => AssetRoleTypeDtoSchema),
-  rating: zod.number()
-});
-
-export const ProviderRolePostRequestSchema = zod.object({
-  workTaskTypeExampleList: zod.array(zod.lazy(() => WorkTaskTypeDtoSchema)),
-  roleTypeExample: zod.lazy(() => ProviderRoleTypeDtoSchema),
-  rating: zod.number()
-});
-
-export const LessonAllocationInitSchema = zod.object({
-  totalPeriods: zod.number().int(),
-  doubleLessons: zod.number().int()
-});
-
-export const NewProviderRoleDtoSchema = zod.object({
-  knowledgeDomain: zod.lazy(() => LongIdStringNameTupleSchema),
-  firstName: zod.string(),
-  lastName: zod.string(),
-  partyId: zod.number().int()
-});
-
-export const SchoolYearPlanInitDtoSchema = zod.object({
-  yearLessonAllocationPlans: zod.record(
-    zod.number().int(),
-    zod.record(
-      zod.string(),
-      zod.lazy(() => LessonAllocationInitSchema)
-    )
-  ),
-  periodsInReferenceCycle: zod.number().int(),
-  targetCycleId: zod.number().int()
-});
-
-export const ClassificationDtoSchema = zod.object({
-  hashcode: zod.number().int(),
-  id: zod.number().int(),
-  type: zod.string(),
-  memberIdList: zod.array(zod.number().int()),
-  classificationReferenceType: zod.string(),
-  classificationReferenceId: zod.number().int(),
-  bandwidth: zod.number().int()
-});
-
-export const DeliveryAllocationProjectionSchema = zod.object({
-  deliveryAllocation: zod.lazy(() => DeliveryAllocationDtoSchema),
-  horizontalMultiplier: zod.number(),
-  verticalMultiplier: zod.number()
-});
-
-export const WorkTaskTypeProjectionSchema = zod.object({
-  id: zod.number().int(),
-  totalTaskVolume: zod.number().int()
-});
-
 export const HasDescriptionSchema = zod.object({
   description: zod.string()
 });
@@ -335,7 +252,6 @@ export const ColorDtoSchema = zod.object({
 
 export const CycleDtoSchema = zod.object({
   id: zod.number().int(),
-  cycleLengthInDays: zod.number().int(),
   cycleSubspanGroupSizes: zod.array(zod.number().int()),
   cycleDayZero: zod.enum([
     'MONDAY',
@@ -349,7 +265,8 @@ export const CycleDtoSchema = zod.object({
   cycleLengthInWeeks: zod
     .number()
     .int()
-    .min(1, { message: 'Cycle length must be at least 1 week' })
+    .min(1, { message: 'Cycle length must be at least 1 week' }),
+  nominalCycleSubspanLengthInMinutes: zod.number().int()
 });
 
 export const CycleSubspanGroupDtoSchema = zod.object({
@@ -357,29 +274,26 @@ export const CycleSubspanGroupDtoSchema = zod.object({
   id: zod.number().int()
 });
 
-export const InteractionBasedValidationDtoSchema = zod.object({
-  name: zod.string(),
-  id: zod.number().int()
-});
+export const InteractionBasedValidationDtoSchema = zod.object({});
 
 export const KnowledgeDomainDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
-  shortCode: zod.string().nullable(),
-  color: zod.lazy(() => ColorDtoSchema.nullable())
+  shortCode: zod.string().optional(),
+  color: zod.lazy(() => ColorDtoSchema.optional())
 });
 
 export const KnowledgeLevelSeriesDtoSchema = zod.object({
-  name: zod.string(),
   id: zod.number().int(),
-  knowledgeLevelDescriptor: zod.string().nullable(),
+  name: zod.string(),
+  knowledgeLevelDescriptor: zod.string().optional(),
   knowledgeLevels: zod.array(zod.lazy(() => KnowledgeLevelDtoSchema))
 });
 
 export const PartyDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
-  partyType: zod.string()
+  partyType: zod.enum(['PERSON', 'ORGANIZATION'])
 });
 
 export const TimeDivisionDtoSchema = zod.object({
@@ -390,7 +304,7 @@ export const TimeDivisionDtoSchema = zod.object({
 export const AssetDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
-  ownerId: zod.number().int().nullable(),
+  ownerId: zod.number().int().optional(),
   type: zod.lazy(() => AssetTypeDtoSchema)
 });
 
@@ -427,7 +341,7 @@ export const CarouselLeanDtoSchema = zod.object({
 export const CarouselOrderDtoSchema = zod.object({
   id: zod.string().uuid(),
   carouselOrderItems: zod.record(
-    zod.number().int(),
+    zod.string(),
     zod.lazy(() => CarouselOrderItemDtoSchema)
   ),
   userRoleId: zod.number().int(),
@@ -474,10 +388,9 @@ export const WorkProjectSeriesSchemaDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
   deliveryAllocations: zod.record(
-    zod.number().int(),
+    zod.string(),
     zod.lazy(() => DeliveryAllocationDtoSchema)
   ),
-  workProjectBandwidth: zod.number().int(),
   userToProviderRatio: zod.number(),
   workTaskType: zod.lazy(() => WorkTaskTypeDtoSchema)
 });
@@ -523,7 +436,7 @@ export const CarouselOrderItemDtoSchema = zod.object({
   workProjectSeriesSchemaId: zod.number().int(),
   preferencePosition: zod.number().int(),
   active: zod.boolean(),
-  carouselOptionId: zod.number().int().nullable()
+  carouselOptionId: zod.number().int().optional()
 });
 
 export const CycleSubspanDtoSchema = zod.object({
@@ -586,7 +499,7 @@ export const ProviderRoleDtoSchema = zod.object({
 
 export const ProviderRoleTypeWorkTaskTypeSuitabilityDtoSchema = zod.object({
   id: zod.number().int(),
-  rating: zod.number(),
+  rating: zod.number().min(0, { message: 'Rating must be non-negative' }),
   partyId: zod.number().int(),
   providerRoleTypeId: zod.number().int(),
   providerRoleTypeName: zod.string(),
@@ -612,9 +525,9 @@ export const UserRoleDtoSchema = zod.object({
   thruDate: zod.string().datetime().optional(),
   knowledgeLevelSeriesName: zod.string(),
   knowledgeLevelSeriesId: zod.number().int(),
-  partyName: zod.string().min(1, 'Please supply a name'),
+  partyName: zod.string(),
   partyId: zod.number().int(),
-  partyType: zod.string(),
+  partyType: zod.enum(['PERSON', 'ORGANIZATION']),
   partyDateOfBirth: zod.string().date(),
   userRoleType: zod.lazy(() => UserRoleTypeDtoSchema)
 });
@@ -635,7 +548,7 @@ export const WorkSchemaNodeDtoSchema = zod.object({
   id: zod.number().int(),
   knowledgeDomainId: zod.number().int().optional(),
   knowledgeLevelId: zod.number().int().optional(),
-  name: zod.string().optional(),
+  name: zod.string().min(1).max(50).optional(),
   carouselGroupId: zod.number().int().optional(),
   carouselId: zod.number().int().optional(),
   workProjectSeriesSchemaId: zod.number().int().optional(),
@@ -664,8 +577,8 @@ export const WorkTaskSeriesUnitDtoSchema = zod.object({
 });
 
 export const AssetRoleTypeDtoSchema = zod.object({
-  name: zod.string(),
-  id: zod.number().int()
+  id: zod.number().int(),
+  name: zod.string()
 });
 
 export const AssetTypeDtoSchema = zod.object({
@@ -686,8 +599,8 @@ export const PartyNodeRelationshipTypeDtoSchema = zod.object({
 });
 
 export const ProviderRoleTypeDtoSchema = zod.object({
-  name: zod.string(),
-  id: zod.number().int()
+  id: zod.number().int(),
+  name: zod.string()
 });
 
 export const UserRoleTypeDtoSchema = zod.object({
@@ -698,7 +611,7 @@ export const UserRoleTypeDtoSchema = zod.object({
 export const WorkTaskTypeDtoSchema = zod.object({
   name: zod.string(),
   id: zod.number().int(),
-  knowledgeDomain: zod.lazy(() => KnowledgeDomainDtoSchema.optional()),
+  knowledgeDomain: zod.lazy(() => KnowledgeDomainDtoSchema),
   knowledgeLevel: zod.lazy(() => KnowledgeLevelDtoSchema.optional()),
   validationType: zod.lazy(() => ValidationTypeDtoSchema.optional()),
   knowledgeLevelSeriesId: zod.number().int().optional()
@@ -745,20 +658,30 @@ export const WorkProjectSeriesDtoSchema = zod.object({
   workTaskType: zod.lazy(() => WorkTaskTypeDtoSchema)
 });
 
+export const AssetRolePostRequestSchema = zod.object({
+  workTaskTypeExampleList: zod.array(zod.lazy(() => WorkTaskTypeDtoSchema)),
+  roleTypeExample: zod.lazy(() => AssetRoleTypeDtoSchema),
+  rating: zod.number()
+});
+
+export const ProviderRolePostRequestSchema = zod.object({
+  workTaskTypeExampleList: zod.array(zod.lazy(() => WorkTaskTypeDtoSchema)),
+  roleTypeExample: zod.lazy(() => ProviderRoleTypeDtoSchema),
+  rating: zod.number()
+});
+
 export const DescribableDtoSchema = zod.object({
   description: zod.string()
 });
 
 export const RoleAvailabilityDtoSchema = zod.object({
   type: zod.string(),
+  availabilityCode: zod.number().int(),
   cycleSubspanId: zod.number().int(),
   baseEntityId: zod.number().int(),
   roleEntityId: zod.number().int(),
-  availabilityCode: zod.number().int(),
   id: zod.number().int()
 });
-
-export const RoleSuitabilityPostRequestSchema = zod.object({});
 
 export const CollectionDtoSchema = zod.object({});
 
@@ -772,3 +695,5 @@ export const TypeDtoSchema = zod.object({
   name: zod.string(),
   id: zod.number().int()
 });
+
+export const RoleSuitabilityPostRequestSchema = zod.object({});

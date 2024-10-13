@@ -5,15 +5,8 @@ import {
   LinkWithChildLinks,
   NavLinkTree
 } from '@/app/core/navigation/links/types';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import {
-  NavigationType,
-  navLinkIcons
-} from '@/components/navigation/navLinkIcons';
+import { NavigationType } from '@/components/navigation/navLinkIcons';
 import { camelCase, startCase } from 'lodash';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
-import { NavLinkDescriptionsDefault } from '@/components/navigation/navLinkDescriptions';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import RootCard from '@/components/generic/RootCard';
 

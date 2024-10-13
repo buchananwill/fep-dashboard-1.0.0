@@ -18,7 +18,7 @@ getDtoListByParamList,
 getDtoListByExampleList
 } = generateBaseEndpointSet<
   CycleSubspanGroupDto,
-  string
+  number
 >(
   '/api/v2/time/cycleSubspanGroups'
 );

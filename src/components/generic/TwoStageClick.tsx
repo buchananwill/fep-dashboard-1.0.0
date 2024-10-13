@@ -14,13 +14,17 @@ export function TwoStageClick({
   primedAppearance = 'danger',
   primedMessage = 'Confirm delete?',
   className,
+  size,
   ...props
 }: {
   timeOutDelayMs?: number;
   standardAppearance?: 'light' | 'ghost';
   primedAppearance?: 'danger' | 'primary';
   primedMessage?: string;
-} & ButtonProps) {
+} & Pick<
+  ButtonProps,
+  'children' | 'onPress' | 'className' | 'size' | 'isIconOnly' | 'isDisabled'
+>) {
   const [clickPrimed, setClickPrimed] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const { refs, floatingStyles } = useFloating({
@@ -46,12 +50,12 @@ export function TwoStageClick({
   );
 
   return (
-    <div className={'w-fit h-fit inline-block'} ref={refs.setReference}>
+    <div className={'inline-block h-fit w-fit'} ref={refs.setReference}>
       <Button
-        className={`z-10 relative transition-colors duration-500 ${className}`}
+        className={'relative z-10 transition-colors duration-500'}
         color={clickPrimed ? primedAppearance : 'default'}
         variant={standardAppearance}
-        size={'sm'}
+        size={size ?? 'sm'}
         onPress={guardClick}
         {...props}
       >
@@ -61,7 +65,7 @@ export function TwoStageClick({
         <div
           ref={refs.setFloating}
           style={floatingStyles}
-          className={'bg-white bg-opacity-100 w-fit h-fit rounded-full z-10'}
+          className={'z-10 h-fit w-fit rounded-full bg-white bg-opacity-100'}
         >
           <Chip color={primedAppearance} className={''}>
             {primedMessage}
