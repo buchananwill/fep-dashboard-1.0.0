@@ -13,6 +13,7 @@ import { WorkTaskTypeCell } from '@/components/tables/edit-tables/WorkTaskTypeCe
 import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';
 import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
 import { ResourceRequirementItemCells } from '@/components/tables/edit-tables/ResourceRequirementItemCells';
+import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 
 export default function ResourceRequirementItemEditTable() {
   const entities = useFilterOutDeletedEntities<ResourceRequirementItemDto>(
@@ -40,8 +41,11 @@ export default function ResourceRequirementItemEditTable() {
 
 const COLUMNS: Column<ResourceRequirementItemDto>[] = [
   { name: 'Delete', uid: 'id', sortable: false },
-  { name: 'ProviderRoleType', uid: 'providerRoleType' },
-  { name: 'AssetRoleType', uid: 'assetRoleType' },
+  {
+    name: getStartCaseDomainAlias('ProviderRoleType'),
+    uid: 'providerRoleType'
+  },
+  { name: getStartCaseDomainAlias('AssetRoleType'), uid: 'assetRoleType' },
   { name: 'WorkTaskType', uid: 'workTaskTypeId' }
 ];
 

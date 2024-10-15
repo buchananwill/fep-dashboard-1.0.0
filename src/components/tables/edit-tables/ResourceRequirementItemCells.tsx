@@ -39,6 +39,7 @@ function RoleTypeCell({
   return (
     <ControlledSelector<number, ProviderRoleTypeDto>
       labelPath={'name'}
+      placeHolderOnlyNoLabel
       entityId={get(entity, path)?.id ?? null}
       entityClass={EntityClassMap[path]}
       selectionCallback={selectionCallback}

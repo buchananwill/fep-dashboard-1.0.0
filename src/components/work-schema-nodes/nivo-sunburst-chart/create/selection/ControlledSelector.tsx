@@ -19,6 +19,7 @@ export function ControlledSelector<
   selectionCallback,
   idType = 'number',
   labelPath,
+  placeHolderOnlyNoLabel,
   ...selectProps
 }: {
   labelPath: TypedPaths<T, string | number>;
@@ -26,6 +27,7 @@ export function ControlledSelector<
   entityClass: string;
   idType?: 'string' | 'number';
   selectionCallback?: (selection: T | undefined) => void;
+  placeHolderOnlyNoLabel?: boolean;
 } & Omit<
   SelectProps,
   'onSelectionChange' | 'selectedKeys' | 'items' | 'selectionMode' | 'children'
@@ -65,10 +67,12 @@ export function ControlledSelector<
       {...selectProps}
       items={currentState}
       aria-label={getStartCaseDomainAlias(selectProps['aria-label'] ?? label)}
-      label={selectProps.label ?? label}
+      label={!placeHolderOnlyNoLabel ? selectProps.label ?? label : ''}
+      placeholder={getStartCaseDomainAlias(labelPath)}
       selectionMode={'single'}
       selectedKeys={entityId ? [String(entityId)] : EmptyArray}
       onSelectionChange={onSelectionChange}
+      classNames={{ selectorIcon: 'right-2' }}
     >
       {(entity) => (
         <SelectItem
