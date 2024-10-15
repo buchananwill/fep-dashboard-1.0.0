@@ -69,8 +69,10 @@ export function useLayoutFlowWithForces<T extends NodeDataType>() {
   );
 
   useEffect(() => {
-    dispatchWithoutListen(draggingNodeRef);
-  }, [draggingNodeRef, dispatchWithoutListen]);
+    if (running || !running) {
+      dispatchWithoutListen(draggingNodeRef);
+    }
+  }, [running, draggingNodeRef, dispatchWithoutListen]);
 
   const onNodeDragStart = useCallback(
     (_event: ReactMouseEvent, node: Node) => {
@@ -89,6 +91,8 @@ export function useLayoutFlowWithForces<T extends NodeDataType>() {
     },
     [draggingNodeRef]
   );
+
+  console.log(draggingNodeRef);
 
   useEffect(() => {
     updateNodeInternals(nodesFromContext.map((n) => n.id));
