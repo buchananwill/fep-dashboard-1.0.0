@@ -97,7 +97,6 @@ export function useForces(
       x: node.position.x || 0,
       y: node.position.y || 0
     })) as FlowNode<any>[];
-    let simulation: Simulation<any, any>;
 
     // If React Flow hasn't initialised our nodes with a width and height yet, or
     // if there are no nodes in the flow, then we can't run the simulation!
