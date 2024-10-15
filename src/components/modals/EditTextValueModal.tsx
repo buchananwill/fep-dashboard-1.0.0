@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import {
   Modal,
@@ -8,20 +8,17 @@ import {
   ModalHeader,
   ModalProps
 } from '@nextui-org/modal';
-import { Input, InputProps } from '@nextui-org/input';
+import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import {
-  useInputValidation,
-  ValidatedInput
-} from '@/components/modals/ValidatedInput';
+import { useInputValidation } from '@/components/modals/ValidatedInput';
 
 export const ExitTextContextKey = 'edit-text-value';
-export interface ConfirmActionModalProps extends Omit<ModalProps, 'children'> {
+export type ConfirmActionModalProps = {
   onConfirm?: () => void;
   onCancel?: () => void;
-}
+} & Pick<ModalProps, 'isOpen' | 'onClose'>;
 
 export interface Validator<T> {
   (input: T | undefined | null): { errorMessage?: string; error?: boolean };

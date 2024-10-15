@@ -125,7 +125,7 @@ export function ConfirmActionModal({
   changeDescription: string;
   changeDetails: ReactNode;
 } & ConfirmActionModalProps &
-  Omit<ModalProps, 'children'>) {
+  Pick<ModalProps, 'onClose' | 'isOpen'>) {
   return (
     <Modal {...modalProps}>
       <ModalContent>

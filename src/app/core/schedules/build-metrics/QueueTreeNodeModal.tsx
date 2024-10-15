@@ -15,7 +15,10 @@ import { Chip } from '@nextui-org/chip';
 export default function QueueTreeNodeModal({
   queueTreeNode,
   ...modalProps
-}: { queueTreeNode?: QueueTreeNodeDto } & Omit<ModalProps, 'children'>) {
+}: { queueTreeNode?: QueueTreeNodeDto } & Pick<
+  ModalProps,
+  'isOpen' | 'onClose'
+>) {
   if (!queueTreeNode) return null;
 
   return (

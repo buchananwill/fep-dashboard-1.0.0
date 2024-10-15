@@ -19,7 +19,6 @@ import {
   KnowledgeLevelDto,
   KnowledgeLevelSeriesDto,
   OrganizationDto,
-  OrganizationLeafTotalAllocationFeasibilityDto,
   OrganizationTypeDto,
   PersonDto,
   ProviderRoleAvailabilityDto,
@@ -61,8 +60,6 @@ export type EntityTypeMap = {
   cycle: CycleDto;
   cycleSubspan: CycleSubspanDto;
   cycleSubspanGroup: CycleSubspanGroupDto;
-  feasibilityReport: FeasibilityReportDto;
-  interactionBasedValidation: InteractionBasedValidationDto;
   knowledgeDomain: KnowledgeDomainDto;
   knowledgeLevel: KnowledgeLevelDto;
   knowledgeLevelSeries: KnowledgeLevelSeriesDto;

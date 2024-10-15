@@ -12,7 +12,10 @@ export default function WorkNodeHierarchyButton({
   children,
   className,
   ...buttonProps
-}: { editCommand: WorkNodeHierarchyProducer } & Omit<ButtonProps, 'onPress'>) {
+}: { editCommand: WorkNodeHierarchyProducer } & Pick<
+  ButtonProps,
+  'className' | 'children' | 'isDisabled'
+>) {
   const { dispatchWithoutListen: dispatch } =
     useGlobalDispatch<WorkNodeHierarchy>(KnowledgeLevelSeriesGroupContextKey);
 

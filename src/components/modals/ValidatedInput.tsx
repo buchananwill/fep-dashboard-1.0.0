@@ -16,21 +16,3 @@ export function useInputValidation(
 
   return { error, errorMessage };
 }
-
-export const ValidatedInput = forwardRef<HTMLInputElement, ValidatedInputProps>(
-  ({ validator, value, ...props }, ref) => {
-    const { error, errorMessage } = useInputValidation(validator, value);
-
-    return (
-      <Input
-        {...props}
-        ref={ref}
-        value={value}
-        errorMessage={errorMessage}
-        isInvalid={error}
-      />
-    );
-  }
-);
-
-ValidatedInput.displayName = 'ValidatedInput';

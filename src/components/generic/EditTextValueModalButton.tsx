@@ -9,9 +9,7 @@ import { EditTextDeletePopoverProps } from '@/components/generic/EditTextDeleteE
 import { get } from 'lodash';
 
 export type EditTextValueModalButtonProps<T extends HasId> =
-  EditTextDeletePopoverProps<T> &
-    Omit<BaseDtoUiProps<T>, 'deleted'> &
-    Partial<Omit<ButtonProps, keyof EditTextDeletePopoverProps<T>>>;
+  EditTextDeletePopoverProps<T> & Omit<BaseDtoUiProps<T>, 'deleted'>;
 
 export function EditTextModalButton<T extends HasId>({
   entityClass,
@@ -44,7 +42,7 @@ export function EditTextModalButton<T extends HasId>({
   return (
     <>
       <Button
-        className={`${classNames?.button}`}
+        className={classNames?.button}
         onPress={onOpen}
         {...otherButtonProps}
       >
