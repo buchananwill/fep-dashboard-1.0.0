@@ -23,6 +23,7 @@ import { ResourceRequirementItemDto } from '@/api/generated-types/generated-type
 import { Loading } from '@/components/feasibility-report/Loading';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { workTaskTypeIdInModal } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 export default function ResourceRequirementItemModal({
   isOpen,
@@ -31,12 +32,13 @@ export default function ResourceRequirementItemModal({
 }: Pick<ModalProps, 'isOpen' | 'onOpenChange'> & {
   workTaskTypeId?: number;
 }) {
-  console.log({ workTaskTypeId, isOpen });
   const assetRoleTypeDtos = useSimpleApiFetcher(Api.AssetRoleType.getAll);
   const providerRoleTypeDtos = useSimpleApiFetcher(Api.ProviderRoleType.getAll);
   const [show, setShow] = useState(false);
   const [resourceRequirementsFromServer, setResourceRequirementsFromServer] =
     useState<ResourceRequirementItemDto[]>(EmptyArray);
+
+  console.log({ resourceRequirementsFromServer });
 
   const { dispatchWithoutListen } = useGlobalDispatch<number | 'closed'>(
     workTaskTypeIdInModal
@@ -114,7 +116,9 @@ export default function ResourceRequirementItemModal({
               </ModalHeader>
               {show ? (
                 <ModalBody>
-                  <ResourceRequirementItemEditTable />
+                  <ResourceRequirementItemEditTable
+                    workTaskTypeId={workTaskTypeId}
+                  />
                 </ModalBody>
               ) : (
                 <ModalBody>

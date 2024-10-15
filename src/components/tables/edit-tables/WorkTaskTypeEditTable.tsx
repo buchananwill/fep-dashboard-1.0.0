@@ -35,14 +35,13 @@ export default function WorkTaskTypeEditTable() {
 
   const modalIsOpen = currentState !== 'closed';
 
-  console.log({ modalIsOpen, currentState });
-
   return (
     <>
       <FilterSelectEntityTable
         isCompact={true}
         classNames={{
-          wrapper: 'w-[60vw]'
+          wrapper: 'w-[60vw]',
+          td: 'p-0'
         }}
         entityClass={EntityClassMap.workTaskType}
         entities={entities}
@@ -62,7 +61,7 @@ export default function WorkTaskTypeEditTable() {
 }
 
 const COLUMNS: Column<WorkTaskTypeDto>[] = [
-  { name: 'Delete', uid: 'id', sortable: false },
+  { name: 'More', uid: 'id', sortable: false },
   ...WORK_TASK_TYPE_COLUMNS
 ];
 

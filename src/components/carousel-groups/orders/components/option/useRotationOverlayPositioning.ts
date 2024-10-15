@@ -60,7 +60,6 @@ export function useRotationOverlayPositioning(
         // Condition to set the local node as the source
         if (isPrimed && currentSource !== localNode) {
           updatedConnection = { ...updatedConnection, source: localNode };
-          console.log({ currentConnection, updatedConnection });
         }
         // condition to remove the local node as the source
         else if (
@@ -69,12 +68,10 @@ export function useRotationOverlayPositioning(
           currentSource?.id === localNode.id
         ) {
           updatedConnection = { ...updatedConnection, source: undefined };
-          console.log({ currentConnection, updatedConnection });
         }
         // condition to set the local node as the target
         else if (isAntiPrimed && currentTarget !== localNode) {
           updatedConnection = { ...updatedConnection, target: localNode };
-          console.log({ currentConnection, updatedConnection });
         }
         // condition to remove the local node as the target
         else if (
@@ -83,7 +80,6 @@ export function useRotationOverlayPositioning(
           currentTarget?.id === localNode.id
         ) {
           updatedConnection = { ...updatedConnection, target: undefined };
-          console.log({ currentConnection, updatedConnection });
         }
 
         // If the references no longer match, we now update the map

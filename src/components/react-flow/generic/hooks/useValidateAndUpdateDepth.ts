@@ -22,11 +22,9 @@ export function useValidateAndUpdateDepth<T extends HasNumberId>(
       if (source && target) {
         const nodeSource = idToNodeMap.get(source);
         const nodeTarget = idToNodeMap.get(target);
-        console.log({ nodeSource, nodeTarget });
         const validation =
           nodeTarget?.distanceFromRoot === 0 &&
           validateWorkSchemaNodeHierarchy(nodeSource, nodeTarget);
-        console.log({ validation });
         if (validation && nodeSource && nodeTarget) {
           onConnect(connection);
           dispatchNodes((prevNodes) =>

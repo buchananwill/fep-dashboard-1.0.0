@@ -92,8 +92,6 @@ export function useLayoutFlowWithForces<T extends NodeDataType>() {
     [draggingNodeRef]
   );
 
-  console.log(draggingNodeRef);
-
   useEffect(() => {
     updateNodeInternals(nodesFromContext.map((n) => n.id));
     setNodes(nodesFromContext as FlowNode<T>[]);

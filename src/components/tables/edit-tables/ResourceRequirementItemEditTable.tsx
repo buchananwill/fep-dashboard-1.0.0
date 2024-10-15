@@ -14,11 +14,27 @@ import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workT
 import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
 import { ResourceRequirementItemCells } from '@/components/tables/edit-tables/ResourceRequirementItemCells';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
+import { useMasterListToCreate } from '@/components/knowledge-levels/useMasterListToCreate';
 
-export default function ResourceRequirementItemEditTable() {
+export default function ResourceRequirementItemEditTable({
+  workTaskTypeId
+}: {
+  workTaskTypeId: number;
+}) {
   const entities = useFilterOutDeletedEntities<ResourceRequirementItemDto>(
     EntityClassMap.resourceRequirementItem
   );
+
+  const createCallback = useCallback(() => {
+    return createResourceRequirementItem(workTaskTypeId);
+  }, [workTaskTypeId]);
+
+  const create = useMasterListToCreate(
+    createCallback,
+    EntityClassMap.resourceRequirementItem
+  );
+
   // const goToCreate = useNavigationCallback('/core/work-task-types/create');
 
   return (
@@ -34,7 +50,7 @@ export default function ResourceRequirementItemEditTable() {
       initialColumns={INITIAL_COLUMNS}
       filterProperty={'id'}
       renderCell={ResourceRequirementItemCells}
-      // addRow={goToCreate}
+      addRow={create}
     />
   );
 }
@@ -55,3 +71,12 @@ const INITIAL_COLUMNS: ColumnUid<ResourceRequirementItemDto>[] = [
   'providerRoleType',
   'workTaskTypeId'
 ];
+
+function createResourceRequirementItem(
+  workTaskTypeId: number
+): ResourceRequirementItemDto {
+  return {
+    workTaskTypeId: workTaskTypeId,
+    id: idDecrementer()
+  };
+}

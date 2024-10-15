@@ -5,6 +5,7 @@ import { Button, ButtonProps } from '@nextui-org/button';
 
 import { Chip } from '@nextui-org/chip';
 import { PressEvent } from '@react-types/shared';
+import clsx from 'clsx';
 
 export function TwoStageClick({
   children,
@@ -52,7 +53,10 @@ export function TwoStageClick({
   return (
     <div className={'inline-block h-fit w-fit'} ref={refs.setReference}>
       <Button
-        className={'relative z-10 transition-colors duration-500'}
+        className={clsx(
+          'relative z-10 transition-colors duration-500',
+          className
+        )}
         color={clickPrimed ? primedAppearance : 'default'}
         variant={standardAppearance}
         size={size ?? 'sm'}

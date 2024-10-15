@@ -14,8 +14,6 @@ export function DeleteEntity<T extends HasId>({
     entity.id,
     entityClass
   );
-  console.log('rendering');
-
   const handleDelete = useCallback(() => {
     dispatchDeletion((list) => [...list, entity.id]);
   }, [entity, dispatchDeletion]);
@@ -25,7 +23,7 @@ export function DeleteEntity<T extends HasId>({
       onPress={handleDelete}
       isDisabled={deleted}
       isIconOnly={true}
-      className={'p-1'}
+      className={'h-10 w-10 rounded-xl p-1'}
     >
       <TrashIcon />
     </TwoStageClick>
