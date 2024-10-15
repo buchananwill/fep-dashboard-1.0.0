@@ -1,6 +1,6 @@
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
-import React, { forwardRef, ReactElement } from 'react';
+import React, { forwardRef } from 'react';
 import {
   Table,
   TableBody,
