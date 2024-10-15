@@ -8,8 +8,8 @@ export type FocusToEditProps = { inputProps: InputProps };
 
 export function FocusToEdit({
   children,
-  inputProps: { children: inputChildren, ...props }
-}: FocusToEditProps & PropsWithChildren) {
+  ...otherProps
+}: InputProps & PropsWithChildren) {
   const [active, setActive] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ export function FocusToEdit({
       <div className={'inline-block grow'}>
         {active ? (
           // @ts-ignore
-          <Input {...props} />
+          <Input {...otherProps} />
         ) : (
           children
         )}

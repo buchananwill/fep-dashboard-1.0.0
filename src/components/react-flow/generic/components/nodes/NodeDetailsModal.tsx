@@ -1,4 +1,4 @@
-import { Modal, ModalContent, ModalProps } from '@nextui-org/modal';
+import { Modal, ModalContent, ModalProps } from '@nextui-org/react';
 
 import { ReactNode } from 'react';
 
@@ -11,10 +11,7 @@ import {
   useGraphListener
 } from 'react-d3-force-wrapper';
 
-export type NodeDetailsModalProps = Omit<
-  ModalProps,
-  'onOpenChange' | 'isOpen' | 'scrollBehavior' | 'children'
->;
+export type NodeDetailsModalProps = Pick<ModalProps, 'className'>;
 
 const listenerKey = 'modal';
 export function NodeDetailsModal(nodeDetailsModalProps: NodeDetailsModalProps) {

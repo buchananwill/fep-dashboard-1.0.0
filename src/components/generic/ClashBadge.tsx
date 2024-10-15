@@ -1,12 +1,15 @@
-import { Badge, BadgeProps } from '@nextui-org/badge';
+import { Badge } from '@nextui-org/react';
 import clsx from 'clsx';
+import { UseBadgeProps } from '@nextui-org/badge/dist/use-badge';
 
 export function ClashBadge({
   show,
   className,
   children,
   ...otherProps
-}: Omit<BadgeProps, 'color'> & { show: boolean }) {
+}: Pick<UseBadgeProps, 'className' | 'children' | 'content'> & {
+  show: boolean;
+}) {
   return (
     <Badge
       className={clsx(show ? '' : 'hidden')}
