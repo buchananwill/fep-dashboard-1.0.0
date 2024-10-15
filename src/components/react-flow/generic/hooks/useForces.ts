@@ -81,8 +81,6 @@ export function useForces(
     initialValue: undefined
   });
 
-  console.log(draggingNode);
-
   const { nodeListRef, linkListRef, simRef } =
     useDirectSimRefEditsDispatch(listenerKey);
 
@@ -113,8 +111,6 @@ export function useForces(
       Object.assign(nodeListRef.current[i], nodes[i]);
     }
     simRef.current.stop();
-
-    console.log(draggingNode);
 
     // The tick function is called every animation frame while the simulation is
     // running and progresses the simulation one step forward each time.
