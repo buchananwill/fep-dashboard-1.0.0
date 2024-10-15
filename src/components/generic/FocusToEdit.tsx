@@ -1,12 +1,15 @@
 'use client';
 import { Input, InputProps } from '@nextui-org/input';
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import { Button } from '@nextui-org/button';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
-export type FocusToEditProps = InputProps;
+export type FocusToEditProps = { inputProps: InputProps };
 
-export function FocusToEdit({ children, ...inputProps }: FocusToEditProps) {
+export function FocusToEdit({
+  children,
+  inputProps: { children: inputChildren, ...props }
+}: FocusToEditProps & PropsWithChildren) {
   const [active, setActive] = useState(false);
 
   return (
@@ -14,13 +17,18 @@ export function FocusToEdit({ children, ...inputProps }: FocusToEditProps) {
       <Button
         isIconOnly
         onPress={() => setActive((current) => !current)}
-        className={'p-1.5 m-1'}
+        className={'m-1 p-1.5'}
         variant={'light'}
       >
         <PencilSquareIcon />
       </Button>
       <div className={'inline-block grow'}>
-        {active ? <Input {...inputProps} /> : children}
+        {active ? (
+          // @ts-ignore
+          <Input {...props} />
+        ) : (
+          children
+        )}
       </div>
     </div>
   );
