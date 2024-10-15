@@ -9,11 +9,9 @@ import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { DatePicker } from '@nextui-org/date-picker';
 import {
   CalendarDate,
-  CalendarDateTime,
   getLocalTimeZone,
   parseAbsolute,
   parseDate,
-  parseDateTime,
   ZonedDateTime
 } from '@internationalized/date';
 import { z as zod } from 'zod';
@@ -25,6 +23,9 @@ import {
   UserRoleDto,
   UserRoleTypeDto
 } from '@/api/generated-types/generated-types';
+import CreateNewRoleTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
+import { Api } from '@/api/clientApi';
+import { useCreateRoleProps } from '@/components/user-role/create-user-role/UseCreateRoleProps';
 
 function splitAndJoinNameHack(data: UserRoleDto) {
   const fixName = { ...data };
@@ -114,6 +115,10 @@ export default function CreateUserRoleForm({
       }
     });
   };
+  const modalProps = useCreateRoleProps(
+    Api.UserRoleType.postOne,
+    EntityClassMap.userRoleType
+  );
 
   return (
     <FormProvider {...formReturn}>
@@ -164,11 +169,20 @@ export default function CreateUserRoleForm({
             errorMessage={'Required'}
           />
 
-          <div className={'justify-center'}>
+          <div className={'center-horizontal-with-margin'}>
             <Button type={'submit'}>Submit</Button>
           </div>
         </div>
       </form>
+      <div
+        className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
+      ></div>
+      <div className={'center-horizontal-with-margin'}>
+        <Button onPress={() => modalProps.onOpenChange(true)}>
+          Add Role Type
+        </Button>
+      </div>
+      <CreateNewRoleTypeModal {...modalProps} />
     </FormProvider>
   );
 }

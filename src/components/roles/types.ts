@@ -6,6 +6,11 @@ import {
   ProviderRoleDtoSchema,
   UserRoleDtoSchema
 } from '@/api/generated-schemas/schemas_';
+import {
+  AssetRoleTypeDto,
+  ProviderRoleTypeDto,
+  UserRoleTypeDto
+} from '@/api/generated-types/generated-types';
 
 export type BaseRoleParams = {
   roleTypeId: string;
@@ -22,6 +27,14 @@ export interface RolePageProps {
 }
 
 export type RoleEntity = keyof typeof RoleCategories;
+
+export type RoleTypeEntities = {
+  provider: ProviderRoleTypeDto;
+  user: UserRoleTypeDto;
+  asset: AssetRoleTypeDto;
+};
+
+export type RoleTypeEntity = RoleTypeEntities[RoleEntity];
 
 export function isValidAspect(aspect: string) {
   return RoleAspects[aspect as RoleAspect] !== undefined;

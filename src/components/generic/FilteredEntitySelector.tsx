@@ -33,6 +33,7 @@ export default function FilteredEntitySelector<
       items={currentState}
       selectedKeys={selectedKeys}
       onSelectionChange={onSelectionChange}
+      classNames={{ selectorIcon: 'right-4' }}
     >
       {(entity) => (
         <SelectItem

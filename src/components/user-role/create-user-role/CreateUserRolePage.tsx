@@ -37,14 +37,16 @@ export async function CreateUserRolePage({
           dtoList={knowledgeLevelSeries}
           entityClass={EntityClassMap.knowledgeLevelSeries}
         />
-        <CreateUserRoleForm
-          redirectUrl={'/core/users'}
-          createUserRoleAction={Api.UserRole.postOne}
-          defaultValues={{
-            ...defaultUserRoleValues,
-            userRoleType: userRoleTypes[0]
-          }}
-        />
+        <div className={'flex flex-col justify-center'}>
+          <CreateUserRoleForm
+            redirectUrl={'/core/users'}
+            createUserRoleAction={Api.UserRole.postOne}
+            defaultValues={{
+              ...defaultUserRoleValues,
+              userRoleType: userRoleTypes[0]
+            }}
+          />
+        </div>
       </RootCard>
     </div>
   );

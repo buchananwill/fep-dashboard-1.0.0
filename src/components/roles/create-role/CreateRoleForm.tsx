@@ -22,6 +22,10 @@ import { useCompileSuitabilityRequests } from '@/components/roles/create-role/us
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
 import { AssetNestedInForm } from '@/components/roles/create-role/AssetNestedInForm';
 import { FieldValues } from 'react-hook-form/dist/types';
+import CreateNewRoleTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { useCreateRoleProps } from '@/components/user-role/create-user-role/UseCreateRoleProps';
+import { Api } from '@/api/clientApi';
 
 export const listenerKey = 'create-role-form';
 
@@ -87,6 +91,11 @@ export default function CreateRoleForm<T extends FieldValues>({
     });
   };
 
+  const modalProps = useCreateRoleProps(
+    ApiCreationEndpoints[roleEntity],
+    EntityClassMap[`${roleEntity}RoleType`]
+  );
+
   return (
     <>
       <Card className={'h-full w-64'}>
@@ -131,6 +140,15 @@ export default function CreateRoleForm<T extends FieldValues>({
             </div>
           </CardFooter>
         </form>
+        <div
+          className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
+        ></div>
+        <div className={'center-horizontal-with-margin'}>
+          <Button onPress={() => modalProps.onOpenChange(true)}>
+            Add Role Type
+          </Button>
+        </div>
+        <CreateNewRoleTypeModal {...modalProps} />
       </Card>
 
       <CreateRoleTabs
@@ -141,3 +159,9 @@ export default function CreateRoleForm<T extends FieldValues>({
     </>
   );
 }
+
+const ApiCreationEndpoints = {
+  provider: Api.ProviderRoleType.postOne,
+  asset: Api.AssetRoleType.postOne,
+  user: Api.UserRoleType.postOne
+} as const;
