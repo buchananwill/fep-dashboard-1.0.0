@@ -35,8 +35,6 @@ export default function ResourceRequirementItemEditTable({
     EntityClassMap.resourceRequirementItem
   );
 
-  // const goToCreate = useNavigationCallback('/core/work-task-types/create');
-
   return (
     <FilterSelectEntityTable
       isCompact={true}
