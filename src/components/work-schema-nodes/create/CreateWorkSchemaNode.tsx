@@ -8,8 +8,6 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
 
 export default async function CreateWorkSchemaNode() {
-  const schemas = await Api.WorkProjectSeriesSchema.getAll();
-
   const unassignedRootList = await getWithoutBody<WorkSchemaNodeDto[]>(
     constructUrl('/api/v2/workSchemaNodes/rootNodesWithNoAssignments')
   );
@@ -21,7 +19,6 @@ export default async function CreateWorkSchemaNode() {
         dataLinks: EmptyArray as DataLink<WorkSchemaNodeDto>[],
         dataNodes: EmptyArray as DataNode<WorkSchemaNodeDto>[]
       }}
-      schemas={schemas}
       unassignedRootList={unassignedRootList}
     />
   );
