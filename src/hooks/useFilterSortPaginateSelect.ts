@@ -11,12 +11,11 @@ import {
   useDeselectVisible,
   useSelectVisible
 } from '@/hooks/useDeselectVisible';
-import { GetFieldType } from '@/functions/allowingNestedFiltering';
-import { Paths } from 'type-fest';
+import { Get, Paths } from 'type-fest';
 
 export function useFilterSortPaginateSelect<
   T extends HasIdClass<Identifier>,
-  TPath extends string & GetFieldType<T, TPath> extends string
+  TPath extends Paths<T> & Get<T, TPath> extends string | number
     ? Paths<T>
     : never
 >(

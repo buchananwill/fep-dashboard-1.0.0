@@ -2,9 +2,7 @@
 import { PropsWithChildren, useState } from 'react';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { Button, Input } from '@nextui-org/react';
-import { Simplify } from 'type-fest';
-
-type InputProps = Simplify<typeof Input.propTypes>;
+import { InputProps } from '@nextui-org/input';
 
 export function FocusToEdit({
   children,

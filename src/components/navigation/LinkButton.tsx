@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { LinkTreeElementProps } from '@/app/core/navigation/links/types';
 import clsx from 'clsx';
 import { ButtonProps } from '@nextui-org/button';
-import { Get } from 'type-fest';
 
 export function LinkButton({
   href,
@@ -12,7 +11,7 @@ export function LinkButton({
   color = 'primary'
 }: Required<Pick<LinkProps, 'href' | 'children'>> & {
   className?: string;
-  color?: Get<ButtonProps, 'color'>;
+  color?: ButtonProps['color'];
 }) {
   return (
     <Link

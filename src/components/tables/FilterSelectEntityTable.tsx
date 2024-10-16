@@ -19,14 +19,13 @@ import {
   FilterSortPaginateTableContent,
   TableCellRenderer
 } from '@/components/tables/FilterSortPaginateTableContent';
-import { GetFieldType } from '@/functions/allowingNestedFiltering';
-import { Paths } from 'type-fest';
+import { Get, Paths } from 'type-fest';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import pluralize from 'pluralize';
 
 export interface FilterSelectEntityTableProps<
   T extends HasIdClass<Identifier>,
-  TPath extends string & GetFieldType<T, TPath> extends string
+  TPath extends Paths<T> & Get<T, TPath> extends string | number
     ? Paths<T>
     : never
 > {
@@ -43,7 +42,7 @@ export interface FilterSelectEntityTableProps<
 
 export default function FilterSelectEntityTable<
   T extends HasIdClass<Identifier>,
-  TPath extends string & GetFieldType<T, TPath> extends string
+  TPath extends Paths<T> & Get<T, TPath> extends string | number
     ? Paths<T>
     : never
 >({
@@ -76,6 +75,7 @@ export default function FilterSelectEntityTable<
     initialColumns,
     columns,
     entities,
+    //@ts-ignore
     filterProperty,
     entityClass,
     idClass ?? 'number'

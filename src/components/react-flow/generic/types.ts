@@ -3,7 +3,6 @@ import { HasNumberId } from '@/api/types';
 import { DataLink, DataNode, DataNodeDto } from 'react-d3-force-wrapper';
 import {
   CoordinateExtent,
-  Handle,
   HandleType,
   NodeOrigin,
   Position,
