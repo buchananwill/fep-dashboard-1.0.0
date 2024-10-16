@@ -1,4 +1,4 @@
-import { Edge, useEdges } from '@xyflow/react';
+import { Edge, useEdges, useNodesData } from '@xyflow/react';
 
 import React, { memo, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
@@ -18,10 +18,14 @@ import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
 import { Simplify } from 'type-fest';
 import { AllocationSummary } from '@/components/react-flow/organization/types';
-import { useDtoStore } from 'dto-stores';
+import { useDtoStore, useReadAnyDto } from 'dto-stores';
 import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
+import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { useReadAnyDtoTyped } from '@/api/typed-dto-store-hooks';
+import { isNotUndefined } from '@/api/main';
 
-const initialTotalMap = new Map<string, number>();
+const initialAncestorMap = new Map<string, OrganizationDto>();
 
 export function OrganizationNode(
   nodeProps: NodeProps<NodeBase<Simplify<OrganizationDto>>>
@@ -34,7 +38,7 @@ export function OrganizationNode(
   );
   const edges = useEdges();
 
-  const ancestorNodeAllocationKeyList = useMemo(() => {
+  const ancestorNodeIdList = useMemo(() => {
     const localEdges = getEdgesToParents(edges, nodeProps.id);
 
     let allEdges = [...localEdges];
@@ -50,13 +54,22 @@ export function OrganizationNode(
       }
     }
     const setOfParentIds = new Set(allEdges.map((e) => e.source));
-    return [...setOfParentIds].map((id) => `allocationTotal:${id}`);
+    return [...setOfParentIds];
   }, [edges, nodeProps.id]);
+
   const { currentState } = useGlobalListenerGroup({
-    contextKeys: ancestorNodeAllocationKeyList,
+    contextKeys: ancestorNodeIdList,
     listenerKey: `${data.id}`,
-    initialValue: initialTotalMap
+    initialValue: initialAncestorMap
   });
+
+  const nodesData =
+    useNodesData<NodeBase<Simplify<OrganizationDto>>>(ancestorNodeIdList);
+
+  const readAnyDeliveryRollUp =
+    useReadAnyDto<WorkSchemaNodeRootTotalDeliveryAllocationRollupDto>(
+      workSchemaNodeRollUp
+    );
 
   const { workSchemaNodeAssignment } = data;
 
@@ -67,22 +80,38 @@ export function OrganizationNode(
       listenerKey
     });
 
-  const allocationRollup = workSchemaNodeRoot?.deliveryAllocationSum ?? 0;
+  const localAllocation = workSchemaNodeRoot?.deliveryAllocationSum ?? 0;
 
   const allocationRollupOrZero = useMemo(() => {
-    return workSchemaNodeAssignment?.workSchemaNodeId ? allocationRollup : 0;
-  }, [workSchemaNodeAssignment?.workSchemaNodeId, allocationRollup]);
+    return workSchemaNodeAssignment?.workSchemaNodeId ? localAllocation : 0;
+  }, [workSchemaNodeAssignment?.workSchemaNodeId, localAllocation]);
+
+  console.log({
+    workSchemaNodeAssignment,
+    workSchemaNodeRoot,
+    ancestorNodeAllocationKeyList: ancestorNodeIdList,
+    currentState,
+    nodesData
+  });
 
   useEffect(() => {
+    console.log({ allocationRollupOrZero });
     dispatchWithoutListen(allocationRollupOrZero);
   }, [dispatchWithoutListen, allocationRollupOrZero]);
 
   const inheritedTotal = useMemo(() => {
-    return [...currentState.values()].reduce(
-      (prev, curr) => (isNumber(curr) ? prev + curr : prev),
-      0
-    );
-  }, [currentState]);
+    return nodesData
+      .map((organizationDto) => {
+        const workSchemaNodeId =
+          organizationDto.data.workSchemaNodeAssignment?.workSchemaNodeId;
+        console.log(workSchemaNodeId);
+        return workSchemaNodeId !== undefined
+          ? readAnyDeliveryRollUp(workSchemaNodeId)?.deliveryAllocationSum
+          : undefined;
+      })
+      .filter(isNotUndefined)
+      .reduce((prev, curr) => (isNumber(curr) ? prev + curr : prev), 0);
+  }, [nodesData, readAnyDeliveryRollUp]);
 
   const summaries: AllocationSummary[] = useMemo(() => {
     return [
