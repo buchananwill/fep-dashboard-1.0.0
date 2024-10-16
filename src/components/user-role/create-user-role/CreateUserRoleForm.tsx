@@ -25,7 +25,7 @@ import {
 } from '@/api/generated-types/generated-types';
 import CreateNewRoleTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
 import { Api } from '@/api/clientApi';
-import { useCreateRoleProps } from '@/components/user-role/create-user-role/UseCreateRoleProps';
+import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
 
 function splitAndJoinNameHack(data: UserRoleDto) {
   const fixName = { ...data };
@@ -115,7 +115,7 @@ export default function CreateUserRoleForm({
       }
     });
   };
-  const modalProps = useCreateRoleProps(
+  const modalProps = useCreateTypeProps(
     Api.UserRoleType.postOne,
     EntityClassMap.userRoleType
   );

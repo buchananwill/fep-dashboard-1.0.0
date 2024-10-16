@@ -7,7 +7,7 @@ import {
   useGlobalListener
 } from 'selective-context';
 
-import React, { ChangeEvent, useMemo } from 'react';
+import React, { ChangeEvent, useEffect, useMemo } from 'react';
 
 import {
   ComponentUndefined,
@@ -19,10 +19,14 @@ import {
   useGraphListener
 } from 'react-d3-force-wrapper';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
-import { OrganizationDto } from '@/api/generated-types/generated-types';
+import {
+  OrganizationDto,
+  OrganizationTypeDto
+} from '@/api/generated-types/generated-types';
 import {
   BaseDtoUiProps,
   BaseLazyDtoUiProps,
+  EditAddDeleteDtoControllerArray,
   LazyDtoUiWrapper,
   NamespacedHooks
 } from 'dto-stores';
@@ -35,6 +39,10 @@ import { WorkSchemaNodeAssignmentDto } from '@/api/generated-types/generated-typ
 import { listenerKeyDetailsContent } from '@/app/_literals';
 import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
+import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
+import { Api } from '@/api/clientApi';
+import CreateNewTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
+import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
 
 export default function OrganizationDetailsContent({
   onClose
@@ -67,6 +75,31 @@ export default function OrganizationDetailsContent({
   const { workSchemaNodeAssignment } = currentState;
   const workSchemaNodeId = workSchemaNodeAssignment?.workSchemaNodeId;
 
+  const organizationTypeDtos = useSimpleApiFetcher(Api.OrganizationType.getAll);
+
+  console.log(organizationTypeDtos);
+
+  const createTypeProps = useCreateTypeProps(
+    Api.OrganizationType.postOne,
+    EntityClassMap.organizationType
+  );
+
+  const dispatchOrgTypes = NamespacedHooks.useDispatch<OrganizationTypeDto[]>(
+    EntityClassMap.organizationType,
+    KEY_TYPES.MASTER_LIST
+  );
+  useEffect(() => {
+    dispatchOrgTypes((prev) => {
+      const idSet = new Set(prev.map((orgType) => orgType.id));
+      return [
+        ...prev,
+        ...organizationTypeDtos.filter((orgType) => !idSet.has(orgType.id))
+      ];
+    });
+  }, [organizationTypeDtos, dispatchOrgTypes]);
+
+  const { isOpen } = createTypeProps;
+
   const selectedKeys = useMemo(() => {
     return workSchemaNodeId ? [`${workSchemaNodeId}`] : [];
   }, [workSchemaNodeId]);
@@ -75,6 +108,10 @@ export default function OrganizationDetailsContent({
 
   return (
     <>
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.organizationType}
+        dtoList={organizationTypeDtos}
+      />
       <ModalHeader className="flex flex-col gap-1">
         <FocusToEdit
           value={currentState.name}
@@ -131,6 +168,10 @@ export default function OrganizationDetailsContent({
             />
           </>
         )}
+        <Button onPress={() => createTypeProps.onOpenChange(true)}>
+          Create New Type
+        </Button>
+        <CreateNewTypeModal {...createTypeProps} />
       </ModalBody>
       <ModalFooter>
         <Button color="danger" variant="light" onPress={onClose}>

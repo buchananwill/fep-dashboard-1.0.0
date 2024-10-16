@@ -24,7 +24,7 @@ import { AssetNestedInForm } from '@/components/roles/create-role/AssetNestedInF
 import { FieldValues } from 'react-hook-form/dist/types';
 import CreateNewRoleTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { useCreateRoleProps } from '@/components/user-role/create-user-role/UseCreateRoleProps';
+import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
 import { Api } from '@/api/clientApi';
 
 export const listenerKey = 'create-role-form';
@@ -91,7 +91,7 @@ export default function CreateRoleForm<T extends FieldValues>({
     });
   };
 
-  const modalProps = useCreateRoleProps(
+  const modalProps = useCreateTypeProps(
     ApiCreationEndpoints[roleEntity],
     EntityClassMap[`${roleEntity}RoleType`]
   );

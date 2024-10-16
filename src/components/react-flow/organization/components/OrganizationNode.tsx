@@ -3,7 +3,10 @@ import { Edge, useEdges } from '@xyflow/react';
 import React, { memo, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import { BaseEditableNode } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
-import { OrganizationDto } from '@/api/generated-types/generated-types';
+import {
+  OrganizationDto,
+  WorkSchemaNodeRootTotalDeliveryAllocationRollupDto
+} from '@/api/generated-types/generated-types';
 import {
   useGlobalDispatch,
   useGlobalListener,
@@ -15,6 +18,8 @@ import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
 import { Simplify } from 'type-fest';
 import { AllocationSummary } from '@/components/react-flow/organization/types';
+import { useDtoStore } from 'dto-stores';
+import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 
 const initialTotalMap = new Map<string, number>();
 
@@ -55,11 +60,14 @@ export function OrganizationNode(
 
   const { workSchemaNodeAssignment } = data;
 
-  const { currentState: allocationRollup } = useGlobalListener<number>({
-    contextKey: `rollupTotal:${workSchemaNodeAssignment?.workSchemaNodeId}`,
-    initialValue: 0,
-    listenerKey: listenerKey
-  });
+  const { entity: workSchemaNodeRoot } =
+    useDtoStore<WorkSchemaNodeRootTotalDeliveryAllocationRollupDto>({
+      entityId: workSchemaNodeAssignment?.workSchemaNodeId ?? -1,
+      entityClass: workSchemaNodeRollUp,
+      listenerKey
+    });
+
+  const allocationRollup = workSchemaNodeRoot?.deliveryAllocationSum ?? 0;
 
   const allocationRollupOrZero = useMemo(() => {
     return workSchemaNodeAssignment?.workSchemaNodeId ? allocationRollup : 0;

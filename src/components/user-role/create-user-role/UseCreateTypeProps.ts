@@ -4,7 +4,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useCallback, useState } from 'react';
 
-export function useCreateRoleProps<T extends TypeDto<any, any>>(
+export function useCreateTypeProps<T extends TypeDto<any, any>>(
   serverAction: (newType: T) => Promise<T>,
   entityClass: string
 ) {

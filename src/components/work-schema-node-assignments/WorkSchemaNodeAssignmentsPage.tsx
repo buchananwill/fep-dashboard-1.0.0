@@ -1,4 +1,4 @@
-import { ForceGraphPage, GraphDto } from 'react-d3-force-wrapper';
+import { ForceGraphPage } from 'react-d3-force-wrapper';
 import { ReactFlowWrapper } from '@/components/react-flow/generic/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/components/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -6,16 +6,14 @@ import { getDtoListByBodyList as getSchemasByBodyList } from '@/api/generated-ac
 
 import { ArrayPlaceholder } from 'selective-context';
 import { getDtoListByExampleList } from '@/api/generated-actions/OrganizationType';
-import { DataFetchingEditDtoControllerArray } from 'dto-stores';
-import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
 import {
-  convertToOrganizationNode,
-  convertToWorkSchemaFlowNode,
-  WorkSchemaNodeDto
-} from '@/components/react-flow/generic/utils/adaptors';
+  DataFetchingEditDtoControllerArray,
+  EditAddDeleteDtoControllerArray
+} from 'dto-stores';
+import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
+import { convertToOrganizationNode } from '@/components/react-flow/generic/utils/adaptors';
 import { defaultForceGraphPageOptions } from '@/components/work-schema-node-assignments/defaultForceGraphPageOptions';
 import { Api } from '@/api/clientApi_';
-import WorkSchemaNodeManager from '@/components/work-schema-node-assignments/_components/WorkSchemaNodeManager';
 import { EmptyArray } from '@/api/literals';
 import React from 'react';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
@@ -23,6 +21,9 @@ import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLeve
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { getWorkSchemaNodeRollUps } from '@/api/actions-custom/workSchemaNodeRollUpsAction';
+
+export const workSchemaNodeRollUp = `${EntityClassMap.workSchemaNode}RollUp`;
 
 async function WorkSchemaNodeAssignmentsPage({
   pathVariables,
@@ -44,25 +45,6 @@ async function WorkSchemaNodeAssignmentsPage({
 
   const workSchemaRootNodes = await Api.WorkSchemaNode.getRootNodeList();
   const rootNodeIdList = workSchemaRootNodes.map((node) => node.id);
-  const graphList = await Promise.all(
-    rootNodeIdList.map((rootNodeId) =>
-      Api.WorkSchemaNode.getGraphByRootId({ rootId: rootNodeId }).then(
-        (response) =>
-          convertGraphDtoToReactFlowState(
-            response as GraphDto<WorkSchemaNodeDto>,
-            convertToWorkSchemaFlowNode
-          )
-      )
-    )
-  );
-
-  const combinedGraphs = graphList.reduce(
-    (prev, curr) => ({
-      dataNodes: [...prev.dataNodes, ...curr.dataNodes],
-      dataLinks: [...prev.dataLinks, ...curr.dataLinks]
-    }),
-    { dataNodes: [], dataLinks: [] }
-  );
 
   const classesAndWorkGroups =
     await Api.Organization.getGraphByNodeList(idList);
@@ -71,8 +53,14 @@ async function WorkSchemaNodeAssignmentsPage({
     convertToOrganizationNode
   );
 
+  const deliveryAllocationRollupDtos = await getWorkSchemaNodeRollUps();
+
   return (
     <>
+      <EditAddDeleteDtoControllerArray
+        entityClass={workSchemaNodeRollUp}
+        dtoList={deliveryAllocationRollupDtos}
+      />
       <DataFetchingEditDtoControllerArray
         idList={rootNodeIdList}
         entityClass={EntityClassMap.workSchemaNode}
@@ -95,10 +83,6 @@ async function WorkSchemaNodeAssignmentsPage({
         graphName={'work-schema-node-assignments-graph'}
         options={defaultForceGraphPageOptions}
       >
-        <WorkSchemaNodeManager
-          nodeList={combinedGraphs.dataNodes}
-          linkList={combinedGraphs.dataLinks}
-        />
         <ReactFlowWrapper>
           <ClassHierarchyLayoutFlowWithForces
             typeData={orgType}
