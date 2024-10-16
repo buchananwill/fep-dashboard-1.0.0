@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["@emotion/react/types/css-prop", "@nextui-org/react"],
     "lib": [
       "dom",
       "dom.iterable",

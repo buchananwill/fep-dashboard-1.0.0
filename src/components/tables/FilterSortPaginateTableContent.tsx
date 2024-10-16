@@ -32,11 +32,7 @@ export function FilterSortPaginateTableContent<
   ...props
 }: Omit<TableContentProps<T>, 'BaseComponent'>) {
   return (
-    <Table
-      // @ts-ignore
-      {...props}
-      BaseComponent={DoubleDivBaseComponent}
-    >
+    <Table {...props} BaseComponent={DoubleDivBaseComponent}>
       <TableHeader columns={headerColumns}>
         {(column) => (
           <TableColumn
