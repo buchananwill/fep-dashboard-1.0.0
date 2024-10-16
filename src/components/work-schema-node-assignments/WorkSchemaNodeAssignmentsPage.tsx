@@ -14,7 +14,6 @@ import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic
 import { convertToOrganizationNode } from '@/components/react-flow/generic/utils/adaptors';
 import { defaultForceGraphPageOptions } from '@/components/work-schema-node-assignments/defaultForceGraphPageOptions';
 import { Api } from '@/api/clientApi_';
-import { EmptyArray } from '@/api/literals';
 import React from 'react';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
@@ -43,9 +42,6 @@ async function WorkSchemaNodeAssignmentsPage({
 
   const idList = orgList.map((org) => org.id);
 
-  const workSchemaRootNodes = await Api.WorkSchemaNode.getRootNodeList();
-  const rootNodeIdList = workSchemaRootNodes.map((node) => node.id);
-
   const classesAndWorkGroups =
     await Api.Organization.getGraphByNodeList(idList);
   const { dataNodes, dataLinks } = convertGraphDtoToReactFlowState(
@@ -62,21 +58,10 @@ async function WorkSchemaNodeAssignmentsPage({
         dtoList={deliveryAllocationRollupDtos}
       />
       <DataFetchingEditDtoControllerArray
-        idList={rootNodeIdList}
-        entityClass={EntityClassMap.workSchemaNode}
-        getServerAction={Api.WorkSchemaNode.getDtoListByBodyList}
-      />
-      <DataFetchingEditDtoControllerArray
-        idList={EmptyArray}
-        entityClass={EntityClassMap.carouselOption}
-        getServerAction={Api.CarouselOption.getDtoListByBodyList}
-      />
-      <DataFetchingEditDtoControllerArray
         idList={ArrayPlaceholder}
         entityClass={EntityClassMap.workProjectSeriesSchema}
         getServerAction={getSchemasByBodyList}
       />
-
       <ForceGraphPage
         dataNodes={dataNodes}
         dataLinks={dataLinks}

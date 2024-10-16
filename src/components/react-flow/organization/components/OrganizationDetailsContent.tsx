@@ -1,11 +1,7 @@
 'use client';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
-import {
-  ArrayPlaceholder,
-  ObjectPlaceholder,
-  useGlobalListener
-} from 'selective-context';
+import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
 
 import React, { ChangeEvent, useEffect, useMemo } from 'react';
 
@@ -21,7 +17,9 @@ import {
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import {
   OrganizationDto,
-  OrganizationTypeDto
+  OrganizationTypeDto,
+  WorkSchemaNodeAssignmentDto,
+  WorkSchemaNodeRootTotalDeliveryAllocationRollupDto
 } from '@/api/generated-types/generated-types';
 import {
   BaseDtoUiProps,
@@ -35,14 +33,13 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Select } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { produce } from 'immer';
-import { WorkSchemaNodeAssignmentDto } from '@/api/generated-types/generated-types';
 import { listenerKeyDetailsContent } from '@/app/_literals';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
 import { Api } from '@/api/clientApi';
 import CreateNewTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
+import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 
 export default function OrganizationDetailsContent({
   onClose
@@ -62,9 +59,9 @@ export default function OrganizationDetailsContent({
     );
 
   const { currentState: rootNodeList } = NamespacedHooks.useListen<
-    WorkSchemaNodeDto[]
+    WorkSchemaNodeRootTotalDeliveryAllocationRollupDto[]
   >(
-    EntityClassMap.workSchemaNode,
+    workSchemaNodeRollUp,
     KEY_TYPES.MASTER_LIST,
     listenerKeyDetailsContent,
     ArrayPlaceholder
@@ -200,18 +197,21 @@ function BundleAssignment({
     <LazyDtoUiWrapper
       renderAs={BundleDetails}
       entityId={workSchemaNodeId}
-      entityClass={EntityClassMap.workSchemaNode}
+      entityClass={workSchemaNodeRollUp}
       whileLoading={() => null}
     />
   ) : null;
 }
 
-function BundleDetails({ entity }: BaseLazyDtoUiProps<WorkSchemaNodeDto>) {
+function BundleDetails({
+  entity
+}: BaseLazyDtoUiProps<WorkSchemaNodeRootTotalDeliveryAllocationRollupDto>) {
   const listenerKey = useUuidListenerKey();
-  const { currentState } = useGlobalListener({
-    contextKey: `rollupTotal:${entity.id}`,
-    initialValue: 0,
-    listenerKey
-  });
-  return currentState;
+  // const { currentState } = useGlobalListener({
+  //   contextKey: `${workSchemaNodeRollUp}:${entity.id}`,
+  //   initialValue:
+  //     ObjectPlaceholder as WorkSchemaNodeRootTotalDeliveryAllocationRollupDto,
+  //   listenerKey
+  // });
+  return entity.deliveryAllocationSum ?? 0;
 }
