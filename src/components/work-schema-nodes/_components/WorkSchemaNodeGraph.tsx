@@ -14,27 +14,18 @@ import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptor
 
 export default function WorkSchemaNodeGraph({
   forceGraphPageProps,
-  schemas,
+  // schemas,
   unassignedRootList
 }: {
   forceGraphPageProps: ForceGraphPageAllProps<WorkSchemaNodeDto>;
-  schemas: WorkProjectSeriesSchemaDto[];
+  // schemas: WorkProjectSeriesSchemaDto[];
   unassignedRootList: WorkSchemaNodeDto[];
 }) {
   return (
     <ForceGraphPage {...forceGraphPageProps}>
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        dtoList={schemas}
-      />
-      <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.workSchemaNode}
         dtoList={unassignedRootList}
-      />
-      <DataFetchingEditDtoControllerArray
-        idList={EmptyArray}
-        getServerAction={Api.CarouselOption.getDtoListByBodyList}
-        entityClass={EntityClassMap.carouselOption}
       />
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}

@@ -1,28 +1,27 @@
 import clsx from 'clsx';
-import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/components/BaseWorkSchemaNode';
-import { CarouselOptionDto } from '@/api/generated-types/generated-types';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import { useQuery } from '@tanstack/react-query';
+import { Api } from '@/api/clientApi';
 
 export default function CarouselOptionNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>
 ) {
   const { selected, dragging, data } = props;
 
-  const { entity } = useLazyDtoStore<CarouselOptionDto>(
-    data.carouselOptionId ?? NaN,
-    EntityClassMap.carouselOption
-  );
-
-  const { entity: workProjectSeriesSchema } =
-    useLazyDtoStore<WorkProjectSeriesSchemaDto>(
-      entity?.workProjectSeriesSchemaId ?? '',
-      EntityClassMap.workProjectSeriesSchema
-    );
+  const { data: workProjectSeriesSchema, isPending } = useQuery({
+    queryKey: [
+      EntityClassMap.workProjectSeriesSchema,
+      data.workProjectSeriesSchemaId
+    ],
+    queryFn: () =>
+      data.workProjectSeriesSchemaId
+        ? Api.WorkProjectSeriesSchema.getOne(data.workProjectSeriesSchemaId)
+        : undefined
+  });
 
   return (
     <BaseWorkSchemaNode

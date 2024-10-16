@@ -8,16 +8,24 @@ import { NodeProps } from '@/types/xyflow-overrides';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 
 import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
+import { useQuery } from '@tanstack/react-query';
+import { Api } from '@/api/clientApi';
 
 export default function LeafNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>
 ) {
   const { selected, dragging, data } = props;
 
-  const { entity } = useLazyDtoStore<WorkProjectSeriesSchemaDto>(
-    data.workProjectSeriesSchemaId ?? '',
-    EntityClassMap.workProjectSeriesSchema
-  );
+  const { data: entity, isPending } = useQuery({
+    queryKey: [
+      EntityClassMap.workProjectSeriesSchema,
+      data.workProjectSeriesSchemaId
+    ],
+    queryFn: () =>
+      data.workProjectSeriesSchemaId
+        ? Api.WorkProjectSeriesSchema.getOne(data.workProjectSeriesSchemaId)
+        : undefined
+  });
 
   return (
     <BaseWorkSchemaNode
@@ -32,7 +40,7 @@ export default function LeafNode(
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}
-      label={`${entity && entity.name}`}
+      label={`${entity ? entity.name : isPending ? 'loading...' : 'Error!'}`}
     ></BaseWorkSchemaNode>
   );
 }

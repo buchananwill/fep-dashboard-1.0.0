@@ -7,6 +7,7 @@ import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AnimationSyncContextProvider from '@/components/providers/animate-sync-context/AnimationSyncContextProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export function LibraryProvidersWrapper({
   children
@@ -16,14 +17,18 @@ export function LibraryProvidersWrapper({
   const router = useRouter();
 
   return (
-    <SelectiveContextManagerGlobal>
-      <DndProvider backend={HTML5Backend}>
-        <AnimationSyncContextProvider>
-          <NextUIProvider locale={'en-GB'} navigate={router.push}>
-            {children}
-          </NextUIProvider>
-        </AnimationSyncContextProvider>
-      </DndProvider>
-    </SelectiveContextManagerGlobal>
+    <QueryClientProvider client={queryClient}>
+      <SelectiveContextManagerGlobal>
+        <DndProvider backend={HTML5Backend}>
+          <AnimationSyncContextProvider>
+            <NextUIProvider locale={'en-GB'} navigate={router.push}>
+              {children}
+            </NextUIProvider>
+          </AnimationSyncContextProvider>
+        </DndProvider>
+      </SelectiveContextManagerGlobal>
+    </QueryClientProvider>
   );
 }
+
+const queryClient = new QueryClient();

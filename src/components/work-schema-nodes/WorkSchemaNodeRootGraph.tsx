@@ -27,8 +27,6 @@ export default async function WorkSchemaNodeRootGraph({
     convertToWorkSchemaFlowNode
   );
 
-  const schemas = await Api.WorkProjectSeriesSchema.getAll();
-
   const unassignedRootList = await getWithoutBody<WorkSchemaNodeDto[]>(
     constructUrl('/api/v2/workSchemaNodes/rootNodesWithNoAssignments')
   );
@@ -40,7 +38,6 @@ export default async function WorkSchemaNodeRootGraph({
         graphName: 'workSchemaNode',
         options: workSchemaNodeForceGraphOptions
       }}
-      schemas={schemas}
       unassignedRootList={unassignedRootList}
     />
   );

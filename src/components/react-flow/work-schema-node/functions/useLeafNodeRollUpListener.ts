@@ -10,6 +10,8 @@ import {
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
+import { useQuery } from '@tanstack/react-query';
+import { Api } from '@/api/clientApi';
 
 export interface AllocationRollup {
   id: Identifier;
@@ -18,23 +20,20 @@ export interface AllocationRollup {
 
 export function useLeafNodeRollUpListener({
   id,
-  carouselOptionId,
   workProjectSeriesSchemaId
 }: WorkSchemaNodeDto) {
   const nodeId = `${id}`;
 
-  const { entity: carouselOption } = useDtoStore<CarouselOptionDto>({
-    entityId: carouselOptionId ?? 0,
-    entityClass: EntityClassMap.carouselOption
+  const { data: workProjectSeriesSchema, isPending } = useQuery({
+    queryKey: [
+      EntityClassMap.workProjectSeriesSchema,
+      workProjectSeriesSchemaId
+    ],
+    queryFn: () =>
+      workProjectSeriesSchemaId
+        ? Api.WorkProjectSeriesSchema.getOne(workProjectSeriesSchemaId)
+        : undefined
   });
-  const { entity: workProjectSeriesSchema } =
-    useDtoStore<WorkProjectSeriesSchemaDto>({
-      entityId:
-        workProjectSeriesSchemaId ??
-        carouselOption?.workProjectSeriesSchemaId ??
-        '',
-      entityClass: EntityClassMap.workProjectSeriesSchema
-    });
 
   const { dispatchWithoutListen } =
     useGlobalDispatch<Map<string, WorkProjectSeriesSchemaDto>>(
