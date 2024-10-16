@@ -1,4 +1,9 @@
 import { addDays, setHours, setMinutes, setSeconds } from 'date-fns/fp';
+import {
+  DateAsString,
+  Serializable,
+  ZoneId
+} from '@/api/generated-types/generated-types';
 
 export const PROJECT_EPOCH_DATE_TIME = new Date('2000-01-01T00:00:00.000Z');
 export const PROJECT_EPOCH_DATE_TIME_MONDAY = new Date(
@@ -54,3 +59,19 @@ export const DayOfWeekArray = [
 
 // Create a type from the values of DayOfWeekArray
 export type DayOfWeek = (typeof DayOfWeekArray)[number];
+
+export interface EventDto extends Serializable {
+  id: string;
+  title: string;
+  description: string;
+  creationTime: DateAsString;
+  start: DateAndTimeAndZoneDto;
+  end: DateAndTimeAndZoneDto;
+  calendarId: string;
+}
+
+export interface DateAndTimeAndZoneDto extends Serializable {
+  dateTime: DateAsString;
+  date: DateAsString;
+  timeZone: string;
+}

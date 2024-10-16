@@ -9,7 +9,7 @@ import { DateClickArg, EventResizeDoneArg } from '@fullcalendar/interaction';
 import { EventDropArg } from '@fullcalendar/core';
 import { addHours } from 'date-fns';
 import { NullableOption } from '@microsoft/microsoft-graph-types';
-import { DateAndTimeAndZoneDto } from '@/api/generated-types/generated-types';
+import { DateAndTimeAndZoneDto } from '@/api/date-and-time';
 
 export const EditableEvents = 'editable-events';
 
