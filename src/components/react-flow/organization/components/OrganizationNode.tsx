@@ -24,18 +24,15 @@ import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-spa
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useReadAnyDtoTyped } from '@/api/typed-dto-store-hooks';
 import { isNotUndefined } from '@/api/main';
-
-const initialAncestorMap = new Map<string, OrganizationDto>();
+import { useNodeContext } from 'react-d3-force-wrapper';
 
 export function OrganizationNode(
   nodeProps: NodeProps<NodeBase<Simplify<OrganizationDto>>>
 ) {
+  const { nodes } = useNodeContext<OrganizationDto>();
   const { selected, dragging, data } = nodeProps;
   const listenerKey = `organizationNode:${data.id}`;
 
-  const { dispatchWithoutListen } = useGlobalDispatch(
-    `allocationTotal:${data.id}`
-  );
   const edges = useEdges();
 
   const ancestorNodeIdList = useMemo(() => {
@@ -57,15 +54,6 @@ export function OrganizationNode(
     return [...setOfParentIds];
   }, [edges, nodeProps.id]);
 
-  const { currentState } = useGlobalListenerGroup({
-    contextKeys: ancestorNodeIdList,
-    listenerKey: `${data.id}`,
-    initialValue: initialAncestorMap
-  });
-
-  const nodesData =
-    useNodesData<NodeBase<Simplify<OrganizationDto>>>(ancestorNodeIdList);
-
   const readAnyDeliveryRollUp =
     useReadAnyDto<WorkSchemaNodeRootTotalDeliveryAllocationRollupDto>(
       workSchemaNodeRollUp
@@ -82,25 +70,9 @@ export function OrganizationNode(
 
   const localAllocation = workSchemaNodeRoot?.deliveryAllocationSum ?? 0;
 
-  const allocationRollupOrZero = useMemo(() => {
-    return workSchemaNodeAssignment?.workSchemaNodeId ? localAllocation : 0;
-  }, [workSchemaNodeAssignment?.workSchemaNodeId, localAllocation]);
-
-  console.log({
-    workSchemaNodeAssignment,
-    workSchemaNodeRoot,
-    ancestorNodeAllocationKeyList: ancestorNodeIdList,
-    currentState,
-    nodesData
-  });
-
-  useEffect(() => {
-    console.log({ allocationRollupOrZero });
-    dispatchWithoutListen(allocationRollupOrZero);
-  }, [dispatchWithoutListen, allocationRollupOrZero]);
-
   const inheritedTotal = useMemo(() => {
-    return nodesData
+    return nodes
+      .filter((node) => ancestorNodeIdList.includes(node.id))
       .map((organizationDto) => {
         const workSchemaNodeId =
           organizationDto.data.workSchemaNodeAssignment?.workSchemaNodeId;
@@ -111,15 +83,15 @@ export function OrganizationNode(
       })
       .filter(isNotUndefined)
       .reduce((prev, curr) => (isNumber(curr) ? prev + curr : prev), 0);
-  }, [nodesData, readAnyDeliveryRollUp]);
+  }, [nodes, ancestorNodeIdList, readAnyDeliveryRollUp]);
 
   const summaries: AllocationSummary[] = useMemo(() => {
     return [
-      { label: 'Local', amount: allocationRollupOrZero },
+      { label: 'Local', amount: localAllocation },
       { label: 'Inherited', amount: inheritedTotal },
-      { label: 'Total', amount: allocationRollupOrZero + inheritedTotal }
+      { label: 'Total', amount: localAllocation + inheritedTotal }
     ];
-  }, [allocationRollupOrZero, inheritedTotal]);
+  }, [localAllocation, inheritedTotal]);
 
   return (
     <BaseEditableNode
