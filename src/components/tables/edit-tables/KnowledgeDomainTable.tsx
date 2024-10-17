@@ -16,7 +16,7 @@ import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_co
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { EditStringUniqueConstraintButton } from '@/components/tables/edit-tables/EditStringUniqueConstraintButton';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
-import { useMasterListToCreate } from '@/components/knowledge-levels/useMasterListToCreate';
+import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';
 import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 
 export function KnowledgeDomainTable() {

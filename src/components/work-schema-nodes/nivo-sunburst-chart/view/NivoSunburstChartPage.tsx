@@ -9,6 +9,8 @@ import { colorizeKnowledgeDomainGroups } from '@/components/work-schema-nodes/ni
 import { camelCase } from 'lodash';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import SelectionController from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/SelectionController';
+import React from 'react';
 
 async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   const ignoreMoreThanFourVariableUntilKnowledgeLevelIsImplemented =
@@ -33,6 +35,13 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   const colorizeKnowledgeDomains1 = colorizeKnowledgeDomainGroups(data);
   return (
     <div className={'h-[80vh] w-[80vw]'}>
+      <SelectionController
+        initialKnowledgeLevelSeriesGroup={
+          colorizeKnowledgeDomains1.type === 'knowledgeLevelSeriesGroup'
+            ? colorizeKnowledgeDomains1
+            : undefined
+        }
+      />
       <WorkNodeResponsiveSunburst data={colorizeKnowledgeDomains1} />
     </div>
   );

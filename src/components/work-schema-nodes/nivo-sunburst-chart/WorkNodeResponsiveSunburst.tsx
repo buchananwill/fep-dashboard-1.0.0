@@ -43,12 +43,6 @@ export function WorkNodeResponsiveSunburst({
 
   return (
     <>
-      <SelectionController
-        initialKnowledgeLevelSeriesGroup={
-          data.type === 'knowledgeLevelSeriesGroup' ? data : undefined
-        }
-      />
-
       <ResponsiveSunburst
         layers={['arcs', 'arcLabels', SelectionLayer]}
         theme={{

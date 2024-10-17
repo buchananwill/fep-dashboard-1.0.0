@@ -19,6 +19,7 @@ import CreateWorkTaskTypeWithAuth from '@/components/work-task-types/CreateWorkT
 import { CreateUserRolePage } from '@/components/user-role/create-user-role/CreateUserRolePage';
 import UserRoleTablePage from '@/components/user-role/table-page/UserRoleTablePage';
 import { NavTreeNode } from '@/app/core/navigation/data/types';
+import CreateSeriesFormPage from '@/components/knowledge-levels/createSeriesFormPage';
 
 export const navTreeData: NavTreeNode = {
   component: NavigationHome,
@@ -29,7 +30,10 @@ export const navTreeData: NavTreeNode = {
       component: KnowledgeDomains
     },
     knowledgeLevelSeries: {
-      component: KnowledgeLevelsHome
+      component: KnowledgeLevelsHome,
+      children: {
+        createNewSeries: { component: CreateSeriesFormPage }
+      }
     },
     workTaskTypes: {
       children: {

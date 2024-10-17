@@ -2,17 +2,21 @@ import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 import { makeTransientId } from '@/functions/makeTransientId';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
+import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 export function createNewLevel(
   sortedLevels: KnowledgeLevelDto[],
   knowledgeLevelSeriesDto: KnowledgeLevelSeriesDto
 ) {
-  const levelOrdinal =
-    sortedLevels.length > 0
-      ? sortedLevels[sortedLevels.length - 1].levelOrdinal + 1
-      : 1;
+  const hasLevels = sortedLevels.length > 0;
+  let levelOrdinal = 1;
+  if (hasLevels) {
+    levelOrdinal = sortedLevels[sortedLevels.length - 1].levelOrdinal + 1;
+  }
+  console.log({ sortedLevels, hasLevels, levelOrdinal });
+
   const name = `${knowledgeLevelSeriesDto.knowledgeLevelDescriptor} ${levelOrdinal}`;
-  const id = makeTransientId(ABSOLUTE_SMALLEST_TRANSIENT_ID + levelOrdinal);
+  const id = idDecrementer();
   const nextLevel: KnowledgeLevelDto = {
     name,
     levelOrdinal,

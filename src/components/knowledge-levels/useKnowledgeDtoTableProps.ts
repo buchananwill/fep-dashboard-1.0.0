@@ -4,7 +4,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { useCallback, useMemo } from 'react';
 import { HasId } from '@/api/types';
-import { useMasterListToCreate } from '@/components/knowledge-levels/useMasterListToCreate';
+import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';
 
 export function useKnowledgeDtoTableProps<T extends HasId>(
   entityClass: string,

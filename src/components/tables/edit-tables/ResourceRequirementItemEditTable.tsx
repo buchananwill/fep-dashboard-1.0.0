@@ -15,7 +15,7 @@ import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/sele
 import { ResourceRequirementItemCells } from '@/components/tables/cells/ResourceRequirementItemCells';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
-import { useMasterListToCreate } from '@/components/knowledge-levels/useMasterListToCreate';
+import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';
 
 export default function ResourceRequirementItemEditTable({
   workTaskTypeId
