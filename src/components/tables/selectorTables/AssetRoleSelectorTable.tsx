@@ -6,56 +6,22 @@ import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { AssetRoleDto } from '@/api/generated-types/generated-types';
+import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
+import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
+import { StringValueChip } from '@/components/tables/StringValueChip';
 
 export default function AssetRoleSelectorTable({
   entities
 }: {
   entities: AssetRoleDto[];
 }) {
-  const renderCell = useCallback(
-    (assetRoleDto: AssetRoleDto, columnKey: React.Key) => {
-      const cellValue =
-        assetRoleDto[
-          columnKey as Extract<
-            keyof Omit<AssetRoleDto, 'type'>,
-            string | number
-          >
-        ];
-
-      switch (columnKey) {
-        case 'assetName':
-          return (
-            <div className={'inline-block w-32 truncate'}>
-              {assetRoleDto.assetName}
-            </div>
-          );
-        case 'name':
-          return (
-            <span className={'inline-block w-20'}>
-              <Chip
-                className={'max-w-full truncate'}
-                color={'secondary'}
-                size="sm"
-                variant="flat"
-              >
-                {assetRoleDto.name}
-              </Chip>
-            </span>
-          );
-        default:
-          return cellValue;
-      }
-    },
-    []
-  );
-
   return (
     <>
       <FilterSelectEntityTable
         entities={entities}
         initialColumns={AssetRoleColumnsInitial}
         filterProperty={'assetName'}
-        renderCell={renderCell}
+        renderCell={assetRoleCell}
         columns={AssetRoleColumns}
         entityClass={EntityClassMap.assetRole}
       />
@@ -71,3 +37,9 @@ export const AssetRoleColumns: Column<AssetRoleDto>[] = [
   { name: 'Asset Name', uid: 'assetName', sortable: true },
   { name: 'Asset Role Name', uid: 'name', sortable: true }
 ];
+
+const assetRoleCell = getCellRenderFunction('assetRole', {
+  assetName: SimpleValueToString,
+  'type.name': SimpleValueToString,
+  name: SimpleValueToString
+});

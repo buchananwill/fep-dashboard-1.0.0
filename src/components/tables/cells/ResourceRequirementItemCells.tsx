@@ -14,7 +14,7 @@ import { get } from 'lodash';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
 import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
-import { DeleteEntity } from '@/components/tables/edit-tables/DeleteEntity';
+import { DeleteEntity } from '@/components/tables/cells/DeleteEntity';
 
 function RoleTypeCell({
   entity,

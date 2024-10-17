@@ -4,7 +4,7 @@ import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { DeleteEntity } from '@/components/tables/edit-tables/DeleteEntity';
+import { DeleteEntity } from '@/components/tables/cells/DeleteEntity';
 import { useCallback } from 'react';
 import { useGlobalDispatch } from 'selective-context';
 import { workTaskTypeIdInModal } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';

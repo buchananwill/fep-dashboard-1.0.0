@@ -5,7 +5,7 @@ import {
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
 } from '@/api/generated-types/generated-types';
-import { Api } from '@/api/clientApi_';
+import { Api } from '@/api/clientApi';
 import { ClosureDto as ClosureDtoLibrary } from 'react-d3-force-wrapper';
 
 export type ClosureDto = ClosureDtoLibrary;

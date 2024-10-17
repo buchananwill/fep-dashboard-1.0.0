@@ -6,7 +6,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { Column, ColumnUid } from '@/types';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { useRouter } from 'next/navigation';
-import { WorkTaskTypeCell } from '@/components/tables/edit-tables/WorkTaskTypeCell';
+import { WorkTaskTypeCell } from '@/components/tables/cells/WorkTaskTypeCell';
 import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';
 import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
 import { useGlobalController } from 'selective-context';

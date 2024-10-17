@@ -6,56 +6,23 @@ import { ProviderRoleDto } from '@/api/generated-types/generated-types';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
+import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
+import { getDomainAlias } from '@/api/getDomainAlias';
+import { StringValueChip } from '@/components/tables/StringValueChip';
 
 export default function ProviderRoleSelectorTable({
   entities
 }: {
   entities: ProviderRoleDto[];
 }) {
-  const renderCell = React.useCallback(
-    (providerRoleDto: ProviderRoleDto, columnKey: React.Key) => {
-      const cellValue =
-        providerRoleDto[
-          columnKey as Extract<
-            keyof Omit<ProviderRoleDto, 'type'>,
-            string | number
-          >
-        ];
-
-      switch (columnKey) {
-        case 'partyName':
-          return (
-            <div className={'inline-block w-32 truncate'}>
-              {providerRoleDto.partyName}
-            </div>
-          );
-        case 'knowledgeDomainName':
-          return (
-            <span className={'inline-block w-20'}>
-              <Chip
-                className={'max-w-full truncate'}
-                color={'secondary'}
-                size="sm"
-                variant="flat"
-              >
-                {providerRoleDto.knowledgeDomainName}
-              </Chip>
-            </span>
-          );
-        default:
-          return cellValue;
-      }
-    },
-    []
-  );
-
   return (
     <>
       <FilterSelectEntityTable
         entities={entities}
         initialColumns={ProviderColumnsInitial}
         filterProperty={'partyName'}
-        renderCell={renderCell}
+        renderCell={providerRoleCell}
         columns={providerColumns}
         entityClass={EntityClassMap.providerRole}
       />
@@ -68,6 +35,21 @@ export const ProviderColumnsInitial: (keyof ProviderRoleDto)[] = [
   'knowledgeDomainName'
 ];
 export const providerColumns: Column<ProviderRoleDto>[] = [
-  { name: 'Name', uid: 'partyName', sortable: true },
-  { name: 'Main Subject', uid: 'knowledgeDomainName', sortable: true }
+  { name: 'Party Name', uid: 'partyName', sortable: true },
+  {
+    name: `Main ${getDomainAlias('knowledgeDomain')}`,
+    uid: 'knowledgeDomainName',
+    sortable: true
+  },
+  {
+    name: 'Type',
+    uid: 'type.name',
+    sortable: true
+  }
 ];
+
+const providerRoleCell = getCellRenderFunction('providerRole', {
+  partyName: SimpleValueToString,
+  knowledgeDomainName: StringValueChip,
+  'type.name': SimpleValueToString
+});

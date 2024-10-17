@@ -12,6 +12,8 @@ import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_co
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { DeleteEntity } from '@/components/tables/cells/DeleteEntity';
+import EditTextPropertyCell from '@/components/tables/cells/EditTextPropertyCell';
 
 const entityType = EntityClassMap.userRole;
 
@@ -43,6 +45,7 @@ export default function UserRoleEditTable({
 }
 
 const columns: Column<UserRoleDto>[] = [
+  { uid: 'id', name: 'Delete', sortable: true },
   { uid: 'name', name: 'Name', sortable: true },
   {
     uid: 'knowledgeLevelSeriesName',
@@ -59,7 +62,8 @@ const initialColumns: ColumnUid<UserRoleDto>[] = [
 ];
 
 export const userRoleRenderCellFunction = getCellRenderFunction('userRole', {
-  name: RenameAndDeleteCell,
+  id: DeleteEntity,
+  name: EditTextPropertyCell,
   knowledgeLevelSeriesName: StringValueChip,
   partyName: StringValueChip
 });

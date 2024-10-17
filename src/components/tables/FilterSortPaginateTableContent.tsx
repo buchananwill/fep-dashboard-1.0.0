@@ -60,7 +60,11 @@ export function FilterSortPaginateTableContent<
 const DoubleDivBaseComponent = forwardRef<HTMLDivElement, GenericDivProps>(
   function InnerComponent({ className, ...props }, ref) {
     return (
-      <div className={'h-fit w-fit overflow-clip rounded-large shadow-small'}>
+      <div
+        className={
+          'center-all-margin h-fit w-fit overflow-clip rounded-large shadow-small'
+        }
+      >
         <div
           ref={ref}
           className={clsx(className, 'double-div-base')}

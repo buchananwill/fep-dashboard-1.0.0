@@ -15,14 +15,15 @@ import { WrappedLink } from '@/app/core/navigation/links/WrappedLink';
 import {
   LeafComponentProps,
   NavTreeChildren,
-  NavTreeNode,
-  NavTreeTypes
+  NavTreeNode
 } from '@/app/core/navigation/data/types';
+import EditRolePage from '@/components/roles/edit-role/EditRolePage';
 
 const roleTypeBranches: NavTreeChildren = {
   suitability: { component: RoleTypeListComponent },
   availability: { component: RoleTypeListComponent },
-  createNewRole: { component: CreateRolePage }
+  createNewRole: { component: CreateRolePage },
+  editRoles: { component: EditRolePage }
 };
 
 export const rolePageTree: NavTreeNode = {
