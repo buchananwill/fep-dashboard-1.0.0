@@ -1,5 +1,5 @@
 import { EntityApiKey } from '@/api/types';
-import { Api } from '@/api/clientApi_';
+import { Api } from '@/api/clientApi';
 import { LinkButtonThatJoinsList } from '@/app/core/navigation/links/LinkButtonThatJoinsList';
 import { startCase } from 'lodash';
 import RootCard from '@/components/generic/RootCard';
