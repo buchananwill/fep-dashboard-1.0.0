@@ -9,16 +9,13 @@ import { Api } from '@/api/clientApi_';
 import { ReactFlowWrapper } from '@/components/react-flow/generic/components/wrappers/ReactFlowWrapper';
 import { WorkSchemaNodeLayoutFlowWithForces } from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeLayoutFlowWithForces';
 import React from 'react';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 
 export default function WorkSchemaNodeGraph({
   forceGraphPageProps,
-  // schemas,
   unassignedRootList
 }: {
   forceGraphPageProps: ForceGraphPageAllProps<WorkSchemaNodeDto>;
-  // schemas: WorkProjectSeriesSchemaDto[];
   unassignedRootList: WorkSchemaNodeDto[];
 }) {
   return (
