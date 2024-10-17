@@ -172,13 +172,6 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     idToChildIdMap,
     idToNodeMap
   );
-  console.log({
-    idToChildIdMap,
-    leafToSchemaMap,
-    idToEdgeMap,
-    idToNodeMap,
-    allocationRollupEntities
-  });
   useHierarchicalTreeLayout(idToChildIdMap);
 
   const { onConnect, ...otherProps } = reactFlowProps;

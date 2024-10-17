@@ -38,8 +38,6 @@ export default function ResourceRequirementItemModal({
   const [resourceRequirementsFromServer, setResourceRequirementsFromServer] =
     useState<ResourceRequirementItemDto[]>(EmptyArray);
 
-  console.log({ resourceRequirementsFromServer });
-
   const { dispatchWithoutListen } = useGlobalDispatch<number | 'closed'>(
     workTaskTypeIdInModal
   );

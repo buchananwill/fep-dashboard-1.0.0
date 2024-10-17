@@ -74,8 +74,6 @@ export default function OrganizationDetailsContent({
 
   const organizationTypeDtos = useSimpleApiFetcher(Api.OrganizationType.getAll);
 
-  console.log(organizationTypeDtos);
-
   const createTypeProps = useCreateTypeProps(
     Api.OrganizationType.postOne,
     EntityClassMap.organizationType

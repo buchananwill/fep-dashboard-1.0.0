@@ -27,11 +27,9 @@ export function RollupUpdater({
   );
 
   useEffect(() => {
-    console.log({ allocationRollupEntities });
     dispatchMasterList(allocationRollupEntities);
   }, [allocationRollupEntities, dispatchMasterList]);
   useEffect(() => {
-    console.log({ allocationRollupEntities });
     allocationRollupEntities
       .filter((entity) => rollupIdList.includes(entity.id))
       .forEach((filteredEntity, key) => {

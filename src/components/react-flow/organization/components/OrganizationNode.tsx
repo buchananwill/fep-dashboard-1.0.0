@@ -76,7 +76,6 @@ export function OrganizationNode(
       .map((organizationDto) => {
         const workSchemaNodeId =
           organizationDto.data.workSchemaNodeAssignment?.workSchemaNodeId;
-        console.log(workSchemaNodeId);
         return workSchemaNodeId !== undefined
           ? readAnyDeliveryRollUp(workSchemaNodeId)?.deliveryAllocationSum
           : undefined;
