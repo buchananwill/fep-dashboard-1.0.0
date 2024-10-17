@@ -13,7 +13,8 @@ export const KnowledgeLevelReadOnlyCell = getCellRenderFunction(
   'knowledgeLevel',
   {
     name: SimpleValueToString,
-    levelOrdinal: StringValueChip
+    levelOrdinal: StringValueChip,
+    knowledgeLevelSeriesId: SimpleValueToString
   }
 );
 
@@ -46,10 +47,14 @@ export const KnowledgeLevelColumns: Column<KnowledgeLevelDto>[] = [
     sortable: true
   },
   { name: 'Id', uid: 'id', sortable: false },
-
   {
     name: getStartCaseDomainAlias('levelOrdinal'),
     uid: 'levelOrdinal',
+    sortable: true
+  },
+  {
+    name: getStartCaseDomainAlias('knowlegeLevelSeries'),
+    uid: 'knowledgeLevelSeriesId',
     sortable: true
   }
 ];

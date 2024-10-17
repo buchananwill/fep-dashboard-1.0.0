@@ -19,6 +19,7 @@ import FormWrapper from '@/components/roles/create-role/FormWrapper';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 
 export default async function CreateRolePage({
   pathVariables
@@ -30,13 +31,13 @@ export default async function CreateRolePage({
   const knowledgeDomainDtos = await Api.KnowledgeDomain.getAll();
   const knowledgeLevelSeriesDtos = await Api.KnowledgeLevelSeries.getAll();
   const workTaskTypeNames = await getNames();
-  const initialKnowledgeLevels =
+  const allKnowledgeLevels =
     knowledgeLevelSeriesDtos.length > 0
-      ? knowledgeLevelSeriesDtos[0].knowledgeLevels
-      : EmptyArray;
+      ? knowledgeLevelSeriesDtos.flatMap((kls) => kls.knowledgeLevels)
+      : (EmptyArray as KnowledgeLevelDto[]);
 
   const kdIdList = getIdList(knowledgeDomainDtos);
-  const kLIdList = getIdList(initialKnowledgeLevels);
+  const kLIdList = getIdList(allKnowledgeLevels);
 
   return (
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
@@ -60,7 +61,7 @@ export default async function CreateRolePage({
         />
         <EditAddDeleteDtoControllerArray
           entityClass={EntityClassMap.knowledgeLevel}
-          dtoList={initialKnowledgeLevels}
+          dtoList={allKnowledgeLevels}
         />
         <EditAddDeleteDtoControllerArray
           entityClass={MutationCounterContextKey}
@@ -69,7 +70,7 @@ export default async function CreateRolePage({
         <FormWrapper
           roleEntity={roleType}
           knowledgeDomainDtos={knowledgeDomainDtos}
-          knowledgeLevels={initialKnowledgeLevels}
+          knowledgeLevels={allKnowledgeLevels}
           redirectUrl={`/core/${pluralize(roleType)}`}
           createRoleAction={async (request) => {
             'use server';
