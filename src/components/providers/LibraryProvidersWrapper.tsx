@@ -4,10 +4,11 @@ import { NextUIProvider } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { SelectiveContextManagerGlobal } from 'selective-context';
 import React from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import AnimationSyncContextProvider from '@/components/providers/animate-sync-context/AnimationSyncContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { TouchBackend } from 'react-dnd-touch-backend';
+import { DndProvider } from 'react-dnd-multi-backend';
+import { HTML5toTouch } from 'rdndmb-html5-to-touch';
 
 export function LibraryProvidersWrapper({
   children
@@ -19,7 +20,7 @@ export function LibraryProvidersWrapper({
   return (
     <QueryClientProvider client={queryClient}>
       <SelectiveContextManagerGlobal>
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider options={HTML5toTouch}>
           <AnimationSyncContextProvider>
             <NextUIProvider locale={'en-GB'} navigate={router.push}>
               {children}
