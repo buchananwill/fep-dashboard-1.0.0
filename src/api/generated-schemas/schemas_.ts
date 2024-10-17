@@ -543,7 +543,6 @@ export const WorkSchemaNodeDtoSchema = zod.object({
   preferCarousel: zod.boolean(),
   dominanceFactor: zod.number(),
   priority: zod.number(),
-  workSchemaNodeAssignmentIds: zod.array(zod.number().int()),
   carouselOptionId: zod.number().int().optional(),
   id: zod.number().int(),
   knowledgeDomainId: zod.number().int().optional(),

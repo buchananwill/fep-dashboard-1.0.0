@@ -8,7 +8,11 @@ import {
   useLinkContext
 } from 'react-d3-force-wrapper';
 import { ObjectPlaceholder } from 'selective-context';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import {
+  CarouselOptionDto,
+  WorkProjectSeriesSchemaDto,
+  WorkSchemaNodeDto
+} from '@/api/generated-types/generated-types';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
@@ -16,13 +20,13 @@ import { Button } from '@nextui-org/button';
 import React, { useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
+  EditAddDeleteDtoControllerArray,
   LazyDtoUiWrapper,
   NamespacedHooks
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import WorkSchemaNodeModalTable from '@/components/work-project-series-schema/_components/WorkSchemaNodeModalTable';
 import EntityPropertyCheckbox from '@/components/generic/EntityPropertyCheckbox';
 import WorkProjectionSeriesSchemaSummary from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaSummary';
@@ -30,7 +34,8 @@ import { Spinner } from '@nextui-org/spinner';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { BooleanPropertyKey, NumberPropertyKey } from '@/types';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
-import { CarouselOptionDto } from '@/api/generated-types/generated-types';
+import { useQuery } from '@tanstack/react-query';
+import { Api } from '@/api/clientApi';
 
 const listenerKey = 'workSchemaNodeModalContent';
 
@@ -76,86 +81,96 @@ export default function WorkSchemaNodeDetailsContent({
     EmptyArray as WorkProjectSeriesSchemaDto[]
   );
 
+  const { data, isPending } = useQuery({
+    queryKey: [EntityClassMap.workProjectSeriesSchema, 'all'],
+    queryFn: () => Api.WorkProjectSeriesSchema.getAll()
+  });
+
   return (
     <>
       <ModalHeader className={'p-2'}></ModalHeader>
-      <ModalBody className={'grid w-full grid-cols-2'}>
-        <div className={'grid grid-cols-2 gap-1'}>
-          <div className={'col-span-2'}>
-            <FocusToEdit
-              value={currentState.name ?? ''}
-              label={'Node Name'}
-              size={'sm'}
-              onValueChange={(value) =>
-                dispatchWithoutControl((data) => ({ ...data, name: value }))
-              }
-            >
-              {currentState.name ?? ''}
-            </FocusToEdit>
-          </div>
-          <div className={'flex flex-col'}>
-            {checkboxProperties.map((prop) => (
-              <EntityPropertyCheckbox
-                key={prop}
-                booleanKey={prop}
-                entity={currentState}
-                entityClass={EntityClassMap.workSchemaNode}
-                dispatchWithoutControl={dispatchWithoutControl}
-              />
-            ))}
-          </div>
-          <div>
-            {numberProperties.map((prop) => (
-              <label key={prop} className={'flex w-full justify-between'}>
-                <span className={'inline-block grow'}>{prop}:</span>
-                <DtoStoreNumberInput
-                  numberKey={prop}
-                  entity={currentState}
-                  entityClass={EntityClassMap.workSchemaNode}
-                  dispatchWithoutControl={dispatchWithoutControl}
-                  min={prop === 'priority' ? 0 : 1}
-                  allowFloat={true}
-                />
-              </label>
-            ))}
-          </div>
-          {(currentState.workProjectSeriesSchemaId ||
-            currentState.carouselOptionId) && (
-            <div
-              className={
-                'col-span-2 flex flex-col rounded-lg border-2 p-2 drop-shadow'
-              }
-            >
-              Leaf Content:
-              {currentState.workProjectSeriesSchemaId && (
-                <LazyDtoUiWrapper
-                  renderAs={WorkProjectionSeriesSchemaSummary}
-                  entityId={currentState.workProjectSeriesSchemaId}
-                  entityClass={EntityClassMap.workProjectSeriesSchema}
-                  whileLoading={() => <Spinner />}
-                />
-              )}
-              {currentState.carouselOptionId && (
-                <LazyDtoUiWrapper
-                  renderAs={CarouselOptionSummary}
-                  entityId={currentState.carouselOptionId}
-                  entityClass={EntityClassMap.carouselOption}
-                  whileLoading={() => <Spinner />}
-                />
+      <ModalBody className={'flex w-full flex-col'}>
+        {isPending ? (
+          <Spinner></Spinner>
+        ) : data === undefined ? (
+          <div>Error.</div>
+        ) : (
+          <>
+            <EditAddDeleteDtoControllerArray
+              entityClass={EntityClassMap.workProjectSeriesSchema}
+              dtoList={data}
+            />
+            <div className={'grid grid-cols-2 gap-1'}>
+              <div>
+                <FocusToEdit
+                  value={currentState.name ?? ''}
+                  label={'Node Name'}
+                  size={'sm'}
+                  onValueChange={(value) =>
+                    dispatchWithoutControl((data) => ({ ...data, name: value }))
+                  }
+                >
+                  {currentState.name ?? ''}
+                </FocusToEdit>
+                {checkboxProperties.map((prop) => (
+                  <EntityPropertyCheckbox
+                    key={prop}
+                    booleanKey={prop}
+                    entity={currentState}
+                    entityClass={EntityClassMap.workSchemaNode}
+                    dispatchWithoutControl={dispatchWithoutControl}
+                  />
+                ))}
+                {numberProperties.map((prop) => (
+                  <label key={prop} className={'flex w-full justify-between'}>
+                    <span className={'inline-block grow'}>{prop}:</span>
+                    <DtoStoreNumberInput
+                      numberKey={prop}
+                      entity={currentState}
+                      entityClass={EntityClassMap.workSchemaNode}
+                      dispatchWithoutControl={dispatchWithoutControl}
+                      min={prop === 'priority' ? 0 : 1}
+                      allowFloat={true}
+                    />
+                  </label>
+                ))}
+              </div>
+              {(currentState.workProjectSeriesSchemaId ||
+                currentState.carouselOptionId) && (
+                <div
+                  className={'m-1 flex flex-col rounded-lg p-2 shadow-small'}
+                >
+                  Leaf Content:
+                  {currentState.workProjectSeriesSchemaId && (
+                    <LazyDtoUiWrapper
+                      renderAs={WorkProjectionSeriesSchemaSummary}
+                      entityId={currentState.workProjectSeriesSchemaId}
+                      entityClass={EntityClassMap.workProjectSeriesSchema}
+                      whileLoading={() => <Spinner />}
+                    />
+                  )}
+                  {currentState.carouselOptionId && (
+                    <LazyDtoUiWrapper
+                      renderAs={CarouselOptionSummary}
+                      entityId={currentState.carouselOptionId}
+                      entityClass={EntityClassMap.carouselOption}
+                      whileLoading={() => <Spinner />}
+                    />
+                  )}
+                </div>
               )}
             </div>
-          )}
-        </div>
-        <div className={'flex overflow-auto'}>
-          {allowSchema && (
-            <WorkSchemaNodeModalTable
-              workSchemaNode={currentState}
-              entities={schemaList}
-              selectionMode={'single'}
-              dispatchWithoutControl={dispatchWithoutControl}
-            />
-          )}
-        </div>
+
+            {allowSchema && (
+              <WorkSchemaNodeModalTable
+                workSchemaNode={currentState}
+                entities={schemaList}
+                selectionMode={'single'}
+                dispatchWithoutControl={dispatchWithoutControl}
+              />
+            )}
+          </>
+        )}
       </ModalBody>
       <ModalFooter className={'p-2'}>
         <Button color="danger" variant="light" onPress={onClose}>

@@ -21,31 +21,31 @@ export function useLeafNodeRollUpListener({
 }: WorkSchemaNodeDto) {
   const nodeId = `${id}`;
 
-  const { data: workProjectSeriesSchema, isPending } = useQuery({
-    queryKey: [
-      EntityClassMap.workProjectSeriesSchema,
-      workProjectSeriesSchemaId
-    ],
-    queryFn: () =>
-      workProjectSeriesSchemaId
-        ? Api.WorkProjectSeriesSchema.getOne(workProjectSeriesSchemaId)
-        : undefined
-  });
+  // const { data: workProjectSeriesSchema, isPending } = useQuery({
+  //   queryKey: [
+  //     EntityClassMap.workProjectSeriesSchema,
+  //     workProjectSeriesSchemaId
+  //   ],
+  //   queryFn: () =>
+  //     workProjectSeriesSchemaId
+  //       ? Api.WorkProjectSeriesSchema.getOne(workProjectSeriesSchemaId)
+  //       : undefined
+  // });
 
-  const { dispatchWithoutListen } =
-    useGlobalDispatch<Map<string, WorkProjectSeriesSchemaDto>>(
-      'leafToSchemaMap'
-    );
-
-  useEffect(() => {
-    if (workProjectSeriesSchema) {
-      dispatchWithoutListen((prevState) => {
-        const updateMap = new Map(prevState.entries());
-        updateMap.set(nodeId, workProjectSeriesSchema);
-        return updateMap;
-      });
-    }
-  }, [workProjectSeriesSchema, dispatchWithoutListen, nodeId]);
+  // const { dispatchWithoutListen } =
+  //   useGlobalDispatch<Map<string, WorkProjectSeriesSchemaDto>>(
+  //     'leafToSchemaMap'
+  //   );
+  //
+  // useEffect(() => {
+  //   if (workProjectSeriesSchema) {
+  //     dispatchWithoutListen((prevState) => {
+  //       const updateMap = new Map(prevState.entries());
+  //       updateMap.set(nodeId, workProjectSeriesSchema);
+  //       return updateMap;
+  //     });
+  //   }
+  // }, [workProjectSeriesSchema, dispatchWithoutListen, nodeId]);
 
   const { currentState: allocationRollup } =
     useGlobalListener<AllocationRollup>({

@@ -9,8 +9,17 @@ import { FilterSortPaginateTableContent } from '@/components/tables/FilterSortPa
 import { Input } from '@nextui-org/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
-import { workProjectSeriesSchemaRenderCellFunction } from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
+import {
+  workProjectSeriesSchemaColumns,
+  workProjectSeriesSchemaRenderCellFunction
+} from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
+import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
+import { NestedDtoStoreNumberEditCell } from '@/components/tables/NestedDtoStoreNumberEditCell';
+import { AdjustAllocationInWrapper } from '@/components/work-project-series-schema/_components/AdjustAllocation';
+import { StringValueChip } from '@/components/tables/StringValueChip';
+import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
 
 export default function WorkSchemaNodeModalTable({
   entities,
@@ -48,14 +57,14 @@ export default function WorkSchemaNodeModalTable({
 
   const selectedKeys = useMemo(() => {
     if (workSchemaNode.workProjectSeriesSchemaId !== undefined)
-      return new Set([workSchemaNode.workProjectSeriesSchemaId]);
+      return new Set([String(workSchemaNode.workProjectSeriesSchemaId)]);
     else return new Set<string>();
   }, [workSchemaNode]);
 
   const { tableContentProps, paginationProps, filterProps } =
     useFilterSortPaginateSelect(
       INITIAL_VISIBLE_COLUMNS,
-      columns,
+      workProjectSeriesSchemaColumns,
       entities,
       'name',
       EntityClassMap.workProjectSeriesSchema,
@@ -95,24 +104,32 @@ export default function WorkSchemaNodeModalTable({
           'Table to find and select a WorkProjectSeriesSchema to be resolved at this node.'
         }
         isHeaderSticky
-        renderCell={workProjectSeriesSchemaRenderCellFunction}
+        renderCell={workProjectSeriesSchemaReadOnlyCell}
         selectionMode={selectionMode}
         bottomContent={bottomContent}
-        bottomContentPlacement={'inside'}
-        classNames={{ wrapper: 'ml-auto mr-auto h-[58vh]' }}
-        className={'pointer-events-auto'}
+        bottomContentPlacement={'outside'}
+        color={'primary'}
+        // classNames={{ wrapper: 'ml-auto mr-auto h-[58vh]' }}
+        // className={'pointer-events-auto'}
       />
     </div>
   );
 }
 
 export const INITIAL_VISIBLE_COLUMNS: ColumnUid<WorkProjectSeriesSchemaDto>[] =
-  ['name', 'workTaskType.knowledgeDomain.shortCode', 'deliveryAllocations'];
-export const columns: Column<WorkProjectSeriesSchemaDto>[] = [
-  { name: 'Name', uid: 'name', sortable: true },
+  [
+    'name',
+    'workTaskType.knowledgeDomain.shortCode',
+    'workTaskType.knowledgeLevel.levelOrdinal'
+  ];
+
+export const workProjectSeriesSchemaReadOnlyCell = getCellRenderFunction(
+  'workProjectSeriesSchema',
   {
-    name: 'ShortCode',
-    uid: 'workTaskType.knowledgeDomain.shortCode',
-    sortable: true
+    name: SimpleValueToString,
+    userToProviderRatio: SimpleValueToString,
+    'workTaskType.knowledgeDomain.shortCode': StringValueChip,
+    'workTaskType.name': StringValueChip,
+    'workTaskType.knowledgeLevel.levelOrdinal': SimpleValueToString
   }
-];
+);

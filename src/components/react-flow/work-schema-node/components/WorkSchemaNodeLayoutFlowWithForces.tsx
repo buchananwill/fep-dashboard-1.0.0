@@ -67,6 +67,9 @@ import { useValidateAndUpdateDepth } from '@/components/react-flow/generic/hooks
 import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
 import { useHierarchicalTreeLayout } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 import { DispatchState } from '@/types';
+import { isNotUndefined } from '@/api/main';
+import { useQuery } from '@tanstack/react-query';
+import { Api } from '@/api/clientApi';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -128,11 +131,40 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   const idToNodeMap = useIdToNodeMapMemo(nodesFromContext);
   const idToEdgeMap = useIdToEdgeMapMemo(edgesFromContext);
   const idToChildIdMap = useIdToChildIdMapMemo(edgesFromContext);
-  const { currentState: leafToSchemaMap } = useGlobalController({
-    contextKey: 'leafToSchemaMap',
-    listenerKey: 'controller',
-    initialValue: InitialMap as Map<string, WorkProjectSeriesSchemaDto>
+
+  const schemaIdList = useMemo(() => {
+    return nodesFromContext
+      .map((node) => node.data.workProjectSeriesSchemaId)
+      .filter(isNotUndefined);
+  }, [nodesFromContext]);
+
+  const { data } = useQuery({
+    queryKey: [
+      EntityClassMap.workProjectSeriesSchema,
+      'leafNodes',
+      ...schemaIdList
+    ],
+    queryFn: () =>
+      Api.WorkProjectSeriesSchema.getDtoListByBodyList(schemaIdList)
   });
+
+  const schemaMap = useMemo(() => {
+    if (!data) return new Map<number, WorkProjectSeriesSchemaDto>();
+    return data.reduce((prev, curr) => prev.set(curr.id, curr), new Map());
+  }, [data]);
+
+  const leafToSchemaMap = useMemo(() => {
+    return nodesFromContext.reduce((prev, curr) => {
+      const leafSchemaId = curr.data.workProjectSeriesSchemaId;
+      if (leafSchemaId !== undefined) {
+        const schema = schemaMap.get(leafSchemaId);
+        if (schema) {
+          prev.set(curr.id, schema);
+        }
+      }
+      return prev;
+    }, new Map<string, WorkProjectSeriesSchemaDto>());
+  }, [nodesFromContext, schemaMap]);
 
   const allocationRollupEntities = useWorkSchemaNodeRollupMemo(
     nodesFromContext,
@@ -142,6 +174,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   );
   console.log({
     idToChildIdMap,
+    leafToSchemaMap,
     idToEdgeMap,
     idToNodeMap,
     allocationRollupEntities
@@ -289,7 +322,6 @@ const TemplateWorkSchemaNode: DataNodeDto<WorkSchemaNodeDto> = {
     priority: 1,
     allowBundle: true,
     preferCarousel: false,
-    workSchemaNodeAssignmentIds: [],
     resolutionMode: 'OPEN'
   },
   id: 0,

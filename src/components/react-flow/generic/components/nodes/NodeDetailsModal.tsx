@@ -36,6 +36,7 @@ export function NodeDetailsModal(nodeDetailsModalProps: NodeDetailsModalProps) {
       isOpen={isOpen}
       onOpenChange={onOpenChange}
       scrollBehavior={'inside'}
+      size={'5xl'}
     >
       <ModalContent className={'p-2'}>
         {(onClose) => (

@@ -32,7 +32,7 @@ export default function WorkProjectSeriesSchemaEditTable({
       <FilterSelectEntityTable
         entityClass={entityType}
         entities={entities}
-        columns={columns}
+        columns={workProjectSeriesSchemaColumns}
         selectionMode={'none'}
         initialColumns={initialColumns}
         filterProperty={'name'}
@@ -47,26 +47,41 @@ export default function WorkProjectSeriesSchemaEditTable({
   );
 }
 
-const columns: Column<WorkProjectSeriesSchemaDto>[] = [
-  { uid: 'name', name: 'Name', sortable: true },
-  {
-    uid: 'deliveryAllocations',
-    name: startCase(getDomainAlias('deliveryAllocations')),
-    sortable: false,
-    ignoreFilter: true
-  },
-  {
-    uid: 'workTaskType.knowledgeDomain.shortCode',
-    name: 'Short Code',
-    sortable: true
-  },
-  {
-    uid: 'userToProviderRatio',
-    sortable: true,
-    name: `${startCase(getDomainAlias('user'))} limit`
-  },
-  { uid: 'workTaskType.name', name: startCase('workTaskType'), sortable: true }
-];
+export const workProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[] =
+  [
+    { uid: 'name', name: 'Name', sortable: true },
+    {
+      uid: 'deliveryAllocations',
+      name: startCase(getDomainAlias('deliveryAllocations')),
+      sortable: false,
+      ignoreFilter: true
+    },
+    {
+      uid: 'workTaskType.knowledgeDomain.shortCode',
+      name: 'Short Code',
+      sortable: true
+    },
+    {
+      uid: 'workTaskType.knowledgeLevel.levelOrdinal',
+      name: 'levelOrdinal',
+      sortable: true
+    },
+    {
+      uid: 'workTaskType.knowledgeLevel.name',
+      name: 'levelName',
+      sortable: true
+    },
+    {
+      uid: 'userToProviderRatio',
+      sortable: true,
+      name: `${startCase(getDomainAlias('user'))} limit`
+    },
+    {
+      uid: 'workTaskType.name',
+      name: startCase('workTaskType'),
+      sortable: true
+    }
+  ];
 
 const initialColumns: ColumnUid<WorkProjectSeriesSchemaDto>[] = [
   'name',
