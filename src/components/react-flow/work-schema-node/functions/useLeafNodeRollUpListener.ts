@@ -1,14 +1,11 @@
-import { Identifier, NamespacedHooks, useDtoStore } from 'dto-stores';
+import { Identifier, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { useEffect, useMemo } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeLayoutFlowWithForces';
 import { ObjectPlaceholder } from '@/api/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import {
-  CarouselOptionDto,
-  WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';

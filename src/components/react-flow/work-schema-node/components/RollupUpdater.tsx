@@ -17,11 +17,21 @@ export function RollupUpdater({
     EmptyArray as Identifier[]
   );
 
+  const dispatchMasterList = NamespacedHooks.useDispatch(
+    AllocationRollupEntityClass,
+    KEY_TYPES.MASTER_LIST
+  );
+
   const writeAnyAllocationRollup = useWriteAnyDto<AllocationRollup>(
     AllocationRollupEntityClass
   );
 
   useEffect(() => {
+    console.log({ allocationRollupEntities });
+    dispatchMasterList(allocationRollupEntities);
+  }, [allocationRollupEntities, dispatchMasterList]);
+  useEffect(() => {
+    console.log({ allocationRollupEntities });
     allocationRollupEntities
       .filter((entity) => rollupIdList.includes(entity.id))
       .forEach((filteredEntity, key) => {

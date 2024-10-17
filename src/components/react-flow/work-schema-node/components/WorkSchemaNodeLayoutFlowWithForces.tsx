@@ -66,8 +66,40 @@ import { LeftToRightEdge } from '@/components/react-flow/generic/components/edge
 import { useValidateAndUpdateDepth } from '@/components/react-flow/generic/hooks/useValidateAndUpdateDepth';
 import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
 import { useHierarchicalTreeLayout } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
+import { DispatchState } from '@/types';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
+
+function useInterceptNodeDataUpdate(
+  dispatchWithoutListen: DispatchState<
+    MemoizedFunction<WorkSchemaNodeDto, void>
+  >,
+  checkToggleFirstAndAfter: () => void
+) {
+  useEffect(() => {
+    dispatchWithoutListen(
+      (prevFunction: MemoizedFunction<WorkSchemaNodeDto, void>) => {
+        checkToggleFirstAndAfter();
+        const { memoizedFunction } = prevFunction;
+        const interceptValidateResolutionMode = (
+          updatedNode: WorkSchemaNodeDto
+        ) => {
+          const localResolution = determineLocalResolution(updatedNode);
+          let interceptedNode = updatedNode;
+          if (localResolution !== updatedNode.resolutionMode) {
+            interceptedNode = {
+              ...updatedNode,
+              resolutionMode: localResolution
+            };
+          }
+          return memoizedFunction(interceptedNode);
+        };
+
+        return { memoizedFunction: interceptValidateResolutionMode };
+      }
+    );
+  }, [dispatchWithoutListen, checkToggleFirstAndAfter]);
+}
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children
@@ -108,6 +140,12 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     idToChildIdMap,
     idToNodeMap
   );
+  console.log({
+    idToChildIdMap,
+    idToEdgeMap,
+    idToNodeMap,
+    allocationRollupEntities
+  });
   useHierarchicalTreeLayout(idToChildIdMap);
 
   const { onConnect, ...otherProps } = reactFlowProps;
@@ -180,30 +218,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   const { dispatchWithoutListen } = useGraphDispatch<
     MemoizedFunction<WorkSchemaNodeDto, void>
   >(GraphSelectiveContextKeys.editNodeData);
-
-  useEffect(() => {
-    dispatchWithoutListen(
-      (prevFunction: MemoizedFunction<WorkSchemaNodeDto, void>) => {
-        checkToggleFirstAndAfter();
-        const { memoizedFunction } = prevFunction;
-        const interceptValidateResolutionMode = (
-          updatedNode: WorkSchemaNodeDto
-        ) => {
-          const localResolution = determineLocalResolution(updatedNode);
-          let interceptedNode = updatedNode;
-          if (localResolution !== updatedNode.resolutionMode) {
-            interceptedNode = {
-              ...updatedNode,
-              resolutionMode: localResolution
-            };
-          }
-          return memoizedFunction(interceptedNode);
-        };
-
-        return { memoizedFunction: interceptValidateResolutionMode };
-      }
-    );
-  }, [dispatchWithoutListen, checkToggleFirstAndAfter]);
+  useInterceptNodeDataUpdate(dispatchWithoutListen, checkToggleFirstAndAfter);
 
   const mergedReactFlowProps = useMemo(() => {
     return { onConnect: interceptedOnConnect, ...otherProps };
