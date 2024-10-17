@@ -32,7 +32,6 @@ function cloneWorkSchemaNode(
   let cloneName = name ? incrementCloneSuffix(name) : crypto.randomUUID();
   const clonedNode = structuredClone(templateNode);
 
-  clonedNode.data.workSchemaNodeAssignmentIds = [];
   if ('data' in clonedNode) {
     clonedNode.data.name = cloneName;
   }
