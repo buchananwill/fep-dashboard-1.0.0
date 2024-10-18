@@ -121,6 +121,7 @@ canvas {
 
 
 
+
     .number-input {
         @apply text-right p-2 rounded-xl outline-primary-400 bg-default-100 text-black text-medium w-24
     }
