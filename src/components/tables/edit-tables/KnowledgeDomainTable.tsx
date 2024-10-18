@@ -18,6 +18,7 @@ import { EditStringUniqueConstraintButton } from '@/components/tables/edit-table
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';
 import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
+import EditColorCell from '@/components/tables/cells/EditColorCell';
 
 export function KnowledgeDomainTable() {
   const entities = useFilterOutDeletedEntities<KnowledgeDomainDto>(entityType);
@@ -32,7 +33,7 @@ export function KnowledgeDomainTable() {
       entities={entities}
       isCompact={true}
       selectionMode={'none'}
-      initialColumns={['name', 'shortCode']}
+      initialColumns={['name', 'shortCode', 'color']}
       filterProperty={'name'}
       renderCell={cellRenderFunction}
       classNames={{
@@ -72,18 +73,18 @@ function ShortCodeEditButtonCell(
   const {
     entity: { color }
   } = props;
-  const style = useMemo(() => {
+  const colorFromEntity = useMemo(() => {
     return parseToCssRgba(color);
   }, [color]);
 
   const styleAndClassnames = useMemo(() => {
-    if (style) {
+    if (colorFromEntity) {
       const cssStyle: CSSProperties = {
-        backgroundColor: style
+        backgroundColor: colorFromEntity
       };
       return { style: cssStyle };
     } else return { classNames };
-  }, [style, classNames]);
+  }, [colorFromEntity, classNames]);
 
   return (
     <EditStringUniqueConstraintButton {...props} {...styleAndClassnames} />
@@ -96,12 +97,14 @@ const columns: Column<KnowledgeDomainDto>[] = [
     uid: 'name',
     sortable: true
   },
-  { name: 'ShortCode', uid: 'shortCode', sortable: true }
+  { name: 'ShortCode', uid: 'shortCode', sortable: true },
+  { name: 'Color', uid: 'color', sortable: false }
 ];
 
 const entityType = EntityClassMap.knowledgeDomain;
 
 const cellRenderFunction = getCellRenderFunction('knowledgeDomain', {
   name: RenameAndDeleteCell,
-  shortCode: ShortCodeEditButtonCell
+  shortCode: ShortCodeEditButtonCell,
+  color: EditColorCell
 });

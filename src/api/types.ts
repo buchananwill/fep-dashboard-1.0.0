@@ -60,7 +60,9 @@ export interface HasUuid {
   id: string;
 }
 
-export type HasId = HasNumberId | HasUuid;
+export type HasId = {
+  id: string | number;
+};
 
 export interface HasIdClass<T> {
   id: T;

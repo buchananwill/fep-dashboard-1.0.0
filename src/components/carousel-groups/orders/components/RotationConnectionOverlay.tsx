@@ -9,8 +9,8 @@ import { GenericDivProps } from '@/components/react-flow/generic/components/node
 import { HasId, HasNumberId } from '@/api/types';
 
 export interface ConnectionVector {
-  source?: Coordinate & HasNumberId;
-  target?: Coordinate & HasNumberId;
+  source?: Coordinate & HasId;
+  target?: Coordinate & HasId;
 }
 
 export const RotationConnectionMap = 'rotationConnectionMap';
