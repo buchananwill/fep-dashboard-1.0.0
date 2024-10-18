@@ -6,7 +6,6 @@ import { SelectiveContextManagerGlobal } from 'selective-context';
 import React from 'react';
 import AnimationSyncContextProvider from '@/components/providers/animate-sync-context/AnimationSyncContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { TouchBackend } from 'react-dnd-touch-backend';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
 
