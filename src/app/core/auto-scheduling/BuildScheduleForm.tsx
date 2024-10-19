@@ -165,7 +165,9 @@ export default function AutoBuildForm({
             />
           </div>
           <div className={'justify-center text-center'}>
-            <Button type={'submit'}>Submit</Button>
+            <Button type={'submit'} disabled={disable}>
+              Submit
+            </Button>
           </div>
         </div>
       </form>
