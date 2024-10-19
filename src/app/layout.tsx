@@ -39,7 +39,11 @@ export default async function RootLayout({
           <MasterChangesTrackWrapper session={session}>
             <UserAvatar />
           </MasterChangesTrackWrapper>
-          <div className={'flex'}>
+          <div
+            className={
+              'flex h-[100vh] w-[100vw] bg-gradient-to-b from-blue-200 to-white '
+            }
+          >
             <div className={'center-all-margin '}>
               <Suspense fallback={<When_loading />}>{children}</Suspense>
             </div>

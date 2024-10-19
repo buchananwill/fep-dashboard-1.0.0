@@ -52,24 +52,26 @@ export default function RootCard({
             (navLinkDescription ? (
               <Card.Section>
                 <Popover>
-                  <Popover.Target>
-                    <Button
-                      variant={'subtle'}
-                      styles={{
-                        root: { borderRadius: '0px' }
-                      }}
-                      classNames={{
-                        inner: 'w-full',
-                        label:
-                          'flex w-full justify-between p-1 italic text-default-500 font-weight-400 font-light'
-                      }}
-                      className={''}
-                      fullWidth
-                    >
-                      {Icon && <Icon className={'h-8 w-8'} />}
-                      {displayHeader}
-                    </Button>
-                  </Popover.Target>
+                  <div className={'w-full overflow-hidden rounded-t-2xl'}>
+                    <Popover.Target>
+                      <Button
+                        variant={'subtle'}
+                        styles={{
+                          root: { borderRadius: '0px' }
+                        }}
+                        classNames={{
+                          inner: 'w-full',
+                          label:
+                            'flex w-full justify-between p-1 italic text-default-500 font-weight-400 font-light'
+                        }}
+                        className={''}
+                        fullWidth
+                      >
+                        {Icon && <Icon className={'h-8 w-8'} />}
+                        {displayHeader}
+                      </Button>
+                    </Popover.Target>
+                  </div>
                   <Popover.Dropdown className={'max-w-lg'}>
                     {navigationType && navLinkDescription}
                   </Popover.Dropdown>
@@ -84,7 +86,7 @@ export default function RootCard({
               </Card.Section>
             ))}
           <Card.Section
-            className={clsx(displayHeader && 'overflow-visible pt-0')}
+            className={clsx(displayHeader && 'pt-0', 'overflow-visible')}
           >
             {children}
           </Card.Section>

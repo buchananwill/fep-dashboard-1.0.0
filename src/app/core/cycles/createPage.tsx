@@ -5,24 +5,25 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
-
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';
 import { DayOfWeekArray } from '@/api/date-and-time';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 
 import { postOne } from '@/api/generated-actions/Cycle';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { CycleDto } from '@/api/generated-types/generated-types';
 import { CycleDtoSchema } from '@/api/generated-schemas/schemas_';
+import RootCard from '@/components/generic/RootCard';
+import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 const dayArray = DayOfWeekArray.map((day) => ({
   name: day,
   id: day.toUpperCase()
 }));
 
-export default function CreatePage() {
+export default function CreatePage({ pathVariables }: LeafComponentProps) {
   const {
     handleSubmit,
     formState: { errors },
@@ -49,18 +50,19 @@ export default function CreatePage() {
   };
 
   return (
-    <Card className={'mt-8 w-5/6 md:w-3/4'}>
-      <PendingOverlay pending={pending} />
-      <form
-        onSubmit={(event) => {
-          console.warn(errors);
-          handleSubmit(onSubmit)(event);
-        }}
+    <div className={'p-4'}>
+      <RootCard
+        layoutId={getRootCardLayoutId(pathVariables)}
+        displayHeader={<h1 className={'p-2 text-center'}>Create Cycle</h1>}
       >
-        <CardHeader className={'items-center justify-center align-middle '}>
-          Create Cycle
-        </CardHeader>
-        <CardBody className={'items-center justify-center gap-2'}>
+        <PendingOverlay pending={pending} />
+        <form
+          onSubmit={(event) => {
+            console.warn(errors);
+            handleSubmit(onSubmit)(event);
+          }}
+          className={'flex flex-col gap-2 p-2'}
+        >
           <ControlledSelect
             name={'cycleDayZero'}
             control={control}
@@ -82,11 +84,10 @@ export default function CreatePage() {
               className={'number-input'}
             />
           </label>
-        </CardBody>
-        <CardFooter className={'justify-center'}>
+
           <Button type={'submit'}>Submit</Button>
-        </CardFooter>
-      </form>
-    </Card>
+        </form>
+      </RootCard>
+    </div>
   );
 }
