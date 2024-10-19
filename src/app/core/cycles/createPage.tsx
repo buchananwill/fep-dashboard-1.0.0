@@ -1,14 +1,13 @@
 'use client';
 
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { useTransition } from 'react';
+import React, { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';
 import { DayOfWeekArray } from '@/api/date-and-time';
-import { Button } from '@mantine/core';
+import { Button, NumberInput, Select } from '@mantine/core';
 
 import { postOne } from '@/api/generated-actions/Cycle';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
@@ -17,11 +16,7 @@ import { CycleDtoSchema } from '@/api/generated-schemas/schemas_';
 import RootCard from '@/components/generic/RootCard';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
-
-const dayArray = DayOfWeekArray.map((day) => ({
-  name: day,
-  id: day.toUpperCase()
-}));
+import { isNumber, startCase } from 'lodash';
 
 export default function CreatePage({ pathVariables }: LeafComponentProps) {
   const {
@@ -63,27 +58,50 @@ export default function CreatePage({ pathVariables }: LeafComponentProps) {
           }}
           className={'flex flex-col gap-2 p-2'}
         >
-          <ControlledSelect
+          <Controller
             name={'cycleDayZero'}
             control={control}
-            label={'Cycle Start Day'}
-            className={'max-w-xl'}
-            listboxProps={{
-              classNames: {
-                list: 'gap-0'
-              }
+            render={({ field }) => {
+              console.log({
+                field,
+                value: startCase(field.value.toLowerCase())
+              });
+              return (
+                <Select
+                  label={'Cycle Start Day'}
+                  allowDeselect={false}
+                  data={DayOfWeekArray}
+                  value={startCase(field.value.toLowerCase())}
+                  onChange={(value) => {
+                    console.log(value);
+                    if (value) {
+                      field.onChange(value.toUpperCase());
+                    }
+                  }}
+                />
+              );
             }}
-            items={dayArray}
           />
 
-          <label className={'text-sm text-default-500'}>
-            Cycle Length in Weeks:
-            <input
-              {...register('cycleLengthInWeeks', { valueAsNumber: true })}
-              type={'number'}
-              className={'number-input'}
-            />
-          </label>
+          <Controller
+            name={'cycleLengthInWeeks'}
+            control={control}
+            render={({ field }) => (
+              <NumberInput
+                clampBehavior={'strict'}
+                label={'Cycle Length in Weeks'}
+                min={1}
+                max={52}
+                value={field.value}
+                onBlur={(blurAction) => {
+                  blurAction.currentTarget.value = String(field.value);
+                }}
+                onChange={(value) =>
+                  field.onChange(isNumber(value) && value > 0 ? value : 1)
+                }
+              />
+            )}
+          />
 
           <Button type={'submit'}>Submit</Button>
         </form>
