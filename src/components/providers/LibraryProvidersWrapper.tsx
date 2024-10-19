@@ -8,6 +8,8 @@ import AnimationSyncContextProvider from '@/components/providers/animate-sync-co
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
+import { ThemeProvider } from '@mui/material';
+import { theme } from '@/mui-theme';
 
 export function LibraryProvidersWrapper({
   children
@@ -17,17 +19,19 @@ export function LibraryProvidersWrapper({
   const router = useRouter();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SelectiveContextManagerGlobal>
-        <DndProvider options={HTML5toTouch}>
-          <AnimationSyncContextProvider>
-            <NextUIProvider locale={'en-GB'} navigate={router.push}>
-              {children}
-            </NextUIProvider>
-          </AnimationSyncContextProvider>
-        </DndProvider>
-      </SelectiveContextManagerGlobal>
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <SelectiveContextManagerGlobal>
+          <DndProvider options={HTML5toTouch}>
+            <AnimationSyncContextProvider>
+              <NextUIProvider locale={'en-GB'} navigate={router.push}>
+                {children}
+              </NextUIProvider>
+            </AnimationSyncContextProvider>
+          </DndProvider>
+        </SelectiveContextManagerGlobal>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
