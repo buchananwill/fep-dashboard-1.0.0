@@ -112,27 +112,29 @@ export default function AutoBuildForm({
             Auto Build Parameters
           </h1>
           <div className={'items-center justify-center gap-2 overflow-visible'}>
+            <label htmlFor={'autoBuildParametersDto.multiStepUndoTimeoutMs'}>
+              {startCase('multiStepUndoTimeout')}
+            </label>
             <ControlledSlider
               control={control}
-              maxValue={60_000}
-              minValue={1_000}
+              max={60_000}
+              min={1_000}
               step={500}
-              size={'sm'}
+              size={'lg'}
+              showText={false}
               name={'autoBuildParametersDto.multiStepUndoTimeoutMs'}
               aria-label={'Multi-Undo Timeout'}
-              hideValue={false}
-              label={'Multi-Undo Timeout (ms):'}
+              label={(value) => `${(value / 1000).toFixed(1)}s`}
             />
             <ControlledSlider
               control={control}
-              maxValue={10}
-              minValue={1}
+              max={10}
+              min={1}
               step={1}
-              size={'sm'}
+              size={'lg'}
               name={'autoBuildParametersDto.multiUndoIncrement'}
               aria-label={'multi-undo increment'}
-              hideValue={false}
-              label={'Multi-undo increment:'}
+              label={(value) => `${value}`}
             />
             <div
               className={
