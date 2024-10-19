@@ -54,7 +54,7 @@ export default function RootCard({
                       classNames={{
                         inner: 'w-full',
                         label:
-                          'flex w-full justify-between p-1 italic text-default-500'
+                          'flex w-full justify-between p-1 italic text-default-500 font-weight-400 font-light'
                       }}
                       className={''}
                       fullWidth
