@@ -1,5 +1,4 @@
 'use client';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { NavLinkDescriptionsDefault } from '@/components/navigation/navLinkDescriptions';
 import { motion } from 'framer-motion';
 import {
@@ -9,11 +8,10 @@ import {
 import { PropsWithChildren, ReactNode, useRef, useState } from 'react';
 import clsx from 'clsx';
 import {
-  Card,
-  CardHeader,
-  CardContent,
   Button,
-  Popper,
+  Card,
+  CardContent,
+  CardHeader,
   ClickAwayListener
 } from '@mui/material';
 import PopoverFloatingUi from '@/components/generic/PopoverFloatingUi';
