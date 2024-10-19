@@ -1,9 +1,8 @@
 'use client';
 import { memo, useCallback, useEffect, useMemo, useTransition } from 'react';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
 import { getWeekNumberInt } from '@/functions/cycles/groupCycleSubspansByDay';
-import { Button } from '@nextui-org/button';
+import { Button, Card } from '@mantine/core';
 import CycleSubspan from '@/components/cycles/CycleSubspan';
 import { CycleDayFetcherProps } from '@/components/cycles/CycleDayFetcher';
 
@@ -84,23 +83,35 @@ export default function CycleDayViewer({
   }, [dispatchInitialList, cycleSubspanDtos]);
 
   return (
-    <Card classNames={{ base: 'w-fit', body: 'w-fit' }}>
-      <CardHeader className={'justify-center gap-2 text-center'}>
-        {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
-        <Button
-          size={'sm'}
-          className={'relative'}
-          onPress={() =>
-            startTransition(async () => {
-              masterListCallback();
-            })
+    <Card
+      classNames={{
+        root: 'w-fit'
+      }}
+    >
+      <Card.Section>
+        <div
+          className={
+            'flex w-full items-center justify-center gap-2 p-2 text-center'
           }
         >
-          Add Period
-          <PendingOverlay pending={pending} />
-        </Button>
-      </CardHeader>
-      <CardBody className={'gap-1'}>
+          <span className={'inline-block'}>
+            {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
+          </span>
+          <Button
+            size={'sm'}
+            className={'relative inline-block'}
+            onClick={() =>
+              startTransition(async () => {
+                masterListCallback();
+              })
+            }
+          >
+            Add Period
+            <PendingOverlay pending={pending} />
+          </Button>
+        </div>
+      </Card.Section>
+      <div className={'flex flex-col gap-1'}>
         {cycleSubspanIdList.length > 0 && (
           <DtoUiListSome
             entityIdList={cycleSubspanIdList}
@@ -108,7 +119,7 @@ export default function CycleDayViewer({
             renderAs={MemoCycleSubspan}
           />
         )}
-      </CardBody>
+      </div>
     </Card>
   );
 }

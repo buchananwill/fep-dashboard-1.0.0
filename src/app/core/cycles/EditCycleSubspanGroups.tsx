@@ -2,7 +2,6 @@ import {
   getWeekNumberInt,
   groupCycleSubspansByDay
 } from '@/functions/cycles/groupCycleSubspansByDay';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
 import { CycleSubspanGroupEditDto } from '@/components/cycles/CycleSubspanGroupEdit';
 import { getWithoutBody } from '@/api/actions/template-actions';
@@ -36,7 +35,7 @@ export default async function EditCycleSubspanGroups({
   return (
     <div
       className={
-        'grid grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 overflow-auto'
+        'grid h-full grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 p-4'
       }
     >
       <EditAddDeleteDtoControllerArray
@@ -53,16 +52,14 @@ export default async function EditCycleSubspanGroups({
           groupedByCycleDay[cycleDay.zeroIndexedCycleDay];
         if (cycleSubspanDtoList === undefined) return null;
         return (
-          <Card
+          <div
             key={cycleDay.zeroIndexedCycleDay}
-            classNames={{
-              base: `w-fit min-w-full ${index === 0 ? 'step_edit_cycleSubspanGroups' : ''}`
-            }}
+            className={`w-fit min-w-full ${index === 0 ? 'step_edit_cycleSubspanGroups' : ''} rounded-lg bg-white p-2 shadow-2xl`}
           >
-            <CardHeader className={'justify-center text-center'}>
+            <div className={'justify-center text-center'}>
               {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
-            </CardHeader>
-            <CardBody className={''}>
+            </div>
+            <div className={''}>
               <table>
                 <tbody>
                   <CycleSubspanGroupUiWrapper
@@ -71,8 +68,8 @@ export default async function EditCycleSubspanGroups({
                   />
                 </tbody>
               </table>
-            </CardBody>
-          </Card>
+            </div>
+          </div>
         );
       })}
     </div>

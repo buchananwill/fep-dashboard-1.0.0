@@ -34,7 +34,7 @@ export default function CycleViewer({ cycle }: { cycle: CycleDto }) {
   return (
     <div
       className={
-        'grid min-w-fit grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 p-8'
+        'grid h-[100vh] w-[100vw] grid-cols-[repeat(7,minmax(min-content,1fr))] gap-1 overflow-auto p-8'
       }
     >
       <EditAddDeleteDtoControllerArray
