@@ -40,7 +40,14 @@ export default function RootCard({
         animate={{ scale: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <Card className={'h-full'}>
+        <Card
+          className={'h-full'}
+          styles={{
+            root: {
+              overflow: 'visible'
+            }
+          }}
+        >
           {displayHeader &&
             (navLinkDescription ? (
               <Card.Section>
@@ -76,7 +83,9 @@ export default function RootCard({
                 {displayHeader}
               </Card.Section>
             ))}
-          <Card.Section className={clsx(displayHeader && 'pt-0')}>
+          <Card.Section
+            className={clsx(displayHeader && 'overflow-visible pt-0')}
+          >
             {children}
           </Card.Section>
         </Card>
