@@ -2,7 +2,7 @@
 import { memo, useCallback, useEffect, useMemo, useTransition } from 'react';
 import { numberToWeekLetter } from '@/functions/cycles/numberToWeekLetter';
 import { getWeekNumberInt } from '@/functions/cycles/groupCycleSubspansByDay';
-import { Button, Card } from '@mantine/core';
+import { Button, Card, ScrollArea } from '@mantine/core';
 import CycleSubspan from '@/components/cycles/CycleSubspan';
 import { CycleDayFetcherProps } from '@/components/cycles/CycleDayFetcher';
 
@@ -111,7 +111,7 @@ export default function CycleDayViewer({
           </Button>
         </div>
       </Card.Section>
-      <div className={'flex flex-col gap-1'}>
+      <ScrollArea classNames={{ root: 'border-1 rounded-lg p-0.5' }}>
         {cycleSubspanIdList.length > 0 && (
           <DtoUiListSome
             entityIdList={cycleSubspanIdList}
@@ -119,7 +119,7 @@ export default function CycleDayViewer({
             renderAs={MemoCycleSubspan}
           />
         )}
-      </div>
+      </ScrollArea>
     </Card>
   );
 }
