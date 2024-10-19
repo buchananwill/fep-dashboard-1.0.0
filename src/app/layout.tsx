@@ -11,6 +11,8 @@ import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTracke
 import UserAvatar from '@/components/auth/UserAvatar';
 import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
+import { ColorSchemeScript } from '@mantine/core';
+import '@mantine/core/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +30,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <title>FEP Dashboard</title>
+        <ColorSchemeScript />
+      </head>
       <body className={inter.className}>
         <LibraryProvidersWrapper>
           <MasterChangesTrackWrapper session={session}>
