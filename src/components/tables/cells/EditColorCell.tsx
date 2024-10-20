@@ -11,7 +11,7 @@ import { idDecrementer } from '@/components/work-schema-node-assignments/enrollm
 import { DispatchState } from '@/types';
 import { SetRequired } from 'type-fest';
 
-interface OptionallyHasColorDto extends HasId {
+export interface OptionallyHasColorDto extends HasId {
   color?: ColorDto;
 }
 

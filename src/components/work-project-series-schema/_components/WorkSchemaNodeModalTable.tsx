@@ -15,7 +15,7 @@ import {
 } from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
-import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
+import { RenameAndDeleteCell } from '@/components/tables/cells/RenameAndDeleteCell';
 import { NestedDtoStoreNumberEditCell } from '@/components/tables/NestedDtoStoreNumberEditCell';
 import { AdjustAllocationInWrapper } from '@/components/work-project-series-schema/_components/AdjustAllocation';
 import { StringValueChip } from '@/components/tables/StringValueChip';

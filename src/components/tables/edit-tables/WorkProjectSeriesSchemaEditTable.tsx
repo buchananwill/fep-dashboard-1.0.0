@@ -12,7 +12,7 @@ import { StringValueChip } from '@/components/tables/StringValueChip';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { Column, ColumnUid } from '@/types';
 import { NestedDtoStoreNumberEditCell } from '@/components/tables/NestedDtoStoreNumberEditCell';
-import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
+import { RenameAndDeleteCell } from '@/components/tables/cells/RenameAndDeleteCell';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import RootCard from '@/components/generic/RootCard';
 

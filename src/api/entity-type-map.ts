@@ -40,8 +40,6 @@ import {
   WorkSchemaNodeDto,
   WorkTaskTypeDto
 } from './generated-types/generated-types';
-import { FeasibilityReportDto } from '@/api/old-zod-schemas/FeasibilityReportDtoSchema';
-import { InteractionBasedValidationDto } from '@/api/old-zod-schemas/InteractionBasedValidationDtoSchema';
 
 export type EntityTypeMap = {
   asset: AssetDto;

@@ -7,6 +7,7 @@ import {
 } from '@/api/generated-types/generated-types';
 import { Api } from '@/api/clientApi';
 import { ClosureDto as ClosureDtoLibrary } from 'react-d3-force-wrapper';
+import { HasOnlyStringKeys } from '@/components/types/stringKeysOnly';
 
 export type ClosureDto = ClosureDtoLibrary;
 

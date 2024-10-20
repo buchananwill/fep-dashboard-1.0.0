@@ -30,9 +30,7 @@ export type KeyArray<T> = (keyof T)[];
 export type DispatchState<T> = Dispatch<SetStateAction<T>>;
 
 export type SharedColumn = 'action';
-export type ColumnUid<T> =
-  // | Extract<keyof T, string | number>
-  Paths<T>;
+export type ColumnUid<T> = Paths<T>;
 
 export interface Column<T> {
   name: string;

@@ -1,46 +1,49 @@
 'use client';
-import React, { CSSProperties, useMemo } from 'react';
+import React from 'react';
 
 import { EntityClassMap } from '@/api/entity-class-map';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID, EmptyArray } from '@/api/literals';
 import { getDomainAlias } from '@/api/getDomainAlias';
-import { startCase } from 'lodash';
-import { Column } from '@/types';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
-import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
+import { set, startCase } from 'lodash';
+import { Column, ColumnUid } from '@/types';
 import {
-  getCellRenderFunction,
-  NextUiCellComponentProps
-} from '@/components/tables/GetCellRenderFunction';
-import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
+  ColorDto,
+  KnowledgeDomainDto
+} from '@/api/generated-types/generated-types';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
-import { EditStringUniqueConstraintButton } from '@/components/tables/edit-tables/EditStringUniqueConstraintButton';
-import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';
-import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
-import EditColorCell from '@/components/tables/cells/EditColorCell';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import {
+  SimpleValueToString,
+  SimpleValueToStringOrUndefined
+} from '@/components/tables/cells-v2/SimpleValueToString';
+import { CellComponentRecord } from '@/components/tables/core-table-types';
+import CoreTable from '@/components/tables/CoreTable';
+import { NamespacedHooks } from 'dto-stores';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import EditColorCell from '@/components/tables/cells-v2/EditColorCell';
+import { OptionallyHasColorDto } from '@/components/tables/cells/EditColorCell';
+import { HasIdClass } from '@/api/types';
+import { Paths } from 'type-fest';
+import { TypedPaths } from '@/api/custom-types/typePaths';
 
 export function KnowledgeDomainTable() {
-  const entities = useFilterOutDeletedEntities<KnowledgeDomainDto>(entityType);
+  // const entities = useFilterOutDeletedEntities<KnowledgeDomainDto>(entityType);
 
-  const createHandler = useMasterListToCreate(domainFactory, entityType);
+  // const createHandler = useMasterListToCreate(domainFactory, entityType);
+
+  const { currentState: idList } = NamespacedHooks.useListen(
+    EntityClassMap.knowledgeDomain,
+    KEY_TYPES.ID_LIST,
+    'kdTable',
+    EmptyArray
+  );
 
   return (
-    <FilterSelectEntityTable
+    <CoreTable
+      rowIdList={idList}
       columns={columns}
-      addRow={createHandler}
-      entityClass={entityType}
-      entities={entities}
-      isCompact={true}
-      selectionMode={'none'}
-      initialColumns={['name', 'shortCode', 'color']}
-      filterProperty={'name'}
-      renderCell={cellRenderFunction}
-      classNames={{
-        tr: 'py-0',
-        td: 'py-0.5',
-        wrapper: 'h-[60vh] w-[40vw]'
-      }}
+      cellModel={CellRenderFunction}
     />
   );
 }
@@ -59,38 +62,6 @@ const getDomainFactory = () => {
 
 const domainFactory = getDomainFactory();
 
-function ShortCodeEditButtonCell(
-  props: NextUiCellComponentProps<KnowledgeDomainDto>
-) {
-  const classNames = useMemo(() => {
-    const {
-      entity: { shortCode, color }
-    } = props;
-    const shortCodeColor = getShortCodeColor(shortCode ?? '');
-    return shortCodeColor !== 'bg-white' ? { button: shortCodeColor } : {};
-  }, [props]);
-
-  const {
-    entity: { color }
-  } = props;
-  const colorFromEntity = useMemo(() => {
-    return parseToCssRgba(color);
-  }, [color]);
-
-  const styleAndClassnames = useMemo(() => {
-    if (colorFromEntity) {
-      const cssStyle: CSSProperties = {
-        backgroundColor: colorFromEntity
-      };
-      return { style: cssStyle };
-    } else return { classNames };
-  }, [colorFromEntity, classNames]);
-
-  return (
-    <EditStringUniqueConstraintButton {...props} {...styleAndClassnames} />
-  );
-}
-
 const columns: Column<KnowledgeDomainDto>[] = [
   {
     name: startCase(getDomainAlias('knowledgeDomain')),
@@ -103,8 +74,35 @@ const columns: Column<KnowledgeDomainDto>[] = [
 
 const entityType = EntityClassMap.knowledgeDomain;
 
-const cellRenderFunction = getCellRenderFunction('knowledgeDomain', {
-  name: RenameAndDeleteCell,
-  shortCode: ShortCodeEditButtonCell,
-  color: EditColorCell
-});
+function ColorUpdater<T extends OptionallyHasColorDto>(
+  prev: T,
+  color: ColorDto | undefined
+) {
+  return {
+    ...prev,
+    color
+  };
+}
+
+function getStringUpdater<
+  T extends Object,
+  T_STRING_PATH extends string & TypedPaths<T, string> = string &
+    TypedPaths<T, string>
+>(stringPath: T_STRING_PATH) {
+  return (prev: T, value: string) =>
+    set(structuredClone(prev), stringPath, value);
+}
+
+const knowledgeCells: CellComponentRecord<KnowledgeDomainDto, number> = {
+  name: { component: SimpleValueToString, updater: getStringUpdater('name') },
+  shortCode: { component: SimpleValueToStringOrUndefined },
+  color: {
+    component: EditColorCell,
+    updater: ColorUpdater
+  }
+};
+
+const CellRenderFunction = getCellRenderFunction(
+  'knowledgeDomain',
+  knowledgeCells
+);

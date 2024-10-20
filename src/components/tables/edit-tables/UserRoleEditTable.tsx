@@ -8,7 +8,7 @@ import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction
 import { StringValueChip } from '@/components/tables/StringValueChip';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { Column, ColumnUid } from '@/types';
-import { RenameAndDeleteCell } from '@/components/work-project-series-schema/_components/RenameAndDeleteCell';
+import { RenameAndDeleteCell } from '@/components/tables/cells/RenameAndDeleteCell';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';

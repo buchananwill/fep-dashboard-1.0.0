@@ -1,5 +1,4 @@
 import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunction';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { Chip } from '@nextui-org/chip';
 import React from 'react';
 import { HasId } from '@/api/types';
