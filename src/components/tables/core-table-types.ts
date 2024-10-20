@@ -38,6 +38,7 @@ export interface CoreTableProps<
 }
 
 export interface InnerCellProps<T_FIELD_TYPE> {
+  entityId: Identifier;
   value: T_FIELD_TYPE;
   onChange?: (value: T_FIELD_TYPE) => void;
 }
