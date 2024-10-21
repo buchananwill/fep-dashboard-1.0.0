@@ -1,12 +1,12 @@
 import { HasId } from '@/api/types';
-import { InnerCellProps } from '@/components/tables/core-table-types';
+import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import { NumberInput } from '@mantine/core';
 import { useCallback } from 'react';
 
 export function NumberEditCell<T extends HasId>({
   value,
   onChange
-}: InnerCellProps<number>) {
+}: IdInnerCellProps<number>) {
   const handleOnChange = useCallback(
     (value: string | number) => {
       if (!onChange) return;

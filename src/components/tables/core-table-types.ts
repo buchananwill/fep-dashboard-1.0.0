@@ -1,8 +1,8 @@
 import { HasIdClass } from '@/api/types';
-import { Identifier } from 'dto-stores';
+import { DtoStoreReturn, Identifier } from 'dto-stores';
 import { ReactNode } from 'react';
 import { Get, Paths } from 'type-fest';
-import { Column, ColumnUid } from '@/types';
+import { Column, ColumnUid, DispatchState } from '@/types';
 
 export interface TableCellDataProps<
   T extends HasIdClass<T_ID>,
@@ -37,24 +37,75 @@ export interface CoreTableProps<
   headerModel?: TableHeaderCell<T, T_ID>;
 }
 
-export interface InnerCellProps<T_FIELD_TYPE> {
+export interface IdInnerCellProps<T_FIELD_TYPE> {
   entityId: Identifier;
+  entityClass: string;
   value: T_FIELD_TYPE;
   onChange?: (value: T_FIELD_TYPE) => void;
 }
 
-export type InnerCell<T_FIELD_TYPE> = (
-  props: InnerCellProps<T_FIELD_TYPE>
+export type IdInnerCell<T_FIELD_TYPE> = (
+  props: IdInnerCellProps<T_FIELD_TYPE>
 ) => ReactNode;
+
+export interface EntityInnerCellProps<
+  T extends HasIdClass<T_ID>,
+  T_ID extends Identifier,
+  K extends string & ColumnUid<T>
+> extends DtoStoreReturn<T> {
+  columnKey: K;
+}
+
+export type EntityInnerCell<
+  T extends HasIdClass<T_ID>,
+  T_ID extends Identifier,
+  K extends string & ColumnUid<T>
+> = (
+  props: EntityInnerCellProps<T, T_ID, K> & { entityClass: string }
+) => ReactNode;
+
+type InnerCellMapping<
+  T extends HasIdClass<T_ID>,
+  T_ID extends Identifier,
+  K extends string & ColumnUid<T>
+> = {
+  component: IdInnerCell<Get<T, K>>;
+  updater?: UpdateFunction<T, K>;
+  type: 'IdInnerCell';
+};
+
+type EntityCellMapping<
+  T extends HasIdClass<T_ID>,
+  T_ID extends Identifier,
+  K extends string & ColumnUid<T>
+> = {
+  component: EntityInnerCell<T, T_ID, K>;
+  type: 'EntityInnerCell';
+};
+
+type CustomCellMapping<
+  T extends HasIdClass<T_ID>,
+  T_ID extends Identifier,
+  K extends string & ColumnUid<T>
+> = {
+  type: 'CustomCell';
+  component: (props: TableCellDataProps<T, T_ID>) => ReactNode;
+};
+
+type CellMapping<
+  T extends HasIdClass<T_ID>,
+  T_ID extends Identifier,
+  K extends string & ColumnUid<T>
+> =
+  | InnerCellMapping<T, T_ID, K>
+  | EntityCellMapping<T, T_ID, K>
+  | CustomCellMapping<T, T_ID, K>;
 
 export type CellComponentRecord<
   T extends HasIdClass<T_ID>,
   T_ID extends Identifier
 > = {
-  [K in ColumnUid<T>]?: {
-    component: InnerCell<Get<T, K>>;
-    updater?: UpdateFunction<T, K>;
-  };
+  [K in ColumnUid<T>]?: CellMapping<T, T_ID, K>;
 };
 
 export type UpdateFunction<

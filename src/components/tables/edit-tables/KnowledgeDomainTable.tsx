@@ -94,11 +94,16 @@ function getStringUpdater<
 }
 
 const knowledgeCells: CellComponentRecord<KnowledgeDomainDto, number> = {
-  name: { component: SimpleValueToString, updater: getStringUpdater('name') },
-  shortCode: { component: SimpleValueToStringOrUndefined },
+  name: {
+    component: SimpleValueToString,
+    updater: getStringUpdater('name'),
+    type: 'IdInnerCell'
+  },
+  shortCode: { component: SimpleValueToStringOrUndefined, type: 'IdInnerCell' },
   color: {
     component: EditColorCell,
-    updater: ColorUpdater
+    updater: ColorUpdater,
+    type: 'IdInnerCell'
   }
 };
 

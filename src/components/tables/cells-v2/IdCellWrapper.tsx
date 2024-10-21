@@ -1,12 +1,12 @@
 'use client';
-import { TableCellDataProps } from '@/components/tables/core-table-types';
+import { IdInnerCell, TableCellDataProps } from '@/components/tables/core-table-types';
 import { HasIdClass } from '@/api/types';
 import { Identifier, useDtoStore } from 'dto-stores';
 import { ReactNode, useCallback, useMemo } from 'react';
 import { Get, Paths } from 'type-fest';
 import { get } from 'lodash';
 
-export default function TableDtoStoreCellWrapper<
+export default function IdCellWrapper<
   T extends HasIdClass<T_ID>,
   T_ID extends Identifier,
   T_PATH extends Paths<T> = Paths<T>,
@@ -18,10 +18,7 @@ export default function TableDtoStoreCellWrapper<
   innerCell: InnerCell,
   updateFunction
 }: TableCellDataProps<T, T_ID, T_PATH, T_FIELD_TYPE> & {
-  innerCell?: (props: {
-    value: T_FIELD_TYPE;
-    onChange: (value: T_FIELD_TYPE) => void;
-  }) => ReactNode;
+  innerCell?: IdInnerCell<T_FIELD_TYPE>;
   updateFunction?: (prev: T, value: T_FIELD_TYPE) => T;
 }) {
   const { entity, dispatchWithoutControl } = useDtoStore<T>({
@@ -42,5 +39,5 @@ export default function TableDtoStoreCellWrapper<
     return get(entity, columnKey) as T_FIELD_TYPE;
   }, [entity, columnKey]);
 
-  return InnerCell ? <InnerCell onChange={onChange} value={value} /> : null;
+  return InnerCell ? <InnerCell onChange={onChange} value={value} entityId={entityId} entityClass={entityClass} /> : null;
 }

@@ -7,7 +7,7 @@ import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 import { SetRequired } from 'type-fest';
 import { Button } from '@mantine/core';
-import { InnerCellProps } from '@/components/tables/core-table-types';
+import { IdInnerCellProps } from '@/components/tables/core-table-types';
 
 interface OptionallyHasColorDto extends HasId {
   color?: ColorDto;
@@ -18,13 +18,13 @@ type HasColorDto = SetRequired<OptionallyHasColorDto, 'color'>;
 export default function EditColorCell({
   onChange,
   value
-}: InnerCellProps<ColorDto | undefined>) {
+}: IdInnerCellProps<ColorDto | undefined>) {
   if (value) {
     return <EditColor onChange={onChange} value={value} />;
   } else return <AddColor onChange={onChange} value={value} />;
 }
 
-function EditColor({ value, onChange }: InnerCellProps<ColorDto>) {
+function EditColor({ value, onChange }: IdInnerCellProps<ColorDto>) {
   const valueRef = useRef(value);
   valueRef.current = value;
   const updateColor = useCallback(
@@ -49,7 +49,7 @@ function EditColor({ value, onChange }: InnerCellProps<ColorDto>) {
   );
 }
 
-function AddColor({ onChange }: InnerCellProps<ColorDto | undefined>) {
+function AddColor({ onChange }: IdInnerCellProps<ColorDto | undefined>) {
   const handleAddColor = useCallback(() => {
     console.log(onChange);
     if (onChange) onChange({ ...fallBackColor, name: '', id: idDecrementer() });

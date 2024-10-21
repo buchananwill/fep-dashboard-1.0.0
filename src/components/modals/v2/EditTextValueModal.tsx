@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useInputValidation } from '@/components/modals/ValidatedInput';
 import { Button, Modal, ModalProps, TextInput } from '@mantine/core';
-import { InnerCellProps } from '@/components/tables/core-table-types';
+import { IdInnerCellProps } from '@/components/tables/core-table-types';
 
 export interface Validator<T> {
   (input: T | undefined | null): { errorMessage?: string; error?: boolean };
@@ -13,7 +13,8 @@ export default function EditTextValueModal({
   opened,
   onClose,
   validateInput
-}: InnerCellProps<string> & ModalProps & { validateInput: Validator<string> }) {
+}: IdInnerCellProps<string> &
+  ModalProps & { validateInput: Validator<string> }) {
   const [currentValue, setCurrentValue] = useState(value);
 
   const textInput = useRef<HTMLInputElement | null>(null);

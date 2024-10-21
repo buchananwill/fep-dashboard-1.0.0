@@ -2,9 +2,9 @@ import { Chip } from '@mantine/core';
 import React from 'react';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import clsx from 'clsx';
-import { InnerCellProps } from '@/components/tables/core-table-types';
+import { IdInnerCellProps } from '@/components/tables/core-table-types';
 
-export function StringValueChip({ value }: InnerCellProps<string>) {
+export function StringValueChip({ value }: IdInnerCellProps<string>) {
   let shortCodeColor = getShortCodeColor(value);
 
   if (shortCodeColor === 'bg-white') shortCodeColor = 'bg-default-200';

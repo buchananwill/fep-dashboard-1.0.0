@@ -1,16 +1,15 @@
 import { HasIdClass } from '@/api/types';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { EntityTypeKey } from '@/components/tables/types';
 import { ColumnUid } from '@/types';
 import {
   CellComponentRecord,
-  InnerCell,
   TableCellDataWrapper
 } from '@/components/tables/core-table-types';
 import { Identifier } from 'dto-stores';
-import { Get } from 'type-fest';
-import TableDtoStoreCellWrapper from '@/components/tables/cells-v2/TableDtoStoreCellWrapper';
+import IdCellWrapper from '@/components/tables/cells-v2/IdCellWrapper';
 import { EntityClassMap } from '@/api/entity-class-map';
+import EntityCellWrapper from '@/components/tables/cells-v2/EntityCellWrapper';
 
 export function getCellRenderFunction<
   U extends EntityTypeKey,
@@ -27,15 +26,13 @@ export function getCellRenderFunction<
     entityId: T_ID;
     columnKey: ColumnUid<T>;
   }) {
-    const CellComponentOptional = cellComponents[columnKey];
+    const cellMappingOptional = cellComponents[columnKey];
 
-    if (CellComponentOptional !== undefined) {
-      const CellComponentDefined = CellComponentOptional.component as InnerCell<
-        Get<T, typeof columnKey>
-      >;
-      const updateFunctionMemo = CellComponentOptional.updater;
+    if (cellMappingOptional?.type === 'IdInnerCell') {
+      const CellComponentDefined = cellMappingOptional.component;
+      const updateFunctionMemo = cellMappingOptional.updater;
       return (
-        <TableDtoStoreCellWrapper
+        <IdCellWrapper
           innerCell={CellComponentDefined}
           entityId={entityId}
           columnKey={columnKey}
@@ -43,8 +40,26 @@ export function getCellRenderFunction<
           updateFunction={updateFunctionMemo}
         />
       );
-    } else {
-      return null;
+    } else if (cellMappingOptional?.type === 'EntityInnerCell') {
+      return (
+        <EntityCellWrapper
+          entityClass={entityTypeKey}
+          columnKey={columnKey}
+          entityId={entityId}
+          entityCell={cellMappingOptional.component}
+        />
+      );
+    } else if (cellMappingOptional?.type === 'CustomCell') {
+      const CustomCell = cellMappingOptional.component;
+      return (
+        <CustomCell
+          entityId={entityId}
+          columnKey={columnKey}
+          entityClass={entityTypeKey}
+        />
+      );
     }
+
+    return null;
   };
 }
