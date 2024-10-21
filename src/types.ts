@@ -32,12 +32,12 @@ export type DispatchState<T> = Dispatch<SetStateAction<T>>;
 export type SharedColumn = 'action';
 export type ColumnUid<T> = Paths<T>;
 
-export interface Column<T> {
+export type Column<T> = {
   name: string;
   uid: ColumnUid<T>;
   sortable?: boolean;
   ignoreFilter?: boolean;
-}
+};
 
 export type NextUiSelection = Selection;
 export type DispatchList<T> = React.Dispatch<React.SetStateAction<T[]>>;

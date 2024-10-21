@@ -41,10 +41,11 @@ export default function RootCard({
         transition={{ duration: 0.8 }}
       >
         <Card
-          className={'h-full'}
           styles={{
             root: {
-              overflow: 'visible'
+              overflow: 'visible',
+              width: 'fit-content',
+              height: 'fit-content'
             }
           }}
         >

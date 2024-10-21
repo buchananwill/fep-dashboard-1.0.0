@@ -113,3 +113,8 @@ export type UpdateFunction<
   T_PATH extends string & Paths<T> = string & Paths<T>,
   T_FIELD_TYPE extends Get<T, T_PATH> = Get<T, T_PATH>
 > = (prev: T, value: T_FIELD_TYPE) => T;
+
+export type SortState<T> = {
+  direction: 'asc' | 'desc';
+  path: Paths<T> | '';
+};

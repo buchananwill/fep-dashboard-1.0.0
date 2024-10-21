@@ -11,7 +11,8 @@ export default function CoreTable<
   rowIdList,
   columns,
   cellModel: CellModel,
-  headerModel: HeaderModel
+  headerModel: HeaderModel,
+  ...otherProps
 }: CoreTableProps<T, T_ID> & TableProps) {
   const data = useMemo(() => {
     const body = rowIdList.map((id) =>
@@ -32,5 +33,5 @@ export default function CoreTable<
     };
   }, [columns, CellModel, rowIdList, HeaderModel]);
 
-  return <Table data={data} />;
+  return <Table data={data} {...otherProps} />;
 }

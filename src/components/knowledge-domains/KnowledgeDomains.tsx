@@ -6,6 +6,7 @@ import RootCard from '@/components/generic/RootCard';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import pluralize from 'pluralize';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { ScrollArea } from '@mantine/core';
 
 export async function KnowledgeDomains({ pathVariables }: LeafComponentProps) {
   const knowledgeDomainList = await Api.KnowledgeDomain.getAll();

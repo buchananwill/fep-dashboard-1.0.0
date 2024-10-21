@@ -16,12 +16,18 @@ interface OptionallyHasColorDto extends HasId {
 type HasColorDto = SetRequired<OptionallyHasColorDto, 'color'>;
 
 export default function EditColorCell({
-  onChange,
-  value
+  value,
+  ...otherProps
 }: IdInnerCellProps<ColorDto | undefined>) {
-  if (value) {
-    return <EditColor onChange={onChange} value={value} />;
-  } else return <AddColor onChange={onChange} value={value} />;
+  return (
+    <div className={'center-all-margin w-fit'}>
+      {value ? (
+        <EditColor {...otherProps} value={value} />
+      ) : (
+        <AddColor {...otherProps} value={value} />
+      )}
+    </div>
+  );
 }
 
 function EditColor({ value, onChange }: IdInnerCellProps<ColorDto>) {
@@ -59,6 +65,8 @@ function AddColor({ onChange }: IdInnerCellProps<ColorDto | undefined>) {
     <Button
       onClick={handleAddColor}
       size={'compact-md'}
+      radius={'xs'}
+      variant={'subtle'}
       styles={{ root: { width: 'fit-content', padding: '0.25em' } }}
     >
       <PlusCircleIcon className={'h-6 w-6'} />
