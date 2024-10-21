@@ -23,15 +23,26 @@ export default function SelectRowsPerPage() {
   );
 
   return (
-    <Select
-      data={rowOptions}
-      // checkIconPosition={'right'}
-      classNames={{
-        option: 'text-right justify-end'
-      }}
-      onChange={onChange}
-      value={String(currentState)}
-    />
+    <label className={'flex items-center gap-2 text-sm'}>
+      <Select
+        data={rowOptions}
+        // checkIconPosition={'right'}
+        classNames={{
+          wrapper: 'w-fit',
+          option: 'text-right justify-end'
+        }}
+        styles={{
+          input: {
+            textAlign: 'right',
+            width: '64px'
+          }
+        }}
+        id={'perPage'}
+        onChange={onChange}
+        value={String(currentState)}
+      />
+      Per page
+    </label>
   );
 }
 

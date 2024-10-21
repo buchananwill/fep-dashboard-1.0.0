@@ -102,7 +102,7 @@ export function KnowledgeDomainTable() {
           <FilterStringInput entityClass={entityClass} />
           <SelectFilterPath<KnowledgeDomainDto> initialFilter={'name'} />
         </div>
-        <div className={'flex items-end gap-2'}>
+        <div className={'flex items-end justify-between gap-2'}>
           <SelectRowsPerPage />
           <DtoPagination />
         </div>
