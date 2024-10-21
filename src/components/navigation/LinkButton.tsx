@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { LinkTreeElementProps } from '@/app/core/navigation/links/types';
 import clsx from 'clsx';
 import { ButtonProps } from '@nextui-org/button';
+import LinkTransitionOverlay from '@/components/navigation/LinkTransitionOverlay';
+import Transitions from '@/components/navigation/transitions';
 
 export function LinkButton({
   href,
@@ -14,16 +16,25 @@ export function LinkButton({
   color?: ButtonProps['color'];
 }) {
   return (
-    <Link
-      href={href}
-      className={clsx(
-        className,
-        'm-0.5 h-fit w-fit rounded-xl bg-transparent p-0.5 px-2 outline-offset-2 duration-250 transition-colors-opacity',
-        colorClassNames[color]
-      )}
-    >
-      {children}
-    </Link>
+    <Transitions>
+      <Link
+        href={href}
+        className={clsx(
+          className,
+          'relative m-0.5 h-fit w-fit rounded-xl bg-transparent p-0.5 px-2 outline-offset-2 duration-250 transition-colors-opacity',
+          colorClassNames[color]
+        )}
+      >
+        <div
+          className={
+            'absolute left-0 top-0 h-full w-full overflow-clip rounded-xl'
+          }
+        >
+          <LinkTransitionOverlay />
+        </div>
+        {children}
+      </Link>
+    </Transitions>
   );
 }
 

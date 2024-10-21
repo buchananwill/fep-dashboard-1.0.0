@@ -11,6 +11,7 @@ import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTracke
 import UserAvatar from '@/components/auth/UserAvatar';
 import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
+import Transitions from '@/components/navigation/transitions';
 
 const inter = Inter({ subsets: ['latin'] });
 
