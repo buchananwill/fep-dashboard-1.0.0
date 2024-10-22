@@ -14,8 +14,10 @@ import { EmptyArray } from '@/api/literals';
 import { getSetPageContextKey } from '@/hooks/table-hooks/useClientSideFilteringIdList';
 import { getRowsPerPageContextKey } from '@/hooks/table-hooks/useClientSidePaginationController';
 import React, { useMemo } from 'react';
-import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
-import { Column } from '@/types';
+import {
+  EntityTableContext,
+  useEntityTableContext
+} from '@/hooks/table-hooks/table-context';
 import {
   CoreTableProps,
   SortState
@@ -36,9 +38,12 @@ export default function EntityEditTable<
 >({
   columns,
   defaultSort,
+  entityClass,
   ...props
-}: { defaultSort: SortState<T> } & Omit<CoreTableProps<T, T_ID>, 'rowIdList'>) {
-  const { entityClass } = useEntityTableContext();
+}: { defaultSort: SortState<T>; entityClass: string } & Omit<
+  CoreTableProps<T, T_ID>,
+  'rowIdList'
+>) {
   const listenerKey = `${entityClass}:table`;
 
   useGlobalController({
@@ -83,8 +88,12 @@ export default function EntityEditTable<
     );
   }, [filteredSortedIdList, selectedPage, rowsPerPage]);
 
+  const contextValue = useMemo(() => {
+    return { entityClass: entityClass };
+  }, [entityClass]);
+
   return (
-    <>
+    <EntityTableContext.Provider value={contextValue}>
       <SortingController />
       <div className={'grid grid-cols-3 gap-2'}>
         <FilterStringInput entityClass={entityClass} />
@@ -108,6 +117,6 @@ export default function EntityEditTable<
           columns={visibleColumns}
         />
       </ScrollArea>
-    </>
+    </EntityTableContext.Provider>
   );
 }

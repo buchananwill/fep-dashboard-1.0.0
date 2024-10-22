@@ -1,5 +1,5 @@
 'use client';
-import React, { memo } from 'react';
+import React from 'react';
 
 import { EntityClassMap } from '@/api/entity-class-map';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
@@ -15,18 +15,14 @@ import {
   CellComponentRecord,
   IdInnerCell
 } from '@/components/tables/core-table-types';
-import CoreTable from '@/components/tables/CoreTable';
 import EditColorCell from '@/components/tables/cells-v2/EditColorCell';
 import { OptionallyHasColorDto } from '@/components/tables/cells/EditColorCell';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { EntityTableContext } from '@/hooks/table-hooks/table-context';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import EditShortCodeCell from '@/components/tables/cells-v2/EditShortCodeCell';
 import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
 
 const entityClass = EntityClassMap.knowledgeDomain;
-
-const listenerKey = 'kdTable';
 
 const defaultKnowledgeDomainSort = { direction: 'asc', path: 'name' } as const;
 
@@ -35,15 +31,12 @@ export function KnowledgeDomainTable() {
 
   return (
     <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
-      <EntityTableContext.Provider
-        value={{ entityClass: EntityClassMap.knowledgeDomain }}
-      >
-        <EntityEditTable
-          defaultSort={defaultKnowledgeDomainSort}
-          columns={columns}
-          cellModel={CellRenderFunction}
-        />
-      </EntityTableContext.Provider>
+      <EntityEditTable
+        defaultSort={defaultKnowledgeDomainSort}
+        columns={columns}
+        cellModel={CellRenderFunction}
+        entityClass={entityClass}
+      />
     </div>
   );
 }
