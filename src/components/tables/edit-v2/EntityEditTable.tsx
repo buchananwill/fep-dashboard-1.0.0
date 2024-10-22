@@ -28,7 +28,7 @@ import { ScrollArea, TableProps } from '@mantine/core';
 import CoreTable from '@/components/tables/CoreTable';
 import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
-import { compactTableStyles } from '@/components/tables/edit-tables/KnowledgeDomainTable';
+import { compactTableStyles } from '@/components/tables/edit-v2/KnowledgeDomainTable';
 
 export default function EntityEditTable<
   T extends HasIdClass<T_ID>,

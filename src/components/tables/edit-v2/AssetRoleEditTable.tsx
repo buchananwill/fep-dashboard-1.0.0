@@ -10,11 +10,11 @@ import {
   AssetRoleColumns,
   AssetRoleColumnsInitial
 } from '@/components/tables/selectorTables/AssetRoleSelectorTable';
-import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
-import { getStringUpdater } from '@/components/tables/edit-tables/cellUpdaterFunctions';
+import { getStringUpdater } from '@/components/tables/edit-v2/cellUpdaterFunctions';
 import { SimpleValueToString } from '@/components/tables/cells-v2/SimpleValueToString';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 

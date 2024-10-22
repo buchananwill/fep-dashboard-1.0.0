@@ -2,7 +2,7 @@ import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunct
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import React, { CSSProperties, useMemo } from 'react';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
-import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
+import { parseToCssRgba } from '@/components/tables/edit-v2/parseToCssRgba';
 import { EditStringUniqueConstraintButton } from '@/components/tables/edit-tables/EditStringUniqueConstraintButton';
 
 export function ShortCodeEditButtonCell(

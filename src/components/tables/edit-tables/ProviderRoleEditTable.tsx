@@ -1,8 +1,6 @@
 'use client';
-import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { ProviderRoleDto } from '@/api/generated-types/generated-types';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
-import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
@@ -10,39 +8,36 @@ import {
   providerColumns,
   ProviderColumnsInitial
 } from '@/components/tables/selectorTables/ProviderRoleSelectorTable';
-import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
-import EditTextPropertyCell from '@/components/tables/cells/EditTextPropertyCell';
-import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
 import { Column, ColumnUid } from '@/types';
 import { getTypeUpdateCell } from '@/components/tables/cells/TypeUpdateCell';
 import { KnowledgeDomainSelectCell } from '@/components/tables/cells/SelectKnowledgeDomainCell';
+import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { CellComponentRecord } from '@/components/tables/core-table-types';
+import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
+import { getStringUpdater } from '@/components/tables/edit-v2/cellUpdaterFunctions';
+import { SimpleValueToString } from '@/components/tables/cells-v2/SimpleValueToString';
+import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 const entityType = EntityClassMap.providerRole;
 
 export default function ProviderRoleEditTable({
   pathVariables
 }: LeafComponentProps) {
-  const entities = useFilterOutDeletedEntities<ProviderRoleDto>(entityType);
   const navigationCallback = useNavigationCallback(
     '/' + ['core', pathVariables[0], 'create-new-role'].join('/')
   );
 
   return (
-    <FilterSelectEntityTable
-      entityClass={entityType}
-      entities={entities}
-      columns={providerEditColumns}
-      selectionMode={'none'}
-      initialColumns={initialEditColumns}
-      filterProperty={'name'}
-      renderCell={cellRenderFunction}
-      isCompact={true}
-      classNames={{
-        wrapper: 'w-[90vw] h-[70vh]',
-        td: 'py-0.5'
-      }}
-      addRow={navigationCallback}
-    />
+    <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
+      <EntityEditTable
+        entityClass={entityType}
+        columns={providerEditColumns}
+        cellModel={cellRenderFunction}
+        defaultSort={Sorts.name}
+        // addRow={navigationCallback}
+      />
+    </div>
   );
 }
 
@@ -56,9 +51,21 @@ const initialEditColumns: ColumnUid<ProviderRoleDto>[] = [
   'type.name'
 ] as const;
 
-const cellRenderFunction = getCellRenderFunction('providerRole', {
-  name: EditTextPropertyCell,
-  partyName: SimpleValueToString,
-  knowledgeDomainName: KnowledgeDomainSelectCell,
-  'type.name': getTypeUpdateCell('ProviderRoleType')
-});
+const CellMap: CellComponentRecord<ProviderRoleDto, number> = {
+  name: {
+    component: EditNameCell,
+    type: 'IdInnerCell',
+    updater: getStringUpdater('name')
+  },
+  partyName: { component: SimpleValueToString, type: 'IdInnerCell' },
+  knowledgeDomainName: {
+    component: KnowledgeDomainSelectCell,
+    type: 'IdInnerCell'
+  },
+  'type.name': {
+    component: getTypeUpdateCell('ProviderRoleType'),
+    type: 'IdInnerCell'
+  }
+} as const;
+
+const cellRenderFunction = getCellRenderFunction('providerRole', CellMap);

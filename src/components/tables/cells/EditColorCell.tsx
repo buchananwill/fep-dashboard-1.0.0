@@ -4,7 +4,7 @@ import { HasId } from '@/api/types';
 import { useDtoStoreDispatch } from 'dto-stores';
 import { SetStateAction, useCallback } from 'react';
 import { fallBackColor, RgbaPicker } from '@/components/generic/RgbaPicker';
-import { RgbaDto } from '@/components/tables/edit-tables/parseToCssRgba';
+import { RgbaDto } from '@/components/tables/edit-v2/parseToCssRgba';
 import { Button } from '@nextui-org/button';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';

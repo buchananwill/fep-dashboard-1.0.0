@@ -1,45 +1,38 @@
-import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunction';
-import {
-  KnowledgeDomainDto,
-  ProviderRoleDto
-} from '@/api/generated-types/generated-types';
-import { EntityApiKey } from '@/api/types';
-import { Button } from '@nextui-org/button';
-import { get } from 'lodash';
-import { useDisclosure } from '@nextui-org/use-disclosure';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader
-} from '@nextui-org/modal';
+import { ProviderRoleDto } from '@/api/generated-types/generated-types';
+
 import { Loading } from '@/components/feasibility-report/Loading';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
-import {
-  EditAddDeleteDtoControllerArray,
-  useDtoStoreDispatch
-} from 'dto-stores';
-import { useCallback } from 'react';
-import { ControlledSelector } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ControlledSelector';
+import { useDtoStoreDispatch } from 'dto-stores';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
+import { IdInnerCellProps } from '@/components/tables/core-table-types';
+import { Autocomplete, Button, Modal, ModalProps } from '@mantine/core';
+import { SimpleSelectable } from '@/app/core/auto-scheduling/MultiSelect';
 
 export function KnowledgeDomainSelectCell(
-  props: NextUiCellComponentProps<ProviderRoleDto>
+  props: IdInnerCellProps<string | undefined>
 ) {
-  const useDisclosureProps = useDisclosure();
-
-  const { path, entity } = props;
-
-  if (path === 'type') return null;
+  const { value } = props;
+  const [opened, setOpened] = useState(false);
 
   return (
     <>
-      <Button onPress={useDisclosureProps.onOpen}>{get(entity, path)}</Button>
-      {useDisclosureProps.isOpen && (
-        <LocalModal {...useDisclosureProps} {...props} />
+      <Button
+        radius={'xs'}
+        fullWidth
+        variant={'subtle'}
+        onClick={() => setOpened(true)}
+      >
+        {value}
+      </Button>
+      {opened && (
+        <LocalModal
+          {...props}
+          opened={opened}
+          onClose={() => setOpened(false)}
+        />
       )}
     </>
   );
@@ -47,66 +40,83 @@ export function KnowledgeDomainSelectCell(
 
 function LocalModal({
   entityClass,
-  entity,
-  path,
+  entityId,
+  value,
   ...props
-}: ReturnType<typeof useDisclosure> &
-  NextUiCellComponentProps<ProviderRoleDto>) {
-  const getAllDomains = Api.KnowledgeDomain.getAll;
+}: IdInnerCellProps<string | undefined> &
+  Pick<ModalProps, 'onClose' | 'opened'>) {
+  const getAllTypes = Api.KnowledgeDomain.getAll;
+  const { onClose, opened } = props;
 
   const { data, isPending } = useQuery({
     queryKey: [EntityClassMap.knowledgeDomain, 'all'],
-    queryFn: () => getAllDomains()
+    queryFn: () => getAllTypes()
   });
 
   const { dispatchWithoutListen: dispatch } =
-    useDtoStoreDispatch<ProviderRoleDto>(entity.id, entityClass);
+    useDtoStoreDispatch<ProviderRoleDto>(entityId, entityClass);
 
-  const handleSelectionChange = useCallback(
-    (selection: KnowledgeDomainDto | undefined) => {
-      dispatch((prev) => ({
-        ...prev,
-        knowledgeDomainName: selection?.name,
-        knowledgeDomainId: selection?.id
-      }));
+  const options: string[] = useMemo(() => {
+    return data ? data.map((kd) => kd.name) : ([] as string[]);
+  }, [data]);
+
+  const [nextValue, setNextValue] = useState<string | undefined>(value);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     const foundOptional = data.find(
+  //       (typeEntity) => typeEntity.name === value
+  //     );
+  //     setNextValue(foundOptional ? String(foundOptional.id) : undefined);
+  //   }
+  // }, [data, value]);
+
+  const onChange = useCallback(
+    (value: string | null) => {
+      const validSelection = data?.some((datum) => datum.name === value);
+      setNextValue(validSelection ? (value ?? undefined) : undefined);
     },
-    [dispatch]
+    [data]
   );
 
   return (
-    <Modal {...props}>
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">
-              Edit {getStartCaseDomainAlias('providerRole')} Type
-            </ModalHeader>
-            {!isPending && data !== undefined ? (
-              <ModalBody>
-                <EditAddDeleteDtoControllerArray
-                  entityClass={EntityClassMap.knowledgeDomain}
-                  dtoList={data}
-                />
-                <ControlledSelector<number, KnowledgeDomainDto>
-                  labelPath={'name'}
-                  entityId={entity.knowledgeDomainId ?? null}
-                  entityClass={EntityClassMap.knowledgeDomain}
-                  selectionCallback={handleSelectionChange}
-                />
-              </ModalBody>
-            ) : (
-              <ModalBody>
-                <Loading />
-              </ModalBody>
-            )}
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                Close
-              </Button>
-            </ModalFooter>
-          </>
+    <Modal opened={opened} onClose={onClose}>
+      <div
+        className={'center-all-margin flex w-fit flex-col justify-center gap-2'}
+      >
+        <h1>
+          Select {getStartCaseDomainAlias(EntityClassMap.knowledgeDomain)}
+        </h1>
+        {!isPending && data !== undefined ? (
+          <Autocomplete data={options} value={nextValue} onChange={onChange} />
+        ) : (
+          <Loading />
         )}
-      </ModalContent>
+
+        <Button
+          onClick={() => {
+            dispatch((prev) => {
+              const nextKd = nextValue
+                ? data?.find((datum) => datum.name === nextValue)
+                : undefined;
+              return nextKd
+                ? {
+                    ...prev,
+                    knowledgeDomainId: nextKd.id,
+                    knowledgeDomainName: nextKd.name
+                  }
+                : {
+                    ...prev,
+                    knowledgeDomainName: undefined,
+                    knowledgeDomainId: undefined
+                  };
+            });
+            onClose();
+          }}
+        >
+          Confirm
+        </Button>
+      </div>
     </Modal>
   );
 }

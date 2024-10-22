@@ -15,11 +15,11 @@ import {
 import EditColorCell from '@/components/tables/cells-v2/EditColorCell';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import EditShortCodeCell from '@/components/tables/cells-v2/EditShortCodeCell';
-import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
 import {
   ColorUpdater,
   getStringUpdater
-} from '@/components/tables/edit-tables/cellUpdaterFunctions';
+} from '@/components/tables/edit-v2/cellUpdaterFunctions';
 
 const entityClass = EntityClassMap.knowledgeDomain;
 

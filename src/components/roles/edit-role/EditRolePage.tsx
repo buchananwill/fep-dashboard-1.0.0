@@ -5,7 +5,7 @@ import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLay
 import { Api } from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import AssetRoleEditTable from '@/components/tables/edit-tables/AssetRoleEditTable';
+import AssetRoleEditTable from '@/components/tables/edit-v2/AssetRoleEditTable';
 
 export default async function EditRolePage({
   pathVariables,
