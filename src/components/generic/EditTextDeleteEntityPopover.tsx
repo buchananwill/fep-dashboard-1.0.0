@@ -3,9 +3,7 @@ import { Button } from '@nextui-org/button';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
-import EditTextValueModal, {
-  Validator
-} from '@/components/modals/EditTextValueModal';
+import EditTextValueModal from '@/components/modals/EditTextValueModal';
 import { useModalEditEntityTextAttribute } from '@/hooks/useModalEditEntityTextAttribute';
 import { useCallback, useState } from 'react';
 import { BaseDtoUiProps } from 'dto-stores';
@@ -13,6 +11,8 @@ import { isNotUndefined } from '@/api/main';
 import { HasId } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 import { get } from 'lodash';
+
+import { Validator } from '@/types';
 
 export interface EditTextDeletePopoverProps<T extends HasId> {
   stringPath: TypedPaths<T, string>;

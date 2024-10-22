@@ -15,7 +15,10 @@ import {
   SimpleValueToString,
   SimpleValueToStringOrUndefined
 } from '@/components/tables/cells-v2/SimpleValueToString';
-import { CellComponentRecord } from '@/components/tables/core-table-types';
+import {
+  CellComponentRecord,
+  IdInnerCell
+} from '@/components/tables/core-table-types';
 import CoreTable from '@/components/tables/CoreTable';
 import { NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -41,6 +44,8 @@ import SelectRowsPerPage from '@/components/tables/SelectRowsPerPage';
 import SelectVisibleColumns, {
   getOrderedColumnsContextKey
 } from '@/components/tables/SelectVisibleColumns';
+import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
+import EditShortCodeCell from '@/components/tables/cells-v2/EditShortCodeCell';
 
 const entityClass = EntityClassMap.knowledgeDomain;
 
@@ -181,11 +186,20 @@ function getStringUpdater<
 
 const knowledgeCells: CellComponentRecord<KnowledgeDomainDto, number> = {
   name: {
-    component: SimpleValueToString,
+    component: EditNameCell,
     updater: getStringUpdater('name'),
     type: 'IdInnerCell'
   },
-  shortCode: { component: SimpleValueToStringOrUndefined, type: 'IdInnerCell' },
+  shortCode: {
+    component: EditShortCodeCell as IdInnerCell<string | undefined>,
+    updater: (prev: KnowledgeDomainDto, value: string | undefined) =>
+      set(
+        structuredClone(prev),
+        'shortCode',
+        value?.trim() === '' ? undefined : value
+      ),
+    type: 'IdInnerCell'
+  },
   color: {
     component: EditColorCell,
     updater: ColorUpdater,

@@ -14,15 +14,13 @@ import { useGlobalDispatchAndListener } from 'selective-context';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useInputValidation } from '@/components/modals/ValidatedInput';
 
+import { Validator } from '@/types';
+
 export const ExitTextContextKey = 'edit-text-value';
 export type ConfirmActionModalProps = {
   onConfirm?: () => void;
   onCancel?: () => void;
 } & Pick<ModalProps, 'isOpen' | 'onClose'>;
-
-export interface Validator<T> {
-  (input: T | undefined | null): { errorMessage?: string; error?: boolean };
-}
 
 export interface RenameModalProps extends ConfirmActionModalProps {
   contextKey: string;

@@ -1,6 +1,6 @@
 import { HasId } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
+import { Identifier, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { useCallback } from 'react';
 import { get } from 'lodash';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -8,28 +8,34 @@ import { EmptyArray } from '@/api/literals';
 
 export function useUniqueStringFieldConstraint<T extends HasId>(
   entityClass: string,
-  entity: T,
-  path: TypedPaths<T, string>
+  entityId: Identifier,
+  path: TypedPaths<T, string | undefined>,
+  allowEmpty = true
 ) {
   const readAnyDto = useReadAnyDto<T>(entityClass);
 
   const { currentState } = NamespacedHooks.useListen<(string | number)[]>(
     entityClass,
     KEY_TYPES.ID_LIST,
-    `${entityClass}.${entity.id}.${path}`,
+    `${entityClass}.${entityId}.${path}`,
     EmptyArray
   );
 
   return useCallback(
     (input: string | undefined | null) => {
-      if (!input) {
-        return {};
+      if (!input || input.trim() === '') {
+        if (allowEmpty) return {};
+        else
+          return {
+            error: true,
+            errorMessage: `Empty value not allowed`
+          };
       }
       for (let id of currentState) {
         const dto = readAnyDto(id);
         if (dto) {
           const currentValue = get(dto, path);
-          if (currentValue === input && dto.id !== entity.id) {
+          if (currentValue === input && dto.id !== entityId) {
             return {
               error: true,
               errorMessage: `Duplicate value with ${entityClass} ${id}`
@@ -39,6 +45,6 @@ export function useUniqueStringFieldConstraint<T extends HasId>(
       }
       return {};
     },
-    [readAnyDto, entityClass, entity.id, path, currentState]
+    [readAnyDto, entityClass, entityId, path, currentState, allowEmpty]
   );
 }

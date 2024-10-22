@@ -16,7 +16,7 @@ export function RenameAndDeleteCell<T extends HasNameDto & HasId>({
 }: NextUiCellComponentProps<T>) {
   const validator = useUniqueStringFieldConstraint(
     entityClass,
-    entity,
+    entity.id,
     'name' as TypedPaths<T, string>
   );
 

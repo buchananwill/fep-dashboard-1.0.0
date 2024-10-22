@@ -102,3 +102,7 @@ export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
+
+export interface Validator<T> {
+  (input: T | undefined | null): { errorMessage?: string; error?: boolean };
+}

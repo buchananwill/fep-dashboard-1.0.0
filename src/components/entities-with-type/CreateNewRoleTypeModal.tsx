@@ -58,11 +58,9 @@ function InnerContent({
     id: idDecrementer(),
     name: ''
   });
-  const stringFieldConstraint = useUniqueStringFieldConstraint(
-    entityClass,
-    typeEntity,
-    'name'
-  );
+  const stringFieldConstraint = useUniqueStringFieldConstraint<
+    TypeDto<any, any>
+  >(entityClass, typeEntity.id, 'name');
 
   const errors = useMemo(() => {
     return stringFieldConstraint(typeEntity.name);

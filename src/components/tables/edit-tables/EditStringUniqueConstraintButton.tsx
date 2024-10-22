@@ -19,8 +19,8 @@ export function EditStringUniqueConstraintButton<T extends HasId>(
 
   const validateInput = useUniqueStringFieldConstraint(
     entityClass,
-    entity,
-    path as TypedPaths<T, string>
+    entity.id,
+    path as TypedPaths<T, string | undefined>
   );
 
   const { dispatchWithoutListen } = useDtoStoreDispatch(entity.id, entityClass);
