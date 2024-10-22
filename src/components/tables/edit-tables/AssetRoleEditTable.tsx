@@ -1,5 +1,4 @@
 'use client';
-import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { AssetRoleDto } from '@/api/generated-types/generated-types';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import React from 'react';
@@ -24,7 +23,6 @@ const entityType = EntityClassMap.assetRole;
 export default function AssetRoleEditTable({
   pathVariables
 }: LeafComponentProps) {
-  const entities = useFilterOutDeletedEntities<AssetRoleDto>(entityType);
   const navigationCallback = useNavigationCallback(
     '/' + ['core', pathVariables[0], 'create-new-role'].join('/')
   );
