@@ -13,6 +13,7 @@ export default function FilterStringInput({
   return (
     <TextInput
       rightSection={<MagnifyingGlassIcon className={'p-1'} />}
+      label={'Filter'}
       onChange={onChange}
       value={filterValue}
     />

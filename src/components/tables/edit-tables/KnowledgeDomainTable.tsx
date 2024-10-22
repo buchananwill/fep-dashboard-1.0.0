@@ -38,6 +38,9 @@ import { getFilteredSortedIdListContextKey } from '@/hooks/table-hooks/useClient
 import { getSetPageContextKey } from '@/hooks/table-hooks/useClientSideFilteringIdList';
 import { getRowsPerPageContextKey } from '@/hooks/table-hooks/useClientSidePaginationController';
 import SelectRowsPerPage from '@/components/tables/SelectRowsPerPage';
+import SelectVisibleColumns, {
+  getOrderedColumnsContextKey
+} from '@/components/tables/SelectVisibleColumns';
 
 const entityClass = EntityClassMap.knowledgeDomain;
 
@@ -55,18 +58,16 @@ export function KnowledgeDomainTable() {
   });
 
   useGlobalController({
-    contextKey: getVisibleColumnsContextKey(entityClass),
+    contextKey: getOrderedColumnsContextKey(entityClass),
     initialValue: columns,
     listenerKey
   });
 
-  const { currentState: idList } = NamespacedHooks.useListen(
-    entityClass,
-    KEY_TYPES.ID_LIST,
-    listenerKey,
-    EmptyArray
-  );
-
+  const { currentState: visibleColumns } = useGlobalController({
+    contextKey: getVisibleColumnsContextKey(entityClass),
+    initialValue: columns,
+    listenerKey
+  });
   const { currentState: filteredSortedIdList } = useGlobalListener({
     contextKey: getFilteredSortedIdListContextKey(entityClass),
     initialValue: EmptyArray as number[],
@@ -98,9 +99,10 @@ export function KnowledgeDomainTable() {
         value={{ entityClass: EntityClassMap.knowledgeDomain }}
       >
         <SortingController />
-        <div className={'flex items-end gap-2'}>
+        <div className={'grid grid-cols-3 gap-2'}>
           <FilterStringInput entityClass={entityClass} />
           <SelectFilterPath<KnowledgeDomainDto> initialFilter={'name'} />
+          <SelectVisibleColumns />
         </div>
         <div className={'flex items-end justify-between gap-2'}>
           <SelectRowsPerPage />
@@ -109,13 +111,14 @@ export function KnowledgeDomainTable() {
         <ScrollArea classNames={{ root: 'border-2 rounded-md' }}>
           <CoreTableMemo
             stickyHeader
+            // layout={'fixed'}
             headerModel={SortableHeaderCell}
             styles={{
               td: { paddingTop: 0, paddingBottom: 0 },
               th: { padding: 0 }
             }}
             rowIdList={visibleIdList}
-            columns={columns}
+            columns={visibleColumns}
             cellModel={CellRenderFunction}
           />
         </ScrollArea>
@@ -146,7 +149,12 @@ const columns: Column<KnowledgeDomainDto>[] = [
     uid: 'name',
     sortable: true
   },
-  { name: 'ShortCode', uid: 'shortCode', sortable: true },
+  {
+    name: 'ShortCode',
+    uid: 'shortCode',
+    sortable: true,
+    className: 'w-16'
+  },
   { name: 'Color', uid: 'color', sortable: false }
 ];
 
