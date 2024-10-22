@@ -1,7 +1,7 @@
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
-import UserRoleEditTable from '@/components/tables/edit-tables/UserRoleEditTable';
+import UserRoleEditTable from '@/components/tables/edit-v2/UserRoleEditTable';
 import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
