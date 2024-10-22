@@ -155,7 +155,7 @@ const columns: Column<KnowledgeDomainDto>[] = [
     sortable: true,
     className: 'w-16'
   },
-  { name: 'Color', uid: 'color', sortable: false }
+  { name: 'Color', uid: 'color', sortable: false, className: 'w-16' }
 ];
 
 const entityType = entityClass;
