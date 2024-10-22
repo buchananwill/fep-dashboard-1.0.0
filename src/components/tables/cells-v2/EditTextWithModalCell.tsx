@@ -63,14 +63,20 @@ function EditTextModal({
 
   return (
     <Modal opened={opened} onClose={onClose}>
-      <TextInput
-        value={newValue}
-        error={invalid?.errorMessage}
-        onChange={(e) => setNewValue(e.target.value)}
-      />
-      <Button onClick={onConfirm} disabled={invalid?.error}>
-        Confirm
-      </Button>
+      <div
+        className={
+          'center-all-margin flex w-fit flex-col justify-items-center gap-2'
+        }
+      >
+        <TextInput
+          value={newValue}
+          error={invalid?.errorMessage}
+          onChange={(e) => setNewValue(e.target.value)}
+        />
+        <Button onClick={onConfirm} disabled={invalid?.error}>
+          Confirm
+        </Button>
+      </div>
     </Modal>
   );
 }
