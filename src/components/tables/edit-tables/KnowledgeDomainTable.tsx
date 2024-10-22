@@ -33,6 +33,11 @@ export function KnowledgeDomainTable() {
     <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
       <EntityEditTable
         defaultSort={defaultKnowledgeDomainSort}
+        stickyHeader
+        styles={{
+          td: { paddingTop: 0, paddingBottom: 0 },
+          th: { padding: 0 }
+        }}
         columns={columns}
         cellModel={CellRenderFunction}
         entityClass={entityClass}

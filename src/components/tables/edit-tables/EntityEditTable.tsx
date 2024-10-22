@@ -14,10 +14,7 @@ import { EmptyArray } from '@/api/literals';
 import { getSetPageContextKey } from '@/hooks/table-hooks/useClientSideFilteringIdList';
 import { getRowsPerPageContextKey } from '@/hooks/table-hooks/useClientSidePaginationController';
 import React, { useMemo } from 'react';
-import {
-  EntityTableContext,
-  useEntityTableContext
-} from '@/hooks/table-hooks/table-context';
+import { EntityTableContext } from '@/hooks/table-hooks/table-context';
 import {
   CoreTableProps,
   SortState
@@ -27,7 +24,7 @@ import FilterStringInput from '@/components/generic/FilterStringInput';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import SelectRowsPerPage from '@/components/tables/SelectRowsPerPage';
 import DtoPagination from '@/components/generic/DtoPagination';
-import { ScrollArea } from '@mantine/core';
+import { ScrollArea, TableProps } from '@mantine/core';
 import CoreTable from '@/components/tables/CoreTable';
 import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
@@ -39,11 +36,13 @@ export default function EntityEditTable<
   columns,
   defaultSort,
   entityClass,
+  headerModel,
   ...props
 }: { defaultSort: SortState<T>; entityClass: string } & Omit<
   CoreTableProps<T, T_ID>,
   'rowIdList'
->) {
+> &
+  Omit<TableProps, 'data'>) {
   const listenerKey = `${entityClass}:table`;
 
   useGlobalController({
@@ -107,12 +106,7 @@ export default function EntityEditTable<
       <ScrollArea classNames={{ root: 'border-2 rounded-md' }}>
         <CoreTable
           {...props}
-          stickyHeader
-          headerModel={SortableHeaderCell}
-          styles={{
-            td: { paddingTop: 0, paddingBottom: 0 },
-            th: { padding: 0 }
-          }}
+          headerModel={headerModel ?? SortableHeaderCell}
           rowIdList={visibleIdList}
           columns={visibleColumns}
         />
