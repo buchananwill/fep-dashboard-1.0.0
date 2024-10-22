@@ -52,6 +52,14 @@ export function useClientSideFilteringIdList<
     listenerKey,
     EmptyArray as T[]
   );
+
+  const { currentState: deletedIdList } = NamespacedHooks.useListen(
+    entityClass,
+    KEY_TYPES.DELETED,
+    listenerKey,
+    EmptyArray as Identifier[]
+  );
+
   const { currentState: currentIdList, dispatch } = useGlobalController({
     contextKey: getFilteredIdContextKey(entityClass),
     listenerKey,
@@ -73,21 +81,25 @@ export function useClientSideFilteringIdList<
   const hasSearchFilter = !!filterValue && filterValue !== '';
   const hasFilterPath = !!currentFilterProperty && currentFilterProperty !== '';
   const filteredIds = useMemo(() => {
-    console.log({ entities, hasFilterPath, hasSearchFilter });
+    const deletedIdSet = new Set(deletedIdList);
 
     let filteredEntities = [...entities];
 
-    if (hasSearchFilter && hasFilterPath) {
-      filteredEntities = filteredEntities.filter((entity) => {
+    filteredEntities = filteredEntities.filter((entity) => {
+      if (deletedIdSet.has(entity.id)) return false;
+      else if (hasSearchFilter && hasFilterPath) {
         const value = String(
           getValue(entity, currentFilterProperty)
         ).toLowerCase() as string;
         return value.toLowerCase().includes(filterValue.toLowerCase());
-      });
-    }
+      } else {
+        return true;
+      }
+    });
 
     return filteredEntities.map((entity) => entity.id);
   }, [
+    deletedIdList,
     entities,
     filterValue,
     hasSearchFilter,

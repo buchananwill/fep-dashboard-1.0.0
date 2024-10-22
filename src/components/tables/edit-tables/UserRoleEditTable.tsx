@@ -4,42 +4,33 @@ import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { UserRoleDto } from '@/api/generated-types/generated-types';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
-import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
-import { StringValueChip } from '@/components/tables/StringValueChip';
-import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { Column, ColumnUid } from '@/types';
-import { RenameAndDeleteCell } from '@/components/tables/cells/RenameAndDeleteCell';
-import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { DeleteEntity } from '@/components/tables/cells/DeleteEntity';
-import EditTextPropertyCell from '@/components/tables/cells/EditTextPropertyCell';
+import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
+import { CellComponentRecord } from '@/components/tables/core-table-types';
+import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
+import { SimpleValueToString } from '../cells-v2/SimpleValueToString';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 const entityType = EntityClassMap.userRole;
 
 export default function UserRoleEditTable({
   pathVariables
 }: LeafComponentProps) {
-  const entities = useFilterOutDeletedEntities<UserRoleDto>(entityType);
   const navigationCallback = useNavigationCallback(
     '/' + ['core', ...pathVariables, 'create'].join('/')
   );
 
   return (
-    <FilterSelectEntityTable
+    <EntityEditTable
       entityClass={entityType}
-      entities={entities}
       columns={columns}
-      selectionMode={'none'}
-      initialColumns={initialColumns}
-      filterProperty={'name'}
-      renderCell={userRoleRenderCellFunction}
-      isCompact={true}
-      classNames={{
-        wrapper: 'w-[90vw] h-[70vh]',
-        td: 'py-0.5'
-      }}
-      addRow={navigationCallback}
+      cellModel={userRoleRenderCellFunction}
+      defaultSort={Sorts.name}
+      // addRow={navigationCallback}
     />
   );
 }
@@ -61,9 +52,17 @@ const initialColumns: ColumnUid<UserRoleDto>[] = [
   'partyName'
 ];
 
-export const userRoleRenderCellFunction = getCellRenderFunction('userRole', {
-  id: DeleteEntity,
-  name: EditTextPropertyCell,
-  knowledgeLevelSeriesName: StringValueChip,
-  partyName: StringValueChip
-});
+const UserCellRecord: CellComponentRecord<UserRoleDto, number> = {
+  id: { component: DeleteEntity, type: 'CustomCell' },
+  name: { component: EditNameCell, type: 'IdInnerCell' },
+  knowledgeLevelSeriesName: {
+    component: SimpleValueToString,
+    type: 'IdInnerCell'
+  },
+  partyName: { component: SimpleValueToString, type: 'IdInnerCell' }
+};
+
+export const userRoleRenderCellFunction = getCellRenderFunction(
+  'userRole',
+  UserCellRecord
+);

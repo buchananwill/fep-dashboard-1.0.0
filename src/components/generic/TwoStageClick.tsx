@@ -1,31 +1,26 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import { offset, useFloating } from '@floating-ui/react';
-import { Button, ButtonProps } from '@nextui-org/button';
-
-import { Chip } from '@nextui-org/chip';
-import { PressEvent } from '@react-types/shared';
 import clsx from 'clsx';
+import { Button, ButtonProps, Chip } from '@mantine/core';
 
 export function TwoStageClick({
   children,
-  onPress,
+  onClick,
   timeOutDelayMs = 2000,
-  standardAppearance = 'ghost',
-  primedAppearance = 'danger',
+  standardAppearance = 'subtle',
+  primedAppearance = 'red',
   primedMessage = 'Confirm delete?',
   className,
   size,
   ...props
 }: {
   timeOutDelayMs?: number;
-  standardAppearance?: 'light' | 'ghost';
-  primedAppearance?: 'danger' | 'primary';
+  standardAppearance?: ButtonProps['variant'];
+  primedAppearance?: ButtonProps['color'];
   primedMessage?: string;
-} & Pick<
-  ButtonProps,
-  'children' | 'onPress' | 'className' | 'size' | 'isIconOnly' | 'isDisabled'
->) {
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+} & Pick<ButtonProps, 'children' | 'className' | 'size' | 'disabled'>) {
   const [clickPrimed, setClickPrimed] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const { refs, floatingStyles } = useFloating({
@@ -34,9 +29,9 @@ export function TwoStageClick({
   });
 
   const guardClick = useCallback(
-    (e: PressEvent) => {
-      if (clickPrimed && onPress !== undefined) {
-        onPress(e);
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (clickPrimed && onClick !== undefined) {
+        onClick(e);
         setClickPrimed(false);
         if (timeoutRef.current !== undefined) clearTimeout(timeoutRef.current);
       } else {
@@ -47,7 +42,7 @@ export function TwoStageClick({
         );
       }
     },
-    [timeOutDelayMs, onPress, clickPrimed]
+    [timeOutDelayMs, onClick, clickPrimed]
   );
 
   return (
@@ -60,7 +55,7 @@ export function TwoStageClick({
         color={clickPrimed ? primedAppearance : 'default'}
         variant={standardAppearance}
         size={size ?? 'sm'}
-        onPress={guardClick}
+        onClick={guardClick}
         {...props}
       >
         {children}

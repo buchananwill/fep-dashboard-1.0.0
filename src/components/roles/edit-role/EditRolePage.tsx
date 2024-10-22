@@ -1,5 +1,5 @@
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import ProviderRoleEditTable from '@/components/tables/edit-tables/ProviderRoleEditTable';
+import ProviderRoleEditTable from '@/components/tables/edit-v2/ProviderRoleEditTable';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { Api } from '@/api/clientApi';

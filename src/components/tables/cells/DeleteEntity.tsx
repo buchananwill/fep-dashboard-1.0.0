@@ -1,31 +1,29 @@
+'use client';
 import { HasId } from '@/api/types';
 import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunction';
 import { useDtoStoreDelete } from 'dto-stores/dist/hooks/main/store/useDtoStoreDelete';
 import React, { useCallback } from 'react';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import { TrashIcon } from '@heroicons/react/24/outline';
+import { TableCellDataProps } from '@/components/tables/core-table-types';
+import { Identifier } from 'dto-stores';
+import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 
 export function DeleteEntity<T extends HasId>({
-  entity,
-  entityClass,
-  path
-}: NextUiCellComponentProps<T>) {
+  entityId
+}: TableCellDataProps<T, Identifier>) {
+  const { entityClass } = useEntityTableContext();
   const { dispatchDeletion, deleted } = useDtoStoreDelete(
-    entity.id,
+    entityId,
     entityClass
   );
   const handleDelete = useCallback(() => {
-    dispatchDeletion((list) => [...list, entity.id]);
-  }, [entity, dispatchDeletion]);
+    dispatchDeletion((list) => [...list, entityId]);
+  }, [entityId, dispatchDeletion]);
 
   return (
-    <TwoStageClick
-      onPress={handleDelete}
-      isDisabled={deleted}
-      isIconOnly={true}
-      className={'h-10 w-10 rounded-xl p-1'}
-    >
-      <TrashIcon />
+    <TwoStageClick onClick={handleDelete} disabled={deleted}>
+      <TrashIcon className={'h-6 w-6'} />
     </TwoStageClick>
   );
 }
