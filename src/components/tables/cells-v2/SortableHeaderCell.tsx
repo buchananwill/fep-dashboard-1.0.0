@@ -11,6 +11,7 @@ import {
   ChevronUpDownIcon,
   ChevronUpIcon
 } from '@heroicons/react/24/outline';
+import { defaultSortState } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export function getSortContextKey(entityClass: string) {
   return `${entityClass}:sortState`;
@@ -74,8 +75,3 @@ export default function SortableHeaderCell<
     <div className={'center-all-margin w-fit'}>{name}</div>
   );
 }
-
-export const defaultSortState = {
-  direction: 'asc',
-  path: ''
-};

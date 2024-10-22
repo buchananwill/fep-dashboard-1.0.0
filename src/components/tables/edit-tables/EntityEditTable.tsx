@@ -28,6 +28,7 @@ import { ScrollArea, TableProps } from '@mantine/core';
 import CoreTable from '@/components/tables/CoreTable';
 import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
+import { compactTableStyles } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 
 export default function EntityEditTable<
   T extends HasIdClass<T_ID>,
@@ -36,6 +37,7 @@ export default function EntityEditTable<
   columns,
   defaultSort,
   entityClass,
+  styles,
   headerModel,
   ...props
 }: { defaultSort: SortState<T>; entityClass: string } & Omit<
@@ -94,18 +96,21 @@ export default function EntityEditTable<
   return (
     <EntityTableContext.Provider value={contextValue}>
       <SortingController />
-      <div className={'grid grid-cols-3 gap-2'}>
-        <FilterStringInput entityClass={entityClass} />
-        <SelectFilterPath<KnowledgeDomainDto> initialFilter={'name'} />
-        <SelectVisibleColumns />
-      </div>
-      <div className={'flex items-end justify-between gap-2'}>
-        <SelectRowsPerPage />
-        <DtoPagination />
+      <div className={'flex flex-col gap-2 p-2'}>
+        <div className={'grid grid-cols-3 gap-2'}>
+          <FilterStringInput entityClass={entityClass} />
+          <SelectFilterPath<KnowledgeDomainDto> initialFilter={'name'} />
+          <SelectVisibleColumns />
+        </div>
+        <div className={'flex items-end justify-between gap-2'}>
+          <SelectRowsPerPage />
+          <DtoPagination />
+        </div>
       </div>
       <ScrollArea classNames={{ root: 'border-2 rounded-md' }}>
         <CoreTable
           {...props}
+          styles={styles ?? compactTableStyles}
           headerModel={headerModel ?? SortableHeaderCell}
           rowIdList={visibleIdList}
           columns={visibleColumns}

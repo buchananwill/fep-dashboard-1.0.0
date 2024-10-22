@@ -1,28 +1,23 @@
 'use client';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
-import {
-  AssetRoleDto,
-  ProviderRoleDto
-} from '@/api/generated-types/generated-types';
+import { AssetRoleDto } from '@/api/generated-types/generated-types';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
-import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import {
-  providerColumns,
-  ProviderColumnsInitial
-} from '@/components/tables/selectorTables/ProviderRoleSelectorTable';
-import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
-import EditTextPropertyCell from '@/components/tables/cells/EditTextPropertyCell';
-import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
 import { Column, ColumnUid } from '@/types';
 import { getTypeUpdateCell } from '@/components/tables/cells/TypeUpdateCell';
-import { KnowledgeDomainSelectCell } from '@/components/tables/cells/SelectKnowledgeDomainCell';
 import {
   AssetRoleColumns,
   AssetRoleColumnsInitial
 } from '@/components/tables/selectorTables/AssetRoleSelectorTable';
+import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { CellComponentRecord } from '@/components/tables/core-table-types';
+import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
+import { getStringUpdater } from '@/components/tables/edit-tables/cellUpdaterFunctions';
+import { SimpleValueToString } from '@/components/tables/cells-v2/SimpleValueToString';
+import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 const entityType = EntityClassMap.assetRole;
 
@@ -35,21 +30,16 @@ export default function AssetRoleEditTable({
   );
 
   return (
-    <FilterSelectEntityTable
-      entityClass={entityType}
-      entities={entities}
-      columns={assetRoleEditColumns}
-      selectionMode={'none'}
-      initialColumns={initialEditColumns}
-      filterProperty={'name'}
-      renderCell={cellRenderFunction}
-      isCompact={true}
-      classNames={{
-        wrapper: 'w-[90vw] h-[70vh]',
-        td: 'py-0.5'
-      }}
-      addRow={navigationCallback}
-    />
+    <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
+      <EntityEditTable
+        entityClass={entityType}
+        stickyHeader
+        columns={assetRoleEditColumns}
+        cellModel={CellRenderFunction}
+        defaultSort={Sorts.name}
+        // addRow={navigationCallback}
+      />
+    </div>
   );
 }
 
@@ -63,8 +53,16 @@ const initialEditColumns: ColumnUid<AssetRoleDto>[] = [
   'type.name'
 ] as const;
 
-const cellRenderFunction = getCellRenderFunction('assetRole', {
-  name: EditTextPropertyCell,
-  assetName: SimpleValueToString,
-  'type.name': getTypeUpdateCell('AssetRoleType')
-});
+const AssetCellRecord: CellComponentRecord<AssetRoleDto, number> = {
+  name: {
+    component: EditNameCell,
+    type: 'IdInnerCell',
+    updater: getStringUpdater('name')
+  },
+  assetName: { component: SimpleValueToString, type: 'IdInnerCell' },
+  'type.name': {
+    component: getTypeUpdateCell('AssetRoleType'),
+    type: 'IdInnerCell'
+  }
+};
+const CellRenderFunction = getCellRenderFunction('assetRole', AssetCellRecord);

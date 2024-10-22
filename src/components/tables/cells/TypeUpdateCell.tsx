@@ -1,115 +1,124 @@
-import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunction';
 import { TypeDto } from '@/api/generated-types/generated-types';
 import { EntityApiKey, HasId } from '@/api/types';
-import { Button } from '@nextui-org/button';
-import { get } from 'lodash';
-import { useDisclosure } from '@nextui-org/use-disclosure';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader
-} from '@nextui-org/modal';
+
 import { Loading } from '@/components/feasibility-report/Loading';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
-import {
-  EditAddDeleteDtoControllerArray,
-  useDtoStoreDispatch
-} from 'dto-stores';
-import { useCallback } from 'react';
-import { ControlledSelector } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ControlledSelector';
-import { TypedPaths } from '@/api/custom-types/typePaths';
+import { useDtoStoreDispatch } from 'dto-stores';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { IdInnerCellProps } from '@/components/tables/core-table-types';
+import { Button, Modal, ModalProps, Select } from '@mantine/core';
+import { SimpleSelectable } from '@/app/core/auto-scheduling/MultiSelect';
 
 type DtoWithType<T extends TypeDto<any, any>> = {
   type: T;
 } & HasId;
 
-export function CellContent<T extends DtoWithType<any>>(
-  props: NextUiCellComponentProps<T> & { typeEntity: EntityApiKey }
+export function CellContent(
+  props: IdInnerCellProps<string> & { typeEntity: EntityApiKey }
 ) {
-  const useDisclosureProps = useDisclosure();
-
-  const { path, entity } = props;
+  const [opened, setOpened] = useState(false);
+  const { value } = props;
 
   return (
     <>
-      <Button onPress={useDisclosureProps.onOpen}>{get(entity, path)}</Button>
-      {useDisclosureProps.isOpen && (
-        <LocalModal {...useDisclosureProps} {...props} />
+      <Button
+        radius={'xs'}
+        fullWidth
+        variant={'subtle'}
+        onClick={() => setOpened(true)}
+      >
+        {value}
+      </Button>
+      {opened && (
+        <LocalModal
+          {...props}
+          opened={opened}
+          onClose={() => setOpened(false)}
+        />
       )}
     </>
   );
 }
 
-function LocalModal<
-  T extends DtoWithType<TypeForT>,
-  TypeForT extends TypeDto<any, any>
->({
+function LocalModal({
   entityClass,
-  entity,
-  path,
   typeEntity,
+  value,
+  entityId,
   ...props
-}: ReturnType<typeof useDisclosure> &
-  NextUiCellComponentProps<T> & { typeEntity: EntityApiKey }) {
-  const getAllTypes = Api[typeEntity].getAll as () => Promise<TypeForT[]>;
+}: IdInnerCellProps<string> & { typeEntity: EntityApiKey } & Pick<
+    ModalProps,
+    'onClose' | 'opened'
+  >) {
+  const getAllTypes = Api[typeEntity].getAll as () => Promise<
+    TypeDto<any, any>[]
+  >;
+  const { onClose, opened } = props;
 
   const { data, isPending } = useQuery({
     queryKey: [typeEntity, 'all'],
     queryFn: () => getAllTypes()
   });
 
-  const { dispatchWithoutListen: dispatch } = useDtoStoreDispatch<T>(
-    entity.id,
-    entityClass
-  );
+  const { dispatchWithoutListen: dispatch } = useDtoStoreDispatch<
+    DtoWithType<any>
+  >(entityId, entityClass);
 
-  const handleSelectionChange = useCallback(
-    (selection: TypeForT | undefined) => {
-      if (selection === undefined) throw Error('Undefined now allowed');
-      dispatch((prev) => ({ ...prev, type: selection }));
-    },
-    [dispatch]
-  );
+  const options: SimpleSelectable[] = useMemo(() => {
+    return data
+      ? data.map((typeEntity) => ({
+          value: String(typeEntity.id),
+          label: typeEntity.name
+        }))
+      : ([] as SimpleSelectable[]);
+  }, [data]);
 
-  const { isOpen, onOpenChange } = props;
+  const [nextValue, setNextValue] = useState(value);
+
+  useEffect(() => {
+    if (data) {
+      const foundOptional = data.find(
+        (typeEntity) => typeEntity.name === value
+      );
+      if (!foundOptional)
+        throw Error(`Could not find type in database: ${value}`);
+      setNextValue(String(foundOptional.id));
+    }
+  }, [data, value]);
+
+  const onChange = useCallback((value: string | null) => {
+    if (value === null) throw Error('Empty selection not allowed here.');
+    setNextValue(value);
+  }, []);
+
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">
-              Select {getStartCaseDomainAlias(typeEntity)}
-            </ModalHeader>
-            {!isPending && data !== undefined ? (
-              <ModalBody>
-                <EditAddDeleteDtoControllerArray
-                  entityClass={typeEntity}
-                  dtoList={data}
-                />
-                <ControlledSelector<number, TypeForT>
-                  labelPath={'name' as TypedPaths<TypeForT, string | number>}
-                  entityId={entity.type.id}
-                  entityClass={typeEntity}
-                  selectionCallback={handleSelectionChange}
-                />
-              </ModalBody>
-            ) : (
-              <ModalBody>
-                <Loading />
-              </ModalBody>
-            )}
-            <ModalFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                Close
-              </Button>
-            </ModalFooter>
-          </>
+    <Modal opened={opened} onClose={onClose}>
+      <div
+        className={'center-all-margin flex w-fit flex-col justify-center gap-2'}
+      >
+        <h1>Select {getStartCaseDomainAlias(typeEntity)}</h1>
+        {!isPending && data !== undefined ? (
+          <Select data={options} value={nextValue} onChange={onChange} />
+        ) : (
+          <Loading />
         )}
-      </ModalContent>
+
+        <Button
+          onClick={() => {
+            dispatch((prev) => {
+              const nextType = data?.find(
+                (datum) => datum.id === parseInt(nextValue)
+              );
+              return nextType ? { ...prev, type: nextType } : prev;
+            });
+            onClose();
+          }}
+        >
+          Confirm
+        </Button>
+      </div>
     </Modal>
   );
 }
@@ -117,7 +126,7 @@ function LocalModal<
 export function getTypeUpdateCell<T extends DtoWithType<any>>(
   typeEntity: EntityApiKey
 ) {
-  return function TypeUpdateCell(props: NextUiCellComponentProps<T>) {
+  return function TypeUpdateCell(props: IdInnerCellProps<string>) {
     return <CellContent {...props} typeEntity={typeEntity} />;
   };
 }

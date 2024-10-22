@@ -6,10 +6,7 @@ import {
   useGlobalListener,
   useGlobalListenerGroup
 } from 'selective-context';
-import {
-  defaultSortState,
-  getSortContextKey
-} from '@/components/tables/cells-v2/SortableHeaderCell';
+import { getSortContextKey } from '@/components/tables/cells-v2/SortableHeaderCell';
 import { SortState } from '@/components/tables/core-table-types';
 import { useEffect, useMemo, useRef } from 'react';
 import { getFilteredIdContextKey } from '@/hooks/table-hooks/useClientSideFilteringIdList';
@@ -17,6 +14,7 @@ import { EmptyArray } from '@/api/literals';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
 import { isNotUndefined } from '@/api/main';
 import { get, isEqual, sortBy } from 'lodash';
+import { defaultSortState } from '@/components/tables/cells-v2/DefaultSortStates';
 
 const listenerKey = 'sortHook';
 

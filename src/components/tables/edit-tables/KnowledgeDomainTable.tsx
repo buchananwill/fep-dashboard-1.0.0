@@ -6,25 +6,29 @@ import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { set, startCase } from 'lodash';
 import { Column } from '@/types';
-import {
-  ColorDto,
-  KnowledgeDomainDto
-} from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import {
   CellComponentRecord,
   IdInnerCell
 } from '@/components/tables/core-table-types';
 import EditColorCell from '@/components/tables/cells-v2/EditColorCell';
-import { OptionallyHasColorDto } from '@/components/tables/cells/EditColorCell';
-import { TypedPaths } from '@/api/custom-types/typePaths';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import EditShortCodeCell from '@/components/tables/cells-v2/EditShortCodeCell';
 import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import {
+  ColorUpdater,
+  getStringUpdater
+} from '@/components/tables/edit-tables/cellUpdaterFunctions';
 
 const entityClass = EntityClassMap.knowledgeDomain;
 
 const defaultKnowledgeDomainSort = { direction: 'asc', path: 'name' } as const;
+
+export const compactTableStyles = {
+  td: { paddingTop: 0, paddingBottom: 0 },
+  th: { padding: 0 }
+};
 
 export function KnowledgeDomainTable() {
   // const createHandler = useMasterListToCreate(domainFactory, entityType);
@@ -34,10 +38,7 @@ export function KnowledgeDomainTable() {
       <EntityEditTable
         defaultSort={defaultKnowledgeDomainSort}
         stickyHeader
-        styles={{
-          td: { paddingTop: 0, paddingBottom: 0 },
-          th: { padding: 0 }
-        }}
+        styles={compactTableStyles}
         columns={columns}
         cellModel={CellRenderFunction}
         entityClass={entityClass}
@@ -74,27 +75,6 @@ const columns: Column<KnowledgeDomainDto>[] = [
   },
   { name: 'Color', uid: 'color', sortable: false, className: 'w-16' }
 ];
-
-const entityType = entityClass;
-
-function ColorUpdater<T extends OptionallyHasColorDto>(
-  prev: T,
-  color: ColorDto | undefined
-) {
-  return {
-    ...prev,
-    color
-  };
-}
-
-function getStringUpdater<
-  T extends Object,
-  T_STRING_PATH extends string & TypedPaths<T, string> = string &
-    TypedPaths<T, string>
->(stringPath: T_STRING_PATH) {
-  return (prev: T, value: string) =>
-    set(structuredClone(prev), stringPath, value);
-}
 
 const knowledgeCells: CellComponentRecord<KnowledgeDomainDto, number> = {
   name: {
