@@ -80,10 +80,10 @@ export default function RootCard({
               </Card.Section>
             ) : (
               <Card.Section
-                className={'flex justify-between  border-default-200 '}
+                className={'flex justify-between border-default-200 '}
               >
                 {Icon && <Icon className={'h-8 w-8'} />}
-                {displayHeader}
+                <h1 className={'p-2'}>{displayHeader}</h1>
               </Card.Section>
             ))}
           <Card.Section

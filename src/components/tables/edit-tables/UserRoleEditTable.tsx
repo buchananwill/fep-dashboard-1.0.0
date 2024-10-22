@@ -25,13 +25,15 @@ export default function UserRoleEditTable({
   );
 
   return (
-    <EntityEditTable
-      entityClass={entityType}
-      columns={columns}
-      cellModel={userRoleRenderCellFunction}
-      defaultSort={Sorts.name}
-      // addRow={navigationCallback}
-    />
+    <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
+      <EntityEditTable
+        entityClass={entityType}
+        columns={columns}
+        cellModel={userRoleRenderCellFunction}
+        defaultSort={Sorts.name}
+        // addRow={navigationCallback}
+      />
+    </div>
   );
 }
 
