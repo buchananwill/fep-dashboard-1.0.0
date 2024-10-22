@@ -1,8 +1,8 @@
 'use client';
-import React, { memo, useMemo } from 'react';
+import React, { memo } from 'react';
 
 import { EntityClassMap } from '@/api/entity-class-map';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID, EmptyArray } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { set, startCase } from 'lodash';
 import { Column } from '@/types';
@@ -12,127 +12,41 @@ import {
 } from '@/api/generated-types/generated-types';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import {
-  SimpleValueToString,
-  SimpleValueToStringOrUndefined
-} from '@/components/tables/cells-v2/SimpleValueToString';
-import {
   CellComponentRecord,
   IdInnerCell
 } from '@/components/tables/core-table-types';
 import CoreTable from '@/components/tables/CoreTable';
-import { NamespacedHooks } from 'dto-stores';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
 import EditColorCell from '@/components/tables/cells-v2/EditColorCell';
 import { OptionallyHasColorDto } from '@/components/tables/cells/EditColorCell';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import FilterStringInput from '@/components/generic/FilterStringInput';
-import { ScrollArea } from '@mantine/core';
-import DtoPagination from '@/components/generic/DtoPagination';
-import SortableHeaderCell, {
-  getSortContextKey
-} from '@/components/tables/cells-v2/SortableHeaderCell';
 import { EntityTableContext } from '@/hooks/table-hooks/table-context';
-import { useGlobalController, useGlobalListener } from 'selective-context';
-import SortingController from '@/components/tables/SortingController';
-import SelectFilterPath, {
-  getVisibleColumnsContextKey
-} from '@/components/tables/SelectFilterPath';
-import { getFilteredSortedIdListContextKey } from '@/hooks/table-hooks/useClientSideSorting';
-import { getSetPageContextKey } from '@/hooks/table-hooks/useClientSideFilteringIdList';
-import { getRowsPerPageContextKey } from '@/hooks/table-hooks/useClientSidePaginationController';
-import SelectRowsPerPage from '@/components/tables/SelectRowsPerPage';
-import SelectVisibleColumns, {
-  getOrderedColumnsContextKey
-} from '@/components/tables/SelectVisibleColumns';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import EditShortCodeCell from '@/components/tables/cells-v2/EditShortCodeCell';
+import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
 
 const entityClass = EntityClassMap.knowledgeDomain;
 
 const listenerKey = 'kdTable';
 
-const defaultKnowledgeDomainSort = { direction: 'asc', path: 'name' };
+const defaultKnowledgeDomainSort = { direction: 'asc', path: 'name' } as const;
 
 export function KnowledgeDomainTable() {
   // const createHandler = useMasterListToCreate(domainFactory, entityType);
-
-  useGlobalController({
-    contextKey: getSortContextKey(entityClass),
-    initialValue: defaultKnowledgeDomainSort,
-    listenerKey
-  });
-
-  useGlobalController({
-    contextKey: getOrderedColumnsContextKey(entityClass),
-    initialValue: columns,
-    listenerKey
-  });
-
-  const { currentState: visibleColumns } = useGlobalController({
-    contextKey: getVisibleColumnsContextKey(entityClass),
-    initialValue: columns,
-    listenerKey
-  });
-  const { currentState: filteredSortedIdList } = useGlobalListener({
-    contextKey: getFilteredSortedIdListContextKey(entityClass),
-    initialValue: EmptyArray as number[],
-    listenerKey
-  });
-
-  const { currentState: selectedPage } = useGlobalListener({
-    contextKey: getSetPageContextKey(entityClass),
-    initialValue: 1,
-    listenerKey
-  });
-
-  const { currentState: rowsPerPage } = useGlobalListener({
-    contextKey: getRowsPerPageContextKey(entityClass),
-    listenerKey: listenerKey,
-    initialValue: 10
-  });
-
-  const visibleIdList = useMemo(() => {
-    return filteredSortedIdList.slice(
-      (selectedPage - 1) * rowsPerPage,
-      (selectedPage - 1) * rowsPerPage + rowsPerPage
-    );
-  }, [filteredSortedIdList, selectedPage, rowsPerPage]);
 
   return (
     <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
       <EntityTableContext.Provider
         value={{ entityClass: EntityClassMap.knowledgeDomain }}
       >
-        <SortingController />
-        <div className={'grid grid-cols-3 gap-2'}>
-          <FilterStringInput entityClass={entityClass} />
-          <SelectFilterPath<KnowledgeDomainDto> initialFilter={'name'} />
-          <SelectVisibleColumns />
-        </div>
-        <div className={'flex items-end justify-between gap-2'}>
-          <SelectRowsPerPage />
-          <DtoPagination />
-        </div>
-        <ScrollArea classNames={{ root: 'border-2 rounded-md' }}>
-          <CoreTableMemo
-            stickyHeader
-            // layout={'fixed'}
-            headerModel={SortableHeaderCell}
-            styles={{
-              td: { paddingTop: 0, paddingBottom: 0 },
-              th: { padding: 0 }
-            }}
-            rowIdList={visibleIdList}
-            columns={visibleColumns}
-            cellModel={CellRenderFunction}
-          />
-        </ScrollArea>
+        <EntityEditTable
+          defaultSort={defaultKnowledgeDomainSort}
+          columns={columns}
+          cellModel={CellRenderFunction}
+        />
       </EntityTableContext.Provider>
     </div>
   );
 }
-
-const CoreTableMemo = memo(CoreTable<KnowledgeDomainDto, number>);
 
 const getDomainFactory = () => {
   let nextId = ABSOLUTE_SMALLEST_TRANSIENT_ID;
