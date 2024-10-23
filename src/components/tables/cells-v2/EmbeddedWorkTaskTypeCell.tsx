@@ -17,15 +17,12 @@ export default function EmbeddedWorkTaskTypeCell<
   columnKey,
   dispatchWithoutControl
 }: EntityInnerCellProps<T, T_ID, K>) {
-  const { workTaskType } = entity;
   const { entityClass } = useEntityTableContext();
   const value = get(entity, columnKey);
   const splitKeyPath = String(columnKey).split('.');
   if (splitKeyPath.length > 1) {
     const embeddedKey = splitKeyPath[1];
-    const embeddedPath = splitKeyPath
-      .slice(1)
-      .join('.') as ColumnUid<WorkTaskTypeDto>;
+
     if (embeddedKey === 'knowledgeDomain') {
       return (
         <EmbeddedKnowledgeDomainCell
