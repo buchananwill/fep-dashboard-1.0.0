@@ -1,28 +1,16 @@
-import {
-  BaseDtoUiProps,
-  BaseLazyDtoUiProps,
-  LazyDtoUiWrapper,
-  LazyDtoUiWrapperProps
-} from 'dto-stores';
+import { BaseDtoUiProps, BaseLazyDtoUiProps } from 'dto-stores';
 
 import { HasId } from '@/api/types';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
-import { HasNameDto } from '@/api/generated-types/generated-types';
+import {
+  HasNameDto,
+  WorkTaskTypeDto
+} from '@/api/generated-types/generated-types';
 import clsx from 'clsx';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
-import {
-  WorkProjectSeriesSchemaDto,
-  WorkTaskTypeDto
-} from '@/api/generated-types/generated-types';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import { SetOptional, SetRequired } from 'type-fest';
-
-export function WorkProjectSeriesSchemaLabel({
-  entity
-}: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
-  return entity.name;
-}
 
 export function EntityWithWorkTaskTypeShortCode({
   entity
@@ -64,20 +52,5 @@ export function NamedEntityLabel({
     <div {...tooltip} {...divProps}>
       {entity.name}
     </div>
-  );
-}
-
-export function NamedEntityLabelWrapper(
-  props: Omit<
-    LazyDtoUiWrapperProps<HasNameDto & HasId, GenericDivProps>,
-    'renderAs' | 'whileLoading'
-  >
-) {
-  return (
-    <LazyDtoUiWrapper
-      renderAs={NamedEntityLabel}
-      {...props}
-      whileLoading={() => '...loading'}
-    />
   );
 }
