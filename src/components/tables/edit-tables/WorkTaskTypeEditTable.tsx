@@ -11,6 +11,8 @@ import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workT
 import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
 import { useGlobalController } from 'selective-context';
 import ResourceRequirementItemModal from '@/components/modals/ResourceRequirementItemModal';
+import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
+import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export function useNavigationCallback(href: string) {
   const appRouterInstance = useRouter();
@@ -22,9 +24,6 @@ export function useNavigationCallback(href: string) {
 
 export const workTaskTypeIdInModal = 'workTaskTypeIdInModal';
 export default function WorkTaskTypeEditTable() {
-  const entities = useFilterOutDeletedEntities<WorkTaskTypeDto>(
-    EntityClassMap.workTaskType
-  );
   const goToCreate = useNavigationCallback('/core/work-task-types/create');
 
   const { currentState, dispatch } = useGlobalController<number | 'closed'>({
@@ -37,20 +36,12 @@ export default function WorkTaskTypeEditTable() {
 
   return (
     <>
-      <FilterSelectEntityTable
-        isCompact={true}
-        classNames={{
-          wrapper: 'w-[60vw]',
-          td: 'p-0'
-        }}
+      <EntityEditTable
         entityClass={EntityClassMap.workTaskType}
-        entities={entities}
         columns={COLUMNS}
-        selectionMode={'none'}
-        initialColumns={INITIAL_COLUMNS}
-        filterProperty={'name'}
-        renderCell={WorkTaskTypeCell}
-        addRow={goToCreate}
+        cellModel={WorkTaskTypeCell}
+        defaultSort={Sorts.name}
+        // addRow={goToCreate}
       />
       <ResourceRequirementItemModal
         workTaskTypeId={currentState === 'closed' ? undefined : currentState}
@@ -61,7 +52,7 @@ export default function WorkTaskTypeEditTable() {
 }
 
 const COLUMNS: Column<WorkTaskTypeDto>[] = [
-  { name: 'More', uid: 'id', sortable: false },
+  { name: 'Actions', uid: 'id', sortable: false },
   ...WORK_TASK_TYPE_COLUMNS
 ];
 

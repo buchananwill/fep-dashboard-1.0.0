@@ -39,6 +39,10 @@ export function getSetPageContextKey(entityClass: string) {
   return `${entityClass}:setPage`;
 }
 
+export function getFilterValueContextKey(entityClass: string) {
+  return `${entityClass}:filterValue`;
+}
+
 export function useClientSideFilteringIdList<
   T extends HasIdClass<Identifier>,
   TPath extends string & GetFieldType<T, TPath> extends string
@@ -75,7 +79,12 @@ export function useClientSideFilteringIdList<
   );
 
   // Set up filtering
-  const [filterValue, setFilterValue] = useState('');
+  const { currentState: filterValue, dispatch: setFilterValue } =
+    useGlobalController({
+      contextKey: getFilterValueContextKey(entityClass),
+      initialValue: '',
+      listenerKey
+    });
 
   const filteredIdsRef = useRef<Identifier[]>([]);
   const hasSearchFilter = !!filterValue && filterValue !== '';

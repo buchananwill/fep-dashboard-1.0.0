@@ -98,7 +98,7 @@ export default function EntityEditTable<
       <SortingController />
       <div className={'flex flex-col gap-2 p-2'}>
         <div className={'grid grid-cols-3 gap-2'}>
-          <FilterStringInput entityClass={entityClass} />
+          <FilterStringInput />
           <SelectFilterPath<KnowledgeDomainDto> initialFilter={'name'} />
           <SelectVisibleColumns />
         </div>

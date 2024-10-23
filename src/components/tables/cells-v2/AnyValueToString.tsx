@@ -1,7 +1,8 @@
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
+import { isNotUndefined } from '@/api/main';
 
-export function SimpleValueToString({ value }: IdInnerCellProps<string>) {
-  return value ?? 'MISSING';
+export function AnyValueToString({ value }: IdInnerCellProps<any>) {
+  return isNotUndefined(value) ? String(value) : 'NULL';
 }
 
 export function SimpleValueToStringOrUndefined({

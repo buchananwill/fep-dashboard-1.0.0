@@ -5,11 +5,10 @@ import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { useDtoStoreDispatch } from 'dto-stores';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import { Autocomplete, Button, Modal, ModalProps } from '@mantine/core';
-import { SimpleSelectable } from '@/app/core/auto-scheduling/MultiSelect';
 
 export function KnowledgeDomainSelectCell(
   props: IdInnerCellProps<string | undefined>

@@ -1,6 +1,5 @@
 'use client';
 import { HasId } from '@/api/types';
-import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunction';
 import { useDtoStoreDelete } from 'dto-stores/dist/hooks/main/store/useDtoStoreDelete';
 import React, { useCallback } from 'react';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';

@@ -1,8 +1,9 @@
-import { HasIdClass } from '@/api/types';
+import { HasId, HasIdClass } from '@/api/types';
 import { DtoStoreReturn, Identifier } from 'dto-stores';
 import { ReactNode } from 'react';
 import { Get, Paths } from 'type-fest';
-import { Column, ColumnUid, DispatchState } from '@/types';
+import { Column, ColumnUid } from '@/types';
+import { ColorDto } from '@/api/generated-types/generated-types';
 
 export interface TableCellDataProps<
   T extends HasIdClass<T_ID>,
@@ -94,8 +95,8 @@ type CustomCellMapping<
 
 type CellMapping<
   T extends HasIdClass<T_ID>,
-  T_ID extends Identifier,
-  K extends string & ColumnUid<T>
+  K extends string & ColumnUid<T>,
+  T_ID extends Identifier = T['id']
 > =
   | InnerCellMapping<T, T_ID, K>
   | EntityCellMapping<T, T_ID, K>
@@ -103,9 +104,9 @@ type CellMapping<
 
 export type CellComponentRecord<
   T extends HasIdClass<T_ID>,
-  T_ID extends Identifier
+  T_ID extends Identifier = T['id']
 > = {
-  [K in ColumnUid<T>]?: CellMapping<T, T_ID, K>;
+  [K in ColumnUid<T>]?: CellMapping<T, K, T_ID>;
 };
 
 export type UpdateFunction<
@@ -118,3 +119,7 @@ export type SortState<T> = {
   direction: 'asc' | 'desc';
   path: Paths<T> | '';
 };
+
+export interface OptionallyHasColorDto extends HasId {
+  color?: ColorDto;
+}

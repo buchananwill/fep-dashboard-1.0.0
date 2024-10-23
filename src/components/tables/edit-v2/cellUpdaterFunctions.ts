@@ -1,7 +1,7 @@
-import { OptionallyHasColorDto } from '@/components/tables/cells/EditColorCell';
 import { ColorDto } from '@/api/generated-types/generated-types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 import { set } from 'lodash';
+import { OptionallyHasColorDto } from '@/components/tables/core-table-types';
 
 export function ColorUpdater<T extends OptionallyHasColorDto>(
   prev: T,

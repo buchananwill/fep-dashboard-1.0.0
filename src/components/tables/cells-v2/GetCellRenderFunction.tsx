@@ -43,7 +43,7 @@ export function getCellRenderFunction<
     } else if (cellMappingOptional?.type === 'EntityInnerCell') {
       return (
         <EntityCellWrapper
-          entityClass={entityTypeKey}
+          entityClass={EntityClassMap[entityTypeKey]}
           columnKey={columnKey}
           entityId={entityId}
           entityCell={cellMappingOptional.component}

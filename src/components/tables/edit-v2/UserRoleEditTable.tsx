@@ -7,11 +7,11 @@ import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { Column, ColumnUid } from '@/types';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import { DeleteEntity } from '@/components/tables/cells/DeleteEntity';
+import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
 import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
-import { SimpleValueToString } from '../cells-v2/SimpleValueToString';
+import { AnyValueToString } from '../cells-v2/AnyValueToString';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
@@ -58,10 +58,10 @@ const UserCellRecord: CellComponentRecord<UserRoleDto, number> = {
   id: { component: DeleteEntity, type: 'CustomCell' },
   name: { component: EditNameCell, type: 'IdInnerCell' },
   knowledgeLevelSeriesName: {
-    component: SimpleValueToString,
+    component: AnyValueToString,
     type: 'IdInnerCell'
   },
-  partyName: { component: SimpleValueToString, type: 'IdInnerCell' }
+  partyName: { component: AnyValueToString, type: 'IdInnerCell' }
 };
 
 export const userRoleRenderCellFunction = getCellRenderFunction(

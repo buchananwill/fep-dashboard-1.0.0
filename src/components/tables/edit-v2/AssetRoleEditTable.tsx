@@ -5,7 +5,7 @@ import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { Column, ColumnUid } from '@/types';
-import { getTypeUpdateCell } from '@/components/tables/cells/TypeUpdateCell';
+import { getTypeUpdateCell } from '@/components/tables/cells-v2/TypeUpdateCell';
 import {
   AssetRoleColumns,
   AssetRoleColumnsInitial
@@ -15,7 +15,7 @@ import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRende
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import { getStringUpdater } from '@/components/tables/edit-v2/cellUpdaterFunctions';
-import { SimpleValueToString } from '@/components/tables/cells-v2/SimpleValueToString';
+import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 const entityType = EntityClassMap.assetRole;
@@ -57,7 +57,7 @@ const AssetCellRecord: CellComponentRecord<AssetRoleDto, number> = {
     type: 'IdInnerCell',
     updater: getStringUpdater('name')
   },
-  assetName: { component: SimpleValueToString, type: 'IdInnerCell' },
+  assetName: { component: AnyValueToString, type: 'IdInnerCell' },
   'type.name': {
     component: getTypeUpdateCell('AssetRoleType'),
     type: 'IdInnerCell'

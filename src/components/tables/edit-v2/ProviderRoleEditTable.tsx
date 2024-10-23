@@ -9,14 +9,14 @@ import {
   ProviderColumnsInitial
 } from '@/components/tables/selectorTables/ProviderRoleSelectorTable';
 import { Column, ColumnUid } from '@/types';
-import { getTypeUpdateCell } from '@/components/tables/cells/TypeUpdateCell';
-import { KnowledgeDomainSelectCell } from '@/components/tables/cells/SelectKnowledgeDomainCell';
+import { getTypeUpdateCell } from '@/components/tables/cells-v2/TypeUpdateCell';
+import { KnowledgeDomainSelectCell } from '@/components/tables/cells-v2/SelectKnowledgeDomainCell';
 import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import { getStringUpdater } from '@/components/tables/edit-v2/cellUpdaterFunctions';
-import { SimpleValueToString } from '@/components/tables/cells-v2/SimpleValueToString';
+import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 const entityType = EntityClassMap.providerRole;
@@ -57,7 +57,7 @@ const CellMap: CellComponentRecord<ProviderRoleDto, number> = {
     type: 'IdInnerCell',
     updater: getStringUpdater('name')
   },
-  partyName: { component: SimpleValueToString, type: 'IdInnerCell' },
+  partyName: { component: AnyValueToString, type: 'IdInnerCell' },
   knowledgeDomainName: {
     component: KnowledgeDomainSelectCell,
     type: 'IdInnerCell'
