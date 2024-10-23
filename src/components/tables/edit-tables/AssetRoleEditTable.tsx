@@ -1,6 +1,6 @@
 'use client';
 import { AssetRoleDto } from '@/api/generated-types/generated-types';
-import { useNavigationCallback } from '@/components/tables/edit-v2/WorkTaskTypeEditTable';
+import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
@@ -10,11 +10,11 @@ import {
   AssetRoleColumns,
   AssetRoleColumnsInitial
 } from '@/components/tables/selectorTables/AssetRoleSelectorTable';
-import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
+import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
-import { getStringUpdater } from '@/components/tables/edit-v2/cellUpdaterFunctions';
+import { getStringUpdater } from '@/components/tables/edit-tables/cellUpdaterFunctions';
 import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 

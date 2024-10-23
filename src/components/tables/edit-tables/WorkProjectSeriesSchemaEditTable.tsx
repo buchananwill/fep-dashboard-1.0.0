@@ -12,7 +12,7 @@ import RootCard from '@/components/generic/RootCard';
 
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
+import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';

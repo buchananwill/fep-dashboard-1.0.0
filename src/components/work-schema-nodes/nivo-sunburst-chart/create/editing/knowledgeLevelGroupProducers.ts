@@ -13,7 +13,7 @@ import {
   removeChildAnyLevel
 } from './knowledgeLevelGroupFunctions';
 
-import { parseToCssRgba } from '@/components/tables/edit-v2/parseToCssRgba';
+import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 
 export const addBundle = produce<WorkNodeHierarchy, [string]>(addBundleMutable);
 export const produceKnowledgeDomainGroup = produce<WorkNodeHierarchy, [string]>(

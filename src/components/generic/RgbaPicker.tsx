@@ -2,7 +2,7 @@ import {
   parseToCssRgba,
   parseToCssRgbOpacityOne,
   RgbaDto
-} from '@/components/tables/edit-v2/parseToCssRgba';
+} from '@/components/tables/edit-tables/parseToCssRgba';
 import { DispatchState } from '@/types';
 import { ChangeEvent, useCallback } from 'react';
 import { color, rgb } from 'd3';

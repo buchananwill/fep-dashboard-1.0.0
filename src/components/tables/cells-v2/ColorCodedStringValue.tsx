@@ -6,7 +6,7 @@ import { HasIdClass } from '@/api/types';
 import { ColumnUid } from '@/types';
 import { Identifier } from 'dto-stores';
 import { get } from 'lodash';
-import { parseToCssRgba } from '@/components/tables/edit-v2/parseToCssRgba';
+import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 import { Chip } from '@mantine/core';
 
 export function ColorCodedStringValue<

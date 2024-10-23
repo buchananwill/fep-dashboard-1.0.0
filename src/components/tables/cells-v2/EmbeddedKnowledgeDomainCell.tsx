@@ -3,7 +3,7 @@ import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import { useCallback, useMemo } from 'react';
 import { Button } from '@mantine/core';
 import { ColumnUid } from '@/types';
-import { parseToCssRgba } from '@/components/tables/edit-v2/parseToCssRgba';
+import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
 import { get } from 'lodash';

@@ -2,7 +2,7 @@ import { ColorDto } from '@/api/generated-types/generated-types';
 import { HasId } from '@/api/types';
 import { SetStateAction, useCallback, useRef } from 'react';
 import { fallBackColor, RgbaPicker } from '@/components/generic/RgbaPicker';
-import { RgbaDto } from '@/components/tables/edit-v2/parseToCssRgba';
+import { RgbaDto } from '@/components/tables/edit-tables/parseToCssRgba';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 import { SetRequired } from 'type-fest';
