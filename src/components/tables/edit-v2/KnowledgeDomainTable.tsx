@@ -38,6 +38,7 @@ export function KnowledgeDomainTable() {
       <EntityEditTable
         defaultSort={defaultKnowledgeDomainSort}
         stickyHeader
+        withRowBorders
         styles={compactTableStyles}
         columns={columns}
         cellModel={CellRenderFunction}

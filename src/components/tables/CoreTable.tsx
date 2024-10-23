@@ -18,7 +18,7 @@ export default function CoreTable<
     const body = rowIdList.map((id) => (
       <Table.Tr key={id}>
         {columns.map((column) => (
-          <Table.Td key={`${id}.${column.uid}`}>
+          <Table.Td key={`${id}.${column.uid}`} styles={{ td: column.style }}>
             <CellModel entityId={id} columnKey={column.uid} />
           </Table.Td>
         ))}

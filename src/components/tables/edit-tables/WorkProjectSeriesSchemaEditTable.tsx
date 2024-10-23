@@ -31,12 +31,14 @@ export default function WorkProjectSeriesSchemaEditTable({
 
   return (
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
-      <EntityEditTable
-        entityClass={entityType}
-        columns={workProjectSeriesSchemaColumns}
-        cellModel={workProjectSeriesSchemaRenderCellFunction}
-        defaultSort={Sorts.name}
-      />
+      <div className={'flex h-[600px] max-w-[80rem] flex-col p-2'}>
+        <EntityEditTable
+          entityClass={entityType}
+          columns={workProjectSeriesSchemaColumns}
+          cellModel={workProjectSeriesSchemaRenderCellFunction}
+          defaultSort={Sorts.name}
+        />
+      </div>
     </RootCard>
   );
 }
@@ -53,7 +55,8 @@ export const workProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[
     {
       uid: 'workTaskType.knowledgeDomain.shortCode',
       name: 'Short Code',
-      sortable: true
+      sortable: true,
+      style: { padding: '0px' }
     },
     {
       uid: 'workTaskType.knowledgeLevel.levelOrdinal',
