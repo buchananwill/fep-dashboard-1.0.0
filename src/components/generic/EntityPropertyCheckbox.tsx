@@ -1,8 +1,7 @@
 import { HasId } from '@/api/types';
 import { BaseLazyDtoUiProps } from 'dto-stores';
 import { BooleanPropertyKey } from '@/types';
-import { Checkbox } from '@nextui-org/checkbox';
-import { CheckboxProps } from '@nextui-org/react';
+import { Checkbox, CheckboxProps } from '@mantine/core';
 
 export default function EntityPropertyCheckbox<T extends HasId>({
   entity,
@@ -16,16 +15,15 @@ export default function EntityPropertyCheckbox<T extends HasId>({
 
   return (
     <Checkbox
-      isSelected={!!entity[booleanKey]}
-      onValueChange={(value) =>
+      checked={!!entity[booleanKey]}
+      onChange={(value) =>
         dispatchWithoutControl((data) => {
           const returnData = { ...data };
-          returnData[booleanKey] = value as T[typeof booleanKey];
+          returnData[booleanKey] = value.target.checked as T[typeof booleanKey];
           return returnData;
         })
       }
-    >
-      {String(booleanKey)}
-    </Checkbox>
+      label={String(booleanKey)}
+    />
   );
 }
