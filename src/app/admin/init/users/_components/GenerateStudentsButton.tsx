@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';

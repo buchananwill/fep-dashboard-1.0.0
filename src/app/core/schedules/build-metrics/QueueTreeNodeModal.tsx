@@ -1,30 +1,20 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalProps
-} from '@nextui-org/modal';
 import { QueueTreeNodeDto } from '@/api/generated-types/generated-types';
-import { renderQueueTreeNodeEntry } from '@/app/core/schedules/build-metrics/BuildMetricTable';
-import { Button } from '@nextui-org/button';
+import { Chip, Modal, ModalProps } from '@mantine/core';
 import { WorkProjectSeriesNodeLink } from '@/app/core/schedules/build-metrics/WorkProjectSeriesNodeLink';
-import { Chip } from '@nextui-org/chip';
 
 export default function QueueTreeNodeModal({
   queueTreeNode,
   ...modalProps
 }: { queueTreeNode?: QueueTreeNodeDto } & Pick<
   ModalProps,
-  'isOpen' | 'onClose'
+  'opened' | 'onClose'
 >) {
   if (!queueTreeNode) return null;
 
   return (
     <Modal {...modalProps}>
-      <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">
+      <div>
+        <h1 className="flex flex-col gap-1">
           <div>Queue Tree Node: {queueTreeNode.nodeNumber}</div>
           <div className={'flex justify-between'}>
             <div>
@@ -36,8 +26,8 @@ export default function QueueTreeNodeModal({
               <Chip color={'danger'}>{queueTreeNode.netFailureCount}</Chip>
             </div>
           </div>
-        </ModalHeader>
-        <ModalBody>
+        </h1>
+        <div>
           <div className={'grid max-h-[50vh] grid-cols-1 overflow-auto'}>
             {queueTreeNode.workProjectSeriesNodeLinks.map((nodeLink) => {
               return (
@@ -47,8 +37,8 @@ export default function QueueTreeNodeModal({
               );
             })}
           </div>
-        </ModalBody>
-      </ModalContent>
+        </div>
+      </div>
     </Modal>
   );
 }

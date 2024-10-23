@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { useState, useTransition } from 'react';
 import { initDefaultTypes } from '@/utils/init-database-functions/initDefaultTypes';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
