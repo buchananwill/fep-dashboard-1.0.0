@@ -62,13 +62,18 @@ function EditTextModal({
   }, [onChange, onClose]);
 
   return (
-    <Modal opened={opened} onClose={onClose}>
+    <Modal opened={opened} onClose={onClose} size={'lg'}>
       <div
         className={
           'center-all-margin flex w-fit flex-col justify-items-center gap-2'
         }
       >
         <TextInput
+          styles={{
+            root: { width: 'fit-content' },
+            wrapper: { width: 'fit-content' },
+            input: { width: '32em' }
+          }}
           value={newValue}
           error={invalid?.errorMessage}
           onChange={(e) => setNewValue(e.target.value)}

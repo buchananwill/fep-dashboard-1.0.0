@@ -22,6 +22,8 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Button } from '@nextui-org/button';
 import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunction';
+import { EntityInnerCellProps } from '@/components/tables/core-table-types';
+import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 
 export const allocationSizes = [1, 2];
 
@@ -132,15 +134,19 @@ export function AdjustAllocation({
 
 export function AdjustAllocationInWrapper({
   entity,
-  entityClass
-}: NextUiCellComponentProps<WorkProjectSeriesSchemaDto>) {
-  const { dispatchWithoutListen } = useDtoStoreDispatch(entity.id, entityClass);
+  dispatchWithoutControl
+}: EntityInnerCellProps<
+  WorkProjectSeriesSchemaDto,
+  number,
+  'deliveryAllocations'
+>) {
+  const { entityClass } = useEntityTableContext();
 
   return (
     <AdjustAllocation
       entityClass={entityClass}
       entity={entity}
-      dispatchWithoutControl={dispatchWithoutListen}
+      dispatchWithoutControl={dispatchWithoutControl}
     />
   );
 }

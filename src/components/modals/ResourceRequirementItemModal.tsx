@@ -7,7 +7,7 @@ import {
   InitialMap
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import ResourceRequirementItemEditTable from '@/components/tables/edit-tables/ResourceRequirementItemEditTable';
+import ResourceRequirementItemEditTable from '@/components/tables/edit-v2/ResourceRequirementItemEditTable';
 import { useCallback, useMemo, useTransition } from 'react';
 import { Loading } from '@/components/feasibility-report/Loading';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';

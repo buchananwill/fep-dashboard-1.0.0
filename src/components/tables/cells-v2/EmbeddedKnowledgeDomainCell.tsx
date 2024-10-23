@@ -13,14 +13,28 @@ import {
   getFilterValueContextKey
 } from '@/hooks/table-hooks/useClientSideFilteringIdList';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
+import { SetOptional } from 'type-fest';
 
 export default function EmbeddedKnowledgeDomainCell<
-  T extends HasIdClass<T_ID> & { knowledgeDomain?: KnowledgeDomainDto },
+  T extends HasIdClass<T_ID>,
   T_ID extends Identifier,
   K extends string & ColumnUid<T>
->({ entity, columnKey }: EntityInnerCellProps<T, T_ID, K>) {
+>({
+  entity,
+  columnKey
+}: SetOptional<
+  EntityInnerCellProps<T, T_ID, K>,
+  'dispatchWithoutControl' | 'dispatchDeletion' | 'deleted'
+>) {
   const { entityClass } = useEntityTableContext();
-  const { knowledgeDomain } = entity;
+  const splitColumnKey = String(columnKey).split('.');
+  const knowledgeDomainNestedLevel = splitColumnKey.indexOf('knowledgeDomain');
+  const knowledgeDomainKey = splitColumnKey
+    .slice(0, knowledgeDomainNestedLevel + 1)
+    .join('.');
+  const knowledgeDomain = get(entity, knowledgeDomainKey) as
+    | KnowledgeDomainDto
+    | undefined;
   const color = knowledgeDomain?.color;
   const value = get(entity, columnKey);
 
