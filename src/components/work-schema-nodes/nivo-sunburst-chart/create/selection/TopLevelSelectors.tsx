@@ -25,7 +25,7 @@ import {
   ModalProps
 } from '@nextui-org/modal';
 import { Button } from '@nextui-org/button';
-import { ConfirmActionModalProps } from '@/components/modals/EditTextValueModal';
+import { ConfirmActionModalProps } from '@/components/modals/confirmActionModalProps';
 
 export default function TopLevelSelectors() {
   const listenerKey = useUuidListenerKey();

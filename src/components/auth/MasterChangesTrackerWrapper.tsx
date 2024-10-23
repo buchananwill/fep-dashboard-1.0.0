@@ -1,16 +1,13 @@
 'use client';
 import { UnsavedChangesProps } from 'dto-stores/dist/types';
 import { MasterChangesController } from 'dto-stores';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
 import clsx from 'clsx';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { PropsWithChildren, useCallback, useMemo, useTransition } from 'react';
-import { Badge } from '@nextui-org/badge';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Session } from 'next-auth';
-import { Image } from '@nextui-org/image';
+import { Button, Popover, Image, Indicator } from '@mantine/core';
 
 export interface OtherUnsavedChangesProps extends PropsWithChildren {
   session?: Session | null;
@@ -40,34 +37,36 @@ function UnsavedChangesToast({
       }
     >
       <Popover>
-        <Badge
-          content={'!'}
-          color={'danger'}
-          className={clsx(props.unsavedFlag ? '' : 'hidden')}
-        >
-          <PopoverTrigger>
+        <Indicator label={'!'} color={'red'} disabled={!props.unsavedFlag}>
+          <Popover.Target>
             <Button
-              isIconOnly={true}
-              className={clsx('h-12 w-12 rounded-full p-1 ')}
               variant={'light'}
+              styles={{
+                root: {
+                  width: 'fit-content',
+                  height: 'fit-content',
+                  padding: 8,
+                  borderRadius: '50%'
+                }
+              }}
             >
               {session?.user?.image ? (
                 <Image
                   src={session.user.image}
                   alt="User Avatar"
-                  className={'rounded-full'}
+                  radius={'xl'}
                 />
               ) : (
                 <UserCircleIcon
-                  className={clsx(session && 'text-emerald-500')}
+                  className={clsx(session && 'h-12 w-12 text-emerald-500')}
                 />
               )}
             </Button>
-          </PopoverTrigger>
-        </Badge>
-        <PopoverContent>
+          </Popover.Target>
+        </Indicator>
+        <Popover.Dropdown>
           <UnsavedChangesContent {...interceptedProps} />
-        </PopoverContent>
+        </Popover.Dropdown>
       </Popover>
     </div>
   );
@@ -85,8 +84,8 @@ function UnsavedChangesContent({
       {unsavedFlag && (
         <Button
           className={'group relative w-fit hover:opacity-75'}
-          onPress={() => startTransition(() => handleCommit())}
-          variant={'light'}
+          onClick={() => startTransition(() => handleCommit())}
+          variant={'subtle'}
           color={'success'}
         >
           <PendingOverlay pending={isPending} />

@@ -1,7 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Overlay } from './overlay';
-import { Button } from '@nextui-org/button';
 import React from 'react';
+import { Button } from '@mantine/core';
 
 export interface DeletedOverlayProps {
   show: boolean;
@@ -22,10 +22,15 @@ export function DeletedOverlay({
       {show && (
         <Overlay className={classNames?.overlay}>
           <Button
-            className={`w-full h-full transition-colors duration-500 rounded-none border-0 place-content-center p-2 ${classNames?.button}`}
-            onPress={handleUnDelete}
-            variant={'ghost'}
-            isIconOnly
+            className={`h-full w-full place-content-center rounded-none border-0 p-2 transition-colors duration-500 ${classNames?.button}`}
+            onClick={handleUnDelete}
+            styles={{
+              root: {
+                height: '100%',
+                width: '100%'
+              }
+            }}
+            variant={'subtle'}
           >
             <XMarkIcon className={'h-full  opacity-50'}></XMarkIcon>
           </Button>

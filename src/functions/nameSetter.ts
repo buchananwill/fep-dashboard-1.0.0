@@ -1,4 +1,3 @@
-import { ExitTextContextKey } from '@/components/modals/EditTextValueModal';
 import { HasNameDto } from '@/api/generated-types/generated-types';
 import { HasId } from '@/api/types';
 
