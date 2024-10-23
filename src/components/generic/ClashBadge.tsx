@@ -1,22 +1,29 @@
-import { Badge } from '@nextui-org/react';
-import clsx from 'clsx';
-import { UseBadgeProps } from '@nextui-org/badge/dist/use-badge';
+import { Indicator, IndicatorProps } from '@mantine/core';
 
 export function ClashBadge({
   show,
   className,
   children,
+  content,
   ...otherProps
-}: Pick<UseBadgeProps, 'className' | 'children' | 'content'> & {
+}: Pick<IndicatorProps, 'className' | 'children' | 'content'> & {
   show: boolean;
 }) {
   return (
-    <Badge
-      className={clsx(show ? '' : 'hidden')}
-      color={'danger'}
+    <Indicator
+      styles={{
+        indicator: {
+          userSelect: 'none'
+        }
+      }}
+      disabled={!show}
+      color={'red'}
       {...otherProps}
+      label={content}
+      radius={'xl'}
+      size={'lg'}
     >
       {children}
-    </Badge>
+    </Indicator>
   );
 }
