@@ -1,17 +1,10 @@
 'use client';
-import {
-  ResourceRequirementItemDto,
-  WorkTaskTypeDto
-} from '@/api/generated-types/generated-types';
+import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types';
 import React, { useCallback } from 'react';
 import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Column, ColumnUid } from '@/types';
 import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
-import { useRouter } from 'next/navigation';
-import { WorkTaskTypeCell } from '@/components/tables/cells/WorkTaskTypeCell';
-import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';
-import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
 import { ResourceRequirementItemCells } from '@/components/tables/cells/ResourceRequirementItemCells';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';

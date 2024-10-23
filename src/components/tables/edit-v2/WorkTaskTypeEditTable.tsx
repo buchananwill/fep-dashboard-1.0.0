@@ -1,10 +1,8 @@
 'use client';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import React, { useCallback } from 'react';
-import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Column, ColumnUid } from '@/types';
-import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { useRouter } from 'next/navigation';
 import { WorkTaskTypeCell } from '@/components/tables/cells/WorkTaskTypeCell';
 import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';
@@ -23,16 +21,21 @@ export function useNavigationCallback(href: string) {
 }
 
 export const workTaskTypeIdInModal = 'workTaskTypeIdInModal';
+const noRriModal = 'closed';
 export default function WorkTaskTypeEditTable() {
   const goToCreate = useNavigationCallback('/core/work-task-types/create');
 
   const { currentState, dispatch } = useGlobalController<number | 'closed'>({
     contextKey: workTaskTypeIdInModal,
     listenerKey: 'workTaskTypeEditTable',
-    initialValue: 'closed'
+    initialValue: noRriModal
   });
 
-  const modalIsOpen = currentState !== 'closed';
+  const onClose = useCallback(() => {
+    dispatch(noRriModal);
+  }, [dispatch]);
+
+  const modalIsOpen = currentState !== noRriModal;
 
   return (
     <>
@@ -44,8 +47,9 @@ export default function WorkTaskTypeEditTable() {
         // addRow={goToCreate}
       />
       <ResourceRequirementItemModal
-        workTaskTypeId={currentState === 'closed' ? undefined : currentState}
-        isOpen={modalIsOpen}
+        workTaskTypeId={currentState === noRriModal ? undefined : currentState}
+        opened={modalIsOpen}
+        onClose={onClose}
       />
     </>
   );

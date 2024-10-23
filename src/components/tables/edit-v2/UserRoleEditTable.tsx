@@ -5,7 +5,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { UserRoleDto } from '@/api/generated-types/generated-types';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { Column, ColumnUid } from '@/types';
-import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
+import { useNavigationCallback } from '@/components/tables/edit-v2/WorkTaskTypeEditTable';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
 import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';

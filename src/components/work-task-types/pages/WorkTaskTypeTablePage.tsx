@@ -1,5 +1,5 @@
 import { Api } from '@/api/clientApi_';
-import WorkTaskTypeEditTable from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
+import WorkTaskTypeEditTable from '@/components/tables/edit-v2/WorkTaskTypeEditTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import RootCard from '@/components/generic/RootCard';

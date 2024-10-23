@@ -1,6 +1,6 @@
 'use client';
 import { AssetRoleDto } from '@/api/generated-types/generated-types';
-import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
+import { useNavigationCallback } from '@/components/tables/edit-v2/WorkTaskTypeEditTable';
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
