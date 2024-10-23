@@ -1,5 +1,4 @@
 'use client';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
 import { useCallback } from 'react';
 import { useGlobalDispatch } from 'selective-context';

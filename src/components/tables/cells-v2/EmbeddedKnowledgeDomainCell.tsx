@@ -46,6 +46,7 @@ export default function EmbeddedKnowledgeDomainCell<
       variant={coloString ? 'filled' : 'light'}
       autoContrast={true}
       fullWidth
+      radius={'xs'}
       onClick={handleClick}
     >
       {value}
