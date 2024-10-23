@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
 import { CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { Api } from '@/api/clientApi_';
 import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';

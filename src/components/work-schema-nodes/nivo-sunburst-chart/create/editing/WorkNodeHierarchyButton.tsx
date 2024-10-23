@@ -26,7 +26,7 @@ export default function WorkNodeHierarchyButton({
   return (
     <Button
       {...buttonProps}
-      onPress={onPress}
+      onClick={onPress}
       className={clsx(
         className,
         'rounded-none first:rounded-l-xl last:rounded-r-xl'

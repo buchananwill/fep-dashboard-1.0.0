@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { NamespacedHooks } from 'dto-stores';
 import { eventSourceEntityClass } from '@/components/calendar/CalendarWithShowHideSources';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -27,5 +27,5 @@ export default function CreateEventButton() {
     );
   }, [currentState]);
 
-  return <Button onPress={onPress}>Send Events To Outlook</Button>;
+  return <Button onClick={onPress}>Send Events To Outlook</Button>;
 }

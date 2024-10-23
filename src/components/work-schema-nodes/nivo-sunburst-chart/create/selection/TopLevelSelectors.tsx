@@ -24,7 +24,7 @@ import {
   ModalHeader,
   ModalProps
 } from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { ConfirmActionModalProps } from '@/components/modals/confirmActionModalProps';
 
 export default function TopLevelSelectors() {
@@ -135,7 +135,7 @@ export function ConfirmActionModal({
             <ModalBody>{changeDetails}</ModalBody>
             <ModalFooter>
               <Button
-                onPress={() => {
+                onClick={() => {
                   if (onCancel) {
                     onCancel();
                   }
@@ -145,7 +145,7 @@ export function ConfirmActionModal({
                 Cancel
               </Button>
               <Button
-                onPress={() => {
+                onClick={() => {
                   if (onConfirm) onConfirm();
                   onClose();
                 }}

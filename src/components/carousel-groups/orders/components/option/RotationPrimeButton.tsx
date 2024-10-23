@@ -26,7 +26,7 @@ function RotationPrimeButtonInner(props: {
             ? 'primary'
             : props.fallBackColor
       }
-      onPress={props.onPress}
+      onClick={props.onPress}
     >
       <ArrowMemo
         className={clsx(

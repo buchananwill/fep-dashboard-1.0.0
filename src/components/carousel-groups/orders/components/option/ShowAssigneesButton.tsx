@@ -1,7 +1,7 @@
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import clsx from 'clsx';
 import { Chip } from '@nextui-org/chip';
 import OrderItemAssigneeList from '@/components/carousel-groups/orders/components/option/OrderItemAssigneeList';

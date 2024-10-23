@@ -4,7 +4,7 @@ import CollectionChooserTabGroup, {
 } from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
 import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import React, { Dispatch, SetStateAction, useCallback } from 'react';
 import {
   EditAddDeleteDtoControllerArray,
@@ -67,7 +67,7 @@ export default function CarouselGroupTabGroup({
         {...{ deleteServerAction, postServerAction, updateServerAction }}
       />
       <div className={'flex'}>
-        <Button onPress={handleOnPress}>Add Carousel Group</Button>
+        <Button onClick={handleOnPress}>Add Carousel Group</Button>
         <div className={'grow text-center'}>
           Carousel Groups Year {knowledgeLevel.levelOrdinal}{' '}
         </div>

@@ -195,7 +195,7 @@ export default function CarouselOption({
                 isPrimed={isPrimed}
               />
               <HighlightMatchingSchemasButton
-                onPress={() =>
+                onClick={() =>
                   highlightSubject((list) => {
                     if (isHighlighted)
                       return list.filter(
@@ -215,7 +215,7 @@ export default function CarouselOption({
                 canDrop={canDrop}
                 primed={isPrimed}
                 fallBackColor={fallBackColor}
-                onPress={() => {
+                onClick={() => {
                   dispatchRotationPrime((list) => {
                     if (isPrimed)
                       return list.filter((idItem) => idItem !== entity.id);

@@ -36,7 +36,7 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeDetailsContent';
 import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Popover } from '@nextui-org/react';
 import {

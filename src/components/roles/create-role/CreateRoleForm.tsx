@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { Divider } from '@nextui-org/divider';
 import { PersonNestedInForm } from '@/components/roles/create-role/PersonNestedInForm';
 import { ErrorMessage } from '@hookform/error-message';
@@ -144,7 +144,7 @@ export default function CreateRoleForm<T extends FieldValues>({
           className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
         ></div>
         <div className={'center-horizontal-with-margin'}>
-          <Button onPress={() => modalProps.onOpenChange(true)}>
+          <Button onClick={() => modalProps.onOpenChange(true)}>
             Add Role Type
           </Button>
         </div>

@@ -10,7 +10,7 @@ import {
   DropdownTrigger,
   Selection
 } from '@nextui-org/react';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import React, { useCallback, useMemo, useState } from 'react';
 import { ButtonEditGroupProps } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/BundleButtonGroup';

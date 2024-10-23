@@ -16,7 +16,7 @@ import {
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import React, { useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
@@ -176,12 +176,12 @@ export default function WorkSchemaNodeDetailsContent({
         )}
       </ModalBody>
       <ModalFooter className={'p-2'}>
-        <Button color="danger" variant="light" onPress={onClose}>
+        <Button color="danger" variant="light" onClick={onClose}>
           Close
         </Button>
         <Button
           color="primary"
-          onPress={() => {
+          onClick={() => {
             commitEdit(currentState);
             onCloseDefined();
           }}

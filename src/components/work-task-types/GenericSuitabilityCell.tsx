@@ -19,7 +19,7 @@ import clsx from 'clsx';
 import { Popover } from '@nextui-org/react';
 import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import { Slider } from '@nextui-org/slider';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { BoltSlashIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { BoltIcon } from '@heroicons/react/24/solid';
 import MiniPieChart from '@/components/work-task-types/MiniPieChart';
@@ -207,7 +207,7 @@ export function GenericSuitabilityCell({
                     currentCell.isDynamic && 'bg-yellow-50'
                   )}
                   size={'sm'}
-                  onPress={() => {
+                  onClick={() => {
                     if (setCurrentCell)
                       setCurrentCell((prev) => ({
                         ...prev,

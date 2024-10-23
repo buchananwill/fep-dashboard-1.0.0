@@ -1,7 +1,7 @@
 'use client';
 import { useCallback } from 'react';
 import { getEventsAction } from '@/api/microsoft-graph/getEventsAction';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { deleteEventsAction } from '@/api/microsoft-graph/deleteEventsAction';
 
@@ -18,5 +18,5 @@ export default function PurgeEventsButton() {
     console.log(response); // KEEP LOG
   }, []);
 
-  return <Button onPress={onPress}>Purge</Button>;
+  return <Button onClick={onPress}>Purge</Button>;
 }

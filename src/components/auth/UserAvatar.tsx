@@ -1,7 +1,7 @@
 import { auth, signOut } from '@/auth';
 import { SignInGoogle } from '@/components/auth/SignInGoogle';
 import { SignInAzure } from '@/components/auth/SignInAzure';
-import { Image } from '@nextui-org/image';
+import { Image } from '@mantine/core';
 
 export default async function UserAvatar() {
   const session = await auth();

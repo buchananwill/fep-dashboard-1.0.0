@@ -7,7 +7,7 @@ import {
   convertToWorkSchemaFlowNode,
   WorkSchemaNodeDto
 } from '@/components/react-flow/generic/utils/adaptors';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 
 export function UnassignedRootButton({
   entity
@@ -44,7 +44,7 @@ export function UnassignedRootButton({
 
   return (
     <Button
-      onPress={onPress}
+      onClick={onPress}
       isDisabled={loaded || pending}
       isLoading={pending}
     >

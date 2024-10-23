@@ -102,8 +102,8 @@ export default function FilterSelectEntityTable<
           {selectionMode !== 'none' && (
             <ButtonGroup>
               Page:
-              <Button onPress={selectVisible}>Select</Button>
-              <Button onPress={deselectVisible}>Deselect</Button>
+              <Button onClick={selectVisible}>Select</Button>
+              <Button onClick={deselectVisible}>Deselect</Button>
             </ButtonGroup>
           )}
           {dynamicColumns && (
@@ -166,7 +166,7 @@ export default function FilterSelectEntityTable<
       <div className="flex items-center justify-between px-2 py-2">
         {addRow && (
           <Button
-            onPress={addRow}
+            onClick={addRow}
             isIconOnly
             className={'p-1'}
             variant={'light'}

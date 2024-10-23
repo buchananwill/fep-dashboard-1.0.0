@@ -1,5 +1,5 @@
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import {
   ArrowDownOnSquareStackIcon,
   MinusCircleIcon,
@@ -53,14 +53,14 @@ export default function NodeGraphEditCluster({
           </PopoverTrigger>
           <PopoverContent>
             <div className={'grid grid-cols-1 gap-1'}>
-              <Button isIconOnly className={'p-2'} onPress={deleteNode}>
+              <Button isIconOnly className={'p-2'} onClick={deleteNode}>
                 <TrashIcon />
               </Button>
             </div>
           </PopoverContent>
         </Popover>
       )}
-      <Button size={'sm'} className={'grow'} onPress={openDetailsModal}>
+      <Button size={'sm'} className={'grow'} onClick={openDetailsModal}>
         {label ?? 'Details'}
       </Button>
       {(showAddSibling || showAddChild) && (
@@ -79,7 +79,7 @@ export default function NodeGraphEditCluster({
           <PopoverContent>
             <div className={'grid grid-cols-1 gap-1'}>
               {showAddSibling && (
-                <Button isIconOnly className={'p-1.5'} onPress={addSibling}>
+                <Button isIconOnly className={'p-1.5'} onClick={addSibling}>
                   <ArrowDownOnSquareStackIcon
                     className={
                       orientation === 'top-to-bottom' ? '-rotate-90' : ''
@@ -88,7 +88,7 @@ export default function NodeGraphEditCluster({
                 </Button>
               )}
               {showAddChild && (
-                <Button isIconOnly className={'p-1.5'} onPress={addChild}>
+                <Button isIconOnly className={'p-1.5'} onClick={addChild}>
                   <ArrowDownOnSquareStackIcon
                     className={
                       orientation === 'left-to-right' ? '-rotate-90' : ''

@@ -1,6 +1,6 @@
 'use client';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
 
 import React, { ChangeEvent, useEffect, useMemo } from 'react';
@@ -166,18 +166,18 @@ export default function OrganizationDetailsContent({
             />
           </>
         )}
-        <Button onPress={() => createTypeProps.onOpenChange(true)}>
+        <Button onClick={() => createTypeProps.onOpenChange(true)}>
           Create New Type
         </Button>
         <CreateNewTypeModal {...createTypeProps} />
       </ModalBody>
       <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
+        <Button color="danger" variant="light" onClick={onClose}>
           Close
         </Button>
         <Button
           color="primary"
-          onPress={() => {
+          onClick={() => {
             commitEdit(currentState);
             onCloseDefined();
           }}

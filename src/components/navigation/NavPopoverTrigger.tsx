@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import NavPopoverContent from '@/components/navigation/NavPopoverContent';

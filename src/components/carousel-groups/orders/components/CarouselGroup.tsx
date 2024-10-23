@@ -109,7 +109,7 @@ export default function CarouselGroup(params: DtoStoreParams) {
           primedMessage={
             'This will remove all manual assignments and re-calculate the Carousel Options.'
           }
-          onPress={handleReset}
+          onClick={handleReset}
           timeOutDelayMs={5_000}
         >
           Reset...

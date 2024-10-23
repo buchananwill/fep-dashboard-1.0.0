@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { ButtonGroup } from '@nextui-org/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import {
@@ -310,7 +310,7 @@ export default function OptionRotationButtonGroup() {
     <ButtonGroup>
       <Button
         isDisabled={backwardsNotFeasible || forwardsPrimed}
-        onPress={() => {
+        onClick={() => {
           if (backwards)
             commitNextRotation(
               calculateNextRotation(backwards, [...filteredOrders.values()])
@@ -328,7 +328,7 @@ export default function OptionRotationButtonGroup() {
       <Button
         className={'min-w-0 px-1'}
         isDisabled={backwardsNotFeasible}
-        onPress={() =>
+        onClick={() =>
           toggleRotationOutcomeOverlay('backwards', optionRotation)
         }
       >
@@ -349,13 +349,13 @@ export default function OptionRotationButtonGroup() {
       <Button
         className={'min-w-0 px-1'}
         isDisabled={forwardNotFeasible}
-        onPress={() => toggleRotationOutcomeOverlay('forwards', optionRotation)}
+        onClick={() => toggleRotationOutcomeOverlay('forwards', optionRotation)}
       >
         <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
       <Button
         isDisabled={forwardNotFeasible || backwardsPrimed}
-        onPress={() => {
+        onClick={() => {
           if (forwards)
             commitNextRotation(
               calculateNextRotation(forwards, [...filteredOrders.values()])

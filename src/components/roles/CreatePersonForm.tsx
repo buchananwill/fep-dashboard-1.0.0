@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useCallback, useTransition } from 'react';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { PersonDto } from '@/api/generated-types/generated-types';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { DatePicker } from '@nextui-org/date-picker';

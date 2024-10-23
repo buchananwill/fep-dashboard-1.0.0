@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { DatePicker } from '@nextui-org/date-picker';
 import {
@@ -178,7 +178,7 @@ export default function CreateUserRoleForm({
         className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
       ></div>
       <div className={'center-horizontal-with-margin'}>
-        <Button onPress={() => modalProps.onOpenChange(true)}>
+        <Button onClick={() => modalProps.onOpenChange(true)}>
           Add Role Type
         </Button>
       </div>

@@ -5,7 +5,7 @@ import {
   ModalFooter,
   ModalHeader
 } from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { useCallback, useMemo, useState } from 'react';
 import { useUniqueStringFieldConstraint } from '@/hooks/useUniqueStringFieldConstraint';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
@@ -86,10 +86,10 @@ function InnerContent({
         />
       </ModalBody>
       <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
+        <Button color="danger" variant="light" onClick={onClose}>
           Cancel
         </Button>
-        <Button color="primary" onPress={handleConfirm}>
+        <Button color="primary" onClick={handleConfirm}>
           Confirm
         </Button>
       </ModalFooter>

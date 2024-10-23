@@ -14,7 +14,7 @@ export function HighlightMatchingSchemasButton(props: {
   return (
     <Button
       className={'relative w-fit min-w-0 px-1'}
-      onPress={props.onPress}
+      onClick={props.onPress}
       color={props.canDrop ? 'primary' : props.fallBackColor}
     >
       <MemoCapFilled

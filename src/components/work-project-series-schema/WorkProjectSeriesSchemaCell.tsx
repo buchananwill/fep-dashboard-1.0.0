@@ -23,7 +23,7 @@ import { cycleSubspanGroupMap } from '@/components/work-project-series-schema/st
 import { ObjectPlaceholder } from '@/api/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { StaticAllocationDispensor } from '@/components/work-project-series-schema/StaticAllocationDispensor';
 
 function InnerWorkProjectSeriesSchemaCell({

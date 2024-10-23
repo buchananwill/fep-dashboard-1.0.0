@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import React, { ChangeEvent, useCallback, useMemo } from 'react';
 import {
@@ -56,10 +56,10 @@ function BundleModalContent({ onClose }: { onClose: () => void }) {
       </ModalHeader>
       <ModalBody></ModalBody>
       <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
+        <Button color="danger" variant="light" onClick={onClose}>
           Cancel
         </Button>
-        <Button color="primary" onPress={confirmChanges}>
+        <Button color="primary" onClick={confirmChanges}>
           Confirm
         </Button>
       </ModalFooter>

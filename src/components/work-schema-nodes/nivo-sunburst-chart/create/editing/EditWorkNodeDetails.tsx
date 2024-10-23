@@ -4,7 +4,7 @@ import {
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/editSunburstHooks';
 import { SelectionSplitRef } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
 import { useDisclosure } from '@nextui-org/use-disclosure';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { Modal, ModalContent } from '@nextui-org/modal';
 import React, { ReactNode } from 'react';
 
@@ -24,7 +24,7 @@ export function EditWorkNodeDetails({
   return (
     <>
       <Button
-        onPress={onOpen}
+        onClick={onOpen}
         className={'rounded-none first:rounded-l-xl last:rounded-r-xl'}
         isDisabled={selectionLength < bundleDepth}
       >
