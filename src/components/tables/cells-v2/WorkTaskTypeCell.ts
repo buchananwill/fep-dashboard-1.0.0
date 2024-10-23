@@ -1,5 +1,5 @@
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
-import { WorkTaskTypeActionCell } from '@/components/tables/cells/WorkTaskTypeActionCell';
+import { WorkTaskTypeActionCell } from '@/components/tables/cells-v2/WorkTaskTypeActionCell';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import {
   AnyValueToString,

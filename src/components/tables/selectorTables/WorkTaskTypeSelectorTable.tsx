@@ -4,7 +4,7 @@ import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 
-import { WorkTaskTypeCell } from '@/components/tables/cells/WorkTaskTypeCell';
+import { WorkTaskTypeCell } from '@/components/tables/cells-v2/WorkTaskTypeCell';
 import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';
 import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
 

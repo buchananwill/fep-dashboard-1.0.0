@@ -1,8 +1,4 @@
-import {
-  AssetRoleTypeDto,
-  ProviderRoleTypeDto,
-  ResourceRequirementItemDto
-} from '@/api/generated-types/generated-types';
+import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types';
 import { useCallback, useMemo } from 'react';
 import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -15,7 +11,7 @@ import {
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
-import { Autocomplete, Select } from '@mantine/core';
+import { Select } from '@mantine/core';
 import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { get } from 'lodash';
