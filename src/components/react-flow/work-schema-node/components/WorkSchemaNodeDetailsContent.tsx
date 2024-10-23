@@ -104,10 +104,13 @@ export default function WorkSchemaNodeDetailsContent({
               <div>
                 <FocusToEdit
                   value={currentState.name ?? ''}
-                  label={'Node Name'}
+                  placeholder={'Node Name'}
                   size={'sm'}
-                  onValueChange={(value) =>
-                    dispatchWithoutControl((data) => ({ ...data, name: value }))
+                  onChange={(e) =>
+                    dispatchWithoutControl((data) => ({
+                      ...data,
+                      name: e.target.value
+                    }))
                   }
                 >
                   {currentState.name ?? ''}

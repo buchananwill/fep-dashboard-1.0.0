@@ -3,21 +3,17 @@
 import { EntityClassMap } from '@/api/entity-class-map';
 import React, { Key, useCallback, useMemo } from 'react';
 import { Pagination, TableProps } from '@nextui-org/react';
-import { Column, ColumnUid, DispatchState } from '@/types';
+import { ColumnUid, DispatchState } from '@/types';
 import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect';
 import { FilterSortPaginateTableContent } from '@/components/tables/FilterSortPaginateTableContent';
 import { Input } from '@nextui-org/input';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import {
-  workProjectSeriesSchemaColumns,
-  workProjectSeriesSchemaRenderCellFunction
-} from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+  WorkProjectSeriesSchemaDto,
+  WorkSchemaNodeDto
+} from '@/api/generated-types/generated-types';
+import { workProjectSeriesSchemaColumns } from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
 import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
-import { RenameAndDeleteCell } from '@/components/tables/cells/RenameAndDeleteCell';
-import { NestedDtoStoreNumberEditCell } from '@/components/tables/NestedDtoStoreNumberEditCell';
-import { AdjustAllocationInWrapper } from '@/components/work-project-series-schema/_components/AdjustAllocation';
 import { StringValueChip } from '@/components/tables/StringValueChip';
 import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
 

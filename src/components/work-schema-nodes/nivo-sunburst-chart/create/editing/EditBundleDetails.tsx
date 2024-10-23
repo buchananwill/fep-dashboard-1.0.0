@@ -1,6 +1,6 @@
 import { Button } from '@nextui-org/button';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
-import React, { useCallback, useMemo } from 'react';
+import React, { ChangeEvent, useCallback, useMemo } from 'react';
 import {
   findChildOfType,
   replaceChildInTree
@@ -33,13 +33,13 @@ function BundleModalContent({ onClose }: { onClose: () => void }) {
   }, [path, modalCopy]);
 
   const setName = useCallback(
-    (newName: string) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       if (!bundle) return;
 
       setModalCopy((prevCopy) =>
         replaceChildInTree(prevCopy, bundle?.path ?? '', {
           ...bundle,
-          name: newName
+          name: e.target.value
         })
       );
     },
@@ -50,7 +50,7 @@ function BundleModalContent({ onClose }: { onClose: () => void }) {
   return (
     <>
       <ModalHeader className="flex flex-col gap-1">
-        <FocusToEdit onValueChange={setName} value={bundle.name ?? ''}>
+        <FocusToEdit onChange={setName} value={bundle.name ?? ''}>
           {bundle.name ?? 'no name'}
         </FocusToEdit>
       </ModalHeader>
