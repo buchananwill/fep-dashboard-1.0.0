@@ -1,25 +1,25 @@
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
+'use client';
 import TabbedSelectorTables from '@/components/tables/TabbedSelectorTables';
 import { TabbedTablesDataProps } from '@/components/tables/types';
+import { Button, Popover } from '@mantine/core';
 
 export default function FinderTableButton(
   tableButtonProps: TabbedTablesDataProps
 ) {
   return (
     <div className={'absolute'}>
-      <Popover shouldCloseOnBlur={false} placement={'right'}>
-        <PopoverTrigger>
+      <Popover trapFocus withArrow position={'right-start'}>
+        <Popover.Target>
           <Button variant={'ghost'} color={'primary'}>
             Find
           </Button>
-        </PopoverTrigger>
-        <PopoverContent className={'p-4'}>
+        </Popover.Target>
+        <Popover.Dropdown className={'p-4'}>
           <TabbedSelectorTables
             data={tableButtonProps}
             className={'w-[45vw]'}
           ></TabbedSelectorTables>
-        </PopoverContent>
+        </Popover.Dropdown>
       </Popover>
     </div>
   );

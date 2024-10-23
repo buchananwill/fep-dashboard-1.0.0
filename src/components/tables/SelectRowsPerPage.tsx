@@ -25,6 +25,7 @@ export default function SelectRowsPerPage() {
   return (
     <label className={'flex items-center gap-2 text-sm'}>
       <Select
+        comboboxProps={{ withinPortal: false }}
         data={rowOptions}
         // checkIconPosition={'right'}
         classNames={{

@@ -30,7 +30,7 @@ import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { compactTableStyles } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 
-export default function EntityEditTable<
+export default function EntityTable<
   T extends HasIdClass<T_ID>,
   T_ID extends Identifier
 >({

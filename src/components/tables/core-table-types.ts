@@ -35,6 +35,7 @@ export interface CoreTableProps<
   rowIdList: T_ID[];
   columns: Column<T>[];
   cellModel: TableCellDataWrapper<T, T_ID>;
+  withSelection?: boolean;
   headerModel?: TableHeaderCell<T, T_ID>;
 }
 

@@ -15,7 +15,7 @@ import {
 import EditColorCell from '@/components/tables/cells-v2/EditColorCell';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import EditShortCodeCell from '@/components/tables/cells-v2/EditShortCodeCell';
-import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import {
   ColorUpdater,
   getStringUpdater
@@ -35,7 +35,7 @@ export function KnowledgeDomainTable() {
 
   return (
     <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
-      <EntityEditTable
+      <EntityTable
         defaultSort={defaultKnowledgeDomainSort}
         stickyHeader
         withRowBorders

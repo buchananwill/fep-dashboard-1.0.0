@@ -10,7 +10,7 @@ import {
   AssetRoleColumns,
   AssetRoleColumnsInitial
 } from '@/components/tables/selectorTables/AssetRoleSelectorTable';
-import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
@@ -29,7 +29,7 @@ export default function AssetRoleEditTable({
 
   return (
     <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
-      <EntityEditTable
+      <EntityTable
         entityClass={entityType}
         stickyHeader
         columns={assetRoleEditColumns}

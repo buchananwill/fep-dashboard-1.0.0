@@ -38,7 +38,7 @@ export function useClientSidePaginationController() {
 
   const { length } = filteredIdList;
 
-  console.log({ filteredIdList, length });
+  console.log({ filteredIdList, length, entityClass });
 
   const pages = useMemo(() => {
     return Math.ceil(length / rowsPerPage);

@@ -7,7 +7,7 @@ import { ResourceRequirementItemCells } from '@/components/tables/cells-v2/Resou
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';
-import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export default function ResourceRequirementItemEditTable({
@@ -25,7 +25,7 @@ export default function ResourceRequirementItemEditTable({
   );
 
   return (
-    <EntityEditTable
+    <EntityTable
       entityClass={EntityClassMap.resourceRequirementItem}
       columns={COLUMNS}
       cellModel={ResourceRequirementItemCells}

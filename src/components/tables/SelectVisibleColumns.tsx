@@ -53,6 +53,7 @@ export default function SelectVisibleColumns<T>() {
 
   return (
     <MultiSelectMaxDisplayedItems
+      withinPortal={false}
       label={'Visible Columns'}
       data={selectOptions}
       value={selection}

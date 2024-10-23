@@ -8,7 +8,7 @@ import { Column, ColumnUid } from '@/types';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
-import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import { AnyValueToString } from '../cells-v2/AnyValueToString';
@@ -26,7 +26,7 @@ export default function UserRoleEditTable({
 
   return (
     <div className={'flex h-[75vh] flex-col gap-2 p-2'}>
-      <EntityEditTable
+      <EntityTable
         entityClass={entityType}
         columns={columns}
         cellModel={userRoleRenderCellFunction}

@@ -56,6 +56,12 @@ export function useClientSideFilteringIdList<
     listenerKey,
     EmptyArray as T[]
   );
+  const { currentState: entityIdList } = NamespacedHooks.useListen(
+    entityClass,
+    KEY_TYPES.ID_LIST,
+    listenerKey,
+    EmptyArray as Identifier[]
+  );
 
   const { currentState: deletedIdList } = NamespacedHooks.useListen(
     entityClass,
@@ -67,7 +73,7 @@ export function useClientSideFilteringIdList<
   const { currentState: currentIdList, dispatch } = useGlobalController({
     contextKey: getFilteredIdContextKey(entityClass),
     listenerKey,
-    initialValue: EmptyArray as Identifier[]
+    initialValue: entityIdList as Identifier[]
   });
   const { currentState: currentFilterProperty } = useGlobalListener({
     contextKey: getFilterPropertyContextKey(entityClass),
@@ -109,6 +115,13 @@ export function useClientSideFilteringIdList<
       }
     });
 
+    console.log({
+      filteredEntities,
+      entities,
+      filterValue,
+      currentFilterProperty
+    });
+
     return filteredEntities.map((entity) => entity.id);
   }, [
     deletedIdList,
@@ -137,13 +150,13 @@ export function useClientSideFilteringIdList<
         setFilterValue('');
       }
     },
-    [setPage]
+    [setPage, setFilterValue]
   );
 
   const onClear = useCallback(() => {
     setFilterValue('');
     setPage(1);
-  }, [setPage]);
+  }, [setPage, setFilterValue]);
 
   return {
     filterValue,

@@ -12,7 +12,7 @@ import RootCard from '@/components/generic/RootCard';
 
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import EntityEditTable from '@/components/tables/edit-tables/EntityEditTable';
+import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
@@ -32,7 +32,7 @@ export default function WorkProjectSeriesSchemaEditTable({
   return (
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
       <div className={'flex h-[600px] max-w-[80rem] flex-col p-2'}>
-        <EntityEditTable
+        <EntityTable
           entityClass={entityType}
           columns={workProjectSeriesSchemaColumns}
           cellModel={workProjectSeriesSchemaRenderCellFunction}

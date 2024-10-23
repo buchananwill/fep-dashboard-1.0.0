@@ -58,6 +58,7 @@ export default function SelectFilterPath<T>({
 
   return (
     <Select
+      comboboxProps={{ withinPortal: false }}
       label={'Filter Path'}
       value={currentState === '' ? null : currentState}
       onChange={onChange}
