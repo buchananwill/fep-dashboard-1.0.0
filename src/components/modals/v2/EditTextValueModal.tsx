@@ -14,7 +14,9 @@ export default function EditTextValueModal({
   onClose,
   validateInput
 }: IdInnerCellProps<string> &
-  ModalProps & { validateInput: Validator<string> }) {
+  Pick<ModalProps, 'onClose' | 'opened'> & {
+    validateInput?: Validator<string>;
+  }) {
   const [currentValue, setCurrentValue] = useState(value);
 
   const textInput = useRef<HTMLInputElement | null>(null);

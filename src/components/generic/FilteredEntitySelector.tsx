@@ -4,7 +4,7 @@ import { HasIdClass } from '@/api/types';
 import { Select, SelectProps } from '@nextui-org/react';
 import { SelectItem } from '@nextui-org/select';
 import { useEntitySelection } from '@/hooks/useEntitySelection';
-import { MutableRefObject } from 'react';
+import { MutableRefObject, useMemo } from 'react';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 
 export type EntitySelectorProps<T, U> = {

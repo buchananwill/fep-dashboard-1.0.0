@@ -1,10 +1,6 @@
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
-import EditTextValueModal from '@/components/modals/EditTextValueModal';
-import { useModalEditEntityTextAttribute } from '@/hooks/useModalEditEntityTextAttribute';
 import { useCallback, useState } from 'react';
 import { BaseDtoUiProps } from 'dto-stores';
 import { isNotUndefined } from '@/api/main';
@@ -13,6 +9,10 @@ import { TypedPaths } from '@/api/custom-types/typePaths';
 import { get } from 'lodash';
 
 import { Validator } from '@/types';
+import { Button, Popover } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import EditTextValueModal from '@/components/modals/v2/EditTextValueModal';
+import { updateNestedValue } from '@/functions/updateNestedValue';
 
 export interface EditTextDeletePopoverProps<T extends HasId> {
   stringPath: TypedPaths<T, string>;
@@ -31,54 +31,41 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   stringPath,
   validateInput
 }: EditTextDeletePopoverProps<T> & BaseDtoUiProps<T>) {
-  const {
-    onOpen,
-    dispatchTextChange,
-    isOpen,
-    onClose,
-    onConfirm,
-    ...modalProps
-  } = useModalEditEntityTextAttribute(
-    entityClass,
-    entity,
-    stringPath,
-    dispatchWithoutControl
-  );
+  const [opened, { open, close }] = useDisclosure();
 
-  const confirmTextEdit = useCallback(() => {
-    onConfirm();
-    onClose();
-    setShowPopover(false);
-  }, [onConfirm, onClose]);
+  const confirmTextEdit = useCallback(
+    (text: string) => {
+      if (dispatchWithoutControl)
+        dispatchWithoutControl((prev) =>
+          updateNestedValue(prev, stringPath, text)
+        );
+    },
+    [dispatchWithoutControl, stringPath]
+  );
 
   const [showPopover, setShowPopover] = useState(false);
 
   return (
     <>
       <Popover
-        style={{
-          zIndex: 50
-        }}
-        placement={'bottom'}
-        showArrow
-        isOpen={showPopover}
-        onOpenChange={setShowPopover}
-        shouldCloseOnBlur
+        zIndex={100}
+        opened={showPopover}
+        withArrow
+        onClose={() => setShowPopover(false)}
       >
-        <PopoverTrigger>
-          <Button className={`${classNames?.button}`}>
+        <Popover.Target>
+          <Button
+            className={`${classNames?.button}`}
+            onClick={() => setShowPopover((prev) => !prev)}
+          >
             <span className={' ... truncate'}>{get(entity, stringPath)}</span>
-            <PendingOverlay pending={isOpen} />
+            <PendingOverlay pending={opened} />
           </Button>
-        </PopoverTrigger>
-        <PopoverContent>
+        </Popover.Target>
+        <Popover.Dropdown>
           <div className={'flex gap-2'}>
             <Button
-              onPress={() => {
-                dispatchTextChange(get(entity, stringPath));
-                onOpen();
-              }}
-              isIconOnly
+              onClick={open}
               size={'sm'}
               variant={'ghost'}
               className={'w-16'}
@@ -86,24 +73,25 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
               <PencilSquareIcon className={'h-full p-0.5'} />
             </Button>
             <TwoStageClick
-              isIconOnly
               className={'w-8'}
-              onPress={() => {
+              onClick={() => {
                 if (isNotUndefined(dispatchDeletion))
                   dispatchDeletion((list) => [...list, entity.id]);
               }}
             >
-              <TrashIcon className={'p-1'} />
+              <TrashIcon className={'h-6 w-6'} />
             </TwoStageClick>
           </div>
-        </PopoverContent>
+        </Popover.Dropdown>
       </Popover>
       <EditTextValueModal
-        {...modalProps}
+        value={get(entity, stringPath)}
+        onClose={close}
+        opened={opened}
+        onChange={confirmTextEdit}
+        entityClass={entityClass}
+        entityId={entity.id}
         validateInput={validateInput}
-        isOpen={isOpen}
-        onClose={onClose}
-        onConfirm={confirmTextEdit}
       />
     </>
   );
