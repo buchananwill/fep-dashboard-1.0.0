@@ -1,7 +1,8 @@
 import { createContext, useContext } from 'react';
 
 const DefaultEntityTableContext = {
-  entityClass: ''
+  entityClass: '',
+  hideFiltering: false
 };
 
 export type EntityTableContextInterface = typeof DefaultEntityTableContext;

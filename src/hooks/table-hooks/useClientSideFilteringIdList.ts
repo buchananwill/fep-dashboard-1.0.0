@@ -87,7 +87,7 @@ export function useClientSideFilteringIdList<
     });
 
   const filteredIdsRef = useRef<Identifier[]>([]);
-  const hasSearchFilter = !!filterValue && filterValue !== '';
+  const hasSearchFilter = !!filterValue && filterValue.trim() !== '';
   const hasFilterPath = !!currentFilterProperty && currentFilterProperty !== '';
   const filteredIds = useMemo(() => {
     const deletedIdSet = new Set(deletedIdList);
@@ -100,7 +100,10 @@ export function useClientSideFilteringIdList<
         const value = String(
           getValue(entity, currentFilterProperty)
         ).toLowerCase() as string;
-        return value.toLowerCase().includes(filterValue.toLowerCase());
+        return value
+          .trim()
+          .toLowerCase()
+          .includes(filterValue.trim().toLowerCase());
       } else {
         return true;
       }

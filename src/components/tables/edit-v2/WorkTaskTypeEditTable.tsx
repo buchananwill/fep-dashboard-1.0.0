@@ -46,11 +46,13 @@ export default function WorkTaskTypeEditTable() {
         defaultSort={Sorts.name}
         // addRow={goToCreate}
       />
-      <ResourceRequirementItemModal
-        workTaskTypeId={currentState === noRriModal ? undefined : currentState}
-        opened={modalIsOpen}
-        onClose={onClose}
-      />
+      {currentState === noRriModal ? null : (
+        <ResourceRequirementItemModal
+          workTaskTypeId={currentState}
+          opened={modalIsOpen}
+          onClose={onClose}
+        />
+      )}
     </>
   );
 }

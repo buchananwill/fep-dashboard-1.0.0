@@ -1,24 +1,20 @@
 'use client';
 import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types';
 import React, { useCallback } from 'react';
-import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Column, ColumnUid } from '@/types';
-import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import { ResourceRequirementItemCells } from '@/components/tables/cells/ResourceRequirementItemCells';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';
+import EntityEditTable from '@/components/tables/edit-v2/EntityEditTable';
+import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export default function ResourceRequirementItemEditTable({
   workTaskTypeId
 }: {
   workTaskTypeId: number;
 }) {
-  const entities = useFilterOutDeletedEntities<ResourceRequirementItemDto>(
-    EntityClassMap.resourceRequirementItem
-  );
-
   const createCallback = useCallback(() => {
     return createResourceRequirementItem(workTaskTypeId);
   }, [workTaskTypeId]);
@@ -29,19 +25,13 @@ export default function ResourceRequirementItemEditTable({
   );
 
   return (
-    <FilterSelectEntityTable
-      isCompact={true}
-      classNames={{
-        wrapper: 'w-[60vw]'
-      }}
+    <EntityEditTable
       entityClass={EntityClassMap.resourceRequirementItem}
-      entities={entities}
       columns={COLUMNS}
-      selectionMode={'none'}
-      initialColumns={INITIAL_COLUMNS}
-      filterProperty={'id'}
-      renderCell={ResourceRequirementItemCells}
-      addRow={create}
+      cellModel={ResourceRequirementItemCells}
+      defaultSort={Sorts.none}
+      hideFiltering
+      // addRow={create}
     />
   );
 }

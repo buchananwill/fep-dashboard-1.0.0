@@ -39,11 +39,13 @@ export default function EntityEditTable<
   entityClass,
   styles,
   headerModel,
+  hideFiltering = false,
   ...props
-}: { defaultSort: SortState<T>; entityClass: string } & Omit<
-  CoreTableProps<T, T_ID>,
-  'rowIdList'
-> &
+}: {
+  defaultSort: SortState<T>;
+  entityClass: string;
+  hideFiltering?: boolean;
+} & Omit<CoreTableProps<T, T_ID>, 'rowIdList'> &
   Omit<TableProps, 'data'>) {
   const listenerKey = `${entityClass}:table`;
 
@@ -90,18 +92,20 @@ export default function EntityEditTable<
   }, [filteredSortedIdList, selectedPage, rowsPerPage]);
 
   const contextValue = useMemo(() => {
-    return { entityClass: entityClass };
+    return { entityClass: entityClass, hideFiltering: hideFiltering ?? false };
   }, [entityClass]);
 
   return (
     <EntityTableContext.Provider value={contextValue}>
       <SortingController />
       <div className={'flex flex-col gap-2 p-2'}>
-        <div className={'grid grid-cols-3 gap-2'}>
-          <FilterStringInput />
-          <SelectFilterPath<KnowledgeDomainDto> initialFilter={'name'} />
-          <SelectVisibleColumns />
-        </div>
+        {!hideFiltering && (
+          <div className={'grid grid-cols-3 gap-2'}>
+            <FilterStringInput />
+            <SelectFilterPath<KnowledgeDomainDto> initialFilter={'name'} />
+            <SelectVisibleColumns />
+          </div>
+        )}
         <div className={'flex items-end justify-between gap-2'}>
           <SelectRowsPerPage />
           <DtoPagination />

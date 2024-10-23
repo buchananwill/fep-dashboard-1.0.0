@@ -1,58 +1,73 @@
 import {
-  getCellRenderFunction,
-  NextUiCellComponentProps
-} from '@/components/tables/GetCellRenderFunction';
-import {
   AssetRoleTypeDto,
   ProviderRoleTypeDto,
   ResourceRequirementItemDto
 } from '@/api/generated-types/generated-types';
-import { useCallback } from 'react';
-import { useDtoStoreDispatch } from 'dto-stores';
-import { ControlledSelector } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ControlledSelector';
-import { get } from 'lodash';
+import { useCallback, useMemo } from 'react';
+import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
-import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
 import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
+import {
+  CellComponentRecord,
+  EntityInnerCellProps
+} from '@/components/tables/core-table-types';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
+import { EmptyArray } from '@/api/literals';
+import { Autocomplete, Select } from '@mantine/core';
+import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { get } from 'lodash';
 
 function RoleTypeCell({
   entity,
-  path,
-  entityClass
-}: NextUiCellComponentProps<ResourceRequirementItemDto>) {
-  const { dispatchWithoutListen } =
-    useDtoStoreDispatch<ResourceRequirementItemDto>(entity.id, entityClass);
+  columnKey,
+  dispatchWithoutControl
+}: EntityInnerCellProps<
+  ResourceRequirementItemDto,
+  number,
+  'providerRoleType' | 'assetRoleType'
+>) {
+  const listenerKey = useUuidListenerKey();
+  const entityTypeClass = EntityClassMap[columnKey];
+  const value = get(entity, columnKey);
+  const { currentState: typeDtoList } = NamespacedHooks.useListen(
+    entityTypeClass,
+    KEY_TYPES.MASTER_LIST,
+    listenerKey,
+    EmptyArray as Required<ResourceRequirementItemDto>[typeof columnKey][]
+  );
 
-  const selectionCallback = useCallback(
-    (updatedSelection: ProviderRoleTypeDto | AssetRoleTypeDto | undefined) => {
-      if (!(path === 'providerRoleType' || path === 'assetRoleType')) return;
-      dispatchWithoutListen((prevState) => {
-        return updateNestedValueWithLodash(prevState, path, updatedSelection);
+  const onChange = useCallback(
+    (value: string | null) => {
+      const found = typeDtoList.find((dto) => dto.name === value);
+      if (!found) return;
+      dispatchWithoutControl((prevState) => {
+        return updateNestedValueWithLodash(prevState, columnKey, found);
       });
     },
-    [dispatchWithoutListen, path]
+    [columnKey, dispatchWithoutControl, typeDtoList]
   );
+  const options = useMemo(() => {
+    return typeDtoList.map((dto) => dto.name);
+  }, [typeDtoList]);
 
-  if (!(path === 'providerRoleType' || path === 'assetRoleType')) return null;
+  if (!(columnKey === 'providerRoleType' || columnKey === 'assetRoleType'))
+    return null;
 
-  return (
-    <ControlledSelector<number, ProviderRoleTypeDto>
-      labelPath={'name'}
-      placeHolderOnlyNoLabel
-      entityId={get(entity, path)?.id ?? null}
-      entityClass={EntityClassMap[path]}
-      selectionCallback={selectionCallback}
-    />
-  );
+  return <Select data={options} value={value?.name} onChange={onChange} />;
 }
+
+const ResourceRequirementItemCellMap: CellComponentRecord<ResourceRequirementItemDto> =
+  {
+    workTaskTypeId: { type: 'IdInnerCell', component: AnyValueToString },
+    providerRoleType: { type: 'EntityInnerCell', component: RoleTypeCell },
+    assetRoleType: { type: 'EntityInnerCell', component: RoleTypeCell },
+    id: { type: 'CustomCell', component: DeleteEntity }
+  };
 
 export const ResourceRequirementItemCells = getCellRenderFunction(
   'resourceRequirementItem',
-  {
-    workTaskTypeId: SimpleValueToString,
-    providerRoleType: RoleTypeCell,
-    assetRoleType: RoleTypeCell,
-    id: DeleteEntity
-  }
+  ResourceRequirementItemCellMap
 );

@@ -1,5 +1,5 @@
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
-import { Identifier, InitialMap } from 'dto-stores';
+import { Identifier, InitialMap, NamespacedHooks } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import {
   useGlobalController,
@@ -15,6 +15,7 @@ import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-spa
 import { isNotUndefined } from '@/api/main';
 import { get, isEqual, sortBy } from 'lodash';
 import { defaultSortState } from '@/components/tables/cells-v2/DefaultSortStates';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 const listenerKey = 'sortHook';
 
@@ -26,7 +27,14 @@ export default function useClientSideSorting<
   T extends HasIdClass<T_ID>,
   T_ID extends Identifier
 >() {
-  const { entityClass } = useEntityTableContext();
+  const { entityClass, hideFiltering } = useEntityTableContext();
+  const { currentState: fullIdList } = NamespacedHooks.useListen(
+    entityClass,
+    KEY_TYPES.ID_LIST,
+    listenerKey,
+    EmptyArray as T_ID[]
+  );
+
   const { currentState: sortState } = useGlobalListener({
     contextKey: getSortContextKey(entityClass),
     listenerKey,
@@ -39,10 +47,9 @@ export default function useClientSideSorting<
   });
 
   const contextKeys = useMemo(() => {
-    return filteredIdList.map((id) =>
-      getEntityNamespaceContextKey(entityClass, id)
-    );
-  }, [entityClass, filteredIdList]);
+    let idList = hideFiltering ? fullIdList : filteredIdList;
+    return idList.map((id) => getEntityNamespaceContextKey(entityClass, id));
+  }, [entityClass, filteredIdList, fullIdList, hideFiltering]);
 
   const { currentState } = useGlobalListenerGroup({
     contextKeys,
@@ -53,7 +60,7 @@ export default function useClientSideSorting<
   const { path, direction } = sortState;
 
   const filteredSortedIdList = useMemo(() => {
-    if (path === '') return filteredIdList;
+    if (path === '') return hideFiltering ? fullIdList : filteredIdList;
     const filteredEntities = contextKeys
       .map((contextKey) => currentState.get(contextKey))
       .filter(isNotUndefined);

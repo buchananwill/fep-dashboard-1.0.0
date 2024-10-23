@@ -8,13 +8,13 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import ResourceRequirementItemEditTable from '@/components/tables/edit-tables/ResourceRequirementItemEditTable';
-import { useCallback, useTransition } from 'react';
+import { useCallback, useMemo, useTransition } from 'react';
 import { Loading } from '@/components/feasibility-report/Loading';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { workTaskTypeIdInModal } from '@/components/tables/edit-v2/WorkTaskTypeEditTable';
 import { Button, Modal, ModalProps } from '@mantine/core';
 import { SetOptional } from 'type-fest';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function ResourceRequirementItemModal({
   onClose,
@@ -24,24 +24,32 @@ export default function ResourceRequirementItemModal({
   workTaskTypeId?: number;
 }) {
   const [isPending, startTransition] = useTransition();
-  const { data: assetRoleTypeDtos, isPending: assetsPending } = useQuery({
+  const rriQueryKey = useMemo(() => {
+    return [EntityClassMap.resourceRequirementItem, { workTaskTypeId }];
+  }, [workTaskTypeId]);
+
+  console.log({ rriQueryKey });
+  const { data: assetRoleTypeDtos, isFetching: assetsPending } = useQuery({
     queryKey: [EntityClassMap.assetRoleType, 'all'],
     queryFn: () => Api.AssetRoleType.getAll()
   });
-  const { data: providerRoleTypeDtos, isPending: providersPending } = useQuery({
-    queryKey: [EntityClassMap.providerRoleType, 'all'],
-    queryFn: () => Api.ProviderRoleType.getAll()
-  });
-  const { data: resourceRequirementsFromServer, isPending: rriPending } =
+  const { data: providerRoleTypeDtos, isFetching: providersPending } = useQuery(
+    {
+      queryKey: [EntityClassMap.providerRoleType, 'all'],
+      queryFn: () => Api.ProviderRoleType.getAll()
+    }
+  );
+  const { data: resourceRequirementsFromServer, isFetching: rriPending } =
     useQuery({
-      queryKey: [EntityClassMap.resourceRequirementItem, { workTaskTypeId }],
+      queryKey: rriQueryKey,
       queryFn: () =>
         Api.ResourceRequirementItem.getDtoListByExampleList([
           { workTaskTypeId }
         ])
     });
+  const queryClient = useQueryClient();
 
-  const anyDataPending = assetsPending || providersPending || rriPending;
+  const anyDataFetching = assetsPending || providersPending || rriPending;
   const anyDataMissing =
     !resourceRequirementsFromServer ||
     !providerRoleTypeDtos ||
@@ -70,10 +78,11 @@ export default function ResourceRequirementItemModal({
       );
       if (changesCallback) {
         await changesCallback.current();
+        await queryClient.invalidateQueries({ queryKey: rriQueryKey });
         closeModal();
       }
     });
-  }, [currentState, closeModal]);
+  }, [currentState, closeModal, rriQueryKey, queryClient]);
 
   console.log({
     providerRoleTypeDtos,
@@ -85,7 +94,7 @@ export default function ResourceRequirementItemModal({
 
   return (
     <>
-      {!anyDataMissing && (
+      {!anyDataFetching && !anyDataMissing && (
         <>
           <EditAddDeleteDtoControllerArray
             entityClass={EntityClassMap.resourceRequirementItem}
@@ -105,11 +114,11 @@ export default function ResourceRequirementItemModal({
         </>
       )}
       <Modal opened={opened} size={'5xl'} onClose={onClose ?? (() => {})}>
-        <div>
+        <div className={'flex flex-col gap-2'}>
           <h1 className="flex flex-col gap-1">
             Edit Task Resource Requirements
           </h1>
-          {!anyDataPending ? (
+          {!anyDataFetching ? (
             <div>
               <ResourceRequirementItemEditTable
                 workTaskTypeId={workTaskTypeId}
@@ -120,11 +129,11 @@ export default function ResourceRequirementItemModal({
               <Loading />
             </div>
           )}
-          <div>
+          <div className={'center-horizontal-with-margin flex w-fit gap-2'}>
             <Button color="red" variant="light" onClick={closeModal}>
               Cancel
             </Button>
-            <Button color="primary" onClick={onConfirm} disabled={!changes}>
+            <Button onClick={onConfirm} disabled={!changes}>
               Save
             </Button>
           </div>
