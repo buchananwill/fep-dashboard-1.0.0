@@ -13,7 +13,6 @@ import {
   DtoStoreStringInput
 } from '@/components/generic/DtoStoreStringInput';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@nextui-org/button';
 import ChangeStartingOrdinal from '@/components/knowledge-levels/ChangeStartingOrdinal';
 import { useKnowledgeDtoTableProps } from '@/components/knowledge-levels/useKnowledgeDtoTableProps';
 import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
@@ -23,6 +22,7 @@ import { Column } from '@/types';
 import { startCase } from 'lodash';
 import { createNewLevel } from '@/components/knowledge-levels/createNewLevel';
 import { sortLevelsOnOrdinal } from '@/components/knowledge-levels/sortLevelsOnOrdinal';
+import { Button } from '@mantine/core';
 
 const entityClass = EntityClassMap.knowledgeLevel;
 
@@ -94,10 +94,10 @@ export default function KnowledgeLevelTable({
       renderCell={renderCell}
       bottomContent={
         <div className={'grid grid-cols-3 gap-2'}>
-          <Button onPress={masterListInteraction}>
+          <Button onClick={masterListInteraction}>
             Add {knowledgeLevelSeries.knowledgeLevelDescriptor}
           </Button>
-          <Button onPress={handleRemoveRow}>
+          <Button onClick={handleRemoveRow}>
             Remove {knowledgeLevelSeries.knowledgeLevelDescriptor}
           </Button>
           <ChangeStartingOrdinal />
