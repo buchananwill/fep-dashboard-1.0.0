@@ -1,9 +1,9 @@
+'use client';
 import { PersonDto } from '@/api/generated-types/generated-types';
 import { useFormContext } from 'react-hook-form';
-import React, { useCallback } from 'react';
-import { CalendarDate, parseDate } from '@internationalized/date';
+import React, { useCallback, useState } from 'react';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
-import { DatePicker } from '@nextui-org/date-picker';
+import { DatePicker, DatePickerInput, DateValue } from '@mantine/dates';
 
 export type BaseEntity<T> = {
   baseEntity: T;
@@ -15,12 +15,14 @@ export function PersonNestedInForm() {
   const dateOfBirth = watch('baseEntity.dateOfBirth');
 
   const setDateValue = useCallback(
-    (value: CalendarDate) => {
-      const isoString = value.toString();
-      setValue('baseEntity.dateOfBirth', isoString);
+    (value: DateValue) => {
+      const isoString = value?.toString();
+      if (isoString) setValue('baseEntity.dateOfBirth', isoString);
     },
     [setValue]
   );
+
+  const dateValue = new Date(dateOfBirth);
 
   return (
     <>
@@ -39,12 +41,11 @@ export function PersonNestedInForm() {
         placeholder={'Enter last name'}
         autoComplete={'on'}
       />
-      <DatePicker
-        name={'baseEntity.dateOfBirth'}
-        aria-label={'Date of Birth'}
+      <DatePickerInput
         label={'Date of Birth'}
-        value={parseDate(dateOfBirth)}
+        value={dateValue}
         onChange={setDateValue}
+        aria-label={'Date of Birth'}
       />
     </>
   );

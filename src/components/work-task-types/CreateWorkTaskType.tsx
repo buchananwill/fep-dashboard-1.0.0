@@ -112,7 +112,6 @@ export default function CreateWorkTaskType({
             defaultInputValue={defaultWorkTaskTypeValues.name}
             itemAccessors={{
               labelAccessor: 'name',
-              keyAccessor: 'name',
               valueAccessor: 'name'
             }}
           />

@@ -13,6 +13,7 @@ import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
 import { ColorSchemeScript, ScrollArea } from '@mantine/core';
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

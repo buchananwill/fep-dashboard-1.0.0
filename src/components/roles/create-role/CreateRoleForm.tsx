@@ -10,9 +10,7 @@ import { FieldName, SubmitHandler, useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { Button } from '@mantine/core';
-import { Divider } from '@nextui-org/divider';
+import { Button, Card, Divider } from '@mantine/core';
 import { PersonNestedInForm } from '@/components/roles/create-role/PersonNestedInForm';
 import { ErrorMessage } from '@hookform/error-message';
 import { ErrorDiv } from '@/components/roles/create-role/ErrorDiv';
@@ -98,7 +96,7 @@ export default function CreateRoleForm<T extends FieldValues>({
 
   return (
     <>
-      <Card className={'h-full w-64'}>
+      <Card className={'h-full w-72'}>
         <PendingOverlay pending={pending} />
         <form
           onSubmit={(event) => {
@@ -109,18 +107,18 @@ export default function CreateRoleForm<T extends FieldValues>({
           }}
           autoComplete={'on'}
         >
-          <CardHeader className={'items-center justify-center align-middle '}>
+          <div className={'items-center justify-center align-middle '}>
             New Role
-          </CardHeader>
-          <CardBody className={'items-center justify-center gap-2'}>
+          </div>
+          <div className={'flex flex-col items-center justify-center gap-2'}>
             {roleEntity === 'provider' && (
               <PersonNestedInForm></PersonNestedInForm>
             )}
             {roleEntity === 'asset' && <AssetNestedInForm />}
             <Divider />
             <RoleAspectSelectors roleEntity={roleEntity} />
-          </CardBody>
-          <CardFooter
+          </div>
+          <div
             className={'flex flex-col items-center justify-center align-middle'}
           >
             <Button type={'submit'} className={'block'}>
@@ -138,7 +136,7 @@ export default function CreateRoleForm<T extends FieldValues>({
                 />
               ))}
             </div>
-          </CardFooter>
+          </div>
         </form>
         <div
           className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
