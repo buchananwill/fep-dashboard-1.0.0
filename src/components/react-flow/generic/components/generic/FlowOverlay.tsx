@@ -1,7 +1,6 @@
 'use client';
 import { Controls, MiniMap, Panel } from '@xyflow/react';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@mantine/core';
+import { Button, Popover } from '@mantine/core';
 import {
   ChevronRightIcon,
   PlayIcon,
@@ -11,6 +10,7 @@ import { GraphForceSliders } from '@/components/react-flow/generic/components/ge
 import { NodeDetailsModal } from '@/components/react-flow/generic/components/nodes/NodeDetailsModal';
 import React, { useCallback, useRef, useState } from 'react';
 import { useEscapeToClose } from '@/components/react-flow/generic/hooks/useEscapeToClose';
+import { useDisclosure } from '@mantine/hooks';
 
 export function FlowOverlay({
   initialized,
@@ -21,14 +21,7 @@ export function FlowOverlay({
   toggle?: () => void;
   running: boolean;
 }) {
-  const [showSliders, setShowSliders] = useState(false);
-  useEscapeToClose(showSliders, setShowSliders);
-  const toggleRef = useRef(toggle);
-  toggleRef.current = toggle;
-
-  const onClick = useCallback(() => {
-    if (toggleRef.current) toggleRef.current();
-  }, []);
+  const [opened, { open, close }] = useDisclosure();
 
   return (
     <>
@@ -39,23 +32,26 @@ export function FlowOverlay({
         </div>
       </Panel>
       <Panel position={'top-left'} className={'flex gap-1 align-middle'}>
-        <Popover
-          classNames={{ base: 'w-56' }}
-          isOpen={showSliders}
-          onOpenChange={setShowSliders}
-          shouldCloseOnInteractOutside={() => false}
-        >
-          <PopoverTrigger className={'p-0'}>
-            <Button className={'relative w-56'} variant={'light'}>
-              Forces{' '}
-              <ChevronRightIcon
-                className={`absolute left-2 p-1 transition-transform ${showSliders ? ' rotate-90 ' : ''}`}
-              />
+        <Popover opened={opened} onClose={close}>
+          <Popover.Target>
+            <Button
+              className={'relative w-56'}
+              variant={'light'}
+              onClick={() => {
+                opened ? close() : open();
+              }}
+              rightSection={
+                <ChevronRightIcon
+                  className={`w-8 transition-transform ${opened ? ' rotate-90 ' : ''}`}
+                />
+              }
+            >
+              Forces
             </Button>
-          </PopoverTrigger>
-          <PopoverContent>
+          </Popover.Target>
+          <Popover.Dropdown>
             <GraphForceSliders />
-          </PopoverContent>
+          </Popover.Dropdown>
         </Popover>
         {initialized && toggle && (
           <button
@@ -75,9 +71,6 @@ export function FlowOverlay({
         )}
       </Panel>
       <NodeDetailsModal className={'max-w-6xl'} />
-      {/*<Panel position={'top-right'}>*/}
-      {/*  */}
-      {/*</Panel>*/}
     </>
   );
 }

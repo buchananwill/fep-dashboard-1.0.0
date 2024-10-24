@@ -1,18 +1,18 @@
-import { LinkProps } from '@nextui-org/link';
 import Link from 'next/link';
 import { LinkTreeElementProps } from '@/app/core/navigation/links/types';
 import clsx from 'clsx';
 import { ButtonProps } from '@mantine/core';
+import { PropsWithChildren } from 'react';
 
 export function LinkButton({
   href,
   children,
   className,
   color = 'primary'
-}: Required<Pick<LinkProps, 'href' | 'children'>> & {
+}: Required<Pick<HTMLAnchorElement, 'href'>> & {
   className?: string;
   color?: ButtonProps['color'];
-}) {
+} & PropsWithChildren) {
   return (
     <Link
       href={href}

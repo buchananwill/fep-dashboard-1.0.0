@@ -15,8 +15,8 @@ export function usePopoverFix(): UsePopoverFixReturn {
 
   return useMemo(
     () => ({
-      isOpen: popoverVisible,
-      onOpenChange: setPopoverVisible,
+      opened: popoverVisible,
+      onClose: setPopoverVisible,
       isKeyboardDismissDisabled: false,
       shouldCloseOnInteractOutside
     }),

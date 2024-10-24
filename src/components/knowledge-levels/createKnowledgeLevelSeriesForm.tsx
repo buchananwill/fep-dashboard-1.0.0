@@ -2,27 +2,12 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, { useCallback, useTransition } from 'react';
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
+import React, { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@mantine/core';
-import {
-  KnowledgeLevelSeriesDto,
-  PersonDto
-} from '@/api/generated-types/generated-types';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
-import { DatePicker } from '@nextui-org/date-picker';
-import {
-  CalendarDate,
-  getLocalTimeZone,
-  parseDate
-} from '@internationalized/date';
-import {
-  KnowledgeLevelSeriesDtoSchema,
-  PersonDtoSchema
-} from '@/api/generated-schemas/schemas_';
-import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
-import { EntityClassMap } from '@/api/entity-class-map';
+import { KnowledgeLevelSeriesDtoSchema } from '@/api/generated-schemas/schemas_';
 
 const defaultKlsValues: KnowledgeLevelSeriesDto = {
   id: -1,
@@ -76,7 +61,7 @@ export default function CreateKnowledgeLevelSeriesForm({
           }}
           autoComplete={'on'}
         >
-          <CardBody className={'items-center justify-center gap-2'}>
+          <div className={'items-center justify-center gap-2'}>
             <ControlledInput<KnowledgeLevelSeriesDto>
               name={'name'}
               aria-label={'Name'}
@@ -91,10 +76,10 @@ export default function CreateKnowledgeLevelSeriesForm({
               placeholder={'Enter descriptor'}
               autoComplete={'on'}
             />
-          </CardBody>
-          <CardFooter className={'justify-center'}>
+          </div>
+          <div className={'justify-center'}>
             <Button type={'submit'}>Submit</Button>
-          </CardFooter>
+          </div>
         </form>
       </FormProvider>
     </>

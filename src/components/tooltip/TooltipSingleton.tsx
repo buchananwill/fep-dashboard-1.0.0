@@ -54,7 +54,7 @@ export default function TooltipSingleton() {
           typeof openAction === 'function'
             ? openAction(tooltipContext.isOpen)
             : openAction;
-        return { ...tooltipContext, isOpen: nextOpen };
+        return { ...tooltipContext, opened: nextOpen };
       });
     },
     [dispatch]

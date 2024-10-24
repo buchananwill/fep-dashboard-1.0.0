@@ -79,6 +79,6 @@ export function useCarouselOrderModalTrigger(carouselOrderId: string) {
     useGlobalDispatch<CarouselOrderModalState>(carouselOrderModal);
 
   return useCallback(() => {
-    dispatchWithoutListen({ carouselOrderId: carouselOrderId, isOpen: true });
+    dispatchWithoutListen({ carouselOrderId: carouselOrderId, opened: true });
   }, [carouselOrderId, dispatchWithoutListen]);
 }

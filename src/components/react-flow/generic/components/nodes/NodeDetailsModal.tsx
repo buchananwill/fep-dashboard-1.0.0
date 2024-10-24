@@ -1,6 +1,4 @@
-import { Modal, ModalContent, ModalProps } from '@nextui-org/react';
-
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 
 import {
   ComponentUndefined,
@@ -10,11 +8,10 @@ import {
   useGraphDispatchAndListener,
   useGraphListener
 } from 'react-d3-force-wrapper';
-
-export type NodeDetailsModalProps = Pick<ModalProps, 'className'>;
+import { Modal } from '@mantine/core';
 
 const listenerKey = 'modal';
-export function NodeDetailsModal(nodeDetailsModalProps: NodeDetailsModalProps) {
+export function NodeDetailsModal(nodeDetailsModalProps: {}) {
   const { currentState: isOpen, dispatchWithoutControl: onOpenChange } =
     useGraphDispatchAndListener(
       GraphSelectiveContextKeys.nodeDetailsModalOpen,
@@ -30,25 +27,26 @@ export function NodeDetailsModal(nodeDetailsModalProps: NodeDetailsModalProps) {
     fallback
   );
 
+  const onClose = useCallback(() => {
+    onOpenChange(false);
+  }, [onOpenChange]);
+
   return (
     <Modal
+      size={'auto'}
       {...nodeDetailsModalProps}
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-      scrollBehavior={'inside'}
-      size={'5xl'}
+      opened={isOpen}
+      onClose={onClose}
     >
-      <ModalContent className={'p-2'}>
-        {(onClose) => (
-          <>
-            {NodeModalContent === undefined ? (
-              <ComponentUndefined onClose={onClose} />
-            ) : (
-              <NodeModalContent onClose={onClose} />
-            )}
-          </>
-        )}
-      </ModalContent>
+      <div className={'p-2'}>
+        <>
+          {NodeModalContent === undefined ? (
+            <ComponentUndefined onClose={onClose} />
+          ) : (
+            <NodeModalContent onClose={onClose} />
+          )}
+        </>
+      </div>
     </Modal>
   );
 }

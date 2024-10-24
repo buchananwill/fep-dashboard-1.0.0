@@ -1,5 +1,4 @@
 'use client';
-import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { Button } from '@mantine/core';
 import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
 
@@ -93,7 +92,7 @@ export default function OrganizationDetailsContent({
     });
   }, [organizationTypeDtos, dispatchOrgTypes]);
 
-  const { isOpen } = createTypeProps;
+  const { opened } = createTypeProps;
 
   const selectedKeys = useMemo(() => {
     return workSchemaNodeId ? [`${workSchemaNodeId}`] : [];
@@ -107,7 +106,7 @@ export default function OrganizationDetailsContent({
         entityClass={EntityClassMap.organizationType}
         dtoList={organizationTypeDtos}
       />
-      <ModalHeader className="flex flex-col gap-1">
+      <h1 className="flex flex-col gap-1">
         <FocusToEdit
           value={currentState.name}
           placeholder={'Class name'}
@@ -121,8 +120,8 @@ export default function OrganizationDetailsContent({
         >
           {currentState.name}
         </FocusToEdit>
-      </ModalHeader>
-      <ModalBody>
+      </h1>
+      <div>
         {workSchemaNodeAssignment && (
           <>
             <Select
@@ -166,12 +165,10 @@ export default function OrganizationDetailsContent({
             />
           </>
         )}
-        <Button onClick={() => createTypeProps.onOpenChange(true)}>
-          Create New Type
-        </Button>
+        <Button onClick={createTypeProps.onOpen}>Create New Type</Button>
         <CreateNewTypeModal {...createTypeProps} />
-      </ModalBody>
-      <ModalFooter>
+      </div>
+      <div>
         <Button color="danger" variant="light" onClick={onClose}>
           Close
         </Button>
@@ -184,7 +181,7 @@ export default function OrganizationDetailsContent({
         >
           Confirm Changes
         </Button>
-      </ModalFooter>
+      </div>
     </>
   );
 }

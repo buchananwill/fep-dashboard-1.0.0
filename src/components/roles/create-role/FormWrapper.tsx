@@ -6,11 +6,11 @@ import {
   AssetRolePostRequestSchema,
   ProviderRolePostRequestSchema
 } from '@/api/RolePostRequestSchemas';
-import { defaultPersonValues } from '@/components/roles/CreatePersonForm';
 import { FieldValues } from 'react-hook-form/dist/types';
 import CreateRoleForm, {
   RoleFormProps
 } from '@/components/roles/create-role/CreateRoleForm';
+import { defaultPersonValues } from '@/components/roles/defaultPersonValues';
 
 export default function FormWrapper<T extends FieldValues>(
   props: RoleFormProps<T>

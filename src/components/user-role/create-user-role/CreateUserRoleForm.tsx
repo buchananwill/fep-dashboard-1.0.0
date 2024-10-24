@@ -178,9 +178,7 @@ export default function CreateUserRoleForm({
         className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
       ></div>
       <div className={'center-horizontal-with-margin'}>
-        <Button onClick={() => modalProps.onOpenChange(true)}>
-          Add Role Type
-        </Button>
+        <Button onClick={modalProps.onOpen}>Add Role Type</Button>
       </div>
       <CreateNewRoleTypeModal {...modalProps} />
     </FormProvider>
