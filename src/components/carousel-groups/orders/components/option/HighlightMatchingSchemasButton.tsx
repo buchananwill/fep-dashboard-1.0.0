@@ -26,7 +26,7 @@ export function HighlightMatchingSchemasButton(props: {
     >
       <MemoCapFilled
         className={clsx(
-          'w-5',
+          'w-6',
           props.highlighted && 'text-red-500',
           !props.highlighted && 'opacity-0',
           'absolute transition-colors-opacity'

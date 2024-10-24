@@ -13,18 +13,20 @@ function RotationPrimeButtonInner(props: {
 }) {
   return (
     <Button
-      isIconOnly
+      styles={{
+        root: {
+          padding: '0.25em 0.5em 0.25em'
+        }
+      }}
+      autoContrast
       disabled={!props.canPrime}
       className={clsx(
         'w-fit min-w-0 px-1  opacity-100',
         !props.canDrop && 'data-[disabled]:bg-default-300'
       )}
+      radius={'xs'}
       color={
-        props.primed
-          ? 'success'
-          : props.canDrop
-            ? 'primary'
-            : props.fallBackColor
+        props.primed ? 'green' : props.canDrop ? 'blue' : props.fallBackColor
       }
       onClick={props.onClick}
     >
