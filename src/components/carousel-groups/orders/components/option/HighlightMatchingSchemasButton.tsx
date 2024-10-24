@@ -13,7 +13,6 @@ export function HighlightMatchingSchemasButton(props: {
 }) {
   return (
     <Button
-      // className={'relative w-fit min-w-0 px-1'}
       radius={'xs'}
       styles={{
         root: {
