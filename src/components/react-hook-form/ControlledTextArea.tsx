@@ -1,10 +1,10 @@
 import { Control, Controller } from 'react-hook-form';
-import { Textarea, TextAreaProps } from '@nextui-org/input';
+import { Textarea, TextareaProps } from '@mantine/core';
 
 export type FormTextAreaProps = {
   name: string;
   control: Control<any>;
-} & TextAreaProps;
+} & TextareaProps;
 
 export const ControlledTextArea: React.FC<FormTextAreaProps> = ({
   name,
@@ -18,8 +18,7 @@ export const ControlledTextArea: React.FC<FormTextAreaProps> = ({
         return (
           <Textarea
             {...props}
-            isInvalid={!!formState.errors?.[name]?.message}
-            errorMessage={formState.errors?.[name]?.message?.toString()}
+            error={formState.errors?.[name]?.message?.toString()}
             value={field.value}
             onChange={field.onChange}
           />

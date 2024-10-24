@@ -48,7 +48,7 @@ export default function CoreTable<
     ));
     if (withSelection) {
       head = [
-        <Table.Th key={'selection'}>
+        <Table.Th key={'selection'} styles={{ th: { width: '2em' } }}>
           <HeaderSelectionCell />
         </Table.Th>,
         ...head

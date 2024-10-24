@@ -1,19 +1,15 @@
 import { EntityInnerCellProps } from '@/components/tables/core-table-types';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Button } from '@mantine/core';
 import { ColumnUid } from '@/types';
 import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
 import { get } from 'lodash';
-import { useGlobalDispatch } from 'selective-context';
-import {
-  getFilterPropertyContextKey,
-  getFilterValueContextKey
-} from '@/hooks/table-hooks/useClientSideFilteringIdList';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 import { SetOptional } from 'type-fest';
+import { useClickToFilter } from '@/components/tables/cells-v2/useClickToFilter';
 
 export default function EmbeddedKnowledgeDomainCell<
   T extends HasIdClass<T_ID>,
@@ -36,19 +32,9 @@ export default function EmbeddedKnowledgeDomainCell<
     | KnowledgeDomainDto
     | undefined;
   const color = knowledgeDomain?.color;
+
   const value = get(entity, columnKey);
-
-  const { dispatchWithoutListen: dispatchFilterColumn } = useGlobalDispatch(
-    getFilterPropertyContextKey(entityClass)
-  );
-  const { dispatchWithoutListen: dispatchFilterValue } = useGlobalDispatch(
-    getFilterValueContextKey(entityClass)
-  );
-
-  const handleClick = useCallback(() => {
-    dispatchFilterColumn(columnKey);
-    dispatchFilterValue(value);
-  }, [dispatchFilterColumn, dispatchFilterValue, value, columnKey]);
+  const handleClick = useClickToFilter(entityClass, columnKey, value);
 
   const coloString = useMemo(() => {
     return parseToCssRgba(color);

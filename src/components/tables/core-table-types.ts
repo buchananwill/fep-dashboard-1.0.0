@@ -52,8 +52,8 @@ export type IdInnerCell<T_FIELD_TYPE> = (
 
 export interface EntityInnerCellProps<
   T extends HasIdClass<T_ID>,
-  T_ID extends Identifier,
-  K extends string & ColumnUid<T>
+  T_ID extends Identifier = T['id'],
+  K extends string & ColumnUid<T> = ColumnUid<T>
 > extends DtoStoreReturn<T> {
   columnKey: K;
 }
