@@ -17,10 +17,12 @@ export default function CoreTable<
   withSelection,
   ...otherProps
 }: CoreTableProps<T, T_ID> & Omit<TableProps, 'data'>) {
+  const showSelectionCell =
+    withSelection === 'single' || withSelection == 'multiple';
   const data = useMemo(() => {
     const body = rowIdList.map((id) => (
       <Table.Tr key={id} onClick={(e) => console.log(e)}>
-        {withSelection && (
+        {showSelectionCell && (
           <Table.Td>
             <SelectionCell entityId={id} />
           </Table.Td>
@@ -46,7 +48,7 @@ export default function CoreTable<
         {HeaderModel ? <HeaderModel {...column} /> : column.name}
       </Table.Th>
     ));
-    if (withSelection) {
+    if (showSelectionCell) {
       head = [
         <Table.Th key={'selection'} styles={{ th: { width: '2em' } }}>
           <HeaderSelectionCell />
@@ -58,7 +60,7 @@ export default function CoreTable<
       body,
       head
     };
-  }, [withSelection, columns, CellModel, rowIdList, HeaderModel]);
+  }, [showSelectionCell, columns, CellModel, rowIdList, HeaderModel]);
 
   return (
     <Table {...otherProps}>

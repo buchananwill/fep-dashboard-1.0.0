@@ -21,7 +21,7 @@ export default function WorkProjectSeriesSchemaSelectorTable({
     <>
       <EntityTable
         cellModel={WpssCellModelReadOnly}
-        withSelection
+        withSelection={'multiple'}
         columns={WorkProjectSeriesSchemaColumns}
         entityClass={EntityClassMap.workProjectSeriesSchema}
       />
@@ -66,7 +66,7 @@ export const WorkProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[
     }
   ];
 
-const WpssCellModelReadOnly = getCellRenderFunction<
+export const WpssCellModelReadOnly = getCellRenderFunction<
   'workProjectSeriesSchema',
   WorkProjectSeriesSchemaDto
 >('workProjectSeriesSchema', {

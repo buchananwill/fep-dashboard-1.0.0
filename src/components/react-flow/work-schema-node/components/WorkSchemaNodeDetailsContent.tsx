@@ -168,7 +168,6 @@ export default function WorkSchemaNodeDetailsContent({
               <WorkSchemaNodeModalTable
                 workSchemaNode={currentState}
                 entities={schemaList}
-                selectionMode={'single'}
                 dispatchWithoutControl={dispatchWithoutControl}
               />
             )}

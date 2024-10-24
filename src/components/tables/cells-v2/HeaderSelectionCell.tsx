@@ -5,11 +5,14 @@ import { useGlobalListener } from 'selective-context';
 import { getFilteredSortedIdListContextKey } from '@/hooks/table-hooks/useClientSideSorting';
 import { EmptyArray } from '@/api/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { useCallback, useMemo, useRef } from 'react';
-import { Checkbox, Indicator } from '@mantine/core';
+import { ReactNode, useCallback, useMemo, useRef } from 'react';
+import { Checkbox, CheckIcon, Indicator } from '@mantine/core';
+import { TableSelectionMode } from '@/components/tables/core-table-types';
+import { NoSymbolIcon } from '@heroicons/react/24/outline';
+import { MinusIcon } from '@heroicons/react/24/solid';
 
 export default function HeaderSelectionCell() {
-  const { entityClass } = useEntityTableContext();
+  const { entityClass, withSelection } = useEntityTableContext();
   const listenerKey = useUuidListenerKey();
 
   const { currentState } = useGlobalListener({
@@ -37,7 +40,13 @@ export default function HeaderSelectionCell() {
   const listRef = useRef(currentState);
   listRef.current = currentState;
 
+  console.log({ withSelection });
+
   const onChange = useCallback(() => {
+    if (withSelection === 'single' || withSelection === 'none') {
+      dispatchWithoutControl([]);
+      return;
+    }
     switch (checkedState) {
       case 'none':
       case 'some': {
@@ -52,8 +61,29 @@ export default function HeaderSelectionCell() {
         dispatchWithoutControl(listRef.current);
       }
     }
-  }, [checkedState, dispatchWithoutControl]);
+  }, [checkedState, dispatchWithoutControl, withSelection]);
+  const indeterminate =
+    withSelection === 'multiple' && indeterminateStates.includes(checkedState);
 
+  const IconComponent = useMemo(() => {
+    return function IconComponent({
+      indeterminate,
+      className
+    }: {
+      indeterminate: boolean | undefined;
+      className: string;
+    }) {
+      if (indeterminate) return <MinusIcon className={className} />;
+      else {
+        const Renderer = IconMap[withSelection];
+        return <Renderer className={className} />;
+      }
+    };
+  }, [withSelection]);
+
+  const checked =
+    (checkedState === 'allFiltered' && withSelection === 'multiple') ||
+    (checkedState === 'some' && withSelection === 'single');
   return (
     <Indicator
       disabled={checkedState !== 'moreThanFiltered'}
@@ -65,9 +95,10 @@ export default function HeaderSelectionCell() {
       color={'red'}
     >
       <Checkbox
-        checked={checkedState === 'allFiltered'}
+        checked={checked}
+        icon={IconComponent}
         styles={{ body: { justifyContent: 'center' } }}
-        indeterminate={indeterminateStates.includes(checkedState)}
+        indeterminate={indeterminate}
         onChange={onChange}
       />
     </Indicator>
@@ -75,3 +106,12 @@ export default function HeaderSelectionCell() {
 }
 
 const indeterminateStates = ['some', 'moreThanFiltered'];
+
+const IconMap: Record<
+  TableSelectionMode,
+  (props: { className: string }) => ReactNode
+> = {
+  none: NoSymbolIcon,
+  single: CheckIcon,
+  multiple: CheckIcon
+} as const;

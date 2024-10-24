@@ -1,8 +1,10 @@
 import { createContext, useContext } from 'react';
+import { TableSelectionMode } from '@/components/tables/core-table-types';
 
 const DefaultEntityTableContext = {
   entityClass: '',
-  hideFiltering: false
+  hideFiltering: false,
+  withSelection: 'none' as TableSelectionMode
 };
 
 export type EntityTableContextInterface = typeof DefaultEntityTableContext;

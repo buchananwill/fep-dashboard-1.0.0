@@ -1,112 +1,82 @@
 'use client';
 
 import { EntityClassMap } from '@/api/entity-class-map';
-import React, { Key, useCallback, useMemo } from 'react';
-import { Pagination, TableProps } from '@nextui-org/react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ColumnUid, DispatchState } from '@/types';
-import { useFilterSortPaginateSelect } from '@/hooks/useFilterSortPaginateSelect';
-import { FilterSortPaginateTableContent } from '@/components/tables/FilterSortPaginateTableContent';
-import { Input } from '@nextui-org/input';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import {
   WorkProjectSeriesSchemaDto,
   WorkSchemaNodeDto
 } from '@/api/generated-types/generated-types';
-import { workProjectSeriesSchemaColumns } from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
 import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
 import { StringValueChip } from '@/components/tables/StringValueChip';
 import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
+import EntityTable from '@/components/tables/edit-tables/EntityTable';
+import {
+  WorkProjectSeriesSchemaColumns,
+  WpssCellModelReadOnly
+} from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
+import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
+import { EmptyArray } from '@/api/literals';
+
+type SyncDirection = 'propToStore' | 'storeToState';
 
 export default function WorkSchemaNodeModalTable({
   entities,
-  selectionMode,
   workSchemaNode,
   dispatchWithoutControl
 }: {
   entities: WorkProjectSeriesSchemaDto[];
   workSchemaNode: WorkSchemaNodeDto;
   dispatchWithoutControl?: DispatchState<WorkSchemaNodeDto>;
-} & Pick<TableProps, 'selectionMode'>) {
-  const onSelectionChange = useCallback(
-    (selected: 'all' | Set<Key>) => {
-      if (selected === 'all') throw new Error('all not allowed here');
-      if (selected.size > 1) throw new Error('max one selected option');
-      if (selected.size === 1) {
-        const value = [...selected.values()][0] as string;
-        if (dispatchWithoutControl) {
-          dispatchWithoutControl((data) => ({
-            ...data,
-            workProjectSeriesSchemaId: parseInt(value)
-          }));
-        }
-      } else {
-        if (dispatchWithoutControl) {
-          dispatchWithoutControl((data) => ({
-            ...data,
-            workProjectSeriesSchemaId: undefined
-          }));
-        }
-      }
-    },
-    [dispatchWithoutControl]
-  );
+}) {
+  const listenerKey = useUuidListenerKey();
+  const { workProjectSeriesSchemaId } = workSchemaNode;
+  const wpssIdSelection = useMemo(() => {
+    return workProjectSeriesSchemaId ? [workProjectSeriesSchemaId] : [];
+  }, [workProjectSeriesSchemaId]);
 
-  const selectedKeys = useMemo(() => {
-    if (workSchemaNode.workProjectSeriesSchemaId !== undefined)
-      return new Set([String(workSchemaNode.workProjectSeriesSchemaId)]);
-    else return new Set<string>();
-  }, [workSchemaNode]);
+  const [syncDirection, setSyncDirection] =
+    useState<SyncDirection>('propToStore');
 
-  const { tableContentProps, paginationProps, filterProps } =
-    useFilterSortPaginateSelect(
-      INITIAL_VISIBLE_COLUMNS,
-      workProjectSeriesSchemaColumns,
-      entities,
-      'name',
+  const { dispatchWithoutControl: updateWpssSelection, currentState } =
+    NamespacedHooks.useDispatchAndListen(
       EntityClassMap.workProjectSeriesSchema,
-      'string',
-      7
+      KEY_TYPES.SELECTED,
+      listenerKey,
+      EmptyArray as number[]
     );
 
-  const tableContentPropsIntercepted = useMemo(() => {
-    return { ...tableContentProps, onSelectionChange, selectedKeys };
-  }, [tableContentProps, selectedKeys, onSelectionChange]);
+  useEffect(() => {
+    if (!dispatchWithoutControl) return;
+    if (syncDirection === 'propToStore') {
+      updateWpssSelection(wpssIdSelection);
+      setSyncDirection('storeToState');
+    } else {
+      const nextWpssId = currentState.length > 0 ? currentState[0] : undefined;
 
-  const bottomContent = useMemo(() => {
-    return (
-      <Pagination
-        isCompact
-        showControls
-        showShadow
-        color="primary"
-        className={'ml-auto mr-auto'}
-        {...paginationProps}
-      />
-    );
-  }, [paginationProps]);
+      dispatchWithoutControl((wsn) => ({
+        ...wsn,
+        workProjectSeriesSchemaId: nextWpssId
+      }));
+    }
+  }, [
+    wpssIdSelection,
+    workProjectSeriesSchemaId,
+    dispatchWithoutControl,
+    syncDirection,
+    currentState,
+    updateWpssSelection
+  ]);
 
   return (
     <div className={'flex flex-col gap-1 p-1'}>
-      <Input
-        isClearable
-        className="grow"
-        placeholder="Search by name..."
-        startContent={<MagnifyingGlassIcon className={'h-6 w-6'} />}
-        {...filterProps}
-      />
-      <FilterSortPaginateTableContent
-        {...tableContentPropsIntercepted}
-        aria-label={
-          'Table to find and select a WorkProjectSeriesSchema to be resolved at this node.'
-        }
-        isHeaderSticky
-        renderCell={workProjectSeriesSchemaReadOnlyCell}
-        selectionMode={selectionMode}
-        bottomContent={bottomContent}
-        bottomContentPlacement={'outside'}
-        color={'primary'}
-        // classNames={{ wrapper: 'ml-auto mr-auto h-[58vh]' }}
-        // className={'pointer-events-auto'}
+      <EntityTable
+        cellModel={WpssCellModelReadOnly}
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        columns={WorkProjectSeriesSchemaColumns}
+        withSelection={'single'}
       />
     </div>
   );

@@ -1,11 +1,8 @@
 'use client';
-import React, { useCallback } from 'react';
-import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
+import React from 'react';
 
 import { Column, ColumnUid } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { getValue } from '@/functions/allowingNestedFiltering';
-import { TypedPaths } from '@/api/custom-types/typePaths';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
@@ -19,7 +16,7 @@ export default function OrganizationSelectorTable({
   return (
     <>
       <EntityTable
-        withSelection
+        withSelection={'multiple'}
         cellModel={OrganizationCellModel}
         columns={OrganizationColumns}
         entityClass={EntityClassMap.organization}

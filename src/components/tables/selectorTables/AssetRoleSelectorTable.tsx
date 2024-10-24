@@ -22,7 +22,7 @@ export default function AssetRoleSelectorTable({
         columns={AssetRoleColumns}
         entityClass={EntityClassMap.assetRole}
         defaultSort={Sorts.name}
-        withSelection
+        withSelection={'multiple'}
       />
     </>
   );

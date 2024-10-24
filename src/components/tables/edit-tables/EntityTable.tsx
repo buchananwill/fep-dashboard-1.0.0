@@ -40,6 +40,7 @@ export default function EntityTable<
   entityClass,
   styles,
   headerModel,
+  withSelection = 'none',
   hideFiltering = false,
   ...props
 }: {
@@ -93,8 +94,12 @@ export default function EntityTable<
   }, [filteredSortedIdList, selectedPage, rowsPerPage]);
 
   const contextValue = useMemo(() => {
-    return { entityClass: entityClass, hideFiltering: hideFiltering ?? false };
-  }, [entityClass]);
+    return {
+      entityClass: entityClass,
+      hideFiltering: hideFiltering ?? false,
+      withSelection
+    };
+  }, [entityClass, hideFiltering, withSelection]);
 
   return (
     <EntityTableContext.Provider value={contextValue}>
@@ -119,6 +124,7 @@ export default function EntityTable<
           headerModel={headerModel ?? SortableHeaderCell}
           rowIdList={visibleIdList}
           columns={visibleColumns}
+          withSelection={withSelection}
         />
       </ScrollArea>
     </EntityTableContext.Provider>

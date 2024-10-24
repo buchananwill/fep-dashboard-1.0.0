@@ -35,9 +35,11 @@ export interface CoreTableProps<
   rowIdList: T_ID[];
   columns: Column<T>[];
   cellModel: TableCellDataWrapper<T, T_ID>;
-  withSelection?: boolean;
+  withSelection?: TableSelectionMode;
   headerModel?: TableHeaderCell<T, T_ID>;
 }
+
+export type TableSelectionMode = 'none' | 'single' | 'multiple';
 
 export interface IdInnerCellProps<T_FIELD_TYPE> {
   entityId: Identifier;

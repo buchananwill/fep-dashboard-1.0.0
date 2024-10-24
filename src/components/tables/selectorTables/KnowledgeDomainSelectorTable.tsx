@@ -19,7 +19,7 @@ export default function KnowledgeDomainSelectorTable({
         cellModel={KnowledgeDomainReadOnlyCellModel}
         columns={KnowledgeDomainColumns}
         entityClass={EntityClassMap.knowledgeDomain}
-        withSelection
+        withSelection={'multiple'}
       />
     </>
   );

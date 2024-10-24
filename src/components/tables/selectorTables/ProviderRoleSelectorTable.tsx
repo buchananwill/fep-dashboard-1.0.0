@@ -23,7 +23,7 @@ export default function ProviderRoleSelectorTable({
         columns={providerColumns}
         entityClass={EntityClassMap.providerRole}
         defaultSort={Sorts.name}
-        withSelection
+        withSelection={'multiple'}
       />
     </>
   );

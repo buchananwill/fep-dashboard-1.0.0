@@ -27,7 +27,7 @@ export default function KnowledgeLevelSelectorTable({
     <>
       <EntityTable
         cellModel={KnowledgeLevelReadOnlyCell}
-        withSelection
+        withSelection={'multiple'}
         columns={KnowledgeLevelColumns}
         entityClass={EntityClassMap.knowledgeLevel}
         defaultSort={Sorts.name}
