@@ -2,7 +2,6 @@
 import CollectionChooserTabGroup, {
   CollectionChooserTabGroupProps
 } from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
 
 import { Button } from '@mantine/core';
 import React, { Dispatch, SetStateAction, useCallback } from 'react';
@@ -22,7 +21,6 @@ import {
   KnowledgeLevelDto,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
-import { makeTransientId } from '@/functions/makeTransientId';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 export default function CarouselGroupTabGroup({

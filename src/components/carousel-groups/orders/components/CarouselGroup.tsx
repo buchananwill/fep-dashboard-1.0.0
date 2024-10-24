@@ -19,7 +19,6 @@ import {
   HighlightedSubjects,
   RotationPrime
 } from '@/components/carousel-groups/orders/_literals';
-import { Skeleton } from '@nextui-org/skeleton';
 import { EmptyArray } from '@/api/literals';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import { resetAssignmentsAction } from '@/components/carousel-groups/orders/_functions/resetAssignmentsAction';
@@ -31,6 +30,7 @@ import {
   CarouselGroupDto,
   CarouselOrderDto
 } from '@/api/generated-types/generated-types';
+import { Loader } from '@mantine/core';
 
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity, dispatchWithoutControl } =
@@ -120,23 +120,18 @@ export default function CarouselGroup(params: DtoStoreParams) {
           className={'grid gap-1 p-4'}
           style={{
             gridTemplateColumns: `repeat(${entity.carousels.length}, minmax(0, 1fr))`
-            // gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`
           }}
         >
           <LazyDtoUiListSome
             renderAs={Carousel}
             entityIdList={carouselIdList}
             entityClass={EntityClassMap.carousel}
-            whileLoading={() => null}
+            whileLoading={() => <Loader />}
           />
           <LazyDtoUiListAll
             renderAs={MemoOrderManager}
             entityClass={EntityClassMap.carouselOrder}
-            whileLoading={() => (
-              <Skeleton>
-                <div className={'w-12'} />
-              </Skeleton>
-            )}
+            whileLoading={() => <Loader />}
           />
         </div>
       </div>
