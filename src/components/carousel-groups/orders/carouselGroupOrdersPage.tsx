@@ -20,6 +20,8 @@ import CarouselOrderModal from '@/components/carousel-groups/orders/order-modal/
 import { notFound } from 'next/navigation';
 import { CarouselOrderDto } from '@/api/generated-types/generated-types';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import RootCard from '@/components/generic/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   const [id, levelOrdinal] = getLastNVariables(pathVariables, 2);
@@ -78,10 +80,12 @@ async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
         updateServerAction={Api.CarouselOrder.putList}
       />
       <CarouselOrderModal />
-      <CarouselGroup
-        entityClass={EntityClassMap.carouselGroup}
-        entityId={carouselGroupDtos[0].id}
-      />
+      <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
+        <CarouselGroup
+          entityClass={EntityClassMap.carouselGroup}
+          entityId={carouselGroupDtos[0].id}
+        />
+      </RootCard>
     </>
   );
 }

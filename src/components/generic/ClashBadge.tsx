@@ -6,7 +6,7 @@ export function ClashBadge({
   children,
   label,
   ...otherProps
-}: Pick<IndicatorProps, 'className' | 'children' | 'label'> & {
+}: Pick<IndicatorProps, 'className' | 'children' | 'label' | 'offset'> & {
   show: boolean;
 }) {
   return (

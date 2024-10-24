@@ -12,7 +12,6 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import CarouselOrderManager from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 import React, { memo, useCallback, useMemo, useTransition } from 'react';
 import { useGlobalController } from 'selective-context';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import OptionRotationButtonGroup from '@/components/carousel-groups/orders/components/OptionRotationButtonGroup';
 import { ControllerKey, InitialSet } from '@/app/_literals';
 import {
@@ -102,9 +101,9 @@ export default function CarouselGroup(params: DtoStoreParams) {
   if (!entity) return null;
 
   return (
-    <Card>
+    <>
       <PendingOverlay pending={isPending} />
-      <CardHeader className={'grid w-full grid-cols-3'}>
+      <div className={'grid w-full grid-cols-3 place-items-center p-2'}>
         <TwoStageClick
           primedMessage={
             'This will remove all manual assignments and re-calculate the Carousel Options.'
@@ -115,8 +114,8 @@ export default function CarouselGroup(params: DtoStoreParams) {
           Reset...
         </TwoStageClick>
         <OptionRotationButtonGroup />
-      </CardHeader>
-      <CardBody>
+      </div>
+      <div>
         <div
           className={'grid gap-1 p-4'}
           style={{
@@ -140,8 +139,8 @@ export default function CarouselGroup(params: DtoStoreParams) {
             )}
           />
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </>
   );
 }
 

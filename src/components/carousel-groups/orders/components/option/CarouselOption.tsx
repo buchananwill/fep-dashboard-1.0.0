@@ -10,7 +10,6 @@ import {
   useGlobalListener
 } from 'selective-context';
 import clsx from 'clsx';
-import { ButtonGroup } from '@nextui-org/react';
 import { assignOrderItemToOption } from '@/components/carousel-groups/orders/_functions/assignOrderItemToOption';
 
 import { OptionRotationTargets } from '@/components/carousel-groups/orders/components/OptionRotationButtonGroup';
