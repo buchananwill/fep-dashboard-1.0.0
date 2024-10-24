@@ -35,7 +35,6 @@ function ShowAssigneesButtonInner(props: {
           fullWidth
           variant={'filled'}
           radius={'sm'}
-          className={clsx(props.textFade)}
           color={props.canDrop ? 'blue' : props.fallBackColor}
           rightSection={
             <div

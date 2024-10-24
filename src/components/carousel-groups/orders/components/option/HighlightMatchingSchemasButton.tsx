@@ -13,13 +13,20 @@ export function HighlightMatchingSchemasButton(props: {
 }) {
   return (
     <Button
-      className={'relative w-fit min-w-0 px-1'}
+      // className={'relative w-fit min-w-0 px-1'}
+      radius={'xs'}
+      styles={{
+        root: {
+          padding: '4px'
+        }
+      }}
+      autoContrast
       onClick={props.onClick}
-      color={props.canDrop ? 'primary' : props.fallBackColor}
+      color={props.canDrop ? 'blue' : props.fallBackColor}
     >
       <MemoCapFilled
         className={clsx(
-          'w-6',
+          'w-5',
           props.highlighted && 'text-red-500',
           !props.highlighted && 'opacity-0',
           'absolute transition-colors-opacity'
@@ -27,7 +34,7 @@ export function HighlightMatchingSchemasButton(props: {
       />
       <MemoCap
         className={clsx(
-          'w-6',
+          'w-8',
           props.highlighted && 'opacity-0',
           'transition-colors-opacity',
           props.textFade
