@@ -18,7 +18,7 @@ export const ControlledInput = <T extends FieldValues>({
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState, formState }) => {
+      render={({ field, formState }) => {
         return (
           <TextInput
             {...props}
