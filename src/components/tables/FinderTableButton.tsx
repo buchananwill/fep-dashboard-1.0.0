@@ -7,12 +7,10 @@ export default function FinderTableButton(
   tableButtonProps: TabbedTablesDataProps
 ) {
   return (
-    <div className={'absolute'}>
+    <div className={'absolute flex w-[100px] items-center justify-center py-1'}>
       <Popover trapFocus withArrow position={'right-start'}>
         <Popover.Target>
-          <Button variant={'ghost'} color={'primary'}>
-            Find
-          </Button>
+          <Button>Find</Button>
         </Popover.Target>
         <Popover.Dropdown className={'p-4'}>
           <TabbedSelectorTables
