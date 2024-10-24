@@ -37,7 +37,7 @@ export default function CarouselOrderItem({
       )}
       onClick={modalTrigger}
     >
-      <ClashBadge show={clashList.length > 0} content={'!'}>
+      <ClashBadge show={clashList.length > 0} label={'!'}>
         <div className={''}>User: {entity.userRoleId}</div>
       </ClashBadge>
     </button>
