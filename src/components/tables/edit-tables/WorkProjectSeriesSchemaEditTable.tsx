@@ -7,7 +7,6 @@ import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
 import { AdjustAllocationInWrapper } from '@/components/work-project-series-schema/_components/AdjustAllocation';
 import { Column, ColumnUid } from '@/types';
-import { useFilterOutDeletedEntities } from '@/hooks/useFilterOutDeletedEntities';
 import RootCard from '@/components/generic/RootCard';
 
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
@@ -26,9 +25,6 @@ const entityType = EntityClassMap.workProjectSeriesSchema;
 export default function WorkProjectSeriesSchemaEditTable({
   pathVariables
 }: LeafComponentProps) {
-  const entities =
-    useFilterOutDeletedEntities<WorkProjectSeriesSchemaDto>(entityType);
-
   return (
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
       <div className={'flex h-[600px] max-w-[80rem] flex-col p-2'}>
