@@ -16,10 +16,7 @@ import {
   liesOnBoundary
 } from '@/components/work-task-types/isWithinRange';
 import clsx from 'clsx';
-import { Popover } from '@nextui-org/react';
-import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Slider } from '@nextui-org/slider';
-import { Button } from '@mantine/core';
+import { Button, Popover, Slider } from '@mantine/core';
 import { BoltSlashIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { BoltIcon } from '@heroicons/react/24/solid';
 import MiniPieChart from '@/components/work-task-types/MiniPieChart';
@@ -167,21 +164,18 @@ export function GenericSuitabilityCell({
             onClick={() => {
               setOpen((prev) => !prev);
             }}
+            className={'relative'}
           >
-            <Popover
-              isOpen={open}
-              shouldCloseOnBlur={true}
-              showArrow={true}
-              onOpenChange={setOpen}
-              shouldCloseOnInteractOutside={() => true}
-            >
-              <PopoverTrigger>
-                <div></div>
-              </PopoverTrigger>
-              <PopoverContent className={'flex flex-row gap-2'}>
+            <Popover withArrow trapFocus>
+              <Popover.Target>
+                <button className={'absolute h-[92%] w-[92%]'}></button>
+              </Popover.Target>
+              <Popover.Dropdown
+                className={'flex flex-row items-center gap-2 align-middle'}
+              >
                 <Slider
                   className={'w-24'}
-                  value={currentCell.rating * 100}
+                  value={Math.round(currentCell.rating * 100)}
                   aria-label={'Suitability'}
                   disabled={
                     isWithinRange(
@@ -190,6 +184,8 @@ export function GenericSuitabilityCell({
                       dropResult.dragged
                     ) && !currentCell.isDynamic
                   }
+                  thumbSize={20}
+                  showLabelOnHover={false}
                   onChange={(result) => {
                     if (typeof result === 'number' && setCurrentCell) {
                       setCurrentCell((prev) => ({
@@ -198,9 +194,8 @@ export function GenericSuitabilityCell({
                       }));
                     }
                   }}
-                ></Slider>
+                />
                 <Button
-                  isIconOnly={true}
                   variant={'bordered'}
                   className={clsx(
                     'p-1',
@@ -216,12 +211,12 @@ export function GenericSuitabilityCell({
                   }}
                 >
                   {!currentCell?.isDynamic ? (
-                    <BoltSlashIcon />
+                    <BoltSlashIcon className={'w-6'} />
                   ) : (
-                    <BoltIcon className={'fill-yellow-400'} />
+                    <BoltIcon className={'w-6 fill-yellow-400'} />
                   )}
                 </Button>
-              </PopoverContent>
+              </Popover.Dropdown>
             </Popover>
             {currentCell.rating > 0 ? (
               <MiniPieChart

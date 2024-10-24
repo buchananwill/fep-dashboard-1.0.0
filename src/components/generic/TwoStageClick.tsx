@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { offset, useFloating } from '@floating-ui/react';
 import clsx from 'clsx';
-import { Button, ButtonProps, Chip } from '@mantine/core';
+import { Badge, Button, ButtonProps } from '@mantine/core';
 
 export function TwoStageClick({
   children,
@@ -66,9 +66,9 @@ export function TwoStageClick({
           style={floatingStyles}
           className={'z-10 h-fit w-fit rounded-full bg-white bg-opacity-100'}
         >
-          <Chip color={primedAppearance} className={''}>
+          <Badge color={primedAppearance} className={''}>
             {primedMessage}
-          </Chip>
+          </Badge>
         </div>
       )}
     </div>

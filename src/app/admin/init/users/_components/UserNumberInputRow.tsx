@@ -4,7 +4,7 @@ import {
   DtoStoreNumberInput,
   MergedDtoStoreNumberInputProps
 } from '@/components/generic/DtoStoreNumberInput';
-import { Chip } from '@nextui-org/chip';
+import { Badge } from '@mantine/core';
 
 export default function UserNumberInputRow(
   props: Omit<MergedDtoStoreNumberInputProps<UserRowState>, 'max' | 'min'>
@@ -12,7 +12,7 @@ export default function UserNumberInputRow(
   const { entity } = props;
   return (
     <>
-      <Chip>{entity.name}</Chip>
+      <Badge>{entity.name}</Badge>
       <DtoStoreNumberInput {...props} min={0} max={300} step={1} />
     </>
   );

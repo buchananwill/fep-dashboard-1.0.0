@@ -1,6 +1,6 @@
 'use client';
 import { QueueTreeNodeDto } from '@/api/generated-types/generated-types';
-import { Chip, Modal, ModalProps } from '@mantine/core';
+import { Modal, ModalProps } from '@mantine/core';
 import { WorkProjectSeriesNodeLink } from '@/app/core/schedules/build-metrics/WorkProjectSeriesNodeLink';
 import { useGlobalDispatch } from 'selective-context';
 import { NodeInModal } from '@/app/core/schedules/build-metrics/BuildMetricTable';
