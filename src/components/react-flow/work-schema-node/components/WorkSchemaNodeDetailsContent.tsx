@@ -10,14 +10,12 @@ import {
 import { ObjectPlaceholder } from 'selective-context';
 import {
   CarouselOptionDto,
-  WorkProjectSeriesSchemaDto,
   WorkSchemaNodeDto
 } from '@/api/generated-types/generated-types';
-import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
 import { Button } from '@mantine/core';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
   EditAddDeleteDtoControllerArray,
@@ -25,8 +23,6 @@ import {
   NamespacedHooks
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
 import WorkSchemaNodeModalTable from '@/components/work-project-series-schema/_components/WorkSchemaNodeModalTable';
 import EntityPropertyCheckbox from '@/components/generic/EntityPropertyCheckbox';
 import WorkProjectionSeriesSchemaSummary from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaSummary';
@@ -36,8 +32,7 @@ import { BooleanPropertyKey, NumberPropertyKey } from '@/types';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
-
-const listenerKey = 'workSchemaNodeModalContent';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export default function WorkSchemaNodeDetailsContent({
   onClose
@@ -74,32 +69,29 @@ export default function WorkSchemaNodeDetailsContent({
     currentState.resolutionMode
   ]);
 
-  const { currentState: schemaList } = NamespacedHooks.useListen(
-    EntityClassMap.workProjectSeriesSchema,
-    KEY_TYPES.MASTER_LIST,
-    listenerKey,
-    EmptyArray as WorkProjectSeriesSchemaDto[]
-  );
-
   const { data, isPending } = useQuery({
     queryKey: [EntityClassMap.workProjectSeriesSchema, 'all'],
     queryFn: () => Api.WorkProjectSeriesSchema.getAll()
   });
 
+  const dispatch = NamespacedHooks.useDispatch(
+    EntityClassMap.workProjectSeriesSchema,
+    KEY_TYPES.MASTER_LIST
+  );
+
+  useEffect(() => {
+    if (data) dispatch(data);
+  }, [data, dispatch]);
+
   return (
     <>
-      <ModalHeader className={'p-2'}></ModalHeader>
-      <ModalBody className={'flex w-full flex-col'}>
+      <div className={'flex w-full flex-col'}>
         {isPending ? (
           <Spinner></Spinner>
         ) : data === undefined ? (
           <div>Error.</div>
         ) : (
           <>
-            <EditAddDeleteDtoControllerArray
-              entityClass={EntityClassMap.workProjectSeriesSchema}
-              dtoList={data}
-            />
             <div className={'grid grid-cols-2 gap-1'}>
               <div>
                 <FocusToEdit
@@ -167,14 +159,13 @@ export default function WorkSchemaNodeDetailsContent({
             {allowSchema && (
               <WorkSchemaNodeModalTable
                 workSchemaNode={currentState}
-                entities={schemaList}
                 dispatchWithoutControl={dispatchWithoutControl}
               />
             )}
           </>
         )}
-      </ModalBody>
-      <ModalFooter className={'p-2'}>
+      </div>
+      <div className={'p-2'}>
         <Button color="danger" variant="light" onClick={onClose}>
           Close
         </Button>
@@ -187,7 +178,7 @@ export default function WorkSchemaNodeDetailsContent({
         >
           Confirm Changes
         </Button>
-      </ModalFooter>
+      </div>
     </>
   );
 }

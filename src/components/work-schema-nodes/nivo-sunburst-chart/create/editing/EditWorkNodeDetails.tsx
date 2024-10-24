@@ -3,10 +3,9 @@ import {
   DeSelectRemovedId
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/editSunburstHooks';
 import { SelectionSplitRef } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
-import { useDisclosure } from '@nextui-org/use-disclosure';
-import { Button } from '@mantine/core';
-import { Modal, ModalContent } from '@nextui-org/modal';
+import { Button, Modal } from '@mantine/core';
 import React, { ReactNode } from 'react';
+import { useDisclosure } from '@mantine/hooks';
 
 export function EditWorkNodeDetails({
   selectionLength,
@@ -17,23 +16,21 @@ export function EditWorkNodeDetails({
   selectionSplitRef: SelectionSplitRef;
   modalContent: (props: { onClose: () => void }) => ReactNode;
 }) {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [opened, { open, close }] = useDisclosure();
 
   const path = '';
 
   return (
     <>
       <Button
-        onClick={onOpen}
+        onClick={open}
         className={'rounded-none first:rounded-l-xl last:rounded-r-xl'}
         disabled={selectionLength < bundleDepth}
       >
         Edit
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => <ModalContentProp onClose={onClose} />}
-        </ModalContent>
+      <Modal opened={opened} onClose={close}>
+        <ModalContentProp onClose={close} />
       </Modal>
     </>
   );

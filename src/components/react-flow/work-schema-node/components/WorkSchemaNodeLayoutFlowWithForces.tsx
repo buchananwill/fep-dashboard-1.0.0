@@ -273,6 +273,10 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         entityClass={AllocationRollupEntityClass}
         dtoList={EmptyArray}
       />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        dtoList={EmptyArray}
+      />
       <RollupUpdater allocationRollupEntities={allocationRollupEntities} />
       <PendingOverlay pending={isPending} />
       <Panel position={'top-center'}>

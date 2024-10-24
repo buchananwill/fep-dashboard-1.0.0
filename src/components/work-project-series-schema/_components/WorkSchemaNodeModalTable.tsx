@@ -2,20 +2,14 @@
 
 import { EntityClassMap } from '@/api/entity-class-map';
 import React, { useEffect, useMemo, useState } from 'react';
-import { ColumnUid, DispatchState } from '@/types';
-import {
-  WorkProjectSeriesSchemaDto,
-  WorkSchemaNodeDto
-} from '@/api/generated-types/generated-types';
-import { getCellRenderFunction } from '@/components/tables/GetCellRenderFunction';
-import { StringValueChip } from '@/components/tables/StringValueChip';
-import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
+import { DispatchState } from '@/types';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import {
   WorkProjectSeriesSchemaColumns,
   WpssCellModelReadOnly
 } from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
-import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
+import { NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
@@ -23,11 +17,9 @@ import { EmptyArray } from '@/api/literals';
 type SyncDirection = 'propToStore' | 'storeToState';
 
 export default function WorkSchemaNodeModalTable({
-  entities,
   workSchemaNode,
   dispatchWithoutControl
 }: {
-  entities: WorkProjectSeriesSchemaDto[];
   workSchemaNode: WorkSchemaNodeDto;
   dispatchWithoutControl?: DispatchState<WorkSchemaNodeDto>;
 }) {
@@ -81,21 +73,3 @@ export default function WorkSchemaNodeModalTable({
     </div>
   );
 }
-
-export const INITIAL_VISIBLE_COLUMNS: ColumnUid<WorkProjectSeriesSchemaDto>[] =
-  [
-    'name',
-    'workTaskType.knowledgeDomain.shortCode',
-    'workTaskType.knowledgeLevel.levelOrdinal'
-  ];
-
-export const workProjectSeriesSchemaReadOnlyCell = getCellRenderFunction(
-  'workProjectSeriesSchema',
-  {
-    name: SimpleValueToString,
-    userToProviderRatio: SimpleValueToString,
-    'workTaskType.knowledgeDomain.shortCode': StringValueChip,
-    'workTaskType.name': StringValueChip,
-    'workTaskType.knowledgeLevel.levelOrdinal': SimpleValueToString
-  }
-);

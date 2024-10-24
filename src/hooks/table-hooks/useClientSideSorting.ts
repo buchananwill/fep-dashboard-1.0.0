@@ -16,8 +16,9 @@ import { isNotUndefined } from '@/api/main';
 import { get, isEqual, sortBy } from 'lodash';
 import { defaultSortState } from '@/components/tables/cells-v2/DefaultSortStates';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 
-const listenerKey = 'sortHook';
+const listenerKeyTag = 'sortHook';
 
 export function getFilteredSortedIdListContextKey(entityClass: string) {
   return `${entityClass}:filteredSortedIdList`;
@@ -27,6 +28,8 @@ export default function useClientSideSorting<
   T extends HasIdClass<T_ID>,
   T_ID extends Identifier
 >() {
+  const listenerKeyUuid = useUuidListenerKey();
+  const listenerKey = `${listenerKeyTag}:${listenerKeyUuid}`;
   const { entityClass, hideFiltering } = useEntityTableContext();
   const { currentState: fullIdList } = NamespacedHooks.useListen(
     entityClass,
