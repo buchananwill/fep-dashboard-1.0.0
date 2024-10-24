@@ -55,10 +55,8 @@ export function FlowOverlay({
         </Popover>
         {initialized && toggle && (
           <button
-            // onClick={onClick}
             onClick={toggle}
             color={'default'}
-            // variant={'light'}
             className={running ? 'animate-pulse' : ''}
           >
             {running ? (
@@ -70,7 +68,7 @@ export function FlowOverlay({
           </button>
         )}
       </Panel>
-      <NodeDetailsModal className={'max-w-6xl'} />
+      <NodeDetailsModal />
     </>
   );
 }

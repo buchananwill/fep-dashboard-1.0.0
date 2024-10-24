@@ -36,28 +36,21 @@ export function ControlledAutoComplete<T extends SelectableItem>({
   control,
   ...props
 }: ControlledAutoCompleteProps<T>) {
-  const { keyAccessor, labelAccessor, valueAccessor } = itemAccessors;
+  const { labelAccessor, valueAccessor } = itemAccessors;
   const childrenDefined = useMemo(() => {
     if (items && itemAccessors) {
       return items.map((kls) => (
         <AutocompleteItem
           {...selectItemProps}
-          key={kls[keyAccessor]}
+          key={kls[valueAccessor]}
           value={kls[valueAccessor]}
-          aria-label={kls[labelAccessor] ?? kls[keyAccessor]}
+          aria-label={kls[labelAccessor]}
         >
           {kls[labelAccessor]}
         </AutocompleteItem>
       ));
     } else return [];
-  }, [
-    itemAccessors,
-    items,
-    selectItemProps,
-    keyAccessor,
-    valueAccessor,
-    labelAccessor
-  ]);
+  }, [itemAccessors, items, selectItemProps, valueAccessor, labelAccessor]);
 
   const [inputValue, setInputValue] = useState<string>(defaultInputValue ?? '');
   const inputRef = useRef('');
@@ -83,7 +76,7 @@ export function ControlledAutoComplete<T extends SelectableItem>({
       render={({ field, formState }) => {
         const currentValue =
           selectedKeyAccessor && field.value
-            ? field.value[selectedKeyAccessor] ?? field.value
+            ? (field.value[selectedKeyAccessor] ?? field.value)
             : field.value;
         const currentValueString = currentValue
           ? String(currentValue)
@@ -126,6 +119,5 @@ export function ControlledAutoComplete<T extends SelectableItem>({
 
 export const defaultItemAccessors = {
   valueAccessor: 'id',
-  labelAccessor: 'name',
-  keyAccessor: 'id'
+  labelAccessor: 'name'
 } as const;

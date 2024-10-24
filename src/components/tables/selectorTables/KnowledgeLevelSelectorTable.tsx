@@ -1,5 +1,3 @@
-import { SimpleValueToString } from '@/components/tables/SimpleValueToString';
-import { StringValueChip } from '@/components/tables/StringValueChip';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EntityTableProps } from '@/components/tables/types';
 import { Column } from '@/types';

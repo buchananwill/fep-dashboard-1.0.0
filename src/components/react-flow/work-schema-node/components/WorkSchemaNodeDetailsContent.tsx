@@ -14,7 +14,7 @@ import {
 } from '@/api/generated-types/generated-types';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
-import { Button } from '@mantine/core';
+import { Button, Loader } from '@mantine/core';
 import React, { useEffect, useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
@@ -26,7 +26,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import WorkSchemaNodeModalTable from '@/components/work-project-series-schema/_components/WorkSchemaNodeModalTable';
 import EntityPropertyCheckbox from '@/components/generic/EntityPropertyCheckbox';
 import WorkProjectionSeriesSchemaSummary from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaSummary';
-import { Spinner } from '@nextui-org/spinner';
+
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { BooleanPropertyKey, NumberPropertyKey } from '@/types';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
@@ -87,7 +87,7 @@ export default function WorkSchemaNodeDetailsContent({
     <>
       <div className={'flex w-full flex-col'}>
         {isPending ? (
-          <Spinner></Spinner>
+          <Loader />
         ) : data === undefined ? (
           <div>Error.</div>
         ) : (
@@ -141,7 +141,7 @@ export default function WorkSchemaNodeDetailsContent({
                       renderAs={WorkProjectionSeriesSchemaSummary}
                       entityId={currentState.workProjectSeriesSchemaId}
                       entityClass={EntityClassMap.workProjectSeriesSchema}
-                      whileLoading={() => <Spinner />}
+                      whileLoading={() => <Loader />}
                     />
                   )}
                   {currentState.carouselOptionId && (
@@ -149,7 +149,7 @@ export default function WorkSchemaNodeDetailsContent({
                       renderAs={CarouselOptionSummary}
                       entityId={currentState.carouselOptionId}
                       entityClass={EntityClassMap.carouselOption}
-                      whileLoading={() => <Spinner />}
+                      whileLoading={() => <Loader />}
                     />
                   )}
                 </div>
@@ -201,7 +201,7 @@ function CarouselOptionSummary({
       renderAs={WorkProjectionSeriesSchemaSummary}
       entityId={entity.workProjectSeriesSchemaId}
       entityClass={EntityClassMap.workProjectSeriesSchema}
-      whileLoading={() => <Spinner />}
+      whileLoading={() => <Loader />}
     />
   );
 }

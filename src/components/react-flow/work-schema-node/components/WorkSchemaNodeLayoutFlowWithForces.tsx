@@ -36,9 +36,7 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeDetailsContent';
 import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import { Button } from '@mantine/core';
-import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Popover } from '@nextui-org/react';
+import { Button, Loader, Popover } from '@mantine/core';
 import {
   DtoUiListSome,
   EditAddDeleteDtoControllerArray,
@@ -46,7 +44,6 @@ import {
   useReadAnyDto
 } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
-import { Spinner } from '@nextui-org/spinner';
 import { FlowNode, NodeValidator } from '@/components/react-flow/generic/types';
 import {
   CarouselDto,
@@ -279,17 +276,17 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       <PendingOverlay pending={isPending} />
       <Panel position={'top-center'}>
         <Popover>
-          <PopoverTrigger>
+          <Popover.Target>
             <Button variant={'light'}>Add Unassigned Root</Button>
-          </PopoverTrigger>
-          <PopoverContent>
+          </Popover.Target>
+          <Popover.Dropdown>
             <DtoUiListSome
               entityIdList={currentState}
               entityClass={EntityClassMap.workSchemaNode}
-              whileLoading={() => <Spinner />}
+              whileLoading={() => <Loader />}
               renderAs={UnassignedRootButton}
             />
-          </PopoverContent>
+          </Popover.Dropdown>
         </Popover>
       </Panel>
       {reactFlowProps.nodes.length === 0 && <AddRootNode />}

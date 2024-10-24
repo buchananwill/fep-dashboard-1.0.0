@@ -1,5 +1,6 @@
-import { ModalProps } from '@nextui-org/modal';
+import { ModalProps } from '@mantine/core';
+
 export type ConfirmActionModalProps = {
   onConfirm?: () => void;
   onCancel?: () => void;
-} & Pick<ModalProps, 'isOpen' | 'onClose'>;
+} & Pick<ModalProps, 'opened' | 'onClose'>;

@@ -1,7 +1,6 @@
 import { DtoUiArrayProps } from 'dto-stores';
 import { HasId } from '@/api/types';
 import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
-import { Selection } from '@nextui-org/react';
 import { Paths } from 'type-fest';
 
 export type StringPropertyKey<T> = {
@@ -41,8 +40,6 @@ export type Column<T> = {
   style?: CSSProperties;
   className?: string;
 };
-
-export type NextUiSelection = Selection;
 export type DispatchList<T> = React.Dispatch<React.SetStateAction<T[]>>;
 
 // Predicate<T>

@@ -14,18 +14,9 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { ControlledSelector } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ControlledSelector';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { useNestedUpdateCallback } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/useNestedUpdateCallback';
-import { ReactNode, useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useDisclosure } from '@nextui-org/use-disclosure';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalProps
-} from '@nextui-org/modal';
-import { Button } from '@mantine/core';
-import { ConfirmActionModalProps } from '@/components/modals/confirmActionModalProps';
+import { ConfirmActionModal } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ConfirmActionModal';
 
 export default function TopLevelSelectors() {
   const listenerKey = useUuidListenerKey();
@@ -107,55 +98,10 @@ export default function TopLevelSelectors() {
           </span>
         }
         {...otherDisclosureProps}
-        isOpen={isOpen}
+        opened={isOpen}
         onClose={onClose}
         onConfirm={confirmUpdate}
       />
     </div>
-  );
-}
-
-export function ConfirmActionModal({
-  changeDescription,
-  changeDetails,
-  onCancel,
-  onConfirm,
-  ...modalProps
-}: {
-  changeDescription: string;
-  changeDetails: ReactNode;
-} & ConfirmActionModalProps &
-  Pick<ModalProps, 'onClose' | 'isOpen'>) {
-  return (
-    <Modal {...modalProps}>
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader>Confirm Change: {changeDescription}</ModalHeader>
-            <ModalBody>{changeDetails}</ModalBody>
-            <ModalFooter>
-              <Button
-                onClick={() => {
-                  if (onCancel) {
-                    onCancel();
-                  }
-                  onClose();
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={() => {
-                  if (onConfirm) onConfirm();
-                  onClose();
-                }}
-              >
-                Confirm
-              </Button>
-            </ModalFooter>
-          </>
-        )}
-      </ModalContent>
-    </Modal>
   );
 }
