@@ -42,9 +42,7 @@ export default function GenerateStudentsButton() {
       className={
         'group relative m-2 h-fit w-fit min-w-fit overflow-visible rounded-lg bg-sky-800 p-0'
       }
-      disableRipple={true}
-      disableAnimation={true}
-      onPress={handleGenerate}
+      onClick={handleGenerate}
     >
       <PendingOverlay pending={isPending} />
       <span

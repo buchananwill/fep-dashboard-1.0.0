@@ -12,7 +12,7 @@ import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
 import { startCase } from 'lodash';
 import FixedOrderMultiSelect, {
   FixedOrderSelectable
-} from '@/app/core/auto-scheduling/FixedOrderMultiSelect';
+} from '@/components/generic/FixedOrderMultiSelect';
 import { MultiValue } from 'react-select';
 import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
 import { ScheduleParametersDtoSchema } from '@/api/generated-schemas/schemas_';

@@ -17,7 +17,7 @@ export default function CreateEventButton() {
     EmptyArray
   );
 
-  const onPress = useCallback(async () => {
+  const onClick = useCallback(async () => {
     const allEvents = currentState
       .flatMap((eventSource) => eventSource.events)
       .map((event) => addRecurrencePattern(event));
@@ -27,5 +27,5 @@ export default function CreateEventButton() {
     );
   }, [currentState]);
 
-  return <Button onClick={onPress}>Send Events To Outlook</Button>;
+  return <Button onClick={onClick}>Send Events To Outlook</Button>;
 }

@@ -6,7 +6,7 @@ import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { deleteEventsAction } from '@/api/microsoft-graph/deleteEventsAction';
 
 export default function PurgeEventsButton() {
-  const onPress = useCallback(async () => {
+  const onClick = useCallback(async () => {
     const events = await getEventsAction([
       "$filter=start/dateTime ge '2024-09-09T00:00:00'",
       '$select=id',
@@ -18,5 +18,5 @@ export default function PurgeEventsButton() {
     console.log(response); // KEEP LOG
   }, []);
 
-  return <Button onClick={onPress}>Purge</Button>;
+  return <Button onClick={onClick}>Purge</Button>;
 }

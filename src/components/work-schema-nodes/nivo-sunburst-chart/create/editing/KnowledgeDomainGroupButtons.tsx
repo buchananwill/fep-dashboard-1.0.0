@@ -19,13 +19,13 @@ export default function KnowledgeDomainGroupButtons(
     <>
       <MemoEditButton
         editCommand={handleAddKnowledgeDomainGroup}
-        isDisabled={selectionLength < knowledgeDomainGroupDepth}
+        disabled={selectionLength < knowledgeDomainGroupDepth}
       >
         Add
       </MemoEditButton>
       <MemoEditButton
         editCommand={handleRemoveKDG}
-        isDisabled={selectionLength <= knowledgeDomainGroupDepth}
+        disabled={selectionLength <= knowledgeDomainGroupDepth}
       >
         Remove
       </MemoEditButton>

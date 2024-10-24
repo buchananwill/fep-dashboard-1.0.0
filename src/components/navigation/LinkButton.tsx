@@ -2,7 +2,7 @@ import { LinkProps } from '@nextui-org/link';
 import Link from 'next/link';
 import { LinkTreeElementProps } from '@/app/core/navigation/links/types';
 import clsx from 'clsx';
-import { ButtonProps } from '@nextui-org/button';
+import { ButtonProps } from '@mantine/core';
 
 export function LinkButton({
   href,

@@ -19,14 +19,18 @@ export default function CoreTable<
 }: CoreTableProps<T, T_ID> & Omit<TableProps, 'data'>) {
   const data = useMemo(() => {
     const body = rowIdList.map((id) => (
-      <Table.Tr key={id}>
+      <Table.Tr key={id} onClick={(e) => console.log(e)}>
         {withSelection && (
           <Table.Td>
             <SelectionCell entityId={id} />
           </Table.Td>
         )}
         {columns.map((column) => (
-          <Table.Td key={`${id}.${column.uid}`} styles={{ td: column.style }}>
+          <Table.Td
+            key={`${id}.${column.uid}`}
+            styles={{ td: column.style }}
+            onClick={() => {}}
+          >
             <CellModel entityId={id} columnKey={column.uid} />
           </Table.Td>
         ))}

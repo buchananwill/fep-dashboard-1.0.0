@@ -1,4 +1,4 @@
-import { SimpleSelectable } from '@/app/core/auto-scheduling/MultiSelect';
+import { SimpleSelectable } from '@/components/generic/MultiSelect';
 import Select, { OnChangeValue } from 'react-select';
 import { FieldPath, FieldValues } from 'react-hook-form/dist/types';
 import { Control } from 'react-hook-form';

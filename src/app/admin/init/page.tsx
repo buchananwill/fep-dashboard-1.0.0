@@ -12,8 +12,8 @@ export default function Page() {
     <Card>
       <CardHeader>
         <Button
-          isDisabled={isPending}
-          onPress={async () => {
+          disabled={isPending}
+          onClick={async () => {
             startTransition(async () => {
               const promise = await initDefaultTypes();
               setPromiseResult(promise);

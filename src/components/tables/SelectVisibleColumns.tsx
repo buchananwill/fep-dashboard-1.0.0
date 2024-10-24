@@ -7,7 +7,7 @@ import {
 import { useCallback, useMemo } from 'react';
 import { EmptyArray } from '@/api/literals';
 import { getVisibleColumnsContextKey } from '@/components/tables/SelectFilterPath';
-import { SimpleSelectable } from '@/app/core/auto-scheduling/MultiSelect';
+import { SimpleSelectable } from '@/components/generic/MultiSelect';
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
 
 export function getOrderedColumnsContextKey(entityClass: string) {

@@ -76,7 +76,7 @@ export default function LeafEditGroup({
     <>
       <MemoEditButton
         editCommand={handleAddDeliveryAllocationLeaf}
-        isDisabled={selectionLength <= knowledgeDomainGroupDepth || !sizeToAdd}
+        disabled={selectionLength <= knowledgeDomainGroupDepth || !sizeToAdd}
       >
         Add: {getCycleSubspanSize(sizeToAdd?.value ?? 1)}
       </MemoEditButton>
@@ -104,7 +104,7 @@ export default function LeafEditGroup({
       </Dropdown>
       <MemoEditButton
         editCommand={handleRemoveDeliveryAllocationLeaf}
-        isDisabled={selectionLength <= deliveryAllocationLeafDepth}
+        disabled={selectionLength <= deliveryAllocationLeafDepth}
       >
         Remove
       </MemoEditButton>

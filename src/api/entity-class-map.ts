@@ -29,6 +29,7 @@ export const EntityClassMap = {
   providerRoleType: 'ProviderRoleType',
   providerRoleTypeWorkTaskTypeSuitability:
     'ProviderRoleTypeWorkTaskTypeSuitability',
+  queueTreeNode: 'QueueTreeNode',
   resourceRequirementItem: 'ResourceRequirementItem',
   schedule: 'Schedule',
   staticDeliveryAllocationItem: 'StaticDeliveryAllocationItem',

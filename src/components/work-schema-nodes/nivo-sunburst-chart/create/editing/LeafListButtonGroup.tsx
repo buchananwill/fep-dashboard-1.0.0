@@ -28,7 +28,7 @@ export default function LeafListButtonGroup({
   return (
     <MemoEditButton
       editCommand={handleRemoveDeliveryAllocationList}
-      isDisabled={selectionLength <= deliveryAllocationListDepth}
+      disabled={selectionLength <= deliveryAllocationListDepth}
     >
       Remove all leaves: {hours}
     </MemoEditButton>

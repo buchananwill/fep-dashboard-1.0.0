@@ -26,7 +26,7 @@ export function EditWorkNodeDetails({
       <Button
         onClick={onOpen}
         className={'rounded-none first:rounded-l-xl last:rounded-r-xl'}
-        isDisabled={selectionLength < bundleDepth}
+        disabled={selectionLength < bundleDepth}
       >
         Edit
       </Button>

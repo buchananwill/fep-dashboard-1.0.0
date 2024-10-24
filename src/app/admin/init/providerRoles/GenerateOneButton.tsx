@@ -17,7 +17,7 @@ export default function GenerateOneButton({
 }) {
   return (
     <Button
-      onPress={() => {
+      onClick={() => {
         postEntitiesWithDifferentReturnType(requestData, url);
       }}
       className={
@@ -38,7 +38,7 @@ export function GenerateAllButton({
 }) {
   return (
     <Button
-      onPress={() => {
+      onClick={() => {
         requestData.forEach((data) =>
           postEntitiesWithDifferentReturnType(data, url)
         );

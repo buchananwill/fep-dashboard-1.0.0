@@ -53,7 +53,7 @@ export function ColumnDropdown<T extends HasIdClass<Identifier>>({
             // onClick={(event) => {
             //   event.preventDefault();
             // }}
-            // onPress={() => {}}
+            // onClick={() => {}}
           >
             {item.name}
           </DropdownItem>

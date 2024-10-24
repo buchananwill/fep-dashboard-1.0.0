@@ -139,7 +139,7 @@ export default function CreateWorkTaskType({
             control={control}
             items={knowledgeLevelDtos}
             onChange={knowledgeLevelChangeHandler}
-            isDisabled={knowledgeLevelDtos.length === 0}
+            disabled={knowledgeLevelDtos.length === 0}
             placeholder={`Choose a ${getDomainAlias('knowledgeLevel')}`}
           />
         </CardBody>

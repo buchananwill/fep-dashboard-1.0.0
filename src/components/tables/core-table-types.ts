@@ -8,7 +8,7 @@ import { ColorDto } from '@/api/generated-types/generated-types';
 export interface TableCellDataProps<
   T extends HasIdClass<T_ID>,
   T_ID extends Identifier,
-  T_PATH extends Paths<T> = Paths<T>,
+  T_PATH extends ColumnUid<T> = ColumnUid<T>,
   T_FIELD_TYPE extends Get<T, T_PATH> = Get<T, T_PATH> // NEEDED FOR WRAPPER DEFINITION
 > {
   entityId: T_ID;

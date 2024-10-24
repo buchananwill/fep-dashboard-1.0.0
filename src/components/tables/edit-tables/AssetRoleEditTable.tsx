@@ -4,12 +4,9 @@ import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskT
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import { Column, ColumnUid } from '@/types';
+import { Column } from '@/types';
 import { getTypeUpdateCell } from '@/components/tables/cells-v2/TypeUpdateCell';
-import {
-  AssetRoleColumns,
-  AssetRoleColumnsInitial
-} from '@/components/tables/selectorTables/AssetRoleSelectorTable';
+import { AssetRoleColumns } from '@/components/tables/selectorTables/AssetRoleSelectorTable';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
@@ -44,11 +41,6 @@ export default function AssetRoleEditTable({
 const assetRoleEditColumns: Column<AssetRoleDto>[] = [
   ...AssetRoleColumns,
   { name: 'Type', uid: 'type.name', sortable: true }
-] as const;
-
-const initialEditColumns: ColumnUid<AssetRoleDto>[] = [
-  ...AssetRoleColumnsInitial,
-  'type.name'
 ] as const;
 
 const AssetCellRecord: CellComponentRecord<AssetRoleDto, number> = {

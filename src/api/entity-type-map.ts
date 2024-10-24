@@ -25,6 +25,7 @@ import {
   ProviderRoleDto,
   ProviderRoleTypeDto,
   ProviderRoleTypeWorkTaskTypeSuitabilityDto,
+  QueueTreeNodeDto,
   ResourceRequirementItemDto,
   ScheduleDto,
   StaticDeliveryAllocationItemDto,
@@ -64,6 +65,7 @@ export type EntityTypeMap = {
   organization: OrganizationDto;
   organizationType: OrganizationTypeDto;
   person: PersonDto;
+  queueTreeNode: QueueTreeNodeDto;
   providerRole: ProviderRoleDto;
   providerRoleAvailability: ProviderRoleAvailabilityDto;
   providerRoleType: ProviderRoleTypeDto;

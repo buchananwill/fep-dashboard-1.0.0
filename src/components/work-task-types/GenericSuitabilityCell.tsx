@@ -183,7 +183,7 @@ export function GenericSuitabilityCell({
                   className={'w-24'}
                   value={currentCell.rating * 100}
                   aria-label={'Suitability'}
-                  isDisabled={
+                  disabled={
                     isWithinRange(
                       cell,
                       dropResult.dropped,

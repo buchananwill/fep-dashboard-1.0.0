@@ -18,9 +18,9 @@ export function AddRootNode<T extends HasNumberId>({}: {}) {
     undefinedAddNodes as MemoizedFunction<AddNodesParams, void>
   );
   return (
-    <div className={'fixed top-1/2 left-1/2 z-50'}>
+    <div className={'fixed left-1/2 top-1/2 z-50'}>
       <Button
-        {() =>
+        onClick={() =>
           addNodes.memoizedFunction({
             sourceNodeIdList: EmptyArray,
             relation: 'sibling'

@@ -26,7 +26,7 @@ export function FlowOverlay({
   const toggleRef = useRef(toggle);
   toggleRef.current = toggle;
 
-  const onPress = useCallback(() => {
+  const onClick = useCallback(() => {
     if (toggleRef.current) toggleRef.current();
   }, []);
 
@@ -59,7 +59,7 @@ export function FlowOverlay({
         </Popover>
         {initialized && toggle && (
           <button
-            // onPress={onPress}
+            // onClick={onClick}
             onClick={toggle}
             color={'default'}
             // variant={'light'}

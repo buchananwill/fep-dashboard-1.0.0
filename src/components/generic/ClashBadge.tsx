@@ -4,9 +4,9 @@ export function ClashBadge({
   show,
   className,
   children,
-  content,
+  label,
   ...otherProps
-}: Pick<IndicatorProps, 'className' | 'children' | 'content'> & {
+}: Pick<IndicatorProps, 'className' | 'children' | 'label'> & {
   show: boolean;
 }) {
   return (
@@ -19,7 +19,7 @@ export function ClashBadge({
       disabled={!show}
       color={'red'}
       {...otherProps}
-      label={content}
+      label={label}
       radius={'xl'}
       size={'lg'}
     >

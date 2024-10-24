@@ -10,7 +10,7 @@ import {
   useCombobox
 } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { SimpleSelectable } from '@/app/core/auto-scheduling/MultiSelect';
+import { SimpleSelectable } from '@/components/generic/MultiSelect';
 import { EmptyArray } from '@/api/literals';
 
 const noop = (value: string[]) => {};
