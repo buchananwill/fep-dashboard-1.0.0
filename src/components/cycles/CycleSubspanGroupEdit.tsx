@@ -1,11 +1,12 @@
 import { BaseLazyDtoUiProps, useDtoStore } from 'dto-stores';
-import React, { Dispatch, SetStateAction, useMemo } from 'react';
-import { Checkbox } from '@nextui-org/checkbox';
-import { Chip } from '@nextui-org/chip';
-import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import React, { ChangeEvent, Dispatch, SetStateAction, useMemo } from 'react';
+import {
+  CycleDto,
+  CycleSubspanDto
+} from '@/api/generated-types/generated-types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { CycleDto } from '@/api/generated-types/generated-types';
+import { Badge, Checkbox } from '@mantine/core';
 
 export interface CycleSubspanGroupEditDto extends CycleSubspanDto {
   sizesStartingAtCycleSubspanId: number[];
@@ -53,15 +54,13 @@ export default function CycleSubspanGroupEdit({
     for (let i of cycleSubspanGroupSizes) {
       checkBoxes.push(
         <Checkbox
-          value={`${i}`}
+          label={`${i}`}
           key={i}
-          isSelected={entity.sizesStartingAtCycleSubspanId.includes(i)}
-          onValueChange={(selected) =>
-            handleEntityUpdate(i, selected, dispatchWithoutControl)
+          checked={entity.sizesStartingAtCycleSubspanId.includes(i)}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleEntityUpdate(i, event.target.checked, dispatchWithoutControl)
           }
-        >
-          {i}
-        </Checkbox>
+        />
       );
     }
     return checkBoxes;
@@ -70,7 +69,7 @@ export default function CycleSubspanGroupEdit({
   return (
     <tr>
       <td>
-        <Chip className={'col-span-2'}>{entity.name}</Chip>
+        <Badge className={'col-span-2'}>{entity.name}</Badge>
       </td>
       {checkBoxes.map((box, index) => (
         <td key={index}>{box}</td>
