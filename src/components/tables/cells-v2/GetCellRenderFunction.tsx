@@ -14,7 +14,7 @@ import EntityCellWrapper from '@/components/tables/cells-v2/EntityCellWrapper';
 export function getCellRenderFunction<
   U extends EntityTypeKey,
   T extends HasIdClass<T_ID>,
-  T_ID extends Identifier = Identifier
+  T_ID extends Identifier = T['id']
 >(
   entityTypeKey: U,
   cellComponents: CellComponentRecord<T, T_ID>
