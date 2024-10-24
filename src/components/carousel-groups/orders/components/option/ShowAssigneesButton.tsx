@@ -1,7 +1,7 @@
+'use client';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@mantine/core';
+import { Button, Popover } from '@mantine/core';
 import clsx from 'clsx';
 import OrderItemAssigneeList from '@/components/carousel-groups/orders/components/option/OrderItemAssigneeList';
 import { useRotationOverlayPositioning } from '@/components/carousel-groups/orders/components/option/useRotationOverlayPositioning';
@@ -27,8 +27,8 @@ function ShowAssigneesButtonInner(props: {
   );
 
   return (
-    <Popover style={zIndexPopoverOverride}>
-      <PopoverTrigger>
+    <Popover zIndex={100}>
+      <Popover.Target>
         <Button
           autoContrast
           justify={'space-between'}
@@ -58,8 +58,8 @@ function ShowAssigneesButtonInner(props: {
             {props.workTaskType?.knowledgeDomain?.name}
           </span>
         </Button>
-      </PopoverTrigger>
-      <PopoverContent
+      </Popover.Target>
+      <Popover.Dropdown
         className={clsx(
           !!props.dragHappening && 'opacity-10 ',
           'transition-opacity'
@@ -67,7 +67,7 @@ function ShowAssigneesButtonInner(props: {
       >
         <div></div>
         <OrderItemAssigneeList carouselOptionDto={props.carouselOptionDto} />
-      </PopoverContent>
+      </Popover.Dropdown>
     </Popover>
   );
 }
