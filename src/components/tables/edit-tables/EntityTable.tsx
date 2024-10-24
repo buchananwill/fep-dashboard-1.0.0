@@ -29,20 +29,21 @@ import CoreTable from '@/components/tables/CoreTable';
 import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { compactTableStyles } from '@/components/tables/edit-tables/KnowledgeDomainTable';
+import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export default function EntityTable<
   T extends HasIdClass<T_ID>,
   T_ID extends Identifier
 >({
   columns,
-  defaultSort,
+  defaultSort = Sorts.none,
   entityClass,
   styles,
   headerModel,
   hideFiltering = false,
   ...props
 }: {
-  defaultSort: SortState<T>;
+  defaultSort?: SortState<T>;
   entityClass: string;
   hideFiltering?: boolean;
 } & Omit<CoreTableProps<T, T_ID>, 'rowIdList'> &
