@@ -4,7 +4,6 @@ import {
   RenderErrorsMap
 } from '@/components/roles/create-role/FlattenArrayErrorsAndRender';
 import {
-  HasNameDto,
   RolePostRequest,
   SuitabilityPostRequest,
   TypeDto
@@ -12,10 +11,7 @@ import {
 import React, { useMemo } from 'react';
 import { RoleEntity } from '@/components/roles/types';
 import { FieldErrors, useFormContext } from 'react-hook-form';
-import EntitySelector from '@/components/generic/EntitySelector';
-import { RoleType } from '@/components/roles/create-role/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { HasNumberId } from '@/api/types';
 import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
 import {
   useEntitySelectionWithSimpleSelectables,
