@@ -9,16 +9,13 @@ import { TypedPaths } from '@/api/custom-types/typePaths';
 import { get } from 'lodash';
 
 import { Validator } from '@/types';
-import { Button, Popover } from '@mantine/core';
+import { Button, ButtonProps, Popover } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import EditTextValueModal from '@/components/modals/v2/EditTextValueModal';
 import { updateNestedValue } from '@/functions/updateNestedValue';
 
 export interface EditTextDeletePopoverProps<T extends HasId> {
   stringPath: TypedPaths<T, string>;
-  classNames?: {
-    button?: string;
-  };
   validateInput?: Validator<string>;
 }
 
@@ -29,8 +26,11 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
   dispatchWithoutControl,
   classNames,
   stringPath,
-  validateInput
-}: EditTextDeletePopoverProps<T> & BaseDtoUiProps<T>) {
+  validateInput,
+  styles
+}: EditTextDeletePopoverProps<T> &
+  BaseDtoUiProps<T> &
+  Pick<ButtonProps, 'styles' | 'classNames'>) {
   const [opened, { open, close }] = useDisclosure();
 
   const confirmTextEdit = useCallback(
@@ -49,7 +49,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
     <>
       <Popover zIndex={100} withArrow trapFocus>
         <Popover.Target>
-          <Button className={`${classNames?.button}`}>
+          <Button classNames={classNames} styles={styles}>
             <span className={' ... truncate'}>{get(entity, stringPath)}</span>
             <PendingOverlay pending={opened} />
           </Button>

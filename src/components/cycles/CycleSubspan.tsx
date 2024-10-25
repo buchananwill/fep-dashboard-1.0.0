@@ -35,7 +35,7 @@ export default function CycleSubspan({
   }
 
   return (
-    <div className={'relative flex w-fit items-center gap-2 rounded-lg'}>
+    <div className={'relative flex w-full items-center gap-2 rounded-lg'}>
       <DeletedOverlay
         classNames={{ overlay: 'rounded-lg' }}
         show={deleted}
@@ -45,7 +45,9 @@ export default function CycleSubspan({
         }}
       />
       <EditTextDeleteEntityPopover<CycleSubspanDto>
-        classNames={{ button: 'w-24 px-2' }}
+        classNames={{
+          root: 'grow'
+        }}
         {...props}
         dispatchDeletion={interceptDelete}
         stringPath={'name'}

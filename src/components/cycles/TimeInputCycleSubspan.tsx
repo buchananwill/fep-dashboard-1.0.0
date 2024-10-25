@@ -1,10 +1,8 @@
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { CycleSubspanDto } from '@/api/generated-types/generated-types';
 import { TimeSpanDto } from '@/api/generated-types/generated-types';
-import { TimeInput } from '@nextui-org/date-input';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
-import { Time } from '@internationalized/date';
-import { TimeValue } from '@react-types/datepicker';
+import { TimeInput } from '@mantine/dates';
 
 export function TimeInputCycleSubspan({
   entity,
@@ -17,41 +15,29 @@ export function TimeInputCycleSubspan({
 }) {
   return (
     <TimeInput
-      hourCycle={24}
       size={'sm'}
-      granularity={'minute'}
       aria-label={`${entity.name} ${boundary} time`}
-      label={boundary}
-      value={timeFromZTimeOnly(
+      value={
         boundary === 'Start'
           ? entity.timeSpanDto.startTimeDivisionInstant
           : entity.timeSpanDto.endTimeDivisionInstant
-      )}
-      onChange={(value) =>
-        handleTimeChange(value, boundary, dispatchWithoutControl)
       }
-      classNames={{ base: 'w-fit' }}
+      onChange={(event: ChangeEvent<HTMLInputElement>) =>
+        handleTimeChange(event.target.value, boundary, dispatchWithoutControl)
+      }
     />
   );
 }
 
-function timeFromZTimeOnly(timeOnly: string): TimeValue {
-  const [hour, minute, second] = timeOnly
-    .split(':')
-    .map((part) => parseInt(part, 10));
-
-  return new Time(hour, minute, second) as unknown as TimeValue;
-}
-
 function handleTimeChange(
-  time: TimeValue,
+  time: string,
   target: 'Start' | 'End',
   dispatcher?: Dispatch<SetStateAction<CycleSubspanDto>>
 ) {
   if (!dispatcher) return;
   dispatcher((cycleSubspan) => {
     const { timeSpanDto } = cycleSubspan;
-    const zTimeOnly = time.toString();
+    const zTimeOnly = time;
 
     let updatedTimespan: TimeSpanDto;
     switch (target) {
