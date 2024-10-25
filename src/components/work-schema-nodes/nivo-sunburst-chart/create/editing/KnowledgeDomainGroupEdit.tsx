@@ -3,17 +3,14 @@ import {
   KnowledgeLevelSeriesGroup
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { DispatchState } from '@/types';
-import { InitialMap, NamespacedHooks } from 'dto-stores';
+import { NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Select, Selection } from '@nextui-org/react';
-import { SelectItem } from '@nextui-org/select';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import { useCallback, useMemo, useRef } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { replaceKnowledgeDomainsInGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupProducers';
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
-import { SimpleSelectable } from '@/components/generic/MultiSelect';
 import { useSimpleSelectableListMapAndIdMap } from '@/hooks/useSimpleSelectableListMapAndIdMap';
 import { EmptyArray } from '@/api/literals';
 import { useLabelMaker } from '@/hooks/useLabelMaker';

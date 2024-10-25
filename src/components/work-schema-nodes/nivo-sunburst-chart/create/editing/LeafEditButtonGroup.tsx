@@ -3,14 +3,7 @@ import {
   knowledgeDomainGroupDepth,
   useLeafEdits
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/editSunburstHooks';
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Selection
-} from '@nextui-org/react';
-import { Button } from '@mantine/core';
+import { Button, Combobox, useCombobox } from '@mantine/core';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import React, { useCallback, useMemo, useState } from 'react';
 import { ButtonEditGroupProps } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/BundleButtonGroup';
@@ -41,33 +34,30 @@ export default function LeafEditGroup({
     if (!cycle) return [];
 
     return cycle.cycleSubspanGroupSizes.map((size, index) => ({
-      id: index,
-      value: size
+      value: String(index),
+      label: String(size),
+      id: size
     }));
   }, [cycle]);
 
   const [sizeToAdd, setSizeToAdd] = useState<
-    { id: number; value: number } | undefined
+    { id: number; value: string; label: string } | undefined
   >(undefined);
   const handleSelectionOfSize = useCallback(
-    (selection: Selection) => {
-      if (selection === 'all')
-        throw Error(
-          'all not allowed and this is hands down the most annoying "feature" of NextUI'
-        );
-      const selectionId = [...selection.values()][0];
-      const find = cycleSubspanGroupSizeItems.find(
-        (item) => String(item.id) === selectionId
+    (selection: string) => {
+      setSizeToAdd(
+        cycleSubspanGroupSizeItems.find((item) => item.value === selection)
       );
-      setSizeToAdd(find);
     },
     [cycleSubspanGroupSizeItems]
   );
 
+  const comboBox = useCombobox({});
+
   const {
     handleAddDeliveryAllocationLeaf,
     handleRemoveDeliveryAllocationLeaf
-  } = useLeafEdits(selectionSplitRef, sizeToAdd, deselectRemovedId);
+  } = useLeafEdits(selectionSplitRef, sizeToAdd?.id, deselectRemovedId);
 
   return (
     <>
@@ -75,30 +65,42 @@ export default function LeafEditGroup({
         editCommand={handleAddDeliveryAllocationLeaf}
         disabled={selectionLength <= knowledgeDomainGroupDepth || !sizeToAdd}
       >
-        Add: {getCycleSubspanSize(sizeToAdd?.value ?? 1)}
+        Add: {getCycleSubspanSize(sizeToAdd?.id ?? 1)}
       </MemoEditButton>
-      <Dropdown placement="bottom-end">
-        <DropdownTrigger>
-          <Button className={'rounded-none'}>
+      <Combobox
+        position={'bottom-end'}
+        store={comboBox}
+        onOptionSubmit={(value, optionProps) => {
+          handleSelectionOfSize(value);
+          comboBox.closeDropdown();
+        }}
+        classNames={{
+          option: 'text-right'
+        }}
+      >
+        <Combobox.Target>
+          <Button
+            className={'rounded-none'}
+            onClick={() => comboBox.toggleDropdown()}
+          >
             <ChevronDownIcon className={'h-6 w-6'} />
           </Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          disallowEmptySelection={true}
-          aria-label="Merge options"
-          selectedKeys={sizeToAdd ? [String(sizeToAdd.id)] : []}
-          selectionMode="single"
-          onSelectionChange={handleSelectionOfSize}
-          className="max-w-[300px]"
-          items={cycleSubspanGroupSizeItems}
-        >
-          {(item) => (
-            <DropdownItem key={item.id}>
-              {getCycleSubspanSize(item.value)}
-            </DropdownItem>
-          )}
-        </DropdownMenu>
-      </Dropdown>
+        </Combobox.Target>
+        <Combobox.Dropdown>
+          <Combobox.Options>
+            {cycleSubspanGroupSizeItems.map((cycleSubspanGroupSizeItem) => (
+              <Combobox.Option
+                key={cycleSubspanGroupSizeItem.value}
+                active={cycleSubspanGroupSizeItem.id === sizeToAdd?.id}
+                selected={cycleSubspanGroupSizeItem.id === sizeToAdd?.id}
+                value={cycleSubspanGroupSizeItem.value}
+              >
+                {cycleSubspanGroupSizeItem.label}
+              </Combobox.Option>
+            ))}
+          </Combobox.Options>
+        </Combobox.Dropdown>
+      </Combobox>
       <MemoEditButton
         editCommand={handleRemoveDeliveryAllocationLeaf}
         disabled={selectionLength <= deliveryAllocationLeafDepth}

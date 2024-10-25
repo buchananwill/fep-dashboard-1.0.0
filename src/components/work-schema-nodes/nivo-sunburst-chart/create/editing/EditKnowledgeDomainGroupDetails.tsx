@@ -1,16 +1,10 @@
 import { Button } from '@mantine/core';
-import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
+import { findChildOfType } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 import {
-  findChildOfType,
-  replaceChildInTree
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
-import {
-  Bundle,
   KnowledgeDomainGroup,
   NestedWorkNode
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { KnowledgeDomainGroupEdit } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/KnowledgeDomainGroupEdit';
 import { DeSelectRemovedId } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/editSunburstHooks';
 import { SelectionSplitRef } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
