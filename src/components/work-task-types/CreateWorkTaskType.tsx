@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
-import { CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@mantine/core';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
@@ -99,10 +98,10 @@ export default function CreateWorkTaskType({
           handleSubmit(onSubmit)(event);
         }}
       >
-        <CardHeader className={'items-center justify-center align-middle '}>
+        <h1 className={'items-center justify-center align-middle '}>
           New Work Task Type
-        </CardHeader>
-        <CardBody className={'items-center justify-center gap-2'}>
+        </h1>
+        <div className={'items-center justify-center gap-2'}>
           <ControlledAutoComplete
             name={'name'}
             allowsCustomValue={true}
@@ -141,15 +140,15 @@ export default function CreateWorkTaskType({
             disabled={knowledgeLevelDtos.length === 0}
             placeholder={`Choose a ${getDomainAlias('knowledgeLevel')}`}
           />
-        </CardBody>
-        <CardFooter className={'justify-center gap-2'}>
+        </div>
+        <div className={'justify-center gap-2'}>
           <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
             Cancel
           </LinkButton>
           <Button type={'submit'} color={'success'}>
             Submit
           </Button>
-        </CardFooter>
+        </div>
       </form>
     </RootCard>
   );

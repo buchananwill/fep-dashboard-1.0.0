@@ -22,8 +22,7 @@ import { useGlobalListener } from 'selective-context';
 import { cycleSubspanGroupMap } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import { ObjectPlaceholder } from '@/api/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@mantine/core';
+import { Button, Popover } from '@mantine/core';
 import { StaticAllocationDispensor } from '@/components/work-project-series-schema/StaticAllocationDispensor';
 
 function InnerWorkProjectSeriesSchemaCell({
@@ -101,28 +100,33 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
     <div
       style={style}
       className={clsx(
-        'flex overflow-hidden',
+        'flex items-center overflow-hidden',
         currentItem && canDrop && 'animate-pulse bg-rose-200'
       )}
     >
       {rowId && (
         <Popover>
-          <PopoverTrigger>
-            <Button variant={'light'} className={'px-0.5'}>
+          <Popover.Target>
+            <Button
+              variant={'light'}
+              radius={'xs'}
+              classNames={{ label: 'leading-normal' }}
+              styles={{ root: { padding: '4px 2px 4px' } }}
+            >
               <DtoUiWrapper
                 entityClass={EntityClassMap.workProjectSeriesSchema}
                 entityId={rowId}
                 renderAs={InnerWorkProjectSeriesSchemaCell}
               />
             </Button>
-          </PopoverTrigger>
-          <PopoverContent>
+          </Popover.Target>
+          <Popover.Dropdown>
             <DtoUiWrapper
               entityClass={EntityClassMap.workProjectSeriesSchema}
               entityId={rowId}
               renderAs={StaticAllocationDispensor}
             />
-          </PopoverContent>
+          </Popover.Dropdown>
         </Popover>
       )}
     </div>
