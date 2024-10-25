@@ -7,6 +7,7 @@ import {
   MultiSelectProps,
   Pill,
   PillsInput,
+  PillsInputProps,
   useCombobox
 } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -20,11 +21,13 @@ export function MultiSelectMaxDisplayedItems({
   value = EmptyArray,
   onChange = noop,
   data,
+  pillsInput,
   ...props
-}: { maxDisplayedValues?: number; data: SimpleSelectable[] } & Pick<
-  MultiSelectProps,
-  'value' | 'onChange' | 'placeholder' | 'label'
-> &
+}: {
+  maxDisplayedValues?: number;
+  data: SimpleSelectable[];
+  pillsInput?: Omit<PillsInputProps, 'pointer' | 'onClick' | 'children'>;
+} & Pick<MultiSelectProps, 'value' | 'onChange' | 'placeholder' | 'label'> &
   ComboboxProps) {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -102,7 +105,11 @@ export function MultiSelectMaxDisplayedItems({
       withinPortal={false}
     >
       <Combobox.DropdownTarget>
-        <PillsInput pointer onClick={() => combobox.toggleDropdown()}>
+        <PillsInput
+          pointer
+          onClick={() => combobox.toggleDropdown()}
+          {...pillsInput}
+        >
           <Pill.Group>
             {value.length > 0 ? (
               <>

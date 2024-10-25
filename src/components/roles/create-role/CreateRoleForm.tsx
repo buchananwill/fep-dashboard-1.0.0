@@ -10,7 +10,7 @@ import { FieldName, SubmitHandler, useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button, Card, Divider } from '@mantine/core';
+import { Button, Card, Divider, ScrollArea } from '@mantine/core';
 import { PersonNestedInForm } from '@/components/roles/create-role/PersonNestedInForm';
 import { ErrorMessage } from '@hookform/error-message';
 import { ErrorDiv } from '@/components/roles/create-role/ErrorDiv';
@@ -24,6 +24,7 @@ import CreateNewRoleTypeModal from '@/components/entities-with-type/CreateNewRol
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
 import { Api } from '@/api/clientApi';
+import { flattenErrors } from '@/functions/flatten-errors';
 
 export const listenerKey = 'create-role-form';
 
@@ -106,11 +107,14 @@ export default function CreateRoleForm<T extends FieldValues>({
             handleSubmit(onSubmit)(event);
           }}
           autoComplete={'on'}
+          className={'flex grow flex-col gap-2 overflow-hidden'}
         >
-          <div className={'items-center justify-center align-middle '}>
+          <div className={'grow-0 items-center justify-center align-middle '}>
             New Role
           </div>
-          <div className={'flex flex-col items-center justify-center gap-2'}>
+          <div
+            className={'flex grow-0 flex-col items-center justify-center gap-2'}
+          >
             {roleEntity === 'provider' && (
               <PersonNestedInForm></PersonNestedInForm>
             )}
@@ -119,29 +123,28 @@ export default function CreateRoleForm<T extends FieldValues>({
             <RoleAspectSelectors roleEntity={roleEntity} />
           </div>
           <div
-            className={'flex flex-col items-center justify-center align-middle'}
+            className={
+              'flex grow flex-col items-center justify-start overflow-hidden align-middle'
+            }
           >
-            <Button type={'submit'} className={'block'}>
-              Submit
-            </Button>
-            <div className={'flex w-64 flex-col gap-2 overflow-clip p-2'}>
-              {listFields.map((item) => (
-                <ErrorMessage
-                  key={item}
-                  errors={errors}
-                  name={item}
-                  render={({ message }) =>
-                    message?.length && <ErrorDiv message={message} />
-                  }
-                />
-              ))}
+            <div className={'h-fit grow-0'}>
+              <Button type={'submit'} className={'block'}>
+                Submit
+              </Button>
             </div>
+            <ScrollArea>
+              <div className={'flex w-64 flex-col gap-2 overflow-clip p-2'}>
+                {flattenErrors(errors)?.map((summary) => (
+                  <ErrorDiv error={summary} key={summary.path} />
+                ))}
+              </div>
+            </ScrollArea>
           </div>
         </form>
         <div
           className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
         ></div>
-        <div className={'center-horizontal-with-margin'}>
+        <div className={'center-horizontal-with-margin h-fit grow-0'}>
           <Button onClick={modalProps.onOpen}>Add Role Type</Button>
         </div>
         <CreateNewRoleTypeModal {...modalProps} />

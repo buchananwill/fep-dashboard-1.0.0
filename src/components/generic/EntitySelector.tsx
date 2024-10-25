@@ -13,7 +13,7 @@ export type EntitySelectorProps<T, U> = {
   labelAccessor: TypedPaths<T, string | number>;
 } & Omit<SelectProps, 'items' | 'selectedKeys' | 'children'>;
 
-export default function FilteredEntitySelector<
+export default function EntitySelector<
   T extends HasIdClass<U>,
   U extends Identifier = Identifier
 >({

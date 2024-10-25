@@ -6,16 +6,23 @@ import {
 import {
   HasNameDto,
   RolePostRequest,
-  SuitabilityPostRequest
+  SuitabilityPostRequest,
+  TypeDto
 } from '@/api/generated-types/generated-types';
 import React, { useMemo } from 'react';
 import { RoleEntity } from '@/components/roles/types';
 import { FieldErrors, useFormContext } from 'react-hook-form';
-import FilteredEntitySelector from '@/components/generic/FilteredEntitySelector';
+import EntitySelector from '@/components/generic/EntitySelector';
 import { RoleType } from '@/components/roles/create-role/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { HasNumberId } from '@/api/types';
 import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
+import {
+  useEntitySelectionWithSimpleSelectables,
+  useEntitySelectionWithStringLabelsOnly
+} from '@/hooks/useEntitySelectionWithStringLabelsOnly';
+import { Select } from '@mantine/core';
+import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
 
 const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {
   each: {
@@ -32,7 +39,8 @@ export function RoleAspectSelectors({
   roleEntity: RoleEntity;
 }) {
   const {
-    formState: { errors }
+    formState: { errors },
+    control
   } = useFormContext<RolePostRequest<any>>();
   const suitabilityErrors: PathRenderedErrorMap<SuitabilityPostRequest> =
     useMemo(() => {
@@ -49,26 +57,55 @@ export function RoleAspectSelectors({
     suitabilityErrors.each?.['workTaskTypeMatrix.workTaskTypeNames'];
   const roleTypeErrors = suitabilityErrors.each?.roleTypeNames;
 
+  const {
+    selectionList: selectionListRoleType,
+    onChange,
+    labelList
+  } = useEntitySelectionWithStringLabelsOnly<TypeDto<any, any>>(
+    EntityClassMap[`${roleEntity}RoleType`],
+    'name'
+  );
+
+  const {
+    selectionList: selectionListTaskType,
+    onChange: onChangeTaskTypes,
+    selectableList
+  } = useEntitySelectionWithSimpleSelectables<TypeDto<any, any>>(
+    WorkTaskTypeName,
+    'name'
+  );
+
   return (
     <>
       {' '}
       <h1>Role</h1>{' '}
-      <FilteredEntitySelector<RoleType>
-        entityClass={EntityClassMap[`${roleEntity}RoleType`]}
-        labelAccessor={'name'}
-        label={'Role Type'}
-        className={'w-full'}
-        isInvalid={!!roleTypeErrors?.length}
-        errorMessage={<>{roleTypeErrors && roleTypeErrors}</>}
+      <Select
+        data={labelList}
+        value={
+          selectionListRoleType.length > 0 ? selectionListRoleType[0] : null
+        }
+        onChange={onChange}
+        placeholder={'Role Type'}
+        error={
+          roleTypeErrors && roleTypeErrors.length > 0
+            ? roleTypeErrors
+            : undefined
+        }
       />
-      <FilteredEntitySelector<HasNumberId & HasNameDto>
-        entityClass={WorkTaskTypeName}
-        labelAccessor={'name'}
-        selectionMode={'multiple'}
-        label={'Task Types'}
-        className={'w-full'}
-        isInvalid={!!taskNameErrors?.length}
-        errorMessage={<>{taskNameErrors && taskNameErrors}</>}
+      <MultiSelectMaxDisplayedItems
+        pillsInput={{
+          error:
+            taskNameErrors && taskNameErrors.length > 0
+              ? taskNameErrors
+              : undefined,
+          classNames: {
+            root: 'w-full'
+          }
+        }}
+        maxDisplayedValues={1}
+        data={selectableList}
+        onChange={onChangeTaskTypes}
+        value={selectionListTaskType}
       />
     </>
   );
