@@ -3,13 +3,13 @@ import { TypedPaths } from '@/api/custom-types/typePaths';
 import { useCallback } from 'react';
 import { get } from 'lodash';
 
-export function useLabelMaker<T extends HasIdClass>(
+export function useLabelMaker<T>(
   labelMaker?: (string & TypedPaths<T, string | number>) | ((item: T) => string)
 ): (item?: T) => string {
   return useCallback(
     (item?: T) => {
       if (item === undefined) throw Error('Item was undefined');
-      let label = item.id;
+      let label = String(item);
       if (typeof labelMaker === 'string') {
         label = String(get(item, labelMaker));
       } else if (typeof labelMaker === 'function') {

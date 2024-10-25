@@ -18,27 +18,26 @@ import {
   NestedWorkNodeDiscriminator,
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { Select, Selection, SelectProps } from '@nextui-org/react';
-import { SelectItem } from '@nextui-org/select';
 import { MonoFunction } from '@/types';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { getCycleSubspanSize } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
 import { getDomainAlias } from '@/api/getDomainAlias';
+import { SimpleSelectable } from '@/components/generic/MultiSelect';
+import { Select } from '@mantine/core';
 
 export default function NestedWorkNodeChildSelector({
   selectionPath,
   discriminator,
   discriminatorIndex,
   splittedPath,
-  labelAccessor = nodeLabelAccessor,
-  ...selectProps
+  labelAccessor = nodeLabelAccessor
 }: {
   selectionPath: string;
   splittedPath: string[];
   discriminator: NestedWorkNodeDiscriminator;
   discriminatorIndex: number;
   labelAccessor?: MonoFunction<WorkNodeHierarchy, string>;
-} & Omit<SelectProps, 'children'>) {
+}) {
   const listenerKey = `${discriminator}:selectChild`;
   const { currentState } = useGlobalListener({
     contextKey: KnowledgeLevelSeriesGroupContextKey,
@@ -97,7 +96,6 @@ export default function NestedWorkNodeChildSelector({
         labelAccessor={labelAccessor}
         depth={discriminatorIndex}
         parent={parent}
-        {...selectProps}
       />
     </>
   );
@@ -109,8 +107,7 @@ function InnerSelector({
   childList,
   labelAccessor,
   selectionPath,
-  depth,
-  ...selectProps
+  depth
 }: {
   childList: WorkNodeHierarchy[];
   parent?: NestedWorkNode;
@@ -121,22 +118,22 @@ function InnerSelector({
   const [isPending, startTransition] = useTransition();
   const { dispatchWithoutListen } = useGlobalDispatch<string>(SelectionPathKey);
 
+  const simpleSelectables: SimpleSelectable[] = useMemo(() => {
+    return childList.map((child) => ({
+      label: labelAccessor(child),
+      value: child.path
+    }));
+  }, [childList, labelAccessor]);
+
   const onSelectionChange = useCallback(
-    (selection: Selection) => {
+    (selection: string | null) => {
       startTransition(() => {
-        if (selection === 'all') {
-          throw new Error('Only single selection is supported');
+        if (selection === null) {
+          dispatchWithoutListen((selectionPathId) => {
+            return selectionPathId.split('/').slice(0, depth).join('/');
+          });
         } else {
-          const selectionList = [...selection.values()] as string[];
-          if (selectionList.length === 0) {
-            dispatchWithoutListen((selectionPathId) => {
-              return selectionPathId.split('/').slice(0, depth).join('/');
-            });
-          } else if (selectionList.length === 1) {
-            dispatchWithoutListen(selectionList[0] as string);
-          } else {
-            throw new Error('Only single selection is supported');
-          }
+          dispatchWithoutListen(selection);
         }
       });
     },
@@ -145,26 +142,21 @@ function InnerSelector({
 
   const label = childList.length > 0 ? childList[0].type : 'no options';
 
+  const currentSelectionList = selectionPath ? selectionPath.split('/') : [];
+  const currentSelection =
+    currentSelectionList.length >= depth
+      ? currentSelectionList.slice(0, depth + 1).join('/')
+      : null;
+
   return (
     <div className={'relative h-fit w-fit'}>
       <PendingOverlay pending={isPending} />
       <Select
-        items={childList}
-        {...selectProps}
-        selectedKeys={selectionPath ? [selectionPath] : ['']}
-        onSelectionChange={onSelectionChange}
-        className={'w-60'}
-      >
-        {(item) => (
-          <SelectItem
-            key={item.path}
-            value={item.path}
-            aria-label={labelAccessor(item)}
-          >
-            {labelAccessor(item)}
-          </SelectItem>
-        )}
-      </Select>
+        label={label}
+        data={simpleSelectables}
+        value={currentSelection}
+        onChange={onSelectionChange}
+      />
     </div>
   );
 }
