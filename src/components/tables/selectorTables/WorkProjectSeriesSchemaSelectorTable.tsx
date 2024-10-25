@@ -15,7 +15,7 @@ import EntityTable from '@/components/tables/edit-tables/EntityTable';
 export default function WorkProjectSeriesSchemaSelectorTable({
   entities
 }: {
-  entities: WorkProjectSeriesSchemaDto[];
+  entities?: WorkProjectSeriesSchemaDto[];
 }) {
   return (
     <>

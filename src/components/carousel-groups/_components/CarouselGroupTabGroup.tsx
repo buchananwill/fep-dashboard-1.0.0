@@ -1,39 +1,31 @@
 'use client';
-import CollectionChooserTabGroup, {
-  CollectionChooserTabGroupProps
-} from '@/components/collection-chooser-tab-group/CollectionChooserTabGroup';
-
-import { Button } from '@mantine/core';
+import { Button, Tabs } from '@mantine/core';
 import React, { Dispatch, SetStateAction, useCallback } from 'react';
-import {
-  EditAddDeleteDtoControllerArray,
-  NamespacedHooks,
-  useMasterListInteraction
-} from 'dto-stores';
+import { NamespacedHooks, useMasterListInteraction } from 'dto-stores';
 import { ArrayPlaceholder } from 'selective-context';
 
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 import { DispatchList } from '@/types';
-import CarouselGroupOptionChooser from '@/components/carousel-groups/_components/CarouselGroupOptionChooser';
+import CarouselGroupEditor from '@/components/carousel-groups/_components/CarouselGroupEditor';
 import {
   CarouselGroupDto,
-  KnowledgeLevelDto,
-  WorkProjectSeriesSchemaDto
+  KnowledgeLevelDto
 } from '@/api/generated-types/generated-types';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
+function getTabValue(item: CarouselGroupDto) {
+  return `carouselGroup-${item.id}`;
+}
+
 export default function CarouselGroupTabGroup({
-  collectionData,
   knowledgeLevel,
-  deleteServerAction,
-  postServerAction,
-  updateServerAction,
   ...otherProps
-}: Omit<
-  CollectionChooserTabGroupProps<CarouselGroupDto, WorkProjectSeriesSchemaDto>,
-  'collectionItemChooser'
-> & { knowledgeLevel: KnowledgeLevelDto }) {
+}: {
+  referencedEntityClass: string;
+  collectionEntityClass: string;
+  knowledgeLevel: KnowledgeLevelDto;
+}) {
   const collectionEntityClass = otherProps.collectionEntityClass;
 
   const curriedCallback = useCallback(
@@ -50,20 +42,19 @@ export default function CarouselGroupTabGroup({
       curriedCallback(dispatch, dispatchWithoutListen)
   );
 
-  const { currentState: collectionDataState } = NamespacedHooks.useListen(
+  const { currentState: collectionDataState } = NamespacedHooks.useListen<
+    CarouselGroupDto[]
+  >(
     collectionEntityClass,
     KEY_TYPES.MASTER_LIST,
     'carousel-tab-group',
     ArrayPlaceholder
   );
 
+  console.log({ collectionDataState });
+
   return (
     <div className={'flex flex-col gap-2'}>
-      <EditAddDeleteDtoControllerArray
-        entityClass={collectionEntityClass}
-        dtoList={collectionData}
-        {...{ deleteServerAction, postServerAction, updateServerAction }}
-      />
       <div className={'flex'}>
         <Button onClick={handleOnPress}>Add Carousel Group</Button>
         <div className={'grow text-center'}>
@@ -71,11 +62,27 @@ export default function CarouselGroupTabGroup({
         </div>
       </div>
       <div>
-        <CollectionChooserTabGroup
-          collectionData={collectionDataState}
-          {...otherProps}
-          collectionItemChooser={CarouselGroupOptionChooser}
-        />
+        <Tabs
+          keepMounted={false}
+          defaultValue={
+            collectionDataState.length > 0
+              ? getTabValue(collectionDataState[0])
+              : null
+          }
+        >
+          <Tabs.List>
+            {collectionDataState.map((item) => (
+              <Tabs.Tab key={item.id} value={getTabValue(item)}>
+                {item.name}
+              </Tabs.Tab>
+            ))}
+          </Tabs.List>
+          {collectionDataState.map((item) => (
+            <Tabs.Panel key={item.id} value={getTabValue(item)}>
+              <CarouselGroupEditor collectionId={item.id} />
+            </Tabs.Panel>
+          ))}
+        </Tabs>
       </div>
     </div>
   );

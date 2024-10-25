@@ -47,17 +47,9 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
 
   return (
     <>
-      <Popover
-        zIndex={100}
-        opened={showPopover}
-        withArrow
-        onClose={() => setShowPopover(false)}
-      >
+      <Popover zIndex={100} withArrow trapFocus>
         <Popover.Target>
-          <Button
-            className={`${classNames?.button}`}
-            onClick={() => setShowPopover((prev) => !prev)}
-          >
+          <Button className={`${classNames?.button}`}>
             <span className={' ... truncate'}>{get(entity, stringPath)}</span>
             <PendingOverlay pending={opened} />
           </Button>
