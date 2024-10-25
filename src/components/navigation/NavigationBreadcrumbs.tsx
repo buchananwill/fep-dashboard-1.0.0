@@ -1,6 +1,5 @@
 'use client';
 import { startCase } from 'lodash';
-import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/breadcrumbs';
 
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { useGlobalDispatch } from 'selective-context';
@@ -8,8 +7,9 @@ import { useMemo } from 'react';
 import { useEffectSyncToMemo } from 'react-d3-force-wrapper';
 import { JSX } from 'react/jsx-runtime';
 import { HasUuidDtoSchema } from '@/api/generated-schemas/schemas_';
-import Link from 'next/link';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { Breadcrumbs } from '@mantine/core';
+import { LinkButton } from '@/components/navigation/LinkButton';
 
 export const navigationBreadcrumbs = 'navigation-breadcrumbs';
 export default function NavigationBreadcrumbs({
@@ -22,15 +22,24 @@ export default function NavigationBreadcrumbs({
   const breadCrumbsRender = useMemo(() => {
     return (
       <Breadcrumbs className={'h-4'}>
-        {pathVariables.map((pathVariable, index) => (
-          <BreadcrumbItem className={'text-default-700'} key={index}>
-            <Link href={`/core/${pathVariables.slice(0, index + 1).join('/')}`}>
+        {pathVariables.map((pathVariable, index) =>
+          index + 1 === pathVariables.length ? (
+            <span key={index}>
               {isUuid(pathVariable)
                 ? pathVariable
                 : startCase(getDomainAlias(pathVariable))}
-            </Link>
-          </BreadcrumbItem>
-        ))}
+            </span>
+          ) : (
+            <LinkButton
+              href={`/core/${pathVariables.slice(0, index + 1).join('/')}`}
+              key={index}
+            >
+              {isUuid(pathVariable)
+                ? pathVariable
+                : startCase(getDomainAlias(pathVariable))}
+            </LinkButton>
+          )
+        )}
       </Breadcrumbs>
     );
   }, [pathVariables]);
