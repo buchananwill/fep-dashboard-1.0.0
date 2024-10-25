@@ -42,7 +42,7 @@ export function useEntitySelectionWithSimpleSelectables<T extends HasIdClass>(
     selectableMap,
     dispatchIdList
   );
-  return { selectableList, selectionList, onChange };
+  return { selectableList, selectionList, onChange, idMap, selectableMap };
 }
 
 function idGetter<T extends HasIdClass>(item?: T) {

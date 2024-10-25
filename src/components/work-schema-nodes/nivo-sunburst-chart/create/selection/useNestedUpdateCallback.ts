@@ -1,10 +1,6 @@
-import { TypedPaths } from '@/api/custom-types/typePaths';
 import { DispatchState } from '@/types';
 import { useCallback } from 'react';
-import {
-  updateNestedValue,
-  updateNestedValueWithLodash
-} from '@/functions/updateNestedValue';
+import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
 import { Get, Paths } from 'type-fest';
 import { HasOnlyStringKeys } from '@/components/types/stringKeysOnly';
 

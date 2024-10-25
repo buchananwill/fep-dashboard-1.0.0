@@ -1,14 +1,10 @@
-import { Identifier, NamespacedHooks } from 'dto-stores';
+import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { Select, Selection, SelectProps } from '@nextui-org/react';
-import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { EmptyArray } from '@/api/literals';
-import { useCallback } from 'react';
-import { parseTen } from '@/api/date-and-time';
-import { SelectItem } from '@nextui-org/select';
-import { get } from 'lodash';
-import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
+import { Select } from '@mantine/core';
+import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
+import { useCallback, useRef } from 'react';
+import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
 
 export function ControlledSelector<
   ID_CLASS extends Identifier,
@@ -17,72 +13,41 @@ export function ControlledSelector<
   entityClass,
   entityId,
   selectionCallback,
-  idType = 'number',
-  labelPath,
-  placeHolderOnlyNoLabel,
-  ...selectProps
+  labelPath
 }: {
   labelPath: TypedPaths<T, string | number>;
   entityId: ID_CLASS | null;
   entityClass: string;
-  idType?: 'string' | 'number';
   selectionCallback?: (selection: T | undefined) => void;
-  placeHolderOnlyNoLabel?: boolean;
-} & Omit<
-  SelectProps,
-  'onSelectionChange' | 'selectedKeys' | 'items' | 'selectionMode' | 'children'
->) {
-  const listenerKey = useUuidListenerKey();
-  const label = getStartCaseDomainAlias(entityClass);
+}) {
+  const selectionPropRef = useRef(entityId ? [entityId] : ([] as ID_CLASS[]));
 
-  const { currentState } = NamespacedHooks.useListen(
-    entityClass,
-    'masterList',
-    listenerKey,
-    EmptyArray as T[]
-  );
+  const { onChange, selectableList, idMap } =
+    useEntitySelectionWithSimpleSelectables(entityClass, labelPath);
 
-  const onSelectionChange = useCallback(
-    (value: Selection) => {
-      if (!selectionCallback) {
+  const propagateUpdate = useCallback(
+    (list: ID_CLASS[]) => {
+      if (!selectionCallback) return;
+      if (list.length === 0) {
+        selectionCallback(undefined);
       } else {
-        if (value === 'all' || value.size > 1)
-          throw new Error('Only single selection supported.');
-        if (value.size === 1) {
-          const selectedKey = String([...value.values()][0]);
-          const id = idType === 'string' ? selectedKey : parseTen(selectedKey);
-          const newItem =
-            currentState.find((item) => item.id === id) ?? undefined;
-          selectionCallback(newItem);
-        } else {
-          selectionCallback(undefined);
-        }
+        selectionCallback(idMap.get(list[0]));
       }
     },
-    [idType, selectionCallback, currentState]
+    [selectionCallback, idMap]
+  );
+
+  useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders(
+    selectionPropRef.current,
+    propagateUpdate,
+    entityClass
   );
 
   return (
     <Select
-      {...selectProps}
-      items={currentState}
-      aria-label={getStartCaseDomainAlias(selectProps['aria-label'] ?? label)}
-      label={!placeHolderOnlyNoLabel ? selectProps.label ?? label : ''}
-      placeholder={getStartCaseDomainAlias(labelPath)}
-      selectionMode={'single'}
-      selectedKeys={entityId ? [String(entityId)] : EmptyArray}
-      onSelectionChange={onSelectionChange}
-      classNames={{ selectorIcon: 'right-2' }}
-    >
-      {(entity) => (
-        <SelectItem
-          key={entity.id}
-          value={entity.id}
-          aria-label={get(entity, labelPath)}
-        >
-          {get(entity, labelPath)}
-        </SelectItem>
-      )}
-    </Select>
+      value={entityId ? String(entityId) : null}
+      onChange={onChange}
+      data={selectableList}
+    />
   );
 }
