@@ -15,7 +15,7 @@ import { ControlledSelector } from '@/components/work-schema-nodes/nivo-sunburst
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { useNestedUpdateCallback } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/useNestedUpdateCallback';
 import { useCallback, useRef } from 'react';
-import { ConfirmActionModal } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ConfirmActionModal';
+import { ConfirmActionModal } from '@/components/modals/ConfirmActionModal';
 import { Loader } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 

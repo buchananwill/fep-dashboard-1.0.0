@@ -8,6 +8,8 @@ import {
   Pill,
   PillsInput,
   PillsInputProps,
+  ScrollArea,
+  ScrollAreaAutosizeProps,
   useCombobox
 } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -19,14 +21,17 @@ const noop = (value: string[]) => {};
 export function MultiSelectMaxDisplayedItems({
   maxDisplayedValues = 2,
   value = EmptyArray,
+  withinPortal = false,
   onChange = noop,
   data,
   pillsInput,
+  scrollArea,
   ...props
 }: {
   maxDisplayedValues?: number;
   data: SimpleSelectable[];
   pillsInput?: Omit<PillsInputProps, 'pointer' | 'onClick' | 'children'>;
+  scrollArea?: ScrollAreaAutosizeProps;
 } & Pick<MultiSelectProps, 'value' | 'onChange' | 'placeholder' | 'label'> &
   ComboboxProps) {
   const combobox = useCombobox({
@@ -102,7 +107,7 @@ export function MultiSelectMaxDisplayedItems({
       {...props}
       store={combobox}
       onOptionSubmit={handleValueSelect}
-      withinPortal={false}
+      withinPortal={withinPortal}
     >
       <Combobox.DropdownTarget>
         <PillsInput
@@ -139,7 +144,9 @@ export function MultiSelectMaxDisplayedItems({
       </Combobox.DropdownTarget>
 
       <Combobox.Dropdown>
-        <Combobox.Options>{options}</Combobox.Options>
+        <Combobox.Options>
+          <ScrollArea.Autosize {...scrollArea}>{options}</ScrollArea.Autosize>
+        </Combobox.Options>
       </Combobox.Dropdown>
     </Combobox>
   );

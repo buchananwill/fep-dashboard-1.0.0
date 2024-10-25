@@ -52,10 +52,10 @@ function KnowledgeDomainModalContent({ onClose }: { onClose: () => void }) {
 
   return (
     <>
-      <ModalHeader className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1">
         {getStartCaseDomainAlias('knowledgeDomainGroup')}
-      </ModalHeader>
-      <ModalBody>
+      </div>
+      <div className={'overflow-visible'}>
         {
           <KnowledgeDomainGroupEdit
             dispatch={setModalCopy}
@@ -64,15 +64,15 @@ function KnowledgeDomainModalContent({ onClose }: { onClose: () => void }) {
             knowledgeDomainGroup={knowledgeDomainGroup}
           />
         }
-      </ModalBody>
-      <ModalFooter>
+      </div>
+      <div>
         <Button color="danger" variant="light" onClick={onClose}>
           Cancel
         </Button>
         <Button color="primary" onClick={confirmChanges}>
           Confirm
         </Button>
-      </ModalFooter>
+      </div>
     </>
   );
 }
