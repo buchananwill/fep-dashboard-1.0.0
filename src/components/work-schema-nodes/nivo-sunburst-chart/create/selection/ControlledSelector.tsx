@@ -1,7 +1,7 @@
 import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { Select } from '@mantine/core';
+import { Select, SelectProps } from '@mantine/core';
 import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
 import { useCallback, useRef } from 'react';
 import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
@@ -13,12 +13,14 @@ export function ControlledSelector<
   entityClass,
   entityId,
   selectionCallback,
-  labelPath
+  labelPath,
+  error
 }: {
   labelPath: TypedPaths<T, string | number>;
   entityId: ID_CLASS | null;
   entityClass: string;
   selectionCallback?: (selection: T | undefined) => void;
+  error: SelectProps['error'];
 }) {
   const selectionPropRef = useRef(entityId ? [entityId] : ([] as ID_CLASS[]));
 
@@ -48,6 +50,7 @@ export function ControlledSelector<
       value={entityId ? String(entityId) : null}
       onChange={onChange}
       data={selectableList}
+      error={error}
     />
   );
 }
