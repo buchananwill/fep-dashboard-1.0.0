@@ -13,12 +13,10 @@ import { RoleEntity } from '@/components/roles/types';
 import { FieldErrors, useFormContext } from 'react-hook-form';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
-import {
-  useEntitySelectionWithSimpleSelectables,
-  useEntitySelectionWithStringLabelsOnly
-} from '@/hooks/useEntitySelectionWithStringLabelsOnly';
+import { useEntitySelectionWithStringLabelsOnly } from '@/hooks/useEntitySelectionWithStringLabelsOnly';
 import { Select } from '@mantine/core';
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
+import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
 
 const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {
   each: {
