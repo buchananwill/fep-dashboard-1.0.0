@@ -1,6 +1,5 @@
 'use client';
 
-import { NextUIProvider } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { SelectiveContextManagerGlobal } from 'selective-context';
 import React from 'react';
@@ -22,11 +21,7 @@ export function LibraryProvidersWrapper({
       <SelectiveContextManagerGlobal>
         <DndProvider options={HTML5toTouch}>
           <AnimationSyncContextProvider>
-            <MantineProvider theme={MantineTheme}>
-              <NextUIProvider locale={'en-GB'} navigate={router.push}>
-                {children}
-              </NextUIProvider>
-            </MantineProvider>
+            <MantineProvider theme={MantineTheme}>{children}</MantineProvider>
           </AnimationSyncContextProvider>
         </DndProvider>
       </SelectiveContextManagerGlobal>

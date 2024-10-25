@@ -7,7 +7,7 @@ export function useNestedAutoCompleteChangeHandler<T extends HasId>(
 ) {
   return useCallback(
     (
-      selectionKey: React.Key | null,
+      selectionKey: string | null,
       onChange: (...event: any[]) => void,
       setInputValue: (value: string) => void
     ) => {
@@ -15,7 +15,9 @@ export function useNestedAutoCompleteChangeHandler<T extends HasId>(
         (kdItem) => String(kdItem.id) === selectionKey
       );
       onChange(updatedElement);
-      setInputValue(updatedElement ? labelAccessor(updatedElement) : '');
+      setInputValue(
+        updatedElement ? String(labelAccessor(updatedElement)) : ''
+      );
     },
     [nestedPropertyOptions, labelAccessor]
   );

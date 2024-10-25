@@ -40,8 +40,8 @@ export function ControlledSelect<T extends SelectableItem>({
       );
       const dataList = items.map((item) => {
         return {
-          value: item[valueAccessor],
-          label: item[labelAccessor] ?? item[valueAccessor]
+          value: String(item[valueAccessor]),
+          label: String(item[labelAccessor])
         };
       });
       return { itemsMap, dataList };
@@ -57,7 +57,7 @@ export function ControlledSelect<T extends SelectableItem>({
           <Select
             {...props}
             data={dataList}
-            value={field[valueAccessor]}
+            value={String(field[valueAccessor])}
             onChange={(value) => {
               if (onChange) {
                 onChange(itemsMap.get(value), field.onChange);

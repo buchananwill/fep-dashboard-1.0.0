@@ -1,5 +1,5 @@
 'use client';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';
@@ -7,10 +7,7 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@mantine/core';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { Api } from '@/api/clientApi_';
-import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';
 import { HasId } from '@/api/types';
-import { getDomainAlias } from '@/api/getDomainAlias';
-import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplete';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
 import { nameAccessor } from '@/functions/nameSetter';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
@@ -30,12 +27,7 @@ const defaultWorkTaskTypeValues = {
 export default function CreateWorkTaskType({
   pathVariables
 }: LeafComponentProps) {
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    watch
-  } = useForm<WorkTaskTypeDto>({
+  const formReturn = useForm<WorkTaskTypeDto>({
     resolver: zodResolver(WorkTaskTypeDtoSchema),
     defaultValues: defaultWorkTaskTypeValues
   });
@@ -43,6 +35,13 @@ export default function CreateWorkTaskType({
   const knowledgeLevelSeriesDtos = useSimpleApiFetcher(
     Api.KnowledgeLevelSeries.getAll
   );
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    watch
+  } = formReturn;
 
   const klsId = watch('knowledgeLevelSeriesId');
 
@@ -98,57 +97,27 @@ export default function CreateWorkTaskType({
           handleSubmit(onSubmit)(event);
         }}
       >
-        <h1 className={'items-center justify-center align-middle '}>
-          New Work Task Type
-        </h1>
-        <div className={'items-center justify-center gap-2'}>
-          <ControlledAutoComplete
-            name={'name'}
-            allowsCustomValue={true}
-            control={control}
-            items={names}
-            aria-label={'Work Task Type Name'}
-            defaultInputValue={defaultWorkTaskTypeValues.name}
-            itemAccessors={{
-              labelAccessor: 'name',
-              valueAccessor: 'name'
-            }}
-          />
-          <ControlledAutoComplete
-            name={'knowledgeDomain'}
-            control={control}
-            selectedKeyAccessor={'id'}
-            aria-label={'knowledge domain'}
-            onChange={onKnowledgeDomainSelectChange}
-            items={knowledgeDomains}
-          />
-
-          <ControlledSelect
-            name={'knowledgeLevelSeriesId'}
-            aria-label={'knowledge Level Series Id'}
-            control={control}
-            items={knowledgeLevelSeriesDtos}
-            onChange={knowledgeLevelSeriesChangeHandler}
-          />
-          <ControlledSelect
-            name={'knowledgeLevel'}
-            selectedKeyAccessor={'id'}
-            aria-label={'knowledge Level'}
-            control={control}
-            items={knowledgeLevelDtos}
-            onChange={knowledgeLevelChangeHandler}
-            disabled={knowledgeLevelDtos.length === 0}
-            placeholder={`Choose a ${getDomainAlias('knowledgeLevel')}`}
-          />
-        </div>
-        <div className={'justify-center gap-2'}>
-          <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
-            Cancel
-          </LinkButton>
-          <Button type={'submit'} color={'success'}>
-            Submit
-          </Button>
-        </div>
+        <FormProvider {...formReturn}>
+          <h1 className={'items-center justify-center align-middle '}>
+            New Work Task Type
+          </h1>
+          <div className={'items-center justify-center gap-2'}>
+            {/*
+            AutoComplete: WorkTaskTypeName
+            AutoComplete: KnowledgeDomain
+            Select: KLS
+            Select: KL
+            */}
+          </div>
+          <div className={'justify-center gap-2'}>
+            <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
+              Cancel
+            </LinkButton>
+            <Button type={'submit'} color={'success'}>
+              Submit
+            </Button>
+          </div>
+        </FormProvider>
       </form>
     </RootCard>
   );

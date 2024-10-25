@@ -1,73 +1,41 @@
-import { Control, Controller, ControllerRenderProps } from 'react-hook-form';
 import {
-  Autocomplete,
-  AutocompleteItem,
-  AutocompleteProps,
-  SelectItemProps
-} from '@nextui-org/react';
+  Control,
+  Controller,
+  ControllerRenderProps,
+  useFormContext
+} from 'react-hook-form';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   ItemAccessors,
   SelectableItem
 } from '@/components/react-hook-form/ControlledSelect';
+import { Autocomplete, AutocompleteProps } from '@mantine/core';
 
 type ControlledAutoCompleteProps<T extends SelectableItem> = {
   selectedKeyAccessor?: string;
   name: string;
-  control: Control<any>;
   onChange?: (
-    value: React.Key | null,
+    value: string | null,
     onChange: (...event: any[]) => void,
     setInputValue: (value: string) => void
   ) => void;
-  selectItemProps?: SelectItemProps;
   itemAccessors?: ItemAccessors<T>;
   items: T[];
-} & Omit<AutocompleteProps, 'onChange' | 'children'>;
+  allowsCustomValue?: boolean;
+} & Pick<AutocompleteProps, 'styles' | 'classNames'>;
 
 export function ControlledAutoComplete<T extends SelectableItem>({
   name,
   onChange,
   itemAccessors = defaultItemAccessors as ItemAccessors<T>,
   items,
-  selectItemProps,
   selectedKeyAccessor,
-  defaultInputValue,
-  control,
+  allowsCustomValue,
   ...props
 }: ControlledAutoCompleteProps<T>) {
+  const { control } = useFormContext();
   const { labelAccessor, valueAccessor } = itemAccessors;
-  const childrenDefined = useMemo(() => {
-    if (items && itemAccessors) {
-      return items.map((kls) => (
-        <AutocompleteItem
-          {...selectItemProps}
-          key={kls[valueAccessor]}
-          value={kls[valueAccessor]}
-          aria-label={kls[labelAccessor]}
-        >
-          {kls[labelAccessor]}
-        </AutocompleteItem>
-      ));
-    } else return [];
-  }, [itemAccessors, items, selectItemProps, valueAccessor, labelAccessor]);
-
-  const [inputValue, setInputValue] = useState<string>(defaultInputValue ?? '');
-  const inputRef = useRef('');
-  inputRef.current = inputValue;
-
-  const onOpenChange = useCallback(
-    (isClosing: boolean, field: ControllerRenderProps) => {
-      if (isClosing && props.allowsCustomValue && !field.value) {
-        if (onChange) {
-          onChange(inputRef.current, field.onChange, setInputValue);
-        } else {
-          field.onChange(inputRef.current);
-        }
-      }
-    },
-    [props.allowsCustomValue, onChange]
-  );
+  const [inputValue, setInputValue] = useState('');
 
   return (
     <Controller
@@ -85,20 +53,14 @@ export function ControlledAutoComplete<T extends SelectableItem>({
         return (
           <Autocomplete
             {...props}
-            inputValue={inputValue}
-            onInputChange={setInputValue}
-            onClear={() => setInputValue('')}
-            isInvalid={!!formState.errors?.[name]?.message}
-            errorMessage={formState.errors?.[name]?.message?.toString()}
-            selectedKey={currentValueString ?? null}
-            onClose={() => onOpenChange(true, field)}
-            onBlur={() => {}}
-            onSelectionChange={(value) => {
+            value={String(currentValueString)}
+            error={formState.errors?.[name]?.message?.toString()}
+            onChange={(value) => {
               const valueOrCustom = value
                 ? value
-                : props.allowsCustomValue
-                  ? inputValue !== ''
-                    ? inputValue
+                : allowsCustomValue
+                  ? value !== ''
+                    ? value
                     : null
                   : null;
               if (onChange) {
@@ -108,9 +70,7 @@ export function ControlledAutoComplete<T extends SelectableItem>({
                 setInputValue(valueOrCustom ? String(valueOrCustom) : '');
               }
             }}
-          >
-            {...childrenDefined}
-          </Autocomplete>
+          />
         );
       }}
     ></Controller>

@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["@nextui-org/react"],
     "lib": [
       "dom",
       "dom.iterable",
