@@ -18,22 +18,22 @@ type SelectApiParamsMulti<T> = {
   value: T[];
   propagateChange: (selection: T[]) => void;
 };
-type SelectApiParamsSingleFlat<T> = SelectApiParamsSingle<T> &
+export type SelectApiParamsSingleFlat<T> = SelectApiParamsSingle<T> &
   SelectApiParamsShared<T> & {
     type: 'singleFlat';
     valueMaker?: never;
   };
-type SelectApiParamsSingleObject<T> = SelectApiParamsSingle<T> &
+export type SelectApiParamsSingleObject<T> = SelectApiParamsSingle<T> &
   SelectApiParamsShared<T> & {
     type: 'singleObject';
     valueMaker?: LabelMaker<T>;
   };
-type SelectApiParamsMultiFlat<T> = SelectApiParamsMulti<T> &
+export type SelectApiParamsMultiFlat<T> = SelectApiParamsMulti<T> &
   SelectApiParamsShared<T> & {
     type: 'multiFlat';
     valueMaker?: never;
   };
-type SelectApiParamsMultiObject<T> = SelectApiParamsMulti<T> &
+export type SelectApiParamsMultiObject<T> = SelectApiParamsMulti<T> &
   SelectApiParamsShared<T> & {
     type: 'multiObject';
     valueMaker?: LabelMaker<T>;

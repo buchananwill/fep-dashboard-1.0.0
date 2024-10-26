@@ -23,6 +23,7 @@ import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLay
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { useAutocompleteApi } from '@/hooks/select-adaptors/useAutocompleteApi';
+import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
 
 const defaultWorkTaskTypeValues = {
   id: -1,
@@ -91,13 +92,13 @@ export default function CreateWorkTaskType({
     propagateChange: propagateKdChange
   });
 
-  const autocompleteApi = useAutocompleteApi({
-    onChange,
-    value: value as string,
-    data: data as string[],
-    allowCustom: false,
-    allowUndefined: true,
-    type: 'singleFlat'
+  const autocompleteApi = useSelectAutocompleteApi({
+    rawData: knowledgeDomains,
+    type: 'singleFlat',
+    labelMaker: nameAccessor,
+    value: knowledgeDomain,
+    propagateChange: propagateKdChange,
+    allowUndefined: false
   });
 
   const knowledgeLevelChangeHandler = useNestedSelectChangeHandler(

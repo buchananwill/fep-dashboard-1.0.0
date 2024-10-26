@@ -2,7 +2,7 @@ import { SingleFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 export type AutocompleteApiParams<T> = {
-  allowCustom: boolean;
+  allowCustom?: boolean;
   allowUndefined: boolean;
 } & SingleFlat;
 
@@ -21,32 +21,36 @@ export function useAutocompleteApi<T>({
     setInputValue(value ?? '');
   }, [value]);
 
-  const valueSet = useMemo(() => {
-    return new Set(...data.map((datum) => datum.toLocaleLowerCase()));
+  const dataSet = useMemo(() => {
+    return new Set(data.map((datum) => datum.toLocaleLowerCase()));
   }, [data]);
 
   const onBlur = useCallback(() => {
-    console.log({ message: 'on blur handler' });
     const aliasedRefValue = inputValueRef.current;
-    const isCustomValue = valueSet.has(aliasedRefValue.toLocaleLowerCase());
+    const isCustomValue = !dataSet.has(aliasedRefValue.toLocaleLowerCase());
     const firstFiltered = data
       .filter((datum) =>
-        datum.toLocaleLowerCase().includes(aliasedRefValue.toLocaleLowerCase())
+        datum
+          .trim()
+          .toLocaleLowerCase()
+          .includes(aliasedRefValue.trim().toLocaleLowerCase())
       )
       .shift();
     if (!isCustomValue) {
       if (!firstFiltered) throw Error('Filtering failed.');
-      console.log('exact match');
       onChange(firstFiltered);
       setInputValue(firstFiltered);
     } else {
       if (allowCustom) {
+        console.log('allowing custom');
         onChange(aliasedRefValue);
       } else {
         if (allowUndefined) {
+          console.log('allowing undefined');
           onChange(null);
           setInputValue('');
         } else {
+          console.log('preventing undefined');
           if (data.length === 0)
             throw Error(
               'Undefined and custom not allowed but no values provided.'
@@ -57,7 +61,7 @@ export function useAutocompleteApi<T>({
         }
       }
     }
-  }, [data, valueSet, onChange, allowUndefined, allowCustom]);
+  }, [data, dataSet, onChange, allowUndefined, allowCustom]);
 
   return { value: inputValue, onChange: setInputValue, onBlur, data };
 }
