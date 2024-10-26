@@ -13,12 +13,12 @@ export function useAutocompleteApi<T>({
   allowCustom,
   allowUndefined
 }: AutocompleteApiParams<T>) {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState<string | undefined>();
   const inputValueRef = useRef(inputValue);
   inputValueRef.current = inputValue;
 
   useEffect(() => {
-    setInputValue(value ?? '');
+    setInputValue(value ?? undefined);
   }, [value]);
 
   const dataSet = useMemo(() => {
@@ -27,13 +27,17 @@ export function useAutocompleteApi<T>({
 
   const onBlur = useCallback(() => {
     const aliasedRefValue = inputValueRef.current;
-    const isCustomValue = !dataSet.has(aliasedRefValue.toLocaleLowerCase());
+    const isUndefined = !!aliasedRefValue;
+    const isCustomValue =
+      !aliasedRefValue || !dataSet.has(aliasedRefValue.toLocaleLowerCase());
     const firstFiltered = data
       .filter((datum) =>
-        datum
-          .trim()
-          .toLocaleLowerCase()
-          .includes(aliasedRefValue.trim().toLocaleLowerCase())
+        !aliasedRefValue
+          ? true
+          : datum
+              .trim()
+              .toLocaleLowerCase()
+              .includes(aliasedRefValue.trim().toLocaleLowerCase())
       )
       .shift();
     if (!isCustomValue) {
@@ -42,13 +46,19 @@ export function useAutocompleteApi<T>({
       setInputValue(firstFiltered);
     } else {
       if (allowCustom) {
-        console.log('allowing custom');
-        onChange(aliasedRefValue);
+        console.log({ message: 'allowing custom', aliasedRefValue });
+        const nextValue = !aliasedRefValue
+          ? undefined
+          : aliasedRefValue.trim() === ''
+            ? undefined
+            : aliasedRefValue;
+        onChange(nextValue ?? null);
+        setInputValue(nextValue);
       } else {
         if (allowUndefined) {
           console.log('allowing undefined');
           onChange(null);
-          setInputValue('');
+          setInputValue(undefined);
         } else {
           console.log('preventing undefined');
           if (data.length === 0)

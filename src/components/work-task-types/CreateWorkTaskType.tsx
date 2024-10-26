@@ -135,6 +135,9 @@ export default function CreateWorkTaskType({
   useEffect(() => {
     trigger('knowledgeDomain');
   }, [knowledgeDomain, trigger]);
+  useEffect(() => {
+    trigger('name');
+  }, [wttName, trigger]);
 
   return (
     <RootCard layoutId={workTaskTypesLayoutId}>
