@@ -1,25 +1,22 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from 'react';
 
-export function useEscapeToClose(
-  isOpen: boolean,
-  setIsOpen: Dispatch<SetStateAction<boolean>>,
-) {
+export function useEscapeToClose(isOpen: boolean, close: () => void) {
   useEffect(() => {
     if (!isOpen) {
       return;
     }
 
     function keyDownHandler(e: KeyboardEvent) {
-      if (isOpen && e.key === "Escape") {
+      if (isOpen && e.key === 'Escape') {
         e.preventDefault();
-        setIsOpen(false);
+        close();
       }
     }
 
-    document.addEventListener("keydown", keyDownHandler);
+    document.addEventListener('keydown', keyDownHandler);
 
     return () => {
-      document.removeEventListener("keydown", keyDownHandler);
+      document.removeEventListener('keydown', keyDownHandler);
     };
-  }, [isOpen, setIsOpen]);
+  }, [isOpen, close]);
 }

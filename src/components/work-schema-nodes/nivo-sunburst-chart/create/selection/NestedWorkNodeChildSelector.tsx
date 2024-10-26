@@ -95,6 +95,7 @@ export default function NestedWorkNodeChildSelector({
         selectionPath={selectionThisLevel}
         labelAccessor={labelAccessor}
         depth={discriminatorIndex}
+        discriminator={discriminator}
         parent={parent}
       />
     </>
@@ -107,11 +108,13 @@ function InnerSelector({
   childList,
   labelAccessor,
   selectionPath,
+  discriminator,
   depth
 }: {
   childList: WorkNodeHierarchy[];
   parent?: NestedWorkNode;
   selectionPath?: string;
+  discriminator: NestedWorkNodeDiscriminator;
   depth: number;
   labelAccessor: MonoFunction<WorkNodeHierarchy, string>;
 }) {
@@ -155,6 +158,7 @@ function InnerSelector({
         label={label}
         data={simpleSelectables}
         value={currentSelection}
+        placeholder={getDomainAlias(discriminator)}
         onChange={onSelectionChange}
       />
     </div>

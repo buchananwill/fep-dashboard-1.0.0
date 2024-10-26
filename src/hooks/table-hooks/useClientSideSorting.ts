@@ -72,7 +72,15 @@ export default function useClientSideSorting<
     );
     if (direction === 'asc') return sortedAsc;
     else return sortedAsc.reverse();
-  }, [path, direction, filteredIdList, contextKeys, currentState]);
+  }, [
+    fullIdList,
+    path,
+    direction,
+    filteredIdList,
+    contextKeys,
+    currentState,
+    hideFiltering
+  ]);
 
   const { dispatch } = useGlobalController({
     contextKey: getFilteredSortedIdListContextKey(entityClass),

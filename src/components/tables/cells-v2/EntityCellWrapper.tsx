@@ -9,11 +9,12 @@ import { Identifier, useDtoStore } from 'dto-stores';
 import { ReactNode, useCallback, useMemo } from 'react';
 import { Get, Paths } from 'type-fest';
 import { get } from 'lodash';
+import { ColumnUid } from '@/types';
 
 export default function EntityCellWrapper<
   T extends HasIdClass<T_ID>,
   T_ID extends Identifier,
-  T_PATH extends Paths<T> = Paths<T>,
+  T_PATH extends ColumnUid<T> = ColumnUid<T>,
   T_FIELD_TYPE extends Get<T, T_PATH> = Get<T, T_PATH>
 >({
   entityClass,

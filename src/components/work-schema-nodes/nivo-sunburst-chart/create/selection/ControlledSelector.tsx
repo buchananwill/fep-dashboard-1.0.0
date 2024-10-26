@@ -20,7 +20,7 @@ export function ControlledSelector<
   entityId: ID_CLASS | null;
   entityClass: string;
   selectionCallback?: (selection: T | undefined) => void;
-  error: SelectProps['error'];
+  error?: SelectProps['error'];
 }) {
   const selectionPropRef = useRef(entityId ? [entityId] : ([] as ID_CLASS[]));
 

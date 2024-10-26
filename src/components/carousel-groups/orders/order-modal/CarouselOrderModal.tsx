@@ -11,18 +11,15 @@ import { Modal, ScrollArea } from '@mantine/core';
 
 const carouselOrderModalController = 'CarouselOrderModalController';
 export const carouselOrderModal = 'CarouselOrderModal';
-export interface CarouselOrderModalState {
-  carouselOrderId: string | undefined;
-  isOpen: boolean;
-}
+export type CarouselOrderModalState = typeof defaultState;
 
 const defaultState = {
-  carouselOrderId: undefined,
-  isOpen: false
-};
+  carouselOrderId: undefined as string | undefined,
+  opened: false as boolean
+} as const;
 export default function CarouselOrderModal() {
   const {
-    currentState: { carouselOrderId, isOpen },
+    currentState: { carouselOrderId, opened },
     dispatch
   } = useGlobalController<CarouselOrderModalState>({
     contextKey: carouselOrderModal,
@@ -48,12 +45,12 @@ export default function CarouselOrderModal() {
 
   if (entity)
     return (
-      <Modal opened={isOpen} onClose={onClose}>
+      <Modal opened={opened} onClose={onClose}>
         <div className={'flex flex-col items-center justify-center p-2'}>
           <h1>Edit Carousel Order</h1>
           User {entity.userRoleId}
           <ScrollArea
-            className={'h-[400px] w-fit rounded-lg border-2 border-default-400'}
+            className={'border-default-400 h-[400px] w-fit rounded-lg border-2'}
           >
             <table className={'table-fixed'}>
               <tbody>
