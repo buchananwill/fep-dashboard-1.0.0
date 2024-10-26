@@ -21,7 +21,7 @@ type SelectApiParamsMulti<T> = {
 type SelectApiParamsSingleFlat<T> = SelectApiParamsSingle<T> &
   SelectApiParamsShared<T> & {
     type: 'singleFlat';
-    valueMaker: never;
+    valueMaker?: never;
   };
 type SelectApiParamsSingleObject<T> = SelectApiParamsSingle<T> &
   SelectApiParamsShared<T> & {
@@ -31,7 +31,7 @@ type SelectApiParamsSingleObject<T> = SelectApiParamsSingle<T> &
 type SelectApiParamsMultiFlat<T> = SelectApiParamsMulti<T> &
   SelectApiParamsShared<T> & {
     type: 'multiFlat';
-    valueMaker: never;
+    valueMaker?: never;
   };
 type SelectApiParamsMultiObject<T> = SelectApiParamsMulti<T> &
   SelectApiParamsShared<T> & {
@@ -60,25 +60,25 @@ type MultiSelectHandler = {
   onChange: (value: string | string[] | null) => void;
 };
 
-type SingleFlat = SelectFlatDataReturn &
+export type SingleFlat = SelectFlatDataReturn &
   SingleSelectHandler & {
     type: 'singleFlat';
     value: string | null;
   };
 
-type MultiFlat = MultiSelectHandler &
+export type MultiFlat = MultiSelectHandler &
   SelectFlatDataReturn & {
     type: 'multiFlat';
     value: string[];
   };
 
-type SingleObject = SelectObjectDataReturn &
+export type SingleObject = SelectObjectDataReturn &
   SingleSelectHandler & {
     type: 'singleObject';
     value: string | null;
   };
 
-type MultiObject = SelectObjectDataReturn &
+export type MultiObject = SelectObjectDataReturn &
   MultiSelectHandler & {
     type: 'multiObject';
     value: string[];

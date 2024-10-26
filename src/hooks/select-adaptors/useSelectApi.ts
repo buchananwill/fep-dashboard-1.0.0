@@ -101,7 +101,6 @@ export function useSelectApi<T>({
   const selectValueWithType = useMemo(() => {
     const valueGetter = valueMaker ? valueMaker : labelMaker;
 
-    const valueWithType = { type };
     switch (type) {
       case 'multiFlat':
       case 'multiObject': {
@@ -115,7 +114,7 @@ export function useSelectApi<T>({
       }
       case 'singleObject':
       case 'singleFlat': {
-        const selectValue = labelMaker(value);
+        const selectValue = value ? labelMaker(value) : null;
         return { type, value: selectValue };
       }
     }

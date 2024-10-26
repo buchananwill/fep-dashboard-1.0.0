@@ -9,7 +9,8 @@ export function getEditTextContextKey<T extends HasId>(
   return `${entityClass}:${entity?.id}:${stringPath}`;
 }
 
-export function nameAccessor<T extends HasNameDto>(entity: T) {
+export function nameAccessor<T extends HasNameDto>(entity?: T) {
+  if (entity === undefined) throw Error('Entity undefined');
   return entity.name;
 }
 

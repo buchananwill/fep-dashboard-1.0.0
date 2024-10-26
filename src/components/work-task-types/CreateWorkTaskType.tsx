@@ -2,10 +2,13 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, { useCallback, useMemo, useTransition } from 'react';
+import React, { useCallback, useEffect, useMemo, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@mantine/core';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { Autocomplete, Button, Select } from '@mantine/core';
+import {
+  KnowledgeDomainDto,
+  WorkTaskTypeDto
+} from '@/api/generated-types/generated-types';
 import { Api } from '@/api/clientApi_';
 import { HasId } from '@/api/types';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
@@ -18,6 +21,8 @@ import RootCard from '@/components/generic/RootCard';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
+import { useAutocompleteApi } from '@/hooks/select-adaptors/useAutocompleteApi';
 
 const defaultWorkTaskTypeValues = {
   id: -1,
@@ -40,10 +45,13 @@ export default function CreateWorkTaskType({
     handleSubmit,
     formState: { errors },
     control,
-    watch
+    watch,
+    setValue,
+    trigger
   } = formReturn;
 
   const klsId = watch('knowledgeLevelSeriesId');
+  const knowledgeDomain = watch('knowledgeDomain');
 
   const fetchKnowledgeLevels = useCallback(async () => {
     if (!klsId) return [];
@@ -68,6 +76,30 @@ export default function CreateWorkTaskType({
     nameAccessor
   );
 
+  const propagateKdChange = useCallback(
+    (knowledgeDomain: KnowledgeDomainDto | undefined) => {
+      setValue('knowledgeDomain', knowledgeDomain as KnowledgeDomainDto);
+    },
+    [setValue]
+  );
+
+  const { value, data, onChange, type } = useSelectApi({
+    rawData: knowledgeDomains,
+    type: 'singleFlat',
+    labelMaker: nameAccessor,
+    value: knowledgeDomain,
+    propagateChange: propagateKdChange
+  });
+
+  const autocompleteApi = useAutocompleteApi({
+    onChange,
+    value: value as string,
+    data: data as string[],
+    allowCustom: false,
+    allowUndefined: true,
+    type: 'singleFlat'
+  });
+
   const knowledgeLevelChangeHandler = useNestedSelectChangeHandler(
     knowledgeLevelDtos,
     idAccessor
@@ -88,6 +120,10 @@ export default function CreateWorkTaskType({
 
   const workTaskTypesLayoutId = getRootCardLayoutId(pathVariables);
 
+  useEffect(() => {
+    trigger('knowledgeDomain');
+  }, [value, trigger]);
+
   return (
     <RootCard layoutId={workTaskTypesLayoutId}>
       <PendingOverlay pending={pending} />
@@ -96,12 +132,27 @@ export default function CreateWorkTaskType({
           console.warn(errors);
           handleSubmit(onSubmit)(event);
         }}
+        className={'flex flex-col items-center gap-2'}
       >
         <FormProvider {...formReturn}>
           <h1 className={'items-center justify-center align-middle '}>
             New Work Task Type
           </h1>
-          <div className={'items-center justify-center gap-2'}>
+          <div className={'flex flex-col items-center justify-center gap-2'}>
+            {type === 'singleFlat' && (
+              <>
+                <Select
+                  data={data}
+                  value={value}
+                  onChange={onChange}
+                  error={errors.knowledgeDomain?.message}
+                />
+                <Autocomplete
+                  {...autocompleteApi}
+                  error={errors.knowledgeDomain?.message}
+                />{' '}
+              </>
+            )}
             {/*
             AutoComplete: WorkTaskTypeName
             AutoComplete: KnowledgeDomain
@@ -113,9 +164,7 @@ export default function CreateWorkTaskType({
             <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
               Cancel
             </LinkButton>
-            <Button type={'submit'} color={'success'}>
-              Submit
-            </Button>
+            <Button type={'submit'}>Submit</Button>
           </div>
         </FormProvider>
       </form>
