@@ -11,7 +11,7 @@ type SelectApiParamsShared<T> = {
   labelMaker: LabelMaker<T>;
 };
 type SelectApiParamsSingle<T> = {
-  value: T;
+  value?: T;
   propagateChange: (selection: T | undefined) => void;
 };
 type SelectApiParamsMulti<T> = {

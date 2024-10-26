@@ -7,6 +7,8 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Autocomplete, Button, Select } from '@mantine/core';
 import {
   KnowledgeDomainDto,
+  KnowledgeLevelDto,
+  KnowledgeLevelSeriesDto,
   WorkTaskTypeDto
 } from '@/api/generated-types/generated-types';
 import { Api } from '@/api/clientApi_';
@@ -25,6 +27,7 @@ import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { useAutocompleteApi } from '@/hooks/select-adaptors/useAutocompleteApi';
 import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
+import { flattenErrors } from '@/functions/flatten-errors';
 
 const defaultWorkTaskTypeValues = {
   id: -1,
@@ -52,7 +55,8 @@ export default function CreateWorkTaskType({
     trigger
   } = formReturn;
 
-  const klsId = watch('knowledgeLevelSeriesId');
+  const klsId = watch('knowledgeLevel.knowledgeLevelSeriesId');
+  const kl = watch('knowledgeLevel');
   const knowledgeDomain = watch('knowledgeDomain');
   const wttName = watch('name');
 
@@ -110,17 +114,41 @@ export default function CreateWorkTaskType({
     onChange: updateName
   });
 
-  const { value } = autocompleteApi;
+  const kls = useMemo(() => {
+    return knowledgeLevelSeriesDtos.find((kls) => kls.id === klsId);
+  }, [knowledgeLevelSeriesDtos, klsId]);
 
-  const knowledgeLevelChangeHandler = useNestedSelectChangeHandler(
-    knowledgeLevelDtos,
-    idAccessor
+  const updateKls = useCallback(
+    (value: KnowledgeLevelSeriesDto | undefined) => {
+      if (value) setValue('knowledgeLevel.knowledgeLevelSeriesId', value.id);
+    },
+    [setValue]
   );
 
-  const knowledgeLevelSeriesChangeHandler = useNestedSelectChangeHandler(
-    klsIdList,
-    String
+  const updateKl = useCallback(
+    (kl: KnowledgeLevelDto | undefined) => {
+      if (kl) {
+        setValue('knowledgeLevel', kl);
+      }
+    },
+    [setValue]
   );
+
+  const klSelectApi = useSelectApi({
+    rawData: knowledgeLevelDtos,
+    propagateChange: updateKl,
+    type: 'singleFlat',
+    value: kl?.name ? kl : undefined,
+    labelMaker: nameAccessor
+  });
+
+  const klsSelectApi = useSelectApi({
+    rawData: knowledgeLevelSeriesDtos,
+    value: kls,
+    labelMaker: nameAccessor,
+    type: 'singleFlat',
+    propagateChange: updateKls
+  });
 
   const onSubmit: SubmitHandler<WorkTaskTypeDto> = async (data) => {
     startTransition(async () => {
@@ -135,9 +163,20 @@ export default function CreateWorkTaskType({
   useEffect(() => {
     trigger('knowledgeDomain');
   }, [knowledgeDomain, trigger]);
+
   useEffect(() => {
     trigger('name');
   }, [wttName, trigger]);
+
+  useEffect(() => {
+    setValue('knowledgeLevel', {
+      knowledgeLevelSeriesId: klsId
+    } as KnowledgeLevelDto);
+  }, [klsId, setValue]);
+
+  useEffect(() => {
+    trigger('knowledgeLevel');
+  }, [kl, trigger]);
 
   return (
     <RootCard layoutId={workTaskTypesLayoutId}>
@@ -163,12 +202,20 @@ export default function CreateWorkTaskType({
               {...autocompleteApi}
               error={errors.knowledgeDomain?.message}
             />
-            {/*
-            AutoComplete: WorkTaskTypeName
-            AutoComplete: KnowledgeDomain
-            Select: KLS
-            Select: KL
-            */}
+            {klsSelectApi.type === 'singleFlat' && (
+              <Select
+                {...klsSelectApi}
+                error={errors.knowledgeLevel?.knowledgeLevelSeriesId?.message}
+              />
+            )}
+            {klSelectApi.type === 'singleFlat' && (
+              <Select
+                {...klSelectApi}
+                error={flattenErrors(errors.knowledgeLevel)
+                  .map((summary) => summary.message)
+                  .shift()}
+              />
+            )}
           </div>
           <div className={'justify-center gap-2'}>
             <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
