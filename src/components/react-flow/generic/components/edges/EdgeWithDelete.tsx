@@ -32,7 +32,7 @@ export function EdgeWithDelete({
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
             pointerEvents: 'all'
           }}
-          className="nodrag nopan z-10 rounded-lg bg-default-300 text-default-600 opacity-0 transition-opacity duration-500 hover:opacity-100"
+          className="nodrag nopan z-10 rounded-lg bg-zinc-300 text-default-600 opacity-0 transition-opacity duration-500 hover:opacity-100"
           onClick={() => {
             memoizedFunction([id]);
           }}
@@ -40,9 +40,7 @@ export function EdgeWithDelete({
           <TrashIcon className={'h-6 w-6 p-1'} />
         </button>
         <div
-          className={
-            'pointer-events-none z-0 h-1 w-1 rounded-full bg-default-400'
-          }
+          className={'pointer-events-none z-0 h-1 w-1 rounded-full bg-zinc-400'}
           style={{
             position: 'absolute',
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,

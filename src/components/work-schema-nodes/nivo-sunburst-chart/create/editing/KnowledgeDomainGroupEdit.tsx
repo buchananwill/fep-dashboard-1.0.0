@@ -13,7 +13,7 @@ import { replaceKnowledgeDomainsInGroup } from '@/components/work-schema-nodes/n
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
 import { useSimpleSelectableListMapAndIdMap } from '@/hooks/useSimpleSelectableListMapAndIdMap';
 import { EmptyArray } from '@/api/literals';
-import { useLabelMaker } from '@/hooks/useLabelMaker';
+import { useLabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
 import { isEqual } from 'lodash';
 
 export function KnowledgeDomainGroupEdit({

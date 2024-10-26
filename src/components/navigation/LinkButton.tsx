@@ -42,7 +42,7 @@ export function NoLinkHeader({ displayLabel }: LinkTreeElementProps) {
 const colorClassNames: Partial<{
   [Key in Exclude<ButtonProps['color'], undefined>]: string;
 }> = {
-  primary: 'text-primary  hover:bg-primary-100 outline-primary-400',
-  danger: 'text-danger  hover:bg-danger-100 outline-danger-400',
-  warning: 'text-warning  hover:bg-warning-100 outline-warning-400'
+  primary: 'text-primary  hover:bg-blue-100 outline-blue-400',
+  danger: 'text-danger  hover:bg-red-100 outline-red-400',
+  warning: 'text-yellow  hover:bg-yellow-100 outline-yellow-400'
 };

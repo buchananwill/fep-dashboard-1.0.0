@@ -2,7 +2,7 @@ import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
 import { DispatchState } from '@/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { useLabelMaker } from '@/hooks/useLabelMaker';
+import { useLabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
 import { useValueListValueMapAndIdMap } from '@/hooks/useValueListValueMapAndIdMap';
 import { useSelectionIdListToValueListMemo } from '@/hooks/useSelectionIdListToValueListMemo';
 import { useStringSelectionListToIdListCallback } from '@/hooks/useStringSelectionListToIdListCallback';

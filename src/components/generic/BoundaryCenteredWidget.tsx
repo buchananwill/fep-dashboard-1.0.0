@@ -98,7 +98,7 @@ export function BoundaryCenteredWidget({
         {drag(
           <div
             className={clsx(
-              'pointer-events-auto z-40 flex w-fit  flex-col items-center bg-primary-100 bg-opacity-50 transition-colors-opacity hover:bg-opacity-100',
+              'pointer-events-auto z-40 flex w-fit  flex-col items-center bg-blue-100 bg-opacity-50 transition-colors-opacity hover:bg-opacity-100',
               classNameWidget
             )}
           >

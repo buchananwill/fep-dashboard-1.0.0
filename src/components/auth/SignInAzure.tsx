@@ -11,7 +11,7 @@ export function SignInAzure() {
       <button
         type="submit"
         className={
-          'rounded-xl p-2 duration-250 transition-colors-opacity hover:bg-primary-100'
+          'rounded-xl p-2 duration-250 transition-colors-opacity hover:bg-blue-100'
         }
       >
         Sign in with Microsoft

@@ -122,7 +122,7 @@ canvas {
 
 
     .number-input {
-        @apply text-right p-2 rounded-xl outline-primary-400 bg-default-100 text-black text-medium w-24
+        @apply text-right p-2 rounded-xl outline-blue-400 bg-zinc-100 text-black text-sm w-24
     }
 
     .beacon {

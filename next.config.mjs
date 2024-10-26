@@ -2,6 +2,9 @@
 const nextConfig = {
   compiler: {
     emotion: true
+  },
+  experimental: {
+    optimizePackageImports: ['@mantine/core', '@mantine/hooks']
   }
 };
 

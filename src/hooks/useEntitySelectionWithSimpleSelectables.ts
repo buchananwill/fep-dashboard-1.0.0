@@ -4,14 +4,17 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { Identifier, NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { useLabelMaker } from '@/hooks/useLabelMaker';
+import {
+  LabelMakerParams,
+  useLabelMaker
+} from '@/hooks/select-adaptors/useLabelMaker';
 import { useSimpleSelectableListMapAndIdMap } from '@/hooks/useSimpleSelectableListMapAndIdMap';
 import { useSelectionIdListToValueListMemo } from '@/hooks/useSelectionIdListToValueListMemo';
 import { useStringSelectionListToIdListCallback } from '@/hooks/useStringSelectionListToIdListCallback';
 
 export function useEntitySelectionWithSimpleSelectables<T extends HasIdClass>(
   entityClass: string,
-  labelMaker?: (string & TypedPaths<T, string | number>) | ((item: T) => string)
+  labelMaker?: LabelMakerParams<T>
 ) {
   const listenerKey = useUuidListenerKey();
   const {

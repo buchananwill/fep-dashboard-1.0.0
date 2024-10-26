@@ -37,7 +37,7 @@ export default function QueueTreeNodeModal({
               task size:
               <div
                 className={
-                  'inline-block w-fit rounded-md bg-default-200 px-2 text-right'
+                  'inline-block w-fit rounded-md bg-zinc-200 px-2 text-right'
                 }
               >
                 {queueTreeNode.taskSize}

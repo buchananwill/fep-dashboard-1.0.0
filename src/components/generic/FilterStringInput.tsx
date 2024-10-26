@@ -15,7 +15,7 @@ export default function FilterStringInput() {
         <XMarkIcon
           onClick={onClear}
           className={clsx(
-            'm-1 rounded-full p-1 hover:bg-default-100',
+            'm-1 rounded-full p-1 hover:bg-zinc-100',
             filterValue === '' && 'pointer-events-none opacity-0'
           )}
         />

@@ -16,7 +16,7 @@ export default function NodeBundleSummaries({
           <div
             className={clsx(
               'min-w-6 rounded-lg px-1 py-0.5 text-right text-sm text-white',
-              amount === 0 ? 'bg-neutral-300' : 'bg-primary-400'
+              amount === 0 ? 'bg-neutral-300' : 'bg-blue-400'
             )}
           >
             {amount}

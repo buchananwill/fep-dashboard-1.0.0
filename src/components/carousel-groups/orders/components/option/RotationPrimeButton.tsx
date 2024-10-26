@@ -22,7 +22,7 @@ function RotationPrimeButtonInner(props: {
       disabled={!props.canPrime}
       className={clsx(
         'w-fit min-w-0 px-1  opacity-100',
-        !props.canDrop && 'data-[disabled]:bg-default-300'
+        !props.canDrop && 'data-[disabled]:bg-zinc-300'
       )}
       radius={'xs'}
       color={

@@ -165,7 +165,7 @@ export default function CarouselOption({
   const badgeColor = useMemo(() => {
     return schema
       ? getAssigneeCountColor(assigneeCount, schema)
-      : 'bg-default-300';
+      : 'bg-zinc-300';
   }, [assigneeCount, schema]);
 
   return (

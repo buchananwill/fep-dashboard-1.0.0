@@ -1,11 +1,14 @@
-import { HasIdClass } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 import { useCallback } from 'react';
 import { get } from 'lodash';
 
+export type LabelMakerParams<T> =
+  | (string & TypedPaths<T, string | number>)
+  | ((item: T) => string);
+
 export function useLabelMaker<T>(
-  labelMaker?: (string & TypedPaths<T, string | number>) | ((item: T) => string)
-): (item?: T) => string {
+  labelMaker?: LabelMakerParams<T>
+): LabelMaker<T> {
   return useCallback(
     (item?: T) => {
       if (item === undefined) throw Error('Item was undefined');
@@ -15,8 +18,10 @@ export function useLabelMaker<T>(
       } else if (typeof labelMaker === 'function') {
         label = labelMaker(item);
       }
-      return label as string;
+      return label;
     },
     [labelMaker]
   );
 }
+
+export type LabelMaker<T> = (item?: T) => string;
