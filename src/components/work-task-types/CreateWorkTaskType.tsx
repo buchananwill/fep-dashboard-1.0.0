@@ -24,6 +24,7 @@ import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { useAutocompleteApi } from '@/hooks/select-adaptors/useAutocompleteApi';
 import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
+import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 
 const defaultWorkTaskTypeValues = {
   id: -1,
@@ -53,6 +54,7 @@ export default function CreateWorkTaskType({
 
   const klsId = watch('knowledgeLevelSeriesId');
   const knowledgeDomain = watch('knowledgeDomain');
+  const wttName = watch('name');
 
   const fetchKnowledgeLevels = useCallback(async () => {
     if (!klsId) return [];
@@ -72,25 +74,12 @@ export default function CreateWorkTaskType({
     return knowledgeLevelSeriesDtos.map((kls) => kls.id);
   }, [knowledgeLevelSeriesDtos]);
 
-  const onKnowledgeDomainSelectChange = useNestedAutoCompleteChangeHandler(
-    knowledgeDomains,
-    nameAccessor
-  );
-
   const propagateKdChange = useCallback(
     (knowledgeDomain: KnowledgeDomainDto | undefined) => {
       setValue('knowledgeDomain', knowledgeDomain as KnowledgeDomainDto);
     },
     [setValue]
   );
-
-  const { value, data, onChange, type } = useSelectApi({
-    rawData: knowledgeDomains,
-    type: 'singleFlat',
-    labelMaker: nameAccessor,
-    value: knowledgeDomain,
-    propagateChange: propagateKdChange
-  });
 
   const autocompleteApi = useSelectAutocompleteApi({
     rawData: knowledgeDomains,
@@ -100,6 +89,28 @@ export default function CreateWorkTaskType({
     propagateChange: propagateKdChange,
     allowUndefined: false
   });
+
+  const updateName = useCallback(
+    (value: string | null) => {
+      setValue('name', value as string);
+    },
+    [setValue]
+  );
+
+  const namesData = useMemo(() => {
+    return names.map((name) => name.name);
+  }, [names]);
+
+  const nameAutocompleteProps = useAutocompleteApi({
+    type: 'singleFlat',
+    data: namesData,
+    allowUndefined: true,
+    allowCustom: true,
+    value: wttName,
+    onChange: updateName
+  });
+
+  const { value } = autocompleteApi;
 
   const knowledgeLevelChangeHandler = useNestedSelectChangeHandler(
     knowledgeLevelDtos,
@@ -123,7 +134,7 @@ export default function CreateWorkTaskType({
 
   useEffect(() => {
     trigger('knowledgeDomain');
-  }, [value, trigger]);
+  }, [knowledgeDomain, trigger]);
 
   return (
     <RootCard layoutId={workTaskTypesLayoutId}>
@@ -140,20 +151,15 @@ export default function CreateWorkTaskType({
             New Work Task Type
           </h1>
           <div className={'flex flex-col items-center justify-center gap-2'}>
-            {type === 'singleFlat' && (
-              <>
-                <Select
-                  data={data}
-                  value={value}
-                  onChange={onChange}
-                  error={errors.knowledgeDomain?.message}
-                />
-                <Autocomplete
-                  {...autocompleteApi}
-                  error={errors.knowledgeDomain?.message}
-                />{' '}
-              </>
-            )}
+            <Autocomplete
+              {...nameAutocompleteProps}
+              error={errors.name?.message}
+            />
+            <Autocomplete
+              label={getStartCaseDomainAlias('knowledgeDomain')}
+              {...autocompleteApi}
+              error={errors.knowledgeDomain?.message}
+            />
             {/*
             AutoComplete: WorkTaskTypeName
             AutoComplete: KnowledgeDomain
