@@ -1,6 +1,10 @@
+@import '@mantine/dates/styles.css';
+@import '@mantine/core/styles.css';
+@import '@xyflow/react/dist/style.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 
 @media (prefers-color-scheme: dark) {
@@ -37,18 +41,11 @@ canvas {
     grid-template-columns: auto 1fr auto;
 }
 
-.sixth-child :nth-child(6n+6) {
+.sixth-child:nth-child(6n+6) {
     border-right-color: #393939; /* Or any other style you want */
 }
 
-.fc-view {
-    border-radius: 8px;
-}
-.fc-view-harness {
-    border-radius: 8px;
-    overflow: hidden;
-    border: 3px solid gray;
-}
+
 
 @keyframes bounce-less {
     0%, 100% {
@@ -135,18 +132,47 @@ canvas {
         @apply w-6 h-6 bg-red-400 z-50 rounded-full
     }
 
-    .center-vertical-with-margin {
-        @apply mt-auto mb-auto
+
+
+    .line {
+        position: absolute;
+        width: 150%;
+        height: 0; /* Height is 0 because we're using borders */
+        border-top: 2px dashed black; /* Dashed line with a top border */
+        top: 50%;
+        left: 50%;
+        transform-origin: center center;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
 
-    .center-horizontal-with-margin {
-        @apply ml-auto mr-auto
+    .carousel-order-pills {
+        stroke-width: 10px;
+        stroke: hsla(160, 84%, 39%, 0.5);
+    }
+    .quadrant-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f0f0f0;
+        overflow: hidden;
     }
 
-    .center-all-margin {
-        @apply mt-auto mb-auto ml-auto mr-auto
+    .react-flow .react-flow__handle {
+        width: 30px;
+        height: 14px;
+        border-radius: 3px;
     }
 
+    .fc-view {
+        border-radius: 8px;
+    }
+    .fc-view-harness {
+        border-radius: 8px;
+        overflow: hidden;
+        border: 3px solid gray;
+    }
 
 }
 
@@ -180,39 +206,51 @@ canvas {
     }
 }
 
-.animate-pills {
-    stroke-dasharray: 1, 19;
-    animation-name: dash-trace;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    stroke-linecap: round;
+@layer utilities {
+    .animate-pills {
+        stroke-dasharray: 1, 19;
+        animation-name: dash-trace;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        stroke-linecap: round;
+    }
+
+    .center-vertical-with-margin {
+        @apply mt-auto mb-auto
+    }
+
+    .center-horizontal-with-margin {
+        @apply ml-auto mr-auto
+    }
+
+    .center-all-margin {
+        @apply mt-auto mb-auto ml-auto mr-auto
+    }
+
+    .scale-in {
+        transform: scale(0); /* Initial state */
+        animation: scaleUp 500ms ease-out forwards;
+    }
+    .bulge-top {
+        border-radius: 64px 64px 12px 12px;
+    }
+    .bulge-bottom {
+        border-radius: 12px 12px 64px 64px;
+    }
+    .bulge-left {
+        border-radius: 64px 12px 12px 64px;
+    }
+    .bulge-right {
+        border-radius: 12px 64px 64px 12px;
+    }
+
 }
 
-.carousel-order-pills {
-    stroke-width: 10px;
-    stroke: hsla(160, 84%, 39%, 0.5);
-}
-.quadrant-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #f0f0f0;
-    overflow: hidden;
-}
 
-.line {
-    position: absolute;
-    width: 150%;
-    height: 0; /* Height is 0 because we're using borders */
-    border-top: 2px dashed black; /* Dashed line with a top border */
-    top: 50%;
-    left: 50%;
-    transform-origin: center center;
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+
+
+
 
 @keyframes pulse {
     50% {
@@ -220,10 +258,7 @@ canvas {
     }
 }
 
-.scale-in {
-    transform: scale(0); /* Initial state */
-    animation: scaleUp 500ms ease-out forwards;
-}
+
 
 /* Keyframes to scale the element */
 @keyframes scaleUp {
@@ -235,21 +270,6 @@ canvas {
     }
 }
 
-.bulge-top {
-    border-radius: 64px 64px 12px 12px;
-}
-.bulge-bottom {
-    border-radius: 12px 12px 64px 64px;
-}
-.bulge-left {
-    border-radius: 64px 12px 12px 64px;
-}
-.bulge-right {
-    border-radius: 12px 64px 64px 12px;
-}
 
-.react-flow .react-flow__handle {
-    width: 30px;
-    height: 14px;
-    border-radius: 3px;
-}
+
+
