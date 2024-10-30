@@ -10,7 +10,7 @@ import { Session } from 'next-auth';
 import { Button, Popover, Image, Indicator } from '@mantine/core';
 
 export interface OtherUnsavedChangesProps extends PropsWithChildren {
-  session?: Session | null;
+  session?: Record<string, any>;
 }
 
 function UnsavedChangesToast({
@@ -20,7 +20,7 @@ function UnsavedChangesToast({
   const interceptedProps = useMemo(() => {
     const { handleCommit } = props;
     let interceptedCommit = handleCommit;
-    if (!session || !session.user) {
+    if (!session || !session.email) {
       interceptedCommit = async () => {
         alert(
           'Only authenticated users may save edits. To revert changes and reload from the database, hit F5.'
@@ -50,12 +50,8 @@ function UnsavedChangesToast({
                 }
               }}
             >
-              {session?.user?.image ? (
-                <Image
-                  src={session.user.image}
-                  alt="User Avatar"
-                  radius={'xl'}
-                />
+              {session?.image ? (
+                <Image src={session.image} alt="User Avatar" radius={'xl'} />
               ) : (
                 <UserCircleIcon
                   className={clsx(session && 'h-12 w-12 text-emerald-500')}

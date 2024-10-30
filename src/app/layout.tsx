@@ -12,6 +12,9 @@ import UserAvatar from '@/components/auth/UserAvatar';
 import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
 import { ColorSchemeScript, ScrollArea } from '@mantine/core';
+import { cookies, headers } from 'next/headers';
+import { getSchemaName } from '@/api/auth/get-schema-name';
+import { redirect } from 'next/navigation';
 // import '@mantine/core/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -27,7 +30,18 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  if (session) {
+    const headers1 = headers();
+    console.log(headers1);
+    const schemaName = getSchemaName();
+    if (!schemaName) {
+      // redirect('/admin/create-schema');
+    }
+  }
 
+  let avatarProps: Record<string, any> = {};
+  avatarProps.email = session?.user?.email;
+  avatarProps.image = session?.user?.image;
   return (
     <html lang="en">
       <head>
@@ -36,7 +50,7 @@ export default async function RootLayout({
       </head>
       <body className={inter.className}>
         <LibraryProvidersWrapper>
-          <MasterChangesTrackWrapper session={session}>
+          <MasterChangesTrackWrapper session={avatarProps}>
             <UserAvatar />
           </MasterChangesTrackWrapper>
           <ScrollArea
