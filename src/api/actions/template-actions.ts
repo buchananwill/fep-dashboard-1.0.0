@@ -140,11 +140,11 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
     const nextRequest = new NextRequest(url, request);
     const session = await auth();
     if (session?.user) {
-      const schemaNameCookie = getSchemaName();
-      if (schemaNameCookie) {
+      const databaseJwt = getSchemaName();
+      if (databaseJwt) {
         nextRequest.headers.append(
           'authorization',
-          `Bearer ${schemaNameCookie.value}`
+          `Bearer ${databaseJwt.value}`
         );
       }
     } else {

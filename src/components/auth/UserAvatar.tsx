@@ -3,7 +3,7 @@ import { SignInGoogle } from '@/components/auth/SignInGoogle';
 import { SignInAzure } from '@/components/auth/SignInAzure';
 import { Image } from '@mantine/core';
 
-export default async function UserAvatar() {
+export default async function UserAvatar({}: {}) {
   const session = await auth();
 
   if (!session || !session.user) {
@@ -25,7 +25,7 @@ export default async function UserAvatar() {
           <button
             type="submit"
             className={
-              'flex flex-col items-center rounded-lg p-1 transition-colors-opacity hover:bg-rose-100'
+              'transition-colors-opacity flex flex-col items-center rounded-lg p-1 hover:bg-rose-100'
             }
           >
             Sign out:

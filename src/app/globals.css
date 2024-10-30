@@ -132,6 +132,10 @@ canvas {
         @apply w-6 h-6 bg-red-400 z-50 rounded-full
     }
 
+    label {
+        @apply text-neutral-500
+    }
+
 
 
     .line {
