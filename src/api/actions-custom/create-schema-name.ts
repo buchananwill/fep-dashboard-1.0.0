@@ -2,11 +2,10 @@
 import { authOrSignInRedirect } from '@/api/auth/auth-or-sign-in-redirect';
 import { schemaNameSchema } from '@/api/actions-custom/schema-name-schema';
 import { publicToken, userToken } from '@/api/auth/schemaName';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { API_V2_URL } from '@/api/literals';
 import { TenancyDto } from '@/api/generated-types/generated-types';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 export default async function createSchemaName(name: string) {
   const session = await authOrSignInRedirect('/admin/create-schema');
@@ -40,8 +39,7 @@ export default async function createSchemaName(name: string) {
           sameSite: 'strict',
           maxAge: 60 * 60 * 24 // 1 day in seconds
         });
-        console.log({ jwt });
-        // redirect('/core');
+        return true;
       }
     } else {
       throw Error('Error creating and assign schema');
