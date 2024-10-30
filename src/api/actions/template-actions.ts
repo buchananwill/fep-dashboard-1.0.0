@@ -140,7 +140,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
     const nextRequest = new NextRequest(url, request);
     const session = await auth();
     if (session?.user) {
-      const databaseJwt = getSchemaName();
+      const databaseJwt = await getSchemaName();
       if (databaseJwt) {
         nextRequest.headers.append(
           'authorization',

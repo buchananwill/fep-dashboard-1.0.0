@@ -9,7 +9,7 @@ import {
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 
-export const getWorkProjectSeriesMetricsByWpsIdList = (list: string[]) =>
+export const getWorkProjectSeriesMetricsByWpsIdList = async (list: string[]) =>
   postEntitiesWithDifferentReturnType<
     string[],
     GenericTableDto<

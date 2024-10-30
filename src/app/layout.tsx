@@ -30,20 +30,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  if (session) {
-    const headers1 = headers();
-    console.log(headers1);
-    const schemaName = getSchemaName();
-    if (!schemaName) {
-      // redirect('/admin/create-schema');
-    }
-  }
 
   let avatarProps: Record<string, any> = {};
   avatarProps.email = session?.user?.email;
   avatarProps.image = session?.user?.image;
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <title>FEP Dashboard</title>
         <ColorSchemeScript />
@@ -67,7 +59,6 @@ export default async function RootLayout({
           <TooltipSingleton />
           <NavPopoverTrigger />
         </LibraryProvidersWrapper>
-        <JoyrideWrapper steps={steps} />
       </body>
     </html>
   );

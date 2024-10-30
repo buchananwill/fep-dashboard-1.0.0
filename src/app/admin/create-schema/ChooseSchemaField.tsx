@@ -7,7 +7,7 @@ import checkSchemaNameAvailable from '@/api/actions-custom/check-schema-name-ava
 import createSchemaName from '@/api/actions-custom/create-schema-name';
 
 export function ChooseSchemaField() {
-  const [value, setValue] = useState<undefined | string>(undefined);
+  const [value, setValue] = useState<string>('');
   const [debouncedValue] = useDebouncedValue(value, 300, { leading: true });
 
   const { data, isFetching } = useQuery({
