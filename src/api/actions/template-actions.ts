@@ -70,13 +70,6 @@ export async function putEntities<T>(entities: T, url: string): Promise<T> {
   return callApi<T>(url, requestInit);
 }
 
-export async function patchEntity<T>(entity: T, url: string): Promise<T> {
-  const requestInit = createRequestInit({
-    body: entity,
-    method: 'PATCH'
-  });
-  return callApi<T>(url, requestInit);
-}
 export async function putEntity<T>(entity: T, url: string): Promise<T> {
   const requestInit = createRequestInit({
     body: entity,
