@@ -20,7 +20,7 @@ export default async function createSchemaName(name: string) {
       body: name,
       method: 'POST',
       headers: {
-        'Content-Type': 'text/plain' // Indicate we're sending JSON data
+        'Content-Type': 'text/plain' // Indicate we're sending plain text.
       }
     });
     nextRequest.headers.append('Authorization', `Bearer ${token}`);
