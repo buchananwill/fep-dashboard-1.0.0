@@ -1,8 +1,8 @@
-('server only');
+import { cookieSecret } from '@/api/literals';
 import { TenancyDto } from '@/api/generated-types/generated-types';
 import * as jwt from 'jsonwebtoken';
 
-const cookieSecret = process.env.COOKIE_SECRET_KEY!;
+('server only');
 
 const templatePayload = { schemaName: 'org_1' };
 const publicPayload = { schemaName: 'public' };

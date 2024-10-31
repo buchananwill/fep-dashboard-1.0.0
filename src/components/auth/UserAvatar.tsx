@@ -5,6 +5,7 @@ import { Image } from '@mantine/core';
 import { cookies } from 'next/headers';
 import { SCHEMA_NAME_COOKIE } from '@/api/literals';
 import { redirect } from 'next/navigation';
+import { ResetButton } from '@/components/auth/ResetButton';
 
 export default async function UserAvatar({}: {}) {
   const session = await auth();
@@ -49,6 +50,7 @@ export default async function UserAvatar({}: {}) {
             )}
           </button>
         </form>
+        <ResetButton />
       </div>
     );
 }
