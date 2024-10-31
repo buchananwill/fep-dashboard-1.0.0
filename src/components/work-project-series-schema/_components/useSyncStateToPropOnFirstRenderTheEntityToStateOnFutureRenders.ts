@@ -27,7 +27,6 @@ export function useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders<
   const currentStateRef = useRef([] as T[]);
 
   useEffect(() => {
-    console.log(initialStateSelection, currentState);
     if (syncDirection === 'propToStore') {
       updateStateSelection(initialStateSelection);
       setSyncDirection('storeToState');

@@ -18,8 +18,6 @@ export function flattenErrors(
   path?: string,
   list?: ErrorSummary[]
 ) {
-  console.log(errorObject);
-
   const responseList = list ?? [];
   if (errorObject === undefined) return responseList;
   if (typeof errorObject !== 'object') return responseList;
@@ -27,7 +25,6 @@ export function flattenErrors(
 
   for (let key in errorObject) {
     if (!errorObject.hasOwnProperty(key)) {
-      console.log({ key, message: 'did not own' });
       continue;
     }
     const nextPath = path ? `${path}.${key}` : key;

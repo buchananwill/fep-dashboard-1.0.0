@@ -30,10 +30,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (email) {
           const tenancyDtoPartial = await getTenancy(email);
-          console.log({ tenancyDtoPartial });
           if (tenancyDtoPartial.schemaName) {
             await setSchemaNameCookie(tenancyDtoPartial);
-            // redirect('/core');
           }
         }
       }

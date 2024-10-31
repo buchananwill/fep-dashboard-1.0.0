@@ -34,8 +34,6 @@ export function KnowledgeDomainGroupEdit({
     EmptyArray as KnowledgeDomainDto[]
   );
 
-  console.log(currentState);
-
   const labelMaker = useLabelMaker<KnowledgeDomainDto>('name');
 
   const { selectableMap, idMap, selectableList } =

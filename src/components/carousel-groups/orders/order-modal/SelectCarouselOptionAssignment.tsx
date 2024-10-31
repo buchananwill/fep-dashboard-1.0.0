@@ -90,8 +90,6 @@ export default function SelectCarouselOptionAssignment({
     [dispatch, optionsToSelectFrom, workProjectSeriesSchemaId]
   );
 
-  console.log({ currentSelection, currentOption });
-
   return (
     <ClashBadge show={clashList.length > 0} label={'!'} offset={8}>
       <Select

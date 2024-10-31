@@ -21,7 +21,7 @@ export default function CoreTable<
     withSelection === 'single' || withSelection == 'multiple';
   const data = useMemo(() => {
     const body = rowIdList.map((id) => (
-      <Table.Tr key={id} onClick={(e) => console.log(e)}>
+      <Table.Tr key={id}>
         {showSelectionCell && (
           <Table.Td>
             <SelectionCell entityId={id} />

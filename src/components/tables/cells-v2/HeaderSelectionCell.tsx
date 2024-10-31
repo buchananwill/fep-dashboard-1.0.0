@@ -40,8 +40,6 @@ export default function HeaderSelectionCell() {
   const listRef = useRef(currentState);
   listRef.current = currentState;
 
-  console.log({ withSelection });
-
   const onChange = useCallback(() => {
     if (withSelection === 'single' || withSelection === 'none') {
       dispatchWithoutControl([]);

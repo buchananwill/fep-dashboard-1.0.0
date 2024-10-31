@@ -55,7 +55,6 @@ function InnerContent({
   }, [typeEntity, stringFieldConstraint]);
 
   const setName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
     setTypeEntity((prev) => ({ ...prev, name: e.target?.value }));
   }, []);
 

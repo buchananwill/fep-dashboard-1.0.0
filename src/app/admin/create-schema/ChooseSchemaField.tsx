@@ -18,8 +18,6 @@ export function ChooseSchemaField() {
         : { error: undefined }
   });
 
-  console.log(data);
-
   return (
     <div className={'flex flex-col gap-2'}>
       <TextInput

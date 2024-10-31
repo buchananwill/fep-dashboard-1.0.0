@@ -46,7 +46,6 @@ export function useAutocompleteApi<T>({
       setInputValue(firstFiltered);
     } else {
       if (allowCustom) {
-        console.log({ message: 'allowing custom', aliasedRefValue });
         const nextValue = !aliasedRefValue
           ? undefined
           : aliasedRefValue.trim() === ''
@@ -56,11 +55,9 @@ export function useAutocompleteApi<T>({
         setInputValue(nextValue);
       } else {
         if (allowUndefined) {
-          console.log('allowing undefined');
           onChange(null);
           setInputValue(undefined);
         } else {
-          console.log('preventing undefined');
           if (data.length === 0)
             throw Error(
               'Undefined and custom not allowed but no values provided.'

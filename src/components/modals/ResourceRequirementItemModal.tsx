@@ -28,7 +28,6 @@ export default function ResourceRequirementItemModal({
     return [EntityClassMap.resourceRequirementItem, { workTaskTypeId }];
   }, [workTaskTypeId]);
 
-  console.log({ rriQueryKey });
   const { data: assetRoleTypeDtos, isFetching: assetsPending } = useQuery({
     queryKey: [EntityClassMap.assetRoleType, 'all'],
     queryFn: () => Api.AssetRoleType.getAll()
@@ -83,12 +82,6 @@ export default function ResourceRequirementItemModal({
       }
     });
   }, [currentState, closeModal, rriQueryKey, queryClient]);
-
-  console.log({
-    providerRoleTypeDtos,
-    assetRoleTypeDtos,
-    resourceRequirementsFromServer
-  });
 
   if (workTaskTypeId === undefined) return null;
 

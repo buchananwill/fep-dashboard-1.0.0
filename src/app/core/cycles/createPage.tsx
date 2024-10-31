@@ -62,10 +62,6 @@ export default function CreatePage({ pathVariables }: LeafComponentProps) {
             name={'cycleDayZero'}
             control={control}
             render={({ field }) => {
-              console.log({
-                field,
-                value: startCase(field.value.toLowerCase())
-              });
               return (
                 <Select
                   label={'Cycle Start Day'}
@@ -73,7 +69,6 @@ export default function CreatePage({ pathVariables }: LeafComponentProps) {
                   data={DayOfWeekArray}
                   value={startCase(field.value.toLowerCase())}
                   onChange={(value) => {
-                    console.log(value);
                     if (value) {
                       field.onChange(value.toUpperCase());
                     }

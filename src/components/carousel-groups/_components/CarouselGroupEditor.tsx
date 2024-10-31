@@ -20,8 +20,6 @@ export default function CarouselGroupEditor({
 }: {
   collectionId: Identifier;
 }) {
-  console.log({ collectionId });
-
   return (
     <DtoUiWrapper
       renderAs={InnerChooserComponent}
@@ -46,7 +44,6 @@ function InnerChooserComponent(
     collectionId,
     ...otherProps
   } = props;
-  console.log({ entity });
   let carouselGroupOptions: CarouselGroupOptionDto[], carouselGroupId: number;
   if (entity) {
     ({ carouselGroupOptions, id: carouselGroupId } = entity);

@@ -115,13 +115,6 @@ export function useClientSideFilteringIdList<
       }
     });
 
-    console.log({
-      filteredEntities,
-      entities,
-      filterValue,
-      currentFilterProperty
-    });
-
     return filteredEntities.map((entity) => entity.id);
   }, [
     deletedIdList,
@@ -134,7 +127,6 @@ export function useClientSideFilteringIdList<
 
   useEffect(() => {
     const filterOutputChange = !isEqual(filteredIdsRef.current, filteredIds);
-    console.log({ filterOutputChange, filteredIds, filteredIdsRef });
     if (filterOutputChange) {
       dispatch(filteredIds);
       filteredIdsRef.current = filteredIds;

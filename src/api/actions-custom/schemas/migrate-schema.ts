@@ -13,10 +13,9 @@ export async function migrateSchema(
   requestBody?: Partial<FlywayOperationRequest>
 ) {
   const body = { ...initialRequest, schemaName, ...requestBody };
-  console.log(body);
 
   return postEntitiesWithDifferentReturnType<FlywayOperationRequest, string>(
-    { ...initialRequest, schemaName, ...requestBody },
+    body,
     `${API_V2_URL}/tenancy/migrate`
   );
 }

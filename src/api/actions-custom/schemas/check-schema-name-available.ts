@@ -11,21 +11,17 @@ export default async function checkSchemaNameAvailable(schemaName: string) {
   const safeParse = schemaNameSchema.safeParse(schemaName);
 
   if (!safeParse.success) {
-    console.log(safeParse);
     return {
       error: String(safeParse.error.format()._errors.join('; '))
     };
   }
 
   const url = `${BASE_URL}/api/v2/tenancy/checkSchemaNameAvailable/${schemaName}`;
-  console.log(url);
   const request = new NextRequest(url, { cache: 'no-cache' });
 
   const response = await fetch(request);
 
   const responseData = await response.json();
-
-  console.log(responseData);
 
   return { error: !responseData ? 'Name unavailable' : undefined };
 }

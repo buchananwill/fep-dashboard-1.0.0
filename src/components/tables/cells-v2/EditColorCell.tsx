@@ -57,7 +57,6 @@ function EditColor({ value, onChange }: IdInnerCellProps<ColorDto>) {
 
 function AddColor({ onChange }: IdInnerCellProps<ColorDto | undefined>) {
   const handleAddColor = useCallback(() => {
-    console.log(onChange);
     if (onChange) onChange({ ...fallBackColor, name: '', id: idDecrementer() });
   }, [onChange]);
 

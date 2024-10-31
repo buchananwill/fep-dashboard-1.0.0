@@ -14,10 +14,7 @@ export default async function page(props: {
 
   const session = await auth();
   if (session) {
-    const headers1 = await headers();
-    console.log({ headers1, message: 'HEADERS HERE' });
     const schemaName = await getSchemaNameCookie();
-    console.log({ schemaName, message: 'SCHEMA NAME COOKIE HERE' });
     if (!schemaName) {
       redirect('/admin/create-schema');
     }

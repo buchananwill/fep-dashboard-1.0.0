@@ -43,7 +43,6 @@ export default function SelectVisibleColumns<T>() {
 
   const onChange = useCallback(
     (value: string[]) => {
-      console.log(value);
       dispatchWithoutControl(
         orderedColumns.filter((column) => value.includes(column.uid))
       );
