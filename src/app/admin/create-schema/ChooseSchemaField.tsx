@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useDebouncedValue } from '@mantine/hooks';
 import { useQuery } from '@tanstack/react-query';
 import checkSchemaNameAvailable from '@/api/actions-custom/schemas/check-schema-name-available';
-import createSchemaName from '@/api/actions-custom/schemas/create-schema-name';
-import { migrateSchema } from '@/api/actions-custom/schemas/migrate-schema';
+import { createSchemaFlow } from '@/app/admin/create-schema/createSchemaFlow';
 
 export function ChooseSchemaField() {
   const [value, setValue] = useState<string>('');
@@ -35,12 +34,7 @@ export function ChooseSchemaField() {
         disabled={!!data?.error || !value || value.trim() === ''}
         onClick={async () => {
           if (value) {
-            const schemaName = cleanAndPrefixSchema(value);
-            const success = await createSchemaName(schemaName);
-            if (success) {
-              const result = await migrateSchema(schemaName);
-              alert(result);
-            }
+            await createSchemaFlow(cleanAndPrefixSchema(value));
           }
         }}
       >

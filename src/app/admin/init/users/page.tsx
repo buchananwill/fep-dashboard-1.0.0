@@ -10,11 +10,17 @@ import GenerateStudentsButton, {
 import { Api } from '@/api/clientApi_';
 import { Card } from '@mantine/core';
 
-export default async function page({
-  params: { id }
-}: {
-  params: { id: string };
-}) {
+export default async function page(
+  props: {
+    params: Promise<{ id: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const serviceCategoryId = parseInt(id);
   const serviceCategory =
     await Api.KnowledgeLevelSeries.getOne(serviceCategoryId);

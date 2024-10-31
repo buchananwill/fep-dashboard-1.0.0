@@ -3,7 +3,7 @@ import { authOrSignInRedirect } from '@/api/auth/auth-or-sign-in-redirect';
 import { schemaNameSchema } from '@/api/actions-custom/schemas/schema-name-schema';
 import { publicToken, userToken } from '@/api/auth/schemaName';
 import { NextRequest } from 'next/server';
-import { API_V2_URL } from '@/api/literals';
+import { API_V2_URL, SCHEMA_NAME_COOKIE } from '@/api/literals';
 import { TenancyDto } from '@/api/generated-types/generated-types';
 import { cookies } from 'next/headers';
 
@@ -32,7 +32,7 @@ export default async function createSchemaName(name: string) {
       if (tenancyDto) {
         const cookieStore = await cookies();
         const jwt = userToken(tenancyDto);
-        cookieStore.set('schema_name', jwt, {
+        cookieStore.set(SCHEMA_NAME_COOKIE, jwt, {
           httpOnly: true,
           secure: true,
           path: '/',

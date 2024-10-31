@@ -164,7 +164,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
         // If it's plain text, you can log or handle it appropriately
         const text = await response.text();
         console.warn('Received plain text response:', text);
-        throw new Error('Expected JSON but received plain text');
+        return text as T;
       } else {
         throw new Error(`Unsupported content type: ${contentType}`);
       }
@@ -188,6 +188,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
       } else {
         console.error('Unsupported error content type:', contentType);
       }
+      console.error(response);
       throw new Error();
       // notFound(); // Custom error handler
     }

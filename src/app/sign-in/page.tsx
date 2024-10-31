@@ -2,12 +2,14 @@ import { SignInGoogle } from '@/components/auth/SignInGoogle';
 import { SignInAzure } from '@/components/auth/SignInAzure';
 import { authOrSignInRedirect } from '@/api/auth/auth-or-sign-in-redirect';
 
-export default async function page({
-  searchParams: { redirectUrl }
-}: {
-  searchParams: { redirectUrl: string };
+export default async function page(props: {
+  searchParams: Promise<{ redirectUrl: string }>;
 }) {
-  const session = await authOrSignInRedirect('/core', true);
+  const searchParams = await props.searchParams;
+
+  const { redirectUrl } = searchParams;
+
+  await authOrSignInRedirect('/core', true);
 
   return (
     <>

@@ -2,6 +2,8 @@ import { auth, signOut } from '@/auth';
 import { SignInGoogle } from '@/components/auth/SignInGoogle';
 import { SignInAzure } from '@/components/auth/SignInAzure';
 import { Image } from '@mantine/core';
+import { cookies } from 'next/headers';
+import { SCHEMA_NAME_COOKIE } from '@/api/literals';
 
 export default async function UserAvatar({}: {}) {
   const session = await auth();
@@ -19,6 +21,8 @@ export default async function UserAvatar({}: {}) {
         <form
           action={async () => {
             'use server';
+            const cookieStore = await cookies();
+            await cookieStore.delete(SCHEMA_NAME_COOKIE);
             await signOut();
           }}
         >
