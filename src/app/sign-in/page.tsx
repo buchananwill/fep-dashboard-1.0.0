@@ -7,7 +7,7 @@ export default async function page({
 }: {
   searchParams: { redirectUrl: string };
 }) {
-  await authOrSignInRedirect('/core', true);
+  const session = await authOrSignInRedirect('/core', true);
 
   return (
     <>

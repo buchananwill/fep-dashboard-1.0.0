@@ -3,7 +3,7 @@
 import { authOrSignInRedirect } from '@/api/auth/auth-or-sign-in-redirect';
 import { NextRequest } from 'next/server';
 import { BASE_URL } from '@/api/BASE_URL';
-import { schemaNameSchema } from '@/api/actions-custom/schema-name-schema';
+import { schemaNameSchema } from '@/api/actions-custom/schemas/schema-name-schema';
 
 export default async function checkSchemaNameAvailable(schemaName: string) {
   await authOrSignInRedirect();

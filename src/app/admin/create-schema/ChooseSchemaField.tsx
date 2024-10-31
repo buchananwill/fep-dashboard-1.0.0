@@ -3,8 +3,9 @@ import { Button, Loader, TextInput } from '@mantine/core';
 import { useState } from 'react';
 import { useDebouncedValue } from '@mantine/hooks';
 import { useQuery } from '@tanstack/react-query';
-import checkSchemaNameAvailable from '@/api/actions-custom/check-schema-name-available';
-import createSchemaName from '@/api/actions-custom/create-schema-name';
+import checkSchemaNameAvailable from '@/api/actions-custom/schemas/check-schema-name-available';
+import createSchemaName from '@/api/actions-custom/schemas/create-schema-name';
+import { migrateSchema } from '@/api/actions-custom/schemas/migrate-schema';
 
 export function ChooseSchemaField() {
   const [value, setValue] = useState<string>('');
@@ -32,8 +33,15 @@ export function ChooseSchemaField() {
       <Button
         type={'submit'}
         disabled={!!data?.error || !value || value.trim() === ''}
-        onClick={() => {
-          if (value) createSchemaName(cleanAndPrefixSchema(value));
+        onClick={async () => {
+          if (value) {
+            const schemaName = cleanAndPrefixSchema(value);
+            const success = await createSchemaName(schemaName);
+            if (success) {
+              const result = await migrateSchema(schemaName);
+              alert(result);
+            }
+          }
         }}
       >
         Submit

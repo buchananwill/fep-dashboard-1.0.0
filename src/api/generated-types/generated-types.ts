@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-10-30 17:00:24.
+// Generated using typescript-generator version 3.2.1263 on 2024-10-31 11:16:04.
 
 export interface AutoBuildParametersDto extends Serializable {
     multiStepUndoTimeoutMs: number;
@@ -46,8 +46,8 @@ export interface CycleSubspanWithJoinsListDto extends Serializable {
 
 export interface BaseReportItemDto {
     id: number;
-    passes: boolean;
     itemType: string;
+    passes: boolean;
 }
 
 export interface HasCycleSubspanRequirement {
@@ -175,6 +175,12 @@ export interface EventSource<T> {
     id: string;
     sourceData: T;
     events: EventDto[];
+}
+
+export interface FlywayOperationRequest {
+    schemaName: string;
+    beginWith: FlywayOperation;
+    finishWith: FlywayOperation;
 }
 
 export interface Event<T> {
@@ -463,8 +469,8 @@ export interface AssetRoleTypeWorkTaskTypeSuitabilityDto extends Serializable, D
     workTaskTypeId: number;
     assetId: number;
     assetName: string;
-    idEntityC: number;
     dynamic: boolean;
+    idEntityC: number;
 }
 
 export interface CarouselGroupOptionDto extends Serializable, DtoWrapper<any, CarouselGroupOptionDto, number>, IntersectionDto<number, number> {
@@ -951,3 +957,5 @@ export interface WorkSchemaNodeRootTotalDeliveryAllocationRollup {
 export type DateAsString = string;
 
 export type DayOfWeek = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
+
+export type FlywayOperation = "BASELINE" | "CLEAN" | "MIGRATE";
