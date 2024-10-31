@@ -10,6 +10,7 @@ export function ResetButton() {
 
   return (
     <Button
+      color={'red'}
       onClick={() => {
         const doReset = async () => {
           const isConfirmed = confirm(

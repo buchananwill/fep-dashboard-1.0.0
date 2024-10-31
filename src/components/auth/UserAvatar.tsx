@@ -19,7 +19,7 @@ export default async function UserAvatar({}: {}) {
     );
   } else
     return (
-      <div>
+      <div className={'flex flex-col justify-center gap-2'}>
         <form
           action={async () => {
             'use server';
