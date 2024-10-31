@@ -13,7 +13,7 @@ import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
 import { ColorSchemeScript, ScrollArea } from '@mantine/core';
 import { cookies, headers } from 'next/headers';
-import { getSchemaName } from '@/api/auth/get-schema-name';
+import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
 import { redirect } from 'next/navigation';
 // import '@mantine/core/styles.css';
 

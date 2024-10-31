@@ -3,7 +3,7 @@
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { FlywayOperationRequest } from '@/api/generated-types/generated-types';
 import { API_V2_URL } from '@/api/literals';
-import { getSchemaName } from '@/api/auth/get-schema-name';
+import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
 
 const initialRequest: Pick<FlywayOperationRequest, 'beginWith' | 'finishWith'> =
   { beginWith: 'BASELINE', finishWith: 'MIGRATE' };
@@ -18,7 +18,7 @@ export async function migrateSchema(
 }
 
 export async function resetSchema() {
-  const schemaNameCookie = await getSchemaName();
+  const schemaNameCookie = await getSchemaNameCookie();
   if (schemaNameCookie?.value) {
     return migrateSchema(schemaNameCookie.value, { beginWith: 'CLEAN' });
   }

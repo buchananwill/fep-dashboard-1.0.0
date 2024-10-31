@@ -1,6 +1,5 @@
-import { TenancyDto } from '@/api/generated-types/generated-types';
-
 ('server only');
+import { TenancyDto } from '@/api/generated-types/generated-types';
 import * as jwt from 'jsonwebtoken';
 
 const cookieSecret = process.env.COOKIE_SECRET_KEY!;
@@ -20,7 +19,7 @@ export const publicToken = (userPayload: { email: string }) => {
   });
 };
 
-export const userToken = ({ email, schemaName }: TenancyDto) => {
+export const userToken = ({ email, schemaName }: Partial<TenancyDto>) => {
   return jwt.sign({ email, schemaName }, cookieSecret, {
     algorithm: 'HS256',
     expiresIn: '24h'

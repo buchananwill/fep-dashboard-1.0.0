@@ -1,11 +1,11 @@
 'use server';
 import { authOrSignInRedirect } from '@/api/auth/auth-or-sign-in-redirect';
 import { schemaNameSchema } from '@/api/actions-custom/schemas/schema-name-schema';
-import { publicToken, userToken } from '@/api/auth/schemaName';
+import { publicToken } from '@/api/auth/schemaName';
 import { NextRequest } from 'next/server';
-import { API_V2_URL, SCHEMA_NAME_COOKIE } from '@/api/literals';
+import { API_V2_URL } from '@/api/literals';
 import { TenancyDto } from '@/api/generated-types/generated-types';
-import { cookies } from 'next/headers';
+import { setSchemaNameCookie } from '@/api/actions-custom/schemas/set-schema-name-cookie';
 
 export default async function createSchemaName(name: string) {
   const session = await authOrSignInRedirect('/admin/create-schema');
@@ -30,15 +30,7 @@ export default async function createSchemaName(name: string) {
       const tenancyDto: TenancyDto | undefined = await response.json();
 
       if (tenancyDto) {
-        const cookieStore = await cookies();
-        const jwt = userToken(tenancyDto);
-        cookieStore.set(SCHEMA_NAME_COOKIE, jwt, {
-          httpOnly: true,
-          secure: true,
-          path: '/',
-          sameSite: 'strict',
-          maxAge: 60 * 60 * 24 // 1 day in seconds
-        });
+        await setSchemaNameCookie(tenancyDto);
         return true;
       }
     } else {

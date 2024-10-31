@@ -8,7 +8,7 @@ import {
 import { auth } from '@/auth';
 import { NextRequest } from 'next/server';
 import { templateToken } from '@/api/auth/schemaName';
-import { getSchemaName } from '@/api/auth/get-schema-name';
+import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
 
 function createRequestInit<T>({
   body,
@@ -140,7 +140,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
     const nextRequest = new NextRequest(url, request);
     const session = await auth();
     if (session?.user) {
-      const databaseJwt = await getSchemaName();
+      const databaseJwt = await getSchemaNameCookie();
       if (databaseJwt) {
         nextRequest.headers.append(
           'authorization',
