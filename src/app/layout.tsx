@@ -3,8 +3,6 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { LibraryProvidersWrapper } from '@/components/providers/LibraryProvidersWrapper';
 import React, { Suspense } from 'react';
-import JoyrideWrapper from '@/components/react-joyride/JoyrideWrapper';
-import { steps } from '@/components/react-joyride/steps';
 import TooltipSingleton from '@/components/tooltip/TooltipSingleton';
 import NavPopoverTrigger from '@/components/navigation/NavPopoverTrigger';
 import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTrackerWrapper';
@@ -12,9 +10,6 @@ import UserAvatar from '@/components/auth/UserAvatar';
 import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
 import { ColorSchemeScript, ScrollArea } from '@mantine/core';
-import { cookies, headers } from 'next/headers';
-import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
-import { redirect } from 'next/navigation';
 // import '@mantine/core/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
