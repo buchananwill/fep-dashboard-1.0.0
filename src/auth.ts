@@ -3,7 +3,6 @@ import Google from 'next-auth/providers/google';
 import MicrosoftEntraID from 'next-auth/providers/microsoft-entra-id';
 import { getTenancy } from '@/api/auth/get-tenancy';
 import { setSchemaNameCookie } from '@/api/actions-custom/schemas/set-schema-name-cookie';
-import { redirect } from 'next/navigation';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [

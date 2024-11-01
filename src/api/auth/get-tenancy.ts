@@ -20,7 +20,7 @@ export async function getTenancy(email: string): Promise<Partial<TenancyDto>> {
   const response = await fetch(nextRequest);
 
   if (response) {
-    return response.json();
+    return await response.json();
   } else {
     throw Error('Server did not return tenancy DTO');
   }

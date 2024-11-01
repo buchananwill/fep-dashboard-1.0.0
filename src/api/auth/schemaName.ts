@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 
 ('server only');
 
-const templatePayload = { schemaName: 'org_1' };
+const templatePayload = { schemaName: 'org_example' };
 const publicPayload = { schemaName: 'public' };
 export const templateToken = () =>
   jwt.sign(templatePayload, cookieSecret, {
