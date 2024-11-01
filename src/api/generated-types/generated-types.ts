@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-10-16 13:15:33.
+// Generated using typescript-generator version 3.2.1263 on 2024-10-31 11:16:04.
 
 export interface AutoBuildParametersDto extends Serializable {
   multiStepUndoTimeoutMs: number;
@@ -46,8 +46,8 @@ export interface CycleSubspanWithJoinsListDto extends Serializable {
 
 export interface BaseReportItemDto {
   id: number;
-  passes: boolean;
   itemType: string;
+  passes: boolean;
 }
 
 export interface HasCycleSubspanRequirement {}
@@ -196,6 +196,12 @@ export interface EventSource<T> {
   id: string;
   sourceData: T;
   events: EventDto[];
+}
+
+export interface FlywayOperationRequest {
+  schemaName: string;
+  beginWith: FlywayOperation;
+  finishWith: FlywayOperation;
 }
 
 export interface Event<T> {
@@ -527,8 +533,8 @@ export interface AssetRoleTypeWorkTaskTypeSuitabilityDto
   workTaskTypeId: number;
   assetId: number;
   assetName: string;
-  idEntityC: number;
   dynamic: boolean;
+  idEntityC: number;
 }
 
 export interface CarouselGroupOptionDto
@@ -641,9 +647,9 @@ export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto
 export interface RoleAvailabilityDto {
   type: string;
   availabilityCode: number;
-  roleEntityId: number;
-  baseEntityId: number;
   cycleSubspanId: number;
+  baseEntityId: number;
+  roleEntityId: number;
   id: number;
 }
 
@@ -920,6 +926,13 @@ export interface SuitabilityPostRequest {
   rating: number;
 }
 
+export interface TenancyDto extends Serializable {
+  id: number;
+  schemaName?: string;
+  active: boolean;
+  email: string;
+}
+
 export interface ValidationErrorMessages {}
 
 export interface ValidationTypeDto extends Serializable {}
@@ -1058,3 +1071,5 @@ export type DayOfWeek =
   | 'FRIDAY'
   | 'SATURDAY'
   | 'SUNDAY';
+
+export type FlywayOperation = 'BASELINE' | 'CLEAN' | 'MIGRATE';

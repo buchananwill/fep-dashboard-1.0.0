@@ -3,6 +3,7 @@ import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useCallback, useState } from 'react';
+import { useDisclosure } from '@mantine/hooks';
 
 export function useCreateTypeProps<T extends TypeDto<any, any>>(
   serverAction: (newType: T) => Promise<T>,
@@ -21,11 +22,12 @@ export function useCreateTypeProps<T extends TypeDto<any, any>>(
     [dispatch, serverAction]
   );
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [opened, { open, close }] = useDisclosure();
   return {
     onConfirm,
-    isOpen: modalOpen,
-    onOpenChange: setModalOpen,
+    opened: opened,
+    onClose: close,
+    onOpen: open,
     entityClass
   };
 }

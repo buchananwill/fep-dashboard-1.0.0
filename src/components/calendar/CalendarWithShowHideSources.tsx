@@ -8,8 +8,7 @@ import { EmptyArray } from '@/api/literals';
 import { useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
 import { EventSourceSimple } from '@/api/custom-types/eventSourceSimple';
-import { Card } from '@nextui-org/card';
-import { ScrollShadow } from '@nextui-org/scroll-shadow';
+import { ScrollArea } from '@mantine/core';
 
 export const eventSourceEntityClass = 'eventSource';
 export default function CalendarWithShowHideSources() {
@@ -34,20 +33,19 @@ export default function CalendarWithShowHideSources() {
 
   return (
     <div className={'flex h-[85vh] w-full justify-center gap-2'}>
-      <Card
-      // className={'flex h-full overflow-hidden rounded-xl border-4'}
-      >
-        <ScrollShadow className={' flex flex-col gap-2 overflow-auto p-2 px-3'}>
+      <ScrollArea classNames={{ root: 'border-4 rounded-xl p-2' }}>
+        <div className={'flex h-fit flex-col rounded-xl '}>
           <CheckBoxEntity<number, EventSourceSimple<KnowledgeDomainDto>>
             entityClass={eventSourceEntityClass}
             labelAccessor={(kd) => kd.sourceData.name}
             colorAccessor={(kdSource) => kdSource.color ?? 'dodgerblue'}
           />
-        </ScrollShadow>
-      </Card>
-      <Card className={'h-full grow p-4'}>
+        </div>
+      </ScrollArea>
+
+      <div className={'h-full grow p-4'}>
         <CalendarViewer eventSources={sourcesFlattened} />
-      </Card>
+      </div>
     </div>
   );
 }

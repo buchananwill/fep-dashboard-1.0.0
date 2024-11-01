@@ -1,7 +1,5 @@
 import CycleViewer from '@/components/cycles/CycleViewer';
 import { getOne } from '@/api/generated-actions/Cycle';
-import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import CyclesChooser from '@/app/core/cycles/cyclesChooser';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 

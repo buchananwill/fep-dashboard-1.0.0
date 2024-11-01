@@ -13,8 +13,6 @@ export function createNewLevel(
   if (hasLevels) {
     levelOrdinal = sortedLevels[sortedLevels.length - 1].levelOrdinal + 1;
   }
-  console.log({ sortedLevels, hasLevels, levelOrdinal });
-
   const name = `${knowledgeLevelSeriesDto.knowledgeLevelDescriptor} ${levelOrdinal}`;
   const id = idDecrementer();
   const nextLevel: KnowledgeLevelDto = {

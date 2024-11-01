@@ -10,6 +10,8 @@ import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/gene
 import { LinkButton } from '@/components/navigation/LinkButton';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import RootCard from '@/components/generic/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 export default async function BuildMetricTablePage({
   pathVariables
@@ -18,7 +20,7 @@ export default async function BuildMetricTablePage({
   const buildMetric = await Api.BuildMetric.getOne(parseInt(buildMetricId));
 
   return (
-    <div className={'flex flex-col items-center gap-2'}>
+    <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
         getServerAction={getWorkProjectSeriesByIdWithSchemaLabels}
@@ -30,7 +32,7 @@ export default async function BuildMetricTablePage({
       >
         Queue Tree Graph
       </LinkButton>
-    </div>
+    </RootCard>
   );
 }
 

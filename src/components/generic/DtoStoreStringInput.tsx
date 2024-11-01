@@ -1,14 +1,14 @@
 'use client';
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { Input, InputProps } from '@nextui-org/input';
 import { StringPropertyKey } from '@/types';
 import { useEditTextProperty } from '@/hooks/useEditTextProperty';
 import { HasId } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
+import { TextInput, TextInputProps } from '@mantine/core';
 
 export type BaseDtoStoreStringInputProps<T extends HasId> = Omit<
-  InputProps,
-  'onValueChange' & 'value' & 'type'
+  TextInputProps,
+  'onChange' & 'value' & 'type'
 > & {
   stringKey: StringPropertyKey<T>;
 };
@@ -25,11 +25,11 @@ export function DtoStoreStringInput<T extends HasId>({
   );
 
   return (
-    <Input
+    <TextInput
       type={'text'}
       value={entity[stringKey] as string}
-      onValueChange={update}
+      onChange={update}
       {...inputProps}
-    ></Input>
+    ></TextInput>
   );
 }

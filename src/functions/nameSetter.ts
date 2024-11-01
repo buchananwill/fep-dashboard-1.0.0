@@ -1,4 +1,3 @@
-import { ExitTextContextKey } from '@/components/modals/EditTextValueModal';
 import { HasNameDto } from '@/api/generated-types/generated-types';
 import { HasId } from '@/api/types';
 
@@ -10,7 +9,8 @@ export function getEditTextContextKey<T extends HasId>(
   return `${entityClass}:${entity?.id}:${stringPath}`;
 }
 
-export function nameAccessor<T extends HasNameDto>(entity: T) {
+export function nameAccessor<T extends HasNameDto>(entity?: T) {
+  if (entity === undefined) throw Error('Entity undefined');
   return entity.name;
 }
 

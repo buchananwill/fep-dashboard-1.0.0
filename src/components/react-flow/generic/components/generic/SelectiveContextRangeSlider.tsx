@@ -1,15 +1,15 @@
-"use client";
-import React, { useCallback } from "react";
-import { useGlobalDispatchAndListener } from "selective-context";
-import { Slider } from "@nextui-org/slider";
+'use client';
+import { Slider } from '@mantine/core';
+import React, { useCallback } from 'react';
+import { useGlobalDispatchAndListener } from 'selective-context';
+import { startCase } from 'lodash';
 
 export function SelectiveContextRangeSlider({
   contextKey,
   initialValue,
   listenerKey,
   maxValue = 200,
-  minValue = 0,
-  className = "",
+  minValue = 0
 }: {
   contextKey: string;
   initialValue: number;
@@ -22,32 +22,32 @@ export function SelectiveContextRangeSlider({
     useGlobalDispatchAndListener({
       contextKey,
       listenerKey,
-      initialValue,
+      initialValue
     });
 
   const onSliderChange = useCallback(
-    (value: number | number[]) => {
+    (value: number) => {
       const singleValue = Array.isArray(value) ? value[0] : value;
       dispatchUpdate(singleValue);
     },
-    [dispatchUpdate],
+    [dispatchUpdate]
   );
 
   return (
-    <Slider
-      className={className}
-      label={contextKey.substring(contextKey.indexOf(":") + 1)}
-      hideValue={false}
-      showTooltip={true}
-      hideThumb
-      size={"md"}
-      name={contextKey}
-      id={contextKey}
-      minValue={minValue}
-      maxValue={maxValue}
-      value={currentState}
-      aria-label={contextKey}
-      onChange={onSliderChange}
-    ></Slider>
+    <div className={'flex flex-col'}>
+      <span className={'block text-sm'}>
+        {startCase(contextKey.substring(contextKey.indexOf(':') + 1))}
+      </span>
+      <Slider
+        name={contextKey}
+        id={contextKey}
+        min={minValue}
+        max={maxValue}
+        size={'lg'}
+        value={currentState}
+        aria-label={contextKey}
+        onChange={onSliderChange}
+      />
+    </div>
   );
 }

@@ -9,20 +9,20 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
 import { isNotUndefined } from '@/api/main';
-import { Select, Selection } from '@nextui-org/react';
-import { SelectItem } from '@nextui-org/select';
-import { parseTen } from '@/api/date-and-time';
 import { ClashBadge } from '@/components/generic/ClashBadge';
 import { CarouselOptionState } from '@/components/carousel-groups/orders/components/option/CarouselOption';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { useGlobalListener } from 'selective-context';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
+import { SimpleSelectable } from '@/components/generic/MultiSelect';
+import { Select } from '@mantine/core';
 
 export default function SelectCarouselOptionAssignment({
   orderItem,
   dispatch
 }: OrderItemRowProps) {
   const listenerKey = `assignOptionModalSelect:${orderItem.id}`;
+  const { workProjectSeriesSchemaId, carouselOptionId } = orderItem;
   const { currentState } = NamespacedHooks.useListen<CarouselDto[]>(
     EntityClassMap.carousel,
     KEY_TYPES.MASTER_LIST,
@@ -34,92 +34,72 @@ export default function SelectCarouselOptionAssignment({
     useGlobalListener<CarouselOptionStateInterface>({
       contextKey: getEntityNamespaceContextKey(
         CarouselOptionState,
-        orderItem.carouselOptionId ?? NaN
+        carouselOptionId ?? NaN
       ),
       listenerKey,
       initialValue: ObjectPlaceholder as CarouselOptionStateInterface
     });
 
-  const optionsToSelectFrom = useMemo(() => {
+  const { responseMap: optionsToSelectFrom, data } = useMemo(() => {
     const responseMap = new Map<string, CarouselOptionDto>();
+    const data = [] as SimpleSelectable[];
     currentState
       .map((carouselDto) => carouselDto.carouselOptionDtos)
       .flatMap((list) =>
         list.find(
           (optionDto) =>
-            optionDto.workProjectSeriesSchemaId ===
-            orderItem.workProjectSeriesSchemaId
+            optionDto.workProjectSeriesSchemaId === workProjectSeriesSchemaId
         )
       )
       .filter(isNotUndefined)
-      .forEach((co) => responseMap.set(String(co.id), co));
-    return responseMap;
-  }, [orderItem.workProjectSeriesSchemaId, currentState]);
+      .forEach((co) => {
+        const nextCarousel = readAnyCarousel(co.carouselId);
+        responseMap.set(String(co.id), co);
+        data.push({
+          value: String(co.id),
+          label:
+            nextCarousel?.name ??
+            String(nextCarousel?.carouselOrdinal ?? `Carousel for ${co.id}`)
+        });
+      });
+    return { responseMap, data };
+  }, [workProjectSeriesSchemaId, currentState, readAnyCarousel]);
 
   const currentSelection = useMemo(() => {
-    return orderItem.carouselOptionId
-      ? new Set([String(orderItem.carouselOptionId)])
-      : new Set<string>();
-  }, [orderItem]);
+    return carouselOptionId ? String(carouselOptionId) : null;
+  }, [carouselOptionId]);
 
-  const clashList =
-    currentOption?.clashMap?.get(orderItem.carouselOrderId) ?? [];
+  const clashList = !currentSelection
+    ? []
+    : (currentOption?.clashMap?.get(orderItem.carouselOrderId) ?? []);
 
   const handleSelection = useCallback(
-    (selectionKeyValue: Selection) => {
-      if (typeof selectionKeyValue === 'object') {
-        const selectionSet = selectionKeyValue as Set<string>;
-        dispatch((carouselOrder) => {
-          const updatedOrderItems = { ...carouselOrder.carouselOrderItems };
-          const updatedItem = { ...orderItem };
-          updatedOrderItems[updatedItem.workProjectSeriesSchemaId] =
-            updatedItem;
-          if (selectionSet.size === 0) {
-            delete updatedItem.carouselOptionId;
-          } else if (selectionSet.size === 1) {
-            updatedItem.carouselOptionId = parseTen(
-              String([...selectionKeyValue.values()][0])
-            );
-          } else {
-            throw Error('Only one selection allowed.');
-          }
-          return { ...carouselOrder, carouselOrderItems: updatedOrderItems };
-        });
-      }
+    (nextValue: string | null) => {
+      dispatch((carouselOrder) => {
+        const updatedOrderItems = { ...carouselOrder.carouselOrderItems };
+        const updatedItem = { ...updatedOrderItems[workProjectSeriesSchemaId] };
+        updatedOrderItems[workProjectSeriesSchemaId] = updatedItem;
+        if (nextValue === null) {
+          delete updatedItem.carouselOptionId;
+        } else {
+          updatedItem.carouselOptionId = optionsToSelectFrom.get(nextValue)?.id;
+        }
+        return { ...carouselOrder, carouselOrderItems: updatedOrderItems };
+      });
     },
-    [dispatch, orderItem]
+    [dispatch, optionsToSelectFrom, workProjectSeriesSchemaId]
   );
 
   return (
-    <ClashBadge show={clashList.length > 0} content={'!'}>
+    <ClashBadge show={clashList.length > 0} label={'!'} offset={8}>
       <Select
         variant={'faded'}
-        selectedKeys={currentSelection}
-        items={optionsToSelectFrom.values()}
-        label={'Carousel'}
-        labelPlacement={'inside'}
+        value={currentSelection === '' ? null : currentSelection}
+        data={data}
         placeholder={'Assign to a Carousel'}
-        selectionMode={'single'}
-        onSelectionChange={handleSelection}
+        onChange={handleSelection}
         size={'sm'}
-        classNames={{ base: 'w-48' }}
-      >
-        {(option) => (
-          <SelectItem
-            key={option.id}
-            value={option.id}
-            aria-label={
-              readAnyCarousel(option.carouselId)?.name ??
-              `Carousel ${readAnyCarousel(option.carouselId)?.carouselOrdinal}` ??
-              `Option Id: ${option.id}`
-            }
-          >
-            {readAnyCarousel(option.carouselId)?.name ??
-              readAnyCarousel(option.carouselId)?.carouselOrdinal ??
-              option.id}
-          </SelectItem>
-        )}
-      </Select>
+      />
     </ClashBadge>
   );
 }

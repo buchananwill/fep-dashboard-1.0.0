@@ -1,9 +1,8 @@
 'use client';
-import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
+import { Button, Select } from '@mantine/core';
 import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
 
-import React, { ChangeEvent, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import {
   ComponentUndefined,
@@ -30,9 +29,6 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { Select } from '@nextui-org/react';
-import { SelectItem } from '@nextui-org/select';
-import { produce } from 'immer';
 import { listenerKeyDetailsContent } from '@/app/_literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
@@ -40,6 +36,9 @@ import { Api } from '@/api/clientApi';
 import CreateNewTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
 import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
+import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
+import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
+import { isEqual } from 'lodash';
 
 export default function OrganizationDetailsContent({
   onClose
@@ -66,11 +65,54 @@ export default function OrganizationDetailsContent({
     listenerKeyDetailsContent,
     ArrayPlaceholder
   );
-
-  const onCloseDefined = onClose ? onClose : () => {};
-
   const { workSchemaNodeAssignment } = currentState;
   const workSchemaNodeId = workSchemaNodeAssignment?.workSchemaNodeId;
+  const nodeIdListRef = useRef([] as number[]);
+
+  const nodeIdList = useMemo(() => {
+    const list = workSchemaNodeId ? [workSchemaNodeId] : [];
+    if (isEqual(nodeIdListRef.current, list)) {
+      return nodeIdListRef.current;
+    } else {
+      nodeIdListRef.current = list;
+      return list;
+    }
+  }, [workSchemaNodeId]);
+
+  const updateSingleListItem = useCallback(
+    (list: number[]) => {
+      if (list.length === 0) {
+        dispatchWithoutControl((prev) => ({
+          ...prev,
+          workSchemaNodeAssignment: undefined
+        }));
+      } else {
+        dispatchWithoutControl((prev) => ({
+          ...prev,
+          workSchemaNodeAssignment: {
+            organizationId: prev.id,
+            workSchemaNodeId: list[0],
+            id: prev.id
+          }
+        }));
+      }
+    },
+    [dispatchWithoutControl]
+  );
+
+  useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders(
+    nodeIdList,
+    updateSingleListItem,
+    workSchemaNodeRollUp
+  );
+
+  const { selectableList, selectionList, onChange } =
+    useEntitySelectionWithSimpleSelectables<WorkSchemaNodeRootTotalDeliveryAllocationRollupDto>(
+      workSchemaNodeRollUp,
+      (item) => item.name ?? String(item.id)
+    );
+
+  const onCloseDefined = onClose ? onClose : () => {};
 
   const organizationTypeDtos = useSimpleApiFetcher(Api.OrganizationType.getAll);
 
@@ -93,11 +135,8 @@ export default function OrganizationDetailsContent({
     });
   }, [organizationTypeDtos, dispatchOrgTypes]);
 
-  const { isOpen } = createTypeProps;
+  const { opened } = createTypeProps;
 
-  const selectedKeys = useMemo(() => {
-    return workSchemaNodeId ? [`${workSchemaNodeId}`] : [];
-  }, [workSchemaNodeId]);
   if (currentState === undefined)
     return <ComponentUndefined onClose={onCloseDefined} />;
 
@@ -107,55 +146,29 @@ export default function OrganizationDetailsContent({
         entityClass={EntityClassMap.organizationType}
         dtoList={organizationTypeDtos}
       />
-      <ModalHeader className="flex flex-col gap-1">
+      <h1 className="flex flex-col gap-1">
         <FocusToEdit
           value={currentState.name}
-          label={'Class name'}
+          placeholder={'Class name'}
           size={'sm'}
-          onValueChange={(value) =>
-            dispatchWithoutControl((data) => ({ ...data, name: value }))
+          onChange={(e) =>
+            dispatchWithoutControl((data) => ({
+              ...data,
+              name: e.target.value
+            }))
           }
         >
           {currentState.name}
         </FocusToEdit>
-      </ModalHeader>
-      <ModalBody>
+      </h1>
+      <div>
+        <Select
+          data={selectableList}
+          value={workSchemaNodeId ? String(workSchemaNodeId) : undefined}
+          onChange={onChange}
+        />
         {workSchemaNodeAssignment && (
           <>
-            <Select
-              items={rootNodeList}
-              label={'WorkSchemaNode'}
-              placeholder={'Assign a WorkSchemaNode'}
-              selectedKeys={selectedKeys}
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-                const newId = e.target.value;
-                dispatchWithoutControl((data) =>
-                  produce(data, (draft) => {
-                    if (draft.workSchemaNodeAssignment) {
-                      let isId = false;
-                      try {
-                        const intValue = parseInt(newId);
-                        isId = !isNaN(intValue);
-                      } catch (e) {
-                        console.warn('Failed to parse id to number:', newId);
-                      }
-                      if (isId)
-                        draft.workSchemaNodeAssignment.workSchemaNodeId =
-                          parseInt(e.target.value, 10);
-                      else
-                        delete draft.workSchemaNodeAssignment.workSchemaNodeId;
-                    }
-                    return draft;
-                  })
-                );
-              }}
-            >
-              {(schemaNode) => (
-                <SelectItem key={schemaNode.id} value={schemaNode.id}>
-                  {schemaNode.name}
-                </SelectItem>
-              )}
-            </Select>
             <BundleAssignment
               entity={workSchemaNodeAssignment}
               entityClass={EntityClassMap.workSchemaNodeAssignment}
@@ -163,25 +176,23 @@ export default function OrganizationDetailsContent({
             />
           </>
         )}
-        <Button onPress={() => createTypeProps.onOpenChange(true)}>
-          Create New Type
-        </Button>
+        <Button onClick={createTypeProps.onOpen}>Create New Type</Button>
         <CreateNewTypeModal {...createTypeProps} />
-      </ModalBody>
-      <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
+      </div>
+      <div>
+        <Button color="danger" variant="light" onClick={onClose}>
           Close
         </Button>
         <Button
           color="primary"
-          onPress={() => {
+          onClick={() => {
             commitEdit(currentState);
             onCloseDefined();
           }}
         >
           Confirm Changes
         </Button>
-      </ModalFooter>
+      </div>
     </>
   );
 }

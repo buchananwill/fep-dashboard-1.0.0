@@ -1,34 +1,38 @@
 import { useMemo, useState } from 'react';
 import { useEscapeToClose } from '@/components/react-flow/generic/hooks/useEscapeToClose';
+import { useDisclosure } from '@mantine/hooks';
 
 export function usePopoverFix(): UsePopoverFixReturn {
-  const [popoverVisible, setPopoverVisible] = useState(false);
+  const [opened, { open, close, toggle }] = useDisclosure();
 
   const shouldCloseOnInteractOutside = useMemo(() => {
     return () => {
-      setPopoverVisible(false);
+      close();
       return false;
     };
-  }, [setPopoverVisible]);
+  }, [close]);
 
-  useEscapeToClose(popoverVisible, setPopoverVisible);
+  useEscapeToClose(opened, close);
 
   return useMemo(
     () => ({
-      isOpen: popoverVisible,
-      onOpenChange: setPopoverVisible,
+      opened,
+      onClose: close,
       isKeyboardDismissDisabled: false,
-      shouldCloseOnInteractOutside
+      shouldCloseOnInteractOutside,
+      close,
+      open,
+      toggle
     }),
-    [popoverVisible, setPopoverVisible, shouldCloseOnInteractOutside]
+    [opened, close, shouldCloseOnInteractOutside, open, toggle]
   );
 }
 
 export interface UsePopoverFixReturn {
   isKeyboardDismissDisabled: boolean;
-  isOpen: boolean;
-  onOpenChange: {
-    (value: false | true | { (prevState: boolean): boolean }): void;
-  };
+  opened: boolean;
+  close: () => void;
+  open: () => void;
+  toggle: () => void;
   shouldCloseOnInteractOutside: () => boolean;
 }

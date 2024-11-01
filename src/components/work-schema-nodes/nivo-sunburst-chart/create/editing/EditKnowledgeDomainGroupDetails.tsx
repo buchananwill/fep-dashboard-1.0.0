@@ -1,16 +1,10 @@
-import { Button } from '@nextui-org/button';
-import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
-import React, { useCallback, useMemo } from 'react';
+import { Button } from '@mantine/core';
+import React, { useMemo } from 'react';
+import { findChildOfType } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 import {
-  findChildOfType,
-  replaceChildInTree
-} from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
-import {
-  Bundle,
   KnowledgeDomainGroup,
   NestedWorkNode
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { KnowledgeDomainGroupEdit } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/KnowledgeDomainGroupEdit';
 import { DeSelectRemovedId } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/editSunburstHooks';
 import { SelectionSplitRef } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
@@ -52,10 +46,10 @@ function KnowledgeDomainModalContent({ onClose }: { onClose: () => void }) {
 
   return (
     <>
-      <ModalHeader className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1">
         {getStartCaseDomainAlias('knowledgeDomainGroup')}
-      </ModalHeader>
-      <ModalBody>
+      </div>
+      <div className={'overflow-visible'}>
         {
           <KnowledgeDomainGroupEdit
             dispatch={setModalCopy}
@@ -64,15 +58,15 @@ function KnowledgeDomainModalContent({ onClose }: { onClose: () => void }) {
             knowledgeDomainGroup={knowledgeDomainGroup}
           />
         }
-      </ModalBody>
-      <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
+      </div>
+      <div>
+        <Button color="danger" variant="light" onClick={onClose}>
           Cancel
         </Button>
-        <Button color="primary" onPress={confirmChanges}>
+        <Button color="primary" onClick={confirmChanges}>
           Confirm
         </Button>
-      </ModalFooter>
+      </div>
     </>
   );
 }

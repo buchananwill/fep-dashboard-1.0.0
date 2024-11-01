@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
@@ -42,9 +42,7 @@ export default function GenerateStudentsButton() {
       className={
         'group relative m-2 h-fit w-fit min-w-fit overflow-visible rounded-lg bg-sky-800 p-0'
       }
-      disableRipple={true}
-      disableAnimation={true}
-      onPress={handleGenerate}
+      onClick={handleGenerate}
     >
       <PendingOverlay pending={isPending} />
       <span

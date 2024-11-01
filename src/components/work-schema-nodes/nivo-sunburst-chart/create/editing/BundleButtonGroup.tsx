@@ -28,7 +28,7 @@ export default function BundleButtonGroup(props: ButtonEditGroupProps) {
       <MemoEditButton editCommand={handleAddBundle}>Add</MemoEditButton>
       <MemoEditButton
         editCommand={removeBundle}
-        isDisabled={selectionLength < bundleDepth}
+        disabled={selectionLength < bundleDepth}
       >
         Remove
       </MemoEditButton>

@@ -1,9 +1,13 @@
 import { auth, signOut } from '@/auth';
 import { SignInGoogle } from '@/components/auth/SignInGoogle';
 import { SignInAzure } from '@/components/auth/SignInAzure';
-import { Image } from '@nextui-org/image';
+import { Image } from '@mantine/core';
+import { cookies } from 'next/headers';
+import { SCHEMA_NAME_COOKIE } from '@/api/literals';
+import { redirect } from 'next/navigation';
+import { ResetButton } from '@/components/auth/ResetButton';
 
-export default async function UserAvatar() {
+export default async function UserAvatar({}: {}) {
   const session = await auth();
 
   if (!session || !session.user) {
@@ -15,17 +19,20 @@ export default async function UserAvatar() {
     );
   } else
     return (
-      <div>
+      <div className={'flex flex-col justify-center gap-2'}>
         <form
           action={async () => {
             'use server';
+            const cookieStore = await cookies();
+            await cookieStore.delete(SCHEMA_NAME_COOKIE);
             await signOut();
+            redirect('/');
           }}
         >
           <button
             type="submit"
             className={
-              'flex flex-col items-center rounded-lg p-1 transition-colors-opacity hover:bg-rose-100'
+              'transition-colors-opacity flex flex-col items-center rounded-lg p-1 hover:bg-rose-100'
             }
           >
             Sign out:
@@ -43,6 +50,7 @@ export default async function UserAvatar() {
             )}
           </button>
         </form>
+        <ResetButton />
       </div>
     );
 }

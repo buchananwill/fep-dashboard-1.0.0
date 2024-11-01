@@ -79,7 +79,7 @@ export function BaseWorkSchemaNode({
     });
   }, [memoizedFunction, id]);
 
-  const anyPopoverOpen = fixAddProps.isOpen || fixDeleteProps.isOpen;
+  const anyPopoverOpen = fixAddProps.opened || fixDeleteProps.opened;
 
   const popoverPos = useMemo(() => {
     return anyPopoverOpen

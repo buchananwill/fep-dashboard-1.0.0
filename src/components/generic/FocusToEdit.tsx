@@ -1,27 +1,24 @@
 'use client';
 import { PropsWithChildren, useState } from 'react';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { Button, Input } from '@nextui-org/react';
-import { InputProps } from '@nextui-org/input';
+import { Button, TextInput, TextInputProps } from '@mantine/core';
 
 export function FocusToEdit({
   children,
   ...otherProps
-}: Omit<InputProps, 'children'> & PropsWithChildren) {
+}: Omit<TextInputProps, 'children'> & PropsWithChildren) {
   const [active, setActive] = useState(false);
 
   return (
     <div className={'flex items-center gap-1'}>
       <Button
-        isIconOnly
-        onPress={() => setActive((current) => !current)}
-        className={'m-1 p-1.5'}
-        variant={'light'}
+        onClick={() => setActive((current) => !current)}
+        variant={'subtle'}
       >
-        <PencilSquareIcon />
+        <PencilSquareIcon className={'h-6 w-6'} />
       </Button>
       <div className={'inline-block grow'}>
-        {active ? <Input {...otherProps} /> : children}
+        <TextInput disabled={!active} {...otherProps} />
       </div>
     </div>
   );

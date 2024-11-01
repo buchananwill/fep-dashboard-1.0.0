@@ -1,6 +1,6 @@
 'use client';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { BulkRepeatPostRequest } from '@/api/types';
 
 const getNextItemIndexCounter = (limit: number) => {
@@ -17,7 +17,7 @@ export default function GenerateOneButton({
 }) {
   return (
     <Button
-      onPress={() => {
+      onClick={() => {
         postEntitiesWithDifferentReturnType(requestData, url);
       }}
       className={
@@ -38,7 +38,7 @@ export function GenerateAllButton({
 }) {
   return (
     <Button
-      onPress={() => {
+      onClick={() => {
         requestData.forEach((data) =>
           postEntitiesWithDifferentReturnType(data, url)
         );

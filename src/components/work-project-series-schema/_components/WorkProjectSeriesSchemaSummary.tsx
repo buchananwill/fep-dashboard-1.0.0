@@ -21,7 +21,7 @@ export default function WorkProjectionSeriesSchemaSummary({
       <span className={'inline-block'}>
         Delivery Allocation Total:{' '}
         <span
-          className={'inline-block  rounded-xl bg-primary-500 px-2 text-white'}
+          className={'inline-block  rounded-xl bg-blue-500 px-2 text-white'}
         >
           {allocationTotal}
         </span>

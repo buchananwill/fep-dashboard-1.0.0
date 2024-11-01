@@ -1,10 +1,6 @@
-import { Input, InputProps } from '@nextui-org/input';
-import { Validator } from '@/components/modals/EditTextValueModal';
-import { forwardRef, useMemo } from 'react';
+import { useMemo } from 'react';
 
-interface ValidatedInputProps extends InputProps {
-  validator?: Validator<string>;
-}
+import { Validator } from '@/types';
 
 export function useInputValidation(
   validator: Validator<string> | undefined,

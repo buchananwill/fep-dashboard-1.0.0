@@ -14,18 +14,10 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { ControlledSelector } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ControlledSelector';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { useNestedUpdateCallback } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/useNestedUpdateCallback';
-import { ReactNode, useCallback, useRef } from 'react';
-import { useDisclosure } from '@nextui-org/use-disclosure';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalProps
-} from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
-import { ConfirmActionModalProps } from '@/components/modals/EditTextValueModal';
+import { useCallback, useRef } from 'react';
+import { ConfirmActionModal } from '@/components/modals/ConfirmActionModal';
+import { Loader } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 
 export default function TopLevelSelectors() {
   const listenerKey = useUuidListenerKey();
@@ -48,7 +40,7 @@ export default function TopLevelSelectors() {
     'knowledgeLevelSeries'
   );
 
-  const { isOpen, onOpen, onClose, ...otherDisclosureProps } = useDisclosure();
+  const [opened, { open, close }] = useDisclosure();
 
   const proposedUpdateRef = useRef<KnowledgeLevelSeriesDto | undefined>(
     undefined
@@ -58,10 +50,10 @@ export default function TopLevelSelectors() {
     (updatedValue: KnowledgeLevelSeriesDto | undefined) => {
       if (currentState.knowledgeLevelSeries !== updatedValue) {
         proposedUpdateRef.current = updatedValue;
-        onOpen();
+        open();
       }
     },
-    [onOpen, currentState]
+    [open, currentState]
   );
 
   const confirmUpdate = useCallback(() => {
@@ -70,14 +62,15 @@ export default function TopLevelSelectors() {
 
   const klsLabel = getStartCaseDomainAlias('knowledgeLevelSeries');
 
-  return (
+  return currentState === TemplateKnowledgeLevelSeriesGroup ? (
+    <Loader />
+  ) : (
     <div className={'grid grid-cols-2 gap-2 p-2'}>
       <div className={'col-span-2 flex justify-center p-4'}>
         <ControlledSelector<number, KnowledgeLevelSeriesDto>
           entityClass={EntityClassMap.knowledgeLevelSeries}
           entityId={currentState.knowledgeLevelSeries?.id ?? null}
           labelPath={'name'}
-          labelPlacement={'outside-left'}
           selectionCallback={interceptSeriesChange}
         />
       </div>
@@ -85,7 +78,6 @@ export default function TopLevelSelectors() {
         aria-label={'Task Type'}
         entityClass={workTaskTypeName}
         entityId={currentState.workTaskTypeName?.id ?? null}
-        label={'Task Type'}
         labelPath={'name'}
         selectionCallback={selectTaskType}
       />
@@ -93,7 +85,6 @@ export default function TopLevelSelectors() {
         aria-label={'Target Cycle'}
         entityClass={EntityClassMap.cycle}
         entityId={currentState.cycle?.id ?? null}
-        label={'Target Cycle'}
         labelPath={'id'}
         selectionCallback={selectCycle}
       />
@@ -106,56 +97,10 @@ export default function TopLevelSelectors() {
             creator.
           </span>
         }
-        {...otherDisclosureProps}
-        isOpen={isOpen}
-        onClose={onClose}
+        opened={opened}
+        onClose={close}
         onConfirm={confirmUpdate}
       />
     </div>
-  );
-}
-
-export function ConfirmActionModal({
-  changeDescription,
-  changeDetails,
-  onCancel,
-  onConfirm,
-  ...modalProps
-}: {
-  changeDescription: string;
-  changeDetails: ReactNode;
-} & ConfirmActionModalProps &
-  Pick<ModalProps, 'onClose' | 'isOpen'>) {
-  return (
-    <Modal {...modalProps}>
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader>Confirm Change: {changeDescription}</ModalHeader>
-            <ModalBody>{changeDetails}</ModalBody>
-            <ModalFooter>
-              <Button
-                onPress={() => {
-                  if (onCancel) {
-                    onCancel();
-                  }
-                  onClose();
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                onPress={() => {
-                  if (onConfirm) onConfirm();
-                  onClose();
-                }}
-              >
-                Confirm
-              </Button>
-            </ModalFooter>
-          </>
-        )}
-      </ModalContent>
-    </Modal>
   );
 }

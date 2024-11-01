@@ -1,5 +1,5 @@
-import { Switch } from '@nextui-org/react';
-import { useCallback } from 'react';
+import { Switch } from '@mantine/core';
+import { ChangeEvent, useCallback } from 'react';
 import {
   CarouselOrderDto,
   CarouselOrderItemDto
@@ -11,12 +11,12 @@ export default function SelectIsActive({
   orderItem
 }: OrderItemRowProps) {
   const setIsSelected = useCallback(
-    (isSelected: boolean) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       dispatch((order) => {
         const updatedItems = { ...order.carouselOrderItems };
         updatedItems[orderItem.workProjectSeriesSchemaId] = {
           ...orderItem,
-          active: isSelected
+          active: e.currentTarget.checked
         };
         const updatedOrder: CarouselOrderDto = {
           ...order,
@@ -28,13 +28,7 @@ export default function SelectIsActive({
     [dispatch, orderItem]
   );
 
-  return (
-    <Switch
-      isSelected={orderItem.active}
-      onValueChange={setIsSelected}
-      classNames={{ wrapper: 'm-0' }}
-    ></Switch>
-  );
+  return <Switch checked={orderItem.active} onChange={setIsSelected}></Switch>;
 }
 
 type OrderItemEntryTuple = [string, CarouselOrderItemDto];

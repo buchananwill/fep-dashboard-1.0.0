@@ -1,12 +1,12 @@
-import { Control, Controller, Path, useFormContext } from 'react-hook-form';
-import { Input, InputProps } from '@nextui-org/input';
+import { Controller, Path, useFormContext } from 'react-hook-form';
 import React from 'react';
 import { get } from 'lodash';
 import { FieldValues } from 'react-hook-form/dist/types';
+import { TextInput, TextInputProps } from '@mantine/core';
 
 export type FormInputProps<T extends FieldValues> = {
   name: Path<T>;
-} & Omit<InputProps, 'name'>;
+} & Omit<TextInputProps, 'name'>;
 
 export const ControlledInput = <T extends FieldValues>({
   name,
@@ -18,15 +18,12 @@ export const ControlledInput = <T extends FieldValues>({
     <Controller
       name={name}
       control={control}
-      render={({ field, fieldState, formState }) => {
+      render={({ field, formState }) => {
         return (
-          <Input
+          <TextInput
             {...props}
             name={name}
-            isInvalid={
-              formState.errors && !!get(formState.errors, name)?.message
-            }
-            errorMessage={
+            error={
               formState.errors
                 ? get(formState.errors, name)?.message?.toString()
                 : null

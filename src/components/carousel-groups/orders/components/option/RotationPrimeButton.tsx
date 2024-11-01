@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '@nextui-org/button';
+import { Button, ButtonProps } from '@mantine/core';
 import clsx from 'clsx';
 import { memo } from 'react';
 import { ArrowDownIcon } from '@heroicons/react/24/solid';
@@ -8,25 +8,27 @@ function RotationPrimeButtonInner(props: {
   canDrop: boolean;
   primed: boolean;
   fallBackColor: ButtonProps['color'];
-  onPress?: () => void;
+  onClick?: () => void;
   textFade: string | undefined;
 }) {
   return (
     <Button
-      isIconOnly
-      isDisabled={!props.canPrime}
+      styles={{
+        root: {
+          padding: '0.25em 0.5em 0.25em'
+        }
+      }}
+      autoContrast
+      disabled={!props.canPrime}
       className={clsx(
         'w-fit min-w-0 px-1  opacity-100',
-        !props.canDrop && 'data-[disabled]:bg-default-300'
+        !props.canDrop && 'data-[disabled]:bg-zinc-300'
       )}
+      radius={'xs'}
       color={
-        props.primed
-          ? 'success'
-          : props.canDrop
-            ? 'primary'
-            : props.fallBackColor
+        props.primed ? 'green' : props.canDrop ? 'blue' : props.fallBackColor
       }
-      onPress={props.onPress}
+      onClick={props.onClick}
     >
       <ArrowMemo
         className={clsx(

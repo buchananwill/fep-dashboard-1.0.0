@@ -1,6 +1,5 @@
-import { Button } from '@nextui-org/button';
-import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
-import React, { useCallback, useMemo } from 'react';
+import { Button } from '@mantine/core';
+import React, { ChangeEvent, useCallback, useMemo } from 'react';
 import {
   findChildOfType,
   replaceChildInTree
@@ -10,7 +9,6 @@ import {
   NestedWorkNode
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
-import { KnowledgeDomainGroupEdit } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/KnowledgeDomainGroupEdit';
 import { DeSelectRemovedId } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/editSunburstHooks';
 import { SelectionSplitRef } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditButtonGroup';
 import { EditWorkNodeDetails } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/EditWorkNodeDetails';
@@ -33,13 +31,13 @@ function BundleModalContent({ onClose }: { onClose: () => void }) {
   }, [path, modalCopy]);
 
   const setName = useCallback(
-    (newName: string) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       if (!bundle) return;
 
       setModalCopy((prevCopy) =>
         replaceChildInTree(prevCopy, bundle?.path ?? '', {
           ...bundle,
-          name: newName
+          name: e.target.value
         })
       );
     },
@@ -49,20 +47,20 @@ function BundleModalContent({ onClose }: { onClose: () => void }) {
 
   return (
     <>
-      <ModalHeader className="flex flex-col gap-1">
-        <FocusToEdit onValueChange={setName} value={bundle.name ?? ''}>
+      <div className="flex flex-col gap-1">
+        <FocusToEdit onChange={setName} value={bundle.name ?? ''}>
           {bundle.name ?? 'no name'}
         </FocusToEdit>
-      </ModalHeader>
-      <ModalBody></ModalBody>
-      <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
+      </div>
+      <div></div>
+      <div>
+        <Button color="danger" variant="light" onClick={onClose}>
           Cancel
         </Button>
-        <Button color="primary" onPress={confirmChanges}>
+        <Button color="primary" onClick={confirmChanges}>
           Confirm
         </Button>
-      </ModalFooter>
+      </div>
     </>
   );
 }

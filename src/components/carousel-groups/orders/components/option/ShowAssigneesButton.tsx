@@ -1,19 +1,18 @@
+'use client';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
+import { Button, Popover } from '@mantine/core';
 import clsx from 'clsx';
-import { Chip } from '@nextui-org/chip';
 import OrderItemAssigneeList from '@/components/carousel-groups/orders/components/option/OrderItemAssigneeList';
-import { memo } from 'react';
 import { useRotationOverlayPositioning } from '@/components/carousel-groups/orders/components/option/useRotationOverlayPositioning';
+import { FallbackColors } from '@/components/carousel-groups/orders/components/option/CarouselOption';
 
 export const zIndexPopoverOverride = { zIndex: 50 };
 
 function ShowAssigneesButtonInner(props: {
   textFade: string | undefined;
   canDrop?: boolean;
-  fallBackColor: 'default' | 'warning';
+  fallBackColor: FallbackColors;
   workTaskType?: WorkTaskTypeDto | undefined;
   badgeColor: string;
   dragHappening?: boolean;
@@ -28,27 +27,38 @@ function ShowAssigneesButtonInner(props: {
   );
 
   return (
-    <Popover style={zIndexPopoverOverride}>
-      <PopoverTrigger>
+    <Popover zIndex={100}>
+      <Popover.Target>
         <Button
-          className={clsx(
-            'flex w-full justify-between pl-2 pr-1',
-            props.textFade
-          )}
-          color={props.canDrop ? 'primary' : props.fallBackColor}
+          autoContrast
+          justify={'space-between'}
+          fullWidth
+          variant={'filled'}
+          radius={'sm'}
+          color={props.canDrop ? 'blue' : props.fallBackColor}
+          rightSection={
+            <div
+              className={clsx(
+                props.badgeColor,
+                props.textFade,
+                'rounded-xl px-2 py-1'
+              )}
+              ref={assignChipRef}
+            >
+              {props.carouselOptionDto.carouselOrderAssignees.length}
+            </div>
+          }
         >
-          <span className={'truncate'}>
+          <span
+            className={
+              'center-vertical-with-margin inline-block truncate align-middle leading-normal'
+            }
+          >
             {props.workTaskType?.knowledgeDomain?.name}
           </span>
-          <Chip
-            className={clsx(props.badgeColor, props.textFade)}
-            ref={assignChipRef}
-          >
-            {props.carouselOptionDto.carouselOrderAssignees.length}
-          </Chip>
         </Button>
-      </PopoverTrigger>
-      <PopoverContent
+      </Popover.Target>
+      <Popover.Dropdown
         className={clsx(
           !!props.dragHappening && 'opacity-10 ',
           'transition-opacity'
@@ -56,7 +66,7 @@ function ShowAssigneesButtonInner(props: {
       >
         <div></div>
         <OrderItemAssigneeList carouselOptionDto={props.carouselOptionDto} />
-      </PopoverContent>
+      </Popover.Dropdown>
     </Popover>
   );
 }

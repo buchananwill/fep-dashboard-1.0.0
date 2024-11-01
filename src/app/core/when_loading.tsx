@@ -1,12 +1,6 @@
-import { Overlay } from '@/components/overlays/overlay';
-import { Spinner } from '@nextui-org/spinner';
+import { LoadingOverlay } from '@mantine/core';
 
 export default function When_loading() {
   // You can add any UI inside Loading, including a Skeleton.
-  return (
-    <Overlay>
-      Loading...
-      <Spinner />
-    </Overlay>
-  );
+  return <LoadingOverlay>Loading...</LoadingOverlay>;
 }

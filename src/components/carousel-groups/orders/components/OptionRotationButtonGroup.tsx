@@ -1,6 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/button';
-import { ButtonGroup } from '@nextui-org/react';
+import { Button, Popover } from '@mantine/core';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import {
   useGlobalController,
@@ -18,7 +17,6 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import { assignOrderItemToOption } from '@/components/carousel-groups/orders/_functions/assignOrderItemToOption';
 import { useReadAnyDto, useWriteAnyDto } from 'dto-stores';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
 import CarouselOrderList from '@/components/carousel-groups/orders/components/order/CarouselOrderList';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
@@ -307,10 +305,10 @@ export default function OptionRotationButtonGroup() {
   );
 
   return (
-    <ButtonGroup>
+    <Button.Group>
       <Button
-        isDisabled={backwardsNotFeasible || forwardsPrimed}
-        onPress={() => {
+        disabled={backwardsNotFeasible || forwardsPrimed}
+        onClick={() => {
           if (backwards)
             commitNextRotation(
               calculateNextRotation(backwards, [...filteredOrders.values()])
@@ -327,35 +325,35 @@ export default function OptionRotationButtonGroup() {
       </Button>
       <Button
         className={'min-w-0 px-1'}
-        isDisabled={backwardsNotFeasible}
-        onPress={() =>
+        disabled={backwardsNotFeasible}
+        onClick={() =>
           toggleRotationOutcomeOverlay('backwards', optionRotation)
         }
       >
         <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
-      <Popover style={zIndexPopoverOverride}>
-        <PopoverTrigger>
-          <Button className={'w-12'} isDisabled={filteredOrders.size === 0}>
+      <Popover zIndex={100}>
+        <Popover.Target>
+          <Button className={'w-12'} disabled={filteredOrders.size === 0}>
             {filteredOrders.size}
           </Button>
-        </PopoverTrigger>
-        <PopoverContent>
+        </Popover.Target>
+        <Popover.Dropdown>
           <div className={'grid grid-cols-4 gap-1'}>
             <CarouselOrderList orderIdList={[...filteredOrders.values()]} />
           </div>
-        </PopoverContent>
+        </Popover.Dropdown>
       </Popover>
       <Button
         className={'min-w-0 px-1'}
-        isDisabled={forwardNotFeasible}
-        onPress={() => toggleRotationOutcomeOverlay('forwards', optionRotation)}
+        disabled={forwardNotFeasible}
+        onClick={() => toggleRotationOutcomeOverlay('forwards', optionRotation)}
       >
         <QuestionMarkCircleIcon className={'w-6'} />
       </Button>
       <Button
-        isDisabled={forwardNotFeasible || backwardsPrimed}
-        onPress={() => {
+        disabled={forwardNotFeasible || backwardsPrimed}
+        onClick={() => {
           if (forwards)
             commitNextRotation(
               calculateNextRotation(forwards, [...filteredOrders.values()])
@@ -370,6 +368,6 @@ export default function OptionRotationButtonGroup() {
           )}
         />
       </Button>
-    </ButtonGroup>
+    </Button.Group>
   );
 }

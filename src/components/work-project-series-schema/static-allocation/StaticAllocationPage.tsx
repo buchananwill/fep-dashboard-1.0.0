@@ -27,6 +27,8 @@ import { getPathVariableSplitComponent } from '@/components/generic/PathVariable
 import { Suspense } from 'react';
 import When_loading from '@/app/core/when_loading';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import RootCard from '@/components/generic/RootCard';
+import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,
@@ -104,7 +106,9 @@ async function InnerStaticAllocationPage({
         dtoList={EmptyArray}
         mergeInitialWithProp={true}
       />
-      <StaticAllocationTable tableData={staticDeliveryTable} />
+      <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
+        <StaticAllocationTable tableData={staticDeliveryTable} />
+      </RootCard>
     </>
   );
 }

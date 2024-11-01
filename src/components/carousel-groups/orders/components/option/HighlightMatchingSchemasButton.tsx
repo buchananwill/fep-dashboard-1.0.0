@@ -1,11 +1,11 @@
-import { Button, ButtonProps } from '@nextui-org/button';
+import { Button, ButtonProps } from '@mantine/core';
 import clsx from 'clsx';
 import { memo } from 'react';
 import { AcademicCapIcon as AcademicCapIconFilled } from '@heroicons/react/24/solid';
 import { AcademicCapIcon } from '@heroicons/react/24/outline';
 
 export function HighlightMatchingSchemasButton(props: {
-  onPress?: () => void;
+  onClick?: () => void;
   canDrop: boolean;
   fallBackColor: ButtonProps['color'];
   highlighted: boolean;
@@ -13,9 +13,15 @@ export function HighlightMatchingSchemasButton(props: {
 }) {
   return (
     <Button
-      className={'relative w-fit min-w-0 px-1'}
-      onPress={props.onPress}
-      color={props.canDrop ? 'primary' : props.fallBackColor}
+      radius={'xs'}
+      styles={{
+        root: {
+          padding: '4px'
+        }
+      }}
+      autoContrast
+      onClick={props.onClick}
+      color={props.canDrop ? 'blue' : props.fallBackColor}
     >
       <MemoCapFilled
         className={clsx(
@@ -27,7 +33,7 @@ export function HighlightMatchingSchemasButton(props: {
       />
       <MemoCap
         className={clsx(
-          'w-6',
+          'w-8',
           props.highlighted && 'opacity-0',
           'transition-colors-opacity',
           props.textFade

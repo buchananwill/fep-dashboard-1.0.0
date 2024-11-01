@@ -1,62 +1,29 @@
 'use client';
-import React, { useCallback } from 'react';
-import FilterSelectEntityTable from '@/components/tables/FilterSelectEntityTable';
+import React from 'react';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { Paths } from 'type-fest';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
+import { startCase } from 'lodash';
+import { getDomainAlias } from '@/api/getDomainAlias';
+import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/EmbeddedWorkTaskTypeCell';
+import EntityTable from '@/components/tables/edit-tables/EntityTable';
 
 export default function WorkProjectSeriesSchemaSelectorTable({
   entities
 }: {
-  entities: WorkProjectSeriesSchemaDto[];
+  entities?: WorkProjectSeriesSchemaDto[];
 }) {
-  const renderCell = useCallback(
-    (
-      workProjectSeriesSchemaDto: WorkProjectSeriesSchemaDto,
-      columnKey: React.Key
-    ) => {
-      const cellValue =
-        workProjectSeriesSchemaDto[
-          columnKey as Extract<
-            keyof Omit<
-              WorkProjectSeriesSchemaDto,
-              'deliveryAllocations' | 'workTaskType'
-            >,
-            string | number
-          >
-        ];
-
-      const entityKey = columnKey as Extract<
-        keyof Omit<WorkProjectSeriesSchemaDto, 'type'>,
-        string | number
-      >;
-
-      switch (entityKey) {
-        case 'name':
-          return (
-            <div className={'inline-block w-32 truncate'}>
-              {workProjectSeriesSchemaDto.name}
-            </div>
-          );
-        default:
-          return cellValue;
-      }
-    },
-    []
-  );
-
   return (
     <>
-      <FilterSelectEntityTable
-        entities={entities}
-        initialColumns={WorkProjectSeriesSchemaColumnsInitial}
-        filterProperty={'name'}
-        renderCell={renderCell}
+      <EntityTable
+        cellModel={WpssCellModelReadOnly}
+        withSelection={'multiple'}
         columns={WorkProjectSeriesSchemaColumns}
         entityClass={EntityClassMap.workProjectSeriesSchema}
-        idClass={'string'}
       />
     </>
   );
@@ -70,10 +37,55 @@ export const WorkProjectSeriesSchemaColumnsInitial: Paths<WorkProjectSeriesSchem
   ];
 export const WorkProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[] =
   [
-    { name: 'Name', uid: 'name', sortable: true },
+    { uid: 'name', name: 'Name', sortable: true },
     {
-      name: 'Short Code',
-      uid: 'workTaskType.knowledgeDomain.shortCode',
+      uid: 'workTaskType.knowledgeLevel.levelOrdinal',
+      name: 'levelOrdinal',
       sortable: true
+    },
+    {
+      uid: 'workTaskType.knowledgeLevel.name',
+      name: 'levelName',
+      sortable: true
+    },
+    {
+      uid: 'workTaskType.knowledgeDomain.shortCode',
+      name: 'Short Code',
+      sortable: true,
+      style: { padding: '0px' }
+    },
+    {
+      uid: 'workTaskType.name',
+      name: startCase('workTaskType'),
+      sortable: true
+    },
+    {
+      uid: 'userToProviderRatio',
+      sortable: true,
+      name: `${startCase(getDomainAlias('user'))} limit`
     }
   ];
+
+export const WpssCellModelReadOnly = getCellRenderFunction<
+  'workProjectSeriesSchema',
+  WorkProjectSeriesSchemaDto
+>('workProjectSeriesSchema', {
+  name: { type: 'IdInnerCell', component: AnyValueToString },
+  userToProviderRatio: { type: 'IdInnerCell', component: AnyValueToString },
+  'workTaskType.knowledgeDomain.shortCode': {
+    type: 'EntityInnerCell',
+    component: EmbeddedWorkTaskTypeCell
+  },
+  'workTaskType.name': {
+    type: 'EntityInnerCell',
+    component: EmbeddedWorkTaskTypeCell
+  },
+  'workTaskType.knowledgeLevel.name': {
+    type: 'EntityInnerCell',
+    component: EmbeddedWorkTaskTypeCell
+  },
+  'workTaskType.knowledgeLevel.levelOrdinal': {
+    type: 'EntityInnerCell',
+    component: EmbeddedWorkTaskTypeCell
+  }
+});

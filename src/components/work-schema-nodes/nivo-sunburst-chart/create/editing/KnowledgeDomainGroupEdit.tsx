@@ -3,15 +3,18 @@ import {
   KnowledgeLevelSeriesGroup
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { DispatchState } from '@/types';
-import { InitialMap, NamespacedHooks } from 'dto-stores';
+import { NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Select, Selection } from '@nextui-org/react';
-import { SelectItem } from '@nextui-org/select';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import { useCallback, useMemo, useRef } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { replaceKnowledgeDomainsInGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupProducers';
+import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
+import { useSimpleSelectableListMapAndIdMap } from '@/hooks/useSimpleSelectableListMapAndIdMap';
+import { EmptyArray } from '@/api/literals';
+import { useLabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
+import { isEqual } from 'lodash';
 
 export function KnowledgeDomainGroupEdit({
   knowledgeDomainGroup,
@@ -24,33 +27,32 @@ export function KnowledgeDomainGroupEdit({
   knowledgeDomainGroup: KnowledgeDomainGroup;
 }) {
   const { knowledgeDomains } = knowledgeDomainGroup;
-  const { currentState } = NamespacedHooks.useListen<
-    Map<string, KnowledgeDomainDto>
-  >(
+  const { currentState } = NamespacedHooks.useListen<KnowledgeDomainDto[]>(
     EntityClassMap.knowledgeDomain,
-    KEY_TYPES.MASTER_MAP,
+    KEY_TYPES.MASTER_LIST,
     `edit:${knowledgeDomainGroup.path}`,
-    InitialMap as Map<string, KnowledgeDomainDto>
+    EmptyArray as KnowledgeDomainDto[]
   );
 
-  const selectionKeys = useMemo(() => {
-    return knowledgeDomains.map((kd) => String(kd.id));
+  const labelMaker = useLabelMaker<KnowledgeDomainDto>('name');
+
+  const { selectableMap, idMap, selectableList } =
+    useSimpleSelectableListMapAndIdMap(currentState, labelMaker);
+  const valueRef = useRef([] as string[]);
+
+  const value = useMemo(() => {
+    const valueList = knowledgeDomains.map((kd) => String(kd.id));
+    if (!isEqual(valueList, valueRef.current)) {
+      valueRef.current = valueList;
+    }
+    return valueRef.current;
   }, [knowledgeDomains]);
 
-  const selectionKeysRef = useRef(selectionKeys);
-  selectionKeysRef.current = selectionKeys;
-
   const onSelectionChange = useCallback(
-    (selection: Selection) => {
-      let updatedDomains = [...currentState.values()];
-      if (selection !== 'all') {
-        const setOfAdded = [...selection.values()] as string[];
-        updatedDomains = setOfAdded
-          .map((addedKd) =>
-            currentState.get(`${EntityClassMap.knowledgeDomain}:${addedKd}`)
-          )
-          .filter(isNotUndefined);
-      }
+    (selection: string[]) => {
+      const updatedDomains = selection
+        .map((value) => selectableMap.get(value))
+        .filter(isNotUndefined);
       dispatch(
         (prev) =>
           replaceKnowledgeDomainsInGroup(
@@ -60,21 +62,17 @@ export function KnowledgeDomainGroupEdit({
           ) as KnowledgeLevelSeriesGroup
       );
     },
-    [currentPath, currentState, dispatch]
+    [currentPath, selectableMap, dispatch]
   );
 
   return (
-    <Select
-      items={currentState.values()}
-      selectionMode={'multiple'}
-      selectedKeys={selectionKeys}
-      onSelectionChange={onSelectionChange}
-    >
-      {(item) => (
-        <SelectItem key={item.id} aria-label={item.name} value={item.id}>
-          {item.name}
-        </SelectItem>
-      )}
-    </Select>
+    <MultiSelectMaxDisplayedItems
+      data={selectableList}
+      onChange={onSelectionChange}
+      value={value}
+      position={'bottom'}
+      withinPortal={true}
+      scrollArea={{ mah: 200 }}
+    />
   );
 }

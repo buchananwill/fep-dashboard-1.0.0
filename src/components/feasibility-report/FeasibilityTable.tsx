@@ -2,7 +2,6 @@ import { ReactElement, ReactNode } from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
-import { ScrollShadow } from '@nextui-org/scroll-shadow';
 
 export function FeasibilityTable({
   headerCellContent,
@@ -15,8 +14,18 @@ export function FeasibilityTable({
   return (
     <div className={'h-[100vh] w-fit p-4'}>
       <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
-        <div className={'h-fit w-fit overflow-hidden rounded-lg '}>
-          <ScrollShadow
+        <div className={'relative h-fit w-fit overflow-hidden rounded-lg'}>
+          <div
+            className={
+              'pointer-events-none absolute top-0 h-10  w-full bg-gradient-to-b from-white  to-transparent'
+            }
+          />
+          <div
+            className={
+              'pointer-events-none absolute bottom-0 h-10  w-full bg-gradient-to-t from-white  to-transparent'
+            }
+          />
+          <div
             className={
               'center-all-margin max-h-[90vh] w-fit overflow-auto p-2 pt-6'
             }
@@ -46,7 +55,7 @@ export function FeasibilityTable({
               </thead>
               {bodyContent}
             </table>
-          </ScrollShadow>
+          </div>
         </div>
       </RootCard>
     </div>

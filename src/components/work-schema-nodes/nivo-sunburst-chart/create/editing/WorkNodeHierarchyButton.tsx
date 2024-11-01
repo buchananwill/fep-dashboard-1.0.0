@@ -1,7 +1,7 @@
 import { KnowledgeLevelSeriesGroupContextKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { useGlobalDispatch } from 'selective-context';
-import React, { SetStateAction, useCallback } from 'react';
-import { Button, ButtonProps } from '@nextui-org/button';
+import React, { PropsWithChildren, SetStateAction, useCallback } from 'react';
+import { Button } from '@mantine/core';
 import clsx from 'clsx';
 import { WorkNodeHierarchy } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 
@@ -12,25 +12,28 @@ export default function WorkNodeHierarchyButton({
   children,
   className,
   ...buttonProps
-}: { editCommand: WorkNodeHierarchyProducer } & Pick<
-  ButtonProps,
-  'className' | 'children' | 'isDisabled'
->) {
+}: {
+  editCommand: WorkNodeHierarchyProducer;
+  className?: string;
+  disabled?: boolean;
+} & PropsWithChildren) {
   const { dispatchWithoutListen: dispatch } =
     useGlobalDispatch<WorkNodeHierarchy>(KnowledgeLevelSeriesGroupContextKey);
 
-  const onPress = useCallback(() => {
+  const onClick = useCallback(() => {
     dispatch(editCommand);
   }, [editCommand, dispatch]);
 
   return (
     <Button
       {...buttonProps}
-      onPress={onPress}
-      className={clsx(
-        className,
-        'rounded-none first:rounded-l-xl last:rounded-r-xl'
-      )}
+      onClick={onClick}
+      classNames={{
+        root: clsx(
+          className,
+          'rounded-none first:rounded-l-xl last:rounded-r-xl'
+        )
+      }}
     >
       {children}
     </Button>

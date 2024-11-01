@@ -1,5 +1,4 @@
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
+import { Button, Popover } from '@mantine/core';
 import {
   ArrowDownOnSquareStackIcon,
   MinusCircleIcon,
@@ -8,6 +7,7 @@ import {
 import { TrashIcon } from '@heroicons/react/16/solid';
 import React from 'react';
 import { UsePopoverFixReturn } from '@/components/react-flow/generic/hooks/usePopoverFix';
+import clsx from 'clsx';
 
 export default function NodeGraphEditCluster({
   addSibling,
@@ -15,9 +15,6 @@ export default function NodeGraphEditCluster({
   addChild,
   openDetailsModal,
   deleteNode,
-  fixAddProps,
-  popoverPos,
-  fixDeleteProps,
   showAddChild = true,
   showAddSibling = true,
   showDelete = true,
@@ -39,65 +36,83 @@ export default function NodeGraphEditCluster({
   return (
     <>
       {showDelete && (
-        <Popover
-          {...fixDeleteProps}
-          placement={'right'}
-          triggerScaleOnOpen
-          updatePositionDeps={popoverPos}
-          triggerType={'menu'}
-        >
-          <PopoverTrigger>
-            <Button size={'sm'} className={'p-1.5'} isIconOnly>
-              <MinusCircleIcon />
+        <Popover>
+          <Popover.Target>
+            <Button
+              size={'sm'}
+              variant={'outline'}
+              color={'black'}
+              styles={{
+                root: {
+                  width: 'fit-content',
+                  paddingLeft: '8px',
+                  paddingRight: '8px'
+                }
+              }}
+            >
+              <MinusCircleIcon className={'w-6'} />
             </Button>
-          </PopoverTrigger>
-          <PopoverContent>
+          </Popover.Target>
+          <Popover.Dropdown>
             <div className={'grid grid-cols-1 gap-1'}>
-              <Button isIconOnly className={'p-2'} onPress={deleteNode}>
-                <TrashIcon />
+              <Button onClick={deleteNode}>
+                <TrashIcon className={'w-6'} />
               </Button>
             </div>
-          </PopoverContent>
+          </Popover.Dropdown>
         </Popover>
       )}
-      <Button size={'sm'} className={'grow'} onPress={openDetailsModal}>
+      <Button
+        size={'sm'}
+        className={'grow'}
+        variant={'outline'}
+        color={'black'}
+        onClick={openDetailsModal}
+      >
         {label ?? 'Details'}
       </Button>
       {(showAddSibling || showAddChild) && (
-        <Popover
-          {...fixAddProps}
-          placement={'right'}
-          triggerScaleOnOpen
-          updatePositionDeps={popoverPos}
-          triggerType={'menu'}
-        >
-          <PopoverTrigger>
-            <Button size={'sm'} className={'p-1.5'} isIconOnly>
-              <PlusCircleIcon />
+        <Popover>
+          <Popover.Target>
+            <Button
+              size={'sm'}
+              variant={'outline'}
+              color={'black'}
+              styles={{
+                root: {
+                  width: 'fit-content',
+                  paddingLeft: '8px',
+                  paddingRight: '8px'
+                }
+              }}
+            >
+              <PlusCircleIcon className={'w-6'} />
             </Button>
-          </PopoverTrigger>
-          <PopoverContent>
+          </Popover.Target>
+          <Popover.Dropdown>
             <div className={'grid grid-cols-1 gap-1'}>
               {showAddSibling && (
-                <Button isIconOnly className={'p-1.5'} onPress={addSibling}>
+                <Button onClick={addSibling}>
                   <ArrowDownOnSquareStackIcon
-                    className={
-                      orientation === 'top-to-bottom' ? '-rotate-90' : ''
-                    }
+                    className={clsx(
+                      orientation === 'top-to-bottom' ? '-rotate-90' : '',
+                      'w-6'
+                    )}
                   />
                 </Button>
               )}
               {showAddChild && (
-                <Button isIconOnly className={'p-1.5'} onPress={addChild}>
+                <Button onClick={addChild}>
                   <ArrowDownOnSquareStackIcon
-                    className={
-                      orientation === 'left-to-right' ? '-rotate-90' : ''
-                    }
+                    className={clsx(
+                      orientation === 'left-to-right' ? '-rotate-90' : '',
+                      'w-6'
+                    )}
                   />
                 </Button>
               )}
             </div>
-          </PopoverContent>
+          </Popover.Dropdown>
         </Popover>
       )}
     </>

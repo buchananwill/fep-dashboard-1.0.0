@@ -12,9 +12,7 @@ export default async function KnowledgeDomainTaskArea({
     taskAreaPerKnowledgeDomainDto.id
   );
   return (
-    <tr
-      className={clsx(response.outcome ? 'bg-emerald-100' : 'bg-default-100')}
-    >
+    <tr className={clsx(response.outcome ? 'bg-emerald-100' : 'bg-zinc-100')}>
       <td className={'pr-2 text-right'}>
         {taskAreaPerKnowledgeDomainDto.shortCode}
       </td>
@@ -26,7 +24,7 @@ export default async function KnowledgeDomainTaskArea({
           {response.outcome ? (
             <CheckIcon className={'h-6 w-6 text-emerald-600'} />
           ) : (
-            <XCircleIcon className={'h-6 w-6 text-danger-600'} />
+            <XCircleIcon className={'h-6 w-6 text-red-600'} />
           )}
         </span>
       </td>

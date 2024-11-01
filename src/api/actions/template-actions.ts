@@ -5,6 +5,10 @@ import {
   IntersectionPostRequestMap,
   IntersectionRequestParams
 } from '@/api/types';
+import { auth } from '@/auth';
+import { NextRequest } from 'next/server';
+import { templateToken } from '@/api/auth/schemaName';
+import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
 
 function createRequestInit<T>({
   body,
@@ -33,6 +37,7 @@ export async function postEntities<T>(dtoList: T[], url: string): Promise<T[]> {
   const requestInit = createRequestInit({ body: dtoList });
   return callApi<T[]>(url, requestInit);
 }
+
 export async function postEntitiesWithDifferentReturnType<T, U>(
   dtoOutbound: T,
   url: string
@@ -40,6 +45,7 @@ export async function postEntitiesWithDifferentReturnType<T, U>(
   const requestInit = createRequestInit({ body: dtoOutbound, method: 'POST' });
   return callApi<U>(url, requestInit);
 }
+
 export async function putRequestWithDifferentReturnType<T, U>(
   request: T,
   url: string
@@ -70,13 +76,6 @@ export async function putEntities<T>(entities: T, url: string): Promise<T> {
   return callApi<T>(url, requestInit);
 }
 
-export async function patchEntity<T>(entity: T, url: string): Promise<T> {
-  const requestInit = createRequestInit({
-    body: entity,
-    method: 'PATCH'
-  });
-  return callApi<T>(url, requestInit);
-}
 export async function putEntity<T>(entity: T, url: string): Promise<T> {
   const requestInit = createRequestInit({
     body: entity,
@@ -84,6 +83,7 @@ export async function putEntity<T>(entity: T, url: string): Promise<T> {
   });
   return callApi<T>(url, requestInit);
 }
+
 export async function patchEntityList<T>(
   entityList: T[],
   url: string
@@ -94,6 +94,7 @@ export async function patchEntityList<T>(
   });
   return callApi<T[]>(url, requestInit);
 }
+
 export async function postEntity<T>(entity: T, url: string): Promise<T> {
   const requestInit = createRequestInit({
     body: entity,
@@ -135,7 +136,23 @@ export async function deleteEntity<T>(url: string): Promise<T> {
 
 async function callApi<T>(url: string, request: RequestInit): Promise<T> {
   try {
-    const response = await fetch(url, request);
+    // @ts-ignore
+    const nextRequest = new NextRequest(url, request);
+    const session = await auth();
+    if (session?.user) {
+      const databaseJwt = await getSchemaNameCookie();
+      if (databaseJwt) {
+        nextRequest.headers.append(
+          'authorization',
+          `Bearer ${databaseJwt.value}`
+        );
+      }
+    } else {
+      const token = templateToken();
+      nextRequest.headers.append('authorization', `Bearer ${token}`);
+    }
+
+    const response = await fetch(nextRequest);
 
     // Check if response is successful
     if (response.status >= 200 && response.status < 300) {
@@ -147,7 +164,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
         // If it's plain text, you can log or handle it appropriately
         const text = await response.text();
         console.warn('Received plain text response:', text);
-        throw new Error('Expected JSON but received plain text');
+        return text as T;
       } else {
         throw new Error(`Unsupported content type: ${contentType}`);
       }
@@ -171,6 +188,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
       } else {
         console.error('Unsupported error content type:', contentType);
       }
+      console.error(response);
       throw new Error();
       // notFound(); // Custom error handler
     }

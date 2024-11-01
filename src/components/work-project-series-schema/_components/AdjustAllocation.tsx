@@ -1,10 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
-import {
-  BaseDtoUiProps,
-  useDtoStoreDispatch,
-  useLazyDtoStore
-} from 'dto-stores';
+import { BaseDtoUiProps, useLazyDtoStore } from 'dto-stores';
 
 import { sumDeliveryAllocations } from '@/components/work-project-series-schema/_functions/sumDeliveryAllocations';
 import { StepperContext } from '@/components/generic/stepper/stepperContextCreator';
@@ -19,11 +15,10 @@ import {
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
-import { NextUiCellComponentProps } from '@/components/tables/GetCellRenderFunction';
 
-export const allocationSizes = [1, 2];
+import { EntityInnerCellProps } from '@/components/tables/core-table-types';
+import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
+import { Button, Popover } from '@mantine/core';
 
 export function AdjustAllocation({
   entity: workProjectSeriesSchemaDto,
@@ -83,11 +78,13 @@ export function AdjustAllocation({
 
   return (
     <div className=" flex items-center justify-start gap-1 align-middle">
-      <Popover showArrow={true}>
-        <PopoverTrigger>
-          <Button>Adjust Allocation</Button>
-        </PopoverTrigger>
-        <PopoverContent>
+      <Popover withArrow shadow={'md'}>
+        <Popover.Target>
+          <Button variant={'subtle'} radius={'xs'}>
+            Adjust Allocation
+          </Button>
+        </Popover.Target>
+        <Popover.Dropdown>
           <div className={'flex flex-col items-end gap-1'}>
             {currentAllocations.map((deliveryAllocation, index) => (
               <StepperContext.Provider
@@ -120,7 +117,7 @@ export function AdjustAllocation({
               </StepperContext.Provider>
             ))}
           </div>
-        </PopoverContent>
+        </Popover.Dropdown>
       </Popover>
       <h3 className={'w-20 px-2 text-sm'}>Total: {totalAllocations}</h3>
       {currentAllocations.map((delivAl) => (
@@ -132,15 +129,19 @@ export function AdjustAllocation({
 
 export function AdjustAllocationInWrapper({
   entity,
-  entityClass
-}: NextUiCellComponentProps<WorkProjectSeriesSchemaDto>) {
-  const { dispatchWithoutListen } = useDtoStoreDispatch(entity.id, entityClass);
+  dispatchWithoutControl
+}: EntityInnerCellProps<
+  WorkProjectSeriesSchemaDto,
+  number,
+  'deliveryAllocations'
+>) {
+  const { entityClass } = useEntityTableContext();
 
   return (
     <AdjustAllocation
       entityClass={entityClass}
       entity={entity}
-      dispatchWithoutControl={dispatchWithoutListen}
+      dispatchWithoutControl={dispatchWithoutControl}
     />
   );
 }

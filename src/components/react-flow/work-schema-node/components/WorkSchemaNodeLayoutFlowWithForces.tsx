@@ -36,18 +36,14 @@ import {
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkSchemaNodeDetailsContent from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeDetailsContent';
 import { workSchemaNodeTypesUi } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
-import { Button } from '@nextui-org/button';
-import { PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Popover } from '@nextui-org/react';
+import { Button, Loader, Popover } from '@mantine/core';
 import {
   DtoUiListSome,
   EditAddDeleteDtoControllerArray,
-  InitialMap,
   NamespacedHooks,
   useReadAnyDto
 } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
-import { Spinner } from '@nextui-org/spinner';
 import { FlowNode, NodeValidator } from '@/components/react-flow/generic/types';
 import {
   CarouselDto,
@@ -56,7 +52,6 @@ import {
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { recalculateDepths } from '@/components/react-flow/generic/utils/recalculateDepths';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/components/UnassignedRootButton';
-import { useGlobalController } from 'selective-context';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/components/RollupUpdater';
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
 import { useIdToEdgeMapMemo } from '@/components/react-flow/generic/hooks/useIdToEdgeMapMemo';
@@ -273,21 +268,25 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         entityClass={AllocationRollupEntityClass}
         dtoList={EmptyArray}
       />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        dtoList={EmptyArray}
+      />
       <RollupUpdater allocationRollupEntities={allocationRollupEntities} />
       <PendingOverlay pending={isPending} />
       <Panel position={'top-center'}>
         <Popover>
-          <PopoverTrigger>
+          <Popover.Target>
             <Button variant={'light'}>Add Unassigned Root</Button>
-          </PopoverTrigger>
-          <PopoverContent>
+          </Popover.Target>
+          <Popover.Dropdown>
             <DtoUiListSome
               entityIdList={currentState}
               entityClass={EntityClassMap.workSchemaNode}
-              whileLoading={() => <Spinner />}
+              whileLoading={() => <Loader />}
               renderAs={UnassignedRootButton}
             />
-          </PopoverContent>
+          </Popover.Dropdown>
         </Popover>
       </Panel>
       {reactFlowProps.nodes.length === 0 && <AddRootNode />}

@@ -1,5 +1,4 @@
 'use client';
-import { Tab, Tabs } from '@nextui-org/tabs';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import WorkProjectSeriesSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSelectorTable';
 import { useMemo } from 'react';
@@ -19,6 +18,7 @@ import {
 import { RenderTable } from '@/components/tables/RenderTable';
 import KnowledgeDomainSelectorTable from '@/components/tables/selectorTables/KnowledgeDomainSelectorTable';
 import KnowledgeLevelSelectorTable from '@/components/tables/selectorTables/KnowledgeLevelSelectorTable';
+import { Tabs } from '@mantine/core';
 
 export default function TabbedSelectorTables({
   data,
@@ -31,16 +31,29 @@ export default function TabbedSelectorTables({
       .map((entityTypeKey) => ({ id: entityTypeKey }) as { id: EntityTypeKey });
   }, [data]);
 
+  const tabs = useMemo(() => {
+    return TabItems.map(({ id }) => {
+      return (
+        <Tabs.Tab key={id} value={id}>
+          {startCase(getDomainAlias(id))}
+        </Tabs.Tab>
+      );
+    });
+  }, [TabItems]);
+
+  const panels = useMemo(() => {
+    return TabItems.map(({ id }) => (
+      <Tabs.Panel value={id} key={`tab:${id}`}>
+        <RenderTable type={id} data={data} tableMap={TableMap} />
+      </Tabs.Panel>
+    ));
+  }, [TabItems, data]);
+
   return (
     <div {...divProps}>
-      <Tabs items={TabItems}>
-        {({ id }) => {
-          return (
-            <Tab key={id} title={startCase(getDomainAlias(id))}>
-              <RenderTable type={id} data={data} tableMap={TableMap} />
-            </Tab>
-          );
-        }}
+      <Tabs defaultValue={TabItems[0]?.id}>
+        <Tabs.List>{tabs}</Tabs.List>
+        {panels}
       </Tabs>
     </div>
   );

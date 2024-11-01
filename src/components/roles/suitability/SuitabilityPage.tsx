@@ -12,12 +12,10 @@ import {
   RoleEntity,
   RolePageProps
 } from '@/components/roles/types';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { startCase } from 'lodash';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { notFound } from 'next/navigation';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import pluralize, { singular } from 'pluralize';
 import AvailabilityPage from '@/components/roles/availability/availabilityPage';
 import { getLastNVariables } from '@/functions/getLastNVariables';

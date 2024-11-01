@@ -1,7 +1,4 @@
 'use client';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { Popover, PopoverContent, PopoverTrigger } from '@nextui-org/popover';
-import { Button } from '@nextui-org/button';
 import { NavLinkDescriptionsDefault } from '@/components/navigation/navLinkDescriptions';
 import { motion } from 'framer-motion';
 import {
@@ -9,8 +6,8 @@ import {
   navLinkIcons
 } from '@/components/navigation/navLinkIcons';
 import { PropsWithChildren, ReactNode } from 'react';
-import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { Card, Button, Popover } from '@mantine/core';
 
 export default function RootCard({
   layoutId,
@@ -43,38 +40,57 @@ export default function RootCard({
         animate={{ scale: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <Card className={'h-full'}>
+        <Card
+          styles={{
+            root: {
+              overflow: 'visible',
+              width: 'fit-content',
+              height: 'fit-content'
+            }
+          }}
+        >
           {displayHeader &&
             (navLinkDescription ? (
-              <Popover triggerScaleOnOpen={false}>
-                <PopoverTrigger>
-                  <Button
-                    variant={'light'}
-                    className={'rounded-none italic text-default-500'}
-                  >
-                    <CardHeader
-                      className={'flex justify-between  border-default-200 '}
-                    >
-                      {Icon && <Icon className={'h-8 w-8'} />}
-                      {displayHeader}
-                    </CardHeader>
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className={'max-w-lg'}>
-                  {navigationType && navLinkDescription}
-                </PopoverContent>
-              </Popover>
+              <Card.Section>
+                <Popover>
+                  <div className={'w-full overflow-hidden rounded-t-2xl'}>
+                    <Popover.Target>
+                      <Button
+                        variant={'subtle'}
+                        styles={{
+                          root: { borderRadius: '0px' }
+                        }}
+                        classNames={{
+                          inner: 'w-full',
+                          label:
+                            'flex w-full justify-between p-1 italic text-default-500 font-weight-400 font-light'
+                        }}
+                        className={''}
+                        fullWidth
+                      >
+                        {Icon && <Icon className={'h-8 w-8'} />}
+                        {displayHeader}
+                      </Button>
+                    </Popover.Target>
+                  </div>
+                  <Popover.Dropdown className={'max-w-lg'}>
+                    {navigationType && navLinkDescription}
+                  </Popover.Dropdown>
+                </Popover>
+              </Card.Section>
             ) : (
-              <CardHeader
-                className={'flex justify-between  border-default-200 '}
+              <Card.Section
+                className={'flex justify-between border-default-200 '}
               >
                 {Icon && <Icon className={'h-8 w-8'} />}
-                {displayHeader}
-              </CardHeader>
+                <h1 className={'p-2'}>{displayHeader}</h1>
+              </Card.Section>
             ))}
-          <CardBody className={clsx(displayHeader && 'pt-0')}>
+          <Card.Section
+            className={clsx(displayHeader && 'pt-0', 'overflow-visible')}
+          >
             {children}
-          </CardBody>
+          </Card.Section>
         </Card>
       </motion.div>
     </motion.div>

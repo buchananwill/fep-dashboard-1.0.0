@@ -7,6 +7,8 @@ import {
 } from '@/api/generated-types/generated-types';
 import { Api } from '@/api/clientApi';
 import { ClosureDto as ClosureDtoLibrary } from 'react-d3-force-wrapper';
+import { HasOnlyStringKeys } from '@/components/types/stringKeysOnly';
+import { Identifier } from 'dto-stores';
 
 export type ClosureDto = ClosureDtoLibrary;
 
@@ -64,7 +66,7 @@ export type HasId = {
   id: string | number;
 };
 
-export interface HasIdClass<T> {
+export interface HasIdClass<T = Identifier> {
   id: T;
 }
 

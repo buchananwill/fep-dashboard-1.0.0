@@ -1,5 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { NamespacedHooks } from 'dto-stores';
 import { eventSourceEntityClass } from '@/components/calendar/CalendarWithShowHideSources';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -17,7 +17,7 @@ export default function CreateEventButton() {
     EmptyArray
   );
 
-  const onPress = useCallback(async () => {
+  const onClick = useCallback(async () => {
     const allEvents = currentState
       .flatMap((eventSource) => eventSource.events)
       .map((event) => addRecurrencePattern(event));
@@ -27,5 +27,5 @@ export default function CreateEventButton() {
     );
   }, [currentState]);
 
-  return <Button onPress={onPress}>Send Events To Outlook</Button>;
+  return <Button onClick={onClick}>Send Events To Outlook</Button>;
 }

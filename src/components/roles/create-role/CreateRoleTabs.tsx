@@ -1,6 +1,5 @@
 'use client';
-import { Tabs } from '@nextui-org/tabs';
-import { Tab } from '@nextui-org/react';
+
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import WorkTaskTypeMatrix from '@/components/work-task-types/WorkTaskTypeMatrix';
 import {
@@ -12,6 +11,7 @@ import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 import { useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
 import { useEditableEvents } from '@/components/roles/create-role/useEditableEvents';
+import { Tabs } from '@mantine/core';
 
 interface CreateRoleProps {
   knowledgeDomains: KnowledgeDomainDto[];
@@ -34,19 +34,26 @@ export default function CreateRoleTabs({
 
   return (
     <Tabs
-      placement={'top'}
       classNames={{
         panel: 'relative flex h-[80vh] w-[75vw] gap-2'
       }}
     >
-      <Tab title={'Set Suitabilities'} id={'suitabilities'}>
+      <Tabs.List>
+        <Tabs.Tab value={'suitabilities'} id={'suitabilities'}>
+          Set Suitabilities
+        </Tabs.Tab>
+        <Tabs.Tab id={'availabilities'} value={'availabilities'}>
+          Set Availabilities
+        </Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value={'suitabilities'}>
         <FinderTableButton
           knowledgeDomain={knowledgeDomains}
           knowledgeLevel={knowledgeLevels}
         />
         <WorkTaskTypeMatrix />
-      </Tab>
-      <Tab title={'Set Availabilities'} id={'availabilities'}>
+      </Tabs.Panel>
+      <Tabs.Panel value={'availabilities'}>
         <div className={'w-full'}>
           <CalendarViewer
             events={events}
@@ -58,7 +65,7 @@ export default function CreateRoleTabs({
             {...callbacks}
           ></CalendarViewer>
         </div>
-      </Tab>
+      </Tabs.Panel>
     </Tabs>
   );
 }

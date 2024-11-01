@@ -10,14 +10,12 @@ import {
 import { ObjectPlaceholder } from 'selective-context';
 import {
   CarouselOptionDto,
-  WorkProjectSeriesSchemaDto,
   WorkSchemaNodeDto
 } from '@/api/generated-types/generated-types';
-import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
-import { Button } from '@nextui-org/button';
-import React, { useMemo } from 'react';
+import { Button, Loader } from '@mantine/core';
+import React, { useEffect, useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
   EditAddDeleteDtoControllerArray,
@@ -25,19 +23,16 @@ import {
   NamespacedHooks
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
 import WorkSchemaNodeModalTable from '@/components/work-project-series-schema/_components/WorkSchemaNodeModalTable';
 import EntityPropertyCheckbox from '@/components/generic/EntityPropertyCheckbox';
 import WorkProjectionSeriesSchemaSummary from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaSummary';
-import { Spinner } from '@nextui-org/spinner';
+
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { BooleanPropertyKey, NumberPropertyKey } from '@/types';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
-
-const listenerKey = 'workSchemaNodeModalContent';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export default function WorkSchemaNodeDetailsContent({
   onClose
@@ -74,40 +69,40 @@ export default function WorkSchemaNodeDetailsContent({
     currentState.resolutionMode
   ]);
 
-  const { currentState: schemaList } = NamespacedHooks.useListen(
-    EntityClassMap.workProjectSeriesSchema,
-    KEY_TYPES.MASTER_LIST,
-    listenerKey,
-    EmptyArray as WorkProjectSeriesSchemaDto[]
-  );
-
   const { data, isPending } = useQuery({
     queryKey: [EntityClassMap.workProjectSeriesSchema, 'all'],
     queryFn: () => Api.WorkProjectSeriesSchema.getAll()
   });
 
+  const dispatch = NamespacedHooks.useDispatch(
+    EntityClassMap.workProjectSeriesSchema,
+    KEY_TYPES.MASTER_LIST
+  );
+
+  useEffect(() => {
+    if (data) dispatch(data);
+  }, [data, dispatch]);
+
   return (
     <>
-      <ModalHeader className={'p-2'}></ModalHeader>
-      <ModalBody className={'flex w-full flex-col'}>
+      <div className={'flex w-full flex-col'}>
         {isPending ? (
-          <Spinner></Spinner>
+          <Loader />
         ) : data === undefined ? (
           <div>Error.</div>
         ) : (
           <>
-            <EditAddDeleteDtoControllerArray
-              entityClass={EntityClassMap.workProjectSeriesSchema}
-              dtoList={data}
-            />
             <div className={'grid grid-cols-2 gap-1'}>
               <div>
                 <FocusToEdit
                   value={currentState.name ?? ''}
-                  label={'Node Name'}
+                  placeholder={'Node Name'}
                   size={'sm'}
-                  onValueChange={(value) =>
-                    dispatchWithoutControl((data) => ({ ...data, name: value }))
+                  onChange={(e) =>
+                    dispatchWithoutControl((data) => ({
+                      ...data,
+                      name: e.target.value
+                    }))
                   }
                 >
                   {currentState.name ?? ''}
@@ -146,7 +141,7 @@ export default function WorkSchemaNodeDetailsContent({
                       renderAs={WorkProjectionSeriesSchemaSummary}
                       entityId={currentState.workProjectSeriesSchemaId}
                       entityClass={EntityClassMap.workProjectSeriesSchema}
-                      whileLoading={() => <Spinner />}
+                      whileLoading={() => <Loader />}
                     />
                   )}
                   {currentState.carouselOptionId && (
@@ -154,7 +149,7 @@ export default function WorkSchemaNodeDetailsContent({
                       renderAs={CarouselOptionSummary}
                       entityId={currentState.carouselOptionId}
                       entityClass={EntityClassMap.carouselOption}
-                      whileLoading={() => <Spinner />}
+                      whileLoading={() => <Loader />}
                     />
                   )}
                 </div>
@@ -164,28 +159,26 @@ export default function WorkSchemaNodeDetailsContent({
             {allowSchema && (
               <WorkSchemaNodeModalTable
                 workSchemaNode={currentState}
-                entities={schemaList}
-                selectionMode={'single'}
                 dispatchWithoutControl={dispatchWithoutControl}
               />
             )}
           </>
         )}
-      </ModalBody>
-      <ModalFooter className={'p-2'}>
-        <Button color="danger" variant="light" onPress={onClose}>
+      </div>
+      <div className={'p-2'}>
+        <Button color="danger" variant="light" onClick={onClose}>
           Close
         </Button>
         <Button
           color="primary"
-          onPress={() => {
+          onClick={() => {
             commitEdit(currentState);
             onCloseDefined();
           }}
         >
           Confirm Changes
         </Button>
-      </ModalFooter>
+      </div>
     </>
   );
 }
@@ -208,7 +201,7 @@ function CarouselOptionSummary({
       renderAs={WorkProjectionSeriesSchemaSummary}
       entityId={entity.workProjectSeriesSchemaId}
       entityClass={EntityClassMap.workProjectSeriesSchema}
-      whileLoading={() => <Spinner />}
+      whileLoading={() => <Loader />}
     />
   );
 }

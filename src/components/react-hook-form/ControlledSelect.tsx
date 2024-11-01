@@ -1,15 +1,13 @@
 import { Control, Controller } from 'react-hook-form';
-import { Select, SelectItemProps, SelectProps } from '@nextui-org/react';
 import React, { ChangeEvent, useMemo } from 'react';
-import { SelectItem } from '@nextui-org/select';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 import { HasId } from '@/api/types';
+import { Select, SelectProps } from '@mantine/core';
 
 export type SelectableItem = HasId;
 
 export type ItemAccessors<T extends SelectableItem> = {
   valueAccessor: TypedPaths<T, string | number>;
-  keyAccessor: TypedPaths<T, string | number>;
   labelAccessor: TypedPaths<T, string | number>;
 };
 
@@ -21,7 +19,6 @@ export type FormSelectProps<T extends SelectableItem> = {
     value: ChangeEvent<HTMLSelectElement>,
     onChange: (...event: any[]) => void
   ) => void;
-  selectItemProps?: SelectItemProps;
   itemAccessors?: ItemAccessors<T>;
   items: T[];
 } & Omit<SelectProps, 'onChange' | 'children'>;
@@ -31,61 +28,44 @@ export function ControlledSelect<T extends SelectableItem>({
   onChange,
   itemAccessors = defaultItemAccessors as ItemAccessors<T>,
   items,
-  selectItemProps,
   selectedKeyAccessor,
   ...props
 }: FormSelectProps<T>) {
-  const { keyAccessor, labelAccessor, valueAccessor } = itemAccessors;
-  const childrenDefined = useMemo(() => {
+  const { labelAccessor, valueAccessor } = itemAccessors;
+  const { itemsMap, dataList } = useMemo(() => {
     if (items && itemAccessors) {
-      return items.map((kls) => (
-        <SelectItem
-          {...selectItemProps}
-          key={kls[keyAccessor]}
-          value={kls[valueAccessor]}
-          aria-label={kls[labelAccessor] ?? kls[keyAccessor]}
-        >
-          {kls[labelAccessor]}
-        </SelectItem>
-      ));
-    } else return [];
-  }, [
-    itemAccessors,
-    items,
-    selectItemProps,
-    keyAccessor,
-    valueAccessor,
-    labelAccessor
-  ]);
+      const itemsMap = items.reduce(
+        (prev, curr) => prev.set(curr[valueAccessor], curr),
+        new Map()
+      );
+      const dataList = items.map((item) => {
+        return {
+          value: String(item[valueAccessor]),
+          label: String(item[labelAccessor])
+        };
+      });
+      return { itemsMap, dataList };
+    } else return { itemsMap: new Map(), dataList: [] };
+  }, [labelAccessor, itemAccessors, items, valueAccessor]);
 
   return (
     <Controller
       name={name}
       control={props.control}
       render={({ field, fieldState, formState }) => {
-        const currentValue =
-          selectedKeyAccessor && field.value
-            ? field.value[selectedKeyAccessor]
-            : field.value;
-        const currentValueString = currentValue
-          ? String(currentValue)
-          : currentValue;
         return (
           <Select
             {...props}
-            isInvalid={!!formState.errors?.[name]?.message}
-            errorMessage={formState.errors?.[name]?.message?.toString()}
-            selectedKeys={[currentValueString]}
+            data={dataList}
+            value={String(field[valueAccessor])}
             onChange={(value) => {
               if (onChange) {
-                onChange(value, field.onChange);
+                onChange(itemsMap.get(value), field.onChange);
               } else {
-                field.onChange(value.target.value);
+                field.onChange(itemsMap.get(value));
               }
             }}
-          >
-            {childrenDefined}
-          </Select>
+          ></Select>
         );
       }}
     ></Controller>
@@ -94,6 +74,5 @@ export function ControlledSelect<T extends SelectableItem>({
 
 export const defaultItemAccessors = {
   valueAccessor: 'id',
-  labelAccessor: 'name',
-  keyAccessor: 'id'
+  labelAccessor: 'name'
 } as const;

@@ -1,13 +1,5 @@
 'use client';
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalProps
-} from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
+
 import { Api } from '@/api/clientApi';
 import {
   ChangesCallbackMap,
@@ -16,27 +8,51 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import ResourceRequirementItemEditTable from '@/components/tables/edit-tables/ResourceRequirementItemEditTable';
-import { useCallback, useEffect, useState } from 'react';
-import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
-import { EmptyArray } from '@/api/literals';
-import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types';
+import { useCallback, useMemo, useTransition } from 'react';
 import { Loading } from '@/components/feasibility-report/Loading';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { workTaskTypeIdInModal } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
-import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
+import { Button, Modal, ModalProps } from '@mantine/core';
+import { SetOptional } from 'type-fest';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function ResourceRequirementItemModal({
-  isOpen,
-  onOpenChange,
+  onClose,
+  opened,
   workTaskTypeId
-}: Pick<ModalProps, 'isOpen' | 'onOpenChange'> & {
+}: SetOptional<Pick<ModalProps, 'opened' | 'onClose'>, 'onClose'> & {
   workTaskTypeId?: number;
 }) {
-  const assetRoleTypeDtos = useSimpleApiFetcher(Api.AssetRoleType.getAll);
-  const providerRoleTypeDtos = useSimpleApiFetcher(Api.ProviderRoleType.getAll);
-  const [show, setShow] = useState(false);
-  const [resourceRequirementsFromServer, setResourceRequirementsFromServer] =
-    useState<ResourceRequirementItemDto[]>(EmptyArray);
+  const [isPending, startTransition] = useTransition();
+  const rriQueryKey = useMemo(() => {
+    return [EntityClassMap.resourceRequirementItem, { workTaskTypeId }];
+  }, [workTaskTypeId]);
+
+  const { data: assetRoleTypeDtos, isFetching: assetsPending } = useQuery({
+    queryKey: [EntityClassMap.assetRoleType, 'all'],
+    queryFn: () => Api.AssetRoleType.getAll()
+  });
+  const { data: providerRoleTypeDtos, isFetching: providersPending } = useQuery(
+    {
+      queryKey: [EntityClassMap.providerRoleType, 'all'],
+      queryFn: () => Api.ProviderRoleType.getAll()
+    }
+  );
+  const { data: resourceRequirementsFromServer, isFetching: rriPending } =
+    useQuery({
+      queryKey: rriQueryKey,
+      queryFn: () =>
+        Api.ResourceRequirementItem.getDtoListByExampleList([
+          { workTaskTypeId }
+        ])
+    });
+  const queryClient = useQueryClient();
+
+  const anyDataFetching = assetsPending || providersPending || rriPending;
+  const anyDataMissing =
+    !resourceRequirementsFromServer ||
+    !providerRoleTypeDtos ||
+    !assetRoleTypeDtos;
 
   const { dispatchWithoutListen } = useGlobalDispatch<number | 'closed'>(
     workTaskTypeIdInModal
@@ -50,43 +66,28 @@ export default function ResourceRequirementItemModal({
 
   const changes = currentState.has(EntityClassMap.resourceRequirementItem);
 
-  useEffect(() => {
-    const fetch = async () => {
-      if (workTaskTypeId !== undefined) {
-        const resourceRequirementItemDtos =
-          await Api.ResourceRequirementItem.getDtoListByExampleList([
-            { workTaskTypeId }
-          ]);
-        setResourceRequirementsFromServer(resourceRequirementItemDtos);
-        setShow(true);
-      } else {
-        setResourceRequirementsFromServer(EmptyArray);
-        setShow(false);
-      }
-    };
-    fetch();
-  }, [workTaskTypeId]);
-
   const closeModal = useCallback(() => {
     dispatchWithoutListen('closed');
   }, [dispatchWithoutListen]);
 
   const onConfirm = useCallback(async () => {
-    const changesCallback = currentState.get(
-      EntityClassMap.resourceRequirementItem
-    );
-    if (changesCallback) {
-      await changesCallback.current();
-      setShow(false);
-      closeModal();
-    }
-  }, [currentState, closeModal]);
+    startTransition(async () => {
+      const changesCallback = currentState.get(
+        EntityClassMap.resourceRequirementItem
+      );
+      if (changesCallback) {
+        await changesCallback.current();
+        await queryClient.invalidateQueries({ queryKey: rriQueryKey });
+        closeModal();
+      }
+    });
+  }, [currentState, closeModal, rriQueryKey, queryClient]);
 
-  if (!isOpen || workTaskTypeId === undefined || !show) return null;
+  if (workTaskTypeId === undefined) return null;
 
   return (
     <>
-      {show && (
+      {!anyDataFetching && !anyDataMissing && (
         <>
           <EditAddDeleteDtoControllerArray
             entityClass={EntityClassMap.resourceRequirementItem}
@@ -105,39 +106,31 @@ export default function ResourceRequirementItemModal({
           />
         </>
       )}
-      <Modal isOpen={isOpen} size={'5xl'}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                Edit Task Resource Requirements
-              </ModalHeader>
-              {show ? (
-                <ModalBody>
-                  <ResourceRequirementItemEditTable
-                    workTaskTypeId={workTaskTypeId}
-                  />
-                </ModalBody>
-              ) : (
-                <ModalBody>
-                  <Loading />
-                </ModalBody>
-              )}
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={closeModal}>
-                  Cancel
-                </Button>
-                <Button
-                  color="primary"
-                  onPress={onConfirm}
-                  isDisabled={!changes}
-                >
-                  Save
-                </Button>
-              </ModalFooter>
-            </>
+      <Modal opened={opened} size={'5xl'} onClose={onClose ?? (() => {})}>
+        <div className={'flex flex-col gap-2'}>
+          <h1 className="flex flex-col gap-1">
+            Edit Task Resource Requirements
+          </h1>
+          {!anyDataFetching ? (
+            <div>
+              <ResourceRequirementItemEditTable
+                workTaskTypeId={workTaskTypeId}
+              />
+            </div>
+          ) : (
+            <div>
+              <Loading />
+            </div>
           )}
-        </ModalContent>
+          <div className={'center-horizontal-with-margin flex w-fit gap-2'}>
+            <Button color="red" variant="light" onClick={closeModal}>
+              Cancel
+            </Button>
+            <Button onClick={onConfirm} disabled={!changes}>
+              Save
+            </Button>
+          </div>
+        </div>
       </Modal>
     </>
   );

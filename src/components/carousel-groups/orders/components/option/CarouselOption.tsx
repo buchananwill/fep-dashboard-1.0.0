@@ -10,7 +10,6 @@ import {
   useGlobalListener
 } from 'selective-context';
 import clsx from 'clsx';
-import { ButtonGroup } from '@nextui-org/react';
 import { assignOrderItemToOption } from '@/components/carousel-groups/orders/_functions/assignOrderItemToOption';
 
 import { OptionRotationTargets } from '@/components/carousel-groups/orders/components/OptionRotationButtonGroup';
@@ -39,6 +38,9 @@ import { motion } from 'framer-motion';
 
 export const CarouselOptionState = 'CarouselOptionState';
 
+export const Zinc_300 = '#d4d4d8' as const;
+export const Yellow_300 = '#fcd34d' as const;
+export type FallbackColors = typeof Zinc_300 | typeof Yellow_300;
 export default function CarouselOption({
   entity,
   canPrime
@@ -143,14 +145,14 @@ export default function CarouselOption({
   const isAntiPrimed = rotationTargetsMap.has(entity.id);
 
   // Compute dynamic styling
-  let fallBackColor: 'default' | 'warning' = 'default';
+  let fallBackColor: FallbackColors = Zinc_300;
   if (currentItem && currentItemType === DragTypes.CAROUSEL_ORDER_ITEM) {
     const orderItem = currentItem as CarouselOrderItemDto;
     if (
       entity.carouselOrderAssignees.includes(orderItem.carouselOrderId) &&
       entity.workProjectSeriesSchemaId !== orderItem.workProjectSeriesSchemaId
     ) {
-      fallBackColor = 'warning';
+      fallBackColor = Yellow_300;
     }
   }
 
@@ -158,16 +160,16 @@ export default function CarouselOption({
 
   const assigneeCount = entity.carouselOrderAssignees.length;
 
-  const textFade = assigneeCount === 0 ? 'text-gray-400' : undefined;
+  const textFade = assigneeCount === 0 ? 'text-gray-300' : undefined;
 
   const badgeColor = useMemo(() => {
     return schema
       ? getAssigneeCountColor(assigneeCount, schema)
-      : 'bg-default-300';
+      : 'bg-zinc-300';
   }, [assigneeCount, schema]);
 
   return (
-    <ClashBadge show={entity.clashMap.size > 0} content={entity.clashMap.size}>
+    <ClashBadge show={entity.clashMap.size > 0} label={entity.clashMap.size}>
       {drop(
         <div
           className={clsx(
@@ -195,7 +197,7 @@ export default function CarouselOption({
                 isPrimed={isPrimed}
               />
               <HighlightMatchingSchemasButton
-                onPress={() =>
+                onClick={() =>
                   highlightSubject((list) => {
                     if (isHighlighted)
                       return list.filter(
@@ -215,7 +217,7 @@ export default function CarouselOption({
                 canDrop={canDrop}
                 primed={isPrimed}
                 fallBackColor={fallBackColor}
-                onPress={() => {
+                onClick={() => {
                   dispatchRotationPrime((list) => {
                     if (isPrimed)
                       return list.filter((idItem) => idItem !== entity.id);

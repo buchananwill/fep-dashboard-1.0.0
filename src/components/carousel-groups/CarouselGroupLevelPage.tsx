@@ -15,6 +15,8 @@ import { getLastNVariables } from '@/functions/getLastNVariables';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
+import { Api } from '@/api/clientApi';
 
 export default async function CarouselGroupLevelPage({
   depth,
@@ -32,22 +34,25 @@ export default async function CarouselGroupLevelPage({
     { knowledgeLevel: knowledgeLevel }
   ]);
 
-  const workProjectSeriesSchemaList = data.filter(
-    (schema) => !schema.name.toLowerCase().includes('carousel')
-  );
-
   return (
     <div className={'p-4'}>
       <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
+        <EditAddDeleteDtoControllerArray
+          entityClass={EntityClassMap.carouselGroup}
+          dtoList={carouselGroupDtos}
+          updateServerAction={Api.CarouselGroup.putList}
+          deleteServerAction={Api.CarouselGroup.deleteIdList}
+          postServerAction={Api.CarouselGroup.postList}
+        />
+        <EditAddDeleteDtoControllerArray
+          entityClass={EntityClassMap.workProjectSeriesSchema}
+          dtoList={data}
+          key={`${EntityClassMap.workProjectSeriesSchema}:${levelOrdinal}`}
+        />
         <CarouselGroupTabGroup
-          collectionData={carouselGroupDtos}
-          referencedItemData={workProjectSeriesSchemaList}
+          knowledgeLevel={knowledgeLevel}
           collectionEntityClass={EntityClassMap.carouselGroup}
           referencedEntityClass={EntityClassMap.workProjectSeriesSchema}
-          knowledgeLevel={knowledgeLevel}
-          updateServerAction={putList}
-          postServerAction={postList}
-          deleteServerAction={deleteIdList}
         />
       </RootCard>
     </div>

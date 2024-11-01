@@ -36,7 +36,7 @@ export default function NavLinkButton({
         );
       }}
       className={clsx(
-        'h-12 w-12 rounded-full bg-transparent p-1.5 outline-offset-2 outline-primary-400 duration-250 transition-colors-opacity hover:bg-primary-100',
+        'h-12 w-12 rounded-full bg-transparent p-1.5 outline-offset-2 outline-blue-400 duration-250 transition-colors-opacity hover:bg-blue-100',
         className
       )}
       aria-label={label}

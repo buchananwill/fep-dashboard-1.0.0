@@ -114,7 +114,7 @@ export default function VirtualizedTableWindowed<T>({
             >
               <div
                 style={{ gridArea: 'stickyRow' }}
-                className={'overflow-hidden rounded-md border-2 bg-default-100'}
+                className={'overflow-hidden rounded-md border-2 bg-zinc-100'}
               >
                 <FixedSizeGrid
                   style={{ overflowX: 'hidden' }}
@@ -137,7 +137,7 @@ export default function VirtualizedTableWindowed<T>({
 
               <div
                 style={{ gridArea: 'stickyCol' }}
-                className={'overflow-hidden rounded-md border-2 bg-default-100'}
+                className={'overflow-hidden rounded-md border-2 bg-zinc-100'}
               >
                 <FixedSizeGrid
                   style={{ overflowY: 'hidden' }}

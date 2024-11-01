@@ -88,12 +88,7 @@ export function useKnowledgeDomainGroupEdits(
 
 export function useLeafEdits(
   selectionSplitRef: MutableRefObject<string[]>,
-  sizeToAdd:
-    | undefined
-    | {
-        id: number;
-        value: number;
-      },
+  sizeToAdd: undefined | number,
   deSelectRemovedId: DeSelectRemovedId
 ) {
   const handleAddDeliveryAllocationLeaf = useCallback(
@@ -104,7 +99,7 @@ export function useLeafEdits(
           selectionSplitRef.current,
           selectionSplitRef.current.length
         ),
-        sizeToAdd?.value ?? 1
+        sizeToAdd ?? 1
       );
     },
     [sizeToAdd, selectionSplitRef]

@@ -66,5 +66,5 @@ export function updateNestedValueWithLodash<
   TPath extends Paths<TState> & string,
   TPathType extends Get<TState, TPath>
 >(entity: TState, path: TPath, value: TPathType) {
-  return set({ ...entity }, path, value);
+  return set(structuredClone(entity), path, value);
 }

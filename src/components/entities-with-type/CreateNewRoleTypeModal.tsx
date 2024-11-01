@@ -1,46 +1,34 @@
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader
-} from '@nextui-org/modal';
-import { Button } from '@nextui-org/button';
-import { useCallback, useMemo, useState } from 'react';
+import { Button, Modal, TextInput } from '@mantine/core';
+import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUniqueStringFieldConstraint } from '@/hooks/useUniqueStringFieldConstraint';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
-import { Input } from '@nextui-org/input';
 import { TypeDto } from '@/api/generated-types/generated-types';
 
 export default function CreateNewRoleTypeModal({
-  isOpen,
-  onOpenChange,
+  opened,
+  onClose,
   entityClass,
   onConfirm
 }: {
-  isOpen: boolean;
-  onOpenChange?: (isOpen: boolean) => void;
+  opened: boolean;
+  onClose: () => void;
   onConfirm?: (entity: TypeDto<any, any>) => void;
   entityClass: string;
 }) {
-  if (!isOpen) return null;
+  if (!opened) return null;
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader className="flex flex-col gap-1">
-              Add new type
-            </ModalHeader>
-            <InnerContent
-              onClose={onClose}
-              entityClass={entityClass}
-              onConfirm={onConfirm}
-            />
-          </>
-        )}
-      </ModalContent>
+    <Modal opened={opened} onClose={onClose}>
+      <div>
+        <>
+          <h1 className="flex flex-col gap-1">Add new type</h1>
+          <InnerContent
+            onClose={onClose}
+            entityClass={entityClass}
+            onConfirm={onConfirm}
+          />
+        </>
+      </div>
     </Modal>
   );
 }
@@ -58,18 +46,16 @@ function InnerContent({
     id: idDecrementer(),
     name: ''
   });
-  const stringFieldConstraint = useUniqueStringFieldConstraint(
-    entityClass,
-    typeEntity,
-    'name'
-  );
+  const stringFieldConstraint = useUniqueStringFieldConstraint<
+    TypeDto<any, any>
+  >(entityClass, typeEntity.id, 'name');
 
   const errors = useMemo(() => {
     return stringFieldConstraint(typeEntity.name);
   }, [typeEntity, stringFieldConstraint]);
 
-  const setName = useCallback((value: string) => {
-    setTypeEntity((prev) => ({ ...prev, name: value }));
+  const setName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setTypeEntity((prev) => ({ ...prev, name: e.target?.value }));
   }, []);
 
   const handleConfirm = useCallback(() => {
@@ -79,22 +65,22 @@ function InnerContent({
 
   return (
     <>
-      <ModalBody>
-        <Input
-          errorMessage={errors.errorMessage}
-          isInvalid={errors.error}
+      <div>
+        <TextInput
+          data-autofocus
+          error={errors.errorMessage}
           value={typeEntity.name}
-          onValueChange={setName}
+          onChange={setName}
         />
-      </ModalBody>
-      <ModalFooter>
-        <Button color="danger" variant="light" onPress={onClose}>
+      </div>
+      <div>
+        <Button color="red" variant="subtle" onClick={onClose}>
           Cancel
         </Button>
-        <Button color="primary" onPress={handleConfirm}>
+        <Button color="blue" onClick={handleConfirm}>
           Confirm
         </Button>
-      </ModalFooter>
+      </div>
     </>
   );
 }

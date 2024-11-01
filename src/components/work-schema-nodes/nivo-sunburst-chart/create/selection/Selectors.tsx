@@ -32,7 +32,6 @@ export default function Selectors() {
               splittedPath={splitSelectionPath}
               discriminator={discriminator}
               discriminatorIndex={index}
-              placeholder={discriminator}
               aria-label={`select child of ${discriminator}`}
             />
           </div>

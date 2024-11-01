@@ -11,7 +11,11 @@ import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTracke
 import UserAvatar from '@/components/auth/UserAvatar';
 import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
-import Transitions from '@/components/navigation/transitions';
+import { ColorSchemeScript, ScrollArea } from '@mantine/core';
+import { cookies, headers } from 'next/headers';
+import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
+import { redirect } from 'next/navigation';
+// import '@mantine/core/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -27,26 +31,34 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
 
+  let avatarProps: Record<string, any> = {};
+  avatarProps.email = session?.user?.email;
+  avatarProps.image = session?.user?.image;
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <title>FEP Dashboard</title>
+        <ColorSchemeScript />
+      </head>
       <body className={inter.className}>
         <LibraryProvidersWrapper>
-          <MasterChangesTrackWrapper session={session}>
+          <MasterChangesTrackWrapper session={avatarProps}>
             <UserAvatar />
           </MasterChangesTrackWrapper>
-          <div
+          <ScrollArea
             className={
-              'flex h-[100vh] w-[100vw] bg-gradient-to-b from-blue-200 to-white '
+              'h-[100vh] w-[100vw] bg-gradient-to-b from-blue-200 to-white '
             }
           >
-            <div className={'center-all-margin '}>
-              <Suspense fallback={<When_loading />}>{children}</Suspense>
+            <div className={'flex h-full w-full'}>
+              <div className={'center-all-margin '}>
+                <Suspense fallback={<When_loading />}>{children}</Suspense>
+              </div>
             </div>
-          </div>
+          </ScrollArea>
           <TooltipSingleton />
           <NavPopoverTrigger />
         </LibraryProvidersWrapper>
-        <JoyrideWrapper steps={steps} />
       </body>
     </html>
   );

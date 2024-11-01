@@ -1,17 +1,18 @@
 'use client';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import React, { useCallback, useMemo, useTransition } from 'react';
-import { CardBody, CardFooter, CardHeader } from '@nextui-org/card';
+import React, { useCallback, useEffect, useMemo, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@nextui-org/button';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { Autocomplete, Button, Select } from '@mantine/core';
+import {
+  KnowledgeDomainDto,
+  KnowledgeLevelDto,
+  KnowledgeLevelSeriesDto,
+  WorkTaskTypeDto
+} from '@/api/generated-types/generated-types';
 import { Api } from '@/api/clientApi_';
-import { ControlledSelect } from '@/components/react-hook-form/ControlledSelect';
 import { HasId } from '@/api/types';
-import { getDomainAlias } from '@/api/getDomainAlias';
-import { ControlledAutoComplete } from '../react-hook-form/ControlledAutoComplete';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
 import { nameAccessor } from '@/functions/nameSetter';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
@@ -22,6 +23,11 @@ import RootCard from '@/components/generic/RootCard';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
+import { useAutocompleteApi } from '@/hooks/select-adaptors/useAutocompleteApi';
+import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
+import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
+import { flattenErrors } from '@/functions/flatten-errors';
 
 const defaultWorkTaskTypeValues = {
   id: -1,
@@ -31,12 +37,7 @@ const defaultWorkTaskTypeValues = {
 export default function CreateWorkTaskType({
   pathVariables
 }: LeafComponentProps) {
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    watch
-  } = useForm<WorkTaskTypeDto>({
+  const formReturn = useForm<WorkTaskTypeDto>({
     resolver: zodResolver(WorkTaskTypeDtoSchema),
     defaultValues: defaultWorkTaskTypeValues
   });
@@ -45,7 +46,19 @@ export default function CreateWorkTaskType({
     Api.KnowledgeLevelSeries.getAll
   );
 
-  const klsId = watch('knowledgeLevelSeriesId');
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    watch,
+    setValue,
+    trigger
+  } = formReturn;
+
+  const klsId = watch('knowledgeLevel.knowledgeLevelSeriesId');
+  const kl = watch('knowledgeLevel');
+  const knowledgeDomain = watch('knowledgeDomain');
+  const wttName = watch('name');
 
   const fetchKnowledgeLevels = useCallback(async () => {
     if (!klsId) return [];
@@ -65,20 +78,77 @@ export default function CreateWorkTaskType({
     return knowledgeLevelSeriesDtos.map((kls) => kls.id);
   }, [knowledgeLevelSeriesDtos]);
 
-  const onKnowledgeDomainSelectChange = useNestedAutoCompleteChangeHandler(
-    knowledgeDomains,
-    nameAccessor
+  const propagateKdChange = useCallback(
+    (knowledgeDomain: KnowledgeDomainDto | undefined) => {
+      setValue('knowledgeDomain', knowledgeDomain as KnowledgeDomainDto);
+    },
+    [setValue]
   );
 
-  const knowledgeLevelChangeHandler = useNestedSelectChangeHandler(
-    knowledgeLevelDtos,
-    idAccessor
+  const autocompleteApi = useSelectAutocompleteApi({
+    rawData: knowledgeDomains,
+    type: 'singleFlat',
+    labelMaker: nameAccessor,
+    value: knowledgeDomain,
+    propagateChange: propagateKdChange,
+    allowUndefined: false
+  });
+
+  const updateName = useCallback(
+    (value: string | null) => {
+      setValue('name', value as string);
+    },
+    [setValue]
   );
 
-  const knowledgeLevelSeriesChangeHandler = useNestedSelectChangeHandler(
-    klsIdList,
-    String
+  const namesData = useMemo(() => {
+    return names.map((name) => name.name);
+  }, [names]);
+
+  const nameAutocompleteProps = useAutocompleteApi({
+    type: 'singleFlat',
+    data: namesData,
+    allowUndefined: true,
+    allowCustom: true,
+    value: wttName,
+    onChange: updateName
+  });
+
+  const kls = useMemo(() => {
+    return knowledgeLevelSeriesDtos.find((kls) => kls.id === klsId);
+  }, [knowledgeLevelSeriesDtos, klsId]);
+
+  const updateKls = useCallback(
+    (value: KnowledgeLevelSeriesDto | undefined) => {
+      if (value) setValue('knowledgeLevel.knowledgeLevelSeriesId', value.id);
+    },
+    [setValue]
   );
+
+  const updateKl = useCallback(
+    (kl: KnowledgeLevelDto | undefined) => {
+      if (kl) {
+        setValue('knowledgeLevel', kl);
+      }
+    },
+    [setValue]
+  );
+
+  const klSelectApi = useSelectApi({
+    rawData: knowledgeLevelDtos,
+    propagateChange: updateKl,
+    type: 'singleFlat',
+    value: kl?.name ? kl : undefined,
+    labelMaker: nameAccessor
+  });
+
+  const klsSelectApi = useSelectApi({
+    rawData: knowledgeLevelSeriesDtos,
+    value: kls,
+    labelMaker: nameAccessor,
+    type: 'singleFlat',
+    propagateChange: updateKls
+  });
 
   const onSubmit: SubmitHandler<WorkTaskTypeDto> = async (data) => {
     startTransition(async () => {
@@ -90,6 +160,24 @@ export default function CreateWorkTaskType({
 
   const workTaskTypesLayoutId = getRootCardLayoutId(pathVariables);
 
+  useEffect(() => {
+    trigger('knowledgeDomain');
+  }, [knowledgeDomain, trigger]);
+
+  useEffect(() => {
+    trigger('name');
+  }, [wttName, trigger]);
+
+  useEffect(() => {
+    setValue('knowledgeLevel', {
+      knowledgeLevelSeriesId: klsId
+    } as KnowledgeLevelDto);
+  }, [klsId, setValue]);
+
+  useEffect(() => {
+    trigger('knowledgeLevel');
+  }, [kl, trigger]);
+
   return (
     <RootCard layoutId={workTaskTypesLayoutId}>
       <PendingOverlay pending={pending} />
@@ -98,59 +186,44 @@ export default function CreateWorkTaskType({
           console.warn(errors);
           handleSubmit(onSubmit)(event);
         }}
+        className={'flex flex-col items-center gap-2'}
       >
-        <CardHeader className={'items-center justify-center align-middle '}>
-          New Work Task Type
-        </CardHeader>
-        <CardBody className={'items-center justify-center gap-2'}>
-          <ControlledAutoComplete
-            name={'name'}
-            allowsCustomValue={true}
-            control={control}
-            items={names}
-            aria-label={'Work Task Type Name'}
-            defaultInputValue={defaultWorkTaskTypeValues.name}
-            itemAccessors={{
-              labelAccessor: 'name',
-              keyAccessor: 'name',
-              valueAccessor: 'name'
-            }}
-          />
-          <ControlledAutoComplete
-            name={'knowledgeDomain'}
-            control={control}
-            selectedKeyAccessor={'id'}
-            aria-label={'knowledge domain'}
-            onChange={onKnowledgeDomainSelectChange}
-            items={knowledgeDomains}
-          />
-
-          <ControlledSelect
-            name={'knowledgeLevelSeriesId'}
-            aria-label={'knowledge Level Series Id'}
-            control={control}
-            items={knowledgeLevelSeriesDtos}
-            onChange={knowledgeLevelSeriesChangeHandler}
-          />
-          <ControlledSelect
-            name={'knowledgeLevel'}
-            selectedKeyAccessor={'id'}
-            aria-label={'knowledge Level'}
-            control={control}
-            items={knowledgeLevelDtos}
-            onChange={knowledgeLevelChangeHandler}
-            isDisabled={knowledgeLevelDtos.length === 0}
-            placeholder={`Choose a ${getDomainAlias('knowledgeLevel')}`}
-          />
-        </CardBody>
-        <CardFooter className={'justify-center gap-2'}>
-          <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
-            Cancel
-          </LinkButton>
-          <Button type={'submit'} color={'success'}>
-            Submit
-          </Button>
-        </CardFooter>
+        <FormProvider {...formReturn}>
+          <h1 className={'items-center justify-center align-middle '}>
+            New Work Task Type
+          </h1>
+          <div className={'flex flex-col items-center justify-center gap-2'}>
+            <Autocomplete
+              {...nameAutocompleteProps}
+              error={errors.name?.message}
+            />
+            <Autocomplete
+              label={getStartCaseDomainAlias('knowledgeDomain')}
+              {...autocompleteApi}
+              error={errors.knowledgeDomain?.message}
+            />
+            {klsSelectApi.type === 'singleFlat' && (
+              <Select
+                {...klsSelectApi}
+                error={errors.knowledgeLevel?.knowledgeLevelSeriesId?.message}
+              />
+            )}
+            {klSelectApi.type === 'singleFlat' && (
+              <Select
+                {...klSelectApi}
+                error={flattenErrors(errors.knowledgeLevel)
+                  .map((summary) => summary.message)
+                  .shift()}
+              />
+            )}
+          </div>
+          <div className={'justify-center gap-2'}>
+            <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
+              Cancel
+            </LinkButton>
+            <Button type={'submit'}>Submit</Button>
+          </div>
+        </FormProvider>
       </form>
     </RootCard>
   );

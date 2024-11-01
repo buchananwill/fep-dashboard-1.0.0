@@ -17,7 +17,7 @@ export function useFloatingTooltip(
     dispatchTooltip((state) => {
       return {
         ...state,
-        isOpen: true,
+        opened: true,
         rootNodeRef: ref,
         content,
         placement
@@ -28,7 +28,7 @@ export function useFloatingTooltip(
     dispatchTooltip((state) => {
       return {
         ...state,
-        isOpen: false
+        opened: false
       };
     });
   }, [dispatchTooltip]);

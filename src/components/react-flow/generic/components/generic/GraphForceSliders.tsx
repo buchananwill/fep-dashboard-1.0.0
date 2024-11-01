@@ -51,5 +51,5 @@ export function GraphForceSliders() {
     [uniqueGraphName, selectiveContextReadAll]
   );
 
-  return <>{show ? [...sliders] : []}</>;
+  return <div className={'w-fit'}>{show ? [...sliders] : []}</div>;
 }

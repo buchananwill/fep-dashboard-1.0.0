@@ -4,16 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
-import { DatePicker } from '@nextui-org/date-picker';
-import {
-  CalendarDate,
-  getLocalTimeZone,
-  parseAbsolute,
-  parseDate,
-  ZonedDateTime
-} from '@internationalized/date';
 import { z as zod } from 'zod';
 import { UserRoleDtoSchema } from '@/api/generated-schemas/schemas_';
 import { ControlledSelector } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/ControlledSelector';
@@ -26,6 +18,7 @@ import {
 import CreateNewRoleTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
 import { Api } from '@/api/clientApi';
 import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
+import { DatePickerInput, DateValue } from '@mantine/dates';
 
 function splitAndJoinNameHack(data: UserRoleDto) {
   const fixName = { ...data };
@@ -67,15 +60,15 @@ export default function CreateUserRoleForm({
   const userRoleType = watch('userRoleType');
 
   const setDateValue = useCallback(
-    (field: 'partyDateOfBirth', value: CalendarDate) => {
-      const directToString = value.toString();
-      setValue(field, directToString);
+    (field: 'partyDateOfBirth', value: DateValue) => {
+      const directToString = value?.toISOString();
+      if (directToString) setValue(field, directToString);
     },
     [setValue]
   );
   const setDateTimeValue = useCallback(
-    (field: 'startDate' | 'thruDate', value: ZonedDateTime) => {
-      const absoluteString = value.toAbsoluteString();
+    (field: 'startDate' | 'thruDate', value: DateValue) => {
+      const absoluteString = value?.toISOString();
       setValue(field, absoluteString);
     },
     [setValue]
@@ -138,18 +131,18 @@ export default function CreateUserRoleForm({
             placeholder={'Enter name'}
             autoComplete={'on'}
           />
-          <DatePicker
+          <DatePickerInput
             name={'startDate'}
             aria-label={'Start Date'}
             label={'Start Date'}
-            value={parseAbsolute(startDate, getLocalTimeZone())}
+            value={new Date(startDate)}
             onChange={(value) => setDateTimeValue('startDate', value)}
           />
-          <DatePicker
+          <DatePickerInput
             name={'partyDateOfBirth'}
             aria-label={'Date of Birth'}
             label={'Date of Birth'}
-            value={parseDate(partyDateOfBirth)}
+            value={new Date(partyDateOfBirth)}
             onChange={(value) => setDateValue('partyDateOfBirth', value)}
           />
           <ControlledSelector<number, KnowledgeLevelSeriesDto>
@@ -157,16 +150,14 @@ export default function CreateUserRoleForm({
             entityId={knowledgeLevelSeriesId ?? NaN}
             entityClass={EntityClassMap.knowledgeLevelSeries}
             selectionCallback={knowledgeLevelSeriesSelectionCallback}
-            isInvalid={!!errors.knowledgeLevelSeriesId}
-            errorMessage={'Required'}
+            error={errors.knowledgeLevelSeriesId ? 'Required' : undefined}
           />
           <ControlledSelector<number, UserRoleTypeDto>
             labelPath={'name'}
             entityId={userRoleType.id}
             entityClass={EntityClassMap.userRoleType}
             selectionCallback={userRoleTypeSelectionCallback}
-            isInvalid={!!errors.userRoleType}
-            errorMessage={'Required'}
+            error={errors.userRoleType ? 'Required' : undefined}
           />
 
           <div className={'center-horizontal-with-margin'}>
@@ -178,9 +169,7 @@ export default function CreateUserRoleForm({
         className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
       ></div>
       <div className={'center-horizontal-with-margin'}>
-        <Button onPress={() => modalProps.onOpenChange(true)}>
-          Add Role Type
-        </Button>
+        <Button onClick={modalProps.onOpen}>Add Role Type</Button>
       </div>
       <CreateNewRoleTypeModal {...modalProps} />
     </FormProvider>

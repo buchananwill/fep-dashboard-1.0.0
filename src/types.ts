@@ -1,7 +1,6 @@
 import { DtoUiArrayProps } from 'dto-stores';
 import { HasId } from '@/api/types';
-import React, { Dispatch, SetStateAction } from 'react';
-import { Selection } from '@nextui-org/react';
+import React, { CSSProperties, Dispatch, SetStateAction } from 'react';
 import { Paths } from 'type-fest';
 
 export type StringPropertyKey<T> = {
@@ -31,17 +30,16 @@ export type DispatchState<T> = Dispatch<SetStateAction<T>>;
 
 export type SharedColumn = 'action';
 export type ColumnUid<T> =
-  // | Extract<keyof T, string | number>
-  Paths<T>;
+  Paths<T> extends infer UID ? (UID extends string ? UID : never) : never;
 
-export interface Column<T> {
+export type Column<T> = {
   name: string;
   uid: ColumnUid<T>;
   sortable?: boolean;
   ignoreFilter?: boolean;
-}
-
-export type NextUiSelection = Selection;
+  style?: CSSProperties;
+  className?: string;
+};
 export type DispatchList<T> = React.Dispatch<React.SetStateAction<T[]>>;
 
 // Predicate<T>
@@ -101,3 +99,7 @@ export type GenericDivProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
+
+export interface Validator<T> {
+  (input: T | undefined | null): { errorMessage?: string; error?: boolean };
+}

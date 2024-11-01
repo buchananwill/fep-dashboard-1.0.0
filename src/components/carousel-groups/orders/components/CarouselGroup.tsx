@@ -12,7 +12,6 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import CarouselOrderManager from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 import React, { memo, useCallback, useMemo, useTransition } from 'react';
 import { useGlobalController } from 'selective-context';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import OptionRotationButtonGroup from '@/components/carousel-groups/orders/components/OptionRotationButtonGroup';
 import { ControllerKey, InitialSet } from '@/app/_literals';
 import {
@@ -20,7 +19,6 @@ import {
   HighlightedSubjects,
   RotationPrime
 } from '@/components/carousel-groups/orders/_literals';
-import { Skeleton } from '@nextui-org/skeleton';
 import { EmptyArray } from '@/api/literals';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import { resetAssignmentsAction } from '@/components/carousel-groups/orders/_functions/resetAssignmentsAction';
@@ -32,6 +30,7 @@ import {
   CarouselGroupDto,
   CarouselOrderDto
 } from '@/api/generated-types/generated-types';
+import { Loader } from '@mantine/core';
 
 export default function CarouselGroup(params: DtoStoreParams) {
   const { entity, dispatchWithoutControl } =
@@ -102,46 +101,41 @@ export default function CarouselGroup(params: DtoStoreParams) {
   if (!entity) return null;
 
   return (
-    <Card>
+    <>
       <PendingOverlay pending={isPending} />
-      <CardHeader className={'grid w-full grid-cols-3'}>
+      <div className={'grid w-full grid-cols-3 place-items-center p-2'}>
         <TwoStageClick
           primedMessage={
             'This will remove all manual assignments and re-calculate the Carousel Options.'
           }
-          onPress={handleReset}
+          onClick={handleReset}
           timeOutDelayMs={5_000}
         >
           Reset...
         </TwoStageClick>
         <OptionRotationButtonGroup />
-      </CardHeader>
-      <CardBody>
+      </div>
+      <div>
         <div
           className={'grid gap-1 p-4'}
           style={{
             gridTemplateColumns: `repeat(${entity.carousels.length}, minmax(0, 1fr))`
-            // gridTemplateRows: `repeat(${entity.carouselGroupOptions.length - entity.carousels.length + 1}, minmax(0, 1fr))`
           }}
         >
           <LazyDtoUiListSome
             renderAs={Carousel}
             entityIdList={carouselIdList}
             entityClass={EntityClassMap.carousel}
-            whileLoading={() => null}
+            whileLoading={() => <Loader />}
           />
           <LazyDtoUiListAll
             renderAs={MemoOrderManager}
             entityClass={EntityClassMap.carouselOrder}
-            whileLoading={() => (
-              <Skeleton>
-                <div className={'w-12'} />
-              </Skeleton>
-            )}
+            whileLoading={() => <Loader />}
           />
         </div>
-      </CardBody>
-    </Card>
+      </div>
+    </>
   );
 }
 

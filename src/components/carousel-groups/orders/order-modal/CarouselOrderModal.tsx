@@ -3,30 +3,23 @@ import { useGlobalController, useGlobalDispatch } from 'selective-context';
 import { CarouselOrderDto } from '@/api/generated-types/generated-types';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  Modal,
-  ModalContent,
-  ModalFooter,
-  ModalHeader
-} from '@nextui-org/modal';
+
 import { useCallback, useMemo } from 'react';
 import { DispatchState } from '@/types';
 import { CarouselOrderItem } from '@/components/carousel-groups/orders/order-modal/CarouselOrderItem';
+import { Modal, ScrollArea } from '@mantine/core';
 
 const carouselOrderModalController = 'CarouselOrderModalController';
 export const carouselOrderModal = 'CarouselOrderModal';
-export interface CarouselOrderModalState {
-  carouselOrderId: string | undefined;
-  isOpen: boolean;
-}
+export type CarouselOrderModalState = typeof defaultState;
 
 const defaultState = {
-  carouselOrderId: undefined,
-  isOpen: false
-};
+  carouselOrderId: undefined as string | undefined,
+  opened: false as boolean
+} as const;
 export default function CarouselOrderModal() {
   const {
-    currentState: { carouselOrderId, isOpen },
+    currentState: { carouselOrderId, opened },
     dispatch
   } = useGlobalController<CarouselOrderModalState>({
     contextKey: carouselOrderModal,
@@ -52,33 +45,28 @@ export default function CarouselOrderModal() {
 
   if (entity)
     return (
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalContent className={'p-2'}>
-          <ModalHeader>Edit Carousel Order</ModalHeader>
+      <Modal opened={opened} onClose={onClose}>
+        <div className={'flex flex-col items-center justify-center p-2'}>
+          <h1>Edit Carousel Order</h1>
           User {entity.userRoleId}
-          <div
-            className={
-              'h-[50vh] w-fit overflow-clip rounded-lg border-2 border-default-400'
-            }
+          <ScrollArea
+            className={'border-default-400 h-[400px] w-fit rounded-lg border-2'}
           >
-            <div className={'h-full w-full overflow-auto p-2'}>
-              <table className={'table-fixed'}>
-                <tbody>
-                  {sortedOrderItems.map((orderItem, index) => (
-                    <CarouselOrderItem
-                      dispatch={
-                        dispatchWithoutControl as DispatchState<CarouselOrderDto>
-                      }
-                      orderItem={orderItem}
-                      key={index}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <ModalFooter></ModalFooter>
-        </ModalContent>
+            <table className={'table-fixed'}>
+              <tbody>
+                {sortedOrderItems.map((orderItem, index) => (
+                  <CarouselOrderItem
+                    dispatch={
+                      dispatchWithoutControl as DispatchState<CarouselOrderDto>
+                    }
+                    orderItem={orderItem}
+                    key={index}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </ScrollArea>
+        </div>
       </Modal>
     );
 }
@@ -88,6 +76,6 @@ export function useCarouselOrderModalTrigger(carouselOrderId: string) {
     useGlobalDispatch<CarouselOrderModalState>(carouselOrderModal);
 
   return useCallback(() => {
-    dispatchWithoutListen({ carouselOrderId: carouselOrderId, isOpen: true });
+    dispatchWithoutListen({ carouselOrderId: carouselOrderId, opened: true });
   }, [carouselOrderId, dispatchWithoutListen]);
 }

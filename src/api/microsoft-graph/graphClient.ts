@@ -4,7 +4,7 @@ import { Client } from '@microsoft/microsoft-graph-client';
 import { TokenCredentialAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials';
 import { ClientSecretCredential } from '@azure/identity';
 
-const tenantDir = process.env.AUTH_MICROSOFT_ENTRA_ID_TENANT_ID!;
+const tenantDir = process.env.AUTH_MICROSOFT_ENTRA_ID_ISSUER!;
 
 const credential = new ClientSecretCredential(
   tenantDir,

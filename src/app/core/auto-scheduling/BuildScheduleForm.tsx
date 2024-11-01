@@ -4,17 +4,15 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useTransition } from 'react';
-
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@nextui-org/button';
+import { Button } from '@mantine/core';
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { Overlay } from '@/components/overlays/overlay';
 import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
 import { startCase } from 'lodash';
 import FixedOrderMultiSelect, {
   FixedOrderSelectable
-} from '@/app/core/auto-scheduling/FixedOrderMultiSelect';
+} from '@/components/generic/FixedOrderMultiSelect';
 import { MultiValue } from 'react-select';
 import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
 import { ScheduleParametersDtoSchema } from '@/api/generated-schemas/schemas_';
@@ -96,7 +94,7 @@ export default function AutoBuildForm({
   };
 
   return (
-    <div className={'w-96 overflow-visible'}>
+    <div className={'w-96 overflow-visible p-2'}>
       {disable && (
         <Overlay>
           <div className={'rounded-lg bg-white p-2'}>Sign in to Enable</div>
@@ -114,27 +112,29 @@ export default function AutoBuildForm({
             Auto Build Parameters
           </h1>
           <div className={'items-center justify-center gap-2 overflow-visible'}>
+            <label htmlFor={'autoBuildParametersDto.multiStepUndoTimeoutMs'}>
+              {startCase('multiStepUndoTimeout')}
+            </label>
             <ControlledSlider
               control={control}
-              maxValue={60_000}
-              minValue={1_000}
+              max={60_000}
+              min={1_000}
               step={500}
-              size={'sm'}
+              size={'lg'}
+              showText={false}
               name={'autoBuildParametersDto.multiStepUndoTimeoutMs'}
               aria-label={'Multi-Undo Timeout'}
-              hideValue={false}
-              label={'Multi-Undo Timeout (ms):'}
+              label={(value) => `${(value / 1000).toFixed(1)}s`}
             />
             <ControlledSlider
               control={control}
-              maxValue={10}
-              minValue={1}
+              max={10}
+              min={1}
               step={1}
-              size={'sm'}
+              size={'lg'}
               name={'autoBuildParametersDto.multiUndoIncrement'}
               aria-label={'multi-undo increment'}
-              hideValue={false}
-              label={'Multi-undo increment:'}
+              label={(value) => `${value}`}
             />
             <div
               className={
@@ -165,7 +165,9 @@ export default function AutoBuildForm({
             />
           </div>
           <div className={'justify-center text-center'}>
-            <Button type={'submit'}>Submit</Button>
+            <Button type={'submit'} disabled={disable}>
+              Submit
+            </Button>
           </div>
         </div>
       </form>

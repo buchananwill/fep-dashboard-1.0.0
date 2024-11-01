@@ -25,6 +25,7 @@ import {
   ProviderRoleDto,
   ProviderRoleTypeDto,
   ProviderRoleTypeWorkTaskTypeSuitabilityDto,
+  QueueTreeNodeDto,
   ResourceRequirementItemDto,
   ScheduleDto,
   StaticDeliveryAllocationItemDto,
@@ -40,8 +41,6 @@ import {
   WorkSchemaNodeDto,
   WorkTaskTypeDto
 } from './generated-types/generated-types';
-import { FeasibilityReportDto } from '@/api/old-zod-schemas/FeasibilityReportDtoSchema';
-import { InteractionBasedValidationDto } from '@/api/old-zod-schemas/InteractionBasedValidationDtoSchema';
 
 export type EntityTypeMap = {
   asset: AssetDto;
@@ -66,6 +65,7 @@ export type EntityTypeMap = {
   organization: OrganizationDto;
   organizationType: OrganizationTypeDto;
   person: PersonDto;
+  queueTreeNode: QueueTreeNodeDto;
   providerRole: ProviderRoleDto;
   providerRoleAvailability: ProviderRoleAvailabilityDto;
   providerRoleType: ProviderRoleTypeDto;

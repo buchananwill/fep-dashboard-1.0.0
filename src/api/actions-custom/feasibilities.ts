@@ -10,12 +10,12 @@ import {
 
 const feasibilityEndpoint = `/api/v2/schedule/feasibilityReport`;
 
-export const getOrganizationLeafTotals = (cycleId: number) => {
+export const getOrganizationLeafTotals = async (cycleId: number) => {
   return getWithoutBody<OrganizationLeafTotalAllocationFeasibilityDto[]>(
     constructUrl(`${feasibilityEndpoint}/organizationLeafTotals/${cycleId}`)
   );
 };
-export const getOrganizationLeafCycleSubspanGroups = (
+export const getOrganizationLeafCycleSubspanGroups = async (
   cycleId: number,
   organizationId: number
 ) =>
@@ -25,12 +25,12 @@ export const getOrganizationLeafCycleSubspanGroups = (
     )
   );
 
-export const getKnowledgeDomainTaskAreas = () =>
+export const getKnowledgeDomainTaskAreas = async () =>
   getWithoutBody<TaskAreaPerKnowledgeDomainDto[]>(
     constructUrl(`${feasibilityEndpoint}/taskAreaPerKnowledgeDomain`)
   );
 
-export const getKnowledgeDomainResourceFlowResponse = (
+export const getKnowledgeDomainResourceFlowResponse = async (
   knowledgeDomainId: number
 ) =>
   getWithoutBody<ResourceFlowResponse>(

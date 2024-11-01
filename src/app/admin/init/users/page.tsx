@@ -4,17 +4,23 @@ import { DtoUiListAll, EditAddDeleteDtoControllerArray } from 'dto-stores';
 import UserNumberInputRow, {
   UserRowState
 } from '@/app/admin/init/users/_components/UserNumberInputRow';
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import GenerateStudentsButton, {
   UserRowStateClass
 } from './_components/GenerateStudentsButton';
 import { Api } from '@/api/clientApi_';
+import { Card } from '@mantine/core';
 
-export default async function page({
-  params: { id }
-}: {
-  params: { id: string };
-}) {
+export default async function page(
+  props: {
+    params: Promise<{ id: string }>;
+  }
+) {
+  const params = await props.params;
+
+  const {
+    id
+  } = params;
+
   const serviceCategoryId = parseInt(id);
   const serviceCategory =
     await Api.KnowledgeLevelSeries.getOne(serviceCategoryId);
@@ -27,8 +33,8 @@ export default async function page({
   }));
 
   return (
-    <Card classNames={{ base: 'w-fit p-2' }}>
-      <CardHeader className={'flex justify-center'}>
+    <Card>
+      <div className={'flex justify-center'}>
         <div className={'rounded-lg bg-sky-800'}>
           <span
             className={
@@ -38,8 +44,8 @@ export default async function page({
             Set Students per Year
           </span>
         </div>
-      </CardHeader>
-      <CardBody>
+      </div>
+      <div>
         <div className={'grid grid-cols-2 gap-2'}>
           <EditAddDeleteDtoControllerArray
             entityClass={UserRowStateClass}
@@ -54,10 +60,10 @@ export default async function page({
             numberKey={'howMany'}
           />
         </div>
-      </CardBody>
-      <CardFooter className={'flex justify-center'}>
+      </div>
+      <div className={'flex justify-center'}>
         <GenerateStudentsButton />
-      </CardFooter>
+      </div>
     </Card>
   );
 }
