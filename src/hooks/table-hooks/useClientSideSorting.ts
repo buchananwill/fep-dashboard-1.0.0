@@ -67,9 +67,13 @@ export default function useClientSideSorting<
     const filteredEntities = contextKeys
       .map((contextKey) => currentState.get(contextKey))
       .filter(isNotUndefined);
-    const sortedAsc = sortBy(filteredEntities, [(t) => get(t, path)]).map(
-      (t) => t.id
-    );
+    const sortedAsc = sortBy(filteredEntities, [
+      (t) => {
+        const value = get(t, path);
+        if (typeof value === 'string') return (value as string).toLowerCase();
+        else return value;
+      }
+    ]).map((t) => t.id);
     if (direction === 'asc') return sortedAsc;
     else return sortedAsc.reverse();
   }, [
