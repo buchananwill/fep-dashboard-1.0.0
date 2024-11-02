@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Art",
+    "shortCode": "Ar",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 103, 103)"
+  },
+  {
+    "name": "Biology",
+    "shortCode": "Bi",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 128, 103)"
+  },
+  {
+    "name": "Chemistry",
+    "shortCode": "Ch",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 153, 103)"
+  },
+  {
+    "name": "Classical Civ",
+    "shortCode": "Cc",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 178, 103)"
+  },
+  {
+    "name": "Computing",
+    "shortCode": "Cm",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 203, 103)"
+  },
+  {
+    "name": "Design and T",
+    "shortCode": "Dt",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 228, 103)"
+  },
+  {
+    "name": "Drama",
+    "shortCode": "Dr",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(203, 228, 103)"
+  },
+  {
+    "name": "Economics",
+    "shortCode": "Ec",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(178, 228, 103)"
+  },
+  {
+    "name": "English",
+    "shortCode": "El",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(153, 228, 103)"
+  },
+  {
+    "name": "Form Period",
+    "shortCode": "Fp",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(128, 228, 103)"
+  },
+  {
+    "name": "French",
+    "shortCode": "Fr",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 228, 103)"
+  },
+  {
+    "name": "Further Maths 1",
+    "shortCode": "Mp",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 228, 128)"
+  },
+  {
+    "name": "Further Maths 2",
+    "shortCode": "Mf",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 228, 153)"
+  },
+  {
+    "name": "Games",
+    "shortCode": "Ga",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 228, 178)"
+  },
+  {
+    "name": "General",
+    "shortCode": null,
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 228, 203)"
+  },
+  {
+    "name": "Geography",
+    "shortCode": "Gg",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 228, 228)"
+  },
+  {
+    "name": "German",
+    "shortCode": "Ge",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 203, 228)"
+  },
+  {
+    "name": "GP",
+    "shortCode": "Gp",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 178, 228)"
+  },
+  {
+    "name": "History",
+    "shortCode": "Hi",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 153, 228)"
+  },
+  {
+    "name": "Latin",
+    "shortCode": "La",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 128, 228)"
+  },
+  {
+    "name": "Learning Development",
+    "shortCode": "Ld",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(103, 103, 228)"
+  },
+  {
+    "name": "Maths",
+    "shortCode": "Mm",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(128, 103, 228)"
+  },
+  {
+    "name": "Music",
+    "shortCode": "Mu",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(153, 103, 228)"
+  },
+  {
+    "name": "PE",
+    "shortCode": "PE",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(178, 103, 228)"
+  },
+  {
+    "name": "PE as an Option",
+    "shortCode": "Pe",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(203, 103, 228)"
+  },
+  {
+    "name": "Philosophy",
+    "shortCode": "Py",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 103, 228)"
+  },
+  {
+    "name": "Physics",
+    "shortCode": "Ph",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 103, 203)"
+  },
+  {
+    "name": "Private Study",
+    "shortCode": "Ps",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 103, 178)"
+  },
+  {
+    "name": "Registration",
+    "shortCode": "Rg",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 103, 153)"
+  },
+  {
+    "name": "RS",
+    "shortCode": "Rs",
+    "parentKnowledgeDomain": null,
+    "cssRgb": "rgb(228, 103, 128)"
+  }
+]
