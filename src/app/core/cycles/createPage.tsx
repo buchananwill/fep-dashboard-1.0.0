@@ -48,7 +48,9 @@ export default function CreatePage({ pathVariables }: LeafComponentProps) {
     <div className={'p-4'}>
       <RootCard
         layoutId={getRootCardLayoutId(pathVariables)}
-        displayHeader={<h1 className={'p-2 text-center'}>Create Cycle</h1>}
+        displayHeader={
+          <h1 className={'w-full p-2 text-center'}>Create Cycle</h1>
+        }
       >
         <PendingOverlay pending={pending} />
         <form

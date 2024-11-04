@@ -86,7 +86,7 @@ export default function RootCard({
                 className={'border-default-200 flex justify-between '}
               >
                 {Icon && <Icon className={'h-8 w-8'} />}
-                <h1 className={'p-2'}>{displayHeader}</h1>
+                {displayHeader}
               </Card.Section>
             ))}
           <Card.Section
