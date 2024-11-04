@@ -56,19 +56,7 @@ export default function AutoBuildForm({
     }));
   }, [costParameters]);
 
-  const selectedCostParameterOptions = useMemo(() => {
-    return selectedCostParameters.map((param) => ({
-      value: param,
-      label: startCase(param.toLowerCase())
-      // position: costParameters.indexOf(param)
-    }));
-  }, [
-    selectedCostParameters
-    // , costParameters
-  ]);
-
   const handleSelectionChange = useCallback(
-    // (param: MultiValue<FixedOrderSelectable>) => {
     (param: string[]) => {
       const updatedParams = param
         .toSorted(
