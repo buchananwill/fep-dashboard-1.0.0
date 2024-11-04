@@ -17,6 +17,7 @@ import { checkOptionCanPrime } from '@/components/carousel-groups/orders/_functi
 import { EmptyArray } from '@/api/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { transformOptionForClientState } from '@/components/carousel-groups/orders/_functions/transformOptionForClientState';
+import { LayoutGroup } from 'framer-motion';
 
 function sortCarouselOptionState(
   option1: CarouselOptionStateInterface,
@@ -94,9 +95,11 @@ export default function Carousel({ entity }: BaseLazyDtoUiProps<CarouselDto>) {
 
   return (
     <div className={'grid grid-cols-1 gap-1'}>
-      {sortedOptionStateList.map((optionProps) => (
-        <MemoCarouselOption key={optionProps.entity.id} {...optionProps} />
-      ))}
+      <LayoutGroup>
+        {sortedOptionStateList.map((optionProps) => (
+          <MemoCarouselOption key={optionProps.entity.id} {...optionProps} />
+        ))}
+      </LayoutGroup>
     </div>
   );
 }

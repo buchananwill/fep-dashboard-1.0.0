@@ -334,7 +334,7 @@ export default function OptionRotationButtonGroup() {
       </Button>
       <Popover zIndex={100}>
         <Popover.Target>
-          <Button className={'w-12'} disabled={filteredOrders.size === 0}>
+          <Button className={'w-24'} disabled={filteredOrders.size === 0}>
             {filteredOrders.size}
           </Button>
         </Popover.Target>
