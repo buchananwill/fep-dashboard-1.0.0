@@ -1,9 +1,17 @@
-import { Button, ButtonProps } from '@mantine/core';
+'use client';
+import { Button, ButtonProps, Loader } from '@mantine/core';
 import clsx from 'clsx';
-import { memo } from 'react';
+import { memo, useTransition } from 'react';
 import { ArrowDownIcon } from '@heroicons/react/24/solid';
 
-function RotationPrimeButtonInner(props: {
+function RotationPrimeButtonInner({
+  canDrop,
+  canPrime,
+  fallBackColor,
+  onClick,
+  primed,
+  textFade
+}: {
   canPrime?: boolean;
   canDrop: boolean;
   primed: boolean;
@@ -11,6 +19,8 @@ function RotationPrimeButtonInner(props: {
   onClick?: () => void;
   textFade: string | undefined;
 }) {
+  const [pending, startTransition] = useTransition();
+
   return (
     <Button
       styles={{
@@ -19,25 +29,32 @@ function RotationPrimeButtonInner(props: {
         }
       }}
       autoContrast
-      disabled={!props.canPrime}
+      disabled={!canPrime}
       className={clsx(
         'w-fit min-w-0 px-1  opacity-100',
-        !props.canDrop && 'data-[disabled]:bg-zinc-300'
+        !canDrop && 'data-[disabled]:bg-zinc-300'
       )}
       radius={'xs'}
-      color={
-        props.primed ? 'green' : props.canDrop ? 'blue' : props.fallBackColor
-      }
-      onClick={props.onClick}
+      color={primed || pending ? 'green' : canDrop ? 'blue' : fallBackColor}
+      onClick={() => {
+        startTransition(() => {
+          onClick && onClick();
+        });
+      }}
     >
-      <ArrowMemo
-        className={clsx(
-          'w-6 px-0 py-0.5',
-          props.primed && 'animate-bounce-less',
-          props.textFade,
-          !props.canPrime && 'opacity-0'
-        )}
-      />
+      {pending ? (
+        <Loader size={'xs'} className={'w-6'} color={'black'} />
+      ) : (
+        <ArrowMemo
+          className={clsx(
+            'w-6 px-0',
+            // ' py-0.5',
+            primed && 'animate-bounce-less',
+            textFade,
+            !canPrime && 'opacity-0'
+          )}
+        />
+      )}
     </Button>
   );
 }
