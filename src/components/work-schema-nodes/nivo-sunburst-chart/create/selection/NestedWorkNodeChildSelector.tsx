@@ -22,8 +22,8 @@ import { MonoFunction } from '@/types';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { getCycleSubspanSize } from '@/components/work-schema-nodes/nivo-sunburst-chart/WorkNodeResponsiveSunburst';
 import { getDomainAlias } from '@/api/getDomainAlias';
-import { SimpleSelectable } from '@/components/generic/MultiSelect';
 import { Select } from '@mantine/core';
+import { SimpleSelectable } from '@/components/types/types';
 
 export default function NestedWorkNodeChildSelector({
   selectionPath,

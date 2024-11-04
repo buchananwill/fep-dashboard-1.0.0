@@ -5,17 +5,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@mantine/core';
+import { Button, Checkbox } from '@mantine/core';
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { Overlay } from '@/components/overlays/overlay';
 import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
 import { startCase } from 'lodash';
-import FixedOrderMultiSelect, {
-  FixedOrderSelectable
-} from '@/components/generic/FixedOrderMultiSelect';
-import { MultiValue } from 'react-select';
 import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
 import { ScheduleParametersDtoSchema } from '@/api/generated-schemas/schemas_';
+import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
 
 export default function AutoBuildForm({
   defaultMultiStepUndoTimeout,
@@ -54,28 +51,34 @@ export default function AutoBuildForm({
   const costParameterOptions = useMemo(() => {
     return costParameters.map((param, index) => ({
       value: param,
-      label: startCase(param.toLowerCase()),
-      position: index
+      label: startCase(param.toLowerCase())
+      // position: index
     }));
   }, [costParameters]);
 
   const selectedCostParameterOptions = useMemo(() => {
     return selectedCostParameters.map((param) => ({
       value: param,
-      label: startCase(param.toLowerCase()),
-      position: costParameters.indexOf(param)
+      label: startCase(param.toLowerCase())
+      // position: costParameters.indexOf(param)
     }));
-  }, [selectedCostParameters, costParameters]);
+  }, [
+    selectedCostParameters
+    // , costParameters
+  ]);
 
   const handleSelectionChange = useCallback(
-    (param: MultiValue<FixedOrderSelectable>) => {
+    // (param: MultiValue<FixedOrderSelectable>) => {
+    (param: string[]) => {
       const updatedParams = param
-        .toSorted((a, b) => a.position - b.position)
-        .map((option) => option.value);
+        .toSorted(
+          (a, b) => costParameters.indexOf(a) - costParameters.indexOf(b)
+        )
+        .map((option) => option);
 
       setValue('costParameters', updatedParams);
     },
-    [setValue]
+    [setValue, costParameters]
   );
 
   const appRouterInstance = useRouter();
@@ -138,30 +141,24 @@ export default function AutoBuildForm({
             />
             <div
               className={
-                'center-horizontal-with-margin flex w-fit flex-col py-2 text-right'
+                'center-horizontal-with-margin flex w-fit flex-col gap-1 py-2 text-right'
               }
             >
-              <label className={'text-sm text-default-500'}>
-                Save Build:
-                <input
-                  {...register('autoBuildParametersDto.saveBuild')}
-                  type={'checkbox'}
-                  className={'checkbox-input ml-2'}
-                />
-              </label>
-              <label className={'text-sm text-default-500'}>
-                Force Save Metrics:
-                <input
-                  {...register('autoBuildParametersDto.forceSaveMetrics')}
-                  type={'checkbox'}
-                  className={'checkbox-input ml-2'}
-                />
-              </label>
+              <Checkbox
+                {...register('autoBuildParametersDto.saveBuild')}
+                label={'Save Build'}
+                className={'checkbox-input ml-2'}
+              />
+              <Checkbox
+                {...register('autoBuildParametersDto.forceSaveMetrics')}
+                label={'Force Save Metrics'}
+                className={'checkbox-input ml-2'}
+              />
             </div>
-            <FixedOrderMultiSelect
-              options={costParameterOptions}
-              currentOptions={selectedCostParameterOptions}
+            <MultiSelectMaxDisplayedItems
+              data={costParameterOptions}
               onChange={handleSelectionChange}
+              value={selectedCostParameters}
             />
           </div>
           <div className={'justify-center text-center'}>

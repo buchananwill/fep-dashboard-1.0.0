@@ -8,14 +8,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
 import { MantineProvider, MantineThemeOverride } from '@mantine/core';
+import { shadcnTheme } from '@/app/test/mantine-theme/theme';
 
 export function LibraryProvidersWrapper({
   children
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-
   return (
     <QueryClientProvider client={queryClient}>
       <SelectiveContextManagerGlobal>

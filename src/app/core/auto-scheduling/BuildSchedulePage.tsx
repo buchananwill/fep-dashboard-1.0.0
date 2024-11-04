@@ -1,8 +1,6 @@
 import BuildSchedule from '@/app/core/auto-scheduling/BuildSchedule';
 import { parseTen } from '@/api/date-and-time';
 import { auth } from '@/auth';
-import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Overlay } from '@/components/overlays/overlay';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import RootCard from '@/components/generic/RootCard';

@@ -1,5 +1,6 @@
 import { LabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
-import { SimpleSelectable } from '@/components/generic/MultiSelect';
+
+import { SimpleSelectable } from '@/components/types/types';
 
 export type SelectApiReturn =
   | SingleFlat

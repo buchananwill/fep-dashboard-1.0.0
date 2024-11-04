@@ -9,3 +9,8 @@ export interface HeatMapDatumWithLabel {
 export type HeatMapDataSeries = HeatMapSerie<HeatMapDatumWithLabel, any> & {
   entityId: string;
 };
+
+export interface SimpleSelectable {
+  label: string;
+  value: string;
+}

@@ -7,8 +7,8 @@ import {
 import { useCallback, useMemo } from 'react';
 import { EmptyArray } from '@/api/literals';
 import { getVisibleColumnsContextKey } from '@/components/tables/SelectFilterPath';
-import { SimpleSelectable } from '@/components/generic/MultiSelect';
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
+import { SimpleSelectable } from '@/components/types/types';
 
 export function getOrderedColumnsContextKey(entityClass: string) {
   return `${entityClass}:orderedColumns`;

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import 'rc-slider/assets/index.css';
 import { RgbaPicker } from '@/components/generic/RgbaPicker';
 
 export default function Page() {

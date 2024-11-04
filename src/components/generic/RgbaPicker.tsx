@@ -6,7 +6,7 @@ import {
 import { DispatchState } from '@/types';
 import { ChangeEvent, useCallback } from 'react';
 import { color, rgb } from 'd3';
-import Slider from 'rc-slider';
+import { Slider } from '@mantine/core';
 
 type RgbaPickerProps = {
   value: RgbaDto;
@@ -68,7 +68,7 @@ function OpacitySlider({
         track: {
           backgroundColor: parseToCssRgbOpacityOne(value)
         },
-        rail: {
+        bar: {
           backgroundColor: parseToCssRgba({ ...value, a: 63 })
         }
       }}
@@ -79,7 +79,7 @@ function OpacitySlider({
 
 export function RgbaPicker({ showOpacity, ...props }: RgbaPickerProps) {
   return showOpacity ? (
-    <div className={'grid grid-cols-2 gap-1 rounded-lg p-1 shadow-small'}>
+    <div className={'shadow-small grid grid-cols-2 gap-1 rounded-lg p-1'}>
       <div
         style={{ backgroundColor: parseToCssRgba(props.value) }}
         className={'h-8 w-8 rounded-lg'}

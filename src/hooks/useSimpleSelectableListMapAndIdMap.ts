@@ -1,7 +1,8 @@
 import { HasIdClass } from '@/api/types';
 import { useMemo } from 'react';
 import { Identifier } from 'dto-stores';
-import { SimpleSelectable } from '@/components/generic/MultiSelect';
+
+import { SimpleSelectable } from '@/components/types/types';
 
 export function useSimpleSelectableListMapAndIdMap<T extends HasIdClass>(
   masterList: T[],

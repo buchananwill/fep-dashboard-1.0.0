@@ -9,7 +9,8 @@ import { useDtoStoreDispatch } from 'dto-stores';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import { Button, Modal, ModalProps, Select } from '@mantine/core';
-import { SimpleSelectable } from '@/components/generic/MultiSelect';
+
+import { SimpleSelectable } from '@/components/types/types';
 
 type DtoWithType<T extends TypeDto<any, any>> = {
   type: T;

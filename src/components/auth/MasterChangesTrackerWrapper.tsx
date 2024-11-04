@@ -6,8 +6,7 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { PropsWithChildren, useCallback, useMemo, useTransition } from 'react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Session } from 'next-auth';
-import { Button, Popover, Image, Indicator } from '@mantine/core';
+import { Button, Image, Indicator, Popover } from '@mantine/core';
 
 export interface OtherUnsavedChangesProps extends PropsWithChildren {
   session?: Record<string, any>;

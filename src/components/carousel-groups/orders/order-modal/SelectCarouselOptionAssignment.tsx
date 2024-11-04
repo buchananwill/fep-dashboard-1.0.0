@@ -14,8 +14,8 @@ import { CarouselOptionState } from '@/components/carousel-groups/orders/compone
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { useGlobalListener } from 'selective-context';
 import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
-import { SimpleSelectable } from '@/components/generic/MultiSelect';
 import { Select } from '@mantine/core';
+import { SimpleSelectable } from '@/components/types/types';
 
 export default function SelectCarouselOptionAssignment({
   orderItem,
