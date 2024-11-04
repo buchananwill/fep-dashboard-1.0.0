@@ -13,11 +13,13 @@ export default function RootCard({
   layoutId,
   displayHeader,
   children,
-  navigationType
+  navigationType,
+  shrinkWrap
 }: {
   layoutId: string;
   navigationType?: NavigationType;
   displayHeader?: string | ReactNode;
+  shrinkWrap?: boolean;
 } & PropsWithChildren) {
   const Icon = navigationType ? navLinkIcons[navigationType] : null;
   const navLinkDescription = navigationType
@@ -27,6 +29,7 @@ export default function RootCard({
   return (
     <motion.div
       layoutId={layoutId}
+      className={'h-full'}
       initial={{ opacity: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ scale: 0 }}
@@ -44,8 +47,8 @@ export default function RootCard({
           styles={{
             root: {
               overflow: 'visible',
-              width: 'fit-content',
-              height: 'fit-content'
+              width: shrinkWrap ? 'fit-content' : '100%',
+              height: shrinkWrap ? 'fit-content' : '100%'
             }
           }}
         >
@@ -80,7 +83,7 @@ export default function RootCard({
               </Card.Section>
             ) : (
               <Card.Section
-                className={'flex justify-between border-default-200 '}
+                className={'border-default-200 flex justify-between '}
               >
                 {Icon && <Icon className={'h-8 w-8'} />}
                 <h1 className={'p-2'}>{displayHeader}</h1>
