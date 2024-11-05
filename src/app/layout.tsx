@@ -10,6 +10,7 @@ import UserAvatar from '@/components/auth/UserAvatar';
 import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
 import { ColorSchemeScript, ScrollArea } from '@mantine/core';
+import MainScrollPort from '@/components/generic/MainScrollPort';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -39,17 +40,9 @@ export default async function RootLayout({
           <MasterChangesTrackWrapper session={avatarProps}>
             <UserAvatar />
           </MasterChangesTrackWrapper>
-          <ScrollArea
-            className={
-              'h-[100vh] w-[100vw] bg-gradient-to-b from-blue-200 to-white '
-            }
-          >
-            <div className={'flex h-full w-full'}>
-              <div className={'center-all-margin '}>
-                <Suspense fallback={<When_loading />}>{children}</Suspense>
-              </div>
-            </div>
-          </ScrollArea>
+          <MainScrollPort>
+            <Suspense fallback={<When_loading />}>{children}</Suspense>
+          </MainScrollPort>
           <TooltipSingleton />
           <NavPopoverTrigger />
         </LibraryProvidersWrapper>

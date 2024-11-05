@@ -1,12 +1,16 @@
 'use client';
-import { useGlobalController } from 'selective-context';
+import { useGlobalController, useGlobalListener } from 'selective-context';
 import { Coordinate } from '@/components/react-flow/generic/types';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { curveBasis, interpolateObject, line } from 'd3';
 import { isNotNull, isNotUndefined } from '@/api/main';
 import { ControllerKey, initialMap } from '@/app/_literals';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
-import { HasId, HasNumberId } from '@/api/types';
+import { HasId } from '@/api/types';
+import { useViewportSize, useWindowScroll } from '@mantine/hooks';
+import { Portal } from '@mantine/core';
+import { MainScrollPosition } from '@/components/generic/MainScrollPort';
+import { ObjectPlaceholder } from '@/api/literals';
 
 export interface ConnectionVector {
   source?: Coordinate & HasId;
@@ -29,37 +33,12 @@ export default function RotationConnectionOverlay() {
 }
 
 const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
-  const [size, setSize] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    function updateSize() {
-      const largestPoint = connections.reduce(
-        (prevPoint, currVec) => ({
-          x: Math.max(
-            currVec.source?.x || 0,
-            currVec.target?.x || 0,
-            prevPoint.x
-          ),
-          y: Math.max(
-            currVec.source?.y || 0,
-            currVec.target?.y || 0,
-            prevPoint.y
-          )
-        }),
-        { x: 0, y: 0 }
-      ); // Initial value for the largest x and y
-
-      setSize({
-        width: largestPoint.x + 20,
-        height: largestPoint.y + 20
-      });
-    }
-
-    window.addEventListener('resize', updateSize);
-    updateSize();
-
-    return () => window.removeEventListener('resize', updateSize);
-  }, [connections]);
+  const { width, height } = useViewportSize();
+  const { currentState: mainScroll } = useGlobalListener({
+    contextKey: MainScrollPosition,
+    initialValue: ObjectPlaceholder as Coordinate,
+    listenerKey: RotationConnectionMap
+  });
 
   const curvePaths = useMemo(() => {
     return connections
@@ -71,33 +50,51 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
       .filter(isNotNull);
   }, [connections]);
 
+  const translationStyle = {
+    transform: `translate(${mainScroll.x}px, ${-mainScroll.y}px)`
+  };
+
   return (
-    <>
-      <svg
-        width={size.width}
-        height={size.height}
-        style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
-        className={'z-50'}
-      >
-        {curvePaths.map((conn, index) => (
-          <g key={index}>
-            <path
-              d={conn}
-              className={'carousel-order-pills animate-pills fill-transparent '}
+    <Portal>
+      <div className={'pointer-events-none fixed left-0 top-0 z-50'}>
+        <div className={'absolute flex flex-col'}>
+          <span>
+            {width}:{height}; {mainScroll.x}: {mainScroll.y}
+          </span>
+          <ol>
+            {connections.map((con, index) => (
+              <li key={index}>{JSON.stringify(con)}</li>
+            ))}
+          </ol>
+        </div>
+        <svg width={width} height={height} className={'z-50'}>
+          {curvePaths.map((conn, index) => (
+            <g key={index} style={translationStyle}>
+              <path
+                d={conn}
+                className={
+                  'carousel-order-pills animate-pills fill-transparent '
+                }
+              />
+            </g>
+          ))}
+        </svg>
+        <div
+          className={'fixed left-0 top-0'}
+          style={{ height, width, ...translationStyle }}
+        >
+          {curvePaths.map((path, index) => (
+            <Beacon
+              key={`beacon:${index}`}
+              className={'beacon'}
+              style={{
+                offsetPath: `path('${path}')`
+              }}
             />
-          </g>
-        ))}
-      </svg>
-      {curvePaths.map((path, index) => (
-        <Beacon
-          key={`beacon:${index}`}
-          className={'beacon'}
-          style={{
-            offsetPath: `path('${path}')`
-          }}
-        />
-      ))}
-    </>
+          ))}
+        </div>
+      </div>
+    </Portal>
   );
 };
 

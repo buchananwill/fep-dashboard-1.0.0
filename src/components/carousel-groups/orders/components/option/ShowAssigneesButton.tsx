@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import OrderItemAssigneeList from '@/components/carousel-groups/orders/components/option/OrderItemAssigneeList';
 import { useRotationOverlayPositioning } from '@/components/carousel-groups/orders/components/option/useRotationOverlayPositioning';
 import { FallbackColors } from '@/components/carousel-groups/orders/components/option/CarouselOption';
+import { useResizeObserver } from '@mantine/hooks';
 
 export const zIndexPopoverOverride = { zIndex: 50 };
 
@@ -25,6 +26,9 @@ function ShowAssigneesButtonInner(props: {
     props.isAntiPrimed ?? false,
     props.carouselOptionDto
   );
+  const [ref, rect] = useResizeObserver();
+
+  console.log(rect);
 
   return (
     <Popover zIndex={100}>
@@ -41,10 +45,14 @@ function ShowAssigneesButtonInner(props: {
               className={clsx(
                 props.badgeColor,
                 props.textFade,
-                'rounded-xl px-2 py-1'
+                'relative rounded-xl px-2 py-1'
               )}
-              ref={assignChipRef}
             >
+              <div
+                ref={assignChipRef}
+                className={'absolute left-1/2 top-1/2'}
+              ></div>
+              <div ref={ref} className={'absolute'}></div>
               {props.carouselOptionDto.carouselOrderAssignees.length}
             </div>
           }

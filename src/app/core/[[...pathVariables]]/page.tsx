@@ -1,7 +1,6 @@
 import { navTreeData } from '@/app/core/navigation/data/navTreeData';
 import { ResolveNavTree } from '@/app/core/navigation/data/ResolveNavTree';
 import { auth } from '@/auth';
-import { headers } from 'next/headers';
 import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
 import { redirect } from 'next/navigation';
 

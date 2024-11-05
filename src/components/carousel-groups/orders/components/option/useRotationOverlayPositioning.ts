@@ -7,6 +7,7 @@ import {
 } from '@/components/carousel-groups/orders/components/RotationConnectionOverlay';
 import { Coordinate } from '@/components/react-flow/generic/types';
 import { HasId } from '@/api/types';
+import { useResizeObserver, useViewportSize } from '@mantine/hooks';
 
 export function useRotationOverlayPositioning(
   isPrimed: boolean,
@@ -15,6 +16,8 @@ export function useRotationOverlayPositioning(
 ) {
   // Chip location calculation condition: primed or anti-primed
   const assignChipRef = useRef<HTMLDivElement | null>(null);
+  useViewportSize();
+  // assignChipRef.current = ref.current;
   const { dispatchWithoutListen: dispatchConnectionMap } = useGlobalDispatch<
     Map<number, ConnectionVector>
   >(RotationConnectionMap);
@@ -22,15 +25,22 @@ export function useRotationOverlayPositioning(
 
   const elementRef = assignChipRef.current;
 
-  const localNode: (Coordinate & HasId) | undefined = useMemo(() => {
-    if (!elementRef) return undefined;
-    const { top, left, width, height } = elementRef.getBoundingClientRect();
-    return {
-      x: left + width / 2,
-      y: top + height / 2,
-      id: entity.id
-    };
-  }, [elementRef, entity]);
+  // const localNode: (Coordinate & HasId) | undefined = useMemo(() => {
+  //   if (!elementRef) return undefined;
+  //   const { top, left, width, height } = elementRef.getBoundingClientRect();
+  //   return {
+  //     x: left + width / 2,
+  //     y: top + height / 2,
+  //     id: entity.id
+  //   };
+  // }, [elementRef, entity]);
+  const boundingClientRect = elementRef?.getBoundingClientRect();
+
+  const localNode = {
+    x: (boundingClientRect?.left ?? 0) + (boundingClientRect?.width ?? 0) / 2,
+    y: (boundingClientRect?.top ?? 0) + (boundingClientRect?.height ?? 0) / 2,
+    id: entity.id
+  };
 
   /*
    *  Use prime/anti-prime to signal connection location.
