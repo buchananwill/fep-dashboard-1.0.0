@@ -19,13 +19,13 @@ function UnsavedChangesToast({
   const interceptedProps = useMemo(() => {
     const { handleCommit } = props;
     let interceptedCommit = handleCommit;
-    // if (!session || !session.email) {
-    //   interceptedCommit = async () => {
-    //     alert(
-    //       'Only authenticated users may save edits. To revert changes and reload from the database, hit F5.'
-    //     );
-    //   };
-    // }
+    if (!session || !session.email) {
+      interceptedCommit = async () => {
+        alert(
+          'Only authenticated users may save edits. To revert changes and reload from the database, hit F5.'
+        );
+      };
+    }
     return { ...props, handleCommit: interceptedCommit };
   }, [props, session]);
 

@@ -13,7 +13,6 @@ export default async function Page() {
 
   return (
     <div className={'m-4 rounded-lg bg-white py-4 shadow-lg'}>
-      <PostButton rowCopies={mapToOptionCopies(autoCarouselOptions)} />
       <JsonTable jsonList={autoCarouselOptions} />
     </div>
   );
