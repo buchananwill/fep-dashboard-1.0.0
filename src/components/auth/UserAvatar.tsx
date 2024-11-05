@@ -19,7 +19,7 @@ export default async function UserAvatar({}: {}) {
     );
   } else
     return (
-      <div className={'flex flex-col justify-center gap-2'}>
+      <div className={'flex w-full flex-col justify-center gap-2'}>
         <form
           action={async () => {
             'use server';
@@ -28,22 +28,24 @@ export default async function UserAvatar({}: {}) {
             await signOut();
             redirect('/');
           }}
+          className={'flex w-full flex-col justify-center gap-2'}
         >
           <button
             type="submit"
             className={
-              'transition-colors-opacity flex flex-col items-center rounded-lg p-1 hover:bg-rose-100'
+              'transition-colors-opacity flex items-center justify-center gap-2 rounded-lg p-1 hover:bg-rose-100'
             }
           >
             Sign out:
             {session.user.image ? (
               <Image
                 src={session.user.image}
+                radius={'xl'}
                 alt="User Avatar"
-                className={'h-12 w-12 rounded-full'}
+                className={'h-6 w-6 rounded-full'}
               />
             ) : (
-              <div className={'flex flex-col'}>
+              <div className={'flex flex-col rounded-full'}>
                 <div>{`${session.user.name}`}</div>
                 {session.user.email && <div>{session.user.email}</div>}
               </div>

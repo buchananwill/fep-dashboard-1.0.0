@@ -36,7 +36,15 @@ function UnsavedChangesToast({
       }
     >
       <Popover>
-        <Indicator label={'!'} color={'red'} disabled={!props.unsavedFlag}>
+        <Indicator
+          label={'!'}
+          color={'red'}
+          disabled={!props.unsavedFlag}
+          offset={10}
+          size={18}
+          withBorder
+          styles={{ root: { fontWeight: 500 } }}
+        >
           <Popover.Target>
             <Button
               variant={'light'}
@@ -50,7 +58,12 @@ function UnsavedChangesToast({
               }}
             >
               {session?.image ? (
-                <Image src={session.image} alt="User Avatar" radius={'xl'} />
+                <Image
+                  src={session.image}
+                  alt="User Avatar"
+                  radius={'xl'}
+                  className={'h-12 w-12'}
+                />
               ) : (
                 <UserCircleIcon
                   className={clsx(session && 'h-12 w-12 text-emerald-500')}
@@ -74,7 +87,7 @@ function UnsavedChangesContent({
 }: UnsavedChangesProps & OtherUnsavedChangesProps) {
   const [isPending, startTransition] = useTransition();
   return (
-    <>
+    <div className={'flex flex-col justify-center gap-2'}>
       {children}
       {unsavedFlag && (
         <Button
@@ -92,7 +105,7 @@ function UnsavedChangesContent({
           ></ExclamationTriangleIcon>
         </Button>
       )}
-    </>
+    </div>
   );
 }
 
