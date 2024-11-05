@@ -9,7 +9,7 @@ export function TwoStageClick({
   onClick,
   timeOutDelayMs = 2000,
   standardAppearance = 'subtle',
-  primedAppearance = 'red',
+  primedColor = 'danger',
   primedMessage = 'Confirm delete?',
   className,
   size,
@@ -17,7 +17,7 @@ export function TwoStageClick({
 }: {
   timeOutDelayMs?: number;
   standardAppearance?: ButtonProps['variant'];
-  primedAppearance?: ButtonProps['color'];
+  primedColor?: ButtonProps['color'];
   primedMessage?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 } & Pick<ButtonProps, 'children' | 'className' | 'size' | 'disabled'>) {
@@ -52,9 +52,8 @@ export function TwoStageClick({
           'relative z-10 transition-colors duration-500',
           className
         )}
-        color={clickPrimed ? primedAppearance : 'default'}
+        color={clickPrimed ? primedColor : 'default'}
         variant={standardAppearance}
-        size={size ?? 'sm'}
         onClick={guardClick}
         {...props}
       >
@@ -66,7 +65,7 @@ export function TwoStageClick({
           style={floatingStyles}
           className={'z-10 h-fit w-fit rounded-full bg-white bg-opacity-100'}
         >
-          <Badge color={primedAppearance} className={''}>
+          <Badge color={primedColor} className={''}>
             {primedMessage}
           </Badge>
         </div>

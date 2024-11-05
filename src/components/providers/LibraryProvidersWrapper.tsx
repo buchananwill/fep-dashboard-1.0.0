@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
 import { MantineProvider } from '@mantine/core';
-import { MantineTheme } from '@/components/mantine/theme';
+import { defaultTheme } from '@/components/mantine/theme';
 
 export function LibraryProvidersWrapper({
   children
@@ -15,15 +15,17 @@ export function LibraryProvidersWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <SelectiveContextManagerGlobal>
-        <DndProvider options={HTML5toTouch}>
-          <AnimationSyncContextProvider>
-            <MantineProvider theme={MantineTheme}>{children}</MantineProvider>
-          </AnimationSyncContextProvider>
-        </DndProvider>
-      </SelectiveContextManagerGlobal>
-    </QueryClientProvider>
+    <MantineProvider theme={defaultTheme}>
+      <QueryClientProvider client={queryClient}>
+        <SelectiveContextManagerGlobal>
+          <DndProvider options={HTML5toTouch}>
+            <AnimationSyncContextProvider>
+              {children}
+            </AnimationSyncContextProvider>
+          </DndProvider>
+        </SelectiveContextManagerGlobal>
+      </QueryClientProvider>
+    </MantineProvider>
   );
 }
 

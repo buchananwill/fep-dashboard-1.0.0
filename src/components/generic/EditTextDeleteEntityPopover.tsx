@@ -6,7 +6,7 @@ import { BaseDtoUiProps } from 'dto-stores';
 import { isNotUndefined } from '@/api/main';
 import { HasId } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';
-import { get } from 'lodash';
+import { get, startCase } from 'lodash';
 
 import { Validator } from '@/types';
 import { Button, ButtonProps, Popover } from '@mantine/core';
@@ -43,14 +43,12 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
     [dispatchWithoutControl, stringPath]
   );
 
-  const [showPopover, setShowPopover] = useState(false);
-
   return (
     <>
       <Popover zIndex={100} withArrow trapFocus>
         <Popover.Target>
           <Button classNames={classNames} styles={styles}>
-            <span className={' ... truncate'}>{get(entity, stringPath)}</span>
+            {get(entity, stringPath)}
             <PendingOverlay pending={opened} />
           </Button>
         </Popover.Target>
@@ -65,7 +63,6 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
               <PencilSquareIcon className={'h-full p-0.5'} />
             </Button>
             <TwoStageClick
-              className={'w-8'}
               onClick={() => {
                 if (isNotUndefined(dispatchDeletion))
                   dispatchDeletion((list) => [...list, entity.id]);
@@ -80,6 +77,7 @@ export function EditTextDeleteEntityPopover<T extends HasId>({
         value={get(entity, stringPath)}
         onClose={close}
         opened={opened}
+        confirmLabel={`Confirm ${startCase(stringPath)}`}
         onChange={confirmTextEdit}
         entityClass={entityClass}
         entityId={entity.id}

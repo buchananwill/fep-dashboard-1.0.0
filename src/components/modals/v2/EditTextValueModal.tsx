@@ -12,11 +12,12 @@ export default function EditTextValueModal({
   onChange,
   opened,
   onClose,
-  validateInput
+  validateInput,
+  confirmLabel
 }: IdInnerCellProps<string> &
   Pick<ModalProps, 'onClose' | 'opened'> & {
     validateInput?: Validator<string>;
-  }) {
+  } & { confirmLabel?: string }) {
   const [currentValue, setCurrentValue] = useState(value);
 
   const textInput = useRef<HTMLInputElement | null>(null);
@@ -60,7 +61,7 @@ export default function EditTextValueModal({
             }}
             disabled={!!errorMessage}
           >
-            Confirm
+            {confirmLabel ?? 'Confirm'}
           </Button>
         </div>
       </>

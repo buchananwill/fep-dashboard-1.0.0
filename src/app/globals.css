@@ -1,8 +1,9 @@
-@import '@mantine/dates/styles.css';
-@import '@mantine/core/styles.css';
-@import '@mantine/notifications/styles.css';
-@import '@mantine/spotlight/styles.css';
 @import '@xyflow/react/dist/style.css';
+/*@import '@mantine/dates/styles.css';*/
+/*@import '@mantine/notifications/styles.css';*/
+/*@import '@mantine/spotlight/styles.css';*/
+/*@import '@mantine/core/styles.css';*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

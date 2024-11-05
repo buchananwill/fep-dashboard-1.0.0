@@ -88,29 +88,23 @@ export default function CycleDayViewer({
         root: 'w-fit'
       }}
     >
-      <Card.Section>
-        <div
-          className={
-            'flex w-full items-center justify-center gap-2 p-2 text-center'
+      <div className={'flex justify-around gap-2 align-middle'}>
+        <span className={'inline-block place-content-center text-nowrap'}>
+          {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
+        </span>
+        <Button
+          onClick={() =>
+            startTransition(async () => {
+              masterListCallback();
+            })
           }
+          loading={pending}
         >
-          <span className={'inline-block'}>
-            {cycleDay.day}: {numberToWeekLetter(getWeekNumberInt(cycleDay))}
-          </span>
-          <Button
-            size={'sm'}
-            className={'relative inline-block'}
-            onClick={() =>
-              startTransition(async () => {
-                masterListCallback();
-              })
-            }
-          >
-            Add Period
-            <PendingOverlay pending={pending} />
-          </Button>
-        </div>
-      </Card.Section>
+          Add Period
+          {/*<PendingOverlay pending={pending} />*/}
+        </Button>
+      </div>
+
       <ScrollArea classNames={{ root: 'border-1 rounded-lg p-0.5' }}>
         {cycleSubspanIdList.length > 0 && (
           <DtoUiListSome

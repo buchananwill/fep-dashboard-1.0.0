@@ -1,4 +1,4 @@
-import { MantineThemeOverride } from '@mantine/core';
+import { createTheme, MantineThemeOverride, rem } from '@mantine/core';
 
 const blueColors = [
   '#e7f5ff',
@@ -12,6 +12,7 @@ const blueColors = [
   '#1971c2',
   '#1864ab'
 ] as const;
+
 const redColors = [
   '#fff5f5',
   '#ffe3e3',
@@ -24,10 +25,32 @@ const redColors = [
   '#e03131',
   '#c92a2a'
 ] as const;
-export const MantineTheme: MantineThemeOverride = {
+
+const grayColors = [
+  '#f8f9fa',
+  '#f1f3f5',
+  '#e9ecef',
+  '#dee2e6',
+  '#ced4da',
+  '#adb5bd',
+  '#868e96',
+  '#495057',
+  '#343a40',
+  '#212529'
+] as const;
+
+const MantineTheme: MantineThemeOverride = {
   colors: {
     primary: blueColors,
-    danger: redColors
+    danger: redColors,
+    default: grayColors
+  },
+  lineHeights: {
+    xxs: rem('16px'),
+    xs: rem('20px'),
+    sm: rem('24px'),
+    md: rem('28px'),
+    lg: rem('32px')
   },
   defaultRadius: 'lg',
   components: {
@@ -36,6 +59,11 @@ export const MantineTheme: MantineThemeOverride = {
     },
     Popover: {
       defaultProps: { shadow: 'md' }
+    },
+    Button: {
+      defaultProps: { radius: 'md' }
     }
   }
 };
+
+export const defaultTheme = createTheme(MantineTheme);

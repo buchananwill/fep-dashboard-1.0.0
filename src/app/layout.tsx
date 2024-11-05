@@ -11,6 +11,10 @@ import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
 import { ColorSchemeScript, ScrollArea } from '@mantine/core';
 import MainScrollPort from '@/components/generic/MainScrollPort';
+import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
+import '@mantine/spotlight/styles.css';
+import '@mantine/core/styles.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,7 +39,9 @@ export default async function RootLayout({
         <title>FEP Dashboard</title>
         <ColorSchemeScript />
       </head>
-      <body className={inter.className}>
+      <body
+      // className={inter.className}
+      >
         <LibraryProvidersWrapper>
           <MasterChangesTrackWrapper session={avatarProps}>
             <UserAvatar />
