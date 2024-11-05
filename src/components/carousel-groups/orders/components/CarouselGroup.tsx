@@ -131,7 +131,7 @@ export default function CarouselGroup(params: DtoStoreParams) {
           <LazyDtoUiListAll
             renderAs={MemoOrderManager}
             entityClass={EntityClassMap.carouselOrder}
-            whileLoading={() => <Loader />}
+            whileLoading={() => null}
           />
         </div>
       </div>
