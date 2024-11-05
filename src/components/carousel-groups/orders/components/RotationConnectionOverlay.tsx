@@ -79,16 +79,6 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
   return (
     <Portal>
       <div className={'pointer-events-none fixed left-0 top-0 z-50'}>
-        <div className={'absolute flex flex-col'}>
-          <span>
-            {width}:{height}; {mainScroll.x}: {mainScroll.y}
-          </span>
-          <ol>
-            {connections.map((con, index) => (
-              <li key={index}>{JSON.stringify(con)}</li>
-            ))}
-          </ol>
-        </div>
         <svg width={width} height={height} className={'z-50'}>
           <g style={translationStyle}>{...svgPaths}</g>
         </svg>
