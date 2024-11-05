@@ -50,9 +50,31 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
       .filter(isNotNull);
   }, [connections]);
 
+  const beacons = useMemo(() => {
+    return curvePaths.map((path, index) => (
+      <Beacon
+        key={`beacon:${index}`}
+        className={'beacon'}
+        style={{
+          offsetPath: `path('${path}')`
+        }}
+      />
+    ));
+  }, [curvePaths]);
+
   const translationStyle = {
     transform: `translate(${mainScroll.x}px, ${-mainScroll.y}px)`
   };
+  const svgPaths = useMemo(() => {
+    return curvePaths.map((conn, index) => (
+      <g key={index}>
+        <path
+          d={conn}
+          className={'carousel-order-pills animate-pills fill-transparent '}
+        />
+      </g>
+    ));
+  }, [curvePaths]);
 
   return (
     <Portal>
@@ -68,30 +90,13 @@ const CurveOverlay = ({ connections }: { connections: ConnectionVector[] }) => {
           </ol>
         </div>
         <svg width={width} height={height} className={'z-50'}>
-          {curvePaths.map((conn, index) => (
-            <g key={index} style={translationStyle}>
-              <path
-                d={conn}
-                className={
-                  'carousel-order-pills animate-pills fill-transparent '
-                }
-              />
-            </g>
-          ))}
+          <g style={translationStyle}>{...svgPaths}</g>
         </svg>
         <div
           className={'fixed left-0 top-0'}
           style={{ height, width, ...translationStyle }}
         >
-          {curvePaths.map((path, index) => (
-            <Beacon
-              key={`beacon:${index}`}
-              className={'beacon'}
-              style={{
-                offsetPath: `path('${path}')`
-              }}
-            />
-          ))}
+          {...beacons}
         </div>
       </div>
     </Portal>
