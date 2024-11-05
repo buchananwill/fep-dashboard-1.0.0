@@ -6,7 +6,7 @@ import { PropsWithChildren } from 'react';
 
 export default function NavPopover({ children }: PropsWithChildren) {
   return (
-    <Popover>
+    <Popover trapFocus>
       <Popover.Target>
         <Button
           variant={'subtle'}
