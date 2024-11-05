@@ -133,7 +133,7 @@ export default function WorkSchemaNodeDetailsContent({
               {(currentState.workProjectSeriesSchemaId ||
                 currentState.carouselOptionId) && (
                 <div
-                  className={'m-1 flex flex-col rounded-lg p-2 shadow-small'}
+                  className={'shadow-small m-1 flex flex-col rounded-lg p-2'}
                 >
                   Leaf Content:
                   {currentState.workProjectSeriesSchemaId && (
@@ -167,7 +167,7 @@ export default function WorkSchemaNodeDetailsContent({
       </div>
       <div className={'p-2'}>
         <Button color="danger" variant="light" onClick={onClose}>
-          Close
+          Cancel
         </Button>
         <Button
           color="primary"
@@ -176,7 +176,7 @@ export default function WorkSchemaNodeDetailsContent({
             onCloseDefined();
           }}
         >
-          Confirm Changes
+          Update graph
         </Button>
       </div>
     </>

@@ -78,7 +78,7 @@ function InnerContent({
           Cancel
         </Button>
         <Button color="blue" onClick={handleConfirm}>
-          Confirm
+          Create
         </Button>
       </div>
     </>
