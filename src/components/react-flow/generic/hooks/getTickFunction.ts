@@ -13,7 +13,6 @@ export function getTickFunction(
   nodeListRef: MutableRefObject<DataNode<HasNumberId>[]>,
   draggingNode: MutableRefObject<FlowNode<any>> | undefined,
   setNodes: ReturnType<typeof useReactFlow>['setNodes'],
-  selectionRef: MutableRefObject<Set<string>>,
   applyFitView: boolean | undefined,
   fitView: ReturnType<typeof useReactFlow>['fitView']
 ) {

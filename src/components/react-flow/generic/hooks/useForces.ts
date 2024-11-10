@@ -54,25 +54,7 @@ export function useForces(
   const isRunning = useCallback(() => {
     return runningRef.current;
   }, []);
-  const initialised = useNodesInitialized(); // useStore((store) => [...store.nodeLookup.values()].every((node) => node.width && node.height));
-  // const { currentState: selectionRef } = useGlobalListener({
-  //   contextKey: 'selectedNodeIdSet',
-  //   initialValue: InitialSetRef as MutableRefObject<Set<string>>,
-  //   listenerKey
-  // });
-
-  const selectionRef = useRef(new Set<string>());
-
-  const onSelectionChange = useCallback(
-    (params: { nodes: Node[]; edges: Edge[] }) => {
-      selectionRef.current = new Set<string>(
-        ...params.nodes.map((node) => node.id)
-      );
-    },
-    []
-  );
-
-  useOnSelectionChange({ onChange: onSelectionChange });
+  const initialised = useNodesInitialized();
 
   const { currentState } = useGlobalListener({
     contextKey: hierarchicalLayoutMap,
@@ -141,7 +123,6 @@ export function useForces(
       nodeListRef,
       draggingNode,
       setNodes,
-      selectionRef,
       applyFitView,
       fitView
     );
@@ -154,7 +135,6 @@ export function useForces(
     isRunning,
     draggingNode,
     setNodes,
-    selectionRef,
     applyFitView,
     fitView
   ]);
