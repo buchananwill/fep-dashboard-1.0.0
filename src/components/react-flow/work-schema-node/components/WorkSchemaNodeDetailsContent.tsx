@@ -81,7 +81,7 @@ export default function WorkSchemaNodeDetailsContent({
   );
 
   useEffect(() => {
-    if (data) dispatch(data);
+    if (data) dispatch(data); // TODO This imperative forcing of the master list content WITHIN A MODAL is a bad design.
     return () => {
       dispatch(EmptyArray); // THIS LINE IS CRITICAL TO UNMOUNT THE WORK PROJECT SCHEMAS LIST WHEN THE MODAL CLOSES. OTHERWISE, SELECTIVE CONTEXT THROWS A DOUBLE-LISTENER KEY ERROR FROM A CLASH WITH THE OLD STALE LIST.
     };
