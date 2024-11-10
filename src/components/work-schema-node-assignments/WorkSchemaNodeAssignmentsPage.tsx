@@ -66,7 +66,7 @@ async function WorkSchemaNodeAssignmentsPage({
         dataNodes={dataNodes}
         dataLinks={dataLinks}
         graphName={'work-schema-node-assignments-graph'}
-        options={defaultForceGraphPageOptions}
+        options={WorkSchemaNodeAssignmentsForceGraphDefaults}
       >
         <ReactFlowWrapper>
           <ClassHierarchyLayoutFlowWithForces
@@ -86,3 +86,11 @@ export const WorkSchemaNodeAssignmentsHome = getPathVariableSplitComponent(
   KnowledgeLevelSeriesLinks,
   AssignmentLevelLinks
 );
+
+const WorkSchemaNodeAssignmentsForceGraphDefaults = {
+  ...defaultForceGraphPageOptions,
+  forces: {
+    ...defaultForceGraphPageOptions.forces,
+    forceX: false
+  }
+};
