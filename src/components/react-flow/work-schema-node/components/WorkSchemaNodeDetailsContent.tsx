@@ -33,6 +33,7 @@ import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/func
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { EmptyArray } from '@/api/literals';
 
 export default function WorkSchemaNodeDetailsContent({
   onClose
@@ -81,6 +82,9 @@ export default function WorkSchemaNodeDetailsContent({
 
   useEffect(() => {
     if (data) dispatch(data);
+    return () => {
+      dispatch(EmptyArray); // THIS LINE IS CRITICAL TO UNMOUNT THE WORK PROJECT SCHEMAS LIST WHEN THE MODAL CLOSES. OTHERWISE, SELECTIVE CONTEXT THROWS A DOUBLE-LISTENER KEY ERROR FROM A CLASH WITH THE OLD STALE LIST.
+    };
   }, [data, dispatch]);
 
   return (

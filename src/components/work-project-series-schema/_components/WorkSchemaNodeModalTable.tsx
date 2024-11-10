@@ -45,6 +45,7 @@ export default function WorkSchemaNodeModalTable({
   return (
     <div className={'flex flex-col gap-1 p-1'}>
       <EntityTable
+        key={`select-table-${workSchemaNode.id}`}
         cellModel={WpssCellModelReadOnly}
         entityClass={EntityClassMap.workProjectSeriesSchema}
         columns={WorkProjectSeriesSchemaColumns}
