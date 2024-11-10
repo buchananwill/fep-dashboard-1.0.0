@@ -38,9 +38,7 @@ export function getTickFunction(
         // Copy the current position from the ref
         node.fx = draggingNode?.current?.position?.x;
         node.fy = draggingNode?.current?.position?.y;
-        // node.selected = !!node.selectable; // todo: try this if the selection set doesn't work
       } else if (node) {
-        // node.selected = false; // todo: see line 41 ^^^
         delete node.fx;
         delete node.fy;
       }
