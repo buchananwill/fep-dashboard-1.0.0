@@ -4,7 +4,8 @@ import React, {
   PropsWithChildren,
   useCallback,
   useEffect,
-  useMemo
+  useMemo,
+  useRef
 } from 'react';
 import { Background, BackgroundVariant, Panel, ReactFlow } from '@xyflow/react';
 import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
@@ -16,6 +17,7 @@ import {
   GraphSelectiveContextKeys,
   MemoizedFunction,
   useGraphDispatch,
+  useGraphListener,
   useModalContent,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
@@ -66,6 +68,8 @@ import { isNotUndefined } from '@/api/main';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
+import { useGlobalListener } from 'selective-context';
+import { listenerKey } from '@/components/roles/create-role/CreateRoleForm';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -179,9 +183,19 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       source: DataNode<WorkSchemaNodeDto> | undefined,
       target: DataNode<WorkSchemaNodeDto> | undefined
     ) => {
+      if (
+        edgesFromContext.some(
+          (edge) =>
+            edge.target === target?.id ||
+            (edge.target as DataNode<any>).id === target?.id
+        )
+      ) {
+        console.log('Target node already connected');
+        return false;
+      }
       return validateHierarchy(source?.data, target?.data, readAnyCarousel);
     },
-    [readAnyCarousel]
+    [readAnyCarousel, edgesFromContext]
   );
 
   const interceptedOnConnect = useValidateAndUpdateDepth(
@@ -241,6 +255,30 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     MemoizedFunction<WorkSchemaNodeDto, void>
   >(GraphSelectiveContextKeys.editNodeData);
   useInterceptNodeDataUpdate(dispatchWithoutListen, checkToggleFirstAndAfter);
+
+  const nodesRef = useRef(nodesFromContext);
+
+  useEffect(() => {
+    const typesChanged = new Set<number>();
+    for (let i = 0; i < nodesRef.current.length; i++) {
+      if (
+        (nodesRef.current[i] as FlowNode<WorkSchemaNodeDto>).type !==
+        nodesFromContext[i].data.resolutionMode
+      ) {
+        typesChanged.add(i);
+      }
+    }
+    if (typesChanged.size > 0) {
+      dispatchNodes((nodes) =>
+        nodes.map((node, index) =>
+          typesChanged.has(index)
+            ? { ...node, type: node.data.resolutionMode }
+            : node
+        )
+      );
+    }
+    nodesRef.current = nodesFromContext;
+  }, [nodesFromContext, dispatchNodes]);
 
   const mergedReactFlowProps = useMemo(() => {
     return { onConnect: interceptedOnConnect, ...otherProps };

@@ -66,11 +66,19 @@ export function validateHierarchy(
   child: WorkSchemaNodeDto | undefined,
   getCarousel: ReadAnyDto<CarouselDto>
 ): boolean {
-  if (!parent || !child) return false;
+  if (!parent || !child) {
+    console.warn('Connection failed: parent or child was undefined.');
+    return false;
+  }
   const childResolutionMode = child.resolutionMode;
   const typeValidation =
     determinePermittedChildTypes(parent).includes(childResolutionMode);
-  if (!typeValidation) return false;
+  if (!typeValidation) {
+    console.log(
+      `Parent of ${parent.resolutionMode} not permitted to have child of ${childResolutionMode}`
+    );
+    return false;
+  }
 
   // Explicit CarouselGroup and Carousel entities are only allowed to attach to their own explicit children.
   const carouselGroupId = parent.carouselGroupId;
@@ -78,9 +86,10 @@ export function validateHierarchy(
     const carousel = child.carouselId
       ? getCarousel(child.carouselId)
       : undefined;
-    return (
-      carousel !== undefined && carousel.carouselGroupId === carouselGroupId
-    );
+    const carouselMatch =
+      carousel !== undefined && carousel.carouselGroupId === carouselGroupId;
+    console.log(`Carousel match allowed: ${carouselMatch}`);
+    return carouselMatch;
   }
 
   const carousel = parent.carouselId
@@ -88,10 +97,14 @@ export function validateHierarchy(
     : undefined;
   if (carousel !== undefined) {
     const carouselOption = child.carouselOptionId;
-    return (
+    const carouselOptionMatch =
       carouselOption !== undefined &&
-      carousel.carouselOptionDtos.some((option) => option.id === carouselOption)
-    );
+      carousel.carouselOptionDtos.some(
+        (option) => option.id === carouselOption
+      );
+    console.log(`Carousel option match allowed: ${carouselOptionMatch}`);
+
+    return carouselOptionMatch;
   }
 
   return true;

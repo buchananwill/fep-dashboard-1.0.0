@@ -10,7 +10,7 @@ export function useValidateAndUpdateDepth<T extends HasNumberId>(
   onConnect: ({ source, target }: Connection) => void,
   dispatchNodes: DispatchState<DataNode<T>[]>,
   idToChildIdMap: Map<string, Set<string>>,
-  validateWorkSchemaNodeHierarchy: (
+  validateNodeHierarchy: (
     source: DataNode<T> | undefined,
     target: DataNode<T> | undefined
   ) => boolean = () => true
@@ -23,8 +23,8 @@ export function useValidateAndUpdateDepth<T extends HasNumberId>(
         const nodeSource = idToNodeMap.get(source);
         const nodeTarget = idToNodeMap.get(target);
         const validation =
-          nodeTarget?.distanceFromRoot === 0 &&
-          validateWorkSchemaNodeHierarchy(nodeSource, nodeTarget);
+          // nodeTarget?.distanceFromRoot === 0 &&
+          validateNodeHierarchy(nodeSource, nodeTarget);
         if (validation && nodeSource && nodeTarget) {
           onConnect(connection);
           dispatchNodes((prevNodes) =>
@@ -45,7 +45,7 @@ export function useValidateAndUpdateDepth<T extends HasNumberId>(
       dispatchNodes,
       idToChildIdMap,
       checkToggleFirstAndAfter,
-      validateWorkSchemaNodeHierarchy
+      validateNodeHierarchy
     ]
   );
 }

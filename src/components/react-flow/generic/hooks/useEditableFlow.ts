@@ -26,9 +26,6 @@ export interface ServerAction<T, U> {
   (request: T): Promise<U>;
 }
 
-const onChangeHandler = ({ nodes, edges }: { nodes: any[]; edges: any[] }) =>
-  console.log({ nodes, edges });
-
 export function useEditableFlow<T extends NodeDataType>(
   cloneFunction: MemoizedFunction<FlowNode<T>, FlowNode<T>>,
   templateNode: FlowNode<T>,
@@ -57,8 +54,6 @@ export function useEditableFlow<T extends NodeDataType>(
   const { dispatchWithoutListen: dispatchUnsavedGraph } = useGraphDispatch(
     GraphSelectiveContextKeys.unsavedNodeData
   );
-
-  useOnSelectionChange({ onChange: onChangeHandler });
 
   const updateGraphAndSyncUi = useCallback(
     async (request: GraphDtoPutRequestBody<T>) => {
