@@ -21,6 +21,7 @@ import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/Knowled
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { getWorkSchemaNodeRollUps } from '@/api/actions-custom/workSchemaNodeRollUpsAction';
+import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
 
 export const workSchemaNodeRollUp = `${EntityClassMap.workSchemaNode}RollUp`;
 
@@ -68,7 +69,7 @@ async function WorkSchemaNodeAssignmentsPage({
         graphName={'work-schema-node-assignments-graph'}
         options={WorkSchemaNodeAssignmentsForceGraphDefaults}
       >
-        <ReactFlowWrapper>
+        <ReactFlowWrapper edgeAnimationContext={EdgeAnimation}>
           <ClassHierarchyLayoutFlowWithForces
             typeData={orgType}
           ></ClassHierarchyLayoutFlowWithForces>
@@ -93,4 +94,8 @@ const WorkSchemaNodeAssignmentsForceGraphDefaults = {
     ...defaultForceGraphPageOptions.forces,
     forceX: false
   }
+};
+
+const EdgeAnimation: EdgeAnimationContextType = {
+  direction: 'to-target'
 };

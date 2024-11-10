@@ -10,6 +10,7 @@ import { ReactFlowWrapper } from '@/components/react-flow/generic/components/wra
 import { WorkSchemaNodeLayoutFlowWithForces } from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeLayoutFlowWithForces';
 import React from 'react';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
+import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
 
 export default function WorkSchemaNodeGraph({
   forceGraphPageProps,
@@ -34,9 +35,13 @@ export default function WorkSchemaNodeGraph({
         getServerAction={Api.CarouselGroup.getDtoListByBodyList}
         entityClass={EntityClassMap.carouselGroup}
       />
-      <ReactFlowWrapper>
+      <ReactFlowWrapper edgeAnimationContext={EdgeAnimation}>
         <WorkSchemaNodeLayoutFlowWithForces></WorkSchemaNodeLayoutFlowWithForces>
       </ReactFlowWrapper>
     </ForceGraphPage>
   );
 }
+
+const EdgeAnimation: EdgeAnimationContextType = {
+  direction: 'to-source'
+};

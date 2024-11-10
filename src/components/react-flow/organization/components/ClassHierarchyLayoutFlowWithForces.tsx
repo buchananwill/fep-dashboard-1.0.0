@@ -41,6 +41,7 @@ import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hoo
 import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
 import { AllocationTotal } from '@/components/react-flow/organization/types';
+import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
 
 type OrganizationDto = Simplify<OrgDto>;
 

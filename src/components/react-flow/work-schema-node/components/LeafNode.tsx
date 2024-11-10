@@ -1,7 +1,5 @@
 import clsx from 'clsx';
-import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/components/BaseWorkSchemaNode';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
@@ -36,7 +34,7 @@ export default function LeafNode(
       }}
       {...props}
       className={clsx(
-        'relative flex flex-col gap-1 rounded-md border-black bg-white p-2 transition-colors-opacity',
+        'transition-colors-opacity relative flex flex-col gap-1 rounded-md border-black bg-white p-2',
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}

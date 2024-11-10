@@ -13,7 +13,7 @@ const CarouselGroupMemo = memo(CarouselGroupNode);
 
 export const workSchemaNodeTypesUi = {
   OPEN: OpenMemo,
-  LEAF: LeafMemo,
+  LEAF: LeafNode,
   CAROUSEL: CarouselMemo,
   SERIAL: OpenMemo,
   CAROUSEL_OPTION: CarouselOptionMemo,

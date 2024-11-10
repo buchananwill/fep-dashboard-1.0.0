@@ -65,6 +65,7 @@ import { DispatchState } from '@/types';
 import { isNotUndefined } from '@/api/main';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
+import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 

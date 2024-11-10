@@ -223,6 +223,19 @@ canvas {
         stroke-linecap: round;
     }
 
+    .to-target {
+        stroke-dasharray: 10, 10;
+        stroke-width: 2;
+        animation-name: dash-trace;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+    .to-source {
+        animation-direction: reverse;
+        @apply to-target;
+    }
+
     .center-vertical-with-margin {
         @apply mt-auto mb-auto
     }

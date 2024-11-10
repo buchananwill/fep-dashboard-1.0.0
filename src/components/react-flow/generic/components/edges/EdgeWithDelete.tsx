@@ -1,4 +1,9 @@
-import { BaseEdge, EdgeLabelRenderer, EdgeProps } from '@xyflow/react';
+import {
+  BaseEdge,
+  BaseEdgeProps,
+  EdgeLabelRenderer,
+  EdgeProps
+} from '@xyflow/react';
 
 import { TrashIcon } from '@heroicons/react/16/solid';
 import {
@@ -12,8 +17,13 @@ export function EdgeWithDelete({
   id,
   path,
   labelX,
-  labelY
-}: EdgeProps & { path: string; labelX: number; labelY: number }) {
+  labelY,
+  ...edgeProps
+}: EdgeProps & {
+  path: string;
+  labelX: number;
+  labelY: number;
+} & BaseEdgeProps) {
   const {
     currentState: { memoizedFunction }
   } = useGraphListener(
@@ -24,7 +34,7 @@ export function EdgeWithDelete({
 
   return (
     <>
-      <BaseEdge id={id} path={path} />
+      <BaseEdge id={id} path={path} {...edgeProps} />
       <EdgeLabelRenderer>
         <button
           style={{
@@ -32,7 +42,7 @@ export function EdgeWithDelete({
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
             pointerEvents: 'all'
           }}
-          className="nodrag nopan z-10 rounded-lg bg-zinc-300 text-default-600 opacity-0 transition-opacity duration-500 hover:opacity-100"
+          className="nodrag nopan text-default-600 z-10 rounded-lg bg-zinc-300 opacity-0 transition-opacity duration-500 hover:opacity-100"
           onClick={() => {
             memoizedFunction([id]);
           }}
