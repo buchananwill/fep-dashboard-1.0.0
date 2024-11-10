@@ -16,7 +16,7 @@ import {
 } from '@/components/react-flow/generic/types';
 import { useLayoutFlowWithForces } from '@/components/react-flow/generic/hooks/useLayoutFlowWithForces';
 import { useCallback, useMemo, useRef, useTransition } from 'react';
-import { useReactFlow } from '@xyflow/react';
+import { useOnSelectionChange, useReactFlow } from '@xyflow/react';
 import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic/utils/convertGraphDtoToReactFlowState';
 import { useGlobalDispatch } from 'selective-context';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
@@ -25,6 +25,9 @@ import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 export interface ServerAction<T, U> {
   (request: T): Promise<U>;
 }
+
+const onChangeHandler = ({ nodes, edges }: { nodes: any[]; edges: any[] }) =>
+  console.log({ nodes, edges });
 
 export function useEditableFlow<T extends NodeDataType>(
   cloneFunction: MemoizedFunction<FlowNode<T>, FlowNode<T>>,
@@ -54,6 +57,8 @@ export function useEditableFlow<T extends NodeDataType>(
   const { dispatchWithoutListen: dispatchUnsavedGraph } = useGraphDispatch(
     GraphSelectiveContextKeys.unsavedNodeData
   );
+
+  useOnSelectionChange({ onChange: onChangeHandler });
 
   const updateGraphAndSyncUi = useCallback(
     async (request: GraphDtoPutRequestBody<T>) => {

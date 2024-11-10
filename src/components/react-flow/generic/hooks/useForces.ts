@@ -1,6 +1,12 @@
-import { useNodesInitialized, useReactFlow } from '@xyflow/react';
+import {
+  Edge,
+  Node,
+  useNodesInitialized,
+  useOnSelectionChange,
+  useReactFlow
+} from '@xyflow/react';
 import { MutableRefObject, useCallback, useMemo, useRef } from 'react';
-import { forceX, forceY, Simulation } from 'd3';
+import { forceX, forceY } from 'd3';
 
 import { useGlobalController, useGlobalListener } from 'selective-context';
 
@@ -14,7 +20,6 @@ import {
 } from 'react-d3-force-wrapper';
 import { collide } from '@/components/react-flow/generic/utils/collide';
 import { InitialMap } from 'dto-stores';
-import { InitialSetRef } from '@/components/react-flow/literals';
 import { getHierarchyLayoutResolver } from '@/components/react-flow/generic/hooks/getTreeHierarchyLayoutResolver';
 import { hierarchicalLayoutMap } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 import { getTickFunction } from '@/components/react-flow/generic/hooks/getTickFunction';
@@ -50,11 +55,24 @@ export function useForces(
     return runningRef.current;
   }, []);
   const initialised = useNodesInitialized(); // useStore((store) => [...store.nodeLookup.values()].every((node) => node.width && node.height));
-  const { currentState: selectionRef } = useGlobalListener({
-    contextKey: 'selectedNodeIdSet',
-    initialValue: InitialSetRef as MutableRefObject<Set<string>>,
-    listenerKey
-  });
+  // const { currentState: selectionRef } = useGlobalListener({
+  //   contextKey: 'selectedNodeIdSet',
+  //   initialValue: InitialSetRef as MutableRefObject<Set<string>>,
+  //   listenerKey
+  // });
+
+  const selectionRef = useRef(new Set<string>());
+
+  const onSelectionChange = useCallback(
+    (params: { nodes: Node[]; edges: Edge[] }) => {
+      selectionRef.current = new Set<string>(
+        ...params.nodes.map((node) => node.id)
+      );
+    },
+    []
+  );
+
+  useOnSelectionChange({ onChange: onSelectionChange });
 
   const { currentState } = useGlobalListener({
     contextKey: hierarchicalLayoutMap,

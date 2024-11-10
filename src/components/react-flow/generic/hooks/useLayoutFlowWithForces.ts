@@ -72,11 +72,12 @@ export function useLayoutFlowWithForces<T extends NodeDataType>() {
     if (running || !running) {
       dispatchWithoutListen(draggingNodeRef);
     }
+    return () => dispatchWithoutListen(undefined);
   }, [running, draggingNodeRef, dispatchWithoutListen]);
 
   const onNodeDragStart = useCallback(
     (_event: ReactMouseEvent, node: Node) => {
-      draggingNodeRef.current = { ...node };
+      draggingNodeRef.current = { ...node, selected: !!node.selectable };
     },
     [draggingNodeRef]
   );

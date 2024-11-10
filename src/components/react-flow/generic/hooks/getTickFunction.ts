@@ -36,9 +36,11 @@ export function getTickFunction(
         foundDrag = true;
         nodeIndex = i;
         // Copy the current position from the ref
-        node.fx = draggingNode?.current.position.x;
-        node.fy = draggingNode?.current.position.y;
+        node.fx = draggingNode?.current?.position?.x;
+        node.fy = draggingNode?.current?.position?.y;
+        // node.selected = !!node.selectable; // todo: try this if the selection set doesn't work
       } else if (node) {
+        // node.selected = false; // todo: see line 41 ^^^
         delete node.fx;
         delete node.fy;
       }
@@ -46,19 +48,21 @@ export function getTickFunction(
 
     simulation.tick();
 
-    setNodes(
-      scopedNodes.map(
-        (node) =>
-          ({
-            ...node,
-            position: {
-              x: node.fx || node.x || 0,
-              y: node.fy || node.y || 0
-            },
-            selected: selectionRef.current.has(node.id)
-          }) as FlowNode<any>
-      )
-    );
+    setNodes((nodes) => {
+      return nodes.map((node, index) => {
+        const updatedNode = { ...node };
+        const scopedNode = scopedNodes[index];
+        if (scopedNode.id !== updatedNode.id)
+          throw new Error('Node arrays not in sync: unable to update');
+        const xPos = scopedNode.fx ?? scopedNode.x ?? 0;
+        const yPos = scopedNode.fy ?? scopedNode.y ?? 0;
+        updatedNode.position = {
+          x: isNaN(xPos) ? 0 : xPos,
+          y: isNaN(yPos) ? 0 : yPos
+        };
+        return updatedNode;
+      });
+    });
 
     window.requestAnimationFrame(async () => {
       // Give React and React Flow a chance to update and render the new node
