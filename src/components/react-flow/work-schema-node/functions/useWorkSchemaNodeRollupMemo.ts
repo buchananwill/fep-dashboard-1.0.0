@@ -13,9 +13,9 @@ export function useWorkSchemaNodeRollupMemo(
 ) {
   let allocationRollupEntities: AllocationRollup[];
   allocationRollupEntities = useMemo(() => {
-    const rootNodes = nodesFromContext.filter(
-      (node) => node.distanceFromRoot === 0
-    );
+    const rootNodes = nodesFromContext.filter((node) => {
+      return !idToChildIdMap.values().some((set) => set.has(node.id));
+    });
     const maps = rootNodes.map((rootNode) => {
       return resolveNodeAllocation(
         rootNode,
