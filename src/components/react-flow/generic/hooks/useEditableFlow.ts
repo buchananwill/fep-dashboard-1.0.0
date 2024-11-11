@@ -110,8 +110,6 @@ export function useEditableFlow<T extends NodeDataType>(
     flowOverlayProps,
     reactFlowProps,
     isPending,
-    contextData,
-    dispatchNodes,
-    dispatchEdges
+    contextData
   };
 }

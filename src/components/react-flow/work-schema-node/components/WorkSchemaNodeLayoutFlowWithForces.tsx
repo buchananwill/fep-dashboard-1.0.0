@@ -56,7 +56,7 @@ import { useIdToEdgeMapMemo } from '@/components/react-flow/generic/hooks/useIdT
 import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useWorkSchemaNodeRollupMemo } from '@/components/react-flow/work-schema-node/functions/useWorkSchemaNodeRollupMemo';
 import { LeftToRightEdge } from '@/components/react-flow/generic/components/edges/LeftToRightEdge';
-import { useValidateAndUpdateDepth } from '@/components/react-flow/generic/hooks/useValidateAndUpdateDepth';
+import { useValidateConnection } from '@/components/react-flow/generic/hooks/useValidateConnection';
 import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
 import { useHierarchicalTreeLayout } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 import { DispatchState } from '@/types';
@@ -101,21 +101,16 @@ export function WorkSchemaNodeLayoutFlowWithForces({
   children
 }: PropsWithChildren) {
   // 4. Call the hook to set up the layout with forces
-  const {
-    flowOverlayProps,
-    isPending,
-    reactFlowProps,
-    contextData,
-    dispatchNodes
-  } = useEditableFlow<WorkSchemaNodeDto>(
-    workSchemaNodeCloneFunctionWrapper,
-    templateWorkSchemaFlowNode,
-    templateWorkSchemaNodeLink,
-    workSchemaNodeGraphUpdater,
-    convertToWorkSchemaFlowNode,
-    EntityClassMap.workSchemaNode,
-    validateWorkSchemaNodeDataNodeDto as NodeValidator<WorkSchemaNodeDto>
-  );
+  const { flowOverlayProps, isPending, reactFlowProps, contextData } =
+    useEditableFlow<WorkSchemaNodeDto>(
+      workSchemaNodeCloneFunctionWrapper,
+      templateWorkSchemaFlowNode,
+      templateWorkSchemaNodeLink,
+      workSchemaNodeGraphUpdater,
+      convertToWorkSchemaFlowNode,
+      EntityClassMap.workSchemaNode,
+      validateWorkSchemaNodeDataNodeDto as NodeValidator<WorkSchemaNodeDto>
+    );
   const checkToggleFirstAndAfter =
     useCheckToggleFirstAndAfter(flowOverlayProps);
 
@@ -191,12 +186,10 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     [readAnyCarousel, edgesFromContext]
   );
 
-  const interceptedOnConnect = useValidateAndUpdateDepth(
+  const interceptedOnConnect = useValidateConnection(
     checkToggleFirstAndAfter,
     idToNodeMap,
     onConnect,
-    dispatchNodes,
-    idToChildIdMap,
     validateWorkSchemaNodeHierarchy
   );
 

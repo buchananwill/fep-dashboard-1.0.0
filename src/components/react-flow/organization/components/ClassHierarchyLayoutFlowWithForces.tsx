@@ -38,7 +38,7 @@ import { TopToBottomEdge } from '@/components/react-flow/generic/components/edge
 import { FlowNode } from '@/components/react-flow/generic/types';
 import { useOrientedDepthLayout } from '@/components/react-flow/generic/hooks/useOrientedDepthLayout';
 import { Simplify } from 'type-fest';
-import { useValidateAndUpdateDepth } from '@/components/react-flow/generic/hooks/useValidateAndUpdateDepth';
+import { useValidateConnection } from '@/components/react-flow/generic/hooks/useValidateConnection';
 import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
 import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/useIdToChildIdMapMemo';
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
@@ -63,7 +63,7 @@ export function ClassHierarchyLayoutFlowWithForces({
     };
     return convertToOrganizationNode(typedTemplate);
   }, [typeData]);
-  const { flowOverlayProps, reactFlowProps, isPending, dispatchNodes } =
+  const { flowOverlayProps, reactFlowProps, isPending } =
     useEditableFlow<OrganizationDto>(
       cloneFunctionWrapper as MemoizedFunction<
         FlowNode<OrganizationDto>,
@@ -77,7 +77,7 @@ export function ClassHierarchyLayoutFlowWithForces({
       convertBackToDataNodeDtoOrganizationNode
     );
 
-  const { nodes, edges, onConnect, ...otherProps } = reactFlowProps;
+  const { nodes, edges } = reactFlowProps;
   // useOrientedDepthLayout(nodes, 400, 'vertical', edges);
 
   const allocationTotalList: AllocationTotal[] = useMemo(
@@ -109,28 +109,10 @@ export function ClassHierarchyLayoutFlowWithForces({
   useModalContent(memoizedContentComponent);
   useNodeLabelController();
 
-  const checkToggleFirstAndAfter =
-    useCheckToggleFirstAndAfter(flowOverlayProps);
-
-  const idToNodeMapMemo = useIdToNodeMapMemo(nodes);
-  const idToChildIdMapMemo = useIdToChildIdMapMemo(edges);
-
-  const updateDepth = useValidateAndUpdateDepth(
-    checkToggleFirstAndAfter,
-    idToNodeMapMemo,
-    onConnect,
-    dispatchNodes,
-    idToChildIdMapMemo
-  );
-
-  const mergedReactFlowProps = useMemo(() => {
-    return { onConnect: updateDepth, ...otherProps, nodes, edges };
-  }, [updateDepth, edges, nodes, otherProps]);
-
   return (
     // 6. Pass the props to the ReactFlow component
     <ReactFlow
-      {...mergedReactFlowProps}
+      {...reactFlowProps}
       fitView
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
