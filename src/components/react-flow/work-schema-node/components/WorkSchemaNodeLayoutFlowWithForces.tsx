@@ -284,8 +284,7 @@ const TemplateWorkSchemaNode: DataNodeDto<WorkSchemaNodeDto> = {
     childrenAs: 'BUNDLE',
     resolutionMode: 'OPEN'
   },
-  id: 0,
-  distanceFromRoot: 0
+  id: 0
 };
 
 const templateWorkSchemaNodeLink: DataLink<WorkSchemaNodeDto> = {

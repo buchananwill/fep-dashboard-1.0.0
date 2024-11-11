@@ -46,19 +46,35 @@ export function getTickFunction(
     simulation.tick();
 
     setNodes((nodes) => {
-      return nodes.map((node, index) => {
-        const updatedNode = { ...node };
-        const scopedNode = scopedNodes[index];
-        if (scopedNode.id !== updatedNode.id)
+      const replacementList = [];
+
+      for (let index = 0; index < nodes.length; index++) {
+        const node = nodes[index];
+        const scopedMutableNode = scopedNodes[index];
+
+        if (scopedMutableNode.id !== node.id) {
           throw new Error('Node arrays not in sync: unable to update');
-        const xPos = scopedNode.fx ?? scopedNode.x ?? 0;
-        const yPos = scopedNode.fy ?? scopedNode.y ?? 0;
+        }
+
+        const updatedNode = { ...node };
+        const xPos = scopedMutableNode.fx ?? scopedMutableNode.x ?? 0;
+        const yPos = scopedMutableNode.fy ?? scopedMutableNode.y ?? 0;
+
         updatedNode.position = {
           x: isNaN(xPos) ? 0 : xPos,
           y: isNaN(yPos) ? 0 : yPos
         };
-        return updatedNode;
-      });
+
+        // Copy back position data to the scopedMutableNode so it isn't lost when the graph topology is updated.
+        (
+          scopedMutableNode as DataNode<any> & {
+            position: FlowNode<any>['position'];
+          }
+        ).position = updatedNode.position;
+
+        replacementList.push(updatedNode);
+      }
+      return replacementList;
     });
 
     window.requestAnimationFrame(async () => {

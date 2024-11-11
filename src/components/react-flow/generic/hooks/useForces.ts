@@ -12,6 +12,7 @@ import { useGlobalController, useGlobalListener } from 'selective-context';
 
 import { FlowNode } from '@/components/react-flow/generic/types';
 import {
+  DirectSimRefEditsDispatchReturn,
   GraphSelectiveContextKeys,
   HasStringId,
   useD3ForceSimulationMemo,
@@ -23,6 +24,7 @@ import { InitialMap } from 'dto-stores';
 import { getHierarchyLayoutResolver } from '@/components/react-flow/generic/hooks/getTreeHierarchyLayoutResolver';
 import { hierarchicalLayoutMap } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 import { getTickFunction } from '@/components/react-flow/generic/hooks/getTickFunction';
+import { HasNumberId } from '@/api/types';
 
 export const draggingNodeKey = 'dragging-node';
 
@@ -43,7 +45,11 @@ export type Layoutable = HasPosition & HasStringId;
 
 export function useForces(
   applyFitView?: boolean
-): [boolean, (() => void) | undefined] {
+): [
+  boolean,
+  (() => void) | undefined,
+  undefined | DirectSimRefEditsDispatchReturn<HasNumberId>['nodeListRef']
+] {
   const { getNodes, setNodes, fitView } = useReactFlow();
   const { currentState: running, dispatch } = useGraphController<boolean>(
     GraphSelectiveContextKeys.running,
@@ -154,5 +160,5 @@ export function useForces(
       window.requestAnimationFrame(tickFunction);
     }
   }, [dispatch, getNodes, isRunning, nodeListRef, tickFunction]);
-  return [tickFunction !== undefined, toggle];
+  return [tickFunction !== undefined, toggle, nodeListRef];
 }

@@ -1,4 +1,5 @@
 import {
+  DataNode,
   GraphDto,
   GraphDtoPutRequestBody,
   incrementCloneSuffix,
@@ -166,7 +167,7 @@ type WorkSchemaNodeDataNodeDto = z.infer<
 >;
 
 export function validateWorkSchemaNodeDataNodeDto(
-  dataNode: FlowNode<WorkSchemaNodeDto>
+  dataNode: DataNode<WorkSchemaNodeDto>
 ) {
   const dataNodeDto = reMapNodeIdWithoutValidating(dataNode);
   let parsedNode: WorkSchemaNodeDataNodeDto | undefined = undefined;

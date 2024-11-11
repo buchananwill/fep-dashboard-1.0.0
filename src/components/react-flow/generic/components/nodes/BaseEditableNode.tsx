@@ -69,11 +69,6 @@ export function BaseEditableNode<
   );
   const fixAddProps = usePopoverFix();
   const fixDeleteProps = usePopoverFix();
-  const { currentState } = useGraphListener(
-    GraphSelectiveContextKeys.nodeCloneFunction,
-    listenerKey,
-    undefined
-  );
 
   const { id } = data;
   const addSibling = useCallback(() => {

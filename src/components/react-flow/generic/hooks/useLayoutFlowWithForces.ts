@@ -4,7 +4,8 @@ import {
   Node,
   useEdgesState,
   useNodesState,
-  useUpdateNodeInternals
+  useUpdateNodeInternals,
+  XYPosition
 } from '@xyflow/react';
 import {
   draggingNodeKey,
@@ -19,6 +20,7 @@ import {
 import { useGlobalDispatch } from 'selective-context';
 import { FlowEdge, FlowNode } from '@/components/react-flow/generic/types';
 import {
+  DataNode,
   GraphSelectiveContextKeys,
   MemoizedFunction,
   undefinedDeleteLinks,
@@ -42,7 +44,7 @@ export function useLayoutFlowWithForces<T extends NodeDataType>() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(
     edgesFromContext as FlowEdge<T>[]
   );
-  const [initialized, toggle] = useForces();
+  const [initialized, toggle, nodeRefList] = useForces();
   const updateNodeInternals = useUpdateNodeInternals();
 
   const { currentState: running } = useGraphListener(
@@ -82,9 +84,24 @@ export function useLayoutFlowWithForces<T extends NodeDataType>() {
     [draggingNodeRef]
   );
 
+  const runningRef = useRef(running);
+  runningRef.current = running;
+
   const onNodeDragStop = useCallback(() => {
+    if (!runningRef.current && nodeRefList) {
+      // Copying the position to the mutable node so it won't be overwritten by topology edits while sim is not running.
+      const mutableNode = nodeRefList.current.find(
+        (n) => n.id === draggingNodeRef.current?.id
+      );
+      if (mutableNode) {
+        mutableNode.x = draggingNodeRef.current?.position.x;
+        mutableNode.y = draggingNodeRef.current?.position.y;
+        (mutableNode as DataNode<any> & { position?: XYPosition }).position =
+          draggingNodeRef.current?.position;
+      }
+    }
     draggingNodeRef.current = undefined;
-  }, [draggingNodeRef]);
+  }, [draggingNodeRef, nodeRefList]);
 
   const onNodeDrag = useCallback(
     (_event: ReactMouseEvent, node: Node) => {
