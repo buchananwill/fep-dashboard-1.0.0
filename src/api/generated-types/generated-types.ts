@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-10-31 11:16:04.
+// Generated using typescript-generator version 3.2.1263 on 2024-11-11 10:42:30.
 
 export interface AutoBuildParametersDto extends Serializable {
   multiStepUndoTimeoutMs: number;
@@ -9,11 +9,27 @@ export interface AutoBuildParametersDto extends Serializable {
   forceSaveMetrics: boolean;
 }
 
+export interface AutoCarouselGroupOptionDto extends Serializable {
+  carouselGroupName: string;
+  taskTypeName: string;
+  knowledgeDomainName: string;
+  knowledgeLevelName: string;
+  allocationList: string;
+}
+
 export interface AvailabilityPostRequest {
   day: DayOfWeek;
   startTime: DateAsString;
   endTime: DateAsString;
   roleTypeNames: string[];
+  availabilityCode: any;
+}
+
+export interface AvailabilitySummaryDto {
+  day: DayOfWeek;
+  startTime: DateAsString;
+  endTime: DateAsString;
+  roleTypeName: string;
   availabilityCode: any;
 }
 
@@ -46,8 +62,8 @@ export interface CycleSubspanWithJoinsListDto extends Serializable {
 
 export interface BaseReportItemDto {
   id: number;
-  itemType: string;
   passes: boolean;
+  itemType: string;
 }
 
 export interface HasCycleSubspanRequirement {}
@@ -646,10 +662,10 @@ export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto
 
 export interface RoleAvailabilityDto {
   type: string;
-  availabilityCode: number;
   cycleSubspanId: number;
   baseEntityId: number;
   roleEntityId: number;
+  availabilityCode: number;
   id: number;
 }
 
@@ -688,20 +704,18 @@ export interface WorkSchemaNodeAssignmentDto
 export interface WorkSchemaNodeDto
   extends Serializable,
     DtoWrapper<any, WorkSchemaNodeDto, number> {
-  allowBundle: boolean;
-  preferCarousel: boolean;
   dominanceFactor: number;
   priority: number;
-  workSchemaNodeAssignmentIds: number[];
   carouselOptionId?: number;
   id: number;
   knowledgeDomainId?: number;
   knowledgeLevelId?: number;
-  name?: string;
+  name: string;
   carouselGroupId?: number;
   carouselId?: number;
   workProjectSeriesSchemaId?: number;
   resolutionMode: any;
+  childrenAs: any;
 }
 
 export interface WorkTaskSeriesDto extends Serializable {
@@ -836,6 +850,17 @@ export interface PersonDto
   dateOfBirth: DateAsString;
   fName: string;
   lName: string;
+  name: string;
+}
+
+export interface PersonProviderSuitabilitySummaryDto extends Serializable {
+  firstName: string;
+  lastName: string;
+  providerRoleTypeName: string;
+  taskTypeName: string;
+  knowledgeDomainName: string;
+  knowledgeLevelName: string;
+  rating: number;
 }
 
 export interface BitSetResourceFlowQuery {
@@ -884,8 +909,7 @@ export interface ResourceRequirementItemRequest {
 
 export interface RolePostRequest<T> {
   baseEntity: T;
-  suitabilities: SuitabilityPostRequest[];
-  availabilities: AvailabilityPostRequest[];
+  roleDataMap: { [index: string]: RoleData };
 }
 
 export interface ScheduleDto
@@ -923,6 +947,14 @@ export interface StaticDeliveryAllocationItemDto
 export interface SuitabilityPostRequest {
   workTaskTypeMatrix: WorkTaskTypeListMatrix;
   roleTypeNames: string[];
+  rating: number;
+}
+
+export interface SuitabilitySummaryDto extends HasWorkTaskTypeViewId {
+  roleTypeName: string;
+  taskTypeName: string;
+  knowledgeLevelName: string;
+  knowledgeDomainName: string;
   rating: number;
 }
 
@@ -973,6 +1005,19 @@ export interface WorkProjectSeriesWithSchemaLabelsDto extends Serializable {
   completedStatus: boolean;
   workProjectSeriesSchema: WorkProjectSeriesSchemaWithLabelsDto;
   workTaskType: WorkTaskTypeDto;
+}
+
+export interface WorkSchemaNodeManualDefinitionDto extends Serializable {
+  name: string;
+  childrenAs: any;
+  dominanceFactor: number;
+  priority: number;
+  taskTypeName: string;
+  knowledgeDomainName: string;
+  knowledgeLevelName: string;
+  allocationList: string;
+  parentNodeName: string;
+  auto: AutoNodeType;
 }
 
 export interface WorkTaskSeriesEventDto {
@@ -1028,6 +1073,13 @@ export interface BitSet extends Cloneable, Serializable {
   empty: boolean;
 }
 
+export interface RoleData {
+  suitabilities: SuitabilitySummaryDto[];
+  availabilities: AvailabilitySummaryDto[];
+}
+
+export interface HasWorkTaskTypeViewId {}
+
 export interface DtoWrapper<E, D, I> extends Serializable {
   id: I;
 }
@@ -1073,3 +1125,5 @@ export type DayOfWeek =
   | 'SUNDAY';
 
 export type FlywayOperation = 'BASELINE' | 'CLEAN' | 'MIGRATE';
+
+export type AutoNodeType = 'NONE' | 'CAROUSEL_GROUP' | 'CAROUSEL';
