@@ -1,4 +1,4 @@
-import { FlowNode } from '@/components/react-flow/generic/types';
+import { FlowEdge, FlowNode } from '@/components/react-flow/generic/types';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 import { HasPosition } from '@/components/react-flow/generic/hooks/useForces';
 import { useMemo } from 'react';
@@ -9,12 +9,14 @@ import { usePreComputedPositionForce } from '@/components/react-flow/generic/hoo
 export function useOrientedDepthLayout<T extends NodeDataType>(
   nodes: FlowNode<T>[],
   spacing: number,
-  orientation: 'horizontal' | 'vertical'
+  orientation: 'horizontal' | 'vertical',
+  edges: FlowEdge<T>[]
 ) {
   const map = useMemo(() => {
     const layoutMap = new Map<string, HasPosition & HasStringId>();
     for (const node of nodes) {
-      const plane = node.distanceFromRoot * spacing;
+      // node.distanceFromRoot * spacing;
+      const plane = 0; // TODO: CALCULATE DEPTH DYNAMICALLY.
       let x = 0,
         y = 0;
       if (orientation === 'horizontal') {
