@@ -4,8 +4,7 @@ import React, {
   PropsWithChildren,
   useCallback,
   useEffect,
-  useMemo,
-  useRef
+  useMemo
 } from 'react';
 import { Background, BackgroundVariant, Panel, ReactFlow } from '@xyflow/react';
 import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
@@ -17,7 +16,6 @@ import {
   GraphSelectiveContextKeys,
   MemoizedFunction,
   useGraphDispatch,
-  useGraphListener,
   useModalContent,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
@@ -46,13 +44,11 @@ import {
   useReadAnyDto
 } from 'dto-stores';
 import { EmptyArray } from '@/api/literals';
-import { FlowNode, NodeValidator } from '@/components/react-flow/generic/types';
+import { NodeValidator } from '@/components/react-flow/generic/types';
 import {
   CarouselDto,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types';
-import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
-import { recalculateDepths } from '@/components/react-flow/generic/utils/recalculateDepths';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/components/UnassignedRootButton';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/components/RollupUpdater';
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
@@ -67,9 +63,6 @@ import { DispatchState } from '@/types';
 import { isNotUndefined } from '@/api/main';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
-import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
-import { useGlobalListener } from 'selective-context';
-import { listenerKey } from '@/components/roles/create-role/CreateRoleForm';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -212,73 +205,10 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       GraphSelectiveContextKeys.deleteLinks
     );
 
-  useEffect(() => {
-    dispatchDeleteLinksFunction(({ memoizedFunction }) => {
-      checkToggleFirstAndAfter();
-      const interceptAndUpdateDepth = (linkIds: string[]) => {
-        memoizedFunction(linkIds);
-        const targetNodeList: FlowNode<WorkSchemaNodeDto>[] = [];
-        linkIds.forEach((linkId) => {
-          const edge = idToEdgeMap.get(linkId);
-          if (edge) {
-            const idFromLinkReference = getIdFromLinkReference(edge.target);
-            const targetNode = idToNodeMap.get(idFromLinkReference);
-            if (targetNode) {
-              targetNodeList.push(targetNode as FlowNode<WorkSchemaNodeDto>);
-            }
-          }
-        });
-        targetNodeList.forEach((targetNode) => {
-          dispatchNodes((prevNodes) =>
-            recalculateDepths(
-              prevNodes,
-              targetNode,
-              idToChildIdMap,
-              idToNodeMap,
-              -1
-            )
-          );
-        });
-      };
-      return { memoizedFunction: interceptAndUpdateDepth };
-    });
-  }, [
-    checkToggleFirstAndAfter,
-    dispatchDeleteLinksFunction,
-    idToNodeMap,
-    dispatchNodes,
-    idToChildIdMap,
-    idToEdgeMap
-  ]);
-
   const { dispatchWithoutListen } = useGraphDispatch<
     MemoizedFunction<WorkSchemaNodeDto, void>
   >(GraphSelectiveContextKeys.editNodeData);
   useInterceptNodeDataUpdate(dispatchWithoutListen, checkToggleFirstAndAfter);
-
-  const nodesRef = useRef(nodesFromContext);
-
-  useEffect(() => {
-    const typesChanged = new Set<number>();
-    for (let i = 0; i < nodesRef.current.length; i++) {
-      if (
-        (nodesRef.current[i] as FlowNode<WorkSchemaNodeDto>).type !==
-        nodesFromContext[i].data.resolutionMode
-      ) {
-        typesChanged.add(i);
-      }
-    }
-    if (typesChanged.size > 0) {
-      dispatchNodes((nodes) =>
-        nodes.map((node, index) =>
-          typesChanged.has(index)
-            ? { ...node, type: node.data.resolutionMode }
-            : node
-        )
-      );
-    }
-    nodesRef.current = nodesFromContext;
-  }, [nodesFromContext, dispatchNodes]);
 
   const mergedReactFlowProps = useMemo(() => {
     return { onConnect: interceptedOnConnect, ...otherProps };
@@ -351,8 +281,7 @@ const TemplateWorkSchemaNode: DataNodeDto<WorkSchemaNodeDto> = {
     name: 'Work Schema Node',
     dominanceFactor: 1,
     priority: 1,
-    allowBundle: true,
-    preferCarousel: false,
+    childrenAs: 'BUNDLE',
     resolutionMode: 'OPEN'
   },
   id: 0,
