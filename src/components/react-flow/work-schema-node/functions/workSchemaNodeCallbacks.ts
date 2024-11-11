@@ -117,11 +117,11 @@ export function determineLocalResolution(
   if (workSchemaNode.carouselOptionId !== undefined) return 'CAROUSEL_OPTION';
   if (
     workSchemaNode.carouselId !== undefined ||
-    (workSchemaNode.preferCarousel && !workSchemaNode.allowBundle)
+    workSchemaNode.childrenAs === 'CAROUSEL'
   )
     return 'CAROUSEL';
   if (workSchemaNode.carouselGroupId !== undefined) return 'CAROUSEL_GROUP';
-  if (!workSchemaNode.allowBundle) return 'SERIAL';
+  if (workSchemaNode.childrenAs === 'SERIAL') return 'SERIAL';
   return 'OPEN';
 }
 

@@ -8,17 +8,13 @@ import {
   useLinkContext
 } from 'react-d3-force-wrapper';
 import { ObjectPlaceholder } from 'selective-context';
-import {
-  CarouselOptionDto,
-  WorkSchemaNodeDto
-} from '@/api/generated-types/generated-types';
+import { CarouselOptionDto } from '@/api/generated-types/generated-types';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
-import { Button, Loader } from '@mantine/core';
+import { Button, Loader, Select } from '@mantine/core';
 import React, { useEffect, useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
-  EditAddDeleteDtoControllerArray,
   LazyDtoUiWrapper,
   NamespacedHooks
 } from 'dto-stores';
@@ -34,6 +30,10 @@ import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
+import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
+import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
+import { SingleFlat } from '@/hooks/select-adaptors/selectApiTypes';
+import { determineLocalResolution } from '@/components/react-flow/work-schema-node/functions/workSchemaNodeCallbacks';
 
 export default function WorkSchemaNodeDetailsContent({
   onClose
@@ -87,6 +87,22 @@ export default function WorkSchemaNodeDetailsContent({
     };
   }, [data, dispatch]);
 
+  const selectApi = useSelectApi<ChildrenAsEnum>({
+    rawData: childrenAsOptions,
+    labelMaker: (item?: ChildrenAsEnum) => item ?? 'BUNDLE',
+    value: currentState.childrenAs,
+    type: 'singleFlat',
+    propagateChange: (value) =>
+      dispatchWithoutControl((wsn) => {
+        const updatedNode = {
+          ...wsn,
+          childrenAs: value ?? 'BUNDLE'
+        };
+        updatedNode.resolutionMode = determineLocalResolution(updatedNode);
+        return updatedNode;
+      })
+  });
+
   return (
     <>
       <div className={'flex w-full flex-col'}>
@@ -111,15 +127,8 @@ export default function WorkSchemaNodeDetailsContent({
                 >
                   {currentState.name ?? ''}
                 </FocusToEdit>
-                {checkboxProperties.map((prop) => (
-                  <EntityPropertyCheckbox
-                    key={prop}
-                    booleanKey={prop}
-                    entity={currentState}
-                    entityClass={EntityClassMap.workSchemaNode}
-                    dispatchWithoutControl={dispatchWithoutControl}
-                  />
-                ))}
+                <Select {...(selectApi as SingleFlat)} />
+
                 {numberProperties.map((prop) => (
                   <label key={prop} className={'flex w-full justify-between'}>
                     <span className={'inline-block grow'}>{prop}:</span>
@@ -187,9 +196,12 @@ export default function WorkSchemaNodeDetailsContent({
   );
 }
 
-const checkboxProperties: BooleanPropertyKey<WorkSchemaNodeDto>[] = [
-  'allowBundle',
-  'preferCarousel'
+type ChildrenAsEnum = WorkSchemaNodeDto['childrenAs'];
+
+const childrenAsOptions: WorkSchemaNodeDto['childrenAs'][] = [
+  'BUNDLE',
+  'CAROUSEL',
+  'SERIAL'
 ];
 
 const numberProperties: NumberPropertyKey<WorkSchemaNodeDto>[] = [

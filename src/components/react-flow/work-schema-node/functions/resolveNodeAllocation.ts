@@ -21,9 +21,8 @@ export function resolveNodeAllocation(
     workProjectSeriesSchemaId,
     carouselOptionId,
     resolutionMode,
-    preferCarousel,
-    carouselId,
-    allowBundle: preferBundle
+    childrenAs,
+    carouselId
   } = data;
   let schema: WorkProjectSeriesSchemaDto | undefined = undefined;
   let deliveryAllocationTokenList: number[] = [];
@@ -84,7 +83,7 @@ export function resolveNodeAllocation(
     childrenRollupMap.forEach((value, key) => responseMap.set(key, value));
 
     // CAROUSEL RECURSION
-    if ((preferCarousel && !(allowBundle && preferBundle)) || carouselId) {
+    if (childrenAs === 'CAROUSEL' || carouselId) {
       const childNumberLists = childIdList
         .map((childId) => childrenRollupMap.get(childId))
         .filter(isNotUndefined)
