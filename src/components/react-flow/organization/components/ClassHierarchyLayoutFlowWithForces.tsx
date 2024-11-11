@@ -77,7 +77,7 @@ export function ClassHierarchyLayoutFlowWithForces({
       convertBackToDataNodeDtoOrganizationNode
     );
 
-  const { nodes, edges } = reactFlowProps;
+  const { nodes } = reactFlowProps;
   // useOrientedDepthLayout(nodes, 400, 'vertical', edges);
 
   const allocationTotalList: AllocationTotal[] = useMemo(
