@@ -13,7 +13,10 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
     linkDistance: 150,
     collideStrength: 0
   },
-  normalizationCoefficients: {},
+  normalizationCoefficients: {
+    forceXStrength: 0.1,
+    forceYStrength: 0.1
+  },
   forces: {
     center: false,
     collide: true,

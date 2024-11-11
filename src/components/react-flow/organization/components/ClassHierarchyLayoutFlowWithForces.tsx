@@ -12,8 +12,10 @@ import OrganizationDetailsContent from '@/components/react-flow/organization/com
 import {
   DataLink,
   DataNodeDto,
+  GraphSelectiveContextKeys,
   MemoizedFunction,
   NodeModalContentComponent,
+  useGraphDispatch,
   useModalContent,
   useNodeLabelController
 } from 'react-d3-force-wrapper';
@@ -42,6 +44,7 @@ import { useIdToChildIdMapMemo } from '@/components/react-flow/generic/hooks/use
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';
 import { AllocationTotal } from '@/components/react-flow/organization/types';
 import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
+import { useViewportSize } from '@mantine/hooks';
 
 type OrganizationDto = Simplify<OrgDto>;
 
@@ -75,7 +78,7 @@ export function ClassHierarchyLayoutFlowWithForces({
     );
 
   const { nodes, edges, onConnect, ...otherProps } = reactFlowProps;
-  useOrientedDepthLayout(nodes, 400, 'vertical', edges);
+  // useOrientedDepthLayout(nodes, 400, 'vertical', edges);
 
   const allocationTotalList: AllocationTotal[] = useMemo(
     () =>
@@ -85,6 +88,12 @@ export function ClassHierarchyLayoutFlowWithForces({
       })),
     [nodes]
   );
+
+  const viewportSize = useViewportSize();
+
+  console.log(viewportSize);
+
+  useGraphDispatch(GraphSelectiveContextKeys.dimensions);
 
   const dispatchWithoutListen = NamespacedHooks.useDispatch(
     'allocationTotal',
@@ -172,8 +181,7 @@ const TemplateOrganizationNode: DataNodeDto<OrganizationDto> = {
       workSchemaNodeId: 0
     }
   },
-  id: 0,
-  distanceFromRoot: 0
+  id: 0
 };
 
 const TemplateOrganizationLink: DataLink<OrganizationDto> = {

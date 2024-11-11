@@ -92,7 +92,8 @@ const WorkSchemaNodeAssignmentsForceGraphDefaults = {
   ...defaultForceGraphPageOptions,
   forces: {
     ...defaultForceGraphPageOptions.forces,
-    forceX: false
+    forceX: true,
+    forceY: true
   }
 };
 

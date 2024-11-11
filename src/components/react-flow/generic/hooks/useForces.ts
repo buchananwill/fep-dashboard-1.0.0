@@ -72,6 +72,8 @@ export function useForces(
   localRef.current = currentState.current;
 
   const overrideForces = useMemo(() => {
+    if (localRef.current === refInitial.current)
+      return { forceFunctions: { collide } };
     const xResolver = getHierarchyLayoutResolver(localRef, 'y');
     const yResolver = getHierarchyLayoutResolver(localRef, 'x');
     const forceXCreated = forceX(xResolver);
