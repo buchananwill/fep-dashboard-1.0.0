@@ -2,7 +2,6 @@ import { DataNode, HasNumberId } from 'react-d3-force-wrapper';
 import { Connection } from '@xyflow/react';
 import { DispatchState } from '@/types';
 import { useCallback } from 'react';
-import { recalculateDepths } from '@/components/react-flow/generic/utils/recalculateDepths';
 
 export function useValidateAndUpdateDepth<T extends HasNumberId>(
   checkToggleFirstAndAfter: () => void,
@@ -27,15 +26,15 @@ export function useValidateAndUpdateDepth<T extends HasNumberId>(
           validateNodeHierarchy(nodeSource, nodeTarget);
         if (validation && nodeSource && nodeTarget) {
           onConnect(connection);
-          dispatchNodes((prevNodes) =>
-            recalculateDepths(
-              prevNodes,
-              nodeTarget,
-              idToChildIdMap,
-              idToNodeMap,
-              nodeSource.distanceFromRoot
-            )
-          );
+          // dispatchNodes((prevNodes) =>
+          //   recalculateDepths(
+          //     prevNodes,
+          //     nodeTarget,
+          //     idToChildIdMap,
+          //     idToNodeMap,
+          //     nodeSource.distanceFromRoot
+          //   )
+          // );
         }
       }
     },
