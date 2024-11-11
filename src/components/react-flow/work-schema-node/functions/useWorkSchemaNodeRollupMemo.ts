@@ -17,11 +17,15 @@ export function useWorkSchemaNodeRollupMemo(
       (node) => node.distanceFromRoot === 0
     );
     const maps = rootNodes.map((rootNode) => {
-      return resolveNodeAllocation(rootNode, rootNode.data.allowBundle, {
-        readLeafSchema: (id: string) => leafToSchemaMap.get(id),
-        idToChildIdMap,
-        idToNodeMap
-      });
+      return resolveNodeAllocation(
+        rootNode,
+        rootNode.data.childrenAs !== 'CAROUSEL',
+        {
+          readLeafSchema: (id: string) => leafToSchemaMap.get(id),
+          idToChildIdMap,
+          idToNodeMap
+        }
+      );
     });
 
     return maps
