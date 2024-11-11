@@ -9,14 +9,11 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
   },
   forceAttributesInitial: {
     forceYStrength: 50,
-    forceYSpacing: 200,
     linkStrength: 50,
     linkDistance: 150,
     collideStrength: 0
   },
-  normalizationCoefficients: {
-    forceYSpacing: 1000
-  },
+  normalizationCoefficients: {},
   forces: {
     center: false,
     collide: true,

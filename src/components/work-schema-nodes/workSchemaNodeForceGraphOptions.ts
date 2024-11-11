@@ -20,13 +20,9 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
     manyBodyMinDistance: 1,
     manyBodyMaxDistance: 40,
     forceXStrength: 50,
-    forceXSpacing: 100,
-    forceYStrength: 50,
-    forceYSpacing: 100
+    forceYStrength: 50
   },
   normalizationCoefficients: {
-    forceYSpacing: 100,
-    forceXSpacing: 100,
     manyBodyMaxDistance: 10,
     collideStrength: 0.5
   }

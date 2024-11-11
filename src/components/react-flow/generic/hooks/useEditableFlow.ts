@@ -96,7 +96,6 @@ export function useEditableFlow<T extends NodeDataType>(
     updateGraphAndSyncUi,
     nodeValidator
   );
-  useAllEdits();
 
   const { dispatchWithoutListen: changesDispatch } =
     useGlobalDispatch('unsavedChanges');
