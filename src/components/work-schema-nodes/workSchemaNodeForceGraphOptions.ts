@@ -6,11 +6,11 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
   forces: {
     link: false,
     manyBody: false,
-    forceY: true,
-    forceX: true,
-    collide: false,
+    forceY: false,
+    forceX: false,
+    collide: true,
     center: false,
-    radial: false
+    custom: true
   },
   forceAttributesInitial: {
     collideStrength: 74,
@@ -20,10 +20,14 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
     manyBodyMinDistance: 1,
     manyBodyMaxDistance: 40,
     forceXStrength: 50,
-    forceYStrength: 50
+    forceYStrength: 50,
+    customStrength: 10
   },
   normalizationCoefficients: {
     manyBodyMaxDistance: 10,
-    collideStrength: 0.5
+    collideStrength: 0.05,
+    customStrength: 0.1,
+    forceYStrength: 0.01,
+    forceXStrength: 0.01
   }
 };

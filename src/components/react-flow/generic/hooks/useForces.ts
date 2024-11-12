@@ -1,10 +1,4 @@
-import {
-  Edge,
-  Node,
-  useNodesInitialized,
-  useOnSelectionChange,
-  useReactFlow
-} from '@xyflow/react';
+import { useNodesInitialized, useReactFlow } from '@xyflow/react';
 import { MutableRefObject, useCallback, useMemo, useRef } from 'react';
 import { forceX, forceY } from 'd3';
 
@@ -12,6 +6,7 @@ import { useGlobalController, useGlobalListener } from 'selective-context';
 
 import { FlowNode } from '@/components/react-flow/generic/types';
 import {
+  DataNode,
   DirectSimRefEditsDispatchReturn,
   GraphSelectiveContextKeys,
   HasStringId,
@@ -25,6 +20,7 @@ import { getHierarchyLayoutResolver } from '@/components/react-flow/generic/hook
 import { hierarchicalLayoutMap } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 import { getTickFunction } from '@/components/react-flow/generic/hooks/getTickFunction';
 import { HasNumberId } from '@/api/types';
+import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 
 export const draggingNodeKey = 'dragging-node';
 
@@ -72,17 +68,47 @@ export function useForces(
   localRef.current = currentState.current;
 
   const overrideForces = useMemo(() => {
-    if (localRef.current === refInitial.current)
-      return { forceFunctions: { collide } };
     const xResolver = getHierarchyLayoutResolver(localRef, 'y');
     const yResolver = getHierarchyLayoutResolver(localRef, 'x');
-    const forceXCreated = forceX(xResolver);
-    const forceYCreated = forceY(yResolver);
+    let strength:
+      | number
+      | ((d: DataNode<any>, i: number, data: DataNode<any>[]) => number) = 0.1;
+    const forceXCreated = forceX(xResolver).strength(strength);
+    const forceYCreated = forceY(yResolver).strength(strength);
+    const customForce =
+      // : Partial<ForceWithStrength<any, any>>
+      (alpha: number) => {
+        forceXCreated(alpha);
+        forceYCreated(alpha);
+      };
+    customForce.initialize = (
+      nodes: FlowNode<NodeDataType>[],
+      random: () => number
+    ) => {
+      forceYCreated.initialize(nodes, random);
+      forceXCreated.initialize(nodes, random);
+    };
+    customForce.strength = (...args: any[]) => {
+      if (args.length === 0) {
+        return (d: DataNode<any>, i: number, data: DataNode<any>[]) => {
+          if (typeof strength === 'function') return strength(d, i, data);
+          return strength;
+        };
+      } else if (args.length === 1) {
+        const [strengthInput] = args;
+        strength = strengthInput;
+        forceXCreated.strength(strength);
+        forceYCreated.strength(strength);
+        return customForce;
+      } else {
+        throw Error('Strength must have 0 or 1 arguments.');
+      }
+    };
+
     return {
       forceFunctions: {
         collide,
-        forceX: forceXCreated,
-        forceY: forceYCreated
+        custom: customForce
       }
     };
   }, []);
