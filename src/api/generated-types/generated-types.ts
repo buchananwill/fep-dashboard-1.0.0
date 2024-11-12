@@ -256,7 +256,6 @@ export interface ClosureDto {
 export interface DataNodeDto<T> extends NodeDto, Serializable {
   data: T;
   id: number;
-  distanceFromRoot: number;
 }
 
 export interface ForceGraphAttributesDto extends Serializable {

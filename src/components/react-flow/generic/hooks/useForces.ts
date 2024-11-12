@@ -1,43 +1,37 @@
 import { useNodesInitialized, useReactFlow } from '@xyflow/react';
 import { MutableRefObject, useCallback, useMemo, useRef } from 'react';
-import { forceX, forceY } from 'd3';
 
 import { useGlobalController, useGlobalListener } from 'selective-context';
 
 import { FlowNode } from '@/components/react-flow/generic/types';
 import {
-  DataNode,
   DirectSimRefEditsDispatchReturn,
   GraphSelectiveContextKeys,
-  HasStringId,
   useD3ForceSimulationMemo,
   useDirectSimRefEditsDispatch,
   useGraphController
 } from 'react-d3-force-wrapper';
 import { collide } from '@/components/react-flow/generic/utils/collide';
 import { InitialMap } from 'dto-stores';
-import { getHierarchyLayoutResolver } from '@/components/react-flow/generic/hooks/getTreeHierarchyLayoutResolver';
 import { hierarchicalLayoutMap } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 import { getTickFunction } from '@/components/react-flow/generic/hooks/getTickFunction';
 import { HasNumberId } from '@/api/types';
-import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
+import {
+  customForce,
+  getCustomForce,
+  Layoutable,
+  refInitial
+} from '@/components/react-flow/generic/hooks/getCustomForce';
+import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 
 export const draggingNodeKey = 'dragging-node';
 
 const listenerKey = 'use-layouted-elements';
 
-const forceSimParams = { forceFunctions: { collide: collide } };
-
-const refInitial = {
-  current: InitialMap as Map<string, Layoutable>
+const options: HierarchicalDataOptions = {
+  nodeSize: [50, 400],
+  orientation: 'horizontal'
 };
-
-export type HasPosition = {
-  x: number;
-  y: number;
-};
-
-export type Layoutable = HasPosition & HasStringId;
 
 export function useForces(
   applyFitView?: boolean
@@ -68,42 +62,7 @@ export function useForces(
   localRef.current = currentState.current;
 
   const overrideForces = useMemo(() => {
-    const xResolver = getHierarchyLayoutResolver(localRef, 'y');
-    const yResolver = getHierarchyLayoutResolver(localRef, 'x');
-    let strength:
-      | number
-      | ((d: DataNode<any>, i: number, data: DataNode<any>[]) => number) = 0.1;
-    const forceXCreated = forceX(xResolver).strength(strength);
-    const forceYCreated = forceY(yResolver).strength(strength);
-    const customForce =
-      // : Partial<ForceWithStrength<any, any>>
-      (alpha: number) => {
-        forceXCreated(alpha);
-        forceYCreated(alpha);
-      };
-    customForce.initialize = (
-      nodes: FlowNode<NodeDataType>[],
-      random: () => number
-    ) => {
-      forceYCreated.initialize(nodes, random);
-      forceXCreated.initialize(nodes, random);
-    };
-    customForce.strength = (...args: any[]) => {
-      if (args.length === 0) {
-        return (d: DataNode<any>, i: number, data: DataNode<any>[]) => {
-          if (typeof strength === 'function') return strength(d, i, data);
-          return strength;
-        };
-      } else if (args.length === 1) {
-        const [strengthInput] = args;
-        strength = strengthInput;
-        forceXCreated.strength(strength);
-        forceYCreated.strength(strength);
-        return customForce;
-      } else {
-        throw Error('Strength must have 0 or 1 arguments.');
-      }
-    };
+    // const customForce = getCustomForce(localRef);
 
     return {
       forceFunctions: {
@@ -128,8 +87,8 @@ export function useForces(
   const tickFunction = useMemo(() => {
     let nodes = getNodes().map((node) => ({
       ...node,
-      x: node.position.x || 0,
-      y: node.position.y || 0
+      x: node.position?.x || 0,
+      y: node.position?.y || 0
     })) as FlowNode<any>[];
 
     // If React Flow hasn't initialised our nodes with a width and height yet, or
@@ -145,11 +104,13 @@ export function useForces(
       return undefined;
     }
 
+    simRef.current.stop();
     // Copy any internals to the nodeListRef so we don't lose those properties.
     for (let i = 0; i < nodes.length; i++) {
       Object.assign(nodeListRef.current[i], nodes[i]);
     }
-    simRef.current.stop();
+    customForce.links(linkListRef.current);
+    customForce.updateLayout(options);
 
     return getTickFunction(
       isRunning,

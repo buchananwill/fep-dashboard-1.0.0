@@ -89,10 +89,6 @@ export function ClassHierarchyLayoutFlowWithForces({
     [nodes]
   );
 
-  const viewportSize = useViewportSize();
-
-  console.log(viewportSize);
-
   useGraphDispatch(GraphSelectiveContextKeys.dimensions);
 
   const dispatchWithoutListen = NamespacedHooks.useDispatch(

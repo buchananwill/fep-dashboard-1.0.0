@@ -75,7 +75,7 @@ export function validateHierarchy(
   const typeValidation =
     determinePermittedChildTypes(parent).includes(childResolutionMode);
   if (!typeValidation) {
-    console.log(
+    console.warn(
       `Parent of ${parent.resolutionMode} not permitted to have child of ${childResolutionMode}`
     );
     return false;
@@ -87,10 +87,9 @@ export function validateHierarchy(
     const carousel = child.carouselId
       ? getCarousel(child.carouselId)
       : undefined;
-    const carouselMatch =
-      carousel !== undefined && carousel.carouselGroupId === carouselGroupId;
-    console.log(`Carousel match allowed: ${carouselMatch}`);
-    return carouselMatch;
+    return (
+      carousel !== undefined && carousel.carouselGroupId === carouselGroupId
+    );
   }
 
   const carousel = parent.carouselId
@@ -98,14 +97,10 @@ export function validateHierarchy(
     : undefined;
   if (carousel !== undefined) {
     const carouselOption = child.carouselOptionId;
-    const carouselOptionMatch =
+    return (
       carouselOption !== undefined &&
-      carousel.carouselOptionDtos.some(
-        (option) => option.id === carouselOption
-      );
-    console.log(`Carousel option match allowed: ${carouselOptionMatch}`);
-
-    return carouselOptionMatch;
+      carousel.carouselOptionDtos.some((option) => option.id === carouselOption)
+    );
   }
 
   return true;

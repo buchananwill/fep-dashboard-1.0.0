@@ -1,9 +1,9 @@
+import { cluster, hierarchy, HierarchyPointNode } from 'd3';
 import {
-  Comparator,
   fallbackComparator,
   NestedWithStringId
-} from '@/components/react-flow/generic/hooks/useHierarchicalDataMemo';
-import { cluster, hierarchy, HierarchyPointNode } from 'd3';
+} from '@/components/react-flow/generic/hooks/hierarchy-transforms';
+import { Comparator } from '@/api/types';
 
 export interface HierarchicalDataOptions {
   idBasedComparator?: Comparator<string>;

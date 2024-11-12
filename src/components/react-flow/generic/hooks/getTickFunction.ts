@@ -61,8 +61,8 @@ export function getTickFunction(
         const yPos = scopedMutableNode.fy ?? scopedMutableNode.y ?? 0;
 
         updatedNode.position = {
-          x: isNaN(xPos) ? 0 : xPos,
-          y: isNaN(yPos) ? 0 : yPos
+          x: xPos || 0,
+          y: yPos || 0
         };
 
         // Copy back position data to the scopedMutableNode so it isn't lost when the graph topology is updated.

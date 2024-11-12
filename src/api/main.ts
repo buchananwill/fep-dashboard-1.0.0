@@ -8,6 +8,13 @@ export function isNotUndefined<T>(value: T | undefined): value is T {
   return value !== undefined;
 }
 
+export function isNotNullish<T>(value: T | undefined | null): value is T {
+  return value !== undefined && value !== null;
+}
+export function isNonZeroFalsy<T>(value: T | undefined | null): boolean {
+  return value === undefined || value === null || isNaN(value as number);
+}
+
 export function joinSearchParams(
   searchParams: StringObjectRecord<string>
 ): string {

@@ -7,7 +7,6 @@ import {
 } from '@/api/generated-types/generated-types';
 import { Api } from '@/api/clientApi';
 import { ClosureDto as ClosureDtoLibrary } from 'react-d3-force-wrapper';
-import { HasOnlyStringKeys } from '@/components/types/stringKeysOnly';
 import { Identifier } from 'dto-stores';
 
 export type ClosureDto = ClosureDtoLibrary;
@@ -139,3 +138,4 @@ export type AssignmentTableRow =
   | WorkProjectSeriesAssignmentRow;
 
 export type EntityApiKey = keyof typeof Api;
+export type Comparator<T> = (a: T, b: T) => number;

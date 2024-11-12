@@ -1,12 +1,7 @@
-import {
-  Force,
-  quadtree,
-  QuadtreeLeaf,
-  SimulationLinkDatum,
-  SimulationNodeDatum
-} from 'd3';
+import { quadtree, QuadtreeLeaf } from 'd3';
 import { FlowNode } from '@/components/react-flow/generic/types';
 import { Merge, RequiredDeep, SetRequired } from 'type-fest';
+import { isNonZeroFalsy } from '@/api/main';
 
 type FlowNodeWithSize = RequiredDeep<Pick<FlowNode<any>, 'measured'>>;
 
@@ -30,17 +25,19 @@ function modifySpacing(
     strength *
     ratio *
     (spacing / Math.abs(spacing));
-  if (!node.fx && !node.fy) node[dimension] -= spacingDelta;
-  if (!quadLeaf.data.fx && !quadLeaf.data.fy)
-    quadLeaf.data[dimension] += spacingDelta;
-}
 
-type CollideForce = Force<
-  SimulationNodeDatum,
-  SimulationLinkDatum<SimulationNodeDatum>
-> & {
-  strength: (newStrength: number) => CollideForce;
-};
+  spacingDelta = spacingDelta || 0;
+  if (isNonZeroFalsy(node.fx) && isNonZeroFalsy(node.fy)) {
+    let current = node[dimension] || 0;
+    current -= spacingDelta;
+    node[dimension] = current;
+  }
+  if (!quadLeaf.data.fx && !quadLeaf.data.fy) {
+    let current = quadLeaf.data[dimension] || 0;
+    current += spacingDelta;
+    quadLeaf.data[dimension] = current;
+  }
+}
 
 export const collide = getCollide();
 
@@ -60,6 +57,7 @@ function getCollide() {
   let nodes = [] as FlowNode<any>[];
   let strength = 0.5;
   let gap = 0;
+
   function force(alpha: number) {
     const tree = quadtree(
       nodes,

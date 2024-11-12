@@ -1,10 +1,10 @@
 import { FlowEdge, FlowNode } from '@/components/react-flow/generic/types';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
-import { HasPosition } from '@/components/react-flow/generic/hooks/useForces';
 import { useMemo } from 'react';
 import { HasStringId } from 'react-d3-force-wrapper';
 
 import { usePreComputedPositionForce } from '@/components/react-flow/generic/hooks/usePreComputedPositionForce';
+import { HasPosition } from '@/components/react-flow/generic/hooks/getCustomForce';
 
 export function useOrientedDepthLayout<T extends NodeDataType>(
   nodes: FlowNode<T>[],

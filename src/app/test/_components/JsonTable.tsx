@@ -7,8 +7,6 @@ export default function JsonTable<T extends Object>({
 }: {
   jsonList: T[];
 }) {
-  console.log(jsonList);
-
   const headers = new Set<string>();
 
   for (let i = 0; i < jsonList.length; i++) {

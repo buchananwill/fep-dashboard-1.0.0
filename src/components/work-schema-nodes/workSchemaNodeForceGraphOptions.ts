@@ -13,7 +13,7 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
     custom: true
   },
   forceAttributesInitial: {
-    collideStrength: 74,
+    collideStrength: 10,
     linkDistance: 34,
     linkStrength: 175,
     manyBodyStrength: 63,
@@ -25,7 +25,7 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
   },
   normalizationCoefficients: {
     manyBodyMaxDistance: 10,
-    collideStrength: 0.05,
+    collideStrength: 0.1,
     customStrength: 0.1,
     forceYStrength: 0.01,
     forceXStrength: 0.01

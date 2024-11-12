@@ -178,7 +178,6 @@ export function WorkSchemaNodeLayoutFlowWithForces({
             (edge.target as DataNode<any>).id === target?.id
         )
       ) {
-        console.log('Target node already connected');
         return false;
       }
       return validateHierarchy(source?.data, target?.data, readAnyCarousel);

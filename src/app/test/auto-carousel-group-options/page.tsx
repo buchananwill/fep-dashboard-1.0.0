@@ -9,8 +9,6 @@ export default async function Page() {
     { carouselGroupName: string }[]
   >(`${BASE_URL}/api/v2/workSchemaNodes/autoCarouselGroupOptions`);
 
-  console.log(autoCarouselOptions);
-
   return (
     <div className={'m-4 rounded-lg bg-white py-4 shadow-lg'}>
       <JsonTable jsonList={autoCarouselOptions} />

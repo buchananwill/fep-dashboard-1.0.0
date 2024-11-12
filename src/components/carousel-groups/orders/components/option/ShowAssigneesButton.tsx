@@ -26,9 +26,7 @@ function ShowAssigneesButtonInner(props: {
     props.isAntiPrimed ?? false,
     props.carouselOptionDto
   );
-  const [ref, rect] = useResizeObserver();
-
-  console.log(rect);
+  const [ref] = useResizeObserver();
 
   return (
     <Popover zIndex={100}>
