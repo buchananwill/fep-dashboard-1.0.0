@@ -63,6 +63,8 @@ import { DispatchState } from '@/types';
 import { isNotUndefined } from '@/api/main';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
+import { CustomForceLabelContextKey } from '@/components/react-flow/generic/components/generic/GraphForceSliders';
+import { useGlobalController, useGlobalDispatch } from 'selective-context';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -184,6 +186,12 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     },
     [readAnyCarousel, edgesFromContext]
   );
+
+  useGlobalController({
+    contextKey: `workSchemaNode:customStrength-label`,
+    listenerKey: 'wsn-graph',
+    initialValue: 'Hierarchy Strength'
+  });
 
   const interceptedOnConnect = useValidateConnection(
     checkToggleFirstAndAfter,

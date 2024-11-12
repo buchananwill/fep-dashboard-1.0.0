@@ -29,7 +29,7 @@ export const draggingNodeKey = 'dragging-node';
 const listenerKey = 'use-layouted-elements';
 
 const options: HierarchicalDataOptions = {
-  nodeSize: [50, 400],
+  nodeSize: [60, 400],
   orientation: 'horizontal'
 };
 

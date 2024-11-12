@@ -1,6 +1,16 @@
 import { ForceGraphPageOptions } from 'react-d3-force-wrapper';
 import { defaultForceGraphPageOptions } from '@/components/work-schema-node-assignments/defaultForceGraphPageOptions';
 
+const forceOptions = {
+  link: false,
+  manyBody: false,
+  forceY: false,
+  forceX: false,
+  collide: true,
+  center: false,
+  custom: true
+};
+
 export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
   ...defaultForceGraphPageOptions,
   forces: {
@@ -12,22 +22,23 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
     center: false,
     custom: true
   },
+  forceSlidersVisibleInitial: {
+    centerStrength: false,
+    forceXStrength: false,
+    forceYStrength: false,
+    linkDistance: false,
+    linkStrength: false,
+    manyBodyMaxDistance: false,
+    manyBodyMinDistance: false,
+    manyBodyStrength: false,
+    manyBodyTheta: false
+  },
   forceAttributesInitial: {
     collideStrength: 10,
-    linkDistance: 34,
-    linkStrength: 175,
-    manyBodyStrength: 63,
-    manyBodyMinDistance: 1,
-    manyBodyMaxDistance: 40,
-    forceXStrength: 50,
-    forceYStrength: 50,
-    customStrength: 10
+    customStrength: 75
   },
   normalizationCoefficients: {
-    manyBodyMaxDistance: 10,
-    collideStrength: 0.1,
-    customStrength: 0.1,
-    forceYStrength: 0.01,
-    forceXStrength: 0.01
+    collideStrength: 0.05,
+    customStrength: 0.1
   }
 };

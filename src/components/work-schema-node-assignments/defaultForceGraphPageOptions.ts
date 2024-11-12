@@ -12,6 +12,9 @@ export const defaultForceGraphPageOptions: ForceGraphPageOptions = {
     collideStrength: 10
   },
   normalizationCoefficients: {
+    manyBodyMaxDistance: 10,
+    collideStrength: 0.05,
+    customStrength: 0.1,
     forceXStrength: 0.1,
     forceYStrength: 0.1
   },

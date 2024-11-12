@@ -1,8 +1,13 @@
 'use client';
 import { Slider } from '@mantine/core';
 import React, { useCallback } from 'react';
-import { useGlobalDispatchAndListener } from 'selective-context';
+import {
+  useGlobalController,
+  useGlobalDispatchAndListener,
+  useGlobalListener
+} from 'selective-context';
 import { startCase } from 'lodash';
+import { CustomForceLabelContextKey } from '@/components/react-flow/generic/components/generic/GraphForceSliders';
 
 export function SelectiveContextRangeSlider({
   contextKey,
@@ -17,6 +22,7 @@ export function SelectiveContextRangeSlider({
   maxValue?: number;
   minValue?: number;
   className?: string;
+  label?: string;
 }) {
   const { currentState, dispatchWithoutControl: dispatchUpdate } =
     useGlobalDispatchAndListener({
@@ -24,6 +30,12 @@ export function SelectiveContextRangeSlider({
       listenerKey,
       initialValue
     });
+
+  const { currentState: customLabel } = useGlobalListener({
+    contextKey: `${contextKey}-label`,
+    listenerKey,
+    initialValue: startCase(contextKey.substring(contextKey.indexOf(':') + 1))
+  });
 
   const onSliderChange = useCallback(
     (value: number) => {
@@ -35,9 +47,7 @@ export function SelectiveContextRangeSlider({
 
   return (
     <div className={'flex flex-col'}>
-      <span className={'block text-sm'}>
-        {startCase(contextKey.substring(contextKey.indexOf(':') + 1))}
-      </span>
+      <span className={'block text-sm'}>{customLabel}</span>
       <Slider
         name={contextKey}
         id={contextKey}

@@ -2,7 +2,11 @@
 
 import React, { useMemo } from 'react';
 
-import { useGlobalReadAny } from 'selective-context';
+import {
+  useGlobalController,
+  useGlobalListener,
+  useGlobalReadAny
+} from 'selective-context';
 
 import { SelectiveContextRangeSlider } from '@/components/react-flow/generic/components/generic/SelectiveContextRangeSlider';
 import { SelectiveContextReadAll } from 'selective-context/dist/types';
@@ -15,6 +19,8 @@ import {
 } from 'react-d3-force-wrapper';
 
 const listenerKey = 'graph-force-adjustment';
+export const CustomForceLabelContextKey = 'customForceLabel';
+
 export function GraphForceSliders() {
   const uniqueGraphName = useGraphName();
   const selectiveContextReadAll: SelectiveContextReadAll<boolean> =
