@@ -63,8 +63,9 @@ import { DispatchState } from '@/types';
 import { isNotUndefined } from '@/api/main';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
-import { CustomForceLabelContextKey } from '@/components/react-flow/generic/components/generic/GraphForceSliders';
-import { useGlobalController, useGlobalDispatch } from 'selective-context';
+import { useGlobalController } from 'selective-context';
+import { hierarchyOptionsContextKey } from '@/components/react-flow/organization/components/ClassHierarchyLayoutFlowWithForces';
+import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -98,6 +99,12 @@ function useInterceptNodeDataUpdate(
     );
   }, [dispatchWithoutListen, checkToggleFirstAndAfter]);
 }
+
+const initialWsnLayoutOptions: HierarchicalDataOptions = {
+  algorithm: 'd3-tree',
+  orientation: 'horizontal',
+  nodeSize: [50, 400]
+};
 
 export function WorkSchemaNodeLayoutFlowWithForces({
   children
@@ -163,6 +170,12 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     idToNodeMap
   );
   useHierarchicalTreeLayout(idToChildIdMap);
+
+  useGlobalController<HierarchicalDataOptions>({
+    contextKey: hierarchyOptionsContextKey,
+    listenerKey: 'wsn-gaph',
+    initialValue: initialWsnLayoutOptions
+  });
 
   const { onConnect, ...otherProps } = reactFlowProps;
 

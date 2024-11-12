@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@azure/identity": "^4.5.0",
+    "@dagrejs/dagre": "^1.1.4",
     "@faker-js/faker": "^8.4.1",
     "@floating-ui/react": "^0.26.27",
     "@fullcalendar/core": "^6.1.15",
@@ -87,6 +88,7 @@
     "@react-types/shared": "^3.25.0",
     "@tailwindcss/forms": "^0.5.9",
     "@types/d3": "^7.4.3",
+    "@types/dagre": "^0.7.52",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.17.13",
     "@types/node": "^20.17.6",

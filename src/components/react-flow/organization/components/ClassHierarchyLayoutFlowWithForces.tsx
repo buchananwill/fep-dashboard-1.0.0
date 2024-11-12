@@ -45,8 +45,18 @@ import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdT
 import { AllocationTotal } from '@/components/react-flow/organization/types';
 import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
 import { useViewportSize } from '@mantine/hooks';
+import { useGlobalController } from 'selective-context';
+import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 
 type OrganizationDto = Simplify<OrgDto>;
+
+const initialValue: HierarchicalDataOptions = {
+  orientation: 'vertical',
+  nodeSize: [300, 300],
+  algorithm: 'dagre'
+};
+
+export const hierarchyOptionsContextKey = 'hierarchyOptions';
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,
@@ -90,6 +100,11 @@ export function ClassHierarchyLayoutFlowWithForces({
   );
 
   useGraphDispatch(GraphSelectiveContextKeys.dimensions);
+  useGlobalController<HierarchicalDataOptions>({
+    contextKey: hierarchyOptionsContextKey,
+    initialValue: initialValue,
+    listenerKey: 'work-schema-node-assignments'
+  });
 
   const dispatchWithoutListen = NamespacedHooks.useDispatch(
     'allocationTotal',

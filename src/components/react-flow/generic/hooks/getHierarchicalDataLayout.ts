@@ -14,6 +14,7 @@ export interface HierarchicalDataOptions {
     b: HierarchyPointNode<NestedWithStringId>
   ) => number;
   orientation?: 'horizontal' | 'vertical';
+  algorithm?: 'dagre' | 'd3-tree';
 }
 
 export function getHierarchicalDataLayout(

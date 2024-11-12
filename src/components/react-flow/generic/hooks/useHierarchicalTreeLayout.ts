@@ -2,7 +2,7 @@ import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/g
 import { useTreeHierarchicalDataLayoutMemo } from '@/components/react-flow/generic/hooks/useTreeHierarchicalDataLayoutMemo';
 import { usePreComputedPositionForce } from '@/components/react-flow/generic/hooks/usePreComputedPositionForce';
 
-import { Layoutable } from '@/components/react-flow/generic/hooks/getCustomForce';
+import { Layoutable } from '@/components/react-flow/generic/hooks/getTreeForce';
 
 const options: HierarchicalDataOptions = {
   nodeSize: [50, 400],

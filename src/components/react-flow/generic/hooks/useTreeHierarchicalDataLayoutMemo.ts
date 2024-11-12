@@ -5,7 +5,7 @@ import {
   getIdToNestedNodeMapList,
   StringIdHierarchyMap
 } from '@/components/react-flow/generic/hooks/hierarchy-transforms';
-import { Layoutable } from '@/components/react-flow/generic/hooks/getCustomForce';
+import { Layoutable } from '@/components/react-flow/generic/hooks/getTreeForce';
 
 export function useTreeHierarchicalDataLayoutMemo(
   childMap: StringIdHierarchyMap,

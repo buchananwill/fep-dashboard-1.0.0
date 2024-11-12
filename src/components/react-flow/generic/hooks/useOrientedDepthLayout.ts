@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { HasStringId } from 'react-d3-force-wrapper';
 
 import { usePreComputedPositionForce } from '@/components/react-flow/generic/hooks/usePreComputedPositionForce';
-import { HasPosition } from '@/components/react-flow/generic/hooks/getCustomForce';
+import { HasPosition } from '@/components/react-flow/generic/hooks/getTreeForce';
 
 export function useOrientedDepthLayout<T extends NodeDataType>(
   nodes: FlowNode<T>[],

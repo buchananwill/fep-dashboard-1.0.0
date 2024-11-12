@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { InitialMap } from 'dto-stores';
 import { useGlobalController } from 'selective-context';
 import { hierarchicalLayoutMap } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
-import { Layoutable } from '@/components/react-flow/generic/hooks/getCustomForce';
+import { Layoutable } from '@/components/react-flow/generic/hooks/getTreeForce';
 
 export function usePreComputedPositionForce(
   layoutMemo: Map<string, Layoutable>

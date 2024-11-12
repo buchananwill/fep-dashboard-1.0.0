@@ -20,7 +20,7 @@ export type HasPosition = {
   y: number;
 };
 export type Layoutable = HasPosition & HasStringId;
-export const customForce = getCustomForce();
+export const treeForce = getTreeForce();
 
 function addNodesWithNoEdges(
   nodesReference: DataNode<NodeDataType>[],
@@ -36,7 +36,7 @@ function addNodesWithNoEdges(
   });
 }
 
-export function getCustomForce() {
+export function getTreeForce() {
   let optionsCache = {} as HierarchicalDataOptions;
   let strength: number = 0.01;
   let nodesReference = [] as DataNode<NodeDataType>[];

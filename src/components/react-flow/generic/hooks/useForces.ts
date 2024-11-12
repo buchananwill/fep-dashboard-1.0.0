@@ -3,7 +3,7 @@ import { MutableRefObject, useCallback, useMemo, useRef } from 'react';
 
 import { useGlobalController, useGlobalListener } from 'selective-context';
 
-import { FlowNode } from '@/components/react-flow/generic/types';
+import { FlowEdge, FlowNode } from '@/components/react-flow/generic/types';
 import {
   DirectSimRefEditsDispatchReturn,
   GraphSelectiveContextKeys,
@@ -18,12 +18,13 @@ import { hierarchicalLayoutMap } from '@/components/react-flow/generic/hooks/use
 import { getTickFunction } from '@/components/react-flow/generic/hooks/getTickFunction';
 import { HasNumberId } from '@/api/types';
 import {
-  customForce,
-  getCustomForce,
+  treeForce,
+  getTreeForce,
   Layoutable,
   refInitial
-} from '@/components/react-flow/generic/hooks/getCustomForce';
+} from '@/components/react-flow/generic/hooks/getTreeForce';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
+import { dagreForce } from '@/components/react-flow/generic/hooks/getDagreForce';
 
 export const draggingNodeKey = 'dragging-node';
 
@@ -55,25 +56,20 @@ export function useForces(
   }, []);
   const initialised = useNodesInitialized();
 
-  const { currentState } = useGlobalListener({
-    contextKey: hierarchicalLayoutMap,
-    initialValue: refInitial,
-    listenerKey
+  const { currentState } = useGlobalListener<HierarchicalDataOptions>({
+    contextKey: 'hierarchyOptions',
+    initialValue: options,
+    listenerKey: 'use-forces-hook'
   });
 
-  const localRef = useRef(InitialMap as Map<string, Layoutable>);
-  localRef.current = currentState.current;
-
   const overrideForces = useMemo(() => {
-    // const customForce = getCustomForce(localRef);
-
     return {
       forceFunctions: {
         collide,
-        custom: customForce
+        custom: currentState.algorithm === 'dagre' ? dagreForce : treeForce
       }
     };
-  }, []);
+  }, [currentState]);
 
   useD3ForceSimulationMemo(overrideForces);
   const { currentState: draggingNode } = useGlobalController<
@@ -112,9 +108,11 @@ export function useForces(
     for (let i = 0; i < nodes.length; i++) {
       Object.assign(nodeListRef.current[i], nodes[i]);
     }
-    console.log({ mutableLinks: linkListRef.current, storeLinks: links });
-    customForce.links([...links]);
-    customForce.updateLayout(options);
+
+    treeForce.links([...links]);
+    treeForce.updateLayout(currentState);
+    dagreForce.links([...getEdges()] as FlowEdge<any>[]);
+    dagreForce.updateLayout(currentState);
 
     return getTickFunction(
       isRunning,
@@ -126,6 +124,8 @@ export function useForces(
       fitView
     );
   }, [
+    getEdges,
+    currentState,
     getNodes,
     links,
     initialised,

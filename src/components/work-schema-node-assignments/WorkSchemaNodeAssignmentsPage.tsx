@@ -1,4 +1,4 @@
-import { ForceGraphPage } from 'react-d3-force-wrapper';
+import { ForceGraphPage, ForceGraphPageOptions } from 'react-d3-force-wrapper';
 import { ReactFlowWrapper } from '@/components/react-flow/generic/components/wrappers/ReactFlowWrapper';
 import { ClassHierarchyLayoutFlowWithForces } from '@/components/react-flow/organization/components/ClassHierarchyLayoutFlowWithForces';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -88,12 +88,12 @@ export const WorkSchemaNodeAssignmentsHome = getPathVariableSplitComponent(
   AssignmentLevelLinks
 );
 
-const WorkSchemaNodeAssignmentsForceGraphDefaults = {
+const WorkSchemaNodeAssignmentsForceGraphDefaults: ForceGraphPageOptions = {
   ...defaultForceGraphPageOptions,
   forces: {
-    ...defaultForceGraphPageOptions.forces,
-    forceX: true,
-    forceY: true
+    custom: true
+    // forceX: true,
+    // forceY: true
   }
 };
 
