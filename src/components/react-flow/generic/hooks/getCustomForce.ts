@@ -1,15 +1,16 @@
 import { InitialMap } from 'dto-stores';
 import { DataLink, DataNode, HasStringId } from 'react-d3-force-wrapper';
-import { FlowEdge, FlowNode } from '@/components/react-flow/generic/types';
+import { FlowNode } from '@/components/react-flow/generic/types';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 import { getHierarchyLayoutResolver } from '@/components/react-flow/generic/hooks/getTreeHierarchyLayoutResolver';
 import {
   createIdToChildIdMap,
   createNestedWithStringId,
-  getIdToNestedNodeMapList
+  getIdToNestedNodeMapList,
+  NestedWithStringId
 } from '@/components/react-flow/generic/hooks/hierarchy-transforms';
-import { HasNumberId } from '@/api/types';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
+import { HierarchyPointNode } from 'd3';
 
 export const refInitial = {
   current: InitialMap as Map<string, Layoutable>
@@ -21,26 +22,103 @@ export type HasPosition = {
 export type Layoutable = HasPosition & HasStringId;
 export const customForce = getCustomForce();
 
+function addNodesWithNoEdges(
+  nodesReference: DataNode<NodeDataType>[],
+  idToChildIdMap: Map<string, Set<string>>
+) {
+  nodesReference.forEach((n) => {
+    const inMap =
+      idToChildIdMap.has(n.id) ||
+      idToChildIdMap.values().some((set) => set.has(n.id));
+    if (!inMap) {
+      idToChildIdMap.set(n.id, new Set());
+    }
+  });
+}
+
 export function getCustomForce() {
+  let optionsCache = {} as HierarchicalDataOptions;
   let strength: number = 0.01;
   let nodesReference = [] as DataNode<NodeDataType>[];
   let linksReference = [] as DataLink<NodeDataType>[];
-  let layoutRef: Map<string, Layoutable> = new Map<string, Layoutable>();
+  let layoutRef: Map<string, HierarchyPointNode<NestedWithStringId>>[] = [];
+  let nodeIndexToLayoutMapIndexArray = [] as number[];
+  let depthOffsetList = [] as number[];
 
-  let xResolver = getHierarchyLayoutResolver({ current: layoutRef }, 'y');
-  let yResolver = getHierarchyLayoutResolver({ current: layoutRef }, 'x');
+  let xResolver = getHierarchyLayoutResolver(
+    layoutRef,
+    nodeIndexToLayoutMapIndexArray,
+    'x',
+    depthOffsetList
+  );
+  let yResolver = getHierarchyLayoutResolver(
+    layoutRef,
+    nodeIndexToLayoutMapIndexArray,
+    'y',
+    depthOffsetList
+  );
+
+  function setResolvers() {
+    xResolver = getHierarchyLayoutResolver(
+      layoutRef,
+      nodeIndexToLayoutMapIndexArray,
+      'x',
+      depthOffsetList
+    );
+    yResolver = getHierarchyLayoutResolver(
+      layoutRef,
+      nodeIndexToLayoutMapIndexArray,
+      'y',
+      depthOffsetList
+    );
+  }
+
+  function createdNodeToLayoutIndex() {
+    const maxDepthMap = new Map<number, number>();
+    nodeIndexToLayoutMapIndexArray = [];
+    let found = false;
+    for (let i = 0; i < nodesReference.length; i++) {
+      const id = nodesReference[i].id;
+      found = false;
+      for (let j = 0; j < layoutRef.length; j++) {
+        if (layoutRef[j].has(id)) {
+          nodeIndexToLayoutMapIndexArray.push(j);
+          const depth = layoutRef[j].get(id)?.depth || 0;
+          maxDepthMap.set(j, Math.max(maxDepthMap.get(j) || 0, depth + 1));
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        nodeIndexToLayoutMapIndexArray.push(-1);
+      }
+      found = false;
+    }
+
+    depthOffsetList = [0];
+
+    for (let i = 0; i < layoutRef.length; i++) {
+      const nodeSize = optionsCache?.nodeSize;
+      let width = nodeSize ? nodeSize[1] : 0;
+      const totalWidth = (maxDepthMap.get(i) || 0) * width;
+      const cumulativeOffset = depthOffsetList.reduce(
+        (prev, curr) => prev + curr,
+        0
+      );
+      depthOffsetList.push(totalWidth + cumulativeOffset);
+    }
+  }
+  console.log(depthOffsetList);
 
   function buildLayoutRef(options?: HierarchicalDataOptions) {
+    optionsCache = options ? options : optionsCache;
     const idToChildIdMap = createIdToChildIdMap(linksReference);
+
+    addNodesWithNoEdges(nodesReference, idToChildIdMap);
     const nestedWithStringId = createNestedWithStringId(idToChildIdMap);
-    const idToNestedNodeMapList = getIdToNestedNodeMapList(
-      nestedWithStringId,
-      options
-    ) as Map<string, Layoutable>[];
-    layoutRef =
-      idToNestedNodeMapList.length > 0 ? idToNestedNodeMapList[0] : layoutRef;
-    xResolver = getHierarchyLayoutResolver({ current: layoutRef }, 'y');
-    yResolver = getHierarchyLayoutResolver({ current: layoutRef }, 'x');
+    layoutRef = getIdToNestedNodeMapList(nestedWithStringId, options);
+    createdNodeToLayoutIndex();
+    setResolvers();
   }
 
   function force(alpha: number) {
@@ -63,10 +141,11 @@ export function getCustomForce() {
   }
 
   force.links = (links?: DataLink<any>[]) => {
+    console.log({ links });
     if (links === undefined) {
       return linksReference;
     } else {
-      if (links !== linksReference) {
+      if (links !== linksReference || links.length !== linksReference.length) {
         linksReference = links;
         buildLayoutRef();
       }

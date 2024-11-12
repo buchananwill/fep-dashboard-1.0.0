@@ -1,4 +1,4 @@
-import { useNodesInitialized, useReactFlow } from '@xyflow/react';
+import { useEdges, useNodesInitialized, useReactFlow } from '@xyflow/react';
 import { MutableRefObject, useCallback, useMemo, useRef } from 'react';
 
 import { useGlobalController, useGlobalListener } from 'selective-context';
@@ -9,7 +9,8 @@ import {
   GraphSelectiveContextKeys,
   useD3ForceSimulationMemo,
   useDirectSimRefEditsDispatch,
-  useGraphController
+  useGraphController,
+  useLinkContext
 } from 'react-d3-force-wrapper';
 import { collide } from '@/components/react-flow/generic/utils/collide';
 import { InitialMap } from 'dto-stores';
@@ -40,7 +41,9 @@ export function useForces(
   (() => void) | undefined,
   undefined | DirectSimRefEditsDispatchReturn<HasNumberId>['nodeListRef']
 ] {
-  const { getNodes, setNodes, fitView } = useReactFlow();
+  const { getNodes, setNodes, fitView, getEdges } = useReactFlow();
+  const { links } = useLinkContext();
+
   const { currentState: running, dispatch } = useGraphController<boolean>(
     GraphSelectiveContextKeys.running,
     false
@@ -109,7 +112,8 @@ export function useForces(
     for (let i = 0; i < nodes.length; i++) {
       Object.assign(nodeListRef.current[i], nodes[i]);
     }
-    customForce.links(linkListRef.current);
+    console.log({ mutableLinks: linkListRef.current, storeLinks: links });
+    customForce.links([...links]);
     customForce.updateLayout(options);
 
     return getTickFunction(
@@ -123,6 +127,7 @@ export function useForces(
     );
   }, [
     getNodes,
+    links,
     initialised,
     nodeListRef,
     linkListRef,

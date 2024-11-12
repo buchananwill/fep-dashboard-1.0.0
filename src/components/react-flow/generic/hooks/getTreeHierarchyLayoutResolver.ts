@@ -1,17 +1,26 @@
-import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
-import { MutableRefObject } from 'react';
 import { HierarchyPointNode } from 'd3';
 import { get } from 'lodash';
+import { DataNode, HasStringId } from 'react-d3-force-wrapper';
+import { isNonZeroFalsy } from '@/api/main';
 
-import { Layoutable } from '@/components/react-flow/generic/hooks/getCustomForce';
-import { DataNode } from 'react-d3-force-wrapper';
-
-export function getHierarchyLayoutResolver<T extends NodeDataType>(
-  layoutMap: MutableRefObject<Map<string, Layoutable>>,
-  dimension: keyof Pick<HierarchyPointNode<any>, 'x' | 'y'>
+export function getHierarchyLayoutResolver<T extends HasStringId>(
+  layoutMapList: Map<string, HierarchyPointNode<T>>[],
+  layoutMapIndexList: number[],
+  dimension: keyof Pick<HierarchyPointNode<any>, 'x' | 'y'>,
+  depthOffsetList: number[]
 ) {
-  return (node: DataNode<T>, index: number) => {
-    const hasPosition = layoutMap.current.get(node.id);
-    return hasPosition ? get(hasPosition, dimension, 0) : 0;
+  return (node: DataNode<any>, index: number) => {
+    const layoutMapIndex = layoutMapIndexList[index];
+
+    const layoutMap = !isNonZeroFalsy(layoutMapIndex)
+      ? layoutMapList[layoutMapIndex]
+      : undefined;
+    const depthOffset = depthOffsetList[layoutMapIndex] || 0;
+    const hasPosition = layoutMap?.get(node.id);
+    const desiredPosition = hasPosition ? get(hasPosition, dimension, 0) : 0;
+
+    if (dimension === 'x') {
+      return desiredPosition + depthOffset;
+    } else return desiredPosition;
   };
 }

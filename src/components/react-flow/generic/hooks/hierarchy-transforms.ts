@@ -6,7 +6,6 @@ import {
 import { DataLink, HasStringId } from 'react-d3-force-wrapper';
 import { HierarchyPointNode } from 'd3';
 import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/functions/resetLinks';
-import { Layoutable } from '@/components/react-flow/generic/hooks/getCustomForce';
 
 export type StringIdHierarchyMap = Map<string, Set<string>>;
 
@@ -49,7 +48,7 @@ function getOrientationCorrector(orientation: 'horizontal' | 'vertical') {
     map: Map<string, HierarchyPointNode<T>>,
     index: number
   ) {
-    if (orientation === 'vertical') {
+    if (orientation === 'horizontal') {
       [...map.values()].forEach((hpn) => {
         const { x, y } = hpn;
         // noinspection JSSuspiciousNameCombination
@@ -67,7 +66,7 @@ export function getIdToNestedNodeMapList(
   options?: HierarchicalDataOptions
 ) {
   if (rootNodeList.length === 0)
-    return [new Map()] as Map<string, Layoutable>[];
+    return [new Map()] as Map<string, HierarchyPointNode<NestedWithStringId>>[];
   const correctOrientation = getOrientationCorrector(
     options?.orientation ?? 'horizontal'
   );
