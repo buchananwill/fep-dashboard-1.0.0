@@ -19,7 +19,7 @@ export function getHierarchyLayoutResolver<T extends HasStringId>(
     const hasPosition = layoutMap?.get(node.id);
     const desiredPosition = hasPosition ? get(hasPosition, dimension, 0) : 0;
 
-    if (dimension === 'x') {
+    if (dimension === 'y') {
       return desiredPosition + depthOffset;
     } else return desiredPosition;
   };

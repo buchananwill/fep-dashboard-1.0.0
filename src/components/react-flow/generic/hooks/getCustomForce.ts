@@ -73,8 +73,8 @@ export function getCustomForce() {
     );
   }
 
-  function createdNodeToLayoutIndex() {
-    const maxDepthMap = new Map<number, number>();
+  function createNodeToLayoutIndex() {
+    const numLeavesMap = new Map<number, number>();
     nodeIndexToLayoutMapIndexArray = [];
     let found = false;
     for (let i = 0; i < nodesReference.length; i++) {
@@ -83,8 +83,8 @@ export function getCustomForce() {
       for (let j = 0; j < layoutRef.length; j++) {
         if (layoutRef[j].has(id)) {
           nodeIndexToLayoutMapIndexArray.push(j);
-          const depth = layoutRef[j].get(id)?.depth || 0;
-          maxDepthMap.set(j, Math.max(maxDepthMap.get(j) || 0, depth + 1));
+          const leaves = layoutRef[j].get(id)?.leaves().length || 1;
+          numLeavesMap.set(j, Math.max(numLeavesMap.get(j) || 0, leaves + 2));
           found = true;
           break;
         }
@@ -95,20 +95,25 @@ export function getCustomForce() {
       found = false;
     }
 
-    depthOffsetList = [0];
+    depthOffsetList = [];
+    const cumulativeOffsetList = [];
 
     for (let i = 0; i < layoutRef.length; i++) {
       const nodeSize = optionsCache?.nodeSize;
-      let width = nodeSize ? nodeSize[1] : 0;
-      const totalWidth = (maxDepthMap.get(i) || 0) * width;
-      const cumulativeOffset = depthOffsetList.reduce(
-        (prev, curr) => prev + curr,
-        0
-      );
-      depthOffsetList.push(totalWidth + cumulativeOffset);
+      let width = nodeSize ? nodeSize[0] : 0;
+      const totalWidth = ((numLeavesMap.get(i) || 1) + 1) * width;
+      depthOffsetList.push(totalWidth);
     }
+    for (let i = 0; i <= depthOffsetList.length; i++) {
+      const cumulativeOffset = depthOffsetList
+        .slice(0, i)
+        .reduce((prev, curr, index) => prev + curr, 0);
+      cumulativeOffsetList.push(cumulativeOffset);
+    }
+
+    depthOffsetList = cumulativeOffsetList;
+    console.log(depthOffsetList);
   }
-  console.log(depthOffsetList);
 
   function buildLayoutRef(options?: HierarchicalDataOptions) {
     optionsCache = options ? options : optionsCache;
@@ -117,7 +122,7 @@ export function getCustomForce() {
     addNodesWithNoEdges(nodesReference, idToChildIdMap);
     const nestedWithStringId = createNestedWithStringId(idToChildIdMap);
     layoutRef = getIdToNestedNodeMapList(nestedWithStringId, options);
-    createdNodeToLayoutIndex();
+    createNodeToLayoutIndex();
     setResolvers();
   }
 
