@@ -3,7 +3,10 @@ import React from 'react';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import {
+  WorkProjectSeriesSchemaDto,
+  WorkTaskTypeDto
+} from '@/api/generated-types/generated-types';
 import { Paths } from 'type-fest';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
@@ -11,6 +14,7 @@ import { startCase } from 'lodash';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/EmbeddedWorkTaskTypeCell';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
+import { EntityInnerCellProps } from '@/components/tables/core-table-types';
 
 export default function WorkProjectSeriesSchemaSelectorTable({
   entities
@@ -70,7 +74,7 @@ export const WpssCellModelReadOnly = getCellRenderFunction<
   'workProjectSeriesSchema',
   WorkProjectSeriesSchemaDto
 >('workProjectSeriesSchema', {
-  name: { type: 'IdInnerCell', component: AnyValueToString },
+  name: { type: 'EntityInnerCell', component: WpssNamespaceCell },
   userToProviderRatio: { type: 'IdInnerCell', component: AnyValueToString },
   'workTaskType.knowledgeDomain.shortCode': {
     type: 'EntityInnerCell',
@@ -89,3 +93,15 @@ export const WpssCellModelReadOnly = getCellRenderFunction<
     component: EmbeddedWorkTaskTypeCell
   }
 });
+
+function WpssNamespaceCell(
+  props: EntityInnerCellProps<WorkProjectSeriesSchemaDto>
+) {
+  const { entity } = props;
+
+  return getWorkTaskTypeViewIdString(entity.workTaskType);
+}
+
+export function getWorkTaskTypeViewIdString(workTaskType: WorkTaskTypeDto) {
+  return `${workTaskType.name} - ${workTaskType.knowledgeDomain.name} - ${workTaskType.knowledgeLevel?.name ?? 'no level'}`;
+}

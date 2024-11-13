@@ -10,6 +10,8 @@ import {
   WpssCellModelReadOnly
 } from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
 import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
+import { Card } from '@mantine/core';
+import { getDomainAlias } from '@/api/getDomainAlias';
 
 export type SyncDirection = 'propToStore' | 'storeToState';
 
@@ -43,7 +45,10 @@ export default function WorkSchemaNodeModalTable({
   );
 
   return (
-    <div className={'flex flex-col gap-1 p-1'}>
+    <Card className={'flex flex-col gap-1 p-1'}>
+      <Card.Section className={'flex justify-center text-center font-bold'}>
+        Select {getDomainAlias('workProjectSeriesSchema')} for node:
+      </Card.Section>
       <EntityTable
         key={`select-table-${workSchemaNode.id}`}
         cellModel={WpssCellModelReadOnly}
@@ -51,6 +56,6 @@ export default function WorkSchemaNodeModalTable({
         columns={WorkProjectSeriesSchemaColumns}
         withSelection={'single'}
       />
-    </div>
+    </Card>
   );
 }

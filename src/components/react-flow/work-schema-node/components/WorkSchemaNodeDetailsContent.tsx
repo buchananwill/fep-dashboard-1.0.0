@@ -11,7 +11,15 @@ import { ObjectPlaceholder } from 'selective-context';
 import { CarouselOptionDto } from '@/api/generated-types/generated-types';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
-import { Button, Loader, Select } from '@mantine/core';
+import {
+  Button,
+  Card,
+  Loader,
+  NumberInput,
+  Paper,
+  Select,
+  TextInput
+} from '@mantine/core';
 import React, { useEffect, useMemo } from 'react';
 import {
   BaseLazyDtoUiProps,
@@ -105,16 +113,24 @@ export default function WorkSchemaNodeDetailsContent({
 
   return (
     <>
-      <div className={'flex w-full flex-col'}>
+      <div className={'flex w-full flex-col gap-2'}>
         {isPending ? (
           <Loader />
         ) : data === undefined ? (
           <div>Error.</div>
         ) : (
           <>
-            <div className={'grid grid-cols-2 gap-1'}>
-              <div>
-                <FocusToEdit
+            <h1
+              className={
+                'sticky top-16 z-10 rounded-lg bg-neutral-100 py-2 text-center font-bold'
+              }
+            >
+              {currentState.name}
+            </h1>
+            <div className={'grid grid-cols-2 gap-2'}>
+              <div className={'grid grid-cols-2 gap-1'}>
+                <TextInput
+                  label={'Name'}
                   value={currentState.name ?? ''}
                   placeholder={'Node Name'}
                   size={'sm'}
@@ -124,49 +140,58 @@ export default function WorkSchemaNodeDetailsContent({
                       name: e.target.value
                     }))
                   }
-                >
-                  {currentState.name ?? ''}
-                </FocusToEdit>
-                <Select {...(selectApi as SingleFlat)} />
+                />
 
-                {numberProperties.map((prop) => (
-                  <label key={prop} className={'flex w-full justify-between'}>
-                    <span className={'inline-block grow'}>{prop}:</span>
-                    <DtoStoreNumberInput
-                      numberKey={prop}
-                      entity={currentState}
-                      entityClass={EntityClassMap.workSchemaNode}
-                      dispatchWithoutControl={dispatchWithoutControl}
-                      min={prop === 'priority' ? 0 : 1}
-                      allowFloat={true}
-                    />
-                  </label>
-                ))}
+                <Select {...(selectApi as SingleFlat)} label={'Children As'} />
+
+                {numberProperties.map(
+                  (prop) =>
+                    prop && (
+                      <NumberInput
+                        label={prop}
+                        key={prop}
+                        value={currentState[prop]}
+                        onChange={(value) =>
+                          dispatchWithoutControl((entity) => ({
+                            ...entity,
+                            [prop]:
+                              typeof value === 'number'
+                                ? value
+                                : parseFloat(value)
+                          }))
+                        }
+                      />
+                    )
+                )}
               </div>
-              {(currentState.workProjectSeriesSchemaId ||
-                currentState.carouselOptionId) && (
-                <div
-                  className={'shadow-small m-1 flex flex-col rounded-lg p-2'}
-                >
-                  Leaf Content:
-                  {currentState.workProjectSeriesSchemaId && (
-                    <LazyDtoUiWrapper
-                      renderAs={WorkProjectionSeriesSchemaSummary}
-                      entityId={currentState.workProjectSeriesSchemaId}
-                      entityClass={EntityClassMap.workProjectSeriesSchema}
-                      whileLoading={() => <Loader />}
-                    />
-                  )}
-                  {currentState.carouselOptionId && (
-                    <LazyDtoUiWrapper
-                      renderAs={CarouselOptionSummary}
-                      entityId={currentState.carouselOptionId}
-                      entityClass={EntityClassMap.carouselOption}
-                      whileLoading={() => <Loader />}
-                    />
-                  )}
-                </div>
-              )}
+              <Card p={'xs'}>
+                {currentState.workProjectSeriesSchemaId ||
+                currentState.carouselOptionId ? (
+                  <div
+                    className={'shadow-small m-1 flex flex-col rounded-lg p-2'}
+                  >
+                    Leaf Content:
+                    {currentState.workProjectSeriesSchemaId && (
+                      <LazyDtoUiWrapper
+                        renderAs={WorkProjectionSeriesSchemaSummary}
+                        entityId={currentState.workProjectSeriesSchemaId}
+                        entityClass={EntityClassMap.workProjectSeriesSchema}
+                        whileLoading={() => <Loader />}
+                      />
+                    )}
+                    {currentState.carouselOptionId && (
+                      <LazyDtoUiWrapper
+                        renderAs={CarouselOptionSummary}
+                        entityId={currentState.carouselOptionId}
+                        entityClass={EntityClassMap.carouselOption}
+                        whileLoading={() => <Loader />}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  'No leaf content.'
+                )}
+              </Card>
             </div>
 
             {allowSchema && (
@@ -177,20 +202,20 @@ export default function WorkSchemaNodeDetailsContent({
             )}
           </>
         )}
-      </div>
-      <div className={'p-2'}>
-        <Button color="danger" variant="light" onClick={onClose}>
-          Cancel
-        </Button>
-        <Button
-          color="primary"
-          onClick={() => {
-            commitEdit(currentState);
-            onCloseDefined();
-          }}
-        >
-          Update graph
-        </Button>
+        <div className={'flex justify-center gap-2'}>
+          <Button color="danger" variant="light" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              commitEdit(currentState);
+              onCloseDefined();
+            }}
+          >
+            Update graph
+          </Button>
+        </div>
       </div>
     </>
   );

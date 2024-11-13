@@ -8,6 +8,7 @@ import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptor
 import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
+import { getWorkTaskTypeViewIdString } from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
 
 export default function LeafNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>
@@ -38,7 +39,7 @@ export default function LeafNode(
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}
-      label={`${entity ? entity.name : isPending ? 'loading...' : 'Error!'}`}
+      label={`${entity ? getWorkTaskTypeViewIdString(entity.workTaskType) : isPending ? 'loading...' : 'Error!'}`}
     ></BaseWorkSchemaNode>
   );
 }
