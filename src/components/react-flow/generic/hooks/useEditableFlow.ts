@@ -21,6 +21,7 @@ import { convertGraphDtoToReactFlowState } from '@/components/react-flow/generic
 import { useGlobalDispatch } from 'selective-context';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
+import { UseForcesParams } from '@/components/react-flow/generic/hooks/useForces';
 
 export interface ServerAction<T, U> {
   (request: T): Promise<U>;
@@ -33,7 +34,8 @@ export function useEditableFlow<T extends NodeDataType>(
   putServerAction: ServerAction<GraphDtoPutRequestBody<T>, GraphDto<T>>,
   nodeConvertor: NodeConvertor<T>,
   entityClass: string,
-  nodeValidator: NodeValidator<T>
+  nodeValidator: NodeValidator<T>,
+  params: UseForcesParams
 ) {
   // 4. Call the hook to set up the layout with forces
   const {
@@ -42,7 +44,7 @@ export function useEditableFlow<T extends NodeDataType>(
     dispatchNodes,
     dispatchEdges,
     contextData
-  } = useLayoutFlowWithForces<T>();
+  } = useLayoutFlowWithForces<T>(params);
   const [isPending, startTransition] = useTransition();
   const { fitView } = useReactFlow();
   const { dispatchWithoutListen: dispatchDeletedLinkIds } = useGraphDispatch(

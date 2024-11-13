@@ -1,11 +1,12 @@
-import { useEdges, useNodesInitialized, useReactFlow } from '@xyflow/react';
+import { useNodesInitialized, useReactFlow } from '@xyflow/react';
 import { MutableRefObject, useCallback, useMemo, useRef } from 'react';
 
-import { useGlobalController, useGlobalListener } from 'selective-context';
+import { useGlobalController } from 'selective-context';
 
 import { FlowEdge, FlowNode } from '@/components/react-flow/generic/types';
 import {
   DirectSimRefEditsDispatchReturn,
+  Forces,
   GraphSelectiveContextKeys,
   useD3ForceSimulationMemo,
   useDirectSimRefEditsDispatch,
@@ -13,31 +14,28 @@ import {
   useLinkContext
 } from 'react-d3-force-wrapper';
 import { collide } from '@/components/react-flow/generic/utils/collide';
-import { InitialMap } from 'dto-stores';
-import { hierarchicalLayoutMap } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
 import { getTickFunction } from '@/components/react-flow/generic/hooks/getTickFunction';
 import { HasNumberId } from '@/api/types';
-import {
-  treeForce,
-  getTreeForce,
-  Layoutable,
-  refInitial
-} from '@/components/react-flow/generic/hooks/getTreeForce';
+import { treeForce } from '@/components/react-flow/generic/hooks/getTreeForce';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 import { dagreForce } from '@/components/react-flow/generic/hooks/getDagreForce';
+import { ObjectPlaceholder } from '@/api/literals';
 
 export const draggingNodeKey = 'dragging-node';
 
 const listenerKey = 'use-layouted-elements';
 
-const options: HierarchicalDataOptions = {
-  nodeSize: [60, 400],
-  orientation: 'horizontal'
+export type UseForcesParams = {
+  applyFitView?: boolean;
+  forceFunctions?: Forces;
+  hierarchyOptions?: HierarchicalDataOptions;
 };
 
-export function useForces(
-  applyFitView?: boolean
-): [
+export function useForces({
+  applyFitView,
+  forceFunctions,
+  hierarchyOptions
+}: UseForcesParams): [
   boolean,
   (() => void) | undefined,
   undefined | DirectSimRefEditsDispatchReturn<HasNumberId>['nodeListRef']
@@ -56,20 +54,11 @@ export function useForces(
   }, []);
   const initialised = useNodesInitialized();
 
-  const { currentState } = useGlobalListener<HierarchicalDataOptions>({
-    contextKey: 'hierarchyOptions',
-    initialValue: options,
-    listenerKey: 'use-forces-hook'
-  });
-
   const overrideForces = useMemo(() => {
     return {
-      forceFunctions: {
-        collide,
-        custom: currentState.algorithm === 'dagre' ? dagreForce : treeForce
-      }
+      forceFunctions: { ...forceFunctions }
     };
-  }, [currentState]);
+  }, [forceFunctions]);
 
   useD3ForceSimulationMemo(overrideForces);
   const { currentState: draggingNode } = useGlobalController<
@@ -110,9 +99,9 @@ export function useForces(
     }
 
     treeForce.links([...links]);
-    treeForce.updateLayout(currentState);
+    treeForce.updateLayout(hierarchyOptions ?? ObjectPlaceholder);
     dagreForce.links([...getEdges()] as FlowEdge<any>[]);
-    dagreForce.updateLayout(currentState);
+    dagreForce.updateLayout(hierarchyOptions ?? ObjectPlaceholder);
 
     return getTickFunction(
       isRunning,
@@ -125,7 +114,7 @@ export function useForces(
     );
   }, [
     getEdges,
-    currentState,
+    hierarchyOptions,
     getNodes,
     links,
     initialised,
@@ -156,3 +145,8 @@ export function useForces(
   }, [dispatch, getNodes, isRunning, nodeListRef, tickFunction]);
   return [tickFunction !== undefined, toggle, nodeListRef];
 }
+
+const defaultParams = {
+  collide,
+  custom: treeForce
+};

@@ -66,6 +66,9 @@ import { Api } from '@/api/clientApi';
 import { useGlobalController } from 'selective-context';
 import { hierarchyOptionsContextKey } from '@/components/react-flow/organization/components/ClassHierarchyLayoutFlowWithForces';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
+import { collide } from '@/components/react-flow/generic/utils/collide';
+import { treeForce } from '@/components/react-flow/generic/hooks/getTreeForce';
+import { UseForcesParams } from '@/components/react-flow/generic/hooks/useForces';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
 
@@ -100,10 +103,18 @@ function useInterceptNodeDataUpdate(
   }, [dispatchWithoutListen, checkToggleFirstAndAfter]);
 }
 
-const initialWsnLayoutOptions: HierarchicalDataOptions = {
-  algorithm: 'd3-tree',
-  orientation: 'horizontal',
-  nodeSize: [50, 400]
+const options: HierarchicalDataOptions = {
+  nodeSize: [60, 400],
+  orientation: 'horizontal'
+};
+
+const forcesParams: UseForcesParams = {
+  applyFitView: false,
+  forceFunctions: {
+    collide: collide.strength(0),
+    custom: treeForce.strength(0.01)
+  },
+  hierarchyOptions: options
 };
 
 export function WorkSchemaNodeLayoutFlowWithForces({
@@ -118,7 +129,8 @@ export function WorkSchemaNodeLayoutFlowWithForces({
       workSchemaNodeGraphUpdater,
       convertToWorkSchemaFlowNode,
       EntityClassMap.workSchemaNode,
-      validateWorkSchemaNodeDataNodeDto as NodeValidator<WorkSchemaNodeDto>
+      validateWorkSchemaNodeDataNodeDto as NodeValidator<WorkSchemaNodeDto>,
+      forcesParams
     );
   const checkToggleFirstAndAfter =
     useCheckToggleFirstAndAfter(flowOverlayProps);
@@ -170,12 +182,6 @@ export function WorkSchemaNodeLayoutFlowWithForces({
     idToNodeMap
   );
   useHierarchicalTreeLayout(idToChildIdMap);
-
-  useGlobalController<HierarchicalDataOptions>({
-    contextKey: hierarchyOptionsContextKey,
-    listenerKey: 'wsn-gaph',
-    initialValue: initialWsnLayoutOptions
-  });
 
   const { onConnect, ...otherProps } = reactFlowProps;
 

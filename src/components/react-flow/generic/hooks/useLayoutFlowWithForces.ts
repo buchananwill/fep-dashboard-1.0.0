@@ -9,7 +9,8 @@ import {
 } from '@xyflow/react';
 import {
   draggingNodeKey,
-  useForces
+  useForces,
+  UseForcesParams
 } from '@/components/react-flow/generic/hooks/useForces';
 import {
   type MouseEvent as ReactMouseEvent,
@@ -32,7 +33,9 @@ import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
 
 const listenerKey = 'layout-flow-with-forces';
 
-export function useLayoutFlowWithForces<T extends NodeDataType>() {
+export function useLayoutFlowWithForces<T extends NodeDataType>(
+  params: UseForcesParams
+) {
   const { nodes: nodesFromContext, dispatch: dispatchNodes } =
     useNodeContext<T>();
   const { links: edgesFromContext, dispatch: dispatchEdges } =
@@ -44,7 +47,7 @@ export function useLayoutFlowWithForces<T extends NodeDataType>() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(
     edgesFromContext as FlowEdge<T>[]
   );
-  const [initialized, toggle, nodeRefList] = useForces();
+  const [initialized, toggle, nodeRefList] = useForces(params);
   const updateNodeInternals = useUpdateNodeInternals();
 
   const { currentState: running } = useGraphListener(

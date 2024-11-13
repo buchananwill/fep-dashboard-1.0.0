@@ -40,8 +40,10 @@ import { TopToBottomEdge } from '@/components/react-flow/generic/components/edge
 import { FlowNode } from '@/components/react-flow/generic/types';
 import { Simplify } from 'type-fest';
 import { AllocationTotal } from '@/components/react-flow/organization/types';
-import { useGlobalController } from 'selective-context';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
+import { UseForcesParams } from '@/components/react-flow/generic/hooks/useForces';
+import { collide } from '@/components/react-flow/generic/utils/collide';
+import { dagreForce } from '@/components/react-flow/generic/hooks/getDagreForce';
 
 type OrganizationDto = Simplify<OrgDto>;
 
@@ -52,6 +54,15 @@ const initialValue: HierarchicalDataOptions = {
 };
 
 export const hierarchyOptionsContextKey = 'hierarchyOptions';
+
+const forcesParams: UseForcesParams = {
+  applyFitView: false,
+  forceFunctions: {
+    collide: collide.strength(0.01),
+    custom: dagreForce
+  },
+  hierarchyOptions: initialValue
+};
 
 export function ClassHierarchyLayoutFlowWithForces({
   children,
@@ -79,7 +90,8 @@ export function ClassHierarchyLayoutFlowWithForces({
       organizationGraphUpdater,
       convertToOrganizationNode,
       EntityClassMap.organization,
-      convertBackToDataNodeDtoOrganizationNode
+      convertBackToDataNodeDtoOrganizationNode,
+      forcesParams
     );
 
   const { nodes } = reactFlowProps;
@@ -95,11 +107,6 @@ export function ClassHierarchyLayoutFlowWithForces({
   );
 
   useGraphDispatch(GraphSelectiveContextKeys.dimensions);
-  useGlobalController<HierarchicalDataOptions>({
-    contextKey: hierarchyOptionsContextKey,
-    initialValue: initialValue,
-    listenerKey: 'work-schema-node-assignments'
-  });
 
   const dispatchWithoutListen = NamespacedHooks.useDispatch(
     'allocationTotal',
