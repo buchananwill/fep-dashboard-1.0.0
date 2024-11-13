@@ -34,7 +34,7 @@ export const workSchemaNodeForceGraphOptions: ForceGraphPageOptions = {
     manyBodyTheta: false
   },
   forceAttributesInitial: {
-    collideStrength: 10,
+    collideStrength: 0,
     customStrength: 75
   },
   normalizationCoefficients: {

@@ -1,5 +1,5 @@
 'use client';
-import { Button, Select } from '@mantine/core';
+import { Badge, Button, Select } from '@mantine/core';
 import { ArrayPlaceholder, ObjectPlaceholder } from 'selective-context';
 
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -39,6 +39,7 @@ import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/
 import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
 import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
 import { isEqual } from 'lodash';
+import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 
 export default function OrganizationDetailsContent({
   onClose
@@ -141,7 +142,7 @@ export default function OrganizationDetailsContent({
     return <ComponentUndefined onClose={onCloseDefined} />;
 
   return (
-    <>
+    <div className={'flex flex-col gap-2'}>
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.organizationType}
         dtoList={organizationTypeDtos}
@@ -161,25 +162,25 @@ export default function OrganizationDetailsContent({
           {currentState.name}
         </FocusToEdit>
       </h1>
-      <div>
-        <Select
-          data={selectableList}
-          value={workSchemaNodeId ? String(workSchemaNodeId) : undefined}
-          onChange={onChange}
-        />
-        {workSchemaNodeAssignment && (
-          <>
-            <BundleAssignment
-              entity={workSchemaNodeAssignment}
-              entityClass={EntityClassMap.workSchemaNodeAssignment}
-              deleted={false}
-            />
-          </>
-        )}
-        <Button onClick={createTypeProps.onOpen}>Create New Type</Button>
-        <CreateNewTypeModal {...createTypeProps} />
-      </div>
-      <div>
+
+      <Select
+        data={selectableList}
+        value={workSchemaNodeId ? String(workSchemaNodeId) : undefined}
+        onChange={onChange}
+      />
+      {workSchemaNodeAssignment && (
+        <>
+          <BundleAssignment
+            entity={workSchemaNodeAssignment}
+            entityClass={EntityClassMap.workSchemaNodeAssignment}
+            deleted={false}
+          />
+        </>
+      )}
+      {/*<Button onClick={createTypeProps.onOpen}>Create New Type</Button>*/}
+      {/*<CreateNewTypeModal {...createTypeProps} />*/}
+
+      <div className={'flex justify-center gap-2'}>
         <Button color="danger" variant="light" onClick={onClose}>
           Close
         </Button>
@@ -190,10 +191,10 @@ export default function OrganizationDetailsContent({
             onCloseDefined();
           }}
         >
-          Confirm Changes
+          Update Graph
         </Button>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -222,5 +223,18 @@ function BundleDetails({
   //     ObjectPlaceholder as WorkSchemaNodeRootTotalDeliveryAllocationRollupDto,
   //   listenerKey
   // });
-  return entity.deliveryAllocationSum ?? 0;
+  return (
+    <div className={'flex items-center justify-between gap-2'}>
+      {getStartCaseDomainAlias('cycleSubspans')} in this bundle:
+      <Badge
+        size={'lg'}
+        styles={{
+          root: { fontFamily: 'inherit' },
+          label: { fontFamily: 'inherit' }
+        }}
+      >
+        {entity.deliveryAllocationSum ?? 0}
+      </Badge>
+    </div>
+  );
 }
