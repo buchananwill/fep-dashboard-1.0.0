@@ -107,8 +107,7 @@ export const PersonDtoSchema = zod.object({
   lName: zod
     .string()
     .regex(/\S/, { message: 'Must not be blank' })
-    .min(1, { message: 'Please supply a name.' }),
-  name: zod.string()
+    .min(1, { message: 'Please supply a name.' })
 });
 
 export const PersonProviderSuitabilitySummaryDtoSchema = zod.object({

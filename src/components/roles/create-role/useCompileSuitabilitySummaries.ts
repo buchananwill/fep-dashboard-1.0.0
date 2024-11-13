@@ -6,10 +6,14 @@ import { EmptyArray } from '@/api/literals';
 import { useReadAnyDtoTyped } from '@/api/typed-dto-store-hooks';
 import { useCallback } from 'react';
 import { isNotUndefined } from '@/api/main';
-import { SuitabilityPostRequest } from '@/api/generated-types/generated-types';
+import {
+  RoleData,
+  SuitabilityPostRequest,
+  SuitabilitySummaryDto
+} from '@/api/generated-types/generated-types';
 import { listenerKey } from '@/components/roles/create-role/CreateRoleForm';
 
-export function useCompileSuitabilityRequests(
+export function useCompileSuitabilitySummaries(
   getWttNameStrings: () => string[],
   getRoleTypeNames: () => string[]
 ) {
@@ -24,7 +28,9 @@ export function useCompileSuitabilityRequests(
   const readAnyKnowledgeLevel = useReadAnyDtoTyped('knowledgeLevel');
 
   return useCallback(() => {
-    return cellIdList
+    const roleTypeNames = getRoleTypeNames();
+    const wttNameStrings = getWttNameStrings();
+    const withoutRoleTypeNames = cellIdList
       .map((id) => readAnyDto(id))
       .filter(isNotUndefined)
       .filter((cell) => cell.rating > 0)
@@ -32,25 +38,34 @@ export function useCompileSuitabilityRequests(
         const knowledgeLevel = readAnyKnowledgeLevel(cell.knowledgeLevelId);
         const knowledgeDomain = readAnyKnowledgeDomain(cell.knowledgeDomainId);
         if (knowledgeLevel && knowledgeDomain) {
-          const suitabilityRequest: SuitabilityPostRequest = {
-            workTaskTypeMatrix: {
-              knowledgeDomainDtoList: [knowledgeDomain],
-              knowledgeLevelSeriesDtoList: [
-                {
-                  name: '',
-                  id: knowledgeLevel.knowledgeLevelSeriesId,
-                  knowledgeLevels: [knowledgeLevel]
-                }
-              ],
-              workTaskTypeNames: getWttNameStrings()
-            },
-            rating: cell.rating,
-            roleTypeNames: getRoleTypeNames()
+          const suitabilityRequest: Omit<
+            SuitabilitySummaryDto,
+            'taskTypeName' | 'roleTypeName'
+          > = {
+            knowledgeDomainName: knowledgeDomain.name,
+            knowledgeLevelName: knowledgeLevel.name,
+            rating: cell.rating
           };
           return suitabilityRequest;
         } else return undefined;
       })
-      .filter(isNotUndefined);
+      .filter(isNotUndefined)
+      .flatMap((sSum) => {
+        return wttNameStrings.map((wttName) => ({
+          ...sSum,
+          taskTypeName: wttName
+        }));
+      });
+    const response = {} as Record<string, RoleData>;
+    roleTypeNames.forEach((roleTypeName) => {
+      const suitabilitySummaries: SuitabilitySummaryDto[] =
+        withoutRoleTypeNames.map((sSum) => ({ ...sSum, roleTypeName }));
+      response[roleTypeName] = {
+        suitabilities: suitabilitySummaries,
+        availabilities: []
+      };
+    });
+    return response;
   }, [
     cellIdList,
     getRoleTypeNames,

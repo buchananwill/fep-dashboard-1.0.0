@@ -4,6 +4,7 @@ import { RoleEntity } from '@/components/roles/types';
 import {
   KnowledgeDomainDto,
   KnowledgeLevelDto,
+  RoleData,
   RolePostRequest
 } from '@/api/generated-types/generated-types';
 import { FieldName, SubmitHandler, useFormContext } from 'react-hook-form';
@@ -16,7 +17,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { ErrorDiv } from '@/components/roles/create-role/ErrorDiv';
 import { RoleAspectSelectors } from '@/components/roles/create-role/RoleAspectSelectors';
 import { useRoleTypeAndTaskTypeSelections } from '@/components/roles/create-role/useRoleTypeAndTaskTypeSelections';
-import { useCompileSuitabilityRequests } from '@/components/roles/create-role/useCompileSuitabilityRequests';
+import { useCompileSuitabilitySummaries } from '@/components/roles/create-role/useCompileSuitabilitySummaries';
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
 import { AssetNestedInForm } from '@/components/roles/create-role/AssetNestedInForm';
 import { FieldValues } from 'react-hook-form/dist/types';
@@ -53,28 +54,44 @@ export default function CreateRoleForm<T extends FieldValues>({
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues
+    getValues,
+    watch
   } = methods;
 
   const { readAny, getWttNameStrings, getRoleTypeNames } =
     useRoleTypeAndTaskTypeSelections(roleEntity);
-  const compileSuitabilityRequestWithoutSetting = useCompileSuitabilityRequests(
-    getWttNameStrings,
-    getRoleTypeNames
-  );
-
-  const compileSuitabilityRequests = useCallback(() => {
-    setValue('suitabilities', compileSuitabilityRequestWithoutSetting());
-  }, [compileSuitabilityRequestWithoutSetting, setValue]);
-
+  const compileSuitabilityRequestWithoutSetting =
+    useCompileSuitabilitySummaries(getWttNameStrings, getRoleTypeNames);
   const compileAvailabilitiesWithoutSetting = useCompileAvailabilities(
     readAny,
     getRoleTypeNames
   );
-  const compileAvailabilities = useCallback(
-    () => setValue('availabilities', compileAvailabilitiesWithoutSetting()),
-    [setValue, compileAvailabilitiesWithoutSetting]
-  );
+
+  const roleDataMap = watch('roleDataMap');
+
+  const compileRoleDataMap = useCallback(() => {
+    const suitabilities = compileSuitabilityRequestWithoutSetting();
+    const availabilities = compileAvailabilitiesWithoutSetting();
+    const combinedData = {} as Record<string, RoleData>;
+    Object.entries(suitabilities).forEach(([key, value]) => {
+      combinedData[key] = {
+        suitabilities: value.suitabilities,
+        availabilities: combinedData[key]?.availabilities ?? []
+      };
+    });
+    Object.entries(availabilities).forEach(([key, value]) => {
+      combinedData[key] = {
+        availabilities: value.availabilities,
+        suitabilities: combinedData[key]?.suitabilities ?? []
+      };
+    });
+    setValue('roleDataMap', combinedData);
+  }, [
+    compileSuitabilityRequestWithoutSetting,
+    compileAvailabilitiesWithoutSetting,
+    setValue
+  ]);
+
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
 
@@ -101,8 +118,7 @@ export default function CreateRoleForm<T extends FieldValues>({
         <PendingOverlay pending={pending} />
         <form
           onSubmit={(event) => {
-            compileAvailabilities();
-            compileSuitabilityRequests();
+            compileRoleDataMap();
             console.warn(errors);
             handleSubmit(onSubmit)(event);
           }}
@@ -142,7 +158,7 @@ export default function CreateRoleForm<T extends FieldValues>({
           </div>
         </form>
         <div
-          className={'center-horizontal-with-margin mb-4 w-[90%] border-1'}
+          className={'center-horizontal-with-margin border-1 mb-4 w-[90%]'}
         ></div>
         <div className={'center-horizontal-with-margin h-fit grow-0'}>
           <Button onClick={modalProps.onOpen}>Add Role Type</Button>

@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import {
   AvailabilityPostRequestSchema,
-  SuitabilityPostRequestSchema
+  AvailabilitySummaryDtoSchema,
+  SuitabilityPostRequestSchema,
+  SuitabilitySummaryDtoSchema
 } from '@/api/generated-schemas/schemas_';
 
 export function createRolePostRequestSchema<T extends z.ZodTypeAny>(
@@ -9,12 +11,17 @@ export function createRolePostRequestSchema<T extends z.ZodTypeAny>(
 ) {
   return z.object({
     baseEntity: dataSchema,
-    suitabilities: z
-      .array(SuitabilityPostRequestSchema)
-      .min(1, noElements('suitability')),
-    availabilities: z
-      .array(AvailabilityPostRequestSchema)
-      .min(1, noElements('availability'))
+    roleDataMap: z.record(
+      z.string(),
+      z.object({
+        suitabilities: z
+          .array(SuitabilitySummaryDtoSchema)
+          .min(1, noElements('suitability')),
+        availabilities: z
+          .array(AvailabilitySummaryDtoSchema)
+          .min(1, noElements('availability'))
+      })
+    )
   });
 }
 

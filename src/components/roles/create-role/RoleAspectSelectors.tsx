@@ -4,6 +4,7 @@ import {
   RenderErrorsMap
 } from '@/components/roles/create-role/FlattenArrayErrorsAndRender';
 import {
+  RoleData,
   RolePostRequest,
   SuitabilityPostRequest,
   TypeDto
@@ -38,10 +39,10 @@ export function RoleAspectSelectors({
   } = useFormContext<RolePostRequest<any>>();
   const suitabilityErrors: PathRenderedErrorMap<SuitabilityPostRequest> =
     useMemo(() => {
-      const errorList = errors?.suitabilities;
+      const errorList = errors?.roleDataMap;
       if (errorList) {
         return flattenArrayErrorsAndRender(
-          errorList as FieldErrors<SuitabilityPostRequest>[],
+          Object.values(errorList) as FieldErrors<RoleData>[],
           SuitabilitiesErrorMap
         );
       } else return {};
