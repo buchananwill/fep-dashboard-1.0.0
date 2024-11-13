@@ -41,7 +41,7 @@ export default function NodeGraphEditCluster({
             <Button
               size={'sm'}
               variant={'outline'}
-              color={'black'}
+              color={'var(--mantine-color-text)'}
               styles={{
                 root: {
                   width: 'fit-content',
@@ -66,8 +66,9 @@ export default function NodeGraphEditCluster({
         size={'sm'}
         className={'grow'}
         variant={'outline'}
-        color={'black'}
+        color={'var(--mantine-color-text)'}
         onClick={openDetailsModal}
+        autoContrast={true}
       >
         {label ?? 'Details'}
       </Button>
