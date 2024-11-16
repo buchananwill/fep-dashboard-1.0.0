@@ -5,6 +5,6 @@ import { API_V2_URL } from '@/api/literals';
 export default async function fillSandbox() {
   return postEntitiesWithDifferentReturnType<{}, string>(
     {},
-    `${API_V2_URL}/tenancy/sandbox`
+    `${API_V2_URL}/tenancy/initializeFromTemplate/${17}`
   );
 }

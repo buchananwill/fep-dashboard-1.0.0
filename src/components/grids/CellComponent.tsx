@@ -39,7 +39,6 @@ const conditionalNumberFormatting: ConditionalNumberClassName[] = [
   { startAt: 4, className: ' bg-emerald-100' }
 ];
 
-// TODO The use of TransientIdOffset is tricking the table into believing that cells with IDs matching the incoming request data are the same cell. Very subtle bug! Not sure how to fix this within the current architecture.
 export const CellComponent = ({
   columnIndex,
   rowIndex,

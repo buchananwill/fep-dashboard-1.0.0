@@ -1,0 +1,102 @@
+[
+  {
+    "data": {
+      "id": 3,
+      "name": "Student"
+    },
+    "children": [
+      {
+        "data": {
+          "id": 6,
+          "name": "Class Block"
+        },
+        "children": [
+          {
+            "data": {
+              "id": 9,
+              "name": "Year 8"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "id": 10,
+              "name": "Year 9"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "id": 12,
+              "name": "Year 11"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "id": 14,
+              "name": "Year 13"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "id": 13,
+              "name": "Year 12"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "id": 11,
+              "name": "Year 10"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "id": 8,
+              "name": "Year 7"
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "data": {
+          "id": 4,
+          "name": "Year Group"
+        },
+        "children": []
+      },
+      {
+        "data": {
+          "id": 5,
+          "name": "Year Group Cohort"
+        },
+        "children": []
+      }
+    ]
+  },
+  {
+    "data": {
+      "id": 7,
+      "name": "Secondary School"
+    },
+    "children": []
+  },
+  {
+    "data": {
+      "id": 1,
+      "name": "Division"
+    },
+    "children": []
+  },
+  {
+    "data": {
+      "id": 2,
+      "name": "Department"
+    },
+    "children": []
+  }
+]

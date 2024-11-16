@@ -149,6 +149,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
       }
     } else {
       const token = templateToken();
+      console.log(token);
       nextRequest.headers.append('authorization', `Bearer ${token}`);
     }
 

@@ -147,7 +147,7 @@ export function GenericSuitabilityCell({
       <div
         className={clsx(
           currentCell?.isDynamic && 'bg-yellow-100',
-          'box-content h-full w-full border-1 border-transparent',
+          'border-1 box-content h-full w-full border-transparent',
 
           isOnLastBoundary.top && 'border-t-red-500',
           isOnLastBoundary.right && 'border-r-red-500',
@@ -225,7 +225,10 @@ export function GenericSuitabilityCell({
                 strokeWidthRelative={0.4}
               />
             ) : (
-              <XCircleIcon className={'stroke-2 text-default-200'} />
+              <XCircleIcon
+                className={'stroke-2'}
+                style={{ color: 'var(--mantine-color-placeholder)' }}
+              />
             )}
           </div>
         )}
