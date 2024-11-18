@@ -139,3 +139,11 @@ export type AssignmentTableRow =
 
 export type EntityApiKey = keyof typeof Api;
 export type Comparator<T> = (a: T, b: T) => number;
+
+export type JSONSerializable =
+  | string
+  | number
+  | boolean
+  | null
+  | JSONSerializable[]
+  | { [key: string]: JSONSerializable };

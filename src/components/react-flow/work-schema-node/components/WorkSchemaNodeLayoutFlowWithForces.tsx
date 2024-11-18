@@ -1,11 +1,6 @@
 'use client';
 
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useMemo
-} from 'react';
+import React, { PropsWithChildren, useCallback, useMemo } from 'react';
 import { Background, BackgroundVariant, Panel, ReactFlow } from '@xyflow/react';
 import { FlowOverlay } from '@/components/react-flow/generic/components/generic/FlowOverlay';
 
@@ -23,7 +18,6 @@ import { AddRootNode } from '@/components/react-flow/generic/components/nodes/Ad
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { useEditableFlow } from '@/components/react-flow/generic/hooks/useEditableFlow';
 import {
-  determineLocalResolution,
   validateHierarchy,
   validateWorkSchemaNodeDataNodeDto,
   workSchemaNodeCloneFunctionWrapper,
@@ -59,49 +53,17 @@ import { LeftToRightEdge } from '@/components/react-flow/generic/components/edge
 import { useValidateConnection } from '@/components/react-flow/generic/hooks/useValidateConnection';
 import { useCheckToggleFirstAndAfter } from '@/components/react-flow/generic/hooks/useCheckToggleFirstAndAfter';
 import { useHierarchicalTreeLayout } from '@/components/react-flow/generic/hooks/useHierarchicalTreeLayout';
-import { DispatchState } from '@/types';
 import { isNotUndefined } from '@/api/main';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { useGlobalController } from 'selective-context';
-import { hierarchyOptionsContextKey } from '@/components/react-flow/organization/components/ClassHierarchyLayoutFlowWithForces';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 import { collide } from '@/components/react-flow/generic/utils/collide';
 import { treeForce } from '@/components/react-flow/generic/hooks/getTreeForce';
 import { UseForcesParams } from '@/components/react-flow/generic/hooks/useForces';
+import { useInterceptNodeDataUpdate } from '@/components/react-flow/work-schema-node/functions/UseInterceptNodeDataUpdate';
 
 export const AllocationRollupEntityClass = 'AllocationRollup';
-
-function useInterceptNodeDataUpdate(
-  dispatchWithoutListen: DispatchState<
-    MemoizedFunction<WorkSchemaNodeDto, void>
-  >,
-  checkToggleFirstAndAfter: () => void
-) {
-  useEffect(() => {
-    dispatchWithoutListen(
-      (prevFunction: MemoizedFunction<WorkSchemaNodeDto, void>) => {
-        checkToggleFirstAndAfter();
-        const { memoizedFunction } = prevFunction;
-        const interceptValidateResolutionMode = (
-          updatedNode: WorkSchemaNodeDto
-        ) => {
-          const localResolution = determineLocalResolution(updatedNode);
-          let interceptedNode = updatedNode;
-          if (localResolution !== updatedNode.resolutionMode) {
-            interceptedNode = {
-              ...updatedNode,
-              resolutionMode: localResolution
-            };
-          }
-          return memoizedFunction(interceptedNode);
-        };
-
-        return { memoizedFunction: interceptValidateResolutionMode };
-      }
-    );
-  }, [dispatchWithoutListen, checkToggleFirstAndAfter]);
-}
 
 const options: HierarchicalDataOptions = {
   nodeSize: [60, 400],
@@ -306,7 +268,7 @@ const TemplateWorkSchemaNode: DataNodeDto<WorkSchemaNodeDto> = {
   id: 0
 };
 
-const templateWorkSchemaNodeLink: DataLink<WorkSchemaNodeDto> = {
+export const templateWorkSchemaNodeLink: DataLink<WorkSchemaNodeDto> = {
   id: '0',
   closureType: 'WorkSchemaNodeClosure',
   source: 0,

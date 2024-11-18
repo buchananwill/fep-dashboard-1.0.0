@@ -16,6 +16,7 @@ import { OrganizationDto } from '@/api/generated-types/generated-types';
 import { Simplify } from 'type-fest';
 import { z } from 'zod';
 import { WorkSchemaNodeDtoSchema } from '@/api/generated-schemas/schemas_';
+import { InitJsonTemplateNodeData } from '@/components/react-flow/init-json-template/types';
 
 const organizationNodeType = 'organization';
 
@@ -49,6 +50,12 @@ export const convertToOrganizationNode =
 export const convertToWorkSchemaFlowNode = (
   dataNode: DataNodeDto<Simplify<WorkSchemaNodeDto>> & Partial<Coordinate>
 ) => convertToReactFlowNode(dataNode.data.resolutionMode, dataNode);
+
+export function convertInitJsonTemplateDataNodeToFlowNode(
+  dataNodeDto: DataNodeDto<InitJsonTemplateNodeData> & Partial<Coordinate>
+) {
+  return convertToReactFlowNode(dataNodeDto.data.dataType.name, dataNodeDto);
+}
 
 export function convertToReactFlowEdge<T extends HasNumberId>(
   closureDto: ClosureDto

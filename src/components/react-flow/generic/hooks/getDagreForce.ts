@@ -62,7 +62,6 @@ export function getDagreForce() {
       ranker: 'tight-tree'
       // 'network-simplex'
     });
-    console.log(nodesReference, linksReference, idToChildIdMap, g);
 
     g.nodes().forEach((n) => dagreLayout.set(n, { ...g.node(n), id: n }));
   }
@@ -76,7 +75,6 @@ export function getDagreForce() {
       i < n;
       ++i
     ) {
-      console.log(dagreLayout.values());
       node = nodesReference[i];
       const vxDelta = (xResolver(node, i) - (node.x || 0)) * k;
       const vyDelta = (yResolver(node, i) - (node.y || 0)) * k;

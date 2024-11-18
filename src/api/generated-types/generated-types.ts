@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-11-11 10:42:30.
+// Generated using typescript-generator version 3.2.1263 on 2024-11-18 09:22:16.
 
 export interface AutoBuildParametersDto extends Serializable {
   multiStepUndoTimeoutMs: number;
@@ -31,6 +31,25 @@ export interface AvailabilitySummaryDto {
   endTime: DateAsString;
   roleTypeName: string;
   availabilityCode: any;
+}
+
+export interface CarouselOrderSummaryDto extends Serializable {
+  id: number;
+  dateOfBirth: DateAsString;
+  orderItems: string;
+  summaryIdCacheList: WorkProjectSeriesSchemaSummaryId[];
+  carouselGroupName: string;
+  fname: string;
+  lname: string;
+}
+
+export interface CycleSubspanDefinitionDto extends Serializable {
+  startTime: DateAsString;
+  zeroIndexedCycleDay: number;
+  endTime: DateAsString;
+  beginsGroupsOfSize: string;
+  name: string;
+  beginsGroupsOfSizeIntList: number[];
 }
 
 export interface CycleSubspanJoinNestedDto extends Serializable {
@@ -347,6 +366,11 @@ export interface CycleInitDto {
   groupSizes: number[];
 }
 
+export interface CycleInitWithCycleSubspanDefinitions {
+  cycleDayZero: DayOfWeek;
+  cycleSubspanDefinitions: CycleSubspanDefinitionDto[];
+}
+
 export interface CycleSubspanGroupDto
   extends Serializable,
     DtoWrapper<any, CycleSubspanGroupDto, number>,
@@ -354,11 +378,6 @@ export interface CycleSubspanGroupDto
   cycleSubspanJoins: CycleSubspanJoinDto[];
   id: number;
 }
-
-export interface InteractionBasedValidationDto
-  extends ValidationTypeDto,
-    Serializable,
-    DtoWrapper<any, InteractionBasedValidationDto, number> {}
 
 export interface KnowledgeDomainDto
   extends Serializable,
@@ -548,8 +567,8 @@ export interface AssetRoleTypeWorkTaskTypeSuitabilityDto
   workTaskTypeId: number;
   assetId: number;
   assetName: string;
-  dynamic: boolean;
   idEntityC: number;
+  dynamic: boolean;
 }
 
 export interface CarouselGroupOptionDto
@@ -661,9 +680,9 @@ export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto
 
 export interface RoleAvailabilityDto {
   type: string;
-  cycleSubspanId: number;
   baseEntityId: number;
   roleEntityId: number;
+  cycleSubspanId: number;
   availabilityCode: number;
   id: number;
 }
@@ -835,11 +854,30 @@ export interface WorkProjectSeriesDto
   workTaskType: WorkTaskTypeDto;
 }
 
-export interface GenericNestedDto<T> extends NestedDto<T> {}
+export interface GenericNestedDto<T> extends NestedDto<T> {
+  children: GenericNestedDto<T>[];
+}
+
+export interface HasParentNameStringList {
+  parentNames: string[];
+  name: string;
+}
 
 export interface HierarchyEnrollmentRequest {
   scheduleId: number;
   organizationIdToUserRoleIdList: { [index: string]: number[] };
+}
+
+export interface InitDataTypeDto extends Serializable {
+  id: number;
+  name: string;
+}
+
+export interface OrganizationWorkHierarchyDto
+  extends Serializable,
+    HasParentNameStringList {
+  typeName: string;
+  workSchemaNodeName: string;
 }
 
 export interface PersonDto
@@ -849,7 +887,6 @@ export interface PersonDto
   dateOfBirth: DateAsString;
   fName: string;
   lName: string;
-  name: string;
 }
 
 export interface PersonProviderSuitabilitySummaryDto extends Serializable {
@@ -904,6 +941,15 @@ export interface ResourceRequirementItemRequest {
   providerRoleTypeName: string;
   assetRoleTypeName: string;
   requiredNumber: number;
+}
+
+export interface ResourceRequirementItemSummaryDto extends Serializable {
+  id: number;
+  taskTypeName: string;
+  knowledgeDomainName: string;
+  knowledgeLevelName: string;
+  providerRoleTypeName: string;
+  assetRoleTypeName: string;
 }
 
 export interface RolePostRequest<T> {
@@ -1057,16 +1103,18 @@ export interface WorkTaskTypeResourceRequirementPostRequest {
 
 export interface Serializable {}
 
+export interface WorkProjectSeriesSchemaSummaryId extends Serializable {
+  taskTypeName: string;
+  knowledgeDomainName: string;
+  knowledgeLevelName: string;
+  allocationList: string;
+}
+
 export interface DescribableDto {
   description: string;
 }
 
 export interface ZoneId extends Serializable {}
-
-export interface NestedDto<T> {
-  children: NestedDto<T>[];
-  data: T;
-}
 
 export interface BitSet extends Cloneable, Serializable {
   empty: boolean;
@@ -1101,6 +1149,11 @@ export interface TriIntersectionDto<A, B, C> extends IntersectionDto<A, B> {
 export interface TypeDto<T, D> extends DtoWrapper<T, D, number> {
   name: string;
   id: number;
+}
+
+export interface NestedDto<T> {
+  children: NestedDto<T>[];
+  data: T;
 }
 
 export interface Cloneable {}

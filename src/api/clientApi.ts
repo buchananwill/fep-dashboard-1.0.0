@@ -15,7 +15,6 @@ import * as WorkSchemaNode from './generated-actions/WorkSchemaNode';
 import * as KnowledgeLevel from './generated-actions/KnowledgeLevel';
 import * as WorkSchemaNodeAssignment from './generated-actions/WorkSchemaNodeAssignment';
 import * as ProviderRole from './generated-actions/ProviderRole';
-import * as InteractionBasedValidation from './generated-actions/InteractionBasedValidation';
 import * as CarouselGroup from './generated-actions/CarouselGroup';
 import * as CycleSubspanGroup from './generated-actions/CycleSubspanGroup';
 import * as OrganizationType from './generated-actions/OrganizationType';
@@ -28,6 +27,7 @@ import * as KnowledgeDomain from './generated-actions/KnowledgeDomain';
 import * as AssetType from './generated-actions/AssetType';
 import * as WorkProjectSeriesSchema from './generated-actions/WorkProjectSeriesSchema';
 import * as ResourceRequirementItem from './generated-actions/ResourceRequirementItem';
+import * as InitJsonTemplate from './generated-actions/InitJsonTemplate';
 import * as CarouselOrderItem from './generated-actions/CarouselOrderItem';
 import * as AssetRoleAvailability from './generated-actions/AssetRoleAvailability';
 import * as UserRole from './generated-actions/UserRole';
@@ -57,7 +57,6 @@ WorkSchemaNode,
 KnowledgeLevel,
 WorkSchemaNodeAssignment,
 ProviderRole,
-InteractionBasedValidation,
 CarouselGroup,
 CycleSubspanGroup,
 OrganizationType,
@@ -70,6 +69,7 @@ KnowledgeDomain,
 AssetType,
 WorkProjectSeriesSchema,
 ResourceRequirementItem,
+InitJsonTemplate,
 CarouselOrderItem,
 AssetRoleAvailability,
 UserRole,

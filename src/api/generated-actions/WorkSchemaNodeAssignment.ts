@@ -1,7 +1,6 @@
 'use server';
 import { WorkSchemaNodeAssignmentDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
 
 const {
 getPage,
@@ -25,20 +24,6 @@ getDtoListByExampleList
 );
 
 
-const {
-          getByRowIdListAndColumnIdList,
-          getDtoTableByRowIdList,
-          getColumnIdList,
-          getByRowIdList,
-          getIntersectionTable
-} = generateIntersectionEndpointSet<
-  WorkSchemaNodeAssignmentDto,
-  number,
-  number
->(
-  '/api/v2/workProjectSeriesSchemas/bundleAssignments'
-);
-
 export {
     getPage,
 getAll,
@@ -53,11 +38,6 @@ deleteOne,
 getDtoListByBodyList,
 getDtoListByParamList,
 getDtoListByExampleList
-,           getByRowIdListAndColumnIdList,
-          getDtoTableByRowIdList,
-          getColumnIdList,
-          getByRowIdList,
-          getIntersectionTable
 
 }
 
