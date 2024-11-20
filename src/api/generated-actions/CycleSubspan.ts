@@ -1,7 +1,6 @@
 'use server';
 import { CycleSubspanDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 
 const {
 getPage,
@@ -21,14 +20,9 @@ getDtoListByExampleList
   CycleSubspanDto,
   number
 >(
-  '/api/v2/time/cycleSubspans'
+  '/api/v3/cycle-subspan'
 );
 
-
-const {
-getByTypeIdList  } = generateWithTypeEndpointSet<CycleSubspanDto>(
-  '/api/v2/time/cycleSubspans'
-);
 
 export {
     getPage,
@@ -44,6 +38,6 @@ deleteOne,
 getDtoListByBodyList,
 getDtoListByParamList,
 getDtoListByExampleList
-, getByTypeIdList
+
 }
 

@@ -31,7 +31,7 @@ getDtoListByExampleList
   AssetTypeDto,
   number
 >(
-  '/api/v2/assets/types'
+  '/api/v3/asset-type'
 );
 
 

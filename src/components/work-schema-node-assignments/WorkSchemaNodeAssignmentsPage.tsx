@@ -52,6 +52,8 @@ async function WorkSchemaNodeAssignmentsPage({
 
   const deliveryAllocationRollupDtos = await getWorkSchemaNodeRollUps();
 
+  console.log({ classesAndWorkGroups, deliveryAllocationRollupDtos });
+
   return (
     <>
       <EditAddDeleteDtoControllerArray

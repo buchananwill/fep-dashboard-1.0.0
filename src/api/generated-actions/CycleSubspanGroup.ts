@@ -20,7 +20,7 @@ getDtoListByExampleList
   CycleSubspanGroupDto,
   number
 >(
-  '/api/v2/time/cycleSubspanGroups'
+  '/api/v3/cycle-subspan-group'
 );
 
 

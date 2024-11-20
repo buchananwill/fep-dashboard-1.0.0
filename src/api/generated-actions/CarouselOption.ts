@@ -21,7 +21,7 @@ getDtoListByExampleList
   CarouselOptionDto,
   number
 >(
-  '/api/v2/carouselGroups/carousels/options'
+  '/api/v3/carousel-option'
 );
 
 

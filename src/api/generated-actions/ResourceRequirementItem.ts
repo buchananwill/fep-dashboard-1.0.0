@@ -20,7 +20,7 @@ getDtoListByExampleList
   ResourceRequirementItemDto,
   number
 >(
-  '/api/v2/workTaskTypes/resourceRequirements'
+  '/api/v3/resource-requirement-item'
 );
 
 

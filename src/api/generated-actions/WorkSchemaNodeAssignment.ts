@@ -20,7 +20,7 @@ getDtoListByExampleList
   WorkSchemaNodeAssignmentDto,
   number
 >(
-  '/api/v2/workProjectSeriesSchemas/bundleAssignments'
+  '/api/v3/work-schema-node-assignment'
 );
 
 

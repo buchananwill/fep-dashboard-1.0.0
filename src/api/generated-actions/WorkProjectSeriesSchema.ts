@@ -20,7 +20,7 @@ getDtoListByExampleList
   WorkProjectSeriesSchemaDto,
   number
 >(
-  '/api/v2/workProjectSeriesSchemas'
+  '/api/v3/work-project-series-schema'
 );
 
 

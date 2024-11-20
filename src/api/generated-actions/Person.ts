@@ -20,7 +20,7 @@ getDtoListByExampleList
   PersonDto,
   number
 >(
-  '/api/v2/persons'
+  '/api/v3/person'
 );
 
 

@@ -31,7 +31,7 @@ getDtoListByExampleList
   OrganizationTypeDto,
   number
 >(
-  '/api/v2/organizations/types'
+  '/api/v3/organization-type'
 );
 
 

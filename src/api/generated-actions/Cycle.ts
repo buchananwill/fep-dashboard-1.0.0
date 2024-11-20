@@ -20,7 +20,7 @@ getDtoListByExampleList
   CycleDto,
   number
 >(
-  '/api/v2/time/cycles'
+  '/api/v3/cycle'
 );
 
 

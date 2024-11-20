@@ -20,7 +20,7 @@ getDtoListByExampleList
   UserRoleTypeDto,
   number
 >(
-  '/api/v2/userRoles/types'
+  '/api/v3/user-role-type'
 );
 
 

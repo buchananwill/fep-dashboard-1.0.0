@@ -1,7 +1,6 @@
 'use server';
 import { UserRoleDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 
 const {
 getPage,
@@ -21,14 +20,9 @@ getDtoListByExampleList
   UserRoleDto,
   number
 >(
-  '/api/v2/userRoles'
+  '/api/v3/user-role'
 );
 
-
-const {
-getByTypeIdList  } = generateWithTypeEndpointSet<UserRoleDto>(
-  '/api/v2/userRoles'
-);
 
 export {
     getPage,
@@ -44,6 +38,6 @@ deleteOne,
 getDtoListByBodyList,
 getDtoListByParamList,
 getDtoListByExampleList
-, getByTypeIdList
+
 }
 

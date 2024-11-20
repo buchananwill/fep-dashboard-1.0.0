@@ -20,7 +20,7 @@ getDtoListByExampleList
   WorkTaskTypeDto,
   number
 >(
-  '/api/v2/workTaskTypes'
+  '/api/v3/work-task-type'
 );
 
 

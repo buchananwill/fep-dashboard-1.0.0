@@ -21,7 +21,7 @@ getDtoListByExampleList
   AssetRoleAvailabilityDto,
   number
 >(
-  '/api/v2/assets/roles/availabilities'
+  '/api/v3/asset-role-availability'
 );
 
 

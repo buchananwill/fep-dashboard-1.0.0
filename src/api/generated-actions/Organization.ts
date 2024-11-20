@@ -1,7 +1,6 @@
 'use server';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 
 const {
@@ -22,14 +21,9 @@ getDtoListByExampleList
   OrganizationDto,
   number
 >(
-  '/api/v2/organizations'
+  '/api/v3/organization'
 );
 
-
-const {
-getByTypeIdList  } = generateWithTypeEndpointSet<OrganizationDto>(
-  '/api/v2/organizations'
-);
 
 
 const {
@@ -55,6 +49,6 @@ deleteOne,
 getDtoListByBodyList,
 getDtoListByParamList,
 getDtoListByExampleList
-, getByTypeIdList, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
+, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
 }
 

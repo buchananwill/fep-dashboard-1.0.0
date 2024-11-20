@@ -21,7 +21,7 @@ getDtoListByExampleList
   CarouselOrderItemDto,
   number
 >(
-  '/api/v2/carouselGroups/orders/items'
+  '/api/v3/carousel-order-item'
 );
 
 

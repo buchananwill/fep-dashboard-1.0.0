@@ -20,7 +20,7 @@ getDtoListByExampleList
   TimeDivisionDto,
   number
 >(
-  '/api/v2/time/timeDivisions'
+  '/api/v3/time-division'
 );
 
 

@@ -1,7 +1,6 @@
 'use server';
 import { AssetRoleDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 
 const {
 getPage,
@@ -21,14 +20,9 @@ getDtoListByExampleList
   AssetRoleDto,
   number
 >(
-  '/api/v2/assets/roles'
+  '/api/v3/asset-role'
 );
 
-
-const {
-getByTypeIdList  } = generateWithTypeEndpointSet<AssetRoleDto>(
-  '/api/v2/assets/roles'
-);
 
 export {
     getPage,
@@ -44,6 +38,6 @@ deleteOne,
 getDtoListByBodyList,
 getDtoListByParamList,
 getDtoListByExampleList
-, getByTypeIdList
+
 }
 

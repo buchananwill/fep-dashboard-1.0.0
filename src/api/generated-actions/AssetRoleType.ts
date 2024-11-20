@@ -20,7 +20,7 @@ getDtoListByExampleList
   AssetRoleTypeDto,
   number
 >(
-  '/api/v2/assets/roles/types'
+  '/api/v3/asset-role-type'
 );
 
 

@@ -5,11 +5,9 @@ import {
 } from '@/api/generated-types/generated-types';
 import { JSONSerializable } from '@/api/types';
 
-export interface InitJsonTemplateDto
-  extends Serializable,
-    DtoWrapper<any, InitJsonTemplateDto, number> {
+export type InitJsonTemplateDto = {
   id: number;
   name: string;
   content: JSONSerializable;
   dataType: InitDataTypeDto;
-}
+} & DtoWrapper<any, InitJsonTemplateDto, number>;

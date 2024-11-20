@@ -20,7 +20,7 @@ getDtoListByExampleList
   WorkProjectSeriesAssignmentDto,
   number
 >(
-  '/api/v2/workProjectSeries/assignments'
+  '/api/v3/work-project-series-assignment'
 );
 
 

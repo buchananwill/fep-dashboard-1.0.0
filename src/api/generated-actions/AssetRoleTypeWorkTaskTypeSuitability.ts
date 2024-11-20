@@ -21,7 +21,7 @@ getDtoListByExampleList
   AssetRoleTypeWorkTaskTypeSuitabilityDto,
   number
 >(
-  '/api/v2/workTaskTypes/assetRoleSuitabilities'
+  '/api/v3/asset-role-type-work-task-type-suitability'
 );
 
 

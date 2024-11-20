@@ -9,8 +9,10 @@ import {
 import {
   AssetRoleTypeDto,
   ProviderRoleTypeDto,
+  UserRoleDto,
   UserRoleTypeDto
 } from '@/api/generated-types/generated-types';
+import { PartialDeep } from 'type-fest';
 
 export type BaseRoleParams = {
   roleTypeId: string;
@@ -51,7 +53,16 @@ export type RoleAspect = keyof typeof RoleAspects;
 export const RoleApiByTypeIdList: {
   [Property in RoleEntity]: (typeIdList: number[]) => Promise<any>;
 } = {
-  user: Api.UserRole.getByTypeIdList,
-  provider: Api.ProviderRole.getByTypeIdList,
-  asset: Api.AssetRole.getByTypeIdList
+  user: (typeIdList) =>
+    Api.UserRole.getDtoListByExampleList(
+      typeIdList.map((id) => ({ type: { id } }) as PartialDeep<UserRoleDto>)
+    ),
+  provider: (typeIdList) =>
+    Api.ProviderRole.getDtoListByExampleList(
+      typeIdList.map((id) => ({ type: { id } }) as PartialDeep<UserRoleDto>)
+    ),
+  asset: (typeIdList) =>
+    Api.AssetRole.getDtoListByExampleList(
+      typeIdList.map((id) => ({ type: { id } }) as PartialDeep<UserRoleDto>)
+    )
 };

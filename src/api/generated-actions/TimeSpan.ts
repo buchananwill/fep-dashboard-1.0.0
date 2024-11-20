@@ -20,7 +20,7 @@ getDtoListByExampleList
   TimeSpanDto,
   number
 >(
-  '/api/v2/time/cycleSubspans/types'
+  '/api/v3/time-span'
 );
 
 

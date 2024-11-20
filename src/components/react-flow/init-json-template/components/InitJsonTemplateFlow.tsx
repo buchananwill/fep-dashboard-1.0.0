@@ -25,7 +25,7 @@ import { InitJsonTemplateNode } from '@/components/react-flow/init-json-template
 
 export function InitJsonTemplateFlow() {
   const { flowOverlayProps, reactFlowProps, contextData, isPending } =
-    useEditableFlow(
+    useEditableFlow<InitJsonTemplateNodeData>(
       cloneInitJsonTemplate,
       TemplateInitJsonTemplateNode,
       TemplateLink,

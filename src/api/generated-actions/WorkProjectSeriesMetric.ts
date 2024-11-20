@@ -20,7 +20,7 @@ getDtoListByExampleList
   WorkProjectSeriesMetricDto,
   number
 >(
-  '/api/v2/workProjectSeries/metrics'
+  '/api/v3/work-project-series-metric'
 );
 
 

@@ -21,7 +21,7 @@ getDtoListByExampleList
   ProviderRoleTypeWorkTaskTypeSuitabilityDto,
   number
 >(
-  '/api/v2/workTaskType/providerRoleTypeSuitabilities'
+  '/api/v3/provider-role-type-work-task-type-suitability'
 );
 
 

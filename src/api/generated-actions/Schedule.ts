@@ -20,7 +20,7 @@ getDtoListByExampleList
   ScheduleDto,
   number
 >(
-  '/api/v2/schedule'
+  '/api/v3/schedule'
 );
 
 

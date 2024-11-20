@@ -20,7 +20,7 @@ getDtoListByExampleList
   BuildMetricDto,
   number
 >(
-  '/api/v2/schedule/buildMetric'
+  '/api/v3/build-metric'
 );
 
 

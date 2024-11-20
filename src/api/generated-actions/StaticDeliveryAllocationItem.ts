@@ -20,7 +20,7 @@ getDtoListByExampleList
   StaticDeliveryAllocationItemDto,
   number
 >(
-  '/api/v2/staticDeliveryAllocationItems'
+  '/api/v3/static-delivery-allocation-item'
 );
 
 

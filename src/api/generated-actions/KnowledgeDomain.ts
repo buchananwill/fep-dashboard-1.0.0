@@ -31,7 +31,7 @@ getDtoListByExampleList
   KnowledgeDomainDto,
   number
 >(
-  '/api/v2/serviceCategories/knowledgeDomains'
+  '/api/v3/knowledge-domain'
 );
 
 

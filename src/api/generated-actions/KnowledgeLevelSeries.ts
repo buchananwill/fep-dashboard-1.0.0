@@ -20,7 +20,7 @@ getDtoListByExampleList
   KnowledgeLevelSeriesDto,
   number
 >(
-  '/api/v2/knowledgeLevelSeries'
+  '/api/v3/knowledge-level-series'
 );
 
 

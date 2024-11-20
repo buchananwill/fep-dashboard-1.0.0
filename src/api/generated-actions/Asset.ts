@@ -1,7 +1,6 @@
 'use server';
 import { AssetDto } from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { generateWithTypeEndpointSet } from '../actions/template-type-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 
 const {
@@ -22,14 +21,9 @@ getDtoListByExampleList
   AssetDto,
   number
 >(
-  '/api/v2/assets'
+  '/api/v3/asset'
 );
 
-
-const {
-getByTypeIdList  } = generateWithTypeEndpointSet<AssetDto>(
-  '/api/v2/assets'
-);
 
 
 const {
@@ -55,6 +49,6 @@ deleteOne,
 getDtoListByBodyList,
 getDtoListByParamList,
 getDtoListByExampleList
-, getByTypeIdList, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
+, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
 }
 

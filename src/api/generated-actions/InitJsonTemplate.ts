@@ -1,8 +1,8 @@
 'use server';
+
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { InitJsonTemplateNodeData } from '@/components/react-flow/init-json-template/types';
-type InitJsonTemplateDto = InitJsonTemplateNodeData;
+import { InitJsonTemplateDto } from '@/api/generated-types/init-json-template-dto';
 
 const {
   getGraph,
@@ -27,7 +27,7 @@ const {
   getDtoListByParamList,
   getDtoListByExampleList
 } = generateBaseEndpointSet<InitJsonTemplateDto, number>(
-  '/api/v2/initTemplates'
+  '/api/v3/init-json-template'
 );
 
 export {

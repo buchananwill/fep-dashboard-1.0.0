@@ -21,7 +21,7 @@ getDtoListByExampleList
   ProviderRoleTypeDto,
   number
 >(
-  '/api/v2/providerRoles/types'
+  '/api/v3/provider-role-type'
 );
 
 

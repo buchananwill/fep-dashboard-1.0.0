@@ -21,7 +21,7 @@ getDtoListByExampleList
   WorkSchemaNodeDto,
   number
 >(
-  '/api/v2/workSchemaNodes'
+  '/api/v3/work-schema-node'
 );
 
 

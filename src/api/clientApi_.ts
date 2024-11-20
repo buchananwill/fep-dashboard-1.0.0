@@ -35,9 +35,9 @@ import * as WorkProjectSeriesAssignment from './generated-actions/WorkProjectSer
 import * as Schedule from './generated-actions/Schedule';
 import * as UserRoleType from './generated-actions/UserRoleType';
 import * as CarouselOption from './generated-actions/CarouselOption';
-import * as FeasibilityReport from './generated-actions/FeasibilityReport';
 import * as Person from './generated-actions/Person';
 import * as CycleSubspan from './generated-actions/CycleSubspan';
+
 export const Api = {
   Asset,
   AssetRole,
@@ -55,7 +55,6 @@ export const Api = {
   Cycle,
   CycleSubspan,
   CycleSubspanGroup,
-  FeasibilityReport,
   KnowledgeDomain,
   KnowledgeLevel,
   KnowledgeLevelSeries,

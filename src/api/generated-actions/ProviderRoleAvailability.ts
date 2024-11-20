@@ -21,7 +21,7 @@ getDtoListByExampleList
   ProviderRoleAvailabilityDto,
   number
 >(
-  '/api/v2/providerRoles/availabilities'
+  '/api/v3/provider-role-availability'
 );
 
 

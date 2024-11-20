@@ -20,7 +20,7 @@ getDtoListByExampleList
   CarouselGroupDto,
   number
 >(
-  '/api/v2/carouselGroups'
+  '/api/v3/carousel-group'
 );
 
 
