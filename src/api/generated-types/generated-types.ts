@@ -237,6 +237,7 @@ export interface FlywayOperationRequest {
   schemaName: string;
   beginWith: FlywayOperation;
   finishWith: FlywayOperation;
+  targetTemplateId?: number;
 }
 
 export interface Event<T> {

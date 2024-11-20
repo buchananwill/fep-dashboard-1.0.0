@@ -27,7 +27,10 @@ export async function resetSchema() {
     if (typeof verify === 'object') {
       const schemaName = verify.schemaName;
       if (schemaName) {
-        return migrateSchema(schemaName, { beginWith: 'CLEAN' });
+        return migrateSchema(schemaName, {
+          beginWith: 'CLEAN',
+          targetTemplateId: 17
+        });
       }
     }
   }

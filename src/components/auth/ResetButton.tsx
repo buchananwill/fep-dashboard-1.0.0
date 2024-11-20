@@ -18,11 +18,11 @@ export function ResetButton() {
           );
           if (isConfirmed) {
             resetSchema()
-              .then((isReset) => {
-                if (isReset) return fillSandbox();
-              })
-              .then((isFilled) => {
-                if (isFilled) redirect('/core');
+              .then((resettingMessage) => {
+                if (resettingMessage) {
+                  alert(resettingMessage);
+                  redirect('/core');
+                }
               })
               .catch((error) => {
                 console.error('Error occurred:', error);
