@@ -8,6 +8,7 @@ import { StringObjectRecord } from '@/api/string-object-record';
 import { isNotUndefined } from '@/api/main';
 import { CycleDto } from '@/api/generated-types/generated-types';
 import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import { publicToken } from '@/api/auth/schemaName';
 
 export interface CycleDay {
   zeroIndexedCycleDay: number;
@@ -24,10 +25,15 @@ export function groupCycleSubspansByDay<T extends CycleSubspanDto>(
 ) {
   if (!Array.isArray(items)) throw Error('Items is not an array:', items);
 
-  const groupedByCycleDay = Object.groupBy(
-    items,
-    (cycleSubspan) => cycleSubspan.zeroIndexedCycleDay
-  );
+  const groupedByCycleDay = items.reduce((prev, curr) => {
+    let list = prev.get(curr.zeroIndexedCycleDay);
+    if (list === undefined) {
+      list = [] as T[];
+      prev.set(curr.zeroIndexedCycleDay, list);
+    }
+    list.push(curr);
+    return prev;
+  }, new Map<number, T[]>());
 
   const cycleDays: CycleDay[] = [];
   const responseGrouping: StringObjectRecord<T[]> = {};
@@ -37,7 +43,7 @@ export function groupCycleSubspansByDay<T extends CycleSubspanDto>(
   for (let i = 0; i < cycle.cycleLengthInWeeks * 7; i++) {
     const dayNum = (startDay + i) % 7;
     cycleDays.push({ zeroIndexedCycleDay: i, day: DayOfWeekArray[dayNum] });
-    const groupedByCycleDayElement = groupedByCycleDay[i];
+    const groupedByCycleDayElement = groupedByCycleDay.get(i);
     responseGrouping[i] = isNotUndefined(groupedByCycleDayElement)
       ? groupedByCycleDayElement
       : [];

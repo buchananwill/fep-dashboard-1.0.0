@@ -351,8 +351,6 @@ export const CycleSubspanGroupDtoSchema = zod.object({
   id: zod.number().int()
 });
 
-export const InteractionBasedValidationDtoSchema = zod.object({});
-
 export const KnowledgeDomainDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),

@@ -15,7 +15,6 @@ import * as WorkSchemaNode from './generated-actions/WorkSchemaNode';
 import * as KnowledgeLevel from './generated-actions/KnowledgeLevel';
 import * as WorkSchemaNodeAssignment from './generated-actions/WorkSchemaNodeAssignment';
 import * as ProviderRole from './generated-actions/ProviderRole';
-import * as InteractionBasedValidation from './generated-actions/InteractionBasedValidation';
 import * as CarouselGroup from './generated-actions/CarouselGroup';
 import * as CycleSubspanGroup from './generated-actions/CycleSubspanGroup';
 import * as OrganizationType from './generated-actions/OrganizationType';
@@ -57,7 +56,6 @@ export const Api = {
   CycleSubspan,
   CycleSubspanGroup,
   FeasibilityReport,
-  InteractionBasedValidation,
   KnowledgeDomain,
   KnowledgeLevel,
   KnowledgeLevelSeries,
