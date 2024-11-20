@@ -2,7 +2,7 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { BASE_URL } from '@/api/BASE_URL';
 import JsonTable from '@/app/test/_components/JsonTable';
 import PostButton from '@/app/test/auto-carousel-group-options/PostButton';
-import { mapToOptionCopies } from '@/app/test/manual-definitions/data';
+import { mapToOptionCopies } from '@/functions/data-transforms';
 
 export default async function Page() {
   const autoCarouselOptions = await getWithoutBody<

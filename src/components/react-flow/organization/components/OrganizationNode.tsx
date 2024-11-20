@@ -1,17 +1,12 @@
-import { Edge, useEdges, useNodesData } from '@xyflow/react';
+import { Edge, useEdges } from '@xyflow/react';
 
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import clsx from 'clsx';
 import { BaseEditableNode } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import {
   OrganizationDto,
   WorkSchemaNodeRootTotalDeliveryAllocationRollupDto
 } from '@/api/generated-types/generated-types';
-import {
-  useGlobalDispatch,
-  useGlobalListener,
-  useGlobalListenerGroup
-} from 'selective-context';
 import { isNumber } from 'lodash';
 import NodeBundleSummaries from '@/components/react-flow/organization/components/NodeBundleSummaries';
 import { NodeBase } from '@/components/react-flow/generic/types';
@@ -20,9 +15,6 @@ import { Simplify } from 'type-fest';
 import { AllocationSummary } from '@/components/react-flow/organization/types';
 import { useDtoStore, useReadAnyDto } from 'dto-stores';
 import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
-import { getEntityNamespaceContextKey } from 'dto-stores/dist/functions/name-space-keys/getEntityNamespaceContextKey';
-import { EntityClassMap } from '@/api/entity-class-map';
-import { useReadAnyDtoTyped } from '@/api/typed-dto-store-hooks';
 import { isNotUndefined } from '@/api/main';
 import { useNodeContext } from 'react-d3-force-wrapper';
 
@@ -96,7 +88,7 @@ export function OrganizationNode(
     <BaseEditableNode
       {...nodeProps}
       className={clsx(
-        'container-3-cols relative gap-1 rounded-md border-black bg-white p-2 transition-colors-opacity',
+        'container-3-cols transition-colors-opacity relative gap-1 rounded-md border-black bg-white p-2',
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}

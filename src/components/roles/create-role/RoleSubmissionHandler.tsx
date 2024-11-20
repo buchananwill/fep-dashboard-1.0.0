@@ -1,5 +1,8 @@
 'use client';
-import { AvailabilityPostRequest } from '@/api/generated-types/generated-types';
+import {
+  AvailabilityPostRequest,
+  DayOfWeek
+} from '@/api/generated-types/generated-types';
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { DayOfWeekArray } from '@/api/date-and-time';
 import { DateTimeTimeZone } from '@microsoft/microsoft-graph-types';

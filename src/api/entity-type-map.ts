@@ -41,6 +41,8 @@ import {
   WorkSchemaNodeDto,
   WorkTaskTypeDto
 } from './generated-types/generated-types';
+import { InitJsonTemplateDto } from '@/api/generated-types/init-json-template-dto';
+import { InitJsonTemplateNodeData } from '@/components/react-flow/init-json-template/types';
 
 export type EntityTypeMap = {
   asset: AssetDto;
@@ -62,6 +64,7 @@ export type EntityTypeMap = {
   knowledgeDomain: KnowledgeDomainDto;
   knowledgeLevel: KnowledgeLevelDto;
   knowledgeLevelSeries: KnowledgeLevelSeriesDto;
+  initJsonTemplate: InitJsonTemplateNodeData;
   organization: OrganizationDto;
   organizationType: OrganizationTypeDto;
   person: PersonDto;
