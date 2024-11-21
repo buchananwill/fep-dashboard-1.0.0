@@ -40,6 +40,9 @@ const grayColors = [
 ] as const;
 
 const MantineTheme: MantineThemeOverride = {
+  spacing: {
+    xxs: '0.4rem'
+  },
   colors: {
     primary: blueColors,
     danger: redColors,
@@ -55,7 +58,7 @@ const MantineTheme: MantineThemeOverride = {
   defaultRadius: 'lg',
   components: {
     Card: {
-      defaultProps: { shadow: 'md' }
+      defaultProps: { shadow: 'sm', withBorder: true }
     },
     Popover: {
       defaultProps: { shadow: 'md' }
