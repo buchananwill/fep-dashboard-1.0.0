@@ -1,8 +1,7 @@
 import { DomTreeSketch } from './DomTreeSketch';
 import * as fs from 'fs';
-import { overViewData } from './OverViewDataNO_REACT';
-import { startCase } from 'lodash';
-import { singular } from 'pluralize';
+import { compiler } from 'markdown-to-jsx';
+// import guide from './FEP-data-models.md';
 
 function parseDataModelNames({ childComponents }: DomTreeSketch): string[] {
   const response: string[] = [];
@@ -15,9 +14,16 @@ function parseDataModelNames({ childComponents }: DomTreeSketch): string[] {
   return response;
 }
 
+import { readFileSync } from 'fs';
+import path from 'path';
+import { renderToStaticMarkup } from 'react-dom/server';
+
+const markdownContent = readFileSync(
+  path.resolve(process.cwd(), 'src/app/user-guide/FEP-data-models.md'),
+  'utf8'
+);
+
 fs.writeFileSync(
-  './data-model-names.json',
-  JSON.stringify(
-    parseDataModelNames(overViewData).map((n) => startCase(singular(n)))
-  )
+  './data-model-names.jsx',
+  renderToStaticMarkup(compiler(markdownContent))
 );
