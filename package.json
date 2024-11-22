@@ -107,6 +107,7 @@
     "prettier-plugin-tailwindcss": "^0.5.14",
     "prop-types": "^15.8.1",
     "tailwindcss": "^3.4.14",
+    "ts-node": "^10.9.2",
     "type-fest": "^4.26.1",
     "typescript": "^5.6.3"
   }
