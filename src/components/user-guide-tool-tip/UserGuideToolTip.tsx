@@ -36,7 +36,6 @@ export function useUserGuideTooltip(htmlId: string) {
       const mousePoint = { x: event.clientX, y: event.clientY };
 
       const pointInSafeZone = isPointInSafeZone(mousePoint);
-      console.log(pointInSafeZone);
       switch (pointInSafeZone) {
         case 'PARENT':
           if (timeoutRef.current) clearTimeout(timeoutRef.current);

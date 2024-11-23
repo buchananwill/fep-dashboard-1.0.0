@@ -8,7 +8,6 @@ export function useIsPointInSafeZone(
   return useCallback(
     (point: Coordinate) => {
       const trapAndPosition = getSafeTrapezium();
-      console.log(trapAndPosition);
       if (trapAndPosition === null) return 'EXTERNAL';
       const { trapezium, position, parent, tooltipRect } = trapAndPosition;
 
@@ -36,16 +35,9 @@ const pointIsInsidePolygon = (polygon: Coordinate[], testPoint: Coordinate) => {
       polygon[(i + 1) % polygon.length],
       testPoint
     );
-    console.log(
-      `Cross product for edge ${i}:`,
-      result,
-      `(point: ${testPoint.x}, ${testPoint.y})`
-    );
     if (result < 0) {
-      console.log('Point is outside this edge.');
       return false;
     }
   }
-  console.log('Point is inside the polygon.');
   return true;
 };
