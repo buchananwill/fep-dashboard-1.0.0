@@ -228,6 +228,3 @@ A **Schedule** is a reference to designate a set of [Work Project Series](#work-
 given [Cycle](#cycle), and were created
 together without violating any of the resource or other constraints, determined by
 the [scheduling input plan](#scheduling-input-plan).
-
-
-
