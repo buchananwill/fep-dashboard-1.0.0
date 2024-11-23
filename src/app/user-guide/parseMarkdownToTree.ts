@@ -10,7 +10,7 @@ export type MarkdownBlock = {
   id: number;
   html_id: string;
   content: string | null;
-  position: number;
+  blockPosition: number;
   level: number;
 };
 export type NestedMarkdownBlock = {
@@ -48,7 +48,7 @@ export const parseMarkdownToTree = (markdown: string) => {
           id: id, // Temporary ordinal ID based on position
           level,
           content: null, // Content is initially empty, as we will prefix the header from the html id and level.
-          position: id,
+          blockPosition: id,
           html_id: createHtmlId(title)
         },
         children: []

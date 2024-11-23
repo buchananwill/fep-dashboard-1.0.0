@@ -5,7 +5,7 @@ import { startCase } from 'lodash';
 export function parseJsonTreeToMarkdown(asJson: NestedMarkdownBlock[]) {
   return asJson
     .flatMap(flattenNestedEntity)
-    .sort((b1, b2) => b1.position - b2.position)
+    .sort((b1, b2) => b1.blockPosition - b2.blockPosition)
     .map(
       (b) =>
         `${'#'.repeat(Math.max(b.level, 0))} ${startCase(b.html_id)}${b.content}`
