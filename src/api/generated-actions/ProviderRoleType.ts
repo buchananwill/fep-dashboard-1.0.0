@@ -4,51 +4,48 @@ import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 
 const {
-getPage,
-getAll,
-getIdList,
-deleteIdList,
-postList,
-putList,
-getOne,
-postOne,
-putOne,
-deleteOne,
-getDtoListByBodyList,
-getDtoListByParamList,
-getDtoListByExampleList
-} = generateBaseEndpointSet<
-  ProviderRoleTypeDto,
-  number
->(
+  getPage,
+  getAll,
+  getIdList,
+  deleteIdList,
+  postList,
+  putList,
+  getOne,
+  postOne,
+  putOne,
+  deleteOne,
+  getDtoListByBodyList,
+  getDtoListByParamList,
+  getDtoListByExampleList
+} = generateBaseEndpointSet<ProviderRoleTypeDto, number>(
   '/api/v3/provider-role-type'
 );
 
-
-
 const {
-getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList } =
- generateGraphEndpointSet<
-  ProviderRoleTypeDto
->(
-  '/api/v2/providerRoles/types'
-);
-
+  getGraph,
+  getGraphByNodeList,
+  getGraphByRootId,
+  putGraph,
+  getRootNodeList
+} = generateGraphEndpointSet<ProviderRoleTypeDto>('/api/v3/provider-role-type');
 
 export {
-    getPage,
-getAll,
-getIdList,
-deleteIdList,
-postList,
-putList,
-getOne,
-postOne,
-putOne,
-deleteOne,
-getDtoListByBodyList,
-getDtoListByParamList,
-getDtoListByExampleList
-, getGraph, getGraphByNodeList, getGraphByRootId, putGraph, getRootNodeList
-}
-
+  getPage,
+  getAll,
+  getIdList,
+  deleteIdList,
+  postList,
+  putList,
+  getOne,
+  postOne,
+  putOne,
+  deleteOne,
+  getDtoListByBodyList,
+  getDtoListByParamList,
+  getDtoListByExampleList,
+  getGraph,
+  getGraphByNodeList,
+  getGraphByRootId,
+  putGraph,
+  getRootNodeList
+};

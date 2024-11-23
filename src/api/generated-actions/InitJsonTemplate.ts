@@ -10,7 +10,7 @@ const {
   getGraphByRootId,
   putGraph,
   getRootNodeList
-} = generateGraphEndpointSet<InitJsonTemplateDto>('/api/v2/initTemplates');
+} = generateGraphEndpointSet<InitJsonTemplateDto>('/api/v3/init-json-template');
 
 const {
   getPage,
