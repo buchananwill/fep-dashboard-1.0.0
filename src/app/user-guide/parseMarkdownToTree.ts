@@ -6,7 +6,7 @@ const getCounter = () => {
 };
 const idCounter = getCounter();
 const blockCounter = getCounter();
-export type MarkdownBlock = {
+export type UserGuideMarkdown = {
   id: number;
   html_id: string;
   content: string | null;
@@ -14,7 +14,7 @@ export type MarkdownBlock = {
   level: number;
 };
 export type NestedMarkdownBlock = {
-  data: MarkdownBlock;
+  data: UserGuideMarkdown;
   children: NestedMarkdownBlock[];
 };
 

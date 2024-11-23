@@ -35,6 +35,7 @@ export const EntityClassMap = {
   staticDeliveryAllocationItem: 'StaticDeliveryAllocationItem',
   timeDivision: 'TimeDivision',
   timeSpan: 'TimeSpan',
+  userGuideMarkdown: 'UserGuideMarkdown',
   userRole: 'UserRole',
   userRoleType: 'UserRoleType',
   workProjectSeries: 'WorkProjectSeries',
