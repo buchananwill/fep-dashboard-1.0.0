@@ -8,6 +8,7 @@ import { isNotUndefined } from '../main';
 import { constructUrl } from './template-base-endpoints';
 import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
 import { HasNumberId } from '@/api/types';
+import { GenericNestedDto } from '@/api/generated-types/generated-types';
 
 export type DepthOp = '>' | '>=' | '<' | '<=' | '=' | '!=';
 
@@ -21,6 +22,10 @@ export interface GraphEndpointSet<T extends HasNumberId> {
   ) => Promise<GraphDto<T>>;
   getGraphByNodeList: (idList: number[]) => Promise<GraphDto<T>>;
   getRootNodeList: () => Promise<T[]>;
+  postByNestedEntity: (nested: GenericNestedDto<T>) => Promise<GraphDto<T>>;
+  postByNestedEntityList: (
+    nested: GenericNestedDto<T>[]
+  ) => Promise<GraphDto<T>[]>;
 }
 
 export interface ByRootIdGraphRequest {
@@ -71,6 +76,26 @@ async function getGraph<T extends HasNumberId>(
   return getWithoutBody(url);
 }
 
+async function postByNestedDto<T extends HasNumberId>(
+  nested: GenericNestedDto<T>,
+  url: string
+) {
+  return postEntitiesWithDifferentReturnType<GenericNestedDto<T>, GraphDto<T>>(
+    nested,
+    `${url}/byNestedDto`
+  );
+}
+
+async function postByNestedDtoList<T extends HasNumberId>(
+  nested: GenericNestedDto<T>[],
+  url: string
+) {
+  return postEntitiesWithDifferentReturnType<
+    GenericNestedDto<T>[],
+    GraphDto<T>[]
+  >(nested, `${url}/byNestedDtoList`);
+}
+
 export function generateGraphEndpointSet<T extends HasNumberId>(
   path: string | string[]
 ): GraphEndpointSet<T> {
@@ -82,6 +107,9 @@ export function generateGraphEndpointSet<T extends HasNumberId>(
     getGraphByRootId: (byRootRequest) =>
       getGraphByRootId<T>(byRootRequest, generatedUrl),
     getGraphByNodeList: (idList) => getGraphByNodeList(idList, generatedUrl),
-    getRootNodeList: () => getRootNodeList(generatedUrl)
+    getRootNodeList: () => getRootNodeList(generatedUrl),
+    postByNestedEntity: (nested) => postByNestedDto(nested, generatedUrl),
+    postByNestedEntityList: (nested) =>
+      postByNestedDtoList(nested, generatedUrl)
   };
 }

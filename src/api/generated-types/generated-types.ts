@@ -855,7 +855,8 @@ export interface WorkProjectSeriesDto
   workTaskType: WorkTaskTypeDto;
 }
 
-export interface GenericNestedDto<T> extends NestedDto<T> {
+export interface GenericNestedDto<T> {
+  data: T;
   children: GenericNestedDto<T>[];
 }
 

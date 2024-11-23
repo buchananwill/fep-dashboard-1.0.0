@@ -1,3 +1,5 @@
+import { GenericNestedDto } from '@/api/generated-types/generated-types';
+
 const getCounter = () => {
   let counter = 0;
   return () => {
@@ -8,15 +10,12 @@ const idCounter = getCounter();
 const blockCounter = getCounter();
 export type UserGuideMarkdown = {
   id: number;
-  html_id: string;
+  htmlId: string;
   content: string | null;
   blockPosition: number;
   level: number;
 };
-export type NestedMarkdownBlock = {
-  data: UserGuideMarkdown;
-  children: NestedMarkdownBlock[];
-};
+export type NestedMarkdownBlock = GenericNestedDto<UserGuideMarkdown>;
 
 function createHtmlId(text: string) {
   return text.replace(/\s+/g, '-').toLowerCase();
@@ -49,7 +48,7 @@ export const parseMarkdownToTree = (markdown: string) => {
           level,
           content: null, // Content is initially empty, as we will prefix the header from the html id and level.
           blockPosition: id,
-          html_id: createHtmlId(title)
+          htmlId: createHtmlId(title)
         },
         children: []
       };

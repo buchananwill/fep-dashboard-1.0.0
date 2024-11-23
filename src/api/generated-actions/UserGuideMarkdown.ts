@@ -30,7 +30,9 @@ const {
   getGraphByNodeList,
   getGraphByRootId,
   putGraph,
-  getRootNodeList
+  getRootNodeList,
+  postByNestedEntity,
+  postByNestedEntityList
 } = generateGraphEndpointSet<UserGuideMarkdown>('/api/v3/user-guide-markdown');
 
 export {
@@ -51,5 +53,7 @@ export {
   getGraphByNodeList,
   getGraphByRootId,
   putGraph,
-  getRootNodeList
+  getRootNodeList,
+  postByNestedEntity,
+  postByNestedEntityList
 };

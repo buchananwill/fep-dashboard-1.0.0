@@ -30,6 +30,9 @@ import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { compactTableStyles } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
+import { useUserGuideTooltip } from '@/components/user-guide-tool-tip/UserGuideToolTip';
+import { singular } from 'pluralize';
+import { kebabCase } from 'lodash';
 
 export default function EntityTable<
   T extends HasIdClass<T_ID>,
@@ -101,10 +104,12 @@ export default function EntityTable<
     };
   }, [entityClass, hideFiltering, withSelection]);
 
+  const tooltipProps = useUserGuideTooltip(entityClass);
+
   return (
     <EntityTableContext.Provider value={contextValue}>
       <SortingController />
-      <div className={'flex flex-col gap-2 p-2'}>
+      <div className={'flex flex-col gap-2 p-2'} {...tooltipProps}>
         {!hideFiltering && (
           <div className={'grid grid-cols-3 gap-2'}>
             <FilterStringInput />

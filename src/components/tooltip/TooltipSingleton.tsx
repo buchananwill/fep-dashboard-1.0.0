@@ -81,7 +81,9 @@ export default function TooltipSingleton() {
     refs.setPositionReference(rootNodeRef.current);
   }, [rootNodeRef, refs]);
 
-  if (!rootNodeRef.current || !content) return null;
+  if (!rootNodeRef.current || !content) {
+    return null;
+  }
 
   return (
     <div ref={rootNodeRefInitial} className={'pointer-events-none'}>
