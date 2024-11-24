@@ -6,6 +6,7 @@ import { useGlobalController } from 'selective-context';
 import { ObjectPlaceholder } from '@/api/literals';
 
 export const MainScrollPosition = 'main-scroll-position';
+export const MainScrollPortId = 'main-scroll-port';
 export default function MainScrollPort({ children }: PropsWithChildren) {
   const { dispatch } = useGlobalController({
     contextKey: MainScrollPosition,
@@ -26,6 +27,9 @@ export default function MainScrollPort({ children }: PropsWithChildren) {
         'from-primary-200 h-[100vh] w-[100vw] bg-gradient-to-b to-white '
       }
       onScrollPositionChange={onScrollPositionChange}
+      viewportProps={{
+        id: MainScrollPortId
+      }}
     >
       <div className={'flex h-full w-full'}>
         <div className={'center-all-margin '}>{children}</div>

@@ -102,7 +102,7 @@ const UserGuideBlockWrapper = forwardRef<HTMLDivElement, { htmlId: string }>(
         {isFetching ? (
           <Loader />
         ) : markdownBlock ? (
-          <MarkdownFromBlock block={markdownBlock} />
+          <MarkdownFromBlock block={markdownBlock} fullPath={true} />
         ) : (
           'No content found!'
         )}

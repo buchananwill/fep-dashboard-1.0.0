@@ -86,20 +86,24 @@ export default function TooltipSingleton() {
   }
 
   return (
-    <div ref={rootNodeRefInitial} className={'pointer-events-none'}>
+    <div
+      ref={rootNodeRefInitial}
+      // className={'pointer-events-none'}
+    >
       <FloatingPortal root={rootNodeRefInitial}>
         <div
           style={floatingStyles}
           ref={refs.setFloating}
           className={clsx(
             status === 'initial' ? '' : 'transition-transform duration-500',
-            'pointer-events-none z-[200000]'
+            // 'pointer-events-none',
+            ' z-[200000]'
           )}
         >
           {isMounted && (
             <div
               style={{ ...transitionStyles }}
-              className={'pointer-events-none'}
+              // className={'pointer-events-none'}
             >
               {content}
             </div>

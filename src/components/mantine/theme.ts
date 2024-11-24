@@ -53,6 +53,7 @@ const grayColors = [
 ] as const;
 
 const MantineTheme: MantineThemeOverride = {
+  autoContrast: true,
   spacing: {
     xxs: '0.4rem'
   },
