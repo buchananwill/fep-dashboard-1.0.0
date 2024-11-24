@@ -11,10 +11,13 @@ import {
   useRef
 } from 'react';
 import {
+  autoPlacement,
   autoUpdate,
+  flip,
   FloatingPortal,
   offset,
   Placement,
+  shift,
   useFloating,
   useTransitionStatus,
   useTransitionStyles
@@ -61,7 +64,11 @@ export default function TooltipSingleton() {
   );
   const { floatingStyles, refs, context } = useFloating({
     placement: placement ?? 'right',
-    middleware: [offset({ mainAxis: 10 })],
+    middleware: [
+      offset({ mainAxis: 10 }),
+      autoPlacement(),
+      shift({ padding: 10 })
+    ],
     open: isOpen,
     onOpenChange: setIsOpen,
     whileElementsMounted: autoUpdate
@@ -86,28 +93,18 @@ export default function TooltipSingleton() {
   }
 
   return (
-    <div
-      ref={rootNodeRefInitial}
-      // className={'pointer-events-none'}
-    >
+    <div ref={rootNodeRefInitial}>
       <FloatingPortal root={rootNodeRefInitial}>
         <div
           style={floatingStyles}
           ref={refs.setFloating}
           className={clsx(
             status === 'initial' ? '' : 'transition-transform duration-500',
-            // 'pointer-events-none',
+
             ' z-[200000]'
           )}
         >
-          {isMounted && (
-            <div
-              style={{ ...transitionStyles }}
-              // className={'pointer-events-none'}
-            >
-              {content}
-            </div>
-          )}
+          {isMounted && <div style={{ ...transitionStyles }}>{content}</div>}
         </div>
       </FloatingPortal>
     </div>
