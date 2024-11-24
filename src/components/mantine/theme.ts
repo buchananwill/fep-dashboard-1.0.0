@@ -39,6 +39,32 @@ const redColors = [
   '#c92a2a'
 ] as const;
 
+const amberSunriseColors = [
+  '#fff4e1',
+  '#ffe7cd',
+  '#fccd9e',
+  '#f8b26a',
+  '#f59b3f',
+  '#f48c23',
+  '#f48412',
+  '#d97104',
+  '#c26400',
+  '#a95500'
+] as const;
+
+const royalAmethystColors = [
+  '#f8eaff',
+  '#e9d3ff',
+  '#cea4f8',
+  '#b272f2',
+  '#9b48ed',
+  '#8c2dea',
+  '#851eea',
+  '#7212d0',
+  '#650dbb',
+  '#5705a5'
+] as const;
+
 const grayColors = [
   '#f8f9fa',
   '#f1f3f5',
@@ -59,6 +85,8 @@ const MantineTheme: MantineThemeOverride = {
   },
   colors: {
     primary: mintColors,
+    secondary: amberSunriseColors,
+    tertiary: royalAmethystColors,
     danger: redColors,
     default: grayColors
   },

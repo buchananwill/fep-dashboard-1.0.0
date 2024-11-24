@@ -59,23 +59,24 @@ export default function RootCard({
           {displayHeader &&
             (navLinkDescription ? (
               <Card.Section>
-                <Popover>
-                  <div
-                    className={'w-full overflow-hidden rounded-t-2xl'}
-                    {...userGuideTooltip}
-                  >
-                    {navigationType && (
-                      <EntityIcon
-                        className={'h-8 w-8'}
-                        entityName={navigationType}
-                      />
-                    )}
-                    {displayHeader}
-                  </div>
-                  <Popover.Dropdown className={'max-w-lg'}>
-                    {navigationType && navLinkDescription}
-                  </Popover.Dropdown>
-                </Popover>
+                <div
+                  style={{
+                    backgroundColor: 'var(--mantine-color-secondary-1)',
+                    color: 'var(--mantine-color-secondary-7)'
+                  }}
+                  className={
+                    'flex w-full justify-between overflow-hidden rounded-t-2xl border-b p-1 pb-0'
+                  }
+                  {...userGuideTooltip}
+                >
+                  {navigationType && (
+                    <EntityIcon
+                      className={'h-8 w-8'}
+                      entityName={navigationType}
+                    />
+                  )}
+                  {displayHeader}
+                </div>
               </Card.Section>
             ) : (
               <Card.Section

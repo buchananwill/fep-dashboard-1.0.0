@@ -9,6 +9,7 @@ import { NavigationType } from '@/components/navigation/iconDefinitions';
 import { camelCase, startCase } from 'lodash';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import RootCard from '@/components/generic/RootCard';
+import { Card } from '@mantine/core';
 
 export function NavLinkTreeButton({
   navLinkNode,
@@ -63,10 +64,11 @@ export function NavLinkTreeButton({
           displayHeader={aliasName}
           navigationType={navKey}
         >
-          {' '}
-          <DisplayThisLevel displayLabel={DisplayLabelElement}>
-            {...childrenElements}
-          </DisplayThisLevel>
+          <div className={'p-2 pt-0'}>
+            <DisplayThisLevel displayLabel={DisplayLabelElement}>
+              {...childrenElements}
+            </DisplayThisLevel>
+          </div>
         </RootCard>
       );
     }
