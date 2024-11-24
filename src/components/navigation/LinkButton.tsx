@@ -23,7 +23,7 @@ export function LinkButton({
         {...props}
         className={clsx(
           className,
-          'duration-250 transition-colors-opacity -m-1 inline-block h-fit w-fit whitespace-nowrap rounded-xl bg-transparent p-0.5 px-1 outline-offset-2',
+          'duration-250 transition-colors-opacity -m-1 inline-block h-fit w-fit whitespace-nowrap rounded-xl bg-transparent  px-1 outline-offset-2',
           colorClassNames[color]
         )}
       >
@@ -38,7 +38,7 @@ export function LinkButton({
       href={href}
       className={clsx(
         className,
-        'duration-250 transition-colors-opacity -m-1 inline-block h-fit w-fit whitespace-nowrap rounded-xl bg-transparent p-0.5 px-1 outline-offset-2',
+        'duration-250 transition-colors-opacity -m-1 inline-block h-fit w-fit whitespace-nowrap rounded-xl bg-transparent  px-1 outline-offset-2',
         colorClassNames[color]
       )}
     >
