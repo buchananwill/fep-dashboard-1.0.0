@@ -100,11 +100,11 @@ const UserGuideBlockWrapper = forwardRef<HTMLDivElement, { htmlId: string }>(
     return (
       <Card ref={ref} w={'var(--mantine-breakpoint-xs)'}>
         {isFetching ? (
-          <Loader />
+          <Loader styles={{ root: { alignSelf: 'center' } }} />
         ) : markdownBlock ? (
           <MarkdownFromBlock block={markdownBlock} fullPath={true} />
         ) : (
-          'No content found!'
+          'Tool tip coming soon. :-)'
         )}
       </Card>
     );
