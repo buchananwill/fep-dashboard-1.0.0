@@ -5,6 +5,7 @@ import { EntityIcon } from '@/components/navigation/EntityIcon';
 import Markdown from 'markdown-to-jsx';
 import clsx from 'clsx';
 import { LinkButton } from '@/components/navigation/LinkButton';
+import { plural } from 'pluralize';
 
 export function MarkdownFromBlock({
   block,
@@ -38,7 +39,7 @@ export function MarkdownFromBlock({
         <EntityIcon
           width={32}
           className={'inline-block'}
-          entityName={block.htmlId}
+          entityName={plural(block.htmlId)}
         />
       </Title>
       {block.content && (

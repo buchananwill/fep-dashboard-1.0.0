@@ -8,6 +8,8 @@ import {
 import { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 import { Card, Button, Popover } from '@mantine/core';
+import { EntityIcon } from '@/components/navigation/EntityIcon';
+import { useUserGuideTooltip } from '@/components/user-guide/user-guide-tool-tip/UserGuideToolTip';
 
 export default function RootCard({
   layoutId,
@@ -25,6 +27,8 @@ export default function RootCard({
   const navLinkDescription = navigationType
     ? NavLinkDescriptionsDefault[navigationType]
     : null;
+
+  const userGuideTooltip = useUserGuideTooltip(navigationType ?? '');
 
   return (
     <motion.div
@@ -56,25 +60,17 @@ export default function RootCard({
             (navLinkDescription ? (
               <Card.Section>
                 <Popover>
-                  <div className={'w-full overflow-hidden rounded-t-2xl'}>
-                    <Popover.Target>
-                      <Button
-                        variant={'subtle'}
-                        styles={{
-                          root: { borderRadius: '0px' }
-                        }}
-                        classNames={{
-                          inner: 'w-full',
-                          label:
-                            'flex w-full justify-between p-1 italic text-default-500 font-weight-400 font-light'
-                        }}
-                        className={''}
-                        fullWidth
-                      >
-                        {Icon && <Icon className={'h-8 w-8'} />}
-                        {displayHeader}
-                      </Button>
-                    </Popover.Target>
+                  <div
+                    className={'w-full overflow-hidden rounded-t-2xl'}
+                    {...userGuideTooltip}
+                  >
+                    {navigationType && (
+                      <EntityIcon
+                        className={'h-8 w-8'}
+                        entityName={navigationType}
+                      />
+                    )}
+                    {displayHeader}
                   </div>
                   <Popover.Dropdown className={'max-w-lg'}>
                     {navigationType && navLinkDescription}
