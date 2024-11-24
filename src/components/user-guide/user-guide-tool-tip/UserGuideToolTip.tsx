@@ -12,8 +12,9 @@ import { singular } from 'pluralize';
 import { userGuideMarkdownToMarkdownString } from '@/app/user-guide/parseJsonTreeToMarkdown';
 import Markdown from 'markdown-to-jsx';
 import { Api } from '@/api/clientApi';
-import { useSafeTrapezium } from '@/components/user-guide-tool-tip/useSafeTrapezium';
-import { useIsPointInSafeZone } from '@/components/user-guide-tool-tip/useIsPointInSafeZone';
+import { useSafeTrapezium } from '@/components/user-guide/user-guide-tool-tip/useSafeTrapezium';
+import { useIsPointInSafeZone } from '@/components/user-guide/user-guide-tool-tip/useIsPointInSafeZone';
+import { MarkdownFromBlock } from '@/components/user-guide/markdownFromBlock';
 
 export function useUserGuideTooltip(htmlId: string) {
   const transformedId = useMemo(() => {
@@ -101,9 +102,7 @@ const UserGuideBlockWrapper = forwardRef<HTMLDivElement, { htmlId: string }>(
         {isFetching ? (
           <Loader />
         ) : markdownBlock ? (
-          <Markdown>
-            {userGuideMarkdownToMarkdownString(markdownBlock)}
-          </Markdown>
+          <MarkdownFromBlock block={markdownBlock} />
         ) : (
           'No content found!'
         )}
@@ -111,10 +110,3 @@ const UserGuideBlockWrapper = forwardRef<HTMLDivElement, { htmlId: string }>(
     );
   }
 );
-
-type MouseLocations =
-  | 'PARENT'
-  | 'SAFE_TRAPEZIUM'
-  | 'CHILD'
-  | 'NOT_PARENT'
-  | 'NOT_SAFE';

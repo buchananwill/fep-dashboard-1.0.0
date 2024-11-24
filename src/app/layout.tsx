@@ -9,7 +9,7 @@ import { MasterChangesTrackWrapper } from '@/components/auth/MasterChangesTracke
 import UserAvatar from '@/components/auth/UserAvatar';
 import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
-import { ColorSchemeScript, ScrollArea } from '@mantine/core';
+import { ColorSchemeScript } from '@mantine/core';
 import MainScrollPort from '@/components/generic/MainScrollPort';
 import '@mantine/dates/styles.css';
 import '@mantine/notifications/styles.css';

@@ -26,6 +26,7 @@ export interface GraphEndpointSet<T extends HasNumberId> {
   postByNestedEntityList: (
     nested: GenericNestedDto<T>[]
   ) => Promise<GraphDto<T>[]>;
+  getByNestedEntityList: () => Promise<GenericNestedDto<T>[]>;
 }
 
 export interface ByRootIdGraphRequest {
@@ -96,6 +97,10 @@ async function postByNestedDtoList<T extends HasNumberId>(
   >(nested, `${url}/byNestedDtoList`);
 }
 
+async function getByNestedDtoList<T extends HasNumberId>(url: string) {
+  return getWithoutBody<GenericNestedDto<T>[]>(`${url}/byNestedDtoList`);
+}
+
 export function generateGraphEndpointSet<T extends HasNumberId>(
   path: string | string[]
 ): GraphEndpointSet<T> {
@@ -110,6 +115,7 @@ export function generateGraphEndpointSet<T extends HasNumberId>(
     getRootNodeList: () => getRootNodeList(generatedUrl),
     postByNestedEntity: (nested) => postByNestedDto(nested, generatedUrl),
     postByNestedEntityList: (nested) =>
-      postByNestedDtoList(nested, generatedUrl)
+      postByNestedDtoList(nested, generatedUrl),
+    getByNestedEntityList: () => getByNestedDtoList(generatedUrl)
   };
 }

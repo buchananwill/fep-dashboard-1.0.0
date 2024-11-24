@@ -1,6 +1,6 @@
 'use client';
 
-import { navKeyList } from '@/components/navigation/navLinkIcons';
+import { navKeyList } from '@/components/navigation/iconDefinitions';
 import NavLinkButton from '@/components/navigation/NavLinkButton';
 
 export default function NavPopoverContent() {

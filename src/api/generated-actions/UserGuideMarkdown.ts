@@ -1,8 +1,4 @@
 'use server';
-import {
-  UserRoleTypeDto,
-  WorkSchemaNodeDto
-} from '@/api/generated-types/generated-types';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { UserGuideMarkdown } from '@/app/user-guide/parseMarkdownToTree';
 import { generateGraphEndpointSet } from '@/api/actions/template-graph-endpoints';
@@ -32,7 +28,8 @@ const {
   putGraph,
   getRootNodeList,
   postByNestedEntity,
-  postByNestedEntityList
+  postByNestedEntityList,
+  getByNestedEntityList
 } = generateGraphEndpointSet<UserGuideMarkdown>('/api/v3/user-guide-markdown');
 
 export {
@@ -55,5 +52,6 @@ export {
   putGraph,
   getRootNodeList,
   postByNestedEntity,
-  postByNestedEntityList
+  postByNestedEntityList,
+  getByNestedEntityList
 };

@@ -5,7 +5,7 @@ import {
   LinkWithChildLinks,
   NavLinkTree
 } from '@/app/core/navigation/links/types';
-import { NavigationType } from '@/components/navigation/navLinkIcons';
+import { NavigationType } from '@/components/navigation/iconDefinitions';
 import { camelCase, startCase } from 'lodash';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import RootCard from '@/components/generic/RootCard';

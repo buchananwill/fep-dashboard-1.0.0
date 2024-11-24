@@ -30,7 +30,7 @@ import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { compactTableStyles } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
-import { useUserGuideTooltip } from '@/components/user-guide-tool-tip/UserGuideToolTip';
+import { useUserGuideTooltip } from '@/components/user-guide/user-guide-tool-tip/UserGuideToolTip';
 import { singular } from 'pluralize';
 import { kebabCase } from 'lodash';
 

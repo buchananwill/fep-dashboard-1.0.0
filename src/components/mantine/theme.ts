@@ -13,6 +13,19 @@ const blueColors = [
   '#1864ab'
 ] as const;
 
+const mintColors = [
+  '#e3fff2',
+  '#d0fce6',
+  '#a3f6ce',
+  '#73f0b3',
+  '#4cec9d',
+  '#32e98e',
+  '#21e886',
+  '#0dcd73',
+  '#00b765',
+  '#009e54'
+] as const;
+
 const redColors = [
   '#fff5f5',
   '#ffe3e3',
@@ -44,7 +57,7 @@ const MantineTheme: MantineThemeOverride = {
     xxs: '0.4rem'
   },
   colors: {
-    primary: blueColors,
+    primary: mintColors,
     danger: redColors,
     default: grayColors
   },

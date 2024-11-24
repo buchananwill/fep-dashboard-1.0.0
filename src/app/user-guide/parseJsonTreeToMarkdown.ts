@@ -10,8 +10,11 @@ export function userGuideMarkdownToMarkdownString(b: UserGuideMarkdown) {
 }
 
 export function parseJsonTreeToMarkdown(asJson: NestedMarkdownBlock[]) {
-  return asJson
-    .flatMap(flattenNestedEntity)
+  return parseUserGuideBlocksToMarkdown(asJson.flatMap(flattenNestedEntity));
+}
+
+export function parseUserGuideBlocksToMarkdown(blocks: UserGuideMarkdown[]) {
+  return blocks
     .sort((b1, b2) => b1.blockPosition - b2.blockPosition)
     .map((b) => userGuideMarkdownToMarkdownString(b))
     .reduce((s1, s2) => `${s1}${s2}`);

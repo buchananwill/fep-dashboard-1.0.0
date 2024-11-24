@@ -3,8 +3,8 @@ import { PropsWithChildren, useTransition } from 'react';
 import clsx from 'clsx';
 import {
   NavigationType,
-  navLinkIcons
-} from '@/components/navigation/navLinkIcons';
+  iconDefinitions
+} from '@/components/navigation/iconDefinitions';
 import { startCase } from 'lodash';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
@@ -19,7 +19,7 @@ export default function NavLinkButton({
   navigationType
 }: { navigationType: NavigationType; className?: string } & PropsWithChildren &
   Omit<LinkProps, 'href'>) {
-  const Icon = navLinkIcons[navigationType];
+  const Icon = iconDefinitions[navigationType];
   const label = startCase(getDomainAlias(navigationType));
   const [isPending, startTransition] = useTransition();
   const appRouterInstance = useRouter();
@@ -36,7 +36,7 @@ export default function NavLinkButton({
         );
       }}
       className={clsx(
-        'h-12 w-12 rounded-full bg-transparent p-1.5 outline-offset-2 outline-blue-400 duration-250 transition-colors-opacity hover:bg-blue-100',
+        'duration-250 transition-colors-opacity h-12 w-12 rounded-full bg-transparent p-1.5 outline-offset-2 outline-blue-400 hover:bg-blue-100',
         className
       )}
       aria-label={label}

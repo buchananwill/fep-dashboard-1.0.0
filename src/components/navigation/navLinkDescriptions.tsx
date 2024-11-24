@@ -1,4 +1,4 @@
-import { NavigationType } from './navLinkIcons';
+import { NavigationType } from './iconDefinitions';
 import { ReactElement } from 'react';
 
 export type NavLinkDescriptionsRecord = {

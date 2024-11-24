@@ -1,6 +1,6 @@
 import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
 import { NavLinkTree } from '@/app/core/navigation/links/types';
-import { navKeyList } from '@/components/navigation/navLinkIcons';
+import { navKeyList } from '@/components/navigation/iconDefinitions';
 import { sort } from 'd3';
 
 export async function navLinkTreeFromKnowledgeLevelSeries(

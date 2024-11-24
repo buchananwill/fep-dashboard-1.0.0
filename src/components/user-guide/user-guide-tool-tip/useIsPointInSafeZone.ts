@@ -1,4 +1,4 @@
-import { useSafeTrapezium } from '@/components/user-guide-tool-tip/useSafeTrapezium';
+import { useSafeTrapezium } from '@/components/user-guide/user-guide-tool-tip/useSafeTrapezium';
 import { useCallback } from 'react';
 import { Coordinate } from '@/components/react-flow/generic/types';
 

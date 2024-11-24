@@ -1,14 +1,18 @@
 @import '@xyflow/react/dist/style.css';
-/*@import '@mantine/dates/styles.css';*/
-/*@import '@mantine/notifications/styles.css';*/
-/*@import '@mantine/spotlight/styles.css';*/
-/*@import '@mantine/core/styles.css';*/
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
+@layer base {
+    ul {
+        list-style: disc;
+    }
+    ol {
+        list-style: decimal;
+    }
+}
 
 @media (prefers-color-scheme: dark) {
     :root {

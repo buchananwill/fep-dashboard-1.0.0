@@ -8,7 +8,7 @@ import CreateRolePage from '@/components/roles/create-role/CreateRolePage';
 import { getFirstNVariables } from '@/components/work-task-types/getRootCardLayoutId';
 import { createLinksFromNavTree } from '@/app/core/navigation/links/createLinksFromNavTree';
 import { getNavIndex } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
-import { NavigationType } from '@/components/navigation/navLinkIcons';
+import { NavigationType } from '@/components/navigation/iconDefinitions';
 import { NavLinkTreeButton } from '@/app/core/navigation/links/NavLinkTreeButton';
 import { WrappedHeader } from '@/app/core/navigation/links/WrappedHeader';
 import { WrappedLink } from '@/app/core/navigation/links/WrappedLink';

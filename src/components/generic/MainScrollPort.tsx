@@ -22,7 +22,9 @@ export default function MainScrollPort({ children }: PropsWithChildren) {
 
   return (
     <ScrollArea
-      className={'h-[100vh] w-[100vw] bg-gradient-to-b from-blue-200 to-white '}
+      className={
+        'from-primary-200 h-[100vh] w-[100vw] bg-gradient-to-b to-white '
+      }
       onScrollPositionChange={onScrollPositionChange}
     >
       <div className={'flex h-full w-full'}>

@@ -22,7 +22,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 // 16 is a good square number for the core nav menu. One-in-one-out from now on!
-export const navLinkIcons = {
+export const iconDefinitions = {
   navigation: GlobeAltIcon,
   cycles: ClockIcon,
   knowledgeDomains: AcademicCapIcon,
@@ -40,9 +40,9 @@ export const navLinkIcons = {
   schedules: CalendarDaysIcon
 } as const;
 
-export type NavigationType = keyof typeof navLinkIcons;
+export type NavigationType = keyof typeof iconDefinitions;
 
-export const navKeyList = Object.keys(navLinkIcons) as NavigationType[];
+export const navKeyList = Object.keys(iconDefinitions) as NavigationType[];
 
 const unusedIcons = {
   RectangleGroupIcon,

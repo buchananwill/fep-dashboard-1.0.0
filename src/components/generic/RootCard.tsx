@@ -3,8 +3,8 @@ import { NavLinkDescriptionsDefault } from '@/components/navigation/navLinkDescr
 import { motion } from 'framer-motion';
 import {
   NavigationType,
-  navLinkIcons
-} from '@/components/navigation/navLinkIcons';
+  iconDefinitions
+} from '@/components/navigation/iconDefinitions';
 import { PropsWithChildren, ReactNode } from 'react';
 import clsx from 'clsx';
 import { Card, Button, Popover } from '@mantine/core';
@@ -21,7 +21,7 @@ export default function RootCard({
   displayHeader?: string | ReactNode;
   shrinkWrap?: boolean;
 } & PropsWithChildren) {
-  const Icon = navigationType ? navLinkIcons[navigationType] : null;
+  const Icon = navigationType ? iconDefinitions[navigationType] : null;
   const navLinkDescription = navigationType
     ? NavLinkDescriptionsDefault[navigationType]
     : null;

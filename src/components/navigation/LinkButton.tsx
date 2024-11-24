@@ -18,7 +18,7 @@ export function LinkButton({
       href={href}
       className={clsx(
         className,
-        'duration-250 transition-colors-opacity m-0.5 h-fit w-fit rounded-xl bg-transparent p-0.5 px-2 outline-offset-2',
+        'duration-250 transition-colors-opacity m-0.5 inline h-fit w-fit rounded-xl bg-transparent p-0.5 px-2 outline-offset-2',
         colorClassNames[color]
       )}
     >
@@ -39,7 +39,7 @@ export function NoLinkHeader({ displayLabel }: LinkTreeElementProps) {
   );
 }
 
-const colorClassNames: Partial<{
+export const colorClassNames: Partial<{
   [Key in Exclude<ButtonProps['color'], undefined>]: string;
 }> = {
   primary: 'text-blue-500  hover:bg-blue-100 outline-blue-400',
