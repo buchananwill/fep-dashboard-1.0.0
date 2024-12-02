@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { FormEvent, useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   CycleSubspanDefinitionDto,
@@ -30,12 +30,64 @@ import {
   getNumberUpdater,
   getStringUpdater
 } from '@/components/tables/edit-tables/cellUpdaterFunctions';
+import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
+import { KEY_TYPES } from 'dto-stores/dist/literals';
+import { EmptyArray } from '@/api/literals';
+import { isNotUndefined } from '@/api/main';
+import { ExportDataButton } from '@/components/export/ExportDataButton';
+import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+import { ImportDataButton } from '@/components/import/ImportDataButton';
 
 const entityType = EntityClassMap.cycleSubspanDefinition;
 
 export default function CycleSubspanDefinitionTable({
   pathVariables
 }: LeafComponentProps) {
+  const readAnyDto =
+    useReadAnyDto<IdWrapper<CycleSubspanDefinitionDto>>(entityType);
+  const { currentState } = NamespacedHooks.useListen(
+    entityType,
+    KEY_TYPES.ID_LIST,
+    'cycle-definition-table',
+    EmptyArray as string[]
+  );
+  const getData = useCallback(() => {
+    const dtoList = currentState
+      .map((id) => readAnyDto(id))
+      .filter(isNotUndefined)
+      .map((wrapper) => ({ ...wrapper.data }) as CycleSubspanDefinitionDto);
+    return JSON.stringify(dtoList);
+  }, [readAnyDto, currentState]);
+
+  const dispatch = NamespacedHooks.useDispatch(
+    entityType,
+    KEY_TYPES.MASTER_LIST
+  );
+  const importData = useCallback(
+    (file: File | FormEvent<HTMLButtonElement> | null) => {
+      console.log(file);
+      const fileReader = new FileReader();
+      fileReader.onload = async (e) => {
+        const text = e.target?.result;
+        console.log(text);
+        if (typeof text === 'string') {
+          const replacementList: CycleSubspanDefinitionDto[] = JSON.parse(text);
+          dispatch(
+            replacementList.map(
+              (dto, index) =>
+                ({
+                  id: String(index),
+                  data: dto
+                }) as IdWrapper<CycleSubspanDefinitionDto>
+            )
+          );
+        }
+      };
+      if (file !== null) fileReader.readAsText(file as File);
+    },
+    [dispatch]
+  );
+
   return (
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
       <div className={'flex h-[600px] max-w-[80rem] flex-col p-2'}>
@@ -45,6 +97,15 @@ export default function CycleSubspanDefinitionTable({
           cellModel={cycleSubspanDefinitionCellModel}
           defaultSort={Sorts['data.name']}
         />
+      </div>
+      <div className={'center-all-margin flex w-fit gap-2 p-2'}>
+        <ImportDataButton onChange={importData} accept={'application/json'} />
+        <ExportDataButton
+          downloadProps={{ getData }}
+          rightSection={<ArrowDownTrayIcon className={'w-6'} />}
+        >
+          Export
+        </ExportDataButton>
       </div>
     </RootCard>
   );

@@ -7,6 +7,13 @@ export const AutoBuildParametersDtoSchema = zod.object({
   forceSaveMetrics: zod.boolean()
 });
 
+export const CostParameterDtoSchema = zod.object({
+  id: zod.number().int(),
+  name: zod.string(),
+  scheduleId: zod.number().int(),
+  position: zod.number().int()
+});
+
 export const AutoCarouselGroupOptionDtoSchema = zod.object({
   carouselGroupName: zod.string().max(255),
   taskTypeName: zod.string().max(255),
@@ -50,6 +57,36 @@ export const AvailabilitySummaryDtoSchema = zod.object({
   availabilityCode: zod.enum(['NEVER', 'FALSE', 'MAYBE', 'TRUE'])
 });
 
+export const CarouselOrderSummaryDtoSchema = zod.object({
+  id: zod.number().int(),
+  dateOfBirth: zod.string().date(),
+  orderItems: zod.string(),
+  carouselGroupName: zod.string().max(255),
+  fname: zod.string(),
+  lname: zod.string()
+});
+
+export const CycleSubspanDefinitionDtoSchema = zod.object({
+  startTime: zod.string().time(),
+  zeroIndexedCycleDay: zod.number().int(),
+  endTime: zod.string().time(),
+  beginsGroupsOfSize: zod.string(),
+  name: zod.string().max(255),
+  beginsGroupsOfSizeIntList: zod.array(zod.number().int())
+});
+
+export const CycleSubspanGroupIndexDtoSchema = zod.object({
+  groupStartTime: zod.string().time(),
+  groupEndTime: zod.string().time(),
+  id: zod.number().int(),
+  startTime: zod.string().time(),
+  cycleSubspanIndexIntSetZeroIndexed: zod.any(),
+  endTime: zod.string().time(),
+  zeroIndexed: zod.number().int(),
+  cycleDay: zod.number().int(),
+  cycleSubspanGroupSubsetIdList: zod.array(zod.number().int())
+});
+
 export const CycleSubspanJoinNestedDtoSchema = zod.object({
   id: zod.number().int(),
   cycleSubspanId: zod.number().int(),
@@ -86,7 +123,20 @@ export const CycleSubspanWithJoinsListDtoSchema = zod.object({
 export const FlywayOperationRequestSchema = zod.object({
   schemaName: zod.string(),
   beginWith: zod.enum(['BASELINE', 'CLEAN', 'MIGRATE']),
-  finishWith: zod.enum(['BASELINE', 'CLEAN', 'MIGRATE'])
+  finishWith: zod.enum(['BASELINE', 'CLEAN', 'MIGRATE']),
+  targetTemplateId: zod.number().int().optional()
+});
+
+export const InitDataTypeDtoSchema = zod.object({
+  id: zod.number().int(),
+  name: zod.string()
+});
+
+export const InitJsonTemplateDtoSchema = zod.object({
+  id: zod.number().int(),
+  name: zod.string(),
+  content: zod.string(),
+  dataType: zod.lazy(() => InitDataTypeDtoSchema)
 });
 
 export const HierarchyEnrollmentRequestSchema = zod.object({
@@ -95,6 +145,13 @@ export const HierarchyEnrollmentRequestSchema = zod.object({
     zod.string(),
     zod.array(zod.number().int())
   )
+});
+
+export const OrganizationWorkHierarchyDtoSchema = zod.object({
+  name: zod.string(),
+  typeName: zod.string().max(255),
+  parentNames: zod.array(zod.string()),
+  workSchemaNodeName: zod.string().max(63)
 });
 
 export const PersonDtoSchema = zod.object({
@@ -141,6 +198,15 @@ export const RolePostRequestSchema = zod.object({
   )
 });
 
+export const ResourceRequirementItemSummaryDtoSchema = zod.object({
+  id: zod.number().int(),
+  taskTypeName: zod.string(),
+  knowledgeDomainName: zod.string(),
+  knowledgeLevelName: zod.string(),
+  providerRoleTypeName: zod.string().max(255),
+  assetRoleTypeName: zod.string().max(255)
+});
+
 export const ScheduleDtoSchema = zod.object({
   id: zod.number().int(),
   creationDateTime: zod.string().datetime(),
@@ -148,7 +214,9 @@ export const ScheduleDtoSchema = zod.object({
   thruDate: zod.string().datetime(),
   active: zod.boolean(),
   cycleId: zod.number().int(),
-  status: zod.string()
+  status: zod.string(),
+  autoBuildParameters: zod.lazy(() => AutoBuildParametersDtoSchema),
+  costParameters: zod.array(zod.lazy(() => CostParameterDtoSchema))
 });
 
 export const ScheduleParametersDtoSchema = zod.object({
@@ -190,7 +258,8 @@ export const TenancyDtoSchema = zod.object({
   id: zod.number().int(),
   schemaName: zod.string().max(63).optional(),
   active: zod.boolean(),
-  email: zod.string()
+  email: zod.string(),
+  initJsonTemplateBaseline: zod.number().int().optional()
 });
 
 export const ValidationErrorMessagesSchema = zod.object({});
@@ -392,14 +461,6 @@ export const AssetRoleDtoSchema = zod.object({
   id: zod.number().int()
 });
 
-export const BuildMetricDtoSchema = zod.object({
-  id: zod.number().int(),
-  finalState: zod.string(),
-  totalAllocationLoops: zod.number().int(),
-  scheduleId: zod.number().int(),
-  queueTreeNodes: zod.array(zod.lazy(() => QueueTreeNodeDtoSchema))
-});
-
 export const CarouselDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
@@ -443,19 +504,6 @@ export const OrganizationDtoSchema = zod.object({
   type: zod.lazy(() => OrganizationTypeDtoSchema),
   workSchemaNodeAssignment: zod.lazy(() =>
     WorkSchemaNodeAssignmentDtoSchema.optional()
-  )
-});
-
-export const QueueTreeNodeDtoSchema = zod.object({
-  id: zod.string(),
-  nodeNumber: zod.number().int(),
-  taskSize: zod.number().int(),
-  degreeOfNesting: zod.number().int(),
-  netFailureCount: zod.number().int(),
-  batchSize: zod.number().int(),
-  totalAllocationArea: zod.number().int(),
-  workProjectSeriesNodeLinks: zod.array(
-    zod.lazy(() => WorkProjectSeriesNodeLinkDtoSchema)
   )
 });
 

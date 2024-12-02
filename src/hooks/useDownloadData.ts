@@ -8,9 +8,9 @@ export function useDownloadData<T extends BlobPart = BlobPart>({
   type = 'application/json',
   debounceRevoke = 200
 }: DownloadDataParams<T>) {
-  const aRef = useRef<HTMLAnchorElement | null>(null);
-  const handleDownload = useCallback(() => {
-    if (aRef.current === null) {
+  const ref = useRef<HTMLAnchorElement | null>(null);
+  const onClick = useCallback(() => {
+    if (ref.current === null) {
       console.error({
         message: 'Download clicked before anchor rendered',
         getData,
@@ -20,16 +20,16 @@ export function useDownloadData<T extends BlobPart = BlobPart>({
       return;
     }
     const blob = new Blob([getData()], { type });
-    aRef.current.href = URL.createObjectURL(blob);
-    aRef.current.download = defaultName;
-    aRef.current.click();
+    ref.current.href = URL.createObjectURL(blob);
+    ref.current.download = defaultName;
+    ref.current.click();
     setTimeout(
-      () => aRef.current && URL.revokeObjectURL(aRef.current.href),
+      () => ref.current && URL.revokeObjectURL(ref.current.href),
       debounceRevoke
     );
   }, [getData, defaultName, type, debounceRevoke]);
 
-  return { aRef, handleDownload };
+  return { ref, onClick };
 }
 
 export type DownloadDataParams<T extends BlobPart = BlobPart> = {
