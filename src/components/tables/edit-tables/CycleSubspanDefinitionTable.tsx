@@ -1,14 +1,8 @@
 'use client';
 
-import React, { FormEvent, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  CycleSubspanDefinitionDto,
-  WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
-import { getDomainAlias } from '@/api/getDomainAlias';
-import { startCase } from 'lodash';
-import { AdjustAllocationInWrapper } from '@/components/work-project-series-schema/_components/AdjustAllocation';
+import { CycleSubspanDefinitionDto } from '@/api/generated-types/generated-types';
 import { Column, ColumnUid } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
@@ -20,10 +14,8 @@ import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
 import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
 import { NumberEditCell } from '@/components/tables/cells-v2/NumberEditCell';
-import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/EmbeddedWorkTaskTypeCell';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
 import { IdWrapper } from '@/api/types';
-import { SimpleValueToStringOrUndefined } from '@/components/tables/cells-v2/AnyValueToString';
 import { TimeEditCell } from '@/components/tables/cells-v2/TimeEditCell';
 import { StringNumberListParserCell } from '@/components/tables/cells-v2/StringNumberListParserCell';
 import {
@@ -37,9 +29,9 @@ import { isNotUndefined } from '@/api/main';
 import { ExportDataButton } from '@/components/export/ExportDataButton';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { ImportDataButton } from '@/components/import/ImportDataButton';
-import { CycleSubspanDefinitionDtoSchema } from '@/api/generated-schemas/schemas_';
-import { notifications } from '@mantine/notifications';
 import { useUploadData } from '@/hooks/useUploadData';
+import { unWrapDataWithId } from '@/functions/wrapListDataWithIndexId';
+import { validate } from '@/components/tables/edit-tables/validateCycleSubspanDefinitionList';
 
 const entityType = EntityClassMap.cycleSubspanDefinition;
 
@@ -58,7 +50,7 @@ export default function CycleSubspanDefinitionTable({
     const dtoList = currentState
       .map((id) => readAnyDto(id))
       .filter(isNotUndefined)
-      .map((wrapper) => ({ ...wrapper.data }) as CycleSubspanDefinitionDto);
+      .map(unWrapDataWithId);
     return JSON.stringify(dtoList);
   }, [readAnyDto, currentState]);
 
@@ -66,50 +58,7 @@ export default function CycleSubspanDefinitionTable({
     IdWrapper<CycleSubspanDefinitionDto>[]
   >(entityType, KEY_TYPES.MASTER_LIST);
 
-  const validate = useCallback((cycleSubspanDefinitionList: unknown) => {
-    const safeOrErrors = CycleSubspanDefinitionDtoSchema.array().safeParse(
-      cycleSubspanDefinitionList
-    );
-    if (safeOrErrors.success) {
-      return safeOrErrors.data.map((dto, index) => ({
-        data: dto,
-        id: String(index)
-      }));
-    } else {
-      notifications.show({
-        message: JSON.stringify(safeOrErrors, null, 2),
-        color: 'red'
-      });
-      return null;
-    }
-  }, []);
-
   const onChange = useUploadData({ validate, dispatch, type: 'single' });
-
-  const importData = useCallback(
-    (file: File | FormEvent<HTMLButtonElement> | null) => {
-      console.log(file);
-      const fileReader = new FileReader();
-      fileReader.onload = async (e) => {
-        const text = e.target?.result;
-        console.log(text);
-        if (typeof text === 'string') {
-          const replacementList: CycleSubspanDefinitionDto[] = JSON.parse(text);
-          dispatch(
-            replacementList.map(
-              (dto, index) =>
-                ({
-                  id: String(index),
-                  data: dto
-                }) as IdWrapper<CycleSubspanDefinitionDto>
-            )
-          );
-        }
-      };
-      if (file !== null) fileReader.readAsText(file as File);
-    },
-    [dispatch]
-  );
 
   return (
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
