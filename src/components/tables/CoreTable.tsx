@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { Table, TableProps } from '@mantine/core';
 import SelectionCell from '@/components/tables/cells-v2/SelectionCell';
 import HeaderSelectionCell from '@/components/tables/cells-v2/HeaderSelectionCell';
+import { motion } from 'framer-motion';
 
 export default function CoreTable<
   T extends HasIdClass<T_ID>,
@@ -21,7 +22,7 @@ export default function CoreTable<
     withSelection === 'single' || withSelection == 'multiple';
   const data = useMemo(() => {
     const body = rowIdList.map((id) => (
-      <Table.Tr key={id}>
+      <motion.tr key={id} layout className={'mantine-Table-tr'}>
         {showSelectionCell && (
           <Table.Td>
             <SelectionCell entityId={id} />
@@ -36,7 +37,7 @@ export default function CoreTable<
             <CellModel entityId={id} columnKey={column.uid} />
           </Table.Td>
         ))}
-      </Table.Tr>
+      </motion.tr>
     ));
     let head = columns.map((column) => (
       <Table.Th
