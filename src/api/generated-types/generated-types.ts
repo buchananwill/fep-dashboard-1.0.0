@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-11-18 09:22:16.
+
+// Generated using typescript-generator version 3.2.1263 on 2024-12-02 12:58:45.
 
 export interface AutoBuildParametersDto extends Serializable {
   multiStepUndoTimeoutMs: number;
@@ -39,17 +40,37 @@ export interface CarouselOrderSummaryDto extends Serializable {
   orderItems: string;
   summaryIdCacheList: WorkProjectSeriesSchemaSummaryId[];
   carouselGroupName: string;
-  fname: string;
   lname: string;
+  fname: string;
+}
+
+export interface CostParameterDto extends Serializable {
+  id: number;
+  name: string;
+  scheduleId: number;
+  position: number;
 }
 
 export interface CycleSubspanDefinitionDto extends Serializable {
-  startTime: DateAsString;
+  name: string;
   zeroIndexedCycleDay: number;
+  startTime: DateAsString;
   endTime: DateAsString;
   beginsGroupsOfSize: string;
-  name: string;
-  beginsGroupsOfSizeIntList: number[];
+}
+
+export interface CycleSubspanGroupIndexDto
+  extends Serializable,
+    DtoWrapper<CycleSubspanGroupIndex, CycleSubspanGroupIndexDto, number> {
+  groupStartTime: DateAsString;
+  groupEndTime: DateAsString;
+  id: number;
+  zeroIndexed: number;
+  cycleDay: number;
+  startTime: DateAsString;
+  endTime: DateAsString;
+  cycleSubspanGroupSubsetIdList: number[];
+  cycleSubspanIndexIntSetZeroIndexed: number[];
 }
 
 export interface CycleSubspanJoinNestedDto extends Serializable {
@@ -237,7 +258,7 @@ export interface FlywayOperationRequest {
   schemaName: string;
   beginWith: FlywayOperation;
   finishWith: FlywayOperation;
-  targetTemplateId?: number;
+  targetTemplateId: number;
 }
 
 export interface Event<T> {
@@ -568,8 +589,8 @@ export interface AssetRoleTypeWorkTaskTypeSuitabilityDto
   workTaskTypeId: number;
   assetId: number;
   assetName: string;
-  idEntityC: number;
   dynamic: boolean;
+  idEntityC: number;
 }
 
 export interface CarouselGroupOptionDto
@@ -681,10 +702,10 @@ export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto
 
 export interface RoleAvailabilityDto {
   type: string;
-  baseEntityId: number;
-  roleEntityId: number;
   cycleSubspanId: number;
   availabilityCode: number;
+  roleEntityId: number;
+  baseEntityId: number;
   id: number;
 }
 
@@ -782,9 +803,6 @@ export interface WorkTaskTypeDto
     TypeDto<any, WorkTaskTypeDto> {
   knowledgeDomain: KnowledgeDomainDto;
   knowledgeLevel?: KnowledgeLevelDto;
-  validationType?: ValidationTypeDto;
-  partyClassificationSetId?: number;
-  assetClassificationSetId: number;
   knowledgeLevelSeriesId?: number;
 }
 
@@ -855,8 +873,7 @@ export interface WorkProjectSeriesDto
   workTaskType: WorkTaskTypeDto;
 }
 
-export interface GenericNestedDto<T> {
-  data: T;
+export interface GenericNestedDto<T> extends NestedDto<T> {
   children: GenericNestedDto<T>[];
 }
 
@@ -873,6 +890,15 @@ export interface HierarchyEnrollmentRequest {
 export interface InitDataTypeDto extends Serializable {
   id: number;
   name: string;
+}
+
+export interface InitJsonTemplateDto
+  extends Serializable,
+    DtoWrapper<any, InitJsonTemplateDto, number> {
+  id: number;
+  name: string;
+  content: string;
+  dataType: InitDataTypeDto;
 }
 
 export interface OrganizationWorkHierarchyDto
@@ -907,8 +933,14 @@ export interface BitSetResourceFlowQuery {
   items: { [index: string]: number };
 }
 
-export interface ResourceFlowQuery {
-  workTaskTypeIdToLoadMap: { [index: string]: number };
+export interface ResourceFlowQueryArray extends ResourceFlowQueryInterface {}
+
+export interface ResourceFlowQueryInterface {
+  size: number;
+}
+
+export interface ResourceFlowQueryMapRecord extends ResourceFlowQueryInterface {
+  workTaskTypeIndexToLoadMap: { [index: string]: number };
 }
 
 export interface ResourceFlowQueryTree {
@@ -925,10 +957,8 @@ export interface TrieNode {
   taskTypeId: number;
   taskCount: number;
   children: { [index: string]: TrieNode };
-  query: ResourceFlowQuery;
+  query: ResourceFlowQueryMapRecord;
 }
-
-export interface WorkTaskTypeTrie {}
 
 export interface ResourceRequirementItemDto
   extends Serializable,
@@ -969,6 +999,8 @@ export interface ScheduleDto
   active: boolean;
   cycleId: number;
   status: string;
+  autoBuildParameters: AutoBuildParametersDto;
+  costParameters: CostParameterDto[];
 }
 
 export interface ScheduleParametersDto {
@@ -1010,6 +1042,7 @@ export interface TenancyDto extends Serializable {
   schemaName?: string;
   active: boolean;
   email: string;
+  initJsonTemplateBaseline?: number;
 }
 
 export interface ValidationErrorMessages {}
@@ -1131,6 +1164,19 @@ export interface HasWorkTaskTypeViewId {}
 
 export interface DtoWrapper<E, D, I> extends Serializable {
   id: I;
+}
+
+export interface CycleSubspanGroupIndex {
+  cycleSubspanGroupId: number;
+  cycleSubspanIndexList: string;
+  cycleSubspanGroupIndex: number;
+  cycleId: number;
+  size: number;
+  zeroIndexedCycleDay: number;
+  subsetIdList: string;
+  groupStartTime: DateAsString;
+  groupEndTime: DateAsString;
+  id: number;
 }
 
 export interface WorkSchemaNodeLeaf {

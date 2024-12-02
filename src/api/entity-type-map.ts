@@ -13,6 +13,7 @@ import {
   CarouselOrderDto,
   CarouselOrderItemDto,
   CycleDto,
+  CycleSubspanDefinitionDto,
   CycleSubspanDto,
   CycleSubspanGroupDto,
   KnowledgeDomainDto,
@@ -43,6 +44,7 @@ import {
 } from './generated-types/generated-types';
 import { InitJsonTemplateNodeData } from '@/components/react-flow/init-json-template/types';
 import { UserGuideMarkdown } from '@/app/user-guide/parseMarkdownToTree';
+import { IdWrapper } from '@/api/types';
 
 export type EntityTypeMap = {
   asset: AssetDto;
@@ -60,6 +62,7 @@ export type EntityTypeMap = {
   carouselOrderItem: CarouselOrderItemDto;
   cycle: CycleDto;
   cycleSubspan: CycleSubspanDto;
+  cycleSubspanDefinition: IdWrapper<CycleSubspanDefinitionDto>;
   cycleSubspanGroup: CycleSubspanGroupDto;
   knowledgeDomain: KnowledgeDomainDto;
   knowledgeLevel: KnowledgeLevelDto;

@@ -1,12 +1,8 @@
-'use client';
+import { getWithoutBody } from '@/api/actions/template-actions';
+import { API_V2_URL } from '@/api/literals';
 
-import { useState } from 'react';
-import { RgbaPicker } from '@/components/generic/RgbaPicker';
+export default async function Page() {
+  const scheduleBom = await getWithoutBody(`${API_V2_URL}/schedule/bom/1`);
 
-export default function Page() {
-  const [divColor, setDivColor] = useState({ r: 255, g: 0, b: 0, a: 1 });
-
-  return (
-    <RgbaPicker value={divColor} onChange={setDivColor} showOpacity={true} />
-  );
+  return <pre>{JSON.stringify(scheduleBom, null, 2)}</pre>;
 }

@@ -147,3 +147,8 @@ export type JSONSerializable =
   | null
   | JSONSerializable[]
   | { [key: string]: JSONSerializable };
+
+export type IdWrapper<T> = {
+  data: T;
+  id: string;
+};

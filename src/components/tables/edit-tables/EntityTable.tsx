@@ -104,12 +104,12 @@ export default function EntityTable<
     };
   }, [entityClass, hideFiltering, withSelection]);
 
-  const tooltipProps = useUserGuideTooltip(entityClass);
+  // const tooltipProps = useUserGuideTooltip(entityClass);
 
   return (
     <EntityTableContext.Provider value={contextValue}>
       <SortingController />
-      <div className={'flex flex-col gap-2 p-2'} {...tooltipProps}>
+      <div className={'flex flex-col gap-2 p-2'}>
         {!hideFiltering && (
           <div className={'grid grid-cols-3 gap-2'}>
             <FilterStringInput />

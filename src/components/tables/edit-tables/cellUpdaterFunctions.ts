@@ -21,3 +21,11 @@ export function getStringUpdater<
   return (prev: T, value: string) =>
     set(structuredClone(prev), stringPath, value);
 }
+export function getNumberUpdater<
+  T extends Object,
+  T_NUMBER_PATH extends string & TypedPaths<T, number> = string &
+    TypedPaths<T, number>
+>(stringPath: T_NUMBER_PATH) {
+  return (prev: T, value: number) =>
+    set(structuredClone(prev), stringPath, value);
+}

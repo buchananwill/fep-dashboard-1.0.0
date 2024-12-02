@@ -11,5 +11,9 @@ export const Sorts = {
   name: {
     direction: 'asc',
     path: 'name'
+  },
+  'data.name': {
+    direction: 'asc',
+    path: 'data.name'
   }
 } as const;

@@ -2,7 +2,7 @@
 
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
-import { InitJsonTemplateDto } from '@/api/generated-types/init-json-template-dto';
+import { InitJsonTemplateDto } from '@/api/generated-types/generated-types';
 
 const {
   getGraph,

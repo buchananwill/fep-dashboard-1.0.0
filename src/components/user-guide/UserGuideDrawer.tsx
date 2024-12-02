@@ -27,7 +27,7 @@ export function UserGuideDrawer({
             <Title
               order={2}
               classNames={{
-                root: 'duration-250 transition-colors-opacity inline h-fit w-fit rounded-xl bg-transparent p-2 text-blue-500 outline-offset-2 hover:bg-blue-100/50'
+                root: 'duration-250 transition-colors-opacity inline h-fit w-fit rounded-xl bg-transparent p-2 text-primary-700 outline-offset-2 hover:bg-blue-100/50'
               }}
             >
               User Guide

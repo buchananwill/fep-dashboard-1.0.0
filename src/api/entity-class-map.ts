@@ -16,6 +16,7 @@ export const EntityClassMap = {
   carouselOrderItem: 'CarouselOrderItem',
   cycle: 'Cycle',
   cycleSubspan: 'CycleSubspan',
+  cycleSubspanDefinition: 'CycleSubspanDefinition',
   cycleSubspanGroup: 'CycleSubspanGroup',
   initJsonTemplate: 'InitJsonTemplate',
   knowledgeDomain: 'KnowledgeDomain',
