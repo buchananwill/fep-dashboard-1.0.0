@@ -1,7 +1,6 @@
 import {
   DtoWrapper,
-  InitDataTypeDto,
-  Serializable
+  InitDataTypeDto
 } from '@/api/generated-types/generated-types';
 import { JSONSerializable } from '@/api/types';
 
