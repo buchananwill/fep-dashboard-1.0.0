@@ -15,4 +15,4 @@ export function ImportDataButton(props: ImportDataButtonProps) {
 }
 
 export type ImportDataButtonProps = {} & Omit<FileButtonProps, 'children'> &
-  Omit<ComponentPropsWithoutRef<'button'>, 'onClick'>;
+  Omit<ComponentPropsWithoutRef<'button'>, 'onClick' | 'onChange'>;

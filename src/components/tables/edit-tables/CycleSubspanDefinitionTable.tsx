@@ -37,6 +37,9 @@ import { isNotUndefined } from '@/api/main';
 import { ExportDataButton } from '@/components/export/ExportDataButton';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { ImportDataButton } from '@/components/import/ImportDataButton';
+import { CycleSubspanDefinitionDtoSchema } from '@/api/generated-schemas/schemas_';
+import { notifications } from '@mantine/notifications';
+import { useUploadData } from '@/hooks/useUploadData';
 
 const entityType = EntityClassMap.cycleSubspanDefinition;
 
@@ -59,10 +62,30 @@ export default function CycleSubspanDefinitionTable({
     return JSON.stringify(dtoList);
   }, [readAnyDto, currentState]);
 
-  const dispatch = NamespacedHooks.useDispatch(
-    entityType,
-    KEY_TYPES.MASTER_LIST
-  );
+  const dispatch = NamespacedHooks.useDispatch<
+    IdWrapper<CycleSubspanDefinitionDto>[]
+  >(entityType, KEY_TYPES.MASTER_LIST);
+
+  const validate = useCallback((cycleSubspanDefinitionList: unknown) => {
+    const safeOrErrors = CycleSubspanDefinitionDtoSchema.array().safeParse(
+      cycleSubspanDefinitionList
+    );
+    if (safeOrErrors.success) {
+      return safeOrErrors.data.map((dto, index) => ({
+        data: dto,
+        id: String(index)
+      }));
+    } else {
+      notifications.show({
+        message: JSON.stringify(safeOrErrors, null, 2),
+        color: 'red'
+      });
+      return null;
+    }
+  }, []);
+
+  const onChange = useUploadData({ validate, dispatch, type: 'single' });
+
   const importData = useCallback(
     (file: File | FormEvent<HTMLButtonElement> | null) => {
       console.log(file);
@@ -99,7 +122,7 @@ export default function CycleSubspanDefinitionTable({
         />
       </div>
       <div className={'center-all-margin flex w-fit gap-2 p-2'}>
-        <ImportDataButton onChange={importData} accept={'application/json'} />
+        <ImportDataButton onChange={onChange} accept={'application/json'} />
         <ExportDataButton
           downloadProps={{ getData }}
           rightSection={<ArrowDownTrayIcon className={'w-6'} />}

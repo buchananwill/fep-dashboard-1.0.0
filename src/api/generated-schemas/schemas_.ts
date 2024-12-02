@@ -70,9 +70,8 @@ export const CycleSubspanDefinitionDtoSchema = zod.object({
   startTime: zod.string().time(),
   zeroIndexedCycleDay: zod.number().int(),
   endTime: zod.string().time(),
-  beginsGroupsOfSize: zod.string(),
-  name: zod.string().max(255),
-  beginsGroupsOfSizeIntList: zod.array(zod.number().int())
+  beginsGroupsOfSize: zod.string().regex(/^(\s*\d+\s*,\s*)*\s*\d*\s*$/),
+  name: zod.string().max(255)
 });
 
 export const CycleSubspanGroupIndexDtoSchema = zod.object({
