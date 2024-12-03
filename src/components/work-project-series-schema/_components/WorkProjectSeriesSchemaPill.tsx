@@ -1,11 +1,9 @@
 import { useDtoStore } from 'dto-stores';
 import { IdWrapper } from '@/api/types';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
-import { Chip, Pill } from '@mantine/core';
+import { Pill } from '@mantine/core';
 import {
   getAutoContrastFromCielab,
-  parseToAutoContrastWhiteBlack,
-  parseToCssRgba,
   parseToHsl
 } from '@/components/tables/edit-tables/parseToCssRgba';
 import { lab } from 'd3';
