@@ -28,7 +28,7 @@ export function WorkProjectSeriesSchemaPill({
     contrastWhiteBlack = getAutoContrastFromCielab(labColor);
   }
 
-  const Main = () => (
+  return (
     <Pill
       styles={{
         root: {
@@ -41,13 +41,5 @@ export function WorkProjectSeriesSchemaPill({
     >
       {item}
     </Pill>
-  );
-
-  return type === 'forward' ? (
-    <Main />
-  ) : (
-    <Reorder.Item value={item} key={item} as={'span'}>
-      <Main />
-    </Reorder.Item>
   );
 }

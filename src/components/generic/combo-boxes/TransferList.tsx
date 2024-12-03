@@ -1,4 +1,5 @@
 import {
+  PropsWithChildren,
   ReactNode,
   SetStateAction,
   useCallback,
@@ -11,13 +12,14 @@ import {
   Checkbox,
   Combobox,
   Group,
+  ScrollArea,
   TextInput,
   useCombobox
 } from '@mantine/core';
 import classes from './TransferList.module.css';
 import { MultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-import { Reorder } from 'framer-motion';
+import { motion, Reorder } from 'framer-motion';
 
 type TransferListType = 'forward' | 'backward';
 
@@ -26,13 +28,31 @@ interface RenderListProps {
   onTransfer: (options: string[]) => void;
   type: TransferListType;
   customLabel?: (props: TransferItemLabelProps) => ReactNode;
+  placeholder?: string;
+  mah?: React.CSSProperties['maxHeight'];
+}
+
+function Wrapper({
+  children,
+  type,
+  item
+}: PropsWithChildren & { type: TransferListType; item: string }) {
+  return type === 'forward' ? (
+    <motion.div layout>{children}</motion.div>
+  ) : (
+    <Reorder.Item value={item} as={'div'} className={'p-0'}>
+      {children}
+    </Reorder.Item>
+  );
 }
 
 function RenderList({
   options,
   onTransfer,
   type,
-  customLabel: CustomLabel
+  customLabel: CustomLabel,
+  placeholder = 'Search',
+  mah
 }: RenderListProps) {
   const combobox = useCombobox();
   const [value, setValue] = useState<string[]>([]);
@@ -53,8 +73,9 @@ function RenderList({
         key={item}
         active={value.includes(item)}
         onMouseOver={() => combobox.resetSelectedOption()}
+        p={0}
       >
-        <Group gap="sm">
+        <Group gap="xs">
           <Checkbox
             checked={value.includes(item)}
             onChange={() => {}}
@@ -62,11 +83,13 @@ function RenderList({
             tabIndex={-1}
             style={{ pointerEvents: 'none' }}
           />
-          {CustomLabel ? (
-            <CustomLabel item={item} index={index} type={type} />
-          ) : (
-            <span>{item}</span>
-          )}
+          <Wrapper item={item} type={type}>
+            {CustomLabel ? (
+              <CustomLabel item={item} index={index} type={type} />
+            ) : (
+              <span>{item}</span>
+            )}
+          </Wrapper>
         </Group>
       </Combobox.Option>
     ));
@@ -75,9 +98,15 @@ function RenderList({
     <div className={classes.renderList} data-type={type}>
       <Combobox store={combobox} onOptionSubmit={handleValueSelect}>
         <Combobox.EventsTarget>
-          <Group wrap="nowrap" gap={0} className={classes.controls}>
+          <Group
+            wrap="nowrap"
+            gap={0}
+            className={classes.controls}
+            grow
+            preventGrowOverflow={false}
+          >
             <TextInput
-              placeholder="Search groceries"
+              placeholder={placeholder}
               classNames={{ input: classes.input }}
               value={search}
               onChange={(event) => {
@@ -101,13 +130,15 @@ function RenderList({
         </Combobox.EventsTarget>
 
         <div className={classes.list}>
-          <Combobox.Options>
-            {items.length > 0 ? (
-              items
-            ) : (
-              <Combobox.Empty>Nothing found....</Combobox.Empty>
-            )}
-          </Combobox.Options>
+          <ScrollArea.Autosize mah={mah} w={'24em'}>
+            <Combobox.Options>
+              {items.length > 0 ? (
+                items
+              ) : (
+                <Combobox.Empty>Nothing found....</Combobox.Empty>
+              )}
+            </Combobox.Options>
+          </ScrollArea.Autosize>
         </div>
       </Combobox>
     </div>
@@ -125,8 +156,16 @@ export function TransferList({
   data,
   type,
   value,
-  customLabel
-}: MultiFlat & { customLabel?: (props: TransferItemLabelProps) => ReactNode }) {
+  customLabel,
+  placeholderBackward,
+  placeholderForward,
+  mah
+}: MultiFlat & {
+  customLabel?: (props: TransferItemLabelProps) => ReactNode;
+  placeholderForward?: string;
+  placeholderBackward?: string;
+  mah?: RenderListProps['mah'];
+}) {
   const remainingOptions = useMemo(() => {
     const strings = new Set(value);
     return data.filter((item) => !strings.has(item));
@@ -166,6 +205,8 @@ export function TransferList({
         options={remainingOptions}
         onTransfer={(options) => handleTransfer(0, options)}
         customLabel={customLabel}
+        placeholder={placeholderForward}
+        mah={mah}
       />
       <Reorder.Group values={value} onReorder={handleReorder}>
         <RenderList
@@ -173,6 +214,8 @@ export function TransferList({
           options={value}
           onTransfer={(options) => handleTransfer(1, options)}
           customLabel={customLabel}
+          placeholder={placeholderBackward}
+          mah={mah}
         />
       </Reorder.Group>
     </div>

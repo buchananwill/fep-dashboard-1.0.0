@@ -41,6 +41,7 @@ export function WpssTransferList({
     <TransferList
       {...selectApiReturn}
       customLabel={WorkProjectSeriesSchemaPill}
+      mah={'24em'}
     />
   );
 }
