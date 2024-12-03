@@ -1,8 +1,9 @@
-import { getWithoutBody } from '@/api/actions/template-actions';
-import { API_V2_URL } from '@/api/literals';
+import { Api } from '@/api/clientApi';
+import { WpssTransferList } from '@/app/test/WpssTransferList';
 
 export default async function Page() {
-  const scheduleBom = await getWithoutBody(`${API_V2_URL}/schedule/bom/1`);
+  const workProjectSeriesSchemaDtos =
+    await Api.WorkProjectSeriesSchema.getAll();
 
-  return <pre>{JSON.stringify(scheduleBom, null, 2)}</pre>;
+  return <WpssTransferList dtoList={workProjectSeriesSchemaDtos} />;
 }

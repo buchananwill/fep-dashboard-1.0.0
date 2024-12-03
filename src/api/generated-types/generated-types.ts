@@ -38,7 +38,6 @@ export interface CarouselOrderSummaryDto extends Serializable {
   id: number;
   dateOfBirth: DateAsString;
   orderItems: string;
-  summaryIdCacheList: WorkProjectSeriesSchemaSummaryId[];
   carouselGroupName: string;
   lname: string;
   fname: string;

@@ -16,7 +16,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
 import { useEntitySelectionWithStringLabelsOnly } from '@/hooks/useEntitySelectionWithStringLabelsOnly';
 import { Select } from '@mantine/core';
-import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
+import { MultiSelectMaxDisplayedItems } from '@/components/generic/combo-boxes/MultiSelectMaxDisplayedItems';
 import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
 
 const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {

@@ -12,7 +12,7 @@ import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
 import { startCase } from 'lodash';
 import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
 import { ScheduleParametersDtoSchema } from '@/api/generated-schemas/schemas_';
-import { MultiSelectMaxDisplayedItems } from '@/components/generic/MultiSelectMaxDisplayedItems';
+import { MultiSelectMaxDisplayedItems } from '@/components/generic/combo-boxes/MultiSelectMaxDisplayedItems';
 
 export default function AutoBuildForm({
   defaultMultiStepUndoTimeout,

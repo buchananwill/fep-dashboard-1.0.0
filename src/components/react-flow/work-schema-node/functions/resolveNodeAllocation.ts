@@ -2,6 +2,7 @@ import { DataNode } from 'react-d3-force-wrapper';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
 import { isNotUndefined } from '@/api/main';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
+import { getIntListFromDeliveryAllocations } from '@/components/react-flow/work-schema-node/functions/getIntListFromDeliveryAllocations';
 
 interface GraphRollupData {
   readLeafSchema: (id: string) => WorkProjectSeriesSchemaDto | undefined;
@@ -31,21 +32,12 @@ export function resolveNodeAllocation(
   if (workProjectSeriesSchemaId || carouselOptionId) {
     schema = readLeafSchema(node.id);
     if (schema) {
-      deliveryAllocationTokenList = Object.values(schema.deliveryAllocations)
-        .toSorted(
-          (dev1, dev2) =>
-            dev2.deliveryAllocationSize - dev1.deliveryAllocationSize
-        )
-        .map((devAl) =>
-          Array.from(
-            { length: devAl.count },
-            () => devAl.deliveryAllocationSize
-          )
-        )
-        .reduce((prev, curr) => [...prev, ...curr], []);
+      deliveryAllocationTokenList = getIntListFromDeliveryAllocations(
+        schema.deliveryAllocations
+      );
+      responseMap.set(node.id, deliveryAllocationTokenList);
+      return responseMap;
     }
-    responseMap.set(node.id, deliveryAllocationTokenList);
-    return responseMap;
   }
 
   function getChildrenRollupMap(
