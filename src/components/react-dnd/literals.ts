@@ -3,5 +3,6 @@ export const DragTypes = {
   CAROUSEL_ORDER_ITEM: 'carouselOrderItem',
   AVAILABILITY_CELL: 'availabilityCell',
   STATIC_ALLOCATION: 'staticAllocation',
-  SUITABILITY_SECTOR: 'suitabilitySector'
+  SUITABILITY_SECTOR: 'suitabilitySector',
+  LIST_DRAGGABLE: 'listDraggable'
 };

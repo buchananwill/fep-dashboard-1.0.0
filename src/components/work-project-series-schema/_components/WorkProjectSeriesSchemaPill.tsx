@@ -7,8 +7,13 @@ import {
   parseToHsl
 } from '@/components/tables/edit-tables/parseToCssRgba';
 import { lab } from 'd3';
+import { TransferItemLabelProps } from '@/components/generic/combo-boxes/TransferList';
+import { Reorder } from 'framer-motion';
 
-export function WorkProjectSeriesSchemaPill({ item }: { item: string }) {
+export function WorkProjectSeriesSchemaPill({
+  item,
+  type
+}: TransferItemLabelProps) {
   const { entity } = useDtoStore<IdWrapper<WorkProjectSeriesSchemaDto>>({
     entityId: item,
     entityClass: 'IdWrapper'
@@ -23,20 +28,26 @@ export function WorkProjectSeriesSchemaPill({ item }: { item: string }) {
     contrastWhiteBlack = getAutoContrastFromCielab(labColor);
   }
 
-  return (
-    <>
-      <Pill
-        styles={{
-          root: {
-            backgroundColor: contrastWhiteBlack?.main
-          },
-          label: {
-            color: contrastWhiteBlack?.contrast
-          }
-        }}
-      >
-        {item}
-      </Pill>
-    </>
+  const Main = () => (
+    <Pill
+      styles={{
+        root: {
+          backgroundColor: contrastWhiteBlack?.main
+        },
+        label: {
+          color: contrastWhiteBlack?.contrast
+        }
+      }}
+    >
+      {item}
+    </Pill>
+  );
+
+  return type === 'forward' ? (
+    <Main />
+  ) : (
+    <Reorder.Item value={item} key={item} as={'span'}>
+      <Main />
+    </Reorder.Item>
   );
 }

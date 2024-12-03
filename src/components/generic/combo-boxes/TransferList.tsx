@@ -1,4 +1,11 @@
-import { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import {
+  ReactNode,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import {
   ActionIcon,
   Checkbox,
@@ -10,12 +17,15 @@ import {
 import classes from './TransferList.module.css';
 import { MultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { Reorder } from 'framer-motion';
+
+type TransferListType = 'forward' | 'backward';
 
 interface RenderListProps {
   options: string[];
   onTransfer: (options: string[]) => void;
-  type: 'forward' | 'backward';
-  customLabel?: (props: { item: string }) => ReactNode;
+  type: TransferListType;
+  customLabel?: (props: TransferItemLabelProps) => ReactNode;
 }
 
 function RenderList({
@@ -37,7 +47,7 @@ function RenderList({
 
   const items = options
     .filter((item) => item.toLowerCase().includes(search.toLowerCase().trim()))
-    .map((item) => (
+    .map((item, index) => (
       <Combobox.Option
         value={item}
         key={item}
@@ -52,7 +62,11 @@ function RenderList({
             tabIndex={-1}
             style={{ pointerEvents: 'none' }}
           />
-          {CustomLabel ? <CustomLabel item={item} /> : <span>{item}</span>}
+          {CustomLabel ? (
+            <CustomLabel item={item} index={index} type={type} />
+          ) : (
+            <span>{item}</span>
+          )}
         </Group>
       </Combobox.Option>
     ));
@@ -100,13 +114,19 @@ function RenderList({
   );
 }
 
+export type TransferItemLabelProps = {
+  item: string;
+  index: number;
+  type: TransferListType;
+};
+
 export function TransferList({
   onChange,
   data,
   type,
   value,
   customLabel
-}: MultiFlat & { customLabel?: (props: { item: string }) => ReactNode }) {
+}: MultiFlat & { customLabel?: (props: TransferItemLabelProps) => ReactNode }) {
   const remainingOptions = useMemo(() => {
     const strings = new Set(value);
     return data.filter((item) => !strings.has(item));
@@ -127,6 +147,18 @@ export function TransferList({
     [onChange]
   );
 
+  const handleReorder = useCallback(
+    (update: SetStateAction<string[]>) => {
+      if (!onChange) return;
+      if (typeof update === 'function') {
+        onChange(update(valueRef.current));
+      } else {
+        onChange(update);
+      }
+    },
+    [onChange]
+  );
+
   return (
     <div className={classes.root}>
       <RenderList
@@ -135,12 +167,14 @@ export function TransferList({
         onTransfer={(options) => handleTransfer(0, options)}
         customLabel={customLabel}
       />
-      <RenderList
-        type="backward"
-        options={value}
-        onTransfer={(options) => handleTransfer(1, options)}
-        customLabel={customLabel}
-      />
+      <Reorder.Group values={value} onReorder={handleReorder}>
+        <RenderList
+          type="backward"
+          options={value}
+          onTransfer={(options) => handleTransfer(1, options)}
+          customLabel={customLabel}
+        />
+      </Reorder.Group>
     </div>
   );
 }
