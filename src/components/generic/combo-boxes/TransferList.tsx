@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import {
   ActionIcon,
   Checkbox,
@@ -9,15 +9,21 @@ import {
 } from '@mantine/core';
 import classes from './TransferList.module.css';
 import { MultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
-import { ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 
 interface RenderListProps {
   options: string[];
   onTransfer: (options: string[]) => void;
   type: 'forward' | 'backward';
+  customLabel?: (props: { item: string }) => ReactNode;
 }
 
-function RenderList({ options, onTransfer, type }: RenderListProps) {
+function RenderList({
+  options,
+  onTransfer,
+  type,
+  customLabel: CustomLabel
+}: RenderListProps) {
   const combobox = useCombobox();
   const [value, setValue] = useState<string[]>([]);
   const [search, setSearch] = useState('');
@@ -46,7 +52,7 @@ function RenderList({ options, onTransfer, type }: RenderListProps) {
             tabIndex={-1}
             style={{ pointerEvents: 'none' }}
           />
-          <span>{item}</span>
+          {CustomLabel ? <CustomLabel item={item} /> : <span>{item}</span>}
         </Group>
       </Combobox.Option>
     ));
@@ -75,7 +81,7 @@ function RenderList({ options, onTransfer, type }: RenderListProps) {
                 setValue([]);
               }}
             >
-              <ChevronRightIcon className={'w-6'} />
+              {type === 'forward' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </ActionIcon>
           </Group>
         </Combobox.EventsTarget>
@@ -94,7 +100,13 @@ function RenderList({ options, onTransfer, type }: RenderListProps) {
   );
 }
 
-export function TransferList({ onChange, data, type, value }: MultiFlat) {
+export function TransferList({
+  onChange,
+  data,
+  type,
+  value,
+  customLabel
+}: MultiFlat & { customLabel?: (props: { item: string }) => ReactNode }) {
   const remainingOptions = useMemo(() => {
     const strings = new Set(value);
     return data.filter((item) => !strings.has(item));
@@ -121,11 +133,13 @@ export function TransferList({ onChange, data, type, value }: MultiFlat) {
         type="forward"
         options={remainingOptions}
         onTransfer={(options) => handleTransfer(0, options)}
+        customLabel={customLabel}
       />
       <RenderList
         type="backward"
         options={value}
         onTransfer={(options) => handleTransfer(1, options)}
+        customLabel={customLabel}
       />
     </div>
   );

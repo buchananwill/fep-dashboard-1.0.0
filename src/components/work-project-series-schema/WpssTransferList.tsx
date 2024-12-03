@@ -5,6 +5,7 @@ import { useLabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
 import { joinWorkProjectSeriesSchemaIdKey } from '@/functions/workProjectSeriesSchemaIdTransforms';
 import { useCallback, useState } from 'react';
 import { TransferList } from '@/components/generic/combo-boxes/TransferList';
+import { WorkProjectSeriesSchemaPill } from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaPill';
 
 export function WpssTransferList({
   dtoList: rawData
@@ -36,5 +37,10 @@ export function WpssTransferList({
   if (selectApiReturn.type !== 'multiFlat')
     throw new Error('wrong type returned');
 
-  return <TransferList {...selectApiReturn} />;
+  return (
+    <TransferList
+      {...selectApiReturn}
+      customLabel={WorkProjectSeriesSchemaPill}
+    />
+  );
 }
