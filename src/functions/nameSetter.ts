@@ -17,3 +17,7 @@ export function nameAccessor<T extends HasNameDto>(entity?: T) {
 export function nameSetter<T extends HasNameDto>(entity: T, value: string) {
   return { ...entity, name: value };
 }
+
+export function identityFunction<T>(param: T) {
+  return param;
+}

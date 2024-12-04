@@ -13,6 +13,7 @@ export const EntityClassMap = {
   carouselGroupOption: 'CarouselGroupOption',
   carouselOption: 'CarouselOption',
   carouselOrder: 'CarouselOrder',
+  carouselOrderSummary: 'CarouselOrderSummary',
   carouselOrderItem: 'CarouselOrderItem',
   cycle: 'Cycle',
   cycleSubspan: 'CycleSubspan',

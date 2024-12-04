@@ -1,4 +1,3 @@
-import { HasId } from '@/api/types';
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import { NumberInput } from '@mantine/core';
 import { useCallback } from 'react';

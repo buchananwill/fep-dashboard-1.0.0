@@ -12,6 +12,7 @@ import {
   CarouselOptionDto,
   CarouselOrderDto,
   CarouselOrderItemDto,
+  CarouselOrderSummaryDto,
   CycleDto,
   CycleSubspanDefinitionDto,
   CycleSubspanDto,
@@ -60,6 +61,7 @@ export type EntityTypeMap = {
   carouselOption: CarouselOptionDto;
   carouselOrder: CarouselOrderDto;
   carouselOrderItem: CarouselOrderItemDto;
+  carouselOrderSummary: CarouselOrderSummaryDto;
   cycle: CycleDto;
   cycleSubspan: CycleSubspanDto;
   cycleSubspanDefinition: IdWrapper<CycleSubspanDefinitionDto>;

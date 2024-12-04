@@ -15,5 +15,9 @@ export const Sorts = {
   'data.name': {
     direction: 'asc',
     path: 'data.name'
+  },
+  carouselGroupName: {
+    direction: 'asc',
+    path: 'carouselGroupName'
   }
 } as const;

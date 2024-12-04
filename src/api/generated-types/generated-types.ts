@@ -39,8 +39,8 @@ export interface CarouselOrderSummaryDto extends Serializable {
   dateOfBirth: DateAsString;
   orderItems: string;
   carouselGroupName: string;
-  lname: string;
-  fname: string;
+  lName: string;
+  fName: string;
 }
 
 export interface CostParameterDto extends Serializable {

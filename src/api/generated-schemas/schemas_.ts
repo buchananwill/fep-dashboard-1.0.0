@@ -62,8 +62,8 @@ export const CarouselOrderSummaryDtoSchema = zod.object({
   dateOfBirth: zod.string().date(),
   orderItems: zod.string(),
   carouselGroupName: zod.string().max(255),
-  fname: zod.string(),
-  lname: zod.string()
+  fName: zod.string(),
+  lName: zod.string()
 });
 
 export const CycleSubspanDefinitionDtoSchema = zod.object({

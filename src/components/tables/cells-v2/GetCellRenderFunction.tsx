@@ -10,10 +10,11 @@ import { Identifier } from 'dto-stores';
 import IdCellWrapper from '@/components/tables/cells-v2/IdCellWrapper';
 import { EntityClassMap } from '@/api/entity-class-map';
 import EntityCellWrapper from '@/components/tables/cells-v2/EntityCellWrapper';
+import { EntityTypeMap } from '@/api/entity-type-map';
 
 export function getCellRenderFunction<
   U extends EntityTypeKey,
-  T extends HasIdClass<T_ID>,
+  T extends HasIdClass<T_ID> & EntityTypeMap[U],
   T_ID extends Identifier = T['id']
 >(
   entityTypeKey: U,
