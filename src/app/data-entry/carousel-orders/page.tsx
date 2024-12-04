@@ -23,7 +23,7 @@ export default async function Page() {
         entityClass={EntityClassMap.carouselGroup}
       />
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workProjectSeriesSchema}
+        entityClass={'IdWrapper'}
         dtoList={EmptyArray}
       />
       <CarouselOrderSummaryTable

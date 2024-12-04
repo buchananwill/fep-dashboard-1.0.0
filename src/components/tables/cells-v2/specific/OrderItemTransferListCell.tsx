@@ -1,5 +1,5 @@
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
-import { Button, Loader, Modal } from '@mantine/core';
+import { Badge, Button, Loader, Modal, Pill } from '@mantine/core';
 import { QueueListIcon } from '@heroicons/react/24/outline';
 import { NamespacedHooks, useDtoStore } from 'dto-stores';
 import {
@@ -10,7 +10,7 @@ import {
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -41,6 +41,7 @@ export function OrderItemTransferListCell({
           entityId={entityId}
           entityClass={entityClass}
           value={value}
+          onClose={close}
         />
       </Modal>
     </>
@@ -51,8 +52,9 @@ function CarouselOrderTransferList({
   value,
   onChange,
   entityId,
-  entityClass
-}: IdInnerCellProps<string>) {
+  entityClass,
+  onClose
+}: IdInnerCellProps<string> & { onClose: () => void }) {
   const { entity } = useDtoStore<CarouselOrderSummaryDto>({
     entityId,
     entityClass
@@ -121,7 +123,7 @@ function CarouselOrderTransferList({
   }, [selectedSchemas]);
 
   const dispatch = NamespacedHooks.useDispatch(
-    EntityClassMap.workProjectSeriesSchema,
+    'IdWrapper',
     KEY_TYPES.MASTER_LIST
   );
 
@@ -131,9 +133,49 @@ function CarouselOrderTransferList({
     return () => dispatch(EmptyArray);
   }, [idWrapperData, dispatch, data]);
 
-  return data && !isLoading ? (
-    <WpssTransferList dtoList={data} selectionList={optionList} />
-  ) : (
-    <Loader />
+  const propagateChange = useCallback(
+    (list: WorkProjectSeriesSchemaDto[] | undefined) => {
+      if (list && Array.isArray(list)) setOptionList(list);
+    },
+    []
+  );
+
+  const updateOrder = useCallback(() => {
+    // TODO: Implement
+  }, []);
+
+  return (
+    <>
+      <h1>
+        Edit Carousel Order for:{' '}
+        <Pill
+          size={'lg'}
+          styles={{
+            root: { backgroundColor: 'var(--mantine-color-tertiary-2)' }
+          }}
+        >
+          {entity?.fName} {entity?.lName}
+        </Pill>
+      </h1>
+      <div className={'flex justify-between p-1'}>
+        <Badge className={'inline-block'}>Available</Badge>
+        <Badge className={'inline-block'}>Selected</Badge>
+      </div>
+      {data && !isLoading ? (
+        <WpssTransferList
+          dtoList={data}
+          selectionList={optionList}
+          propagateChange={propagateChange}
+        />
+      ) : (
+        <Loader />
+      )}
+      <div className={'center-all-margin flex w-fit gap-4 pt-4'}>
+        <Button color={'red'} variant={'subtle'}>
+          Cancel
+        </Button>
+        <Button color={'primary'}>Update Order</Button>
+      </div>
+    </>
   );
 }
