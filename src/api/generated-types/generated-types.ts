@@ -80,14 +80,6 @@ export interface CycleSubspanJoinNestedDto extends Serializable {
   joinOrdinal: number;
 }
 
-export interface CycleSubspanViewDto extends Serializable {
-  id: number;
-  startTime: DateAsString;
-  endTime: DateAsString;
-  name: string;
-  zeroIndexedCycleDay: number;
-}
-
 export interface CycleSubspanWithJoinsListDto extends Serializable {
   id: number;
   timeSpan: TimeSpanDto;
@@ -105,35 +97,6 @@ export interface BaseReportItemDto {
   itemType: string;
 }
 
-export interface HasCycleSubspanRequirement {}
-
-export interface HasResidual {}
-
-export interface NestedReportItemReportItem<T> extends BaseReportItemDto {}
-
-export interface GenericTableRecord<
-  Row,
-  Column,
-  CellContent,
-  RowId,
-  ColumnId,
-  CellId,
-  CellReference
-> {
-  rowList: Row[];
-  columnList: Column[];
-  rowColumnCellReferenceMap: {
-    [index: string]: { [index: string]: CellReference };
-  };
-  cellIdCellContentMap: { [index: string]: CellContent };
-}
-
-export interface GenericTableRow<T> {
-  id: string;
-  data: T;
-  entityClass: string;
-}
-
 export interface Bundle<T>
   extends KnowledgeTreeNode,
     NodeWithChildren<KnowledgeDomainGroup<T>> {
@@ -141,22 +104,9 @@ export interface Bundle<T>
   name: string;
 }
 
-export interface ChildPathNormalizer {}
-
 export interface DeliveryAllocationLeaf extends KnowledgeTreeNode {
   size: number;
   startTime?: StartTime;
-}
-
-export interface DeliveryAllocationList
-  extends KnowledgeTreeNode,
-    NodeWithChildren<DeliveryAllocationLeaf> {
-  children: DeliveryAllocationLeaf[];
-}
-
-export interface GenericNestedNode<T> {
-  data: T;
-  type: string;
 }
 
 export interface KnowledgeDomainGroup<T>
@@ -214,22 +164,6 @@ export interface OrganizationLeafTotalAllocationFeasibilityDto
   residualCycleSubspanCount: number;
 }
 
-export interface TaskAreaPerKnowledgeDomain {
-  id: number;
-  taskArea: number;
-  name: string;
-  shortCode: string;
-  color: any;
-}
-
-export interface TaskAreaPerKnowledgeDomainDto extends Serializable {
-  id: number;
-  taskArea: number;
-  name: string;
-  shortCode: string;
-  color: ColorDto;
-}
-
 export interface WorkSchemaNodeLeafDto
   extends Serializable,
     DtoWrapper<WorkSchemaNodeLeaf, WorkSchemaNodeLeafDto, number> {
@@ -247,12 +181,6 @@ export interface WorkSchemaNodeRootTotalDeliveryAllocationRollupDto
   workSchemaNodeLeaf: WorkSchemaNodeLeafDto[];
 }
 
-export interface EventSource<T> {
-  id: string;
-  sourceData: T;
-  events: EventDto[];
-}
-
 export interface FlywayOperationRequest {
   schemaName: string;
   beginWith: FlywayOperation;
@@ -260,28 +188,8 @@ export interface FlywayOperationRequest {
   targetTemplateId: number;
 }
 
-export interface Event<T> {
-  start: DateAsString;
-  end: DateAsString;
-  id: number;
-  data: T;
-  title: string;
-}
-
-export interface HasDescription extends DescribableDto {}
-
 export interface HasNameDto {
   name: string;
-}
-
-export interface HasNumberIdDto {
-  id: number;
-}
-
-export interface HasTypeDto {}
-
-export interface HasUuidDto {
-  id: string;
 }
 
 export interface ClosureDto {
@@ -298,46 +206,12 @@ export interface DataNodeDto<T> extends NodeDto, Serializable {
   id: number;
 }
 
-export interface ForceGraphAttributesDto extends Serializable {
-  id: number;
-  centerStrength: number;
-  collideStrength: number;
-  linkDistance: number;
-  linkStrength: number;
-  manyBodyStrength: number;
-  manyBodyTheta: number;
-  manyBodyMinDistance: number;
-  manyBodyMaxDistance: number;
-  forceXStrength: number;
-  forceYStrength: number;
-  forceRadialStrength: number;
-  forceRadialXRelative: number;
-  forceRadialYRelative: number;
-}
-
 export interface GraphDto<T> {
   nodes: DataNodeDto<T>[];
   closureDtos: ClosureDto[];
 }
 
-export interface GraphDtoPutRequestBody<T> {
-  graphDto: GraphDto<T>;
-  deletedNodeIdList: number[];
-  deletedClosureIdList: number[];
-}
-
 export interface NodeDto {}
-
-export interface CellDataAndMetaData<D> {
-  cellData: D;
-  cellRow: number;
-  cellColumn: number;
-}
-
-export interface IntersectionTableRequestBody<T, U> {
-  idListTypeT: T[];
-  idListTypeU: U[];
-}
 
 export interface BreakDto {
   startTime: DateAsString;
@@ -376,17 +250,6 @@ export interface CycleDto
   nominalCycleSubspanLengthInMinutes: number;
 }
 
-export interface CycleInitDto {
-  startDay: DayOfWeek;
-  durationInWeeks: number;
-  omitDays: number[];
-  startOfDay: TimeRule;
-  endOfDay: TimeRule;
-  cycleSubspanDuration: number;
-  breaks: { [index: string]: BreakDto[] };
-  groupSizes: number[];
-}
-
 export interface CycleInitWithCycleSubspanDefinitions {
   cycleDayZero: DayOfWeek;
   cycleSubspanDefinitions: CycleSubspanDefinitionDto[];
@@ -416,12 +279,6 @@ export interface KnowledgeLevelSeriesDto
   name: string;
   knowledgeLevelDescriptor?: string;
   knowledgeLevels: KnowledgeLevelDto[];
-}
-
-export interface PartyDto extends Serializable {
-  id: number;
-  name: string;
-  partyType: any;
 }
 
 export interface TimeDivisionDto
@@ -557,16 +414,6 @@ export interface WorkProjectSeriesSchemaDto
   workTaskType: WorkTaskTypeDto;
 }
 
-export interface WorkTaskDto extends Serializable {
-  id: number;
-  dueDate: DateAsString;
-  serviceProductSeriesSchemaId: number;
-  workProjectSeriesSchemaName: string;
-  workTaskTypeDto: WorkTaskTypeDto;
-  completedDate: DateAsString;
-  notes: string;
-}
-
 export interface AssetRoleAvailabilityDto
   extends Serializable,
     DtoWrapper<any, AssetRoleAvailabilityDto, number>,
@@ -633,15 +480,6 @@ export interface CycleSubspanDto
   dayOrdinal: number;
 }
 
-export interface CycleSubspanGroupEditDto extends Serializable {
-  id: number;
-  timeSpanDto: TimeSpanDto;
-  parentCycleId: number;
-  name: string;
-  zeroIndexedCycleDay: number;
-  sizesStartingAtCycleSubspanId: number[];
-}
-
 export interface CycleSubspanJoinDto
   extends Serializable,
     DtoWrapper<any, CycleSubspanJoinDto, number>,
@@ -652,16 +490,6 @@ export interface CycleSubspanJoinDto
   joinOrdinal: number;
   cycleSubspanId: number;
   cycleSubspanDescription: string;
-}
-
-export interface CycleSubspanLeanDto extends Serializable {
-  id: number;
-  start: DateAsString;
-  end: DateAsString;
-  zeroIndexedCycleDay: number;
-  timeSpanId: number;
-  parentCycleId: number;
-  name: string;
 }
 
 export interface ProviderRoleAvailabilityDto
@@ -783,12 +611,6 @@ export interface OrganizationTypeDto
   extends Serializable,
     TypeDto<any, OrganizationTypeDto> {}
 
-export interface PartyNodeRelationshipTypeDto
-  extends Serializable,
-    TypeDto<any, PartyNodeRelationshipTypeDto> {
-  hierarchical: boolean;
-}
-
 export interface ProviderRoleTypeDto
   extends Serializable,
     TypeDto<any, ProviderRoleTypeDto> {}
@@ -803,53 +625,6 @@ export interface WorkTaskTypeDto
   knowledgeDomain: KnowledgeDomainDto;
   knowledgeLevel?: KnowledgeLevelDto;
   knowledgeLevelSeriesId?: number;
-}
-
-export interface ChordMapWithMetaData<MetaData> {
-  metaData: MetaData;
-  chordMapData: number[][];
-}
-
-export interface HeatMapDatumWithLabel<IdClass> {
-  entityId: IdClass;
-  x: string;
-  y: number;
-}
-
-export interface HeatMapSeries<IdClass> {
-  entityId: IdClass;
-  id: string;
-  data: HeatMapDatumWithLabel<IdClass>[];
-}
-
-export interface LongIdStringNameTuple {
-  id: number;
-  name: string;
-}
-
-export interface LongLongTuple {
-  longOne: number;
-  longTwo: number;
-}
-
-export interface NameIdStringTuple {
-  name: string;
-  id: string;
-}
-
-export interface NamedNumberRecord {
-  name: string;
-  stringIntegerMap: { [index: string]: number };
-}
-
-export interface StringIntegerTuple {
-  name: string;
-  value: number;
-}
-
-export interface StringLongTuple {
-  string: string;
-  aLong: number;
 }
 
 export interface WorkProjectSeriesAssignmentDto
@@ -879,11 +654,6 @@ export interface GenericNestedDto<T> extends NestedDto<T> {
 export interface HasParentNameStringList {
   parentNames: string[];
   name: string;
-}
-
-export interface HierarchyEnrollmentRequest {
-  scheduleId: number;
-  organizationIdToUserRoleIdList: { [index: string]: number[] };
 }
 
 export interface InitDataTypeDto extends Serializable {
@@ -916,24 +686,6 @@ export interface PersonDto
   lName: string;
 }
 
-export interface PersonProviderSuitabilitySummaryDto extends Serializable {
-  firstName: string;
-  lastName: string;
-  providerRoleTypeName: string;
-  taskTypeName: string;
-  knowledgeDomainName: string;
-  knowledgeLevelName: string;
-  rating: number;
-}
-
-export interface BitSetResourceFlowQuery {
-  taskBitSet: BitSet;
-  taskCounts: number[];
-  items: { [index: string]: number };
-}
-
-export interface ResourceFlowQueryArray extends ResourceFlowQueryInterface {}
-
 export interface ResourceFlowQueryInterface {
   size: number;
 }
@@ -942,21 +694,10 @@ export interface ResourceFlowQueryMapRecord extends ResourceFlowQueryInterface {
   workTaskTypeIndexToLoadMap: { [index: string]: number };
 }
 
-export interface ResourceFlowQueryTree {
-  items: { [index: string]: number };
-}
-
 export interface ResourceFlowResponse {
   flowAchieved: number;
   flowRequested: number;
   outcome: boolean;
-}
-
-export interface TrieNode {
-  taskTypeId: number;
-  taskCount: number;
-  children: { [index: string]: TrieNode };
-  query: ResourceFlowQueryMapRecord;
 }
 
 export interface ResourceRequirementItemDto
@@ -1044,10 +785,6 @@ export interface TenancyDto extends Serializable {
   initJsonTemplateBaseline?: number;
 }
 
-export interface ValidationErrorMessages {}
-
-export interface ValidationTypeDto extends Serializable {}
-
 export interface WorkProjectSeriesEnrollmentDto
   extends Serializable,
     DtoWrapper<any, WorkProjectSeriesEnrollmentDto, number> {
@@ -1122,17 +859,6 @@ export interface WorkTaskTypeListMatrix {
   knowledgeLevelSeriesDtoList: KnowledgeLevelSeriesDto[];
   knowledgeDomainDtoList: KnowledgeDomainDto[];
   workTaskTypeNames: string[];
-}
-
-export interface WorkTaskTypeMatrix {
-  knowledgeLevelSeriesDtoSet: KnowledgeLevelSeriesDto[];
-  knowledgeDomainDtoInclusionSet: KnowledgeDomainDto[];
-  workTaskTypeNames: string[];
-}
-
-export interface WorkTaskTypeResourceRequirementPostRequest {
-  resourceRequirementItemRequests: ResourceRequirementItemRequest[];
-  workTaskTypeMatrix: WorkTaskTypeListMatrix;
 }
 
 export interface Serializable {}
