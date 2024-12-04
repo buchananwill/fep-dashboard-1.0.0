@@ -3,6 +3,7 @@ import { CarouselOrderSummaryDto } from '@/api/generated-types/generated-types';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselOrderSummaryTable } from '@/components/tables/edit-tables/CarouselOrderSummaryTable';
+import { EmptyArray } from '@/api/literals';
 
 export default async function Page() {
   const newVar = await Api.InitJsonTemplate.getOne(17);
@@ -20,6 +21,10 @@ export default async function Page() {
       <EditAddDeleteDtoControllerArray
         dtoList={carouselGroupDtos}
         entityClass={EntityClassMap.carouselGroup}
+      />
+      <EditAddDeleteDtoControllerArray
+        entityClass={EntityClassMap.workProjectSeriesSchema}
+        dtoList={EmptyArray}
       />
       <CarouselOrderSummaryTable
         pathVariables={['data-entry', 'cycle-model']}

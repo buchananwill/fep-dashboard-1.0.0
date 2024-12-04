@@ -134,8 +134,10 @@ function RenderList({
             <Combobox.Options>
               {items.length > 0 ? (
                 items
+              ) : options.length > 0 ? (
+                <Combobox.Empty>No matches found....</Combobox.Empty>
               ) : (
-                <Combobox.Empty>Nothing found....</Combobox.Empty>
+                <Combobox.Empty>No other options.</Combobox.Empty>
               )}
             </Combobox.Options>
           </ScrollArea.Autosize>
@@ -151,6 +153,7 @@ export type TransferItemLabelProps = {
   type: TransferListType;
 };
 
+// TODO pull more UI styling out into a prop.
 export function TransferList({
   onChange,
   data,

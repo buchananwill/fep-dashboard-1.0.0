@@ -8,22 +8,16 @@ import { TransferList } from '@/components/generic/combo-boxes/TransferList';
 import { WorkProjectSeriesSchemaPill } from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaPill';
 
 export function WpssTransferList({
-  dtoList: rawData
+  dtoList: rawData,
+  selectionList,
+  propagateChange
 }: {
   dtoList: WorkProjectSeriesSchemaDto[];
+  selectionList: WorkProjectSeriesSchemaDto[];
+  propagateChange?: (list: WorkProjectSeriesSchemaDto[] | undefined) => void;
 }) {
   const labelMaker = useLabelMaker<WorkProjectSeriesSchemaDto>(
     joinWorkProjectSeriesSchemaIdKey
-  );
-  const [selectionList, setSelectionList] = useState(
-    [] as WorkProjectSeriesSchemaDto[]
-  );
-  const propagateChange = useCallback(
-    (list: WorkProjectSeriesSchemaDto[] | undefined) => {
-      if (list) setSelectionList(list);
-      else setSelectionList([]);
-    },
-    []
   );
 
   const selectApiReturn = useSelectApi<WorkProjectSeriesSchemaDto>({
@@ -31,7 +25,7 @@ export function WpssTransferList({
     type: 'multiFlat',
     labelMaker,
     value: selectionList,
-    propagateChange
+    propagateChange: propagateChange ?? ((list) => {})
   });
 
   if (selectApiReturn.type !== 'multiFlat')
