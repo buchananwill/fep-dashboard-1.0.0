@@ -261,45 +261,13 @@ export const TenancyDtoSchema = zod.object({
   initJsonTemplateBaseline: zod.number().int().optional()
 });
 
-export const ValidationErrorMessagesSchema = zod.object({});
-
 export const ValidationTypeDtoSchema = zod.object({});
-
-export const WorkProjectSeriesEnrollmentDtoSchema = zod.object({
-  id: zod.number().int(),
-  userRoleId: zod.number().int(),
-  workProjectSeriesId: zod.string().uuid(),
-  fromDate: zod.string().date(),
-  thruDate: zod.string().date()
-});
-
-export const WorkProjectSeriesMetricDtoSchema = zod.object({
-  id: zod.number().int(),
-  finiteCostCount: zod.number().int(),
-  infinityCostCount: zod.number().int()
-});
-
-export const WorkProjectSeriesNodeLinkDtoSchema = zod.object({
-  id: zod.number().int(),
-  workProjectSeriesId: zod.string().uuid(),
-  outcomeId: zod.number().int()
-});
 
 export const WorkProjectSeriesSchemaWithLabelsDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
   workTaskType: zod.lazy(() => WorkTaskTypeDtoSchema),
   userToProviderRatio: zod.number()
-});
-
-export const WorkProjectSeriesWithSchemaLabelsDtoSchema = zod.object({
-  id: zod.string().uuid(),
-  scheduleId: zod.number().int(),
-  completedStatus: zod.boolean(),
-  workProjectSeriesSchema: zod.lazy(
-    () => WorkProjectSeriesSchemaWithLabelsDtoSchema
-  ),
-  workTaskType: zod.lazy(() => WorkTaskTypeDtoSchema)
 });
 
 export const WorkSchemaNodeManualDefinitionDtoSchema = zod.object({
@@ -325,15 +293,6 @@ export const WorkTaskSeriesEventDtoSchema = zod.object({
   assetRoleList: zod.array(zod.lazy(() => AssetRoleDtoSchema))
 });
 
-export const WorkTaskSeriesResourceRequirementItemDtoSchema = zod.object({
-  id: zod.number().int(),
-  workTaskSeriesId: zod.number().int(),
-  assetRoleTypeId: zod.number().int(),
-  providerRoleTypeId: zod.number().int(),
-  assetRoleFulfillmentId: zod.number().int(),
-  providerRoleFulfillmentId: zod.number().int()
-});
-
 export const WorkTaskTypeListMatrixSchema = zod.object({
   knowledgeLevelSeriesDtoList: zod
     .array(zod.lazy(() => KnowledgeLevelSeriesDtoSchema))
@@ -353,18 +312,6 @@ export const WorkTaskTypeResourceRequirementPostRequestSchema = zod.object({
   workTaskTypeMatrix: zod.lazy(() => WorkTaskTypeListMatrixSchema)
 });
 
-export const HasDescriptionSchema = zod.object({
-  description: zod.string()
-});
-
-export const HasNameDtoSchema = zod.object({
-  name: zod.string()
-});
-
-export const HasNumberIdDtoSchema = zod.object({
-  id: zod.number().int()
-});
-
 export const HasUuidDtoSchema = zod.object({
   id: zod.string().uuid()
 });
@@ -376,14 +323,6 @@ export const ClosureDtoSchema = zod.object({
   target: zod.number().int(),
   value: zod.number().int(),
   weighting: zod.number()
-});
-
-export const CarouselGroupDtoSchema = zod.object({
-  id: zod.number().int(),
-  name: zod.string(),
-  carousels: zod.array(zod.lazy(() => CarouselLeanDtoSchema)),
-  carouselGroupOptions: zod.array(zod.lazy(() => CarouselGroupOptionDtoSchema)),
-  knowledgeLevel: zod.lazy(() => KnowledgeLevelDtoSchema)
 });
 
 export const ColorDtoSchema = zod.object({
@@ -414,11 +353,6 @@ export const CycleDtoSchema = zod.object({
   nominalCycleSubspanLengthInMinutes: zod.number().int()
 });
 
-export const CycleSubspanGroupDtoSchema = zod.object({
-  cycleSubspanJoins: zod.array(zod.lazy(() => CycleSubspanJoinDtoSchema)),
-  id: zod.number().int()
-});
-
 export const KnowledgeDomainDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
@@ -431,17 +365,6 @@ export const KnowledgeLevelSeriesDtoSchema = zod.object({
   name: zod.string(),
   knowledgeLevelDescriptor: zod.string().optional(),
   knowledgeLevels: zod.array(zod.lazy(() => KnowledgeLevelDtoSchema))
-});
-
-export const PartyDtoSchema = zod.object({
-  id: zod.number().int(),
-  name: zod.string(),
-  partyType: zod.enum(['PERSON', 'ORGANIZATION'])
-});
-
-export const TimeDivisionDtoSchema = zod.object({
-  id: zod.number().int(),
-  instant: zod.string().time()
 });
 
 export const AssetDtoSchema = zod.object({
@@ -458,29 +381,6 @@ export const AssetRoleDtoSchema = zod.object({
   name: zod.string(),
   type: zod.lazy(() => AssetRoleTypeDtoSchema),
   id: zod.number().int()
-});
-
-export const CarouselDtoSchema = zod.object({
-  id: zod.number().int(),
-  name: zod.string(),
-  carouselOrdinal: zod.number().int(),
-  carouselGroupId: zod.number().int(),
-  carouselOptionDtos: zod.array(zod.lazy(() => CarouselOptionDtoSchema))
-});
-
-export const CarouselLeanDtoSchema = zod.object({
-  id: zod.number().int(),
-  carouselOrdinal: zod.number().int()
-});
-
-export const CarouselOrderDtoSchema = zod.object({
-  id: zod.string().uuid(),
-  carouselOrderItems: zod.record(
-    zod.string(),
-    zod.lazy(() => CarouselOrderItemDtoSchema)
-  ),
-  userRoleId: zod.number().int(),
-  carouselGroupId: zod.number().int()
 });
 
 export const DeliveryAllocationDtoSchema = zod.object({
@@ -515,98 +415,6 @@ export const WorkProjectSeriesSchemaDtoSchema = zod.object({
   ),
   userToProviderRatio: zod.number(),
   workTaskType: zod.lazy(() => WorkTaskTypeDtoSchema)
-});
-
-export const WorkTaskDtoSchema = zod.object({
-  id: zod.number().int(),
-  dueDate: zod.string().datetime(),
-  serviceProductSeriesSchemaId: zod.number().int(),
-  workProjectSeriesSchemaName: zod.string(),
-  workTaskTypeDto: zod.lazy(() => WorkTaskTypeDtoSchema),
-  completedDate: zod.string().datetime(),
-  notes: zod.string()
-});
-
-export const AssetRoleTypeWorkTaskTypeSuitabilityDtoSchema = zod.object({
-  id: zod.number().int(),
-  rating: zod.number(),
-  assetRoleTypeName: zod.string(),
-  assetRoleTypeId: zod.number().int(),
-  workTaskTypeName: zod.string(),
-  workTaskTypeId: zod.number().int(),
-  assetId: zod.number().int(),
-  assetName: zod.string(),
-  dynamic: zod.boolean(),
-  idEntityC: zod.number().int()
-});
-
-export const CarouselGroupOptionDtoSchema = zod.object({
-  id: zod.number().int(),
-  carouselGroupId: zod.number().int(),
-  workProjectSeriesSchemaId: zod.number().int()
-});
-
-export const CarouselOptionDtoSchema = zod.object({
-  carouselId: zod.number().int(),
-  id: zod.number().int(),
-  workProjectSeriesSchemaId: zod.number().int()
-});
-
-export const CarouselOrderItemDtoSchema = zod.object({
-  id: zod.number().int(),
-  carouselOrderId: zod.string().uuid(),
-  workProjectSeriesSchemaId: zod.number().int(),
-  preferencePosition: zod.number().int(),
-  active: zod.boolean(),
-  carouselOptionId: zod.number().int().optional()
-});
-
-export const CycleSubspanDtoSchema = zod.object({
-  id: zod.number().int(),
-  timeSpanDto: zod.lazy(() => TimeSpanDtoSchema),
-  parentCycleId: zod.number().int(),
-  name: zod.string(),
-  zeroIndexedCycleDay: zod.number().int(),
-  dayOrdinal: zod.number().int()
-});
-
-export const CycleSubspanGroupEditDtoSchema = zod.object({
-  id: zod.number().int(),
-  timeSpanDto: zod.lazy(() => TimeSpanDtoSchema),
-  parentCycleId: zod.number().int(),
-  name: zod.string(),
-  zeroIndexedCycleDay: zod.number().int(),
-  sizesStartingAtCycleSubspanId: zod.array(zod.number().int())
-});
-
-export const CycleSubspanJoinDtoSchema = zod.object({
-  id: zod.number().int(),
-  cycleSubspanGroupId: zod.number().int(),
-  cycleSubspanGroupSize: zod.number().int(),
-  joinOrdinal: zod.number().int(),
-  cycleSubspanId: zod.number().int(),
-  cycleSubspanDescription: zod.string()
-});
-
-export const CycleSubspanLeanDtoSchema = zod.object({
-  id: zod.number().int(),
-  start: zod.string().time(),
-  end: zod.string().time(),
-  zeroIndexedCycleDay: zod.number().int().min(0),
-  timeSpanId: zod.number().int(),
-  parentCycleId: zod.number().int(),
-  name: zod.string()
-});
-
-export const ProviderRoleAvailabilityDtoSchema = zod.object({
-  id: zod.number().int(),
-  providerRoleId: zod.number().int(),
-  partyId: zod.number().int(),
-  cycleSubspanId: zod.number().int(),
-  availabilityCode: zod.number().int(),
-  type: zod.string(),
-  baseEntityId: zod.number().int(),
-  roleEntityId: zod.number().int()
 });
 
 export const ProviderRoleDtoSchema = zod.object({
@@ -712,12 +520,6 @@ export const OrganizationTypeDtoSchema = zod.object({
   name: zod.string()
 });
 
-export const PartyNodeRelationshipTypeDtoSchema = zod.object({
-  id: zod.number().int(),
-  name: zod.string(),
-  hierarchical: zod.boolean()
-});
-
 export const ProviderRoleTypeDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string()
@@ -739,47 +541,6 @@ export const WorkTaskTypeDtoSchema = zod.object({
   knowledgeLevelSeriesId: zod.number().int().optional()
 });
 
-export const LongIdStringNameTupleSchema = zod.object({
-  id: zod.number().int(),
-  name: zod.string()
-});
-
-export const LongLongTupleSchema = zod.object({
-  longOne: zod.number().int(),
-  longTwo: zod.number().int()
-});
-
-export const NameIdStringTupleSchema = zod.object({
-  name: zod.string(),
-  id: zod.string()
-});
-
-export const StringIntegerTupleSchema = zod.object({
-  name: zod.string(),
-  value: zod.number().int()
-});
-
-export const StringLongTupleSchema = zod.object({
-  string: zod.string(),
-  aLong: zod.number().int()
-});
-
-export const WorkProjectSeriesAssignmentDtoSchema = zod.object({
-  id: zod.number().int(),
-  sourceNodeId: zod.number().int(),
-  workProjectSeries: zod.lazy(() => WorkProjectSeriesDtoSchema),
-  organizationId: zod.number().int()
-});
-
-export const WorkProjectSeriesDtoSchema = zod.object({
-  id: zod.string().uuid(),
-  scheduleId: zod.number().int(),
-  workTaskSeries: zod.array(zod.lazy(() => WorkTaskSeriesDtoSchema)),
-  workProjectSeriesSchemaId: zod.number().int(),
-  completedStatus: zod.boolean(),
-  workTaskType: zod.lazy(() => WorkTaskTypeDtoSchema)
-});
-
 export const AssetRolePostRequestSchema = zod.object({
   workTaskTypeExampleList: zod.array(zod.lazy(() => WorkTaskTypeDtoSchema)),
   roleTypeExample: zod.lazy(() => AssetRoleTypeDtoSchema),
@@ -797,12 +558,6 @@ export const RoleDataSchema = zod.object({
   availabilities: zod.array(zod.lazy(() => AvailabilitySummaryDtoSchema))
 });
 
-export const HasWorkTaskTypeViewIdSchema = zod.object({});
-
-export const DescribableDtoSchema = zod.object({
-  description: zod.string()
-});
-
 export const RoleAvailabilityDtoSchema = zod.object({
   type: zod.string(),
   cycleSubspanId: zod.number().int(),
@@ -811,18 +566,3 @@ export const RoleAvailabilityDtoSchema = zod.object({
   availabilityCode: zod.number().int(),
   id: zod.number().int()
 });
-
-export const CollectionDtoSchema = zod.object({});
-
-export const TriIntersectionDtoSchema = zod.object({
-  idEntityC: zod.any()
-});
-
-export const IntersectionDtoSchema = zod.object({});
-
-export const TypeDtoSchema = zod.object({
-  name: zod.string(),
-  id: zod.number().int()
-});
-
-export const RoleSuitabilityPostRequestSchema = zod.object({});
