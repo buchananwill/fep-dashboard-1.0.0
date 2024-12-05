@@ -31,9 +31,6 @@ export function WpssTransferList({
     propagateChange: propagateChange ?? ((list) => {})
   });
 
-  if (selectApiReturn.type !== 'multiFlat')
-    throw new Error('wrong type returned');
-
   return (
     <TransferList
       {...selectApiReturn}
@@ -42,5 +39,3 @@ export function WpssTransferList({
     />
   );
 }
-
-const badArray = ['hello', 'world'];
