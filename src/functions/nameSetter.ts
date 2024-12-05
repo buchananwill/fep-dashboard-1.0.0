@@ -1,5 +1,5 @@
 import { HasNameDto } from '@/api/generated-types/generated-types';
-import { HasId } from '@/api/types';
+import { HasId, IdWrapper } from '@/api/types';
 
 export function getEditTextContextKey<T extends HasId>(
   entityClass: string,
@@ -12,6 +12,12 @@ export function getEditTextContextKey<T extends HasId>(
 export function nameAccessor<T extends HasNameDto>(entity?: T) {
   if (entity === undefined) throw Error('Entity undefined');
   return entity.name;
+}
+
+export function nameAccessorInWrapper<T extends HasNameDto>(
+  entity?: IdWrapper<T>
+) {
+  return nameAccessor(entity?.data);
 }
 
 export function nameSetter<T extends HasNameDto>(entity: T, value: string) {

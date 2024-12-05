@@ -28,12 +28,12 @@ import EditTextWithModalCell from '@/components/tables/cells-v2/EditTextWithModa
 import { IdWrapper } from '@/api/types';
 import { useDataExportCallback } from '@/hooks/useDataExportCallback';
 import { validate } from '@/functions/validation/validateWorkSchemaNodeManualDefinitionList';
-import { StringNumberListParserCell } from '@/components/tables/cells-v2/StringNumberListParserCell';
 import { DeliveryAllocationListParserCell } from '@/components/tables/cells-v2/specific/DeliveryAllocationListParserCell';
 import { SelectKnowledgeDomainNameCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeDomainNameCell';
 import { SelectTaskTypeNameNameCell } from '@/components/tables/cells-v2/specific/SelectTaskTypeNameCell';
 import { SelectKnowledgeLevelCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeLevelCell';
 import { SelectChildrenAsCell } from '@/components/tables/cells-v2/specific/SelectChildrenAsCell';
+import { SelectParentNodeNameCell } from '@/components/tables/cells-v2/specific/SelectParentNodeNameCell';
 
 const entityType = EntityClassMap.workSchemaNodeManualDefinition;
 
@@ -97,6 +97,11 @@ export const workSchemaNodeManualDefinitionColumns: Column<
     sortable: true
   },
   {
+    uid: 'data.parentNodeName',
+    name: 'Parent Node',
+    sortable: true
+  },
+  {
     uid: 'data.taskTypeName',
     name: 'Task Type Name',
     sortable: true
@@ -151,6 +156,11 @@ const workSchemaNodeManualDefinitionCellRecord: CellComponentRecord<
     type: 'IdInnerCell',
     component: SelectChildrenAsCell,
     updater: getStringUpdater('data.childrenAs')
+  },
+  'data.parentNodeName': {
+    type: 'IdInnerCell',
+    component: SelectParentNodeNameCell,
+    updater: getStringUpdaterAllowUndefined('data.parentNodeName')
   }
 };
 
