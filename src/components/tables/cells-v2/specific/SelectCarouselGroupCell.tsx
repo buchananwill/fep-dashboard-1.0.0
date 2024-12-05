@@ -28,6 +28,7 @@ export function SelectCarouselGroupNameCell({
             leftSection={<QueueListIcon className={'w-6'} />}
             fullWidth
             onClick={toggle}
+            variant={'subtle'}
           >
             {value}
           </Button>

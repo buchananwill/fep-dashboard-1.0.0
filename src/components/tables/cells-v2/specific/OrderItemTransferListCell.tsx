@@ -32,6 +32,7 @@ export function OrderItemTransferListCell({
       <Button
         leftSection={<QueueListIcon className={'w-6'} />}
         fullWidth
+        variant={'subtle'}
         onClick={open}
       >
         {count} Order Items
