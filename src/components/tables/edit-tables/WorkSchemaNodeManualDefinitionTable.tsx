@@ -2,7 +2,10 @@
 
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CarouselOrderSummaryDto } from '@/api/generated-types/generated-types';
+import {
+  CarouselOrderSummaryDto,
+  WorkSchemaNodeManualDefinitionDto
+} from '@/api/generated-types/generated-types';
 import { Column } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
@@ -26,24 +29,26 @@ import { EditDateCell } from '@/components/tables/cells-v2/EditDateCell';
 import { SelectCarouselGroupNameCell } from '@/components/tables/cells-v2/specific/SelectCarouselGroupCell';
 import { OrderItemTransferListCell } from '@/components/tables/cells-v2/specific/OrderItemTransferListCell';
 import EditTextWithModalCell from '@/components/tables/cells-v2/EditTextWithModalCell';
+import { IdWrapper } from '@/api/types';
 import { useDataExportCallback } from '@/hooks/useDataExportCallback';
 
-const entityType = EntityClassMap.carouselOrderSummary;
+const entityType = EntityClassMap.workSchemaNodeManualDefinition;
 
-export function CarouselOrderSummaryTable({
+export function WorkSchemaNodeManualDefinitionTable({
   pathVariables
 }: LeafComponentProps) {
-  const readAnyDto = useReadAnyDto<CarouselOrderSummaryDto>(entityType);
+  const readAnyDto =
+    useReadAnyDto<IdWrapper<WorkSchemaNodeManualDefinitionDto>>(entityType);
   const { currentState } = NamespacedHooks.useListen(
     entityType,
     KEY_TYPES.ID_LIST,
-    'carousel-order-summary-table',
-    EmptyArray as number[]
+    'work-schema-node-manual-definition-table',
+    EmptyArray as string[]
   );
   const getData = useDataExportCallback({
     idList: currentState,
     readAnyDto,
-    type: 'raw'
+    type: 'unwrap'
   });
 
   const dispatch = NamespacedHooks.useDispatch<CarouselOrderSummaryDto[]>(

@@ -41,6 +41,7 @@ import {
   WorkProjectSeriesSchemaDto,
   WorkSchemaNodeAssignmentDto,
   WorkSchemaNodeDto,
+  WorkSchemaNodeManualDefinitionDto,
   WorkTaskTypeDto
 } from './generated-types/generated-types';
 import { InitJsonTemplateNodeData } from '@/components/react-flow/init-json-template/types';
@@ -91,6 +92,7 @@ export type EntityTypeMap = {
   workProjectSeriesMetric: WorkProjectSeriesMetricDto;
   workProjectSeriesSchema: WorkProjectSeriesSchemaDto;
   workSchemaNode: WorkSchemaNodeDto;
+  workSchemaNodeManualDefinition: IdWrapper<WorkSchemaNodeManualDefinitionDto>;
   workSchemaNodeAssignment: WorkSchemaNodeAssignmentDto;
   workTaskType: WorkTaskTypeDto;
 };

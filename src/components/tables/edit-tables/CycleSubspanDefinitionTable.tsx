@@ -32,6 +32,7 @@ import { ImportDataButton } from '@/components/import/ImportDataButton';
 import { useUploadData } from '@/hooks/useUploadData';
 import { unWrapDataWithId } from '@/functions/wrapListDataWithIndexId';
 import { validate } from '@/components/tables/edit-tables/validateCycleSubspanDefinitionList';
+import { useDataExportCallback } from '@/hooks/useDataExportCallback';
 
 const entityType = EntityClassMap.cycleSubspanDefinition;
 
@@ -46,13 +47,11 @@ export default function CycleSubspanDefinitionTable({
     'cycle-definition-table',
     EmptyArray as string[]
   );
-  const getData = useCallback(() => {
-    const dtoList = currentState
-      .map((id) => readAnyDto(id))
-      .filter(isNotUndefined)
-      .map(unWrapDataWithId);
-    return JSON.stringify(dtoList);
-  }, [readAnyDto, currentState]);
+  const getData = useDataExportCallback({
+    idList: currentState,
+    readAnyDto,
+    type: 'unwrap'
+  });
 
   const dispatch = NamespacedHooks.useDispatch<
     IdWrapper<CycleSubspanDefinitionDto>[]

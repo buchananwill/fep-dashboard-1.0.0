@@ -45,6 +45,7 @@ export const EntityClassMap = {
   workProjectSeriesMetric: 'WorkProjectSeriesMetric',
   workProjectSeriesSchema: 'WorkProjectSeriesSchema',
   workSchemaNode: 'WorkSchemaNode',
+  workSchemaNodeManualDefinition: 'WorkSchemaNodeManualDefinition',
   workSchemaNodeAssignment: 'WorkSchemaNodeAssignment',
   workTaskType: 'WorkTaskType'
 } as const satisfies { [Key in keyof EntityTypeMap]: string };
