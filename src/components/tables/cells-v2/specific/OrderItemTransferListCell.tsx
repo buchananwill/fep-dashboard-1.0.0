@@ -41,6 +41,7 @@ export function OrderItemTransferListCell({
           entityId={entityId}
           entityClass={entityClass}
           value={value}
+          onChange={onChange}
           onClose={close}
         />
       </Modal>
@@ -115,7 +116,8 @@ function CarouselOrderTransferList({
   const [optionList, setOptionList] = useState(
     [] as WorkProjectSeriesSchemaDto[]
   );
-  const initialListIsSet = useRef(false);
+  const optionListRef = useRef(optionList);
+  optionListRef.current = optionList;
 
   // In case the entity is available on the first render, we need to sync the initial list as soon as it is.
   useEffect(() => {
@@ -140,9 +142,13 @@ function CarouselOrderTransferList({
     []
   );
 
-  const updateOrder = useCallback(() => {
-    // TODO: Implement
-  }, []);
+  const updateOrderAndClose = useCallback(() => {
+    onChange &&
+      onChange(
+        optionListRef.current.map(joinWorkProjectSeriesSchemaIdKey).join(';')
+      );
+    onClose();
+  }, [onClose, onChange]);
 
   return (
     <>
@@ -171,10 +177,12 @@ function CarouselOrderTransferList({
         <Loader />
       )}
       <div className={'center-all-margin flex w-fit gap-4 pt-4'}>
-        <Button color={'red'} variant={'subtle'}>
+        <Button color={'red'} variant={'subtle'} onClick={onClose}>
           Cancel
         </Button>
-        <Button color={'primary'}>Update Order</Button>
+        <Button color={'primary'} onClick={updateOrderAndClose}>
+          Update Order
+        </Button>
       </div>
     </>
   );
