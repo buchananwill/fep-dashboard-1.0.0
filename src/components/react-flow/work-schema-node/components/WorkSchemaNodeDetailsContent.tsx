@@ -40,7 +40,10 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
-import { SingleFlat } from '@/hooks/select-adaptors/selectApiTypes';
+import {
+  SelectApiParamsSingleFlat,
+  SingleFlat
+} from '@/hooks/select-adaptors/selectApiTypes';
 import { determineLocalResolution } from '@/components/react-flow/work-schema-node/functions/workSchemaNodeCallbacks';
 
 export default function WorkSchemaNodeDetailsContent({
@@ -95,7 +98,7 @@ export default function WorkSchemaNodeDetailsContent({
     };
   }, [data, dispatch]);
 
-  const selectApi = useSelectApi<ChildrenAsEnum>({
+  const selectApi = useSelectApi<SelectApiParamsSingleFlat<ChildrenAsEnum>>({
     rawData: childrenAsOptions,
     labelMaker: (item?: ChildrenAsEnum) => item ?? 'BUNDLE',
     value: currentState.childrenAs,

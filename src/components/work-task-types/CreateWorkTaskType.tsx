@@ -16,8 +16,6 @@ import { HasId } from '@/api/types';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';
 import { nameAccessor } from '@/functions/nameSetter';
 import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
-import { useNestedAutoCompleteChangeHandler } from '@/components/work-task-types/useNestedAutoCompleteChangeHandler';
-import { useNestedSelectChangeHandler } from '@/components/work-task-types/useNestedSelectChangeHandler';
 import { WorkTaskTypeDtoSchema } from '@/api/generated-schemas/schemas_';
 import RootCard from '@/components/generic/RootCard';
 import { LinkButton } from '@/components/navigation/LinkButton';

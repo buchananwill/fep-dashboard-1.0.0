@@ -13,7 +13,7 @@ export function useSelectAutocompleteApi<T>({
   ...initialParams
 }: SelectApiParamsSingleFlat<T> &
   Pick<AutocompleteApiParams<T>, 'allowUndefined'>) {
-  const selectApi = useSelectApi(initialParams) as SingleFlat;
+  const selectApi = useSelectApi<SelectApiParamsSingleFlat<T>>(initialParams);
   return useAutocompleteApi({
     ...selectApi,
     allowCustom: false,

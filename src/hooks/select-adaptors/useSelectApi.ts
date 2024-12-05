@@ -6,14 +6,17 @@ import {
   SelectApiReturn
 } from '@/hooks/select-adaptors/selectApiTypes';
 
-export function useSelectApi<T>({
+export function useSelectApi<
+  U extends SelectApiParams<T> = SelectApiParams<any>,
+  T = any
+>({
   rawData,
   labelMaker,
   value,
   propagateChange,
   type,
   valueMaker
-}: SelectApiParams<T>): SelectApiReturn {
+}: U): Extract<SelectApiReturn, { type: U['type'] }> {
   const valueRef = useRef([] as T[]);
   const selectValueRef = useRef([] as string[]);
 
@@ -128,7 +131,7 @@ export function useSelectApi<T>({
           onChange: onChangeSingle,
           data: typeWithData.data,
           value: selectValueWithType.value
-        };
+        } as Extract<SelectApiReturn, { type: U['type'] }>;
       } else throw Error('Type mismatch');
     }
     case 'singleObject': {
@@ -138,7 +141,7 @@ export function useSelectApi<T>({
           onChange: onChangeSingle,
           data: typeWithData.data,
           value: selectValueWithType.value
-        };
+        } as Extract<SelectApiReturn, { type: U['type'] }>;
       } else throw Error('Type mismatch');
     }
     case 'multiObject': {
@@ -148,7 +151,7 @@ export function useSelectApi<T>({
           onChange: onMultiChange,
           data: typeWithData.data,
           value: selectValueWithType.value
-        };
+        } as Extract<SelectApiReturn, { type: U['type'] }>;
       } else throw Error('Type mismatch');
     }
     case 'multiFlat': {
@@ -158,7 +161,7 @@ export function useSelectApi<T>({
           onChange: onMultiChange,
           data: typeWithData.data,
           value: selectValueWithType.value
-        };
+        } as Extract<SelectApiReturn, { type: U['type'] }>;
       } else throw Error('Type mismatch');
     }
   }

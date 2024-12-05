@@ -6,6 +6,7 @@ import { joinWorkProjectSeriesSchemaIdKey } from '@/functions/workProjectSeriesS
 import { useCallback, useState } from 'react';
 import { TransferList } from '@/components/generic/combo-boxes/TransferList';
 import { WorkProjectSeriesSchemaPill } from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaPill';
+import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 
 export function WpssTransferList({
   dtoList: rawData,
@@ -20,7 +21,9 @@ export function WpssTransferList({
     joinWorkProjectSeriesSchemaIdKey
   );
 
-  const selectApiReturn = useSelectApi<WorkProjectSeriesSchemaDto>({
+  const selectApiReturn = useSelectApi<
+    SelectApiParamsMultiFlat<WorkProjectSeriesSchemaDto>
+  >({
     rawData,
     type: 'multiFlat',
     labelMaker,
@@ -39,3 +42,5 @@ export function WpssTransferList({
     />
   );
 }
+
+const badArray = ['hello', 'world'];
