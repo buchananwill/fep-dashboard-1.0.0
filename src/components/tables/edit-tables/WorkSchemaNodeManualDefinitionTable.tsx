@@ -32,6 +32,8 @@ import { StringNumberListParserCell } from '@/components/tables/cells-v2/StringN
 import { DeliveryAllocationListParserCell } from '@/components/tables/cells-v2/specific/DeliveryAllocationListParserCell';
 import { SelectKnowledgeDomainNameCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeDomainNameCell';
 import { SelectTaskTypeNameNameCell } from '@/components/tables/cells-v2/specific/SelectTaskTypeNameCell';
+import { SelectKnowledgeLevelCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeLevelCell';
+import { SelectChildrenAsCell } from '@/components/tables/cells-v2/specific/SelectChildrenAsCell';
 
 const entityType = EntityClassMap.workSchemaNodeManualDefinition;
 
@@ -137,7 +139,7 @@ const workSchemaNodeManualDefinitionCellRecord: CellComponentRecord<
   },
   'data.knowledgeLevelName': {
     type: 'IdInnerCell',
-    component: EditTextWithModalCell,
+    component: SelectKnowledgeLevelCell,
     updater: getStringUpdaterAllowUndefined('data.knowledgeLevelName')
   },
   'data.allocationList': {
@@ -147,7 +149,7 @@ const workSchemaNodeManualDefinitionCellRecord: CellComponentRecord<
   },
   'data.childrenAs': {
     type: 'IdInnerCell',
-    component: EditTextWithModalCell,
+    component: SelectChildrenAsCell,
     updater: getStringUpdater('data.childrenAs')
   }
 };
