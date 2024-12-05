@@ -21,7 +21,7 @@ import { ExportDataButton } from '@/components/export/ExportDataButton';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { ImportDataButton } from '@/components/import/ImportDataButton';
 import { useUploadData } from '@/hooks/useUploadData';
-import { validate } from '@/functions/validateCarouselOrderSummaryList';
+import { validate } from '@/functions/validation/validateCarouselOrderSummaryList';
 import { EditDateCell } from '@/components/tables/cells-v2/EditDateCell';
 import { SelectCarouselGroupNameCell } from '@/components/tables/cells-v2/specific/SelectCarouselGroupCell';
 import { OrderItemTransferListCell } from '@/components/tables/cells-v2/specific/OrderItemTransferListCell';

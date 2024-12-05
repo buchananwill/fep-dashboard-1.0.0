@@ -8,6 +8,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselOrderSummaryTable } from '@/components/tables/edit-tables/CarouselOrderSummaryTable';
 import { EmptyArray } from '@/api/literals';
 import { IdWrapper } from '@/api/types';
+import { WorkSchemaNodeManualDefinitionTable } from '@/components/tables/edit-tables/WorkSchemaNodeManualDefinitionTable';
 
 export default async function Page() {
   const newVar = await Api.InitJsonTemplate.getOne(14);
@@ -30,8 +31,8 @@ export default async function Page() {
         dtoList={workSchemaNodeManualDefinitions}
       />
 
-      <CarouselOrderSummaryTable
-        pathVariables={['data-entry', 'cycle-model']}
+      <WorkSchemaNodeManualDefinitionTable
+        pathVariables={['data-entry', 'work-schema-nodes']}
         depth={0}
       />
     </>

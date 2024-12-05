@@ -1,5 +1,5 @@
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
-import { Badge, Button, Loader, Modal, Pill } from '@mantine/core';
+import { Badge, Loader, Pill } from '@mantine/core';
 import { QueueListIcon } from '@heroicons/react/24/outline';
 import { NamespacedHooks, useDtoStore } from 'dto-stores';
 import {
@@ -17,7 +17,8 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { WpssTransferList } from '@/components/work-project-series-schema/WpssTransferList';
 import { joinWorkProjectSeriesSchemaIdKey } from '@/functions/workProjectSeriesSchemaIdTransforms';
 import { isNotUndefined } from '@/api/main';
-import { useDisclosure } from '@mantine/hooks';
+import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
+import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
 
 export function OrderItemTransferListCell({
   value,
@@ -26,27 +27,22 @@ export function OrderItemTransferListCell({
   entityClass
 }: IdInnerCellProps<string>) {
   const count = value?.split(';')?.length;
-  const [opened, { open, close, toggle }] = useDisclosure();
+
   return (
-    <>
-      <Button
-        leftSection={<QueueListIcon className={'w-6'} />}
-        fullWidth
-        variant={'subtle'}
-        onClick={open}
-      >
-        {count} Order Items
-      </Button>
-      <Modal opened={opened} onClose={close} size={'auto'}>
+    <ModalEditCell
+      leftSection={<QueueListIcon className={'w-6'} />}
+      buttonLabel={<>{count} Order Items</>}
+    >
+      {({ onClose }) => (
         <CarouselOrderTransferList
           entityId={entityId}
           entityClass={entityClass}
           value={value}
           onChange={onChange}
-          onClose={close}
+          onClose={onClose}
         />
-      </Modal>
-    </>
+      )}
+    </ModalEditCell>
   );
 }
 
@@ -177,14 +173,11 @@ function CarouselOrderTransferList({
       ) : (
         <Loader />
       )}
-      <div className={'center-all-margin flex w-fit gap-4 pt-4'}>
-        <Button color={'red'} variant={'subtle'} onClick={onClose}>
-          Cancel
-        </Button>
-        <Button color={'primary'} onClick={updateOrderAndClose}>
-          Update Order
-        </Button>
-      </div>
+      <ModalConfirmationFooter
+        onCancel={onClose}
+        onConfirm={updateOrderAndClose}
+        confirmLabel={'Update Order'}
+      />
     </>
   );
 }

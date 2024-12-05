@@ -273,13 +273,13 @@ export const WorkProjectSeriesSchemaWithLabelsDtoSchema = zod.object({
 export const WorkSchemaNodeManualDefinitionDtoSchema = zod.object({
   name: zod.string().max(63),
   childrenAs: zod.enum(['BUNDLE', 'CAROUSEL', 'SERIAL']),
-  dominanceFactor: zod.number(),
-  priority: zod.number(),
-  taskTypeName: zod.string().max(255),
-  knowledgeDomainName: zod.string().max(255),
-  knowledgeLevelName: zod.string().max(255),
-  allocationList: zod.string(),
-  parentNodeName: zod.string().max(63),
+  dominanceFactor: zod.number().optional(),
+  priority: zod.number().optional(),
+  taskTypeName: zod.string().max(255).optional(),
+  knowledgeDomainName: zod.string().max(255).optional(),
+  knowledgeLevelName: zod.string().max(255).optional(),
+  allocationList: zod.string().optional(),
+  parentNodeName: zod.string().max(63).optional(),
   auto: zod.enum(['NONE', 'CAROUSEL_GROUP', 'CAROUSEL'])
 });
 

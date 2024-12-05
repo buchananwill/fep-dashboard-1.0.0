@@ -826,13 +826,13 @@ export interface WorkProjectSeriesWithSchemaLabelsDto extends Serializable {
 export interface WorkSchemaNodeManualDefinitionDto extends Serializable {
   name: string;
   childrenAs: any;
-  dominanceFactor: number;
-  priority: number;
-  taskTypeName: string;
-  knowledgeDomainName: string;
-  knowledgeLevelName: string;
-  allocationList: string;
-  parentNodeName: string;
+  dominanceFactor?: number;
+  priority?: number;
+  taskTypeName?: string;
+  knowledgeDomainName?: string;
+  knowledgeLevelName?: string;
+  allocationList?: string;
+  parentNodeName?: string;
   auto: AutoNodeType;
 }
 

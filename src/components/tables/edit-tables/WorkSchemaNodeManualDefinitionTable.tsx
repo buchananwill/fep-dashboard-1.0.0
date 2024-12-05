@@ -2,10 +2,7 @@
 
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  CarouselOrderSummaryDto,
-  WorkSchemaNodeManualDefinitionDto
-} from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeManualDefinitionDto } from '@/api/generated-types/generated-types';
 import { Column } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
@@ -16,7 +13,10 @@ import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
-import { getStringUpdater } from '@/components/tables/edit-tables/cellUpdaterFunctions';
+import {
+  getStringUpdater,
+  getStringUpdaterAllowUndefined
+} from '@/components/tables/edit-tables/cellUpdaterFunctions';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -24,13 +24,13 @@ import { ExportDataButton } from '@/components/export/ExportDataButton';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { ImportDataButton } from '@/components/import/ImportDataButton';
 import { useUploadData } from '@/hooks/useUploadData';
-import { validate } from '@/functions/validateCarouselOrderSummaryList';
-import { EditDateCell } from '@/components/tables/cells-v2/EditDateCell';
-import { SelectCarouselGroupNameCell } from '@/components/tables/cells-v2/specific/SelectCarouselGroupCell';
-import { OrderItemTransferListCell } from '@/components/tables/cells-v2/specific/OrderItemTransferListCell';
 import EditTextWithModalCell from '@/components/tables/cells-v2/EditTextWithModalCell';
 import { IdWrapper } from '@/api/types';
 import { useDataExportCallback } from '@/hooks/useDataExportCallback';
+import { validate } from '@/functions/validation/validateWorkSchemaNodeManualDefinitionList';
+import { StringNumberListParserCell } from '@/components/tables/cells-v2/StringNumberListParserCell';
+import { DeliveryAllocationListParserCell } from '@/components/tables/cells-v2/specific/DeliveryAllocationListParserCell';
+import { SelectKnowledgeDomainNameCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeDomainNameCell';
 
 const entityType = EntityClassMap.workSchemaNodeManualDefinition;
 
@@ -51,10 +51,9 @@ export function WorkSchemaNodeManualDefinitionTable({
     type: 'unwrap'
   });
 
-  const dispatch = NamespacedHooks.useDispatch<CarouselOrderSummaryDto[]>(
-    entityType,
-    KEY_TYPES.MASTER_LIST
-  );
+  const dispatch = NamespacedHooks.useDispatch<
+    IdWrapper<WorkSchemaNodeManualDefinitionDto>[]
+  >(entityType, KEY_TYPES.MASTER_LIST);
 
   const onChange = useUploadData({ validate, dispatch, type: 'single' });
 
@@ -63,9 +62,9 @@ export function WorkSchemaNodeManualDefinitionTable({
       <div className={'flex h-[600px] max-w-[80rem] flex-col p-2'}>
         <EntityTable
           entityClass={entityType}
-          columns={carouselOrderSummaryColumns}
-          cellModel={carouselOrderSummaryCellModel}
-          defaultSort={Sorts.carouselGroupName}
+          columns={workSchemaNodeManualDefinitionColumns}
+          cellModel={workSchemaNodeManualDefinitionCellModel}
+          defaultSort={Sorts['data.name']}
         />
       </div>
       <div className={'center-all-margin flex w-fit gap-2 p-2'}>
@@ -81,65 +80,78 @@ export function WorkSchemaNodeManualDefinitionTable({
   );
 }
 
-export const carouselOrderSummaryColumns: Column<CarouselOrderSummaryDto>[] = [
+export const workSchemaNodeManualDefinitionColumns: Column<
+  IdWrapper<WorkSchemaNodeManualDefinitionDto>
+>[] = [
   {
-    uid: 'fName',
-    name: 'First Name',
+    uid: 'data.name',
+    name: 'Name',
     sortable: true
   },
   {
-    uid: 'lName',
-    name: 'Last Name',
+    uid: 'data.childrenAs',
+    name: 'Children As',
     sortable: true
   },
   {
-    uid: 'dateOfBirth',
-    name: 'Date of Birth',
+    uid: 'data.taskTypeName',
+    name: 'Task Type Name',
     sortable: true
   },
   {
-    uid: 'carouselGroupName',
-    name: 'Carousel Group',
+    uid: 'data.knowledgeDomainName',
+    name: 'Knowledge Domain',
     sortable: true
   },
   {
-    uid: 'orderItems',
-    name: 'Order Items',
-    sortable: false
+    uid: 'data.knowledgeLevelName',
+    name: 'Knowledge Level',
+    sortable: true
+  },
+  {
+    uid: 'data.allocationList',
+    name: 'Allocation List',
+    sortable: true
   }
 ];
 
-const carouselOrderSummaryCellRecord: CellComponentRecord<CarouselOrderSummaryDto> =
-  {
-    id: { type: 'CustomCell', component: DeleteEntity },
-    fName: {
-      type: 'IdInnerCell',
-      component: EditTextWithModalCell,
-      updater: getStringUpdater('fName')
-    },
-    lName: {
-      type: 'IdInnerCell',
-      component: EditTextWithModalCell,
-      updater: getStringUpdater('lName')
-    },
-    dateOfBirth: {
-      type: 'IdInnerCell',
-      component: EditDateCell,
-      updater: getStringUpdater('dateOfBirth')
-    },
-    carouselGroupName: {
-      type: 'IdInnerCell',
-      component: SelectCarouselGroupNameCell,
-      updater: getStringUpdater('carouselGroupName')
-    },
-    orderItems: {
-      type: 'IdInnerCell',
-      component: OrderItemTransferListCell,
-      updater: getStringUpdater('orderItems')
-    }
-  };
+const workSchemaNodeManualDefinitionCellRecord: CellComponentRecord<
+  IdWrapper<WorkSchemaNodeManualDefinitionDto>
+> = {
+  id: { type: 'CustomCell', component: DeleteEntity },
+  'data.name': {
+    type: 'IdInnerCell',
+    component: EditTextWithModalCell,
+    updater: getStringUpdater('data.name')
+  },
+  'data.taskTypeName': {
+    type: 'IdInnerCell',
+    component: EditTextWithModalCell,
+    updater: getStringUpdaterAllowUndefined('data.taskTypeName')
+  },
+  'data.knowledgeDomainName': {
+    type: 'IdInnerCell',
+    component: SelectKnowledgeDomainNameCell,
+    updater: getStringUpdaterAllowUndefined('data.knowledgeDomainName')
+  },
+  'data.knowledgeLevelName': {
+    type: 'IdInnerCell',
+    component: EditTextWithModalCell,
+    updater: getStringUpdaterAllowUndefined('data.knowledgeLevelName')
+  },
+  'data.allocationList': {
+    type: 'IdInnerCell',
+    component: DeliveryAllocationListParserCell,
+    updater: getStringUpdaterAllowUndefined('data.allocationList')
+  },
+  'data.childrenAs': {
+    type: 'IdInnerCell',
+    component: EditTextWithModalCell,
+    updater: getStringUpdater('data.childrenAs')
+  }
+};
 
-export const carouselOrderSummaryCellModel = getCellRenderFunction(
-  'carouselOrderSummary',
-  carouselOrderSummaryCellRecord
+export const workSchemaNodeManualDefinitionCellModel = getCellRenderFunction(
+  'workSchemaNodeManualDefinition',
+  workSchemaNodeManualDefinitionCellRecord
 );
