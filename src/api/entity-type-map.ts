@@ -46,7 +46,8 @@ import {
 } from './generated-types/generated-types';
 import { InitJsonTemplateNodeData } from '@/components/react-flow/init-json-template/types';
 import { UserGuideMarkdown } from '@/app/user-guide/parseMarkdownToTree';
-import { IdWrapper } from '@/api/types';
+import { HasNumberId, IdWrapper } from '@/api/types';
+import { HasName } from 'react-d3-force-wrapper';
 
 export type EntityTypeMap = {
   asset: AssetDto;
@@ -95,4 +96,5 @@ export type EntityTypeMap = {
   workSchemaNodeManualDefinition: IdWrapper<WorkSchemaNodeManualDefinitionDto>;
   workSchemaNodeAssignment: WorkSchemaNodeAssignmentDto;
   workTaskType: WorkTaskTypeDto;
+  workTaskTypeName: HasName & HasNumberId;
 };

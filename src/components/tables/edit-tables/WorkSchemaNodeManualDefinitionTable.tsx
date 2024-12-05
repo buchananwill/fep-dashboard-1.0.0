@@ -31,6 +31,7 @@ import { validate } from '@/functions/validation/validateWorkSchemaNodeManualDef
 import { StringNumberListParserCell } from '@/components/tables/cells-v2/StringNumberListParserCell';
 import { DeliveryAllocationListParserCell } from '@/components/tables/cells-v2/specific/DeliveryAllocationListParserCell';
 import { SelectKnowledgeDomainNameCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeDomainNameCell';
+import { SelectTaskTypeNameNameCell } from '@/components/tables/cells-v2/specific/SelectTaskTypeNameCell';
 
 const entityType = EntityClassMap.workSchemaNodeManualDefinition;
 
@@ -126,7 +127,7 @@ const workSchemaNodeManualDefinitionCellRecord: CellComponentRecord<
   },
   'data.taskTypeName': {
     type: 'IdInnerCell',
-    component: EditTextWithModalCell,
+    component: SelectTaskTypeNameNameCell,
     updater: getStringUpdaterAllowUndefined('data.taskTypeName')
   },
   'data.knowledgeDomainName': {
