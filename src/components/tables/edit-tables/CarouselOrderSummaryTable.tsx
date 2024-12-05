@@ -91,13 +91,13 @@ export const carouselOrderSummaryColumns: Column<CarouselOrderSummaryDto>[] = [
     sortable: true
   },
   {
-    uid: 'carouselGroupName',
-    name: 'Carousel Group',
+    uid: 'dateOfBirth',
+    name: 'Date of Birth',
     sortable: true
   },
   {
-    uid: 'dateOfBirth',
-    name: 'Date of Birth',
+    uid: 'carouselGroupName',
+    name: 'Carousel Group',
     sortable: true
   },
   {
