@@ -1,29 +1,32 @@
 import { Api } from '@/api/clientApi';
-import { WorkSchemaNodeManualDefinitionDto } from '@/api/generated-types/generated-types';
+import {
+  OrganizationWorkHierarchyDto,
+  WorkSchemaNodeManualDefinitionDto
+} from '@/api/generated-types/generated-types';
+import { IdWrapper } from '@/api/types';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { IdWrapper } from '@/api/types';
 import { WorkSchemaNodeManualDefinitionTable } from '@/components/tables/edit-tables/WorkSchemaNodeManualDefinitionTable';
 
-export default async function Page() {
-  const newVar = await Api.InitJsonTemplate.getOne(14);
+export default async function page() {
+  const newVar = await Api.InitJsonTemplate.getOne(15);
 
   const { content } = newVar;
-  const workSchemaNodeManualDefinitions = (
-    JSON.parse(content) as WorkSchemaNodeManualDefinitionDto[]
+  const organizationWorkHierarchy = (
+    JSON.parse(content) as OrganizationWorkHierarchyDto[]
   ).map(
     (dto) =>
       ({
         id: dto.name,
         data: dto
-      }) as IdWrapper<WorkSchemaNodeManualDefinitionDto>
+      }) as IdWrapper<OrganizationWorkHierarchyDto>
   );
 
   return (
     <>
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workSchemaNodeManualDefinition}
-        dtoList={workSchemaNodeManualDefinitions}
+        entityClass={EntityClassMap.organizationWorkHierarchy}
+        dtoList={organizationWorkHierarchy}
       />
 
       <WorkSchemaNodeManualDefinitionTable

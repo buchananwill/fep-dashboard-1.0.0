@@ -25,6 +25,7 @@ export const EntityClassMap = {
   knowledgeLevelSeries: 'KnowledgeLevelSeries',
   organization: 'Organization',
   organizationType: 'OrganizationType',
+  organizationWorkHierarchy: 'OrganizationWorkHierarchy',
   person: 'Person',
   providerRole: 'ProviderRole',
   providerRoleAvailability: 'ProviderRoleAvailability',

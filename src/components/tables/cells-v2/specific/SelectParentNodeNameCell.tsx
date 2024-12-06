@@ -46,6 +46,7 @@ function SelectParentNodeName({
     const found = parentNodeList?.find((wsn) => wsn.data.name === value);
     if (found) setTransientState(found);
   }, [parentNodeList, value, setTransientState]);
+
   const autocompleteApi = useSelectAutocompleteApi({
     type: 'singleFlat',
     rawData: parentNodeList ?? EmptyArray,

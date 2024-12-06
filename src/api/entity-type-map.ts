@@ -22,6 +22,7 @@ import {
   KnowledgeLevelSeriesDto,
   OrganizationDto,
   OrganizationTypeDto,
+  OrganizationWorkHierarchyDto,
   PersonDto,
   ProviderRoleAvailabilityDto,
   ProviderRoleDto,
@@ -74,6 +75,7 @@ export type EntityTypeMap = {
   initJsonTemplate: InitJsonTemplateNodeData;
   organization: OrganizationDto;
   organizationType: OrganizationTypeDto;
+  organizationWorkHierarchy: OrganizationWorkHierarchyDto;
   person: PersonDto;
   queueTreeNode: QueueTreeNodeDto;
   providerRole: ProviderRoleDto;
