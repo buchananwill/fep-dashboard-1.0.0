@@ -2,10 +2,7 @@
 
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import {
-  OrganizationWorkHierarchyDto,
-  WorkSchemaNodeManualDefinitionDto
-} from '@/api/generated-types/generated-types';
+import { OrganizationWorkHierarchyDto } from '@/api/generated-types/generated-types';
 import { Column } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
@@ -16,10 +13,7 @@ import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
-import {
-  getStringUpdater,
-  getStringUpdaterAllowUndefined
-} from '@/functions/cellUpdaterFunctions';
+import { getStringUpdater } from '@/functions/cellUpdaterFunctions';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -30,13 +24,9 @@ import { useUploadData } from '@/hooks/useUploadData';
 import EditTextWithModalCell from '@/components/tables/cells-v2/generic/EditTextWithModalCell';
 import { IdWrapper } from '@/api/types';
 import { useDataExportCallback } from '@/hooks/useDataExportCallback';
-import { DeliveryAllocationListParserCell } from '@/components/tables/cells-v2/specific/DeliveryAllocationListParserCell';
-import { SelectKnowledgeDomainNameCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeDomainNameCell';
-import { SelectTaskTypeNameNameCell } from '@/components/tables/cells-v2/specific/SelectTaskTypeNameCell';
-import { SelectKnowledgeLevelCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeLevelCell';
-import { SelectChildrenAsCell } from '@/components/tables/cells-v2/specific/SelectChildrenAsCell';
-import { SelectParentNodeNameCell } from '@/components/tables/cells-v2/specific/SelectParentNodeNameCell';
 import { validate } from '@/functions/validation/validate-organization-work-hierarchy';
+import { SelectOrganizationTypeNameCell } from '../cells-v2/specific/SelectOrganizationTypeTypeNameCell';
+import { SelectParentOrganizationNamesCell } from '../cells-v2/specific/SelectParentOrganizationNamesCell';
 
 const entityType = EntityClassMap.organizationWorkHierarchy;
 
@@ -48,7 +38,7 @@ export function OrganizationWorkHierarchyTable({
   const { currentState } = NamespacedHooks.useListen(
     entityType,
     KEY_TYPES.ID_LIST,
-    'organization-work-hierarchy-manual-definition-table',
+    'organization-work-hierarchy-table',
     EmptyArray as string[]
   );
   const getData = useDataExportCallback({
@@ -69,7 +59,7 @@ export function OrganizationWorkHierarchyTable({
         <EntityTable
           entityClass={entityType}
           columns={organizationWorkHierarchyColumns}
-          cellModel={workSchemaNodeManualDefinitionCellModel}
+          cellModel={organizationWorkHierarchyCellModel}
           defaultSort={Sorts['data.name']}
         />
       </div>
@@ -95,39 +85,19 @@ export const organizationWorkHierarchyColumns: Column<
     sortable: true
   },
   {
-    uid: 'data.childrenAs',
-    name: 'Children As',
+    uid: 'data.typeName',
+    name: 'Type Name',
     sortable: true
   },
   {
-    uid: 'data.parentNodeName',
-    name: 'Parent Node',
-    sortable: true
-  },
-  {
-    uid: 'data.taskTypeName',
-    name: 'Task Type Name',
-    sortable: true
-  },
-  {
-    uid: 'data.knowledgeDomainName',
-    name: 'Knowledge Domain',
-    sortable: true
-  },
-  {
-    uid: 'data.knowledgeLevelName',
-    name: 'Knowledge Level',
-    sortable: true
-  },
-  {
-    uid: 'data.allocationList',
-    name: 'Allocation List',
-    sortable: true
+    uid: 'data.parentNames',
+    name: 'Parent Names',
+    sortable: false
   }
 ];
 
-const workSchemaNodeManualDefinitionCellRecord: CellComponentRecord<
-  IdWrapper<WorkSchemaNodeManualDefinitionDto>
+const organizationWorkHierarchyCellRecord: CellComponentRecord<
+  IdWrapper<OrganizationWorkHierarchyDto>
 > = {
   id: { type: 'CustomCell', component: DeleteEntity },
   'data.name': {
@@ -135,39 +105,22 @@ const workSchemaNodeManualDefinitionCellRecord: CellComponentRecord<
     component: EditTextWithModalCell,
     updater: getStringUpdater('data.name')
   },
-  'data.taskTypeName': {
+  'data.typeName': {
     type: 'IdInnerCell',
-    component: SelectTaskTypeNameNameCell,
-    updater: getStringUpdaterAllowUndefined('data.taskTypeName')
+    component: SelectOrganizationTypeNameCell,
+    updater: getStringUpdater('data.typeName')
   },
-  'data.knowledgeDomainName': {
+  'data.parentNames': {
     type: 'IdInnerCell',
-    component: SelectKnowledgeDomainNameCell,
-    updater: getStringUpdaterAllowUndefined('data.knowledgeDomainName')
-  },
-  'data.knowledgeLevelName': {
-    type: 'IdInnerCell',
-    component: SelectKnowledgeLevelCell,
-    updater: getStringUpdaterAllowUndefined('data.knowledgeLevelName')
-  },
-  'data.allocationList': {
-    type: 'IdInnerCell',
-    component: DeliveryAllocationListParserCell,
-    updater: getStringUpdaterAllowUndefined('data.allocationList')
-  },
-  'data.childrenAs': {
-    type: 'IdInnerCell',
-    component: SelectChildrenAsCell,
-    updater: getStringUpdater('data.childrenAs')
-  },
-  'data.parentNodeName': {
-    type: 'IdInnerCell',
-    component: SelectParentNodeNameCell,
-    updater: getStringUpdaterAllowUndefined('data.parentNodeName')
+    component: SelectParentOrganizationNamesCell,
+    updater: (prev, value) => ({
+      ...prev,
+      data: { ...prev.data, parentNames: value }
+    })
   }
 };
 
-export const workSchemaNodeManualDefinitionCellModel = getCellRenderFunction(
-  'workSchemaNodeManualDefinition',
-  workSchemaNodeManualDefinitionCellRecord
+export const organizationWorkHierarchyCellModel = getCellRenderFunction(
+  'organizationWorkHierarchy',
+  organizationWorkHierarchyCellRecord
 );

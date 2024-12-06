@@ -75,7 +75,7 @@ export type EntityTypeMap = {
   initJsonTemplate: InitJsonTemplateNodeData;
   organization: OrganizationDto;
   organizationType: OrganizationTypeDto;
-  organizationWorkHierarchy: OrganizationWorkHierarchyDto;
+  organizationWorkHierarchy: IdWrapper<OrganizationWorkHierarchyDto>;
   person: PersonDto;
   queueTreeNode: QueueTreeNodeDto;
   providerRole: ProviderRoleDto;
