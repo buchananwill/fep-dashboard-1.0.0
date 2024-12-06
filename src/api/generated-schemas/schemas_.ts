@@ -149,7 +149,7 @@ export const HierarchyEnrollmentRequestSchema = zod.object({
 export const OrganizationWorkHierarchyDtoSchema = zod.object({
   name: zod.string(),
   typeName: zod.string().max(255),
-  parentNames: zod.array(zod.string()).nullable(),
+  parentNames: zod.string().nullable(),
   workSchemaNodeName: zod.string().max(63).nullable()
 });
 

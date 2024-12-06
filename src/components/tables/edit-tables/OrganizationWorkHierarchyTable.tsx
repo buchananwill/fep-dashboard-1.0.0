@@ -27,6 +27,7 @@ import { useDataExportCallback } from '@/hooks/useDataExportCallback';
 import { validate } from '@/functions/validation/validate-organization-work-hierarchy';
 import { SelectOrganizationTypeNameCell } from '../cells-v2/specific/SelectOrganizationTypeTypeNameCell';
 import { SelectParentOrganizationNamesCell } from '../cells-v2/specific/SelectParentOrganizationNamesCell';
+import { EditOrganizationWorkHierarchyNameCell } from '@/components/tables/cells-v2/specific/UpdateOrganizationNameCell';
 
 const entityType = EntityClassMap.organizationWorkHierarchy;
 
@@ -102,7 +103,7 @@ const organizationWorkHierarchyCellRecord: CellComponentRecord<
   id: { type: 'CustomCell', component: DeleteEntity },
   'data.name': {
     type: 'IdInnerCell',
-    component: EditTextWithModalCell,
+    component: EditOrganizationWorkHierarchyNameCell,
     updater: getStringUpdater('data.name')
   },
   'data.typeName': {
