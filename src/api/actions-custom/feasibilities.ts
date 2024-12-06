@@ -6,7 +6,7 @@ import {
   OrganizationLeafTotalAllocationFeasibilityDto,
   ResourceFlowResponse,
   TaskAreaPerKnowledgeDomainDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 
 const feasibilityEndpoint = `/api/v2/schedule/feasibilityReport`;
 

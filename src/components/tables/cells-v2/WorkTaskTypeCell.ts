@@ -1,4 +1,4 @@
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 import { WorkTaskTypeActionCell } from '@/components/tables/cells-v2/WorkTaskTypeActionCell';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import {

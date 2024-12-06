@@ -11,7 +11,7 @@ import { useGlobalController } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { templateCycleSubspan } from '@/components/cycles/CycleViewer';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
 import {
   DispatchList,
   DtoUiListSome,

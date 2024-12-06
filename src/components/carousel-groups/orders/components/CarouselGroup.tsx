@@ -29,7 +29,7 @@ import {
   CarouselDto,
   CarouselGroupDto,
   CarouselOrderDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { Loader } from '@mantine/core';
 
 export default function CarouselGroup(params: DtoStoreParams) {

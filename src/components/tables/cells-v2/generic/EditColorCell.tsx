@@ -1,4 +1,4 @@
-import { ColorDto } from '@/api/generated-types/generated-types';
+import { ColorDto } from '@/api/generated-types/generated-types_';
 import { HasId } from '@/api/types';
 import { SetStateAction, useCallback, useRef } from 'react';
 import { fallBackColor, RgbaPicker } from '@/components/generic/RgbaPicker';

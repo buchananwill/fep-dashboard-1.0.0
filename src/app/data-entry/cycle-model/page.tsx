@@ -2,7 +2,7 @@ import { Api } from '@/api/clientApi';
 import {
   CycleInitWithCycleSubspanDefinitions,
   CycleSubspanDefinitionDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { IdWrapper } from '@/api/types';

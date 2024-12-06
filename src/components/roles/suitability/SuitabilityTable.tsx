@@ -9,7 +9,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import {
   AssetRoleTypeWorkTaskTypeSuitabilityDto,
   ProviderRoleTypeWorkTaskTypeSuitabilityDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
@@ -19,7 +19,7 @@ import {
   SyncedColumnCellMemo,
   SyncedRowCellMemo
 } from '@/components/grids/SyncedCell';
-import { ProviderRoleDto } from '@/api/generated-types/generated-types';
+import { ProviderRoleDto } from '@/api/generated-types/generated-types_';
 import { isNotUndefined } from '@/api/main';
 import { Api } from '@/api/clientApi_';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';

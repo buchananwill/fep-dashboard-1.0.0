@@ -1,4 +1,4 @@
-import { ProviderRoleDto } from '@/api/generated-types/generated-types';
+import { ProviderRoleDto } from '@/api/generated-types/generated-types_';
 
 import { Loading } from '@/components/feasibility-report/Loading';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';

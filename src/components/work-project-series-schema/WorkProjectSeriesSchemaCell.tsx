@@ -7,7 +7,7 @@ import {
 import {
   StaticDeliveryAllocationItemDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import {
   CellWrapperProps,
   getCellIdReference

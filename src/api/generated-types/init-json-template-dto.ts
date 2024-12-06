@@ -1,7 +1,7 @@
 import {
   DtoWrapper,
   InitDataTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { JSONSerializable } from '@/api/types';
 
 export type InitJsonTemplateDto = {

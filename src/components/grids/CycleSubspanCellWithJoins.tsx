@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import {
   CycleSubspanDto,
   CycleSubspanWithJoinsListDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { useMemo } from 'react';
 
 export default function CycleSubspanCellWithJoins(props: CellWrapperProps) {

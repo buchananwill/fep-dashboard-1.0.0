@@ -1,4 +1,4 @@
-import { HasNameDto } from '@/api/generated-types/generated-types';
+import { HasNameDto } from '@/api/generated-types/generated-types_';
 import { HasId, IdWrapper } from '@/api/types';
 
 export function getEditTextContextKey<T extends HasId>(

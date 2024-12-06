@@ -15,7 +15,7 @@ import {
   HasNameDto,
   KnowledgeDomainDto,
   KnowledgeLevelDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { HasNumberId } from '@/api/types';
 import { usePathSelectionListener } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/selection/usePathSelectionListener';
 import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHasChangesFlagCallback';

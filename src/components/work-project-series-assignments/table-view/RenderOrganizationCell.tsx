@@ -2,7 +2,7 @@ import { LazyDtoUiWrapper } from 'dto-stores';
 import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
-import { HasNameDto } from '@/api/generated-types/generated-types';
+import { HasNameDto } from '@/api/generated-types/generated-types_';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import { HasId } from '@/api/types';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';

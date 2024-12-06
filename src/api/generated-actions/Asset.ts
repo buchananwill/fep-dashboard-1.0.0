@@ -1,5 +1,5 @@
 'use server';
-import { AssetDto } from '@/api/generated-types/generated-types';
+import { AssetDto } from '@/api/generated-types/generated-types_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 

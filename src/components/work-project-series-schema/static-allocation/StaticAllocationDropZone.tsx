@@ -2,7 +2,7 @@ import { InnerCellContent } from '@/components/work-project-series-assignments/t
 import {
   CycleSubspanWithJoinsListDto,
   StaticDeliveryAllocationItemDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import { getCellIdReference } from '@/components/grids/getCellIdReference';

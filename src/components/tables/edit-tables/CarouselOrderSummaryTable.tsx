@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CarouselOrderSummaryDto } from '@/api/generated-types/generated-types';
+import { CarouselOrderSummaryDto } from '@/api/generated-types/generated-types_';
 import { Column } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 

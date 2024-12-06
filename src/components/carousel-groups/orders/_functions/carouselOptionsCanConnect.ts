@@ -13,7 +13,7 @@ import {
   DirectedEdgePredicate
 } from '@/components/carousel-groups/orders/_functions/buildCompleteCycle';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
-import { CarouselDto } from '@/api/generated-types/generated-types';
+import { CarouselDto } from '@/api/generated-types/generated-types_';
 import { ReadAnyDto } from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 
 export function getOptionConnectionValidator(

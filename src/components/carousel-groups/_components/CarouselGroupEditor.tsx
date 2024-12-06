@@ -8,7 +8,7 @@ import {
   CarouselGroupDto,
   CarouselGroupOptionDto,
   CarouselLeanDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 import { EntityClassMap } from '@/api/entity-class-map';
 import WorkProjectSeriesSchemaSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';

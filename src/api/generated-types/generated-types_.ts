@@ -652,7 +652,7 @@ export interface GenericNestedDto<T> extends NestedDto<T> {
 }
 
 export interface HasParentNameStringList {
-  parentNames: string;
+  parentNames: string | null;
   name: string;
 }
 
@@ -674,7 +674,7 @@ export interface OrganizationWorkHierarchyDto
   extends Serializable,
     HasParentNameStringList {
   typeName: string;
-  workSchemaNodeName: string;
+  workSchemaNodeName: string | null;
 }
 
 export interface PersonDto

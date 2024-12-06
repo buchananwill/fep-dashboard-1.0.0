@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 
 import { WorkTaskTypeCell } from '@/components/tables/cells-v2/WorkTaskTypeCell';
 import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';

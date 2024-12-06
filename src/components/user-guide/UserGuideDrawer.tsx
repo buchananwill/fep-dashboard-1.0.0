@@ -2,7 +2,7 @@
 import { Affix, Button, Drawer, Title } from '@mantine/core';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { useDisclosure } from '@mantine/hooks';
-import { GenericNestedDto } from '@/api/generated-types/generated-types';
+import { GenericNestedDto } from '@/api/generated-types/generated-types_';
 import { UserGuideMarkdown } from '@/app/user-guide/parseMarkdownToTree';
 import Link from 'next/link';
 import { UserGuideContents } from '@/components/user-guide/UserGuideContents';

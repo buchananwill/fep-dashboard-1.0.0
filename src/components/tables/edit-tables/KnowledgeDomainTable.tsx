@@ -6,7 +6,7 @@ import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { set, startCase } from 'lodash';
 import { Column } from '@/types';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import {
   CellComponentRecord,

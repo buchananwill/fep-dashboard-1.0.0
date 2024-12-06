@@ -2,7 +2,7 @@ import { DispatchState } from '@/types';
 import {
   CarouselOrderDto,
   CarouselOrderItemDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import { OrderItemLabel } from '@/components/carousel-groups/orders/order-modal/OrderItemLabel';

@@ -6,7 +6,7 @@ import {
   KnowledgeLevelDto,
   RoleData,
   RolePostRequest
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { FieldName, SubmitHandler, useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import React, { useCallback, useMemo, useTransition } from 'react';

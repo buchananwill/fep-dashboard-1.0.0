@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types_';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/components/BaseWorkSchemaNode';
 import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';

@@ -1,4 +1,4 @@
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 
 export function getAssigneeCountColor(
   count: number,

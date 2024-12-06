@@ -17,7 +17,7 @@ import { z } from 'zod';
 import { ServerAction } from '@/components/react-flow/generic/hooks/useEditableFlow';
 import { WorkSchemaNodeType } from '@/components/react-flow/work-schema-node/workSchemaNodeTypesUi';
 import { FlowNode } from '@/components/react-flow/generic/types';
-import { CarouselDto } from '@/api/generated-types/generated-types';
+import { CarouselDto } from '@/api/generated-types/generated-types_';
 import { getGraphUpdaterWithNameDeDuplication } from '@/components/react-flow/organization/functions/getGraphUpdaterWithNameDeDuplication';
 import { ReadAnyDto } from '@/components/carousel-groups/orders/components/order/CarouselOrderManager';
 import { MonoFunction } from '@/types';

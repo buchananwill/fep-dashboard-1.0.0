@@ -4,7 +4,7 @@ import {
   KnowledgeDomainDto,
   KnowledgeLevelDto,
   KnowledgeLevelSeriesDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { HasName } from 'react-d3-force-wrapper';
 
 export type DeliveryAllocationBase = Partial<HasNumberId> & {

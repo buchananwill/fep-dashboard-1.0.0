@@ -1,6 +1,6 @@
 'use client';
 import { DataNodeDto } from 'react-d3-force-wrapper';
-import { OrganizationDto } from '@/api/generated-types/generated-types';
+import { OrganizationDto } from '@/api/generated-types/generated-types_';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import { useTableProps } from '@/components/grids/useTableProps';
 import { useGlobalController, useGlobalDispatch } from 'selective-context';

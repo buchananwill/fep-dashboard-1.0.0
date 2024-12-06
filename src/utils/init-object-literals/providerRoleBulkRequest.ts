@@ -1,7 +1,7 @@
 import { RepeatPostRequest } from '@/api/types';
 import { ProviderRolePostRequest } from '@/api/old-zod-schemas/ProviderRolePostRequestSchema_';
-import { ProviderRoleTypeDto } from '@/api/generated-types/generated-types';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { ProviderRoleTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 import { getTemplateMergingFunction } from '@/utils/init-object-literals/getTemplateMergingFunction';
 import { createWholeSchoolPartials } from '@/utils/init-object-literals/createKnowledgeDomainLevelCrossProduct';
 import { createRequestRecordCombiner } from '@/utils/init-object-literals/createRequestRecordCombiner';

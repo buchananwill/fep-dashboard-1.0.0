@@ -9,7 +9,7 @@ import { EmptyArray } from '@/api/literals';
 import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
 import { Autocomplete } from '@mantine/core';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import { useTransientState } from '@/hooks/useTransientState';
 
 export function SelectKnowledgeDomainNameCell(

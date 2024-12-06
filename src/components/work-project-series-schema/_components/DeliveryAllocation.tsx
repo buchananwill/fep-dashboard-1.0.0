@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AllocationUnitGroup } from '@/components/work-project-series-schema/_components/AllocationUnitGroup';
-import { DeliveryAllocationDto } from '@/api/generated-types/generated-types';
+import { DeliveryAllocationDto } from '@/api/generated-types/generated-types_';
 
 export function DeliveryAllocation({
   deliveryAllocation: { deliveryAllocationSize, count }

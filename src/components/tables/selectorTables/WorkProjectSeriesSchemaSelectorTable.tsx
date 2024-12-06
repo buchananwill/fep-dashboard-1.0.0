@@ -6,7 +6,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import {
   WorkProjectSeriesSchemaDto,
   WorkTaskTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { Paths } from 'type-fest';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';

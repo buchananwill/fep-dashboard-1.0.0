@@ -1,5 +1,5 @@
 'use server';
-import { CarouselDto } from '@/api/generated-types/generated-types';
+import { CarouselDto } from '@/api/generated-types/generated-types_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

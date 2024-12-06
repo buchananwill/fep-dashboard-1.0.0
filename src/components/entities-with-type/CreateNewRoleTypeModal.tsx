@@ -2,7 +2,7 @@ import { Button, Modal, TextInput } from '@mantine/core';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUniqueStringFieldConstraint } from '@/hooks/useUniqueStringFieldConstraint';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
-import { TypeDto } from '@/api/generated-types/generated-types';
+import { TypeDto } from '@/api/generated-types/generated-types_';
 
 export default function CreateNewRoleTypeModal({
   opened,

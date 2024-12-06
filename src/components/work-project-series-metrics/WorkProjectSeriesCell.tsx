@@ -5,7 +5,7 @@ import { BaseLazyDtoUiProps } from 'dto-stores';
 import {
   WorkProjectSeriesDto,
   WorkProjectSeriesWithSchemaLabelsDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { getValue } from '@/functions/allowingNestedFiltering';
 
 export default function WorkProjectSeriesCell(props: CellWrapperProps) {

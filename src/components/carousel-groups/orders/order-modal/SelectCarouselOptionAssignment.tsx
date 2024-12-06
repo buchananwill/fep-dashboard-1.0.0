@@ -3,7 +3,7 @@ import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import {
   CarouselDto,
   CarouselOptionDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { useCallback, useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';

@@ -11,7 +11,7 @@ import { EmptyArray } from '@/api/literals';
 import {
   CarouselGroupDto,
   CarouselOrderSummaryDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { nameAccessor } from '@/functions/nameSetter';
 import { useCallback, useMemo } from 'react';
 

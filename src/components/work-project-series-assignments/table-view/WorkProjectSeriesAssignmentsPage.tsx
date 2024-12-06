@@ -17,7 +17,7 @@ import {
   CycleSubspanDto,
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import React from 'react';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';

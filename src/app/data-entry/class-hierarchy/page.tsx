@@ -2,7 +2,7 @@ import { Api } from '@/api/clientApi';
 import {
   OrganizationWorkHierarchyDto,
   WorkSchemaNodeManualDefinitionDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { IdWrapper } from '@/api/types';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';

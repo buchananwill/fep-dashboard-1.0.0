@@ -1,5 +1,5 @@
 import { Column } from '@/types';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 import { startCase } from 'lodash';
 import { getDomainAlias } from '@/api/getDomainAlias';
 

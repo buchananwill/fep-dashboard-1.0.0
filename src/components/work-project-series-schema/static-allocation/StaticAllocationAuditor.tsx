@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 import {
   StaticDeliveryAllocationItemDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { getDeliveryAllocationSize } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDropZone';
 import { useGlobalController } from 'selective-context';
 

@@ -1,5 +1,5 @@
 'use client';
-import { AssetRoleDto } from '@/api/generated-types/generated-types';
+import { AssetRoleDto } from '@/api/generated-types/generated-types_';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';

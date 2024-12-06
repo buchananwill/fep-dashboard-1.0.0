@@ -1,5 +1,5 @@
 import { EntityInnerCellProps } from '@/components/tables/core-table-types';
-import { QueueTreeNodeDto } from '@/api/generated-types/generated-types';
+import { QueueTreeNodeDto } from '@/api/generated-types/generated-types_';
 import { ColumnUid } from '@/types';
 import { useGlobalDispatch } from 'selective-context';
 import { NodeInModal } from '@/app/core/schedules/build-metrics/BuildMetricTable';

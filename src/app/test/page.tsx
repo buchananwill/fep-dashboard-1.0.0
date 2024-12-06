@@ -4,7 +4,7 @@ import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { joinWorkProjectSeriesSchemaIdKey } from '@/functions/workProjectSeriesSchemaIdTransforms';
 import { IdWrapper } from '@/api/types';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 
 export default async function Page() {
   const workProjectSeriesSchemaDtos =

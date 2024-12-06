@@ -1,6 +1,6 @@
 import { workProjectSeriesSchemaActionSequence } from '@/components/work-project-series-schema/_functions/workProjectSeriesSchemaActionSequence';
 import { PartialDeep } from 'type-fest';
-import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
 
 export function getKnowledgeLevelPartial(
   levelOrdinal: string,

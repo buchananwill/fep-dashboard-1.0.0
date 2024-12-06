@@ -17,7 +17,7 @@ import {
 import { WritableDraft } from 'immer/src/types/types-external';
 import { interpolateRainbow } from 'd3';
 import { getColorWithinSpace } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/colorizeKnowledgeDomains';
-import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
 import * as child_process from 'node:child_process';
 
 export type Parent<T> = {

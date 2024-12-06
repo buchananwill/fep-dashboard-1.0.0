@@ -7,12 +7,12 @@ import {
   useReadAnyDto,
   useWriteAnyDto
 } from 'dto-stores';
-import { CarouselOrderDto } from '@/api/generated-types/generated-types';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types_';
 import { SetStateAction, useEffect, useRef } from 'react';
 import { useGlobalReadAny } from 'selective-context';
 import { CarouselOptionState } from '@/components/carousel-groups/orders/components/option/CarouselOption';
 import { performDiffOnCarouselOrderItem } from '@/components/carousel-groups/orders/_functions/performDiffOnCarouselOrderItem';
-import { CarouselOptionDto } from '@/api/generated-types/generated-types';
+import { CarouselOptionDto } from '@/api/generated-types/generated-types_';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { checkForClash } from '@/components/carousel-groups/orders/_functions/checkForClash';
 import { EmptyArray } from '@/api/literals';

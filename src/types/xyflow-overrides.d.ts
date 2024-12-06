@@ -1,7 +1,7 @@
 // File: types/xyflow-overrides.d.ts
 import { Simplify } from 'type-fest';
 import { NodeDataType } from '@/components/react-flow/generic/utils/adaptors';
-import { OrganizationDto } from '@/api/generated-types/generated-types';
+import { OrganizationDto } from '@/api/generated-types/generated-types_';
 
 declare module 'xyflow' {
   import {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { startCase } from 'lodash';
 import { AdjustAllocationInWrapper } from '@/components/work-project-series-schema/_components/AdjustAllocation';

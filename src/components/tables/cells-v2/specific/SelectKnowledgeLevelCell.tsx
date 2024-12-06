@@ -10,7 +10,7 @@ import { Autocomplete } from '@mantine/core';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
 import { useTransientState } from '@/hooks/useTransientState';
 import { api } from '@/api/v3/clientApiV3';
-import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
 
 export function SelectKnowledgeLevelCell(
   props: IdInnerCellProps<string | undefined>

@@ -1,4 +1,4 @@
-import { OrganizationLeafTotalAllocationFeasibilityDto } from '@/api/generated-types/generated-types';
+import { OrganizationLeafTotalAllocationFeasibilityDto } from '@/api/generated-types/generated-types_';
 import OrganizationSummary from '@/components/feasibility-report/organizations/OrganizationSummary';
 import OrganizationAllocationFeasibility from '@/components/feasibility-report/organizations/OrganizationAllocationFeasibility';
 import OrganizationCycleSubspanGroupFeasibilities from '@/components/feasibility-report/organizations/OrganizationCycleSubspanGroupFeasibilities';

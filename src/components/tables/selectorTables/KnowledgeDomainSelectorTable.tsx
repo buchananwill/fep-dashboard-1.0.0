@@ -1,7 +1,7 @@
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EntityTableProps } from '@/components/tables/types';
 import { Column } from '@/types';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import React from 'react';
 import { startCase } from 'lodash';

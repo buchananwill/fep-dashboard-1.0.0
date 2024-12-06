@@ -44,7 +44,7 @@ import {
   WorkSchemaNodeDto,
   WorkSchemaNodeManualDefinitionDto,
   WorkTaskTypeDto
-} from './generated-types/generated-types';
+} from './generated-types/generated-types_';
 import { InitJsonTemplateNodeData } from '@/components/react-flow/init-json-template/types';
 import { UserGuideMarkdown } from '@/app/user-guide/parseMarkdownToTree';
 import { HasNumberId, IdWrapper } from '@/api/types';

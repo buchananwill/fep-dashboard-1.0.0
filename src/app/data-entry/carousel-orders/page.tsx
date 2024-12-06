@@ -1,5 +1,5 @@
 import { Api } from '@/api/clientApi';
-import { CarouselOrderSummaryDto } from '@/api/generated-types/generated-types';
+import { CarouselOrderSummaryDto } from '@/api/generated-types/generated-types_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CarouselOrderSummaryTable } from '@/components/tables/edit-tables/CarouselOrderSummaryTable';

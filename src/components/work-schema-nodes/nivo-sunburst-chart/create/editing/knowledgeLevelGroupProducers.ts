@@ -3,7 +3,7 @@ import {
   NestedWorkNode,
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import {
   addBundleMutable,
   addDeliveryAllocationListToKdg,

@@ -2,7 +2,7 @@
 
 import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CycleSubspanDefinitionDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanDefinitionDto } from '@/api/generated-types/generated-types_';
 import { Column, ColumnUid } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 

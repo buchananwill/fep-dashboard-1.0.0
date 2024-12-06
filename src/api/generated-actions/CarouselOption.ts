@@ -1,5 +1,5 @@
 'use server';
-import { CarouselOptionDto } from '@/api/generated-types/generated-types';
+import { CarouselOptionDto } from '@/api/generated-types/generated-types_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
 

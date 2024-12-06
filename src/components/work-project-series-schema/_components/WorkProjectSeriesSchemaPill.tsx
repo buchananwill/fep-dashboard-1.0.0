@@ -1,6 +1,6 @@
 import { useDtoStore } from 'dto-stores';
 import { IdWrapper } from '@/api/types';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 import { Pill } from '@mantine/core';
 import {
   getAutoContrastFromCielab,

@@ -40,7 +40,7 @@ import {
 import {
   CarouselDto,
   CarouselOrderDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 import { zIndexPopoverOverride } from '@/components/carousel-groups/orders/components/option/ShowAssigneesButton';
 

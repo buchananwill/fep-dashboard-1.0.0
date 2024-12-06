@@ -5,7 +5,7 @@ import { GenericDivProps } from '@/components/react-flow/generic/components/node
 import {
   HasNameDto,
   WorkTaskTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import clsx from 'clsx';
 import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';

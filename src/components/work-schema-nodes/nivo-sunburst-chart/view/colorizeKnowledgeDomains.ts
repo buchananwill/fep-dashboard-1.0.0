@@ -4,7 +4,7 @@ import {
   WorkNodeHierarchy
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/nested-lesson-bundle-data';
 import { hsl, interpolateRainbow } from 'd3';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 
 export function getColorWithinSpace(
   scalePosition: number,

@@ -1,4 +1,4 @@
-import { ColorDto } from '@/api/generated-types/generated-types';
+import { ColorDto } from '@/api/generated-types/generated-types_';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 import { set, unset } from 'lodash';
 import { OptionallyHasColorDto } from '@/components/tables/core-table-types';

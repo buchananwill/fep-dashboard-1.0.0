@@ -5,7 +5,7 @@ import WorkTaskTypeMatrix from '@/components/work-task-types/WorkTaskTypeMatrix'
 import {
   KnowledgeDomainDto,
   KnowledgeLevelDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { RoleEntity } from '@/components/roles/types';
 import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 import { useMemo } from 'react';

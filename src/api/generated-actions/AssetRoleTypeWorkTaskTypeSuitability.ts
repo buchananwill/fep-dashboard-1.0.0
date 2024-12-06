@@ -1,5 +1,5 @@
 'use server';
-import { AssetRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/generated-types/generated-types';
+import { AssetRoleTypeWorkTaskTypeSuitabilityDto } from '@/api/generated-types/generated-types_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateTriIntersectionEndpointSet } from '../actions/template-tri-intersection-endpoints';
 

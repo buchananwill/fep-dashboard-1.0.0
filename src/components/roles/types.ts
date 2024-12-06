@@ -11,7 +11,7 @@ import {
   ProviderRoleTypeDto,
   UserRoleDto,
   UserRoleTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { PartialDeep } from 'type-fest';
 
 export type BaseRoleParams = {

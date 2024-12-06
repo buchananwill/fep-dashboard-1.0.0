@@ -1,5 +1,5 @@
 import { cookieSecret } from '@/api/literals';
-import { TenancyDto } from '@/api/generated-types/generated-types';
+import { TenancyDto } from '@/api/generated-types/generated-types_';
 import * as jwt from 'jsonwebtoken';
 
 ('server only');

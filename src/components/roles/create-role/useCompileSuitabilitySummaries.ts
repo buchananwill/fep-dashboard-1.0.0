@@ -10,7 +10,7 @@ import {
   RoleData,
   SuitabilityPostRequest,
   SuitabilitySummaryDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { listenerKey } from '@/components/roles/create-role/CreateRoleForm';
 
 export function useCompileSuitabilitySummaries(

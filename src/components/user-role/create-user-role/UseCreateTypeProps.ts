@@ -1,4 +1,4 @@
-import { TypeDto } from '@/api/generated-types/generated-types';
+import { TypeDto } from '@/api/generated-types/generated-types_';
 import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';

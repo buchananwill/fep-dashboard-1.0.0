@@ -1,5 +1,5 @@
 import { PartialDeep } from 'type-fest';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 
 function createKnowledgeDomainLevelCrossProduct(
   domainNames: string[],

@@ -8,7 +8,7 @@ import {
   RolePostRequest,
   SuitabilityPostRequest,
   TypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import React, { useMemo } from 'react';
 import { RoleEntity } from '@/components/roles/types';
 import { FieldErrors, useFormContext } from 'react-hook-form';

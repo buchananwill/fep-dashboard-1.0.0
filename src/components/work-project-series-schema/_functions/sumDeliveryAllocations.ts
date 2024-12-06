@@ -1,7 +1,7 @@
 import {
   DeliveryAllocationDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 
 function flattenAllocation(da: DeliveryAllocationDto) {
   return da.count * da.deliveryAllocationSize;

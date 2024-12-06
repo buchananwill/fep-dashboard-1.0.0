@@ -13,7 +13,7 @@ import {
   CycleDto,
   DeliveryAllocationDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 
 import { EntityInnerCellProps } from '@/components/tables/core-table-types';

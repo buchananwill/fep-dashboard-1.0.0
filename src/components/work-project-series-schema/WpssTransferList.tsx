@@ -1,5 +1,5 @@
 'use client';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { useLabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
 import { joinWorkProjectSeriesSchemaIdKey } from '@/functions/workProjectSeriesSchemaIdTransforms';

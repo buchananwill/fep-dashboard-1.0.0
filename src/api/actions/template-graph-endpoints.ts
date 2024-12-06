@@ -8,7 +8,7 @@ import { isNotUndefined } from '../main';
 import { constructUrl } from './template-base-endpoints';
 import { GraphDto, GraphDtoPutRequestBody } from 'react-d3-force-wrapper';
 import { HasNumberId } from '@/api/types';
-import { GenericNestedDto } from '@/api/generated-types/generated-types';
+import { GenericNestedDto } from '@/api/generated-types/generated-types_';
 
 export type DepthOp = '>' | '>=' | '<' | '<=' | '=' | '!=';
 

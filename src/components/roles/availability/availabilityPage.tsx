@@ -13,7 +13,7 @@ import {
 } from '@/components/roles/availability/AvailabilityType';
 import { notFound } from 'next/navigation';
 import { GenericTableDto, HasNumberId } from '@/api/types';
-import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import pluralize from 'pluralize';

@@ -4,7 +4,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import {
   KnowledgeLevelDto,
   KnowledgeLevelSeriesDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import ChangeStartingOrdinal from '@/components/knowledge-levels/ChangeStartingOrdinal';
 import { useKnowledgeDtoTableProps } from '@/components/knowledge-levels/useKnowledgeDtoTableProps';
 import { getDomainAlias } from '@/api/getDomainAlias';

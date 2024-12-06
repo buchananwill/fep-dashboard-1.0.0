@@ -4,7 +4,7 @@ import { schemaNameSchema } from '@/api/actions-custom/schemas/schema-name-schem
 import { publicToken } from '@/api/auth/schemaName';
 import { NextRequest } from 'next/server';
 import { API_V2_URL } from '@/api/literals';
-import { TenancyDto } from '@/api/generated-types/generated-types';
+import { TenancyDto } from '@/api/generated-types/generated-types_';
 import { setSchemaNameCookie } from '@/api/actions-custom/schemas/set-schema-name-cookie';
 
 export default async function createSchemaName(name: string) {

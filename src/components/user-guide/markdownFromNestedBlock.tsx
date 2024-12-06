@@ -1,4 +1,4 @@
-import { GenericNestedDto } from '@/api/generated-types/generated-types';
+import { GenericNestedDto } from '@/api/generated-types/generated-types_';
 import { UserGuideMarkdown } from '@/app/user-guide/parseMarkdownToTree';
 import { PropsWithChildren } from 'react';
 import { Paper } from '@mantine/core';

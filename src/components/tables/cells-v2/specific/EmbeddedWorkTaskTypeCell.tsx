@@ -1,5 +1,5 @@
 import { EntityInnerCellProps } from '@/components/tables/core-table-types';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 import { ColumnUid } from '@/types';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';

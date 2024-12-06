@@ -1,6 +1,6 @@
 'use client';
 import { useGlobalController, useGlobalDispatch } from 'selective-context';
-import { CarouselOrderDto } from '@/api/generated-types/generated-types';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types_';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 

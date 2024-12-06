@@ -1,7 +1,7 @@
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import JsonTree from '@/components/generic/JsonTree';
-import { ScheduleDto } from '@/api/generated-types/generated-types';
+import { ScheduleDto } from '@/api/generated-types/generated-types_';
 import { WorkProjectSeriesAssignmentsPage } from '@/components/work-project-series-assignments/table-view/WorkProjectSeriesAssignmentsPage';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';

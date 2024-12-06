@@ -8,7 +8,7 @@ import {
   useLinkContext
 } from 'react-d3-force-wrapper';
 import { ObjectPlaceholder } from 'selective-context';
-import { CarouselOptionDto } from '@/api/generated-types/generated-types';
+import { CarouselOptionDto } from '@/api/generated-types/generated-types_';
 import { FocusToEdit } from '@/components/generic/FocusToEdit';
 import { listenerKeyDetailsContent } from '@/app/_literals';
 import {

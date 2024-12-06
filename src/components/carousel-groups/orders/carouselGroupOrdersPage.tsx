@@ -18,7 +18,7 @@ import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import CarouselOrderModal from '@/components/carousel-groups/orders/order-modal/CarouselOrderModal';
 import { notFound } from 'next/navigation';
-import { CarouselOrderDto } from '@/api/generated-types/generated-types';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types_';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';

@@ -1,5 +1,5 @@
 'use client';
-import { GenericNestedDto } from '@/api/generated-types/generated-types';
+import { GenericNestedDto } from '@/api/generated-types/generated-types_';
 import { UserGuideMarkdown } from '@/app/user-guide/parseMarkdownToTree';
 import { List } from '@mantine/core';
 import { LinkButton } from '@/components/navigation/LinkButton';

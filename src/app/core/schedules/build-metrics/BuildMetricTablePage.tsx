@@ -6,7 +6,7 @@ import { EmptyArray } from '@/api/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types_';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';

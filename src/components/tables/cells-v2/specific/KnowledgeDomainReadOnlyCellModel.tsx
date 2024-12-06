@@ -3,7 +3,7 @@ import {
   CellComponentRecord,
   EntityInnerCellProps
 } from '@/components/tables/core-table-types';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import { get } from 'lodash';
 import { Button } from '@mantine/core';
 import { useClickToFilter } from '@/hooks/useClickToFilter';

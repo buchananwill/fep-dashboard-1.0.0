@@ -1,6 +1,6 @@
-import { CycleSubspanJoinNestedDto } from '@/api/generated-types/generated-types';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanJoinNestedDto } from '@/api/generated-types/generated-types_';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 
 export function matchSize(
   sizesSet: Record<string, CycleSubspanJoinNestedDto>,

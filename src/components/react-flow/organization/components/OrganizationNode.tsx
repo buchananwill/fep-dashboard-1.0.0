@@ -6,7 +6,7 @@ import { BaseEditableNode } from '@/components/react-flow/generic/components/nod
 import {
   OrganizationDto,
   WorkSchemaNodeRootTotalDeliveryAllocationRollupDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { isNumber } from 'lodash';
 import NodeBundleSummaries from '@/components/react-flow/organization/components/NodeBundleSummaries';
 import { NodeBase } from '@/components/react-flow/generic/types';

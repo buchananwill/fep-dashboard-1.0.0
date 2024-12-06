@@ -4,7 +4,7 @@ import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/components/grids/CellQueryManager';
 import { EntityClassMap } from '@/api/entity-class-map';
 import DtoUiWrapperCell from '@/components/grids/DtoUiWrapperCell';
-import { AssetRoleDto } from '@/api/generated-types/generated-types';
+import { AssetRoleDto } from '@/api/generated-types/generated-types_';
 
 function InnerAssetCell(props: BaseLazyDtoUiProps<AssetRoleDto>) {
   return (

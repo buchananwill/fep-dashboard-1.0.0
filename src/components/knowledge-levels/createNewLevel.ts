@@ -1,5 +1,5 @@
-import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
-import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types_';
 import { makeTransientId } from '@/functions/makeTransientId';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';

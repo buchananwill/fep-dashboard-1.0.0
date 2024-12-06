@@ -3,7 +3,7 @@
 import { EntityClassMap } from '@/api/entity-class-map';
 import React, { useCallback, useMemo } from 'react';
 import { DispatchState } from '@/types';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types_';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import {
   WorkProjectSeriesSchemaColumns,

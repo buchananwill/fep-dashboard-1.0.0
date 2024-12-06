@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types_';
 import { getDomainAlias } from '@/api/getDomainAlias';
 
 import { EntityTableProps } from '@/components/tables/types';

@@ -1,5 +1,5 @@
 'use server';
-import { ProviderRoleAvailabilityDto } from '@/api/generated-types/generated-types';
+import { ProviderRoleAvailabilityDto } from '@/api/generated-types/generated-types_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateIntersectionEndpointSet } from '../actions/template-intersection-endpoints';
 

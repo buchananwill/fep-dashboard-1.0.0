@@ -19,7 +19,7 @@ import FormWrapper from '@/components/roles/create-role/FormWrapper';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
 
 export default async function CreateRolePage({
   pathVariables

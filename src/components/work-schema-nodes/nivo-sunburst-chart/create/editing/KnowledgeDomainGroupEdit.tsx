@@ -6,7 +6,7 @@ import { DispatchState } from '@/types';
 import { NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import { useCallback, useMemo, useRef } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { replaceKnowledgeDomainsInGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupProducers';

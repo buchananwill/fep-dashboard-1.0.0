@@ -1,7 +1,7 @@
 'use server';
 
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
-import { FlywayOperationRequest } from '@/api/generated-types/generated-types';
+import { FlywayOperationRequest } from '@/api/generated-types/generated-types_';
 import { API_V2_URL, cookieSecret } from '@/api/literals';
 import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
 import * as jwt from 'jsonwebtoken';

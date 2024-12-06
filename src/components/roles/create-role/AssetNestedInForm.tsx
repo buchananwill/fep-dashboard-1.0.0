@@ -1,4 +1,4 @@
-import { AssetDto } from '@/api/generated-types/generated-types';
+import { AssetDto } from '@/api/generated-types/generated-types_';
 import React from 'react';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { BaseEntity } from '@/components/roles/create-role/PersonNestedInForm';

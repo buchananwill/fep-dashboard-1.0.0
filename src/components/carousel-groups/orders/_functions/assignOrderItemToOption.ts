@@ -4,7 +4,7 @@ import {
   CarouselOptionDto,
   CarouselOrderDto,
   CarouselOrderItemDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 
 export function assignOrderItemToOption(
   orderItem: CarouselOrderItemDto,

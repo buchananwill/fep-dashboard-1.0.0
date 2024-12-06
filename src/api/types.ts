@@ -4,7 +4,7 @@ import { PartialDeep } from 'type-fest';
 import {
   OrganizationDto,
   WorkProjectSeriesAssignmentDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { Api } from '@/api/clientApi';
 import { ClosureDto as ClosureDtoLibrary } from 'react-d3-force-wrapper';
 import { Identifier } from 'dto-stores';

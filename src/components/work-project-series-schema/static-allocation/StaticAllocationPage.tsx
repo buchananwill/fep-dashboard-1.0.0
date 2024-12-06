@@ -1,7 +1,7 @@
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
-import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types_';
 import StaticAllocationTable from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import {
   EditAddDeleteDtoControllerArray,
@@ -16,7 +16,7 @@ import { EmptyArray } from '@/api/literals';
 import {
   StaticDeliveryAllocationItemDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
 import { getCellDataIdReferenceOrUndefined } from '@/components/work-project-series-schema/static-allocation/getCellDataOrUndefined';

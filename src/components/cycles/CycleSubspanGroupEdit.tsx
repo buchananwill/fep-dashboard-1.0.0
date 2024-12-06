@@ -3,7 +3,7 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useMemo } from 'react';
 import {
   CycleDto,
   CycleSubspanDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { Badge, Checkbox } from '@mantine/core';

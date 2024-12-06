@@ -3,7 +3,7 @@ import { workSchemaNodeForceGraphOptions } from '@/components/work-schema-nodes/
 import { EmptyArray } from '@/api/literals';
 import { Api } from '@/api/clientApi_';
 import { getWithoutBody } from '@/api/actions/template-actions';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types_';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { DataLink, DataNode } from 'react-d3-force-wrapper';
 

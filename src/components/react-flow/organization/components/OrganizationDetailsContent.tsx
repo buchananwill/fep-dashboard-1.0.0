@@ -19,7 +19,7 @@ import {
   OrganizationTypeDto,
   WorkSchemaNodeAssignmentDto,
   WorkSchemaNodeRootTotalDeliveryAllocationRollupDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import {
   BaseDtoUiProps,
   BaseLazyDtoUiProps,

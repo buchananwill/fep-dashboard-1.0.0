@@ -8,7 +8,7 @@ import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button, Checkbox } from '@mantine/core';
 import { ControlledSlider } from '@/components/react-hook-form/ControlledSlider';
 import { Overlay } from '@/components/overlays/overlay';
-import { ScheduleParametersDto } from '@/api/generated-types/generated-types';
+import { ScheduleParametersDto } from '@/api/generated-types/generated-types_';
 import { startCase } from 'lodash';
 import { buildScheduleAction } from '@/app/core/auto-scheduling/buildScheduleAction';
 import { ScheduleParametersDtoSchema } from '@/api/generated-schemas/schemas_';

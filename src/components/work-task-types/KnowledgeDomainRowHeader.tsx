@@ -3,7 +3,7 @@ import { useCellIdReferences } from '@/components/work-task-types/useCellIdRefer
 import { Identifier } from 'dto-stores';
 import FallbackCell from '@/components/grids/FallbackCell';
 import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreDispatchAndListener';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 
 export function KnowledgeDomainRowHeader(props: CellWrapperProps<number>) {

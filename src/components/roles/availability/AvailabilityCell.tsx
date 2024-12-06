@@ -10,7 +10,7 @@ import { ObjectPlaceholder } from '@/api/literals';
 import {
   ProviderRoleAvailabilityDto,
   RoleAvailabilityDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { AvailabilityType } from '@/components/roles/availability/AvailabilityType';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { startCase } from 'lodash';

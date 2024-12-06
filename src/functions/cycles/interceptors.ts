@@ -1,6 +1,6 @@
 'use server';
 
-import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
 import { postList, putList } from '@/api/generated-actions/CycleSubspan';
 
 export const interceptPut = async (dtoList: CycleSubspanDto[]) => {

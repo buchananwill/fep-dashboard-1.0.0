@@ -2,7 +2,7 @@ import { TemplateRequestOverrides } from '@/api/types';
 
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
 import { PartialDeep } from 'type-fest';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 
 export function createRequestRecordCombiner(
   globalSuitabilities: PartialDeep<WorkTaskTypeDto>[]

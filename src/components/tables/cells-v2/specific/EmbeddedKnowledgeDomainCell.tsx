@@ -1,5 +1,5 @@
 import { EntityInnerCellProps } from '@/components/tables/core-table-types';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import { useMemo } from 'react';
 import { Button } from '@mantine/core';
 import { ColumnUid } from '@/types';

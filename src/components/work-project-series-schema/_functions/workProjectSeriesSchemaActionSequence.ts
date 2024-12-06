@@ -2,7 +2,7 @@ import { PartialDeep } from 'type-fest';
 import {
   WorkProjectSeriesSchemaDto,
   WorkTaskTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { Api } from '@/api/clientApi_';
 
 export type WorkProjectSeriesSchemaFetchParams = PartialDeep<WorkTaskTypeDto>;

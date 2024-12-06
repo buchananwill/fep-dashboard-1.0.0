@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { UserRoleDto } from '@/api/generated-types/generated-types';
+import { UserRoleDto } from '@/api/generated-types/generated-types_';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { Column, ColumnUid } from '@/types';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';

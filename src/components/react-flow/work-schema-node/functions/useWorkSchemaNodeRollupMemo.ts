@@ -1,5 +1,5 @@
 import { DataNode } from 'react-d3-force-wrapper';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 import { useMemo } from 'react';
 import { resolveNodeAllocation } from '@/components/react-flow/work-schema-node/functions/resolveNodeAllocation';
 import { AllocationRollup } from '@/components/react-flow/work-schema-node/functions/useLeafNodeRollUpListener';

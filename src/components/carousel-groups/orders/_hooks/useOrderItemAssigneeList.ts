@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
-import { CarouselOrderDto } from '@/api/generated-types/generated-types';
+import { CarouselOrderDto } from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { isNotUndefined } from '@/api/main';

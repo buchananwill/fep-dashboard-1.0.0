@@ -1,4 +1,4 @@
-import { CarouselDto } from '@/api/generated-types/generated-types';
+import { CarouselDto } from '@/api/generated-types/generated-types_';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 
 export function transformOptionForClientState(carouselDtoList: CarouselDto[]) {

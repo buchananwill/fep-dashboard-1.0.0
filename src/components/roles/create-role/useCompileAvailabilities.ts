@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { EditableEvents } from '@/components/roles/create-role/useEditableEvents';
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { outlookEventToAvailability } from '@/components/roles/create-role/RoleSubmissionHandler';
-import { RoleData } from '@/api/generated-types/generated-types';
+import { RoleData } from '@/api/generated-types/generated-types_';
 
 export function useCompileAvailabilities(
   readAny: (contextKey: string) => unknown,

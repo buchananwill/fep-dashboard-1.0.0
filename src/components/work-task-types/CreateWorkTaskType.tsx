@@ -10,7 +10,7 @@ import {
   KnowledgeLevelDto,
   KnowledgeLevelSeriesDto,
   WorkTaskTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { Api } from '@/api/clientApi_';
 import { HasId } from '@/api/types';
 import { getNames } from '@/components/work-task-types/getNamesServerAction';

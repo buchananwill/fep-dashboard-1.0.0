@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import {
   CarouselGroupDto,
   CarouselOrderDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 
 export const resetAssignmentsAction = async (
   entity?: PartialDeep<CarouselGroupDto>

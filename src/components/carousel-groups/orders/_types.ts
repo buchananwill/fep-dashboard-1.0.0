@@ -1,7 +1,7 @@
 import {
   CarouselOptionDto,
   CarouselOrderItemDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 
 export type CarouselOptionStateInterface = {
   id: number;

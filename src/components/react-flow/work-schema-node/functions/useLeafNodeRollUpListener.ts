@@ -5,7 +5,7 @@ import { useEffect, useMemo } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeLayoutFlowWithForces';
 import { ObjectPlaceholder } from '@/api/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';

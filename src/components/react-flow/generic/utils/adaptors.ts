@@ -12,7 +12,7 @@ import {
 } from 'react-d3-force-wrapper';
 
 import { HasNumberId } from '@/api/types';
-import { OrganizationDto } from '@/api/generated-types/generated-types';
+import { OrganizationDto } from '@/api/generated-types/generated-types_';
 import { Simplify } from 'type-fest';
 import { z } from 'zod';
 import { WorkSchemaNodeDtoSchema } from '@/api/generated-schemas/schemas_';

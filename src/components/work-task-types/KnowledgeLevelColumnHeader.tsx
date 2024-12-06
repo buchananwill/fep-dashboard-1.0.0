@@ -3,7 +3,7 @@ import { Identifier } from 'dto-stores';
 import { useCellIdReferences } from '@/components/work-task-types/useCellIdReferences';
 import FallbackCell from '@/components/grids/FallbackCell';
 import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreDispatchAndListener';
-import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CellWrapperPropsWithId } from '@/components/work-task-types/WorkTaskTypeMatrix';
 

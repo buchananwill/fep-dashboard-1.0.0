@@ -1,4 +1,4 @@
-import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types_';
 import { NavLinkTree } from '@/app/core/navigation/links/types';
 import { navKeyList } from '@/components/navigation/iconDefinitions';
 import { sort } from 'd3';

@@ -30,7 +30,7 @@ import {
   CarouselOrderDto,
   CarouselOrderItemDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { RotationPrimeButton } from '@/components/carousel-groups/orders/components/option/RotationPrimeButton';
 import { HighlightMatchingSchemasButton } from '@/components/carousel-groups/orders/components/option/HighlightMatchingSchemasButton';
 import { ShowAssigneesButton } from '@/components/carousel-groups/orders/components/option/ShowAssigneesButton';

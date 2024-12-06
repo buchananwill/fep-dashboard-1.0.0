@@ -3,7 +3,7 @@ import {
   DateAsString,
   Serializable,
   ZoneId
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 
 export const PROJECT_EPOCH_DATE_TIME = new Date('2000-01-01T00:00:00.000Z');
 export const PROJECT_EPOCH_DATE_TIME_MONDAY = new Date(

@@ -1,4 +1,4 @@
-import { TaskAreaPerKnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { TaskAreaPerKnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import { getKnowledgeDomainResourceFlowResponse } from '@/api/actions-custom/feasibilities';
 import { CheckIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';

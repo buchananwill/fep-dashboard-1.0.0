@@ -1,6 +1,6 @@
 'use client';
 import { FormProvider, useForm } from 'react-hook-form';
-import { AssetDto } from '@/api/generated-types/generated-types';
+import { AssetDto } from '@/api/generated-types/generated-types_';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   AssetRolePostRequestSchema,

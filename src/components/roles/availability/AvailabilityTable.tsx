@@ -3,7 +3,7 @@ import { CellIdReference } from '@/components/grids/CellQueryManager';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import { EditAddDeleteDtoControllerArray, Identifier } from 'dto-stores';
 import { GenericTableDto, HasNumberId } from '@/api/types';
-import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
 import { useGlobalController } from 'selective-context';
 import {
   GenericAvailabilityCell,

@@ -6,7 +6,7 @@ import {
   CarouselGroupDto,
   CarouselOrderSummaryDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';

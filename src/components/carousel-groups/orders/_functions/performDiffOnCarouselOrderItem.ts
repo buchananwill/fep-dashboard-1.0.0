@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react';
-import { CarouselOrderItemDto } from '@/api/generated-types/generated-types';
+import { CarouselOrderItemDto } from '@/api/generated-types/generated-types_';
 import { handleAddAssignee } from '@/components/carousel-groups/orders/_functions/handleAddAssignee';
 import { handleRemoveAssignee } from '@/components/carousel-groups/orders/_functions/handleRemoveAssignee';
 import {

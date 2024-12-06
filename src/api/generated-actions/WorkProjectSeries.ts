@@ -1,5 +1,5 @@
 'use server';
-import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

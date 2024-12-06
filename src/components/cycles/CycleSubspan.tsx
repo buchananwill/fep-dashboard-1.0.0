@@ -5,7 +5,7 @@ import { BaseDtoUiProps, Identifier } from 'dto-stores';
 import { DeletedOverlay } from '@/components/overlays/deleted-overlay';
 import { TimeInputCycleSubspan } from '@/components/cycles/TimeInputCycleSubspan';
 import { EditTextDeleteEntityPopover } from '@/components/generic/EditTextDeleteEntityPopover';
-import { CycleSubspanDto } from '@/api/generated-types/generated-types';
+import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
 import { ObjectPlaceholder, useGlobalDispatch } from 'selective-context';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { SetStateAction, useCallback } from 'react';

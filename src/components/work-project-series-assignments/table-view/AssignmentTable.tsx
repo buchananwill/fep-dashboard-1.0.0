@@ -16,7 +16,7 @@ import {
   OrganizationDto,
   WorkProjectSeriesAssignmentDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import AssignmentRowCell from '@/components/work-project-series-assignments/table-view/AssignmentRowCell';

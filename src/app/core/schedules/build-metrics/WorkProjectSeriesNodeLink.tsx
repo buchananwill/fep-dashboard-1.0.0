@@ -1,7 +1,7 @@
 import {
   WorkProjectSeriesNodeLinkDto,
   WorkProjectSeriesWithSchemaLabelsDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
 import { InnerWorkProjectSeriesCell } from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
 import { EntityClassMap } from '@/api/entity-class-map';

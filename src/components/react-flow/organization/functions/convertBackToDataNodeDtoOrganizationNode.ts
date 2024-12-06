@@ -1,4 +1,4 @@
-import { OrganizationDto } from '@/api/generated-types/generated-types';
+import { OrganizationDto } from '@/api/generated-types/generated-types_';
 import {
   DataNode,
   DataNodeDto,

@@ -1,5 +1,5 @@
 'use server';
-import { TimeDivisionDto } from '@/api/generated-types/generated-types';
+import { TimeDivisionDto } from '@/api/generated-types/generated-types_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 
 const {

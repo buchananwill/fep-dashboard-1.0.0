@@ -11,7 +11,7 @@ import { IdWrapper } from '@/api/types';
 import { NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { WorkSchemaNodeManualDefinitionDto } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeManualDefinitionDto } from '@/api/generated-types/generated-types_';
 import { notifications } from '@mantine/notifications';
 
 export function SelectParentNodeNameCell(

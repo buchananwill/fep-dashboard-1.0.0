@@ -1,4 +1,4 @@
-import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
 
 export function sortLevelsOnOrdinal(
   level1: KnowledgeLevelDto,

@@ -5,7 +5,7 @@ import {
   CycleSubspanWithJoinsListDto,
   WorkProjectSeriesDto,
   WorkProjectSeriesMetricDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 

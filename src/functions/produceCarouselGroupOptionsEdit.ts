@@ -1,4 +1,4 @@
-import { CarouselGroupDto } from '@/api/generated-types/generated-types';
+import { CarouselGroupDto } from '@/api/generated-types/generated-types_';
 import { makeTransientId } from '@/functions/makeTransientId';
 
 export function produceCarouselGroupOptionsEdit(

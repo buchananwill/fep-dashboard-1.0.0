@@ -13,7 +13,7 @@ import { Api } from '@/api/clientApi_';
 import RootCard from '@/components/generic/RootCard';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import CreateUserRoleForm from '@/components/user-role/create-user-role/CreateUserRoleForm';
-import { UserRoleDto } from '@/api/generated-types/generated-types';
+import { UserRoleDto } from '@/api/generated-types/generated-types_';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export async function CreateUserRolePage({

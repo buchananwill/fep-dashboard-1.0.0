@@ -1,4 +1,4 @@
-import { ColorDto } from '@/api/generated-types/generated-types';
+import { ColorDto } from '@/api/generated-types/generated-types_';
 import { hsl, lab, LabColor } from 'd3';
 
 export function parseToCssRgba(color: RgbaDto | undefined) {

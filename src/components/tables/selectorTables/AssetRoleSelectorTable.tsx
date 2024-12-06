@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { AssetRoleDto } from '@/api/generated-types/generated-types';
+import { AssetRoleDto } from '@/api/generated-types/generated-types_';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { CellComponentRecord } from '@/components/tables/core-table-types';

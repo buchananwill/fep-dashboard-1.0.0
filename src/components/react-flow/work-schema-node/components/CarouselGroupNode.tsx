@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import { useLazyDtoStore } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { BaseWorkSchemaNode } from '@/components/react-flow/work-schema-node/components/BaseWorkSchemaNode';
-import { CarouselGroupDto } from '@/api/generated-types/generated-types';
+import { CarouselGroupDto } from '@/api/generated-types/generated-types_';
 import { NodeBase } from '@/components/react-flow/generic/types';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types_';
 import { NodeProps } from '@/types/xyflow-overrides';
 
 export default function CarouselGroupNode(

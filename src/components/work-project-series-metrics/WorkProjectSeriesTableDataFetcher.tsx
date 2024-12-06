@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import {
   WorkProjectSeriesDto,
   WorkProjectSeriesWithSchemaLabelsDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { GenericTableDto } from '@/api/types';
 import WorkProjectSeriesMetricTable from '@/components/work-project-series-metrics/WorkProjectSeriesMetricTable';
 import {

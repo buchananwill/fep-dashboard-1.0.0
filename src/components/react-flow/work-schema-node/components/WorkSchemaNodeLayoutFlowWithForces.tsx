@@ -42,7 +42,7 @@ import { NodeValidator } from '@/components/react-flow/generic/types';
 import {
   CarouselDto,
   WorkProjectSeriesSchemaDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/components/UnassignedRootButton';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/components/RollupUpdater';
 import { useIdToNodeMapMemo } from '@/components/react-flow/generic/hooks/useIdToNodeMapMemo';

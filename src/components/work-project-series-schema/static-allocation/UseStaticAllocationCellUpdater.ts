@@ -1,5 +1,5 @@
 import { EntityClassMap } from '@/api/entity-class-map';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types';
+import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types_';
 import { useWriteAnyDto } from 'dto-stores';
 import { useCallback } from 'react';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';

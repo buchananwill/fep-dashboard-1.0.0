@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { API_V2_URL } from '@/api/literals';
-import { TenancyDto } from '@/api/generated-types/generated-types';
+import { TenancyDto } from '@/api/generated-types/generated-types_';
 import { userToken } from '@/api/auth/schemaName';
 
 ('server only');

@@ -5,7 +5,7 @@ import {
   CycleDto,
   HasNameDto,
   KnowledgeLevelSeriesDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { HasNumberId } from '@/api/types';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import { KnowledgeLevelSeriesGroupContextKey } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';

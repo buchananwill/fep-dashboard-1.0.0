@@ -1,5 +1,5 @@
 'use server';
-import { TenancyDto } from '@/api/generated-types/generated-types';
+import { TenancyDto } from '@/api/generated-types/generated-types_';
 import { cookies } from 'next/headers';
 import { userToken } from '@/api/auth/schemaName';
 import { SCHEMA_NAME_COOKIE } from '@/api/literals';

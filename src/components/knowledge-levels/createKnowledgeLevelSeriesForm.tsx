@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button } from '@mantine/core';
-import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types';
+import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types_';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { KnowledgeLevelSeriesDtoSchema } from '@/api/generated-schemas/schemas_';
 

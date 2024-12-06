@@ -1,5 +1,5 @@
 import { DataNode } from 'react-d3-force-wrapper';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types';
+import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 import { isNotUndefined } from '@/api/main';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 import { getIntListFromDeliveryAllocations } from '@/components/react-flow/work-schema-node/functions/getIntListFromDeliveryAllocations';

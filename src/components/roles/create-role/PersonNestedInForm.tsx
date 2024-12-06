@@ -1,5 +1,5 @@
 'use client';
-import { PersonDto } from '@/api/generated-types/generated-types';
+import { PersonDto } from '@/api/generated-types/generated-types_';
 import { useFormContext } from 'react-hook-form';
 import React, { useCallback, useState } from 'react';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';

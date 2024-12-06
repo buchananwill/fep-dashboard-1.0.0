@@ -4,7 +4,7 @@ import {
   CycleSubspanWithJoinsListDto,
   WorkProjectSeriesDto,
   WorkProjectSeriesMetricDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import CellQueryManager from '@/components/grids/CellQueryManager';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import React, { memo } from 'react';

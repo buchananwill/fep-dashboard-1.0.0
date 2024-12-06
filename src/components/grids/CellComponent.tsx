@@ -26,7 +26,7 @@ import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { GenericSuitabilityCell } from '@/components/work-task-types/GenericSuitabilityCell';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 import { joinRowAndColumnId } from '@/components/work-task-types/WorkTaskTypeMatrixCell';
 import { DispatchState } from '@/types';
 

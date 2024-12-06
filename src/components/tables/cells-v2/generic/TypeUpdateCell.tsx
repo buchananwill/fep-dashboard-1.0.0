@@ -1,4 +1,4 @@
-import { TypeDto } from '@/api/generated-types/generated-types';
+import { TypeDto } from '@/api/generated-types/generated-types_';
 import { EntityApiKey, HasId } from '@/api/types';
 
 import { Loading } from '@/components/feasibility-report/Loading';

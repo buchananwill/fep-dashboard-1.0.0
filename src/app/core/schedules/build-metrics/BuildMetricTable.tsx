@@ -2,7 +2,7 @@
 import {
   BuildMetricDto,
   QueueTreeNodeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { Column } from '@/types';
 import { startCase } from 'lodash';
 import React, { useEffect, useMemo } from 'react';

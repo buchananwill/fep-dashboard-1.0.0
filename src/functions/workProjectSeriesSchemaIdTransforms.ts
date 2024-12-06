@@ -1,7 +1,7 @@
 import {
   WorkProjectSeriesSchemaDto,
   WorkProjectSeriesSchemaSummaryId
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { getIntListFromDeliveryAllocations } from '@/components/react-flow/work-schema-node/functions/getIntListFromDeliveryAllocations';
 
 const NUMBER_OF_WPSS_VIEW_ID_ARGS = 4;

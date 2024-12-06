@@ -9,7 +9,7 @@ import { IdWrapper } from '@/api/types';
 import { Identifier, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { OrganizationWorkHierarchyDto } from '@/api/generated-types/generated-types';
+import { OrganizationWorkHierarchyDto } from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { isNotUndefined } from '@/api/main';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';

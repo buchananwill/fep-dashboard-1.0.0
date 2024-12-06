@@ -1,4 +1,4 @@
-import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types';
+import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types_';
 import { useCallback, useMemo } from 'react';
 import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';

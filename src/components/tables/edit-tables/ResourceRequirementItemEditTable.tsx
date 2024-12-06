@@ -1,5 +1,5 @@
 'use client';
-import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types';
+import { ResourceRequirementItemDto } from '@/api/generated-types/generated-types_';
 import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Column, ColumnUid } from '@/types';

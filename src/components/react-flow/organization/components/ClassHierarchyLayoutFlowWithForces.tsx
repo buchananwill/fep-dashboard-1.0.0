@@ -29,7 +29,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import {
   OrganizationDto as OrgDto,
   OrganizationTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { convertBackToDataNodeDtoOrganizationNode } from '@/components/react-flow/organization/functions/convertBackToDataNodeDtoOrganizationNode';
 import { AddRootNode } from '@/components/react-flow/generic/components/nodes/AddRootNode';

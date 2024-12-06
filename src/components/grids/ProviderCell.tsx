@@ -1,6 +1,6 @@
 'use client';
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { ProviderRoleDto } from '@/api/generated-types/generated-types';
+import { ProviderRoleDto } from '@/api/generated-types/generated-types_';
 import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/components/grids/CellQueryManager';
 import { EntityClassMap } from '@/api/entity-class-map';

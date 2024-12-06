@@ -11,7 +11,7 @@ import CarouselGroupEditor from '@/components/carousel-groups/_components/Carous
 import {
   CarouselGroupDto,
   KnowledgeLevelDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 function getTabValue(item: CarouselGroupDto) {

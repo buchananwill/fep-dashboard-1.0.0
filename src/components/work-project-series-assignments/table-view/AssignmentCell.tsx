@@ -19,7 +19,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import {
   CycleSubspanWithJoinsListDto,
   WorkProjectSeriesAssignmentDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { InnerWorkProjectSeriesCell } from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
 
 export default function AssignmentCell(props: CellWrapperProps) {

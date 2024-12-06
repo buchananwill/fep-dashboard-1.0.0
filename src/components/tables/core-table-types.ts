@@ -3,7 +3,7 @@ import { DtoStoreReturn, Identifier } from 'dto-stores';
 import { ReactNode } from 'react';
 import { Get, Paths } from 'type-fest';
 import { Column, ColumnUid } from '@/types';
-import { ColorDto } from '@/api/generated-types/generated-types';
+import { ColorDto } from '@/api/generated-types/generated-types_';
 
 export interface TableCellDataProps<
   T extends HasIdClass<T_ID>,

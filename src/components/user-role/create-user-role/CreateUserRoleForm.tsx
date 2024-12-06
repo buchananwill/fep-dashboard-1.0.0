@@ -14,7 +14,7 @@ import {
   KnowledgeLevelSeriesDto,
   UserRoleDto,
   UserRoleTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import CreateNewRoleTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
 import { Api } from '@/api/clientApi';
 import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';

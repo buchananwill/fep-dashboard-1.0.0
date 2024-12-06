@@ -1,5 +1,5 @@
 'use client';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
+import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { Button, Popover } from '@mantine/core';
 import clsx from 'clsx';

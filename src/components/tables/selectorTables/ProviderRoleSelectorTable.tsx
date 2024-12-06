@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { ProviderRoleDto } from '@/api/generated-types/generated-types';
+import { ProviderRoleDto } from '@/api/generated-types/generated-types_';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';

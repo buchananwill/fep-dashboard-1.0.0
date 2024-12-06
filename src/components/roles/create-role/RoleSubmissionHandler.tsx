@@ -2,7 +2,7 @@
 import {
   AvailabilityPostRequest,
   DayOfWeek
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { DayOfWeekArray } from '@/api/date-and-time';
 import { DateTimeTimeZone } from '@microsoft/microsoft-graph-types';

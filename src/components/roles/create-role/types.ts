@@ -4,7 +4,7 @@ import {
   AssetRoleTypeDto,
   ProviderRoleTypeDto,
   UserRoleTypeDto
-} from '@/api/generated-types/generated-types';
+} from '@/api/generated-types/generated-types_';
 
 export type RoleType = OneOf<
   [ProviderRoleTypeDto, UserRoleTypeDto, AssetRoleTypeDto]

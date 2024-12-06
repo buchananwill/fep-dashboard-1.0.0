@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { OrganizationWorkHierarchyDto } from '@/api/generated-types/generated-types';
+import { OrganizationWorkHierarchyDto } from '@/api/generated-types/generated-types_';
 import { Column } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 

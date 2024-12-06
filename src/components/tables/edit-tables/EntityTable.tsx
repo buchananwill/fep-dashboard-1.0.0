@@ -21,7 +21,7 @@ import {
 } from '@/components/tables/core-table-types';
 import SortingController from '@/components/tables/SortingController';
 import FilterStringInput from '@/components/generic/FilterStringInput';
-import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
+import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import SelectRowsPerPage from '@/components/tables/SelectRowsPerPage';
 import DtoPagination from '@/components/generic/DtoPagination';
 import { ScrollArea, TableProps } from '@mantine/core';

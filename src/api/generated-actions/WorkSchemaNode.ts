@@ -1,5 +1,5 @@
 'use server';
-import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types';
+import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types_';
 import { generateBaseEndpointSet } from '../actions/template-base-endpoints';
 import { generateGraphEndpointSet } from '../actions/template-graph-endpoints';
 
