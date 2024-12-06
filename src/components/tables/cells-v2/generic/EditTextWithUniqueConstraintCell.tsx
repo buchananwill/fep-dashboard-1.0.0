@@ -1,6 +1,6 @@
 import EditTextWithModalCell, {
   EditTextWithModalCellProps
-} from '@/components/tables/cells-v2/EditTextWithModalCell';
+} from '@/components/tables/cells-v2/generic/EditTextWithModalCell';
 import { useUniqueStringFieldConstraint } from '@/hooks/useUniqueStringFieldConstraint';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';

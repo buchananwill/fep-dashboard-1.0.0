@@ -3,9 +3,9 @@ import { WorkTaskTypeDto } from '@/api/generated-types/generated-types';
 import { ColumnUid } from '@/types';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
-import EmbeddedKnowledgeDomainCell from '@/components/tables/cells-v2/EmbeddedKnowledgeDomainCell';
+import EmbeddedKnowledgeDomainCell from '@/components/tables/cells-v2/specific/EmbeddedKnowledgeDomainCell';
 import { get } from 'lodash';
-import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
+import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 
 export default function EmbeddedWorkTaskTypeCell<

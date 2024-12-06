@@ -5,7 +5,7 @@ import { NodeBase } from '@/components/react-flow/generic/types';
 import { NodeProps } from '@/types/xyflow-overrides';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 
-import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
+import { parseToCssRgba } from '@/functions/parseToCssRgba';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { getWorkTaskTypeViewIdString } from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';

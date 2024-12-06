@@ -3,13 +3,13 @@ import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import { useMemo } from 'react';
 import { Button } from '@mantine/core';
 import { ColumnUid } from '@/types';
-import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
+import { parseToCssRgba } from '@/functions/parseToCssRgba';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
 import { get } from 'lodash';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 import { SetOptional } from 'type-fest';
-import { useClickToFilter } from '@/components/tables/cells-v2/useClickToFilter';
+import { useClickToFilter } from '@/hooks/useClickToFilter';
 
 export default function EmbeddedKnowledgeDomainCell<
   T extends HasIdClass<T_ID>,

@@ -3,7 +3,7 @@ import { ResourceRequirementItemDto } from '@/api/generated-types/generated-type
 import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Column, ColumnUid } from '@/types';
-import { ResourceRequirementItemCells } from '@/components/tables/cells-v2/ResourceRequirementItemCells';
+import { ResourceRequirementItemCells } from '@/components/tables/cells-v2/specific/ResourceRequirementItemCells';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';

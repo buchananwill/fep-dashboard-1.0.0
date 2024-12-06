@@ -5,8 +5,8 @@ import { Column, ColumnUid } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { OrganizationDto } from '@/api/generated-types/generated-types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
-import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
+import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 
 export default function OrganizationSelectorTable({
   entities

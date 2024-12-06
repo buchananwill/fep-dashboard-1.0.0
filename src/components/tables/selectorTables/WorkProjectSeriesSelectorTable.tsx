@@ -8,9 +8,9 @@ import { getDomainAlias } from '@/api/getDomainAlias';
 
 import { EntityTableProps } from '@/components/tables/types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
-import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/EmbeddedWorkTaskTypeCell';
-import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
+import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTaskTypeCell';
+import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 
 export default function WorkProjectSeriesSelectorTable({
   entities

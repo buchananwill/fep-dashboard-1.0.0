@@ -5,7 +5,7 @@ import { Pill } from '@mantine/core';
 import {
   getAutoContrastFromCielab,
   parseToHsl
-} from '@/components/tables/edit-tables/parseToCssRgba';
+} from '@/functions/parseToCssRgba';
 import { lab } from 'd3';
 import { TransferItemLabelProps } from '@/components/generic/combo-boxes/TransferList';
 import { Reorder } from 'framer-motion';

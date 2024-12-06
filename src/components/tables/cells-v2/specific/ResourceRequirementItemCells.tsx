@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
-import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
+import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
 import {
   CellComponentRecord,
   EntityInnerCellProps
@@ -12,8 +12,8 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { EmptyArray } from '@/api/literals';
 import { Select } from '@mantine/core';
-import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import { get } from 'lodash';
 
 function RoleTypeCell({

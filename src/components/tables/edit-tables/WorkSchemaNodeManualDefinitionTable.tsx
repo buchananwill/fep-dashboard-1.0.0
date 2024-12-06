@@ -11,12 +11,12 @@ import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
-import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import {
   getStringUpdater,
   getStringUpdaterAllowUndefined
-} from '@/components/tables/edit-tables/cellUpdaterFunctions';
+} from '@/functions/cellUpdaterFunctions';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -24,7 +24,7 @@ import { ExportDataButton } from '@/components/export/ExportDataButton';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { ImportDataButton } from '@/components/import/ImportDataButton';
 import { useUploadData } from '@/hooks/useUploadData';
-import EditTextWithModalCell from '@/components/tables/cells-v2/EditTextWithModalCell';
+import EditTextWithModalCell from '@/components/tables/cells-v2/generic/EditTextWithModalCell';
 import { IdWrapper } from '@/api/types';
 import { useDataExportCallback } from '@/hooks/useDataExportCallback';
 import { validate } from '@/functions/validation/validateWorkSchemaNodeManualDefinitionList';

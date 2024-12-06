@@ -5,8 +5,8 @@ import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import React from 'react';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
-import { getCellRenderFunction } from '../cells-v2/GetCellRenderFunction';
-import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
+import { getCellRenderFunction } from '../cells-v2/generic/GetCellRenderFunction';
+import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export const KnowledgeLevelReadOnlyCell = getCellRenderFunction<

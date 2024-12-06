@@ -7,12 +7,12 @@ import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { Column, ColumnUid } from '@/types';
 import { useNavigationCallback } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
+import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
-import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
-import { AnyValueToString } from '../cells-v2/AnyValueToString';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import EditNameCell from '@/components/tables/cells-v2/generic/EditNameCell';
+import { AnyValueToString } from '../cells-v2/generic/AnyValueToString';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 const entityType = EntityClassMap.userRole;

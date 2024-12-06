@@ -6,9 +6,9 @@ import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
-import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
+import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export default function ProviderRoleSelectorTable({

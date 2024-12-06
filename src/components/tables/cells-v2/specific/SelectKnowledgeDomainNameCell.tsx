@@ -10,7 +10,7 @@ import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutoc
 import { Autocomplete } from '@mantine/core';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
-import { useTransientState } from '@/components/tables/cells-v2/specific/useTransientState';
+import { useTransientState } from '@/hooks/useTransientState';
 
 export function SelectKnowledgeDomainNameCell(
   props: IdInnerCellProps<string | undefined>

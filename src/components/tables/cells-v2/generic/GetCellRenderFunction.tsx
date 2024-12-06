@@ -7,9 +7,9 @@ import {
   TableCellDataWrapper
 } from '@/components/tables/core-table-types';
 import { Identifier } from 'dto-stores';
-import IdCellWrapper from '@/components/tables/cells-v2/IdCellWrapper';
+import IdCellWrapper from '@/components/tables/cells-v2/generic/IdCellWrapper';
 import { EntityClassMap } from '@/api/entity-class-map';
-import EntityCellWrapper from '@/components/tables/cells-v2/EntityCellWrapper';
+import EntityCellWrapper from '@/components/tables/cells-v2/generic/EntityCellWrapper';
 import { EntityTypeMap } from '@/api/entity-type-map';
 
 export function getCellRenderFunction<

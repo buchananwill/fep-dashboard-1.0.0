@@ -3,8 +3,8 @@ import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
 import { useMemo } from 'react';
 import { Table, TableProps } from '@mantine/core';
-import SelectionCell from '@/components/tables/cells-v2/SelectionCell';
-import HeaderSelectionCell from '@/components/tables/cells-v2/HeaderSelectionCell';
+import SelectionCell from '@/components/tables/cells-v2/generic/SelectionCell';
+import HeaderSelectionCell from '@/components/tables/cells-v2/generic/HeaderSelectionCell';
 import { motion } from 'framer-motion';
 
 export default function CoreTable<

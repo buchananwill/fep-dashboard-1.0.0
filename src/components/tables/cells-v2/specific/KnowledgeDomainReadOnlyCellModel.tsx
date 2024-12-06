@@ -1,4 +1,4 @@
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import {
   CellComponentRecord,
   EntityInnerCellProps
@@ -6,9 +6,9 @@ import {
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
 import { get } from 'lodash';
 import { Button } from '@mantine/core';
-import { useClickToFilter } from '@/components/tables/cells-v2/useClickToFilter';
+import { useClickToFilter } from '@/hooks/useClickToFilter';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
-import { parseToCssRgba } from '@/components/tables/edit-tables/parseToCssRgba';
+import { parseToCssRgba } from '@/functions/parseToCssRgba';
 import { ColumnUid } from '@/types';
 
 const cellRecord: CellComponentRecord<KnowledgeDomainDto> = {

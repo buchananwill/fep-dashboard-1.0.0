@@ -9,14 +9,14 @@ import {
   ProviderColumnsInitial
 } from '@/components/tables/selectorTables/ProviderRoleSelectorTable';
 import { Column, ColumnUid } from '@/types';
-import { getTypeUpdateCell } from '@/components/tables/cells-v2/TypeUpdateCell';
-import { KnowledgeDomainSelectCell } from '@/components/tables/cells-v2/SelectKnowledgeDomainCell';
+import { getTypeUpdateCell } from '@/components/tables/cells-v2/generic/TypeUpdateCell';
+import { KnowledgeDomainSelectCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeDomainCell';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
-import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
-import { getStringUpdater } from '@/components/tables/edit-tables/cellUpdaterFunctions';
-import { AnyValueToString } from '@/components/tables/cells-v2/AnyValueToString';
+import EditNameCell from '@/components/tables/cells-v2/generic/EditNameCell';
+import { getStringUpdater } from '@/functions/cellUpdaterFunctions';
+import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 const entityType = EntityClassMap.providerRole;

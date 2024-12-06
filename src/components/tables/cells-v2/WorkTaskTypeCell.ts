@@ -4,9 +4,9 @@ import { CellComponentRecord } from '@/components/tables/core-table-types';
 import {
   AnyValueToString,
   SimpleValueToStringOrUndefined
-} from '@/components/tables/cells-v2/AnyValueToString';
-import EmbeddedKnowledgeDomainCell from '@/components/tables/cells-v2/EmbeddedKnowledgeDomainCell';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+} from '@/components/tables/cells-v2/generic/AnyValueToString';
+import EmbeddedKnowledgeDomainCell from '@/components/tables/cells-v2/specific/EmbeddedKnowledgeDomainCell';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 
 const CellRecord: CellComponentRecord<WorkTaskTypeDto> = {
   id: { component: WorkTaskTypeActionCell, type: 'IdInnerCell' },

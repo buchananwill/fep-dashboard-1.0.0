@@ -10,7 +10,7 @@ import QueueTreeNodeModal from '@/app/core/schedules/build-metrics/QueueTreeNode
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import { useGlobalController } from 'selective-context';
 import { useDisclosure } from '@mantine/hooks';
 import QueueTreeNodeCell from '@/app/core/schedules/build-metrics/QueueTreeNodeCell';

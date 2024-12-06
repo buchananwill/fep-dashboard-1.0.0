@@ -7,7 +7,7 @@ import {
   wrapDataListWithLabelAsId,
   wrapListDataWithIndexId
 } from '@/functions/wrapListDataWithIndexId';
-import { validateWithZod } from '@/components/tables/edit-tables/validateWithZod';
+import { validateWithZod } from '@/functions/validateWithZod';
 
 export const validate = (unsafe: unknown) => {
   const safeList = validateWithZod(

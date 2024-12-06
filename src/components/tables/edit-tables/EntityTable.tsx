@@ -2,7 +2,7 @@
 import { useGlobalController, useGlobalListener } from 'selective-context';
 import SortableHeaderCell, {
   getSortContextKey
-} from '@/components/tables/cells-v2/SortableHeaderCell';
+} from '@/components/tables/cells-v2/generic/SortableHeaderCell';
 import SelectVisibleColumns, {
   getOrderedColumnsContextKey
 } from '@/components/tables/SelectVisibleColumns';

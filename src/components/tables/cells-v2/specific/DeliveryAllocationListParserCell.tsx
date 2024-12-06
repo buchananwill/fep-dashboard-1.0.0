@@ -1,5 +1,5 @@
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
-import { StringNumberListParserCell } from '@/components/tables/cells-v2/StringNumberListParserCell';
+import { StringNumberListParserCell } from '@/components/tables/cells-v2/generic/StringNumberListParserCell';
 
 export function DeliveryAllocationListParserCell({
   onChange,

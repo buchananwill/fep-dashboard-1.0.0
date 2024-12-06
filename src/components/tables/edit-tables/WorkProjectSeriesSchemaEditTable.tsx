@@ -14,11 +14,11 @@ import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
-import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
-import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
-import { NumberEditCell } from '@/components/tables/cells-v2/NumberEditCell';
-import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/EmbeddedWorkTaskTypeCell';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import EditNameCell from '@/components/tables/cells-v2/generic/EditNameCell';
+import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
+import { NumberEditCell } from '@/components/tables/cells-v2/generic/NumberEditCell';
+import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTaskTypeCell';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
 

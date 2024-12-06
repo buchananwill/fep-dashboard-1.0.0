@@ -1,5 +1,5 @@
 'use client';
-import { DeleteEntity } from '@/components/tables/cells-v2/DeleteEntity';
+import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
 import { useCallback } from 'react';
 import { useGlobalDispatch } from 'selective-context';
 import { workTaskTypeIdInModal } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';

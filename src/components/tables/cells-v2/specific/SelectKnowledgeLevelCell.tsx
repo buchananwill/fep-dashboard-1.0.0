@@ -8,7 +8,7 @@ import { EmptyArray } from '@/api/literals';
 import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
 import { Autocomplete } from '@mantine/core';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
-import { useTransientState } from '@/components/tables/cells-v2/specific/useTransientState';
+import { useTransientState } from '@/hooks/useTransientState';
 import { api } from '@/api/v3/clientApiV3';
 import { KnowledgeLevelDto } from '@/api/generated-types/generated-types';
 

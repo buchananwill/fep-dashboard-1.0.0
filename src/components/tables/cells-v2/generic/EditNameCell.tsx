@@ -2,7 +2,7 @@ import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
 import { HasName } from 'react-d3-force-wrapper';
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
-import EditTextWithUniqueConstraintCell from '@/components/tables/cells-v2/EditTextWithUniqueConstraintCell';
+import EditTextWithUniqueConstraintCell from '@/components/tables/cells-v2/generic/EditTextWithUniqueConstraintCell';
 
 export default function EditNameCell(props: IdInnerCellProps<string>) {
   return (

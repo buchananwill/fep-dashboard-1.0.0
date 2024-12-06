@@ -6,7 +6,7 @@ import {
   useGlobalListener,
   useGlobalListenerGroup
 } from 'selective-context';
-import { getSortContextKey } from '@/components/tables/cells-v2/SortableHeaderCell';
+import { getSortContextKey } from '@/components/tables/cells-v2/generic/SortableHeaderCell';
 import { SortState } from '@/components/tables/core-table-types';
 import { useEffect, useMemo, useRef } from 'react';
 import { getFilteredIdContextKey } from '@/hooks/table-hooks/useClientSideFilteringIdList';

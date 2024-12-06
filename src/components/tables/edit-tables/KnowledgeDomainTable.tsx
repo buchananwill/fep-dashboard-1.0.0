@@ -7,19 +7,19 @@ import { getDomainAlias } from '@/api/getDomainAlias';
 import { set, startCase } from 'lodash';
 import { Column } from '@/types';
 import { KnowledgeDomainDto } from '@/api/generated-types/generated-types';
-import { getCellRenderFunction } from '@/components/tables/cells-v2/GetCellRenderFunction';
+import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import {
   CellComponentRecord,
   IdInnerCell
 } from '@/components/tables/core-table-types';
-import EditColorCell from '@/components/tables/cells-v2/EditColorCell';
-import EditNameCell from '@/components/tables/cells-v2/EditNameCell';
-import EditShortCodeCell from '@/components/tables/cells-v2/EditShortCodeCell';
+import EditColorCell from '@/components/tables/cells-v2/generic/EditColorCell';
+import EditNameCell from '@/components/tables/cells-v2/generic/EditNameCell';
+import EditShortCodeCell from '@/components/tables/cells-v2/specific/EditShortCodeCell';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import {
   ColorUpdater,
   getStringUpdater
-} from '@/components/tables/edit-tables/cellUpdaterFunctions';
+} from '@/functions/cellUpdaterFunctions';
 
 const entityClass = EntityClassMap.knowledgeDomain;
 

@@ -6,7 +6,7 @@ import { getDomainAlias } from '@/api/getDomainAlias';
 import React from 'react';
 import { startCase } from 'lodash';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
-import { KnowledgeDomainReadOnlyCellModel } from '@/components/tables/cells-v2/KnowledgeDomainReadOnlyCellModel';
+import { KnowledgeDomainReadOnlyCellModel } from '@/components/tables/cells-v2/specific/KnowledgeDomainReadOnlyCellModel';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export default function KnowledgeDomainSelectorTable({
