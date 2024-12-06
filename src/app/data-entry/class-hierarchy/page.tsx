@@ -7,6 +7,7 @@ import { IdWrapper } from '@/api/types';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { WorkSchemaNodeManualDefinitionTable } from '@/components/tables/edit-tables/WorkSchemaNodeManualDefinitionTable';
+import { OrganizationWorkHierarchyTable } from '@/components/tables/edit-tables/OrganizationWorkHierarchyTable';
 
 export default async function page() {
   const newVar = await Api.InitJsonTemplate.getOne(15);
@@ -29,8 +30,8 @@ export default async function page() {
         dtoList={organizationWorkHierarchy}
       />
 
-      <WorkSchemaNodeManualDefinitionTable
-        pathVariables={['data-entry', 'work-schema-nodes']}
+      <OrganizationWorkHierarchyTable
+        pathVariables={['data-entry', 'class-hierarchy']}
         depth={0}
       />
     </>

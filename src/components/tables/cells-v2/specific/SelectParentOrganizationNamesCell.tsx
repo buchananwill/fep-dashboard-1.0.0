@@ -15,9 +15,10 @@ import { isNotUndefined } from '@/api/main';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { TransferList } from '@/components/generic/combo-boxes/TransferList';
+import { notifications } from '@mantine/notifications';
 
 export function SelectParentOrganizationNamesCell(
-  props: IdInnerCellProps<string[]>
+  props: IdInnerCellProps<string | null>
 ) {
   return (
     <ModalEditCell buttonLabel={props.value ?? ''}>
@@ -34,7 +35,7 @@ function SelectParentOrganizationNames({
   entityClass,
   entityId,
   onClose
-}: IdInnerCellProps<string[]> & { onClose?: () => void }) {
+}: IdInnerCellProps<string | null> & { onClose?: () => void }) {
   const listenerKey = useUuidListenerKey();
   const { currentState: organizationIdList } = NamespacedHooks.useListen<
     string[]
@@ -57,10 +58,14 @@ function SelectParentOrganizationNames({
   }, [organizationIdList, readAnyDto]);
 
   useEffect(() => {
-    const found = organizationList.filter((org) =>
-      value.includes(org.data.name)
-    );
-    if (found) setTransientState(found);
+    if (value === null) {
+      setTransientState(EmptyArray);
+    } else {
+      const found = organizationList.filter((org) =>
+        value.includes(org.data.name)
+      );
+      setTransientState(found);
+    }
   }, [organizationList, value, setTransientState]);
 
   const selectApi = useSelectApi<
@@ -76,8 +81,11 @@ function SelectParentOrganizationNames({
   const parentIdFetcher = useCallback(
     (id: Identifier) => {
       const parentNames =
-        organizationList?.find((org) => org.id === id)?.data.parentNames ?? [];
+        organizationList?.find((org) => org.id === id)?.data.parentNames ??
+        null;
       return parentNames
+        ?.split(',')
+        .map((str) => str.trim())
         .map((name) => organizationList.find((org) => org.data.name === name))
         .filter(isNotUndefined)
         .map((wrapper) => wrapper.id);
@@ -96,19 +104,31 @@ function SelectParentOrganizationNames({
     let confirmed = true;
     let selectedNames = value;
 
-    if (transientStateRef.current !== undefined) {
-      confirmed = !checkForCycle();
-      selectedNames = transientStateRef.current?.map((org) => org.data.name);
+    if (
+      transientStateRef.current !== undefined &&
+      transientStateRef.current.length > 0
+    ) {
+      const parentFormingCycle = checkForCycle();
+      confirmed = parentFormingCycle === null;
+      if (!confirmed && parentFormingCycle !== null) {
+        notifications.show({
+          message: `Could not update parents. Cycle formed via ${readAnyDto(parentFormingCycle)?.data.name}`,
+          color: 'red'
+        });
+      }
+      selectedNames = transientStateRef.current
+        ?.map((org) => org.data.name)
+        .join(', ');
     }
     if (confirmed) {
       onChange(selectedNames);
       onClose();
     }
-  }, [transientStateRef, onChange, onClose, checkForCycle, value]);
+  }, [transientStateRef, onChange, onClose, checkForCycle, value, readAnyDto]);
 
   return (
     <>
-      <TransferList {...selectApi} />
+      <TransferList {...selectApi} mah={'24em'} />
       <ModalConfirmationFooter onCancel={onClose} onConfirm={onConfirm} />
     </>
   );
@@ -116,41 +136,45 @@ function SelectParentOrganizationNames({
 
 function hasCycleInDAG(
   startParents: (string | number)[],
-  getParentIds: (nodeId: string | number) => (string | number)[],
+  getParentIds: (nodeId: string | number) => (string | number)[] | undefined,
   startChild: string | number
-): boolean {
+): (string | number) | null {
   // A set to track visited nodes and avoid redundant processing
   const visited = new Set<string | number>();
 
   // Helper function to perform a DFS search for `startChild`
-  function dfs(current: string | number): boolean {
+  function dfs(current: string | number): (string | number) | null {
     if (current === startChild) {
       // Cycle detected
-      return true;
+      return current;
     }
     if (visited.has(current)) {
       // Skip already visited nodes
-      return false;
+      return null;
     }
     // Mark the current node as visited
     visited.add(current);
-
-    // Recursively check the ancestors of the current node
-    for (const parent of getParentIds(current)) {
-      if (dfs(parent)) {
-        return true;
+    const nextParents = getParentIds(current);
+    if (nextParents === undefined) {
+      return null;
+    } else {
+      for (const parent of nextParents) {
+        if (dfs(parent) !== null) {
+          return parent;
+        }
       }
     }
+    // Recursively check the ancestors of the current node
 
-    return false;
+    return null;
   }
 
   // Iterate through all starting parents
   for (const startParent of startParents) {
-    if (dfs(startParent)) {
-      return true; // Cycle detected
+    if (dfs(startParent) !== null) {
+      return startParent; // Cycle detected
     }
   }
 
-  return false; // No cycle detected
+  return null; // No cycle detected
 }

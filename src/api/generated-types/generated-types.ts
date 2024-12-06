@@ -652,7 +652,7 @@ export interface GenericNestedDto<T> extends NestedDto<T> {
 }
 
 export interface HasParentNameStringList {
-  parentNames: string[];
+  parentNames: string;
   name: string;
 }
 
