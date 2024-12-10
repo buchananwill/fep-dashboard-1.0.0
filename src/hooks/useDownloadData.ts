@@ -19,7 +19,8 @@ export function useDownloadData<T extends BlobPart = BlobPart>({
       });
       return;
     }
-    const blob = new Blob([getData()], { type });
+    const data = getData();
+    const blob = data instanceof Blob ? data : new Blob([data], { type });
     ref.current.href = URL.createObjectURL(blob);
     ref.current.download = defaultName;
     ref.current.click();
