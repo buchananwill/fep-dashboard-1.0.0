@@ -198,3 +198,5 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
     throw Error('Error while fetching data.');
   }
 }
+
+const contentTypes = ['application/json'] as const;
