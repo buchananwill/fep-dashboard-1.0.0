@@ -8,11 +8,19 @@ import { Autocomplete } from '@mantine/core';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
 import { useTransientState } from '@/hooks/useTransientState';
 import { IdWrapper } from '@/api/types';
-import { NamespacedHooks } from 'dto-stores';
+import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { WorkSchemaNodeManualDefinitionDto } from '@/api/generated-types/generated-types_';
+import {
+  OrganizationWorkHierarchyDto,
+  WorkSchemaNodeManualDefinitionDto
+} from '@/api/generated-types/generated-types_';
 import { notifications } from '@mantine/notifications';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { useMemoFromIdList } from '@/components/tables/cells-v2/specific/useMemoFromIdList';
+import { hasCycleInDAG } from '@/components/tables/cells-v2/specific/hasCycleInDAG';
+import { isNotUndefined } from '@/api/main';
+import { useValidateBeforeConfirming } from '@/components/tables/cells-v2/specific/useValidateBeforeConfirming';
 
 export function SelectParentNodeNameCell(
   props: IdInnerCellProps<string | undefined>
@@ -31,16 +39,17 @@ function SelectParentNodeName({
   entityId,
   onClose
 }: IdInnerCellProps<string | undefined> & { onClose?: () => void }) {
-  const listenerKey = useUuidListenerKey();
-  const { currentState: parentNodeList } = NamespacedHooks.useListen<
-    IdWrapper<WorkSchemaNodeManualDefinitionDto>[]
-  >(entityClass, KEY_TYPES.MASTER_LIST, listenerKey, EmptyArray);
   const {
     transientState,
     setTransientState,
     transientStateRef,
     propagateChange
   } = useTransientState<IdWrapper<WorkSchemaNodeManualDefinitionDto>>();
+
+  const { readAnyDto, entityList: parentNodeList } =
+    useMemoFromIdList<IdWrapper<WorkSchemaNodeManualDefinitionDto>>(
+      entityClass
+    );
 
   useEffect(() => {
     const found = parentNodeList?.find((wsn) => wsn.data.name === value);
@@ -56,43 +65,47 @@ function SelectParentNodeName({
     allowUndefined: true
   });
 
-  const onConfirm = useCallback(() => {
-    if (!onChange || !onClose) return;
-    let confirmed = true;
+  const checkForCycle = useCallback(() => {
+    if (transientStateRef.current === undefined) return null;
+    else {
+      return hasCycleInDAG(
+        [transientStateRef.current.data.name],
+        (childId) =>
+          [readAnyDto(childId)?.data.parentNodeName].filter(isNotUndefined),
+        entityId
+      );
+    }
+  }, [readAnyDto, transientStateRef, entityId]);
+
+  const validationInterceptor = useCallback(() => {
+    let confirmedResponse = true;
     let selectedName: string | undefined = undefined;
 
     if (transientStateRef.current !== undefined) {
-      selectedName = transientStateRef.current.data.name;
-      const seenSet = new Set<string>();
-      seenSet.add(String(entityId));
-      let currentParent:
-        | IdWrapper<WorkSchemaNodeManualDefinitionDto>
-        | undefined = transientStateRef.current;
-      while (currentParent?.data?.parentNodeName !== undefined) {
-        seenSet.add(String(currentParent.id));
-        currentParent = parentNodeList.find(
-          (n) => n.data.parentNodeName === currentParent?.data.parentNodeName
-        );
-        if (currentParent && seenSet.has(currentParent.id)) {
-          notifications.show({
-            message: `Unable to set parent: ${selectedName}; cycle detected.`,
-            color: 'red'
-          });
-          confirmed = false;
-          break;
-        }
+      const cycleDetected = checkForCycle();
+      if (cycleDetected !== null) {
+        notifications.show({
+          message: `Unable to set parent: ${selectedName}; cycle detected.`,
+          color: 'red'
+        });
+        confirmedResponse = false;
+      } else {
+        selectedName = transientStateRef.current.data.name;
       }
     }
-    if (confirmed) {
-      onChange(selectedName);
-      onClose();
-    }
-  }, [parentNodeList, transientStateRef, onChange, onClose, entityId]);
+    return { confirmedResponse, updateResponse: selectedName };
+  }, [transientStateRef, checkForCycle]);
+
+  const confirm = useValidateBeforeConfirming(
+    onChange,
+    onClose,
+    validationInterceptor
+  );
 
   return (
     <>
       <Autocomplete {...autocompleteApi} w={'16em'} />
-      <ModalConfirmationFooter onCancel={onClose} onConfirm={onConfirm} />
+      <ModalConfirmationFooter onCancel={onClose} onConfirm={confirm} />
     </>
   );
 }

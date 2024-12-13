@@ -34,6 +34,7 @@ import { SelectTaskTypeNameNameCell } from '@/components/tables/cells-v2/specifi
 import { SelectKnowledgeLevelCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeLevelCell';
 import { SelectChildrenAsCell } from '@/components/tables/cells-v2/specific/SelectChildrenAsCell';
 import { SelectParentNodeNameCell } from '@/components/tables/cells-v2/specific/SelectParentNodeNameCell';
+import { EditWorkSchemaNodeNameCell } from '@/components/tables/cells-v2/specific/UpdateWorkSchemaNodeNameCell';
 
 const entityType = EntityClassMap.workSchemaNodeManualDefinition;
 
@@ -129,7 +130,7 @@ const workSchemaNodeManualDefinitionCellRecord: CellComponentRecord<
   id: { type: 'CustomCell', component: DeleteEntity },
   'data.name': {
     type: 'IdInnerCell',
-    component: EditTextWithModalCell,
+    component: EditWorkSchemaNodeNameCell,
     updater: getStringUpdater('data.name')
   },
   'data.taskTypeName': {
