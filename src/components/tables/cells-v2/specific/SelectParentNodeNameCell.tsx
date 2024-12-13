@@ -46,19 +46,19 @@ function SelectParentNodeName({
     propagateChange
   } = useTransientState<IdWrapper<WorkSchemaNodeManualDefinitionDto>>();
 
-  const { readAnyDto, entityList: parentNodeList } =
+  const { readAnyDto, entityList: nodeList } =
     useMemoFromIdList<IdWrapper<WorkSchemaNodeManualDefinitionDto>>(
       entityClass
     );
 
   useEffect(() => {
-    const found = parentNodeList?.find((wsn) => wsn.data.name === value);
+    const found = nodeList?.find((wsn) => wsn.data.name === value);
     if (found) setTransientState(found);
-  }, [parentNodeList, value, setTransientState]);
+  }, [nodeList, value, setTransientState]);
 
   const autocompleteApi = useSelectAutocompleteApi({
     type: 'singleFlat',
-    rawData: parentNodeList ?? EmptyArray,
+    rawData: nodeList ?? EmptyArray,
     propagateChange,
     labelMaker: nameAccessorInWrapper,
     value: transientState,
@@ -69,13 +69,21 @@ function SelectParentNodeName({
     if (transientStateRef.current === undefined) return null;
     else {
       return hasCycleInDAG(
-        [transientStateRef.current.data.name],
-        (childId) =>
-          [readAnyDto(childId)?.data.parentNodeName].filter(isNotUndefined),
+        [transientStateRef.current.id],
+        (childId) => {
+          const parentNodeName = readAnyDto(childId)?.data.parentNodeName;
+          if (parentNodeName === undefined) return undefined;
+          else {
+            const parentId = nodeList.find(
+              (node) => node.data.name === parentNodeName
+            )?.id;
+            return parentId ? [parentId] : undefined;
+          }
+        },
         entityId
       );
     }
-  }, [readAnyDto, transientStateRef, entityId]);
+  }, [readAnyDto, transientStateRef, entityId, nodeList]);
 
   const validationInterceptor = useCallback(() => {
     let confirmedResponse = true;
@@ -85,7 +93,7 @@ function SelectParentNodeName({
       const cycleDetected = checkForCycle();
       if (cycleDetected !== null) {
         notifications.show({
-          message: `Unable to set parent: ${selectedName}; cycle detected.`,
+          message: `Unable to set parent: ${cycleDetected}; cycle detected.`,
           color: 'red'
         });
         confirmedResponse = false;
