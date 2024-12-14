@@ -56,8 +56,6 @@ function RoleDataModalContent({
 
   const { currentState, ...callbacks } = useEditableEvents({ initialEvents });
 
-  const [opened, { open, close, toggle }] = useDisclosure();
-
   const { dispatchWithoutListen } =
     useGlobalDispatch<PopoverSingletonContextInterface>(CalendarEventPopover);
 
