@@ -7,7 +7,7 @@ import {
   WorkTaskTypeDto
 } from '@/api/generated-types/generated-types_';
 import clsx from 'clsx';
-import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
+import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import { SetOptional, SetRequired } from 'type-fest';
@@ -26,7 +26,7 @@ export function EntityWithWorkTaskTypeShortCode({
   return (
     <div
       className={clsx(
-        'pointer-events-none flex h-full w-full items-center justify-center duration-700 transition-colors-opacity',
+        'transition-colors-opacity pointer-events-none flex h-full w-full items-center justify-center duration-700',
         backgroundColor
       )}
     >
@@ -47,7 +47,7 @@ export function NamedEntityLabel({
     BaseDtoUiProps<HasNameDto & HasId>,
     'deleted' | 'dispatchDeletion'
   >) {
-  const tooltip = useFloatingTooltip(<TooltipMemo text={entity.name} />);
+  const tooltip = usePopoverSingleton(<TooltipMemo text={entity.name} />);
   return (
     <div {...tooltip} {...divProps}>
       {entity.name}

@@ -1,5 +1,5 @@
 'use client';
-import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react';
+import { forwardRef, useCallback, useMemo, useRef } from 'react';
 import { useGlobalDispatch } from 'selective-context';
 import {
   TooltipContext,
@@ -9,8 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 import { Card, Loader } from '@mantine/core';
 import { kebabCase } from 'lodash';
 import { singular } from 'pluralize';
-import { userGuideMarkdownToMarkdownString } from '@/app/user-guide/parseJsonTreeToMarkdown';
-import Markdown from 'markdown-to-jsx';
 import { Api } from '@/api/clientApi';
 import { useSafeTrapezium } from '@/components/user-guide/user-guide-tool-tip/useSafeTrapezium';
 import { useIsPointInSafeZone } from '@/components/user-guide/user-guide-tool-tip/useIsPointInSafeZone';

@@ -6,13 +6,14 @@ import {
   TooltipContextInterface
 } from '@/components/tooltip/TooltipSingleton';
 
-export function useFloatingTooltip(
+export function usePopoverSingleton(
   content: ReactElement | string | number,
-  placement: Placement = 'right'
+  placement: Placement = 'right',
+  contextKey: string = TooltipContext
 ) {
   const ref = useRef(null);
   const { dispatchWithoutListen: dispatchTooltip } =
-    useGlobalDispatch<TooltipContextInterface>(TooltipContext);
+    useGlobalDispatch<TooltipContextInterface>(contextKey);
   const onMouseOver = useCallback(() => {
     dispatchTooltip((state) => {
       return {

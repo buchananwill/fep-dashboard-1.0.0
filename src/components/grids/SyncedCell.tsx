@@ -8,7 +8,7 @@ import { EmptyArray } from '@/api/literals';
 import { ProviderRoleDto } from '@/api/generated-types/generated-types_';
 import clsx from 'clsx';
 import { SuitabilityCellData } from '@/components/roles/suitability/SuitabilityTable';
-import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
+import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
 
@@ -35,7 +35,7 @@ const SyncedRowCell = ({
     ? `${workTaskType.knowledgeDomain?.shortCode ?? workTaskType.knowledgeDomain?.name}:${workTaskType.knowledgeLevel?.levelOrdinal}`
     : 'No Data Found';
 
-  const tooltip = useFloatingTooltip(<TooltipMemo text={name} />, 'bottom');
+  const tooltip = usePopoverSingleton(<TooltipMemo text={name} />, 'bottom');
 
   return (
     <div
@@ -74,7 +74,7 @@ const SyncedColumnCell = ({
   const name = role
     ? (role[displayNameAccessor as keyof typeof role] as string)
     : 'No Data Found';
-  const tooltip = useFloatingTooltip(<TooltipMemo text={name} />);
+  const tooltip = usePopoverSingleton(<TooltipMemo text={name} />);
 
   return (
     <div

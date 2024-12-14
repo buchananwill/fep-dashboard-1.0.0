@@ -6,7 +6,7 @@ import {
   iconDefinitions
 } from '@/components/navigation/iconDefinitions';
 import { startCase } from 'lodash';
-import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
+import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { mainNavLinkList } from '@/components/navigation/navLinks';
 import Link, { LinkProps } from 'next/link';
@@ -24,7 +24,7 @@ export default function NavLinkButton({
   const [isPending, startTransition] = useTransition();
   const appRouterInstance = useRouter();
 
-  const floatingTooltip = useFloatingTooltip(<TooltipMemo text={label} />);
+  const floatingTooltip = usePopoverSingleton(<TooltipMemo text={label} />);
 
   return (
     <Link

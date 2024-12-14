@@ -5,13 +5,18 @@ import { IdWrapper } from '@/api/types';
 import { useEditableEvents } from '@/components/roles/create-role/useEditableEvents';
 import { useCallback, useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
-import { Tabs } from '@mantine/core';
+import { Button, Card, Tabs } from '@mantine/core';
 import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
-import { useGlobalReadAny } from 'selective-context';
+import { useGlobalDispatch, useGlobalReadAny } from 'selective-context';
 import { availabilityToOutlookEvent } from '@/components/roles/create-role/RoleSubmissionHandler';
 import { EventClickArg } from '@fullcalendar/core';
 import { useDisclosure } from '@mantine/hooks';
+import {
+  PopoverSingleton,
+  PopoverSingletonContextInterface
+} from '@/components/generic/PopoverSingleton';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 type RoleDataCellProps = IdInnerCellProps<
   IdWrapper<RolePostRequest<any>>['data']['roleDataMap']
@@ -26,6 +31,8 @@ export function EditRoleDataCell(props: RoleDataCellProps) {
     </ModalEditCell>
   );
 }
+
+const CalendarEventPopover = 'calendarEventPopover';
 
 function RoleDataModalContent({
   value
@@ -51,7 +58,39 @@ function RoleDataModalContent({
 
   const [opened, { open, close, toggle }] = useDisclosure();
 
-  const eventClick = useCallback((eventClickInfo: EventClickArg) => {}, []);
+  const { dispatchWithoutListen } =
+    useGlobalDispatch<PopoverSingletonContextInterface>(CalendarEventPopover);
+
+  const eventClick = useCallback(
+    (eventClickInfo: EventClickArg) => {
+      dispatchWithoutListen((prev) => ({
+        ...prev,
+        content: (
+          <Card>
+            {eventClickInfo.event.start?.toUTCString()}
+            <Button
+              color={'red'}
+              rightSection={<TrashIcon className={'w-6'} />}
+              onClick={() => {
+                eventClickInfo.event.remove();
+                dispatchWithoutListen((prev) => ({
+                  ...prev,
+                  content: <div>No event content</div>,
+                  rootNodeRef: { ...prev.rootNodeRef, current: null },
+                  isOpen: false
+                }));
+              }}
+            >
+              Delete
+            </Button>
+          </Card>
+        ),
+        isOpen: true,
+        rootNodeRef: { ...prev.rootNodeRef, current: eventClickInfo.el }
+      }));
+    },
+    [dispatchWithoutListen]
+  );
 
   const events = useMemo(() => {
     return currentState
@@ -84,7 +123,9 @@ function RoleDataModalContent({
               right: ''
             }}
             {...callbacks}
+            eventClick={eventClick}
           ></CalendarViewer>
+          <PopoverSingleton contextKey={CalendarEventPopover} />
         </div>
       </Tabs.Panel>
     </Tabs>

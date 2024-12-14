@@ -11,7 +11,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import { selectedAssignmentCell } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
 import { EmptyArray } from '@/api/literals';
-import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
+import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import clsx from 'clsx';
 import VirtualizedOuterCell from '@/components/grids/VirtualizedCell';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
@@ -62,7 +62,7 @@ function InnerAssignmentCell({
     dispatchWithoutControl([rowIndex, columnIndex]);
   }, [dispatchWithoutControl, rowIndex, columnIndex]);
 
-  const tooltip = useFloatingTooltip(
+  const tooltip = usePopoverSingleton(
     <AssignmentTooltipMemo content={cellData} />
   );
 

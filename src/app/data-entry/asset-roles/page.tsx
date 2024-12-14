@@ -14,7 +14,6 @@ export default async function Page() {
   const { content } = newVar;
   const assetRoleRequests: IdWrapper<RolePostRequest<AssetDto>>[] =
     wrapListDataWithIndexId(JSON.parse(content));
-  console.log(content, assetRoleRequests);
 
   return (
     <>

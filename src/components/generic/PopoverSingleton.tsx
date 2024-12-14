@@ -39,6 +39,8 @@ export type PopoverSingletonProps = {
 };
 
 export const TooltipContext = 'tooltip-context';
+const defaultPopoverContent = <div className={'z-50'}>Empty Popover</div>;
+
 export function PopoverSingleton({
   contextKey,
   middleware,
@@ -48,7 +50,7 @@ export function PopoverSingleton({
   const rootNodeRefInitial = useRef(null);
   const initialValue = useMemo(() => {
     return {
-      content: <div className={'z-50'}>Empty Popover</div>,
+      content: defaultPopoverContent,
       isOpen: false,
       rootNodeRef: rootNodeRefInitial
     };

@@ -1,6 +1,6 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { useFloatingTooltip } from '@/components/tooltip/useFloatingTooltip';
+import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import DtoUiWrapperCell from './DtoUiWrapperCell';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
@@ -28,7 +28,7 @@ export default function CycleSubspanCell(props: CellWrapperProps) {
 function InnerCycleSubspanCell({
   entity
 }: BaseLazyDtoUiProps<CycleSubspanDto>) {
-  const floatingTooltip = useFloatingTooltip(
+  const floatingTooltip = usePopoverSingleton(
     <TooltipMemo
       text={`${entity.zeroIndexedCycleDay + 1}: ${entity?.timeSpanDto?.startTimeDivisionInstant}`}
     />
