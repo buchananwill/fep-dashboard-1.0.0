@@ -91,6 +91,7 @@ export function availabilityToOutlookEvent(
       dateTime: endDateTime,
       timeZone: 'UTC'
     } as DateTimeTimeZone,
-    subject: roleTypeName || 'No Role Type Set' // Use roleTypeName as the subject
+    subject: roleTypeName || 'No Role Type Set', // Use roleTypeName as the subject
+    id: crypto.randomUUID()
   };
 }

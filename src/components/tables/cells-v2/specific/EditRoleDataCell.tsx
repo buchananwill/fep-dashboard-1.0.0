@@ -10,6 +10,8 @@ import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
 import { useGlobalReadAny } from 'selective-context';
 import { availabilityToOutlookEvent } from '@/components/roles/create-role/RoleSubmissionHandler';
+import { EventClickArg } from '@fullcalendar/core';
+import { useDisclosure } from '@mantine/hooks';
 
 type RoleDataCellProps = IdInnerCellProps<
   IdWrapper<RolePostRequest<any>>['data']['roleDataMap']
@@ -46,6 +48,10 @@ function RoleDataModalContent({
   );
 
   const { currentState, ...callbacks } = useEditableEvents({ initialEvents });
+
+  const [opened, { open, close, toggle }] = useDisclosure();
+
+  const eventClick = useCallback((eventClickInfo: EventClickArg) => {}, []);
 
   const events = useMemo(() => {
     return currentState

@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 import { EventImpl } from '@fullcalendar/core/internal';
 import { produce } from 'immer';
 import { DateClickArg, EventResizeDoneArg } from '@fullcalendar/interaction';
-import { EventDropArg } from '@fullcalendar/core';
+import { EventClickArg, EventDropArg } from '@fullcalendar/core';
 import { addHours } from 'date-fns';
 import { NullableOption } from '@microsoft/microsoft-graph-types';
 import { DateAndTimeAndZoneDto } from '@/api/date-and-time';
@@ -79,6 +79,7 @@ export function useEditableEvents({ initialEvents }: EditableEventParams = {}) {
     },
     [dispatch]
   );
+
   return { currentState, eventResize, eventDrop, dateClick };
 }
 
