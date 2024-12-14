@@ -19,6 +19,7 @@ import {
   Placement,
   shift,
   useFloating,
+  UseFloatingOptions,
   useTransitionStatus,
   useTransitionStyles
 } from '@floating-ui/react';
@@ -28,25 +29,35 @@ export interface PopoverSingletonContextInterface {
   content: ReactNode;
   isOpen: boolean;
   rootNodeRef: MutableRefObject<any>;
-  placement?: Placement;
+  placement?: UseFloatingOptions['placement'];
 }
 
+export type PopoverSingletonProps = {
+  contextKey: string;
+  middleware?: UseFloatingOptions['middleware'];
+  placement?: UseFloatingOptions['placement'];
+};
+
 export const TooltipContext = 'tooltip-context';
-export function PopoverSingleton() {
+export function PopoverSingleton({
+  contextKey,
+  middleware,
+  placement
+}: PopoverSingletonProps) {
   const listenerKey = useUuidListenerKey();
   const rootNodeRefInitial = useRef(null);
   const initialValue = useMemo(() => {
     return {
-      content: <div className={'z-50'}>Hello</div>,
+      content: <div className={'z-50'}>Empty Popover</div>,
       isOpen: false,
       rootNodeRef: rootNodeRefInitial
     };
   }, []);
   const {
-    currentState: { content, rootNodeRef, isOpen, placement },
+    currentState: { content, rootNodeRef, isOpen, placement: statePlacement },
     dispatch
   } = useGlobalController<PopoverSingletonContextInterface>({
-    contextKey: TooltipContext,
+    contextKey,
     listenerKey,
     initialValue
   });
@@ -63,8 +74,8 @@ export function PopoverSingleton() {
     [dispatch]
   );
   const { floatingStyles, refs, context } = useFloating({
-    placement: placement ?? 'right',
-    middleware: [
+    placement: statePlacement ?? placement ?? 'right',
+    middleware: middleware ?? [
       offset({ mainAxis: 10 }),
       autoPlacement(),
       shift({ padding: 10 })
