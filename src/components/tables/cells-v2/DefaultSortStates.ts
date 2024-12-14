@@ -16,6 +16,10 @@ export const Sorts = {
     direction: 'asc',
     path: 'data.name'
   },
+  'data.baseEntity.name': {
+    direction: 'asc',
+    path: 'data.baseEntity.name'
+  },
   carouselGroupName: {
     direction: 'asc',
     path: 'carouselGroupName'

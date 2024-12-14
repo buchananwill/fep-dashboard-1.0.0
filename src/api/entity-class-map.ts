@@ -4,6 +4,7 @@ export const EntityClassMap = {
   buildMetric: 'BuildMetric',
   asset: 'Asset',
   assetRole: 'AssetRole',
+  assetRolePostRequest: 'AssetRolePostRequest',
   assetRoleAvailability: 'AssetRoleAvailability',
   assetRoleType: 'AssetRoleType',
   assetRoleTypeWorkTaskTypeSuitability: 'AssetRoleTypeWorkTaskTypeSuitability',
@@ -29,6 +30,7 @@ export const EntityClassMap = {
   person: 'Person',
   providerRole: 'ProviderRole',
   providerRoleAvailability: 'ProviderRoleAvailability',
+  providerRolePostRequest: 'ProviderRolePostRequest',
   providerRoleType: 'ProviderRoleType',
   providerRoleTypeWorkTaskTypeSuitability:
     'ProviderRoleTypeWorkTaskTypeSuitability',

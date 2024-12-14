@@ -30,6 +30,7 @@ import {
   ProviderRoleTypeWorkTaskTypeSuitabilityDto,
   QueueTreeNodeDto,
   ResourceRequirementItemDto,
+  RolePostRequest,
   ScheduleDto,
   StaticDeliveryAllocationItemDto,
   TimeDivisionDto,
@@ -53,6 +54,7 @@ import { HasName } from 'react-d3-force-wrapper';
 export type EntityTypeMap = {
   asset: AssetDto;
   assetRole: AssetRoleDto;
+  assetRolePostRequest: IdWrapper<RolePostRequest<AssetDto>>;
   assetRoleAvailability: AssetRoleAvailabilityDto;
   assetRoleType: AssetRoleTypeDto;
   assetRoleTypeWorkTaskTypeSuitability: AssetRoleTypeWorkTaskTypeSuitabilityDto;
@@ -79,6 +81,7 @@ export type EntityTypeMap = {
   person: PersonDto;
   queueTreeNode: QueueTreeNodeDto;
   providerRole: ProviderRoleDto;
+  providerRolePostRequest: IdWrapper<RolePostRequest<PersonDto>>;
   providerRoleAvailability: ProviderRoleAvailabilityDto;
   providerRoleType: ProviderRoleTypeDto;
   providerRoleTypeWorkTaskTypeSuitability: ProviderRoleTypeWorkTaskTypeSuitabilityDto;

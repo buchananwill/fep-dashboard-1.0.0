@@ -2,7 +2,10 @@
 
 import React from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { OrganizationWorkHierarchyDto } from '@/api/generated-types/generated-types_';
+import {
+  AssetDto,
+  RolePostRequest
+} from '@/api/generated-types/generated-types_';
 import { Column } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
@@ -21,26 +24,25 @@ import { ExportDataButton } from '@/components/export/ExportDataButton';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { ImportDataButton } from '@/components/import/ImportDataButton';
 import { useUploadData } from '@/hooks/useUploadData';
-import { IdWrapper } from '@/api/types';
 import { useDataExportCallback } from '@/hooks/useDataExportCallback';
-import { validate } from '@/functions/validation/validate-organization-work-hierarchy';
-import { SelectOrganizationTypeNameCell } from '../cells-v2/specific/SelectOrganizationTypeTypeNameCell';
-import { SelectParentOrganizationNamesCell } from '../cells-v2/specific/SelectParentOrganizationNamesCell';
-import { EditOrganizationWorkHierarchyNameCell } from '@/components/tables/cells-v2/specific/UpdateOrganizationNameCell';
+import { IdWrapper } from '@/api/types';
+import { validate } from '@/functions/validation/validate-asset-role-list';
+import EditNameCell from '@/components/tables/cells-v2/generic/EditNameCell';
 import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
-import { SelectWorkSchemaNodeCell } from '@/components/tables/cells-v2/specific/SelectWorkSchemaNodeCell';
+import { SelectAssetTypeCell } from '../cells-v2/specific/SelectAssetTypeCell';
+import { EditRoleDataCell } from '../cells-v2/specific/EditRoleDataCell';
 
-const entityType = EntityClassMap.organizationWorkHierarchy;
+const entityType = EntityClassMap.assetRolePostRequest;
 
-export function OrganizationWorkHierarchyTable({
+export function AssetRolePostRequestTable({
   pathVariables
 }: LeafComponentProps) {
   const readAnyDto =
-    useReadAnyDto<IdWrapper<OrganizationWorkHierarchyDto>>(entityType);
+    useReadAnyDto<IdWrapper<RolePostRequest<AssetDto>>>(entityType);
   const { currentState } = NamespacedHooks.useListen(
     entityType,
     KEY_TYPES.ID_LIST,
-    'organization-work-hierarchy-table',
+    'asset-role-post-request-table',
     EmptyArray as string[]
   );
   const getData = useDataExportCallback({
@@ -50,7 +52,7 @@ export function OrganizationWorkHierarchyTable({
   });
 
   const dispatch = NamespacedHooks.useDispatch<
-    IdWrapper<OrganizationWorkHierarchyDto>[]
+    IdWrapper<RolePostRequest<AssetDto>>[]
   >(entityType, KEY_TYPES.MASTER_LIST);
 
   const onChange = useUploadData({ validate, dispatch, type: 'single' });
@@ -60,9 +62,9 @@ export function OrganizationWorkHierarchyTable({
       <div className={'flex h-[600px] max-w-[80rem] flex-col p-2'}>
         <EntityTable
           entityClass={entityType}
-          columns={organizationWorkHierarchyColumns}
-          cellModel={organizationWorkHierarchyCellModel}
-          defaultSort={Sorts['data.name']}
+          columns={assetRoleColumns}
+          cellModel={assetRolePostRequestCellModel}
+          defaultSort={Sorts['data.baseEntity.name']}
         />
       </div>
       <div className={'center-all-margin flex w-fit gap-2 p-2'}>
@@ -78,62 +80,43 @@ export function OrganizationWorkHierarchyTable({
   );
 }
 
-export const organizationWorkHierarchyColumns: Column<
-  IdWrapper<OrganizationWorkHierarchyDto>
->[] = [
-  {
-    uid: 'data.name',
-    name: 'Name',
-    sortable: true
-  },
-  {
-    uid: 'data.typeName',
-    name: 'Type Name',
-    sortable: true
-  },
-  {
-    uid: 'data.parentNames',
-    name: 'Parent Names',
-    sortable: true
-  },
-  {
-    uid: 'data.workSchemaNodeName',
-    name: 'Work Schema Node Assignment',
-    sortable: true
-  }
-];
+export const assetRoleColumns: Column<IdWrapper<RolePostRequest<AssetDto>>>[] =
+  [
+    { uid: 'id', name: 'Delete', sortable: false, ignoreFilter: true },
+    {
+      uid: 'data.roleDataMap',
+      name: 'Role Data',
+      sortable: false,
+      ignoreFilter: true
+    },
+    { uid: 'data.baseEntity.name', sortable: true, name: 'Name' },
+    { uid: 'data.baseEntity.type', sortable: true, name: 'Type' }
+  ];
 
-const organizationWorkHierarchyCellRecord: CellComponentRecord<
-  IdWrapper<OrganizationWorkHierarchyDto>
+const assetRolePostRequestCells: CellComponentRecord<
+  IdWrapper<RolePostRequest<AssetDto>>
 > = {
   id: { type: 'CustomCell', component: DeleteEntity },
-  'data.name': {
+  'data.baseEntity.name': {
     type: 'IdInnerCell',
-    component: EditOrganizationWorkHierarchyNameCell,
-    updater: getStringUpdater('data.name')
+    component: EditNameCell,
+    updater: getStringUpdater('data.baseEntity.name')
   },
-  'data.typeName': {
+  'data.baseEntity.type': {
+    component: SelectAssetTypeCell,
     type: 'IdInnerCell',
-    component: SelectOrganizationTypeNameCell,
-    updater: getStringUpdater('data.typeName')
-  },
-  'data.parentNames': {
-    type: 'IdInnerCell',
-    component: SelectParentOrganizationNamesCell,
-    updater: (prev, value) => ({
-      ...prev,
-      data: { ...prev.data, parentNames: value }
-    })
-  },
-  'data.workSchemaNodeName': {
-    type: 'IdInnerCell',
-    component: SelectWorkSchemaNodeCell,
     updater: (prev, value) =>
-      updateNestedValueWithLodash(prev, 'data.workSchemaNodeName', value)
+      updateNestedValueWithLodash(prev, 'data.baseEntity.type', value)
+  },
+  'data.roleDataMap': {
+    type: 'IdInnerCell',
+    component: EditRoleDataCell,
+    updater: (prev, value) =>
+      updateNestedValueWithLodash(prev, 'data.roleDataMap', value)
   }
 };
 
-export const organizationWorkHierarchyCellModel = getCellRenderFunction(
-  'organizationWorkHierarchy',
-  organizationWorkHierarchyCellRecord
+export const assetRolePostRequestCellModel = getCellRenderFunction(
+  'assetRolePostRequest',
+  assetRolePostRequestCells
 );

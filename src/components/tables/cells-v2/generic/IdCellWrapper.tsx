@@ -30,6 +30,8 @@ export default function IdCellWrapper<
     entityClass
   });
 
+  console.log({ entity, entityId, entityClass });
+
   const onChange = useCallback(
     (value: T_FIELD_TYPE) => {
       if (updateFunction) {

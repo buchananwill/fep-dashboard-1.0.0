@@ -13,12 +13,16 @@ import { DateAndTimeAndZoneDto } from '@/api/date-and-time';
 
 export const EditableEvents = 'editable-events';
 
-export function useEditableEvents() {
+export type EditableEventParams = {
+  initialEvents?: OutlookEvent[];
+};
+
+export function useEditableEvents({ initialEvents }: EditableEventParams = {}) {
   const listenerKey = useUuidListenerKey();
   const { currentState, dispatch } = useGlobalController<OutlookEvent[]>({
     contextKey: EditableEvents,
     listenerKey,
-    initialValue: EmptyArray
+    initialValue: initialEvents ?? EmptyArray
   });
 
   const editEvent = useCallback(

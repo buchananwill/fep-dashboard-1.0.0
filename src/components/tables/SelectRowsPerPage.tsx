@@ -47,4 +47,4 @@ export default function SelectRowsPerPage() {
   );
 }
 
-const rowOptions = [4, 8, 10, 12].map((num) => String(num));
+const rowOptions = [4, 6, 8, 10, 12, 16, 24, 48].map((num) => String(num));
