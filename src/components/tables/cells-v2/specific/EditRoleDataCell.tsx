@@ -1,3 +1,4 @@
+'use client';
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import {
   RoleData,
@@ -8,14 +9,24 @@ import {
 import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
 import { IdWrapper } from '@/api/types';
 import { useEditableEvents } from '@/components/roles/create-role/useEditableEvents';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useTransition } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
-import { Button, Card, Loader, Pill, Tabs } from '@mantine/core';
-import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
+import {
+  Button,
+  Card,
+  Loader,
+  LoadingOverlay,
+  Overlay,
+  Pill,
+  Tabs
+} from '@mantine/core';
+import CalendarViewer, {
+  defaultOptions
+} from '@/components/calendar/full-calendar/FullCalendar';
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
 import { useGlobalDispatch, useGlobalReadAny } from 'selective-context';
 import { availabilityToOutlookEvent } from '@/components/roles/create-role/RoleSubmissionHandler';
-import { EventClickArg } from '@fullcalendar/core';
+import { Calendar, EventClickArg } from '@fullcalendar/core';
 import {
   PopoverSingleton,
   PopoverSingletonContextInterface
@@ -32,6 +43,9 @@ import { joinWorkTaskTypeKey } from '@/functions/workProjectSeriesSchemaIdTransf
 import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { useTransientState } from '@/hooks/useTransientState';
 import { EmptyArray } from '@/api/literals';
+import { usePropagateRoleDataChange } from '@/components/roles/create-role/usePropagateRoleDataChange';
+import { PendingOverlay } from '@/components/overlays/pending-overlay';
+import FullCalendar from '@fullcalendar/react';
 
 type RoleDataCellProps = IdInnerCellProps<
   IdWrapper<RolePostRequest<any>>['data']['roleDataMap']
@@ -54,6 +68,37 @@ function RoleDataModalContent({
   onClose,
   onChange
 }: RoleDataCellProps & { onClose: () => void }) {
+  const calendarRef = useRef<FullCalendar | null>(null);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const calendarApi = calendarRef.current?.getApi();
+    const currentContainerRef = containerRef.current;
+
+    const resizeObserver = new ResizeObserver(() => {
+      if (calendarApi) calendarApi.updateSize();
+    });
+
+    if (currentContainerRef) {
+      resizeObserver.observe(currentContainerRef);
+    }
+
+    return () => {
+      if (currentContainerRef) {
+        resizeObserver.unobserve(currentContainerRef);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (calendarRef.current) {
+      console.log('resizing calendar');
+      calendarRef.current.getApi().updateSize();
+    }
+  });
+
+  const [isPending, startTransition] = useTransition();
+
   const getRoleTypeNames = useCallback(() => {
     return Object.keys(value);
   }, [value]);
@@ -161,8 +206,15 @@ function RoleDataModalContent({
       .map((event) => ({ ...event, editable: true, overlap: false }));
   }, [currentState]);
 
+  const onConfirm = usePropagateRoleDataChange({
+    compileAvailabilitiesWithoutSetting,
+    compileSuitabilityRequestWithoutSetting: compileSuitabilitiesWithoutSetting,
+    propagateRoleDataChange: onChange ?? noop
+  });
+
   return (
     <>
+      {isPending && <PendingOverlay pending={isPending} />}
       <Tabs
         classNames={{
           panel: 'relative flex h-[80vh] w-[75vw] gap-2'
@@ -181,8 +233,10 @@ function RoleDataModalContent({
           {isLoading ? <Loader /> : <TransferList {...selectApi} mah={300} />}
         </Tabs.Panel>
         <Tabs.Panel value={'availabilities'}>
-          <div className={'w-full'}>
-            <CalendarViewer
+          <div className={'w-full'} ref={containerRef}>
+            <FullCalendar
+              ref={calendarRef}
+              {...defaultOptions}
               events={events}
               headerToolbar={{
                 left: '',
@@ -191,7 +245,8 @@ function RoleDataModalContent({
               }}
               {...callbacks}
               eventClick={eventClick}
-            ></CalendarViewer>
+            />
+
             <PopoverSingleton contextKey={CalendarEventPopover} />
           </div>
         </Tabs.Panel>
@@ -200,9 +255,13 @@ function RoleDataModalContent({
         onCancel={onClose}
         confirmLabel={'Update Role Data'}
         onConfirm={() => {
-          const availabilities = compileAvailabilitiesWithoutSetting();
+          startTransition(() => {
+            onConfirm();
+            onClose();
+          });
         }}
       />
     </>
   );
 }
+function noop(value: any) {}

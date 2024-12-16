@@ -35,3 +35,22 @@ export default function CalendarViewer({
 }
 
 const plugins = [timegrid, interaction];
+
+export const defaultOptions: CalendarOptions = {
+  dayHeaderContent: (props) =>
+    new Intl.DateTimeFormat('en-GB', {
+      day: '2-digit',
+      month: '2-digit'
+    }).format(props.date),
+  titleFormat: { day: '2-digit', month: '2-digit' },
+  plugins: plugins,
+  locale: 'en-GB',
+  firstDay: 1,
+  height: '100%',
+  initialView: 'timeGridWeek',
+  headerToolbar: {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'timeGridWeek,timeGridDay'
+  }
+};
