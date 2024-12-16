@@ -71,6 +71,7 @@ function RoleDataModalContent({
   const { dispatchWithoutListen } =
     useGlobalDispatch<PopoverSingletonContextInterface>(CalendarEventPopover);
 
+  // TODO: make the event editable from within the Popover.
   const eventClick = useCallback(
     (eventClickInfo: EventClickArg) => {
       dispatchWithoutListen((prev) => ({
