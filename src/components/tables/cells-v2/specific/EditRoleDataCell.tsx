@@ -1,6 +1,8 @@
 'use client';
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import {
+  AssetDto,
+  PersonDto,
   RoleData,
   RolePostRequest,
   SuitabilitySummaryDto,
@@ -18,7 +20,8 @@ import {
   LoadingOverlay,
   Overlay,
   Pill,
-  Tabs
+  Tabs,
+  Title
 } from '@mantine/core';
 import CalendarViewer, {
   defaultOptions
@@ -50,16 +53,29 @@ import { usePropagateRoleDataChange } from '@/components/roles/create-role/usePr
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import FullCalendar from '@fullcalendar/react';
 import { isNotUndefined } from '@/api/main';
+import { useDtoStore } from 'dto-stores';
 
 type RoleDataCellProps = IdInnerCellProps<
   IdWrapper<RolePostRequest<any>>['data']['roleDataMap']
 >;
 
 export function EditRoleDataCell(props: RoleDataCellProps) {
-  const strings = props.value ? Object.keys(props.value) : [];
+  const roleTypeNames = useMemo(() => {
+    return props.value ? Object.keys(props.value) : [];
+  }, [props.value]);
+
+  const roleTypeName = useMemo(() => {
+    if (roleTypeNames.length > 1)
+      throw Error('multiple role types in a single record not yet supported.');
+    if (roleTypeNames.length === 0) throw Error('Role type name not found');
+    else return roleTypeNames[0];
+  }, [roleTypeNames]);
 
   return (
-    <ModalEditCell buttonLabel={`Roles: ${strings.length}`}>
+    <ModalEditCell
+      buttonLabel={`Roles: ${roleTypeNames.length}`}
+      title={<Title>Role Type - {roleTypeName}</Title>}
+    >
       {({ onClose }) => <RoleDataModalContent {...props} onClose={onClose} />}
     </ModalEditCell>
   );
@@ -70,8 +86,32 @@ const CalendarEventPopover = 'calendarEventPopover';
 function RoleDataModalContent({
   value,
   onClose,
-  onChange
+  onChange,
+  entityId,
+  entityClass
 }: RoleDataCellProps & { onClose: () => void }) {
+  const { entity } = useDtoStore<IdWrapper<RolePostRequest<any>>>({
+    entityId,
+    entityClass,
+    listenerKey: 'roleDateModalContent'
+  });
+
+  const entityName = useMemo(() => {
+    switch (entityClass) {
+      case EntityClassMap.assetRolePostRequest: {
+        const asset = entity as IdWrapper<RolePostRequest<AssetDto>>;
+        return asset.data.baseEntity.name;
+      }
+      case EntityClassMap.providerRolePostRequest: {
+        const asset = entity as IdWrapper<RolePostRequest<PersonDto>>;
+        const person = asset.data.baseEntity;
+        return `${person.fName} ${person.lName}`;
+      }
+      default:
+        throw Error(`Unsupported role type: ${entityClass}`);
+    }
+  }, [entityClass, entity]);
+
   const calendarRef = useRef<FullCalendar | null>(null);
   const containerRef = useRef(null);
 
@@ -232,11 +272,12 @@ function RoleDataModalContent({
   return (
     <>
       {isPending && <PendingOverlay pending={isPending} />}
+      Name - <Pill>{entityName}</Pill>
       <Tabs
         classNames={{
-          panel: 'relative flex h-[80vh] w-[75vw] gap-2'
+          panel: 'relative flex h-[24em] w-[60em] gap-2'
         }}
-        defaultValue={'suitabilities'}
+        defaultValue={'availabilities'}
       >
         <Tabs.List>
           <Tabs.Tab value={'suitabilities'} id={'suitabilities'}>
@@ -250,10 +291,15 @@ function RoleDataModalContent({
           {isLoading ? <Loader /> : <TransferList {...selectApi} mah={300} />}
         </Tabs.Panel>
         <Tabs.Panel value={'availabilities'}>
-          <div className={'w-full'} ref={containerRef}>
+          <div className={'h-full w-full'} ref={containerRef}>
             <FullCalendar
-              ref={calendarRef}
               {...defaultOptions}
+              ref={calendarRef}
+              dayHeaderContent={(props) =>
+                new Intl.DateTimeFormat('en-GB', {
+                  weekday: 'short'
+                }).format(props.date)
+              }
               events={events}
               headerToolbar={{
                 left: '',
@@ -262,6 +308,7 @@ function RoleDataModalContent({
               }}
               {...callbacks}
               eventClick={eventClick}
+              allDaySlot={false}
             />
 
             <PopoverSingleton contextKey={CalendarEventPopover} />
@@ -281,4 +328,5 @@ function RoleDataModalContent({
     </>
   );
 }
+
 function noop(value: any) {}
