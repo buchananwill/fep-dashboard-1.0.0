@@ -1,6 +1,7 @@
 import {
   WorkProjectSeriesSchemaDto,
-  WorkProjectSeriesSchemaSummaryId
+  WorkProjectSeriesSchemaSummaryId,
+  WorkTaskTypeDto
 } from '@/api/generated-types/generated-types_';
 import { getIntListFromDeliveryAllocations } from '@/components/react-flow/work-schema-node/functions/getIntListFromDeliveryAllocations';
 
@@ -31,11 +32,15 @@ export function joinWorkProjectSeriesSchemaIdKey(
   const allocationList = getIntListFromDeliveryAllocations(
     wpss.deliveryAllocations
   ).join(',');
+  return [joinWorkTaskTypeKey(wpss.workTaskType), allocationList].join('::');
+}
+
+export function joinWorkTaskTypeKey(workTaskType: WorkTaskTypeDto | undefined) {
+  if (workTaskType === undefined) throw Error('WorkTaskType was undefined');
   return [
-    wpss.workTaskType.name,
-    wpss.workTaskType.knowledgeDomain.name,
-    wpss.workTaskType.knowledgeLevel?.name,
-    allocationList
+    workTaskType.name,
+    workTaskType.knowledgeDomain.name,
+    workTaskType.knowledgeLevel?.name
   ].join('::');
 }
 

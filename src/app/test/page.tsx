@@ -28,7 +28,6 @@ export default async function Page() {
         dtoList={tagIdWrapper}
         entityClass={'IdWrapper'}
       />
-      <WpssTransferList dtoList={workProjectSeriesSchemaDtos} />
     </>
   );
 }

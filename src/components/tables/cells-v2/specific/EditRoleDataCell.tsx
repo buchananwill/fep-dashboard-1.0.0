@@ -1,28 +1,35 @@
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
-import { RolePostRequest } from '@/api/generated-types/generated-types_';
+import {
+  RolePostRequest,
+  WorkTaskTypeDto
+} from '@/api/generated-types/generated-types_';
 import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
 import { IdWrapper } from '@/api/types';
 import { useEditableEvents } from '@/components/roles/create-role/useEditableEvents';
 import { useCallback, useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
-import { Button, Card, Pill, Tabs } from '@mantine/core';
+import { Button, Card, Loader, Pill, Tabs } from '@mantine/core';
 import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
 import { useGlobalDispatch, useGlobalReadAny } from 'selective-context';
-import {
-  availabilityToOutlookEvent,
-  mondayIsDayZero,
-  toHHmmSS,
-  toLocalTime
-} from '@/components/roles/create-role/RoleSubmissionHandler';
+import { availabilityToOutlookEvent } from '@/components/roles/create-role/RoleSubmissionHandler';
 import { EventClickArg } from '@fullcalendar/core';
 import {
   PopoverSingleton,
   PopoverSingletonContextInterface
 } from '@/components/generic/PopoverSingleton';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { DayOfWeekArray } from '@/api/date-and-time';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
+import { TransferList } from '@/components/generic/combo-boxes/TransferList';
+import { getDayAndTime } from '@/components/tables/cells-v2/specific/getDayAndTime';
+import { useQuery } from '@tanstack/react-query';
+import { Api } from '@/api/clientApi';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
+import { joinWorkTaskTypeKey } from '@/functions/workProjectSeriesSchemaIdTransforms';
+import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
+import { useTransientState } from '@/hooks/useTransientState';
+import { EmptyArray } from '@/api/literals';
 
 type RoleDataCellProps = IdInnerCellProps<
   IdWrapper<RolePostRequest<any>>['data']['roleDataMap']
@@ -40,13 +47,6 @@ export function EditRoleDataCell(props: RoleDataCellProps) {
 
 const CalendarEventPopover = 'calendarEventPopover';
 
-function getDayAndTime(start: Date | null) {
-  if (start === null) return 'No date provided';
-  else {
-    return `${DayOfWeekArray[mondayIsDayZero(start)]} ${toHHmmSS(start)}`;
-  }
-}
-
 function RoleDataModalContent({
   value,
   onClose,
@@ -55,6 +55,23 @@ function RoleDataModalContent({
   const getRoleTypeNames = useCallback(() => {
     return Object.keys(value);
   }, [value]);
+
+  // TODO Limit fetching to the WorkTaskTypes that are relevant to the selected Role Type.
+  const { data, isLoading } = useQuery({
+    queryFn: Api.WorkTaskType.getAll,
+    queryKey: [EntityClassMap.workTaskType, 'all']
+  });
+
+  const { transientState, setTransientState } =
+    useTransientState<WorkTaskTypeDto[]>();
+
+  const selectApi = useSelectApi<SelectApiParamsMultiFlat<WorkTaskTypeDto>>({
+    rawData: data ?? EmptyArray,
+    labelMaker: joinWorkTaskTypeKey,
+    value: transientState ?? EmptyArray,
+    propagateChange: setTransientState,
+    type: 'multiFlat'
+  });
 
   const readAny = useGlobalReadAny();
 
@@ -68,6 +85,8 @@ function RoleDataModalContent({
     readAny,
     getRoleTypeNames
   );
+
+  const compileSuitabilitiesWithoutSetting = useCallback(() => {}, []);
 
   const { currentState, ...callbacks } = useEditableEvents({ initialEvents });
 
@@ -134,7 +153,9 @@ function RoleDataModalContent({
             Set Availabilities
           </Tabs.Tab>
         </Tabs.List>
-        <Tabs.Panel value={'suitabilities'}>Edit Suitabilities</Tabs.Panel>
+        <Tabs.Panel value={'suitabilities'}>
+          {isLoading ? <Loader /> : <TransferList {...selectApi} mah={300} />}
+        </Tabs.Panel>
         <Tabs.Panel value={'availabilities'}>
           <div className={'w-full'}>
             <CalendarViewer
