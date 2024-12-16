@@ -13,28 +13,17 @@ import { IdWrapper } from '@/api/types';
 import { useEditableEvents } from '@/components/roles/create-role/useEditableEvents';
 import { useCallback, useEffect, useMemo, useRef, useTransition } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
-import {
-  Button,
-  Card,
-  Loader,
-  LoadingOverlay,
-  Overlay,
-  Pill,
-  Tabs,
-  Title
-} from '@mantine/core';
-import CalendarViewer, {
-  defaultOptions
-} from '@/components/calendar/full-calendar/FullCalendar';
+import { Button, Card, Loader, Pill, Tabs, Text } from '@mantine/core';
+import { defaultOptions } from '@/components/calendar/full-calendar/FullCalendar';
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
 import { useGlobalDispatch, useGlobalReadAny } from 'selective-context';
 import { availabilityToOutlookEvent } from '@/components/roles/create-role/RoleSubmissionHandler';
-import { Calendar, EventClickArg } from '@fullcalendar/core';
+import { EventClickArg } from '@fullcalendar/core';
 import {
   PopoverSingleton,
   PopoverSingletonContextInterface
 } from '@/components/generic/PopoverSingleton';
-import { TrashIcon } from '@heroicons/react/24/outline';
+import { TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
 import { TransferList } from '@/components/generic/combo-boxes/TransferList';
 import { getDayAndTime } from '@/components/tables/cells-v2/specific/getDayAndTime';
@@ -74,7 +63,11 @@ export function EditRoleDataCell(props: RoleDataCellProps) {
   return (
     <ModalEditCell
       buttonLabel={`Roles: ${roleTypeNames.length}`}
-      title={<Title>Role Type - {roleTypeName}</Title>}
+      title={
+        <Text fw={700} size={'lg'}>
+          Role Type - {roleTypeName}
+        </Text>
+      }
     >
       {({ onClose }) => <RoleDataModalContent {...props} onClose={onClose} />}
     </ModalEditCell>
@@ -218,6 +211,14 @@ function RoleDataModalContent({
 
   const { dispatchWithoutListen } =
     useGlobalDispatch<PopoverSingletonContextInterface>(CalendarEventPopover);
+  const closeEventPopover = useCallback(() => {
+    dispatchWithoutListen((prev) => ({
+      ...prev,
+      content: <div>No event content</div>,
+      rootNodeRef: { ...prev.rootNodeRef, current: null },
+      isOpen: false
+    }));
+  }, [dispatchWithoutListen]);
 
   // TODO: make the event editable from within the Popover.
   const eventClick = useCallback(
@@ -238,15 +239,19 @@ function RoleDataModalContent({
               rightSection={<TrashIcon className={'w-6'} />}
               onClick={() => {
                 eventClickInfo.event.remove();
-                dispatchWithoutListen((prev) => ({
-                  ...prev,
-                  content: <div>No event content</div>,
-                  rootNodeRef: { ...prev.rootNodeRef, current: null },
-                  isOpen: false
-                }));
+                closeEventPopover();
               }}
             >
               Delete
+            </Button>
+            <Button
+              classNames={{ root: 'absolute top-2 right-2 w-fit h-fit p-1' }}
+              radius={'xl'}
+              variant={'subtle'}
+              color={'black'}
+              onClick={closeEventPopover}
+            >
+              <XMarkIcon className={'w-6'} />
             </Button>
           </Card>
         ),
@@ -254,7 +259,7 @@ function RoleDataModalContent({
         rootNodeRef: { ...prev.rootNodeRef, current: eventClickInfo.el }
       }));
     },
-    [dispatchWithoutListen]
+    [dispatchWithoutListen, closeEventPopover]
   );
 
   const events = useMemo(() => {
@@ -272,7 +277,7 @@ function RoleDataModalContent({
   return (
     <>
       {isPending && <PendingOverlay pending={isPending} />}
-      Name - <Pill>{entityName}</Pill>
+      Name - {entityName}
       <Tabs
         classNames={{
           panel: 'relative flex h-[24em] w-[60em] gap-2'
@@ -311,7 +316,11 @@ function RoleDataModalContent({
               allDaySlot={false}
             />
 
-            <PopoverSingleton contextKey={CalendarEventPopover} />
+            <PopoverSingleton
+              contextKey={CalendarEventPopover}
+              transitionStyleProps={{ duration: 50 }}
+              placement={'top'}
+            />
           </div>
         </Tabs.Panel>
       </Tabs>

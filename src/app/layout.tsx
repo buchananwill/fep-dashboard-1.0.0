@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
 import { LibraryProvidersWrapper } from '@/components/providers/LibraryProvidersWrapper';
 import React, { Suspense } from 'react';
 import TooltipSingleton from '@/components/tooltip/TooltipSingleton';
@@ -11,10 +10,11 @@ import { auth } from '@/auth';
 import When_loading from '@/app/core/when_loading';
 import { ColorSchemeScript } from '@mantine/core';
 import MainScrollPort from '@/components/generic/MainScrollPort';
-import '@mantine/dates/styles.css';
-import '@mantine/notifications/styles.css';
-import '@mantine/spotlight/styles.css';
-import '@mantine/core/styles.css';
+// import '@mantine/core/styles.layer.css';
+// import '@mantine/dates/styles.layer.css';
+// import '@mantine/notifications/styles.layer.css';
+// import '@mantine/spotlight/styles.layer.css';
+import './globals.css';
 import { Notifications } from '@mantine/notifications';
 
 const inter = Inter({ subsets: ['latin'] });

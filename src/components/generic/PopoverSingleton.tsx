@@ -21,7 +21,8 @@ import {
   useFloating,
   UseFloatingOptions,
   useTransitionStatus,
-  useTransitionStyles
+  useTransitionStyles,
+  UseTransitionStylesProps
 } from '@floating-ui/react';
 import clsx from 'clsx';
 
@@ -36,6 +37,7 @@ export type PopoverSingletonProps = {
   contextKey: string;
   middleware?: UseFloatingOptions['middleware'];
   placement?: UseFloatingOptions['placement'];
+  transitionStyleProps?: UseTransitionStylesProps;
 };
 
 export const TooltipContext = 'tooltip-context';
@@ -44,7 +46,8 @@ const defaultPopoverContent = <div className={'z-50'}>Empty Popover</div>;
 export function PopoverSingleton({
   contextKey,
   middleware,
-  placement
+  placement,
+  transitionStyleProps
 }: PopoverSingletonProps) {
   const listenerKey = useUuidListenerKey();
   const rootNodeRefInitial = useRef(null);
@@ -92,7 +95,8 @@ export function PopoverSingleton({
     initial: {
       opacity: 0,
       transform: `scale(0.8) `
-    }
+    },
+    ...transitionStyleProps
   });
 
   const { status } = useTransitionStatus(context);
