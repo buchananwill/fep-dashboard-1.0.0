@@ -681,7 +681,7 @@ export interface PersonDto
   extends Serializable,
     DtoWrapper<any, PersonDto, number> {
   id: number;
-  dateOfBirth: DateAsString;
+  dateOfBirth?: DateAsString;
   fName: string;
   lName: string;
 }
