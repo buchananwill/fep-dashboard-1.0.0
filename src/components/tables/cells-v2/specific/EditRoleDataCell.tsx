@@ -1,6 +1,8 @@
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import {
+  RoleData,
   RolePostRequest,
+  SuitabilitySummaryDto,
   WorkTaskTypeDto
 } from '@/api/generated-types/generated-types_';
 import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
@@ -56,13 +58,14 @@ function RoleDataModalContent({
     return Object.keys(value);
   }, [value]);
 
+  // SUITABILITY SECTION
   // TODO Limit fetching to the WorkTaskTypes that are relevant to the selected Role Type.
   const { data, isLoading } = useQuery({
     queryFn: Api.WorkTaskType.getAll,
     queryKey: [EntityClassMap.workTaskType, 'all']
   });
 
-  const { transientState, setTransientState } =
+  const { transientState, setTransientState, transientStateRef } =
     useTransientState<WorkTaskTypeDto[]>();
 
   const selectApi = useSelectApi<SelectApiParamsMultiFlat<WorkTaskTypeDto>>({
@@ -72,6 +75,29 @@ function RoleDataModalContent({
     propagateChange: setTransientState,
     type: 'multiFlat'
   });
+
+  const compileSuitabilitiesWithoutSetting = useCallback(() => {
+    const selectedWorkTaskTypes = transientStateRef.current ?? [];
+    const suitabilitiesWithoutRoleTypes = selectedWorkTaskTypes.map(
+      (wtt) =>
+        ({
+          rating: 1,
+          knowledgeDomainName: wtt.knowledgeDomain.name,
+          knowledgeLevelName: wtt.knowledgeLevel?.name,
+          taskTypeName: wtt.name
+        }) as SuitabilitySummaryDto
+    );
+    const kvPairs = Object.keys(value).map((roleTypeNameKey) => {
+      const suitabilities = suitabilitiesWithoutRoleTypes.map(
+        (suit) =>
+          ({ ...suit, roleTypeName: roleTypeNameKey }) as SuitabilitySummaryDto
+      );
+      return [roleTypeNameKey, { suitabilities }] as [string, RoleData];
+    });
+    return Object.fromEntries(kvPairs) as Record<string, RoleData>;
+  }, [value, transientStateRef]);
+
+  // AVAILABILITY SECTION
 
   const readAny = useGlobalReadAny();
 
@@ -85,8 +111,6 @@ function RoleDataModalContent({
     readAny,
     getRoleTypeNames
   );
-
-  const compileSuitabilitiesWithoutSetting = useCallback(() => {}, []);
 
   const { currentState, ...callbacks } = useEditableEvents({ initialEvents });
 
