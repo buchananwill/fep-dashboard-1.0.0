@@ -13,7 +13,6 @@ import React, { useCallback, useMemo, useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import { Button, Card, Divider, ScrollArea } from '@mantine/core';
 import { PersonNestedInForm } from '@/components/roles/create-role/PersonNestedInForm';
-import { ErrorMessage } from '@hookform/error-message';
 import { ErrorDiv } from '@/components/roles/create-role/ErrorDiv';
 import { RoleAspectSelectors } from '@/components/roles/create-role/RoleAspectSelectors';
 import { useRoleTypeAndTaskTypeSelections } from '@/components/roles/create-role/useRoleTypeAndTaskTypeSelections';
@@ -26,6 +25,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
 import { Api } from '@/api/clientApi';
 import { flattenErrors } from '@/functions/flatten-errors';
+import { usePropagateRoleDataChange } from '@/components/roles/create-role/usePropagateRoleDataChange';
 
 export const listenerKey = 'create-role-form';
 
@@ -69,28 +69,18 @@ export default function CreateRoleForm<T extends FieldValues>({
 
   const roleDataMap = watch('roleDataMap');
 
-  const compileRoleDataMap = useCallback(() => {
-    const suitabilities = compileSuitabilityRequestWithoutSetting();
-    const availabilities = compileAvailabilitiesWithoutSetting();
-    const combinedData = {} as Record<string, RoleData>;
-    Object.entries(suitabilities).forEach(([key, value]) => {
-      combinedData[key] = {
-        suitabilities: value.suitabilities,
-        availabilities: combinedData[key]?.availabilities ?? []
-      };
-    });
-    Object.entries(availabilities).forEach(([key, value]) => {
-      combinedData[key] = {
-        availabilities: value.availabilities,
-        suitabilities: combinedData[key]?.suitabilities ?? []
-      };
-    });
-    setValue('roleDataMap', combinedData);
-  }, [
+  const propagateRoleDataChange = useCallback(
+    (update: Record<string, RoleData>) => {
+      setValue('roleDataMap', update);
+    },
+    [setValue]
+  );
+
+  const compileRoleDataMap = usePropagateRoleDataChange({
     compileSuitabilityRequestWithoutSetting,
     compileAvailabilitiesWithoutSetting,
-    setValue
-  ]);
+    propagateRoleDataChange
+  });
 
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();

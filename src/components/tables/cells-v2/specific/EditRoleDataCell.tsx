@@ -22,6 +22,7 @@ import {
 } from '@/components/generic/PopoverSingleton';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { DayOfWeekArray } from '@/api/date-and-time';
+import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
 
 type RoleDataCellProps = IdInnerCellProps<
   IdWrapper<RolePostRequest<any>>['data']['roleDataMap']
@@ -29,7 +30,7 @@ type RoleDataCellProps = IdInnerCellProps<
 
 export function EditRoleDataCell(props: RoleDataCellProps) {
   const strings = props.value ? Object.keys(props.value) : [];
-  console.log({ props });
+
   return (
     <ModalEditCell buttonLabel={`Roles: ${strings.length}`}>
       {({ onClose }) => <RoleDataModalContent {...props} onClose={onClose} />}
@@ -47,7 +48,9 @@ function getDayAndTime(start: Date | null) {
 }
 
 function RoleDataModalContent({
-  value
+  value,
+  onClose,
+  onChange
 }: RoleDataCellProps & { onClose: () => void }) {
   const getRoleTypeNames = useCallback(() => {
     return Object.keys(value);
@@ -116,36 +119,45 @@ function RoleDataModalContent({
   }, [currentState]);
 
   return (
-    <Tabs
-      classNames={{
-        panel: 'relative flex h-[80vh] w-[75vw] gap-2'
-      }}
-      defaultValue={'suitabilities'}
-    >
-      <Tabs.List>
-        <Tabs.Tab value={'suitabilities'} id={'suitabilities'}>
-          Set Suitabilities
-        </Tabs.Tab>
-        <Tabs.Tab id={'availabilities'} value={'availabilities'}>
-          Set Availabilities
-        </Tabs.Tab>
-      </Tabs.List>
-      <Tabs.Panel value={'suitabilities'}>Edit Suitabilities</Tabs.Panel>
-      <Tabs.Panel value={'availabilities'}>
-        <div className={'w-full'}>
-          <CalendarViewer
-            events={events}
-            headerToolbar={{
-              left: '',
-              center: 'title',
-              right: ''
-            }}
-            {...callbacks}
-            eventClick={eventClick}
-          ></CalendarViewer>
-          <PopoverSingleton contextKey={CalendarEventPopover} />
-        </div>
-      </Tabs.Panel>
-    </Tabs>
+    <>
+      <Tabs
+        classNames={{
+          panel: 'relative flex h-[80vh] w-[75vw] gap-2'
+        }}
+        defaultValue={'suitabilities'}
+      >
+        <Tabs.List>
+          <Tabs.Tab value={'suitabilities'} id={'suitabilities'}>
+            Set Suitabilities
+          </Tabs.Tab>
+          <Tabs.Tab id={'availabilities'} value={'availabilities'}>
+            Set Availabilities
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value={'suitabilities'}>Edit Suitabilities</Tabs.Panel>
+        <Tabs.Panel value={'availabilities'}>
+          <div className={'w-full'}>
+            <CalendarViewer
+              events={events}
+              headerToolbar={{
+                left: '',
+                center: '',
+                right: ''
+              }}
+              {...callbacks}
+              eventClick={eventClick}
+            ></CalendarViewer>
+            <PopoverSingleton contextKey={CalendarEventPopover} />
+          </div>
+        </Tabs.Panel>
+      </Tabs>
+      <ModalConfirmationFooter
+        onCancel={onClose}
+        confirmLabel={'Update Role Data'}
+        onConfirm={() => {
+          const availabilities = compileAvailabilitiesWithoutSetting();
+        }}
+      />
+    </>
   );
 }
