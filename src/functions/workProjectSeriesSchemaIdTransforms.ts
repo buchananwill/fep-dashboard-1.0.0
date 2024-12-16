@@ -1,4 +1,5 @@
 import {
+  SuitabilitySummaryDto,
   WorkProjectSeriesSchemaDto,
   WorkProjectSeriesSchemaSummaryId,
   WorkTaskTypeDto
@@ -41,6 +42,17 @@ export function joinWorkTaskTypeKey(workTaskType: WorkTaskTypeDto | undefined) {
     workTaskType.name,
     workTaskType.knowledgeDomain.name,
     workTaskType.knowledgeLevel?.name
+  ].join('::');
+}
+export function joinWorkTaskTypeKeyFromSuitability(
+  suitabilitySummary: SuitabilitySummaryDto | undefined
+) {
+  if (suitabilitySummary === undefined)
+    throw Error('WorkTaskType was undefined');
+  return [
+    suitabilitySummary.taskTypeName,
+    suitabilitySummary.knowledgeDomainName,
+    suitabilitySummary.knowledgeLevelName
   ].join('::');
 }
 

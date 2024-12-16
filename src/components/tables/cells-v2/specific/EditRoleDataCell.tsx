@@ -39,13 +39,17 @@ import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
-import { joinWorkTaskTypeKey } from '@/functions/workProjectSeriesSchemaIdTransforms';
+import {
+  joinWorkTaskTypeKey,
+  joinWorkTaskTypeKeyFromSuitability
+} from '@/functions/workProjectSeriesSchemaIdTransforms';
 import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { useTransientState } from '@/hooks/useTransientState';
 import { EmptyArray } from '@/api/literals';
 import { usePropagateRoleDataChange } from '@/components/roles/create-role/usePropagateRoleDataChange';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import FullCalendar from '@fullcalendar/react';
+import { isNotUndefined } from '@/api/main';
 
 type RoleDataCellProps = IdInnerCellProps<
   IdWrapper<RolePostRequest<any>>['data']['roleDataMap']
@@ -90,13 +94,6 @@ function RoleDataModalContent({
     };
   }, []);
 
-  useEffect(() => {
-    if (calendarRef.current) {
-      console.log('resizing calendar');
-      calendarRef.current.getApi().updateSize();
-    }
-  });
-
   const [isPending, startTransition] = useTransition();
 
   const getRoleTypeNames = useCallback(() => {
@@ -112,6 +109,26 @@ function RoleDataModalContent({
 
   const { transientState, setTransientState, transientStateRef } =
     useTransientState<WorkTaskTypeDto[]>();
+
+  const wttMap = useMemo(() => {
+    return (data ?? []).reduce(
+      (prev, curr) => prev.set(joinWorkTaskTypeKey(curr), curr),
+      new Map<string, WorkTaskTypeDto>()
+    );
+  }, [data]);
+
+  useEffect(() => {
+    const workTaskTypes = Object.values(value)
+      .flatMap((roleData) => roleData.suitabilities)
+      .map((suitabilitySummary) =>
+        joinWorkTaskTypeKeyFromSuitability(suitabilitySummary)
+      )
+      .map((key) => wttMap.get(key))
+      .filter(isNotUndefined);
+
+    const unique = [...new Set(workTaskTypes)];
+    setTransientState(unique);
+  }, [value, wttMap, setTransientState]);
 
   const selectApi = useSelectApi<SelectApiParamsMultiFlat<WorkTaskTypeDto>>({
     rawData: data ?? EmptyArray,
