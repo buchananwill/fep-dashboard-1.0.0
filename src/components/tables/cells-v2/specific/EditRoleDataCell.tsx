@@ -76,6 +76,8 @@ export function EditRoleDataCell(props: RoleDataCellProps) {
 
 const CalendarEventPopover = 'calendarEventPopover';
 
+const DEFAULT_VALUE_FOR_IS_SUITABLE = 1;
+
 function RoleDataModalContent({
   value,
   onClose,
@@ -176,7 +178,7 @@ function RoleDataModalContent({
     const suitabilitiesWithoutRoleTypes = selectedWorkTaskTypes.map(
       (wtt) =>
         ({
-          rating: 1,
+          rating: DEFAULT_VALUE_FOR_IS_SUITABLE,
           knowledgeDomainName: wtt.knowledgeDomain.name,
           knowledgeLevelName: wtt.knowledgeLevel?.name,
           taskTypeName: wtt.name
