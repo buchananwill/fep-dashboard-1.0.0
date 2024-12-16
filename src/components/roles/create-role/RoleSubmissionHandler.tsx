@@ -16,8 +16,12 @@ export function getDayOfWeek(dateTimeTimeZone: RequiredDeep<DateTimeTimeZone>) {
   ].toUpperCase() as DayOfWeek;
 }
 
+export function toHHmmSS(date: Date) {
+  return format(date, 'HH:mm:SS');
+}
+
 export function toLocalTime(dateTimeString: string) {
-  return format(new Date(dateTimeString), 'HH:mm:SS');
+  return toHHmmSS(new Date(dateTimeString));
 }
 
 export function outlookEventToAvailability(

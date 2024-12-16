@@ -5,18 +5,23 @@ import { IdWrapper } from '@/api/types';
 import { useEditableEvents } from '@/components/roles/create-role/useEditableEvents';
 import { useCallback, useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
-import { Button, Card, Tabs } from '@mantine/core';
+import { Button, Card, Pill, Tabs } from '@mantine/core';
 import CalendarViewer from '@/components/calendar/full-calendar/FullCalendar';
 import { useCompileAvailabilities } from '@/components/roles/create-role/useCompileAvailabilities';
 import { useGlobalDispatch, useGlobalReadAny } from 'selective-context';
-import { availabilityToOutlookEvent } from '@/components/roles/create-role/RoleSubmissionHandler';
+import {
+  availabilityToOutlookEvent,
+  mondayIsDayZero,
+  toHHmmSS,
+  toLocalTime
+} from '@/components/roles/create-role/RoleSubmissionHandler';
 import { EventClickArg } from '@fullcalendar/core';
-import { useDisclosure } from '@mantine/hooks';
 import {
   PopoverSingleton,
   PopoverSingletonContextInterface
 } from '@/components/generic/PopoverSingleton';
 import { TrashIcon } from '@heroicons/react/24/outline';
+import { DayOfWeekArray } from '@/api/date-and-time';
 
 type RoleDataCellProps = IdInnerCellProps<
   IdWrapper<RolePostRequest<any>>['data']['roleDataMap']
@@ -33,6 +38,13 @@ export function EditRoleDataCell(props: RoleDataCellProps) {
 }
 
 const CalendarEventPopover = 'calendarEventPopover';
+
+function getDayAndTime(start: Date | null) {
+  if (start === null) return 'No date provided';
+  else {
+    return `${DayOfWeekArray[mondayIsDayZero(start)]} ${toHHmmSS(start)}`;
+  }
+}
 
 function RoleDataModalContent({
   value
@@ -64,8 +76,14 @@ function RoleDataModalContent({
       dispatchWithoutListen((prev) => ({
         ...prev,
         content: (
-          <Card>
-            {eventClickInfo.event.start?.toUTCString()}
+          <Card className={'flex flex-col gap-2'}>
+            <div>
+              Role: <Pill>{eventClickInfo.event.title}</Pill>
+            </div>
+            <div>
+              Availability Block: {getDayAndTime(eventClickInfo.event.start)} -{' '}
+              {getDayAndTime(eventClickInfo.event.end)}
+            </div>
             <Button
               color={'red'}
               rightSection={<TrashIcon className={'w-6'} />}
@@ -101,6 +119,7 @@ function RoleDataModalContent({
       classNames={{
         panel: 'relative flex h-[80vh] w-[75vw] gap-2'
       }}
+      defaultValue={'suitabilities'}
     >
       <Tabs.List>
         <Tabs.Tab value={'suitabilities'} id={'suitabilities'}>
