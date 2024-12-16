@@ -7,6 +7,9 @@ const config: Config = {
     './src/hooks/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
+  corePlugins: {
+    preflight: false
+  },
   theme: {
     data: {
       pressed: 'pressed~="true"'
