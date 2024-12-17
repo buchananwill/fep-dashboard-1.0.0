@@ -71,8 +71,6 @@ export default function CycleSubspanDefinitionTable({
     type: 'unwrap'
   });
 
-  console.log(classes);
-
   const getData = useCallback(() => {
     const cycleSubspans: CycleSubspanDefinitionDto[] = JSON.parse(
       getCycleSubspanData()

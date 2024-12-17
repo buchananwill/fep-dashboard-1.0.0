@@ -20,15 +20,11 @@ import {
   ColorUpdater,
   getStringUpdater
 } from '@/functions/cellUpdaterFunctions';
+import { compactTableStyles } from '@/components/tables/edit-tables/CompactTableStyles';
 
 const entityClass = EntityClassMap.knowledgeDomain;
 
 const defaultKnowledgeDomainSort = { direction: 'asc', path: 'name' } as const;
-
-export const compactTableStyles = {
-  td: { paddingTop: 0, paddingBottom: 0 },
-  th: { padding: 0 }
-};
 
 export function KnowledgeDomainTable() {
   // const createHandler = useMasterListToCreate(domainFactory, entityType);

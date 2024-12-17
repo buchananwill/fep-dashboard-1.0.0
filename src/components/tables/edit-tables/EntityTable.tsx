@@ -28,11 +28,11 @@ import { ScrollArea, TableProps } from '@mantine/core';
 import CoreTable from '@/components/tables/CoreTable';
 import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
-import { compactTableStyles } from '@/components/tables/edit-tables/KnowledgeDomainTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { useUserGuideTooltip } from '@/components/user-guide/user-guide-tool-tip/UserGuideToolTip';
 import { singular } from 'pluralize';
 import { kebabCase } from 'lodash';
+import { compactTableStyles } from '@/components/tables/edit-tables/CompactTableStyles';
 
 export default function EntityTable<
   T extends HasIdClass<T_ID>,
@@ -125,6 +125,7 @@ export default function EntityTable<
       <ScrollArea classNames={{ root: 'border-2 rounded-md' }}>
         <CoreTable
           {...props}
+          stickyHeader
           styles={styles ?? compactTableStyles}
           headerModel={headerModel ?? SortableHeaderCell}
           rowIdList={visibleIdList}
