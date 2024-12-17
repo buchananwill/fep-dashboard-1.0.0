@@ -1,0 +1,5 @@
+.select-day {
+    border-bottom: 2px solid var(--mantine-color-gray-3);
+    padding: var(--mantine-spacing-sm);
+
+}

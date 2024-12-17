@@ -1,8 +1,12 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { CycleSubspanDefinitionDto } from '@/api/generated-types/generated-types_';
+import {
+  CycleInitWithCycleSubspanDefinitions,
+  CycleSubspanDefinitionDto,
+  DayOfWeek as DayOfWeekUpper
+} from '@/api/generated-types/generated-types_';
 import { Column, ColumnUid } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
@@ -25,20 +29,34 @@ import {
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
-import { isNotUndefined } from '@/api/main';
 import { ExportDataButton } from '@/components/export/ExportDataButton';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { ImportDataButton } from '@/components/import/ImportDataButton';
 import { useUploadData } from '@/hooks/useUploadData';
-import { unWrapDataWithId } from '@/functions/wrapListDataWithIndexId';
 import { validate } from '@/functions/validateCycleSubspanDefinitionList';
 import { useDataExportCallback } from '@/hooks/useDataExportCallback';
+import { DayOfWeek, DayOfWeekArray } from '@/api/date-and-time';
+import { Select } from '@mantine/core';
+import classes from './cycleSubspanTable.module.css';
 
 const entityType = EntityClassMap.cycleSubspanDefinition;
 
 export default function CycleSubspanDefinitionTable({
   pathVariables
 }: LeafComponentProps) {
+  const [cycleStartDay, setCycleStartDay] = useState<DayOfWeek>(
+    DayOfWeekArray[0]
+  );
+
+  const cycleStartDayRef = useRef(cycleStartDay);
+  cycleStartDayRef.current = cycleStartDay;
+
+  const onChangeStartDay = useCallback((v: string | null) => {
+    if (v !== null) {
+      setCycleStartDay(v as DayOfWeek);
+    }
+  }, []);
+
   const readAnyDto =
     useReadAnyDto<IdWrapper<CycleSubspanDefinitionDto>>(entityType);
   const { currentState } = NamespacedHooks.useListen(
@@ -47,11 +65,24 @@ export default function CycleSubspanDefinitionTable({
     'cycle-definition-table',
     EmptyArray as string[]
   );
-  const getData = useDataExportCallback({
+  const getCycleSubspanData = useDataExportCallback({
     idList: currentState,
     readAnyDto,
     type: 'unwrap'
   });
+
+  console.log(classes);
+
+  const getData = useCallback(() => {
+    const cycleSubspans: CycleSubspanDefinitionDto[] = JSON.parse(
+      getCycleSubspanData()
+    );
+    const cycleInit: CycleInitWithCycleSubspanDefinitions = {
+      cycleDayZero: cycleStartDayRef.current.toUpperCase() as DayOfWeekUpper,
+      cycleSubspanDefinitions: cycleSubspans
+    };
+    return JSON.stringify(cycleInit);
+  }, [getCycleSubspanData]);
 
   const dispatch = NamespacedHooks.useDispatch<
     IdWrapper<CycleSubspanDefinitionDto>[]
@@ -60,25 +91,36 @@ export default function CycleSubspanDefinitionTable({
   const onChange = useUploadData({ validate, dispatch, type: 'single' });
 
   return (
-    <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
-      <div className={'flex h-[600px] max-w-[80rem] flex-col p-2'}>
-        <EntityTable
-          entityClass={entityType}
-          columns={cycleSubspanDefinitionColumns}
-          cellModel={cycleSubspanDefinitionCellModel}
-          defaultSort={Sorts['data.name']}
-        />
-      </div>
-      <div className={'center-all-margin flex w-fit gap-2 p-2'}>
-        <ImportDataButton onChange={onChange} accept={'application/json'} />
-        <ExportDataButton
-          downloadProps={{ getData }}
-          rightSection={<ArrowDownTrayIcon className={'w-6'} />}
-        >
-          Export
-        </ExportDataButton>
-      </div>
-    </RootCard>
+    <>
+      <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
+        <div className={classes.selectDay}>
+          <Select
+            label={'Cycle Start Day'}
+            allowDeselect={false}
+            data={DayOfWeekArray}
+            value={cycleStartDay}
+            onChange={onChangeStartDay}
+          />
+        </div>
+        <div className={'flex h-[500px] max-w-[80rem] flex-col p-2'}>
+          <EntityTable
+            entityClass={entityType}
+            columns={cycleSubspanDefinitionColumns}
+            cellModel={cycleSubspanDefinitionCellModel}
+            defaultSort={Sorts['data.name']}
+          />
+        </div>
+        <div className={'center-all-margin flex w-fit gap-2 p-2'}>
+          <ImportDataButton onChange={onChange} accept={'application/json'} />
+          <ExportDataButton
+            downloadProps={{ getData }}
+            rightSection={<ArrowDownTrayIcon className={'w-6'} />}
+          >
+            Export
+          </ExportDataButton>
+        </div>
+      </RootCard>
+    </>
   );
 }
 
