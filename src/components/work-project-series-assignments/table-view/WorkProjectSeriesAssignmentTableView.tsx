@@ -2,7 +2,6 @@ import { Api } from '@/api/clientApi_';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import TableViewFallbackPage from '@/components/work-project-series-assignments/table-view/TableViewFallbackPage';
 import { LinkButton } from '@/components/navigation/LinkButton';
-import { Root } from 'postcss';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';

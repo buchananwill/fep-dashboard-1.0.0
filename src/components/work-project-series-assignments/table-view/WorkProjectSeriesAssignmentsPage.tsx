@@ -1,8 +1,4 @@
-import { Api } from '@/api/clientApi_';
-import {
-  DataFetchingEditDtoControllerArray,
-  EditAddDeleteDtoControllerArray
-} from 'dto-stores';
+import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
