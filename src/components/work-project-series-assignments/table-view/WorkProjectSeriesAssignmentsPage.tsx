@@ -32,10 +32,18 @@ async function WorkProjectSeriesAssignmentsForSchedule({
   > = await getWithoutBody(
     constructUrl(['/api/v2/workProjectSeries/assignments/schedule', scheduleId])
   );
+  const idSet = new Set<number>();
+  const organizationList: OrganizationDto[] = [];
 
-  const organizationList = workProjectSeriesAssignmentTableDto.rowList
+  workProjectSeriesAssignmentTableDto.rowList
     .filter((row) => row.entityClass === 'Organization')
-    .map((row) => row.data as OrganizationDto);
+    .map((row) => row.data as OrganizationDto)
+    .forEach((orgDto) => {
+      if (!idSet.has(orgDto.id)) {
+        organizationList.push(orgDto);
+        idSet.add(orgDto.id);
+      }
+    });
 
   return (
     <div className={'p-4'}>
