@@ -11,6 +11,7 @@ import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
 import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import { SetOptional, SetRequired } from 'type-fest';
+import { parseToCssRgba } from '@/functions/parseToCssRgba';
 
 export function EntityWithWorkTaskTypeShortCode({
   entity
@@ -22,13 +23,13 @@ export function EntityWithWorkTaskTypeShortCode({
     entity.workTaskType.knowledgeDomain?.shortCode ??
     entity.workTaskType.knowledgeDomain?.name ??
     entity.workTaskType.name;
-  const backgroundColor = getShortCodeColor(subjectCode);
+  const cssRgba = parseToCssRgba(entity.workTaskType.knowledgeDomain?.color);
   return (
     <div
       className={clsx(
-        'transition-colors-opacity pointer-events-none flex h-full w-full items-center justify-center duration-700',
-        backgroundColor
+        'transition-colors-opacity pointer-events-none flex h-full w-full items-center justify-center duration-700'
       )}
+      style={{ backgroundColor: cssRgba }}
     >
       {subjectCode}
     </div>

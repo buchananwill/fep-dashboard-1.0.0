@@ -5,7 +5,6 @@ import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { HasNameDto } from '@/api/generated-types/generated-types_';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import { HasId } from '@/api/types';
-import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import { Loading } from '@/components/feasibility-report/Loading';
 
 export default function RenderOrganizationCell({
