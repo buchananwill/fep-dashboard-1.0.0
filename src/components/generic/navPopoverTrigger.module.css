@@ -1,0 +1,16 @@
+.custom-class {
+    transition-property: colors, opacity; /* Matches 'transition-colors-opacity' */
+    transition-duration: 500ms; /* Default Tailwind transition duration */
+    transition-timing-function: ease-in-out; /* Default Tailwind timing function */
+    pointer-events: auto; /* Matches 'pointer-events-auto' */
+    z-index: 40; /* Matches 'z-40' */
+    display: flex; /* Matches 'flex' */
+    width: fit-content; /* Matches 'w-fit' */
+    flex-direction: column; /* Matches 'flex-col' */
+    align-items: center; /* Matches 'items-center' */
+    background-color: rgba(var(--mantine-color-secondary-3), 0.5); /* Matches 'bg-[rgba(var(--mantine-color-secondary-3),0.5)]' */
+}
+
+.custom-class:hover {
+    background-color: rgba(var(--mantine-color-secondary-3), 1); /* Matches 'bg-[rgba(var(--mantine-color-secondary-3),1)]' */
+}

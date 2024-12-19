@@ -7,6 +7,7 @@ import { JSX } from 'react/jsx-runtime';
 import clsx from 'clsx';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { motion } from 'framer-motion';
+import classes from './navPopoverTrigger.module.css';
 
 export function BoundaryCenteredWidget({
   children,
@@ -96,12 +97,7 @@ export function BoundaryCenteredWidget({
         )}
       <motion.div layout>
         {drag(
-          <div
-            className={clsx(
-              'pointer-events-auto z-40 flex w-fit  flex-col items-center bg-blue-100 bg-opacity-50 transition-colors-opacity hover:bg-opacity-100',
-              classNameWidget
-            )}
-          >
+          <div className={clsx(classes.customClass, classNameWidget)}>
             {boundaryType === 'top' ? (
               currentState ? (
                 currentState
