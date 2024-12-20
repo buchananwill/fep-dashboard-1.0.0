@@ -911,6 +911,29 @@ export interface WorkSchemaNodeLeaf {
   root: WorkSchemaNodeRootTotalDeliveryAllocationRollup;
 }
 
+export interface WorkPlanRequest {
+  planName: string;
+  organizationTypeName: string;
+  numberOfUsers: number;
+  independentWorkSchemas: number[];
+  repeatCountToParallelWorkPlanRequests: {
+    [index: string]: ParallelWorkPlanRequest;
+  };
+}
+
+export interface ParallelWorkPlanRequest {
+  name: string;
+  workSchemaList: number[];
+  userCount: number;
+  organizationRepeatCount: number;
+  groupSize: number;
+}
+
+export interface WorkPlanResponse {
+  organizations: GraphDto<OrganizationDto>;
+  workSchemaNodeRoots: { [index: string]: GenericNestedDto<WorkSchemaNodeDto> };
+}
+
 export interface CollectionDto<ItemDto, IdTypeOfReferencedEntity> {}
 
 export interface IntersectionDto<A, B> {}
