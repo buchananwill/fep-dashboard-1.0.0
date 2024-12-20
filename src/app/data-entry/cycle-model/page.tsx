@@ -9,27 +9,5 @@ import { IdWrapper } from '@/api/types';
 import CycleSubspanDefinitionTable from '@/components/tables/edit-tables/CycleSubspanDefinitionTable';
 
 export default async function Page() {
-  const newVar = await Api.InitJsonTemplate.getOne(10);
-  const { content } = newVar;
-  const cycleDefinition: CycleInitWithCycleSubspanDefinitions =
-    JSON.parse(content);
-
-  return (
-    <>
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.cycleSubspanDefinition}
-        dtoList={cycleDefinition.cycleSubspanDefinitions.map(
-          (csd, index) =>
-            ({
-              id: `${index}`,
-              data: csd
-            }) as IdWrapper<CycleSubspanDefinitionDto>
-        )}
-      />
-      <CycleSubspanDefinitionTable
-        pathVariables={['data-entry', 'cycle-model']}
-        depth={0}
-      />
-    </>
-  );
+  const initJsonTemplate = await Api.InitJsonTemplate.getOne(10);
 }

@@ -7,29 +7,4 @@ import { WorkSchemaNodeManualDefinitionTable } from '@/components/tables/edit-ta
 
 export default async function Page() {
   const newVar = await Api.InitJsonTemplate.getOne(14);
-
-  const { content } = newVar;
-  const workSchemaNodeManualDefinitions = (
-    JSON.parse(content) as WorkSchemaNodeManualDefinitionDto[]
-  ).map(
-    (dto) =>
-      ({
-        id: dto.name,
-        data: dto
-      }) as IdWrapper<WorkSchemaNodeManualDefinitionDto>
-  );
-
-  return (
-    <>
-      <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workSchemaNodeManualDefinition}
-        dtoList={workSchemaNodeManualDefinitions}
-      />
-
-      <WorkSchemaNodeManualDefinitionTable
-        pathVariables={['data-entry', 'work-schema-nodes']}
-        depth={0}
-      />
-    </>
-  );
 }
