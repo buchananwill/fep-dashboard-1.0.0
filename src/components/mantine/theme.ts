@@ -40,16 +40,29 @@ const redColors = [
 ] as const;
 
 const amberSunriseColors = [
-  '255, 244, 225',
-  '255, 231, 205',
-  '252, 205, 158',
-  '248, 178, 106',
-  '245, 155, 63',
-  '244, 140, 35',
-  '244, 132, 18',
-  '217, 113, 4',
-  '194, 100, 0',
-  '169, 85, 0'
+  '255, 244, 226',
+  '254, 231, 207',
+  '248, 205, 162',
+  '242, 178, 113',
+  '237, 155, 72',
+  '234, 140, 45',
+  '234, 132, 29',
+  '208, 113, 15',
+  '185, 100, 8',
+  '162, 85, 0'
+] as const;
+
+const amberSunriseColorsHex = [
+  '#fff4e2',
+  '#fee7cf',
+  '#f8cda2',
+  '#f2b271',
+  '#ed9b48',
+  '#ea8c2d',
+  '#ea841d',
+  '#d0710f',
+  '#b96408',
+  '#a25500'
 ] as const;
 
 const royalAmethystColors = [
@@ -83,10 +96,11 @@ const MantineTheme: MantineThemeOverride = {
   spacing: {
     xxs: '0.4rem'
   },
+  primaryColor: 'primary',
   colors: {
-    primary: mintColors,
+    success: mintColors,
     secondary: amberSunriseColors,
-    tertiary: royalAmethystColors,
+    primary: royalAmethystColors,
     danger: redColors,
     default: grayColors
   },

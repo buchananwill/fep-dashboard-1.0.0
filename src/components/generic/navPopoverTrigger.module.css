@@ -1,6 +1,6 @@
 .custom-class {
-    transition-property: colors, opacity; /* Matches 'transition-colors-opacity' */
-    transition-duration: 500ms; /* Default Tailwind transition duration */
+    transition-property: background-color, opacity; /* Matches 'transition-colors-opacity' */
+    transition-duration: 200ms; /* Default Tailwind transition duration */
     transition-timing-function: ease-in-out; /* Default Tailwind timing function */
     pointer-events: auto; /* Matches 'pointer-events-auto' */
     z-index: 40; /* Matches 'z-40' */
