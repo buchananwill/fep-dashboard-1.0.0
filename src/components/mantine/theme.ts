@@ -1,16 +1,29 @@
 import { createTheme, MantineThemeOverride, rem } from '@mantine/core';
 
-const blueColors = [
-  '#e7f5ff',
-  '#d0ebff',
-  '#a5d8ff',
-  '#74c0fc',
-  '#4dabf7',
-  '#339af0',
-  '#228be6',
-  '#1c7ed6',
-  '#1971c2',
-  '#1864ab'
+const celestialLagoonColors = [
+  '#e0ffff',
+  '#cefafc',
+  '#a3f2f6',
+  '#73eaf0',
+  '#4ee4eb',
+  '#36e0e8',
+  '#21dee7',
+  '#01c5ce',
+  '#00afb8',
+  '#0098a0'
+] as const;
+
+const celestialLagoonColorsRGB = [
+  '224, 255, 255',
+  '206, 250, 252',
+  '163, 242, 246',
+  '115, 234, 240',
+  '78, 228, 235',
+  '54, 224, 232',
+  '33, 222, 231',
+  '1, 197, 206',
+  '0, 175, 184',
+  '0, 152, 160'
 ] as const;
 
 const mintColors = [
@@ -27,16 +40,16 @@ const mintColors = [
 ] as const;
 
 const redColors = [
-  '#fff5f5',
-  '#ffe3e3',
-  '#ffc9c9',
-  '#ffa8a8',
-  '#ff8787',
-  '#ff6b6b',
-  '#fa5252',
-  '#f03e3e',
-  '#e03131',
-  '#c92a2a'
+  '#ffeae9',
+  '#ffd5d2',
+  '#f7a9a5',
+  '#f07a73',
+  '#eb5249',
+  '#e8392f',
+  '#e72b21',
+  '#ce1d15',
+  '#b81611',
+  '#a1090b'
 ] as const;
 
 const amberSunriseColors = [
@@ -66,16 +79,16 @@ const amberSunriseColorsHex = [
 ] as const;
 
 const royalAmethystColors = [
-  '#f8eaff',
-  '#e9d3ff',
-  '#cea4f8',
-  '#b272f2',
-  '#9b48ed',
-  '#8c2dea',
-  '#851eea',
-  '#7212d0',
-  '#650dbb',
-  '#5705a5'
+  '#f9ebff',
+  '#ead3fe',
+  '#d1a5f6',
+  '#b873f0',
+  '#a249eb',
+  '#942fe8',
+  '#8d21e7',
+  '#7a14ce',
+  '#6d0fb9',
+  '#5e07a3'
 ] as const;
 
 const grayColors = [
@@ -98,9 +111,9 @@ const MantineTheme: MantineThemeOverride = {
   },
   primaryColor: 'primary',
   colors: {
-    success: mintColors,
-    secondary: amberSunriseColors,
     primary: royalAmethystColors,
+    secondary: celestialLagoonColorsRGB,
+    success: mintColors,
     danger: redColors,
     default: grayColors
   },
