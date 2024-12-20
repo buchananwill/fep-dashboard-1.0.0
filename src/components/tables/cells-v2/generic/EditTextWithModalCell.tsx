@@ -78,7 +78,7 @@ function EditTextModal({
           error={invalid?.errorMessage}
           onChange={(e) => setNewValue(e.target.value)}
         />
-        <Button onClick={onConfirm} disabled={invalid?.error}>
+        <Button onClick={onConfirm} color={'success'} disabled={invalid?.error}>
           Confirm
         </Button>
       </div>
