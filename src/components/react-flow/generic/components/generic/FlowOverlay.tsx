@@ -54,9 +54,9 @@ export function FlowOverlay({
           </Popover.Dropdown>
         </Popover>
         {initialized && toggle && (
-          <button
+          <Button
             onClick={toggle}
-            color={'default'}
+            variant={'subtle'}
             className={running ? 'animate-pulse' : ''}
           >
             {running ? (
@@ -65,7 +65,7 @@ export function FlowOverlay({
               <PlayIcon className={'h-5 w-5 text-emerald-500'} />
             )}{' '}
             Force Layout
-          </button>
+          </Button>
         )}
       </Panel>
       <NodeDetailsModal />

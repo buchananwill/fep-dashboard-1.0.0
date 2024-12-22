@@ -1,5 +1,4 @@
 import { Api } from '@/api/clientApi';
-import { WpssTransferList } from '@/components/work-project-series-schema/WpssTransferList';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { joinWorkProjectSeriesSchemaIdKey } from '@/functions/workProjectSeriesSchemaIdTransforms';

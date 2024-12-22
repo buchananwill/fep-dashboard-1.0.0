@@ -24,6 +24,10 @@
 
 
 @layer tw-base {
+    ol, ul {
+        margin: 0;
+        padding: 0;
+    }
 
     ul {
         list-style: disc;
@@ -39,6 +43,9 @@
 }
 
 @layer tw-utilities {
+}
+
+@layer utilities {
     .text-balance {
         text-wrap: balance;
     }

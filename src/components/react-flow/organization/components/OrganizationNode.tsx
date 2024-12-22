@@ -17,6 +17,7 @@ import { useDtoStore, useReadAnyDto } from 'dto-stores';
 import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 import { isNotUndefined } from '@/api/main';
 import { useNodeContext } from 'react-d3-force-wrapper';
+import classes from '../../generic/components/nodes/base-editable-node.module.css';
 
 export function OrganizationNode(
   nodeProps: NodeProps<NodeBase<Simplify<OrganizationDto>>>
@@ -90,8 +91,8 @@ export function OrganizationNode(
     <BaseEditableNode
       {...nodeProps}
       className={clsx(
-        'container-3-cols transition-colors-opacity relative gap-1 rounded-md border-black bg-white p-2',
-        selected ? 'border-2' : 'border',
+        classes.baseEditableNode,
+        selected && 'border-2',
         dragging ? 'opacity-50' : ''
       )}
     >

@@ -1,7 +1,5 @@
 'use client';
 
-import classes from './testButton.module.css';
-
 import { Button } from '@mantine/core';
 import { testAction } from '@/app/data-entry/test/testAction';
 

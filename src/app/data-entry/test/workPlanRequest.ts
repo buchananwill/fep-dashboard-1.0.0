@@ -1,17 +1,17 @@
 import { WorkPlanRequest } from '@/api/generated-types/generated-types_';
 
 export const requestTest: WorkPlanRequest = {
-  planName: 'Year 7 Test7',
+  planName: 'Year 7 Test9',
   repeatCountToParallelWorkPlanRequests: {
     '2': {
-      name: 'Humanities3',
+      name: 'Humanities4',
       workSchemaList: [39, 6, 57, 49, 47],
       userCount: 180,
       organizationRepeatCount: 2,
       groupSize: 5
     },
     '1': {
-      name: 'Maths and Games3',
+      name: 'Maths and Games4',
       workSchemaList: [61, 44],
       userCount: 180,
       organizationRepeatCount: 1,
