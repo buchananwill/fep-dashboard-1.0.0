@@ -7,6 +7,7 @@ import {
   getAll,
   getDto,
   getDtoListByBodyList,
+  getDtoListByExampleList,
   getDtoPage,
   postDto,
   postDtoList,
@@ -52,6 +53,11 @@ export async function api<
     case 'getDtoListByBodyList': {
       return getDtoListByBodyList(
         mergedParams as ParamsWithUrl<Key, 'getDtoListByBodyList'>
+      );
+    }
+    case 'getDtoListByExampleList': {
+      return getDtoListByExampleList(
+        mergedParams as ParamsWithUrl<Key, 'getDtoListByExampleList'>
       );
     }
     case 'getDto': {

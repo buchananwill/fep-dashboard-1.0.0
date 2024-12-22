@@ -1,11 +1,14 @@
 'use client';
 
-import { Button, Card, Group, Stepper } from '@mantine/core';
+import { Button, Card, Stepper } from '@mantine/core';
 import { useStepperState } from '@/components/work-plan-request/useStepperState';
 import classes from './work-plan-wizard.module.css';
 import pushable from '../../css-modules/pushable-button.module.css';
 
-import { ReactNode, useMemo } from 'react';
+import { useMemo } from 'react';
+import { steps } from '@/components/work-plan-request/Steps';
+import { WorkPlanRequestController } from '@/components/work-plan-request/WorkPlanRequestController';
+import { WorkPlanRequestWizardStepWrapper } from '@/components/work-plan-request/WorkPlanRequestWizardStepWrapper';
 
 export function WorkPlanRequestRoot() {
   const { active, setActive, nextStep, prevStep } = useStepperState({
@@ -22,6 +25,7 @@ export function WorkPlanRequestRoot() {
 
   return (
     <Card>
+      <WorkPlanRequestController />
       <Card.Section className={classes.wizardHeader}>
         Work Plan Generator Wizard
       </Card.Section>
@@ -43,7 +47,9 @@ export function WorkPlanRequestRoot() {
           </Stepper>
         </div>
         <div className={classes.stepDiv}>
-          <Component />
+          <WorkPlanRequestWizardStepWrapper>
+            {(props) => <Component {...props} />}
+          </WorkPlanRequestWizardStepWrapper>
           <div className={classes.buttonGroup}>
             <Button variant="default" onClick={prevStep}>
               Back
@@ -68,26 +74,3 @@ export function WorkPlanRequestRoot() {
     </Card>
   );
 }
-
-const steps: {
-  label: string;
-  description: string;
-  component?: () => ReactNode;
-}[] = [
-  {
-    label: 'Select Year',
-    description:
-      'Select the year group to generate a classes and lessons plan for.'
-  },
-  { label: 'Name', description: 'Choose a unique name for this plan' },
-  { label: 'Size', description: 'Set the total number of students' },
-  {
-    label: 'Independent Bundle',
-    description: 'Select lesson types to be assigned as an independent bundle'
-  },
-  {
-    label: 'Synchronized Bundles',
-    description:
-      'Select subsets of lessons types to be assigned as synchronized bundles'
-  }
-];
