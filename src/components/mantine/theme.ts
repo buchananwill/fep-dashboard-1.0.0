@@ -112,7 +112,8 @@ const MantineTheme: MantineThemeOverride = {
   primaryColor: 'primary',
   colors: {
     primary: royalAmethystColors,
-    secondary: celestialLagoonColorsRGB,
+    secondary: celestialLagoonColors,
+    secondaryRGB: celestialLagoonColorsRGB,
     success: mintColors,
     danger: redColors,
     default: grayColors

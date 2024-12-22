@@ -1,0 +1,22 @@
+.stepper-div {
+    max-width: 18em;
+    border: 2px solid var(--mantine-color-primary-1);
+    border-radius: var(--mantine-radius-md);
+    padding: 0.5rem;
+
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+}
+
+.wizard-header {
+    text-align: center;
+    text-decoration: underline solid var(--mantine-color-primary-3);
+    background: linear-gradient(to bottom, var(--mantine-color-white) 65%, var(--mantine-color-secondary-1) 100%);
+    padding: 0.5rem 0 0.5rem 0;
+    margin-bottom: 0.25rem;
+}

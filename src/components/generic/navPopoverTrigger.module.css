@@ -8,9 +8,9 @@
     width: fit-content; /* Matches 'w-fit' */
     flex-direction: column; /* Matches 'flex-col' */
     align-items: center; /* Matches 'items-center' */
-    background-color: rgba(var(--mantine-color-secondary-3), 0.5); /* Matches 'bg-[rgba(var(--mantine-color-secondary-3),0.5)]' */
+    background-color: rgba(var(--mantine-color-secondaryRGB-3), 0.5); /* Matches 'bg-[rgba(var(--mantine-color-secondary-3),0.5)]' */
 }
 
 .custom-class:hover {
-    background-color: rgba(var(--mantine-color-secondary-3), 1); /* Matches 'bg-[rgba(var(--mantine-color-secondary-3),1)]' */
+    background-color: rgba(var(--mantine-color-secondaryRGB-3), 1); /* Matches 'bg-[rgba(var(--mantine-color-secondary-3),1)]' */
 }
