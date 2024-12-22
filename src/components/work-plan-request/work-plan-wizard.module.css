@@ -3,12 +3,18 @@
     border: 2px solid var(--mantine-color-primary-1);
     border-radius: var(--mantine-radius-md);
     padding: 0.5rem;
+}
 
+.step-div {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .main-container {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     gap: 0.5rem;
     padding-bottom: 1rem;
 }
@@ -19,4 +25,12 @@
     background: linear-gradient(to bottom, var(--mantine-color-white) 65%, var(--mantine-color-secondary-1) 100%);
     padding: 0.5rem 0 0.5rem 0;
     margin-bottom: 0.25rem;
+}
+
+.button-group {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    overflow: visible;
 }

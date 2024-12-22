@@ -3,12 +3,23 @@
 import { Button, Card, Group, Stepper } from '@mantine/core';
 import { useStepperState } from '@/components/work-plan-request/useStepperState';
 import classes from './work-plan-wizard.module.css';
-import { ReactNode } from 'react';
+import pushable from '../../css-modules/pushable-button.module.css';
+
+import { ReactNode, useMemo } from 'react';
 
 export function WorkPlanRequestRoot() {
   const { active, setActive, nextStep, prevStep } = useStepperState({
     steps: steps.length
   });
+
+  const Component = useMemo(() => {
+    return active >= steps.length
+      ? () => 'Click Submit to generate this Lesson Plan'
+      : steps[active].component
+        ? steps[active].component
+        : () => 'No component defined!';
+  }, [active]);
+
   return (
     <Card>
       <Card.Section className={classes.wizardHeader}>
@@ -31,20 +42,27 @@ export function WorkPlanRequestRoot() {
             ))}
           </Stepper>
         </div>
-        <div>
-          {active < steps.length
-            ? steps[active].description
-            : 'Click Submit to generate this Lesson Plan'}
-          <Group justify="right" gap={'xs'}>
+        <div className={classes.stepDiv}>
+          <Component />
+          <div className={classes.buttonGroup}>
             <Button variant="default" onClick={prevStep}>
               Back
             </Button>
             {active < steps.length ? (
               <Button onClick={nextStep}>Next step</Button>
             ) : (
-              <Button color={'success'}>Submit</Button>
+              <Button
+                classNames={{
+                  root: pushable.pushable,
+                  label: pushable.pushableLabel
+                }}
+              >
+                <span className={pushable.shadow}></span>
+                <span className={pushable.edge}></span>
+                <span className={pushable.front}>Submit</span>
+              </Button>
             )}
-          </Group>
+          </div>
         </div>
       </Card.Section>
     </Card>
