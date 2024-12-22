@@ -2,6 +2,7 @@
 
 import { Button } from '@mantine/core';
 import { testAction } from '@/app/data-entry/test/testAction';
+import classes from './testButton.module.css';
 
 export default function page() {
   return (
@@ -10,7 +11,7 @@ export default function page() {
         const result = await testAction();
         console.log(result);
       }}
-      // classNames={{ root: classes.button }}
+      classNames={{ root: classes.gradientButton }}
     >
       Test
     </Button>

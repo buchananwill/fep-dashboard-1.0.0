@@ -1,3 +1,4 @@
-.button {
-    background: linear-gradient(45deg, var(--mantine-color-primary-3), var(--mantine-color-secondary-3));
+.gradient-button {
+    background: linear-gradient(135deg, var(--mantine-color-primary-3), rgb(var(--mantine-color-secondary-3)));
+    border: 0;
 }
