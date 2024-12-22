@@ -15,7 +15,7 @@ export function LibraryProvidersWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <MantineProvider theme={defaultTheme}>
+    <MantineProvider {...providerProps}>
       <QueryClientProvider client={queryClient}>
         <SelectiveContextManagerGlobal>
           <DndProvider options={HTML5toTouch}>
@@ -30,3 +30,9 @@ export function LibraryProvidersWrapper({
 }
 
 const queryClient = new QueryClient();
+
+const providerProps = {
+  theme: defaultTheme,
+
+  cssVariablesSelector: `:root${':not(#\\#)'.repeat(3)}`
+};

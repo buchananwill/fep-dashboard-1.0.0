@@ -1,26 +1,124 @@
+/* 1. Define the layer order */
+
+
+/* 3. Import existing layers */
+
+@import "normalize.css";
 @import '@xyflow/react/dist/style.css';
 @import '@mantine/core/styles.layer.css';
 @import '@mantine/dates/styles.layer.css';
 @import '@mantine/notifications/styles.layer.css';
 @import '@mantine/spotlight/styles.layer.css';
 
+@layer tw-base {
+    @tailwind base;
+}
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@layer tw-components {
+    @tailwind components;
+}
 
-@layer base, components, mantine, utilities;
-@layer base {
+@layer tw-utilities {
+    @tailwind utilities;
+}
+
+
+@layer tw-base {
+
     ul {
         list-style: disc;
     }
+
     ol {
         list-style: decimal;
     }
+
     a {
         text-decoration: none;
     }
 }
+
+@layer tw-utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+@layer tw-components {
+    .no-spinner {
+        -moz-appearance: textfield;
+    }
+
+    .no-spinner::-webkit-outer-spin-button,
+    .no-spinner::-webkit-inner-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+    }
+
+
+    .number-input {
+        @apply text-right p-2 rounded-xl outline-blue-400 bg-zinc-100 text-black text-sm w-24
+    }
+
+    .beacon {
+        offset-distance: 0;
+        animation-name: moveAlongPath;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        position: absolute;
+        @apply w-6 h-6 bg-red-400 z-50 rounded-full
+    }
+
+    label {
+        @apply text-neutral-500
+    }
+
+
+    .line {
+        position: absolute;
+        width: 150%;
+        height: 0; /* Height is 0 because we're using borders */
+        border-top: 2px dashed black; /* Dashed line with a top border */
+        top: 50%;
+        left: 50%;
+        transform-origin: center center;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .carousel-order-pills {
+        stroke-width: 10px;
+        stroke: hsla(160, 84%, 39%, 0.5);
+    }
+
+    .quadrant-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f0f0f0;
+        overflow: hidden;
+    }
+
+    .react-flow .react-flow__handle {
+        width: 30px;
+        height: 14px;
+        border-radius: 3px;
+    }
+
+    .fc-view {
+        border-radius: 8px;
+    }
+
+    .fc-view-harness {
+        border-radius: 8px;
+        overflow: hidden;
+        border: 3px solid gray;
+    }
+
+}
+
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -59,7 +157,6 @@ canvas {
 .sixth-child:nth-child(6n+6) {
     border-right-color: #393939; /* Or any other style you want */
 }
-
 
 
 @keyframes bounce-less {
@@ -108,91 +205,12 @@ canvas {
 }
 
 
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
-}
+
 
 .overflow-initial {
     overflow: initial !important;
     overflow-x: visible !important;
     overflow-y: hidden !important;
-}
-
-@layer components {
-    .no-spinner {
-        -moz-appearance: textfield;
-    }
-
-    .no-spinner::-webkit-outer-spin-button,
-    .no-spinner::-webkit-inner-spin-button {
-        margin: 0;
-        -webkit-appearance: none;
-    }
-
-
-
-    .number-input {
-        @apply text-right p-2 rounded-xl outline-blue-400 bg-zinc-100 text-black text-sm w-24
-    }
-
-    .beacon {
-        offset-distance: 0;
-        animation-name: moveAlongPath;
-        animation-duration: 2s;
-        animation-iteration-count: infinite;
-        animation-timing-function: ease-in-out;
-        position: absolute;
-        @apply w-6 h-6 bg-red-400 z-50 rounded-full
-    }
-
-    label {
-        @apply text-neutral-500
-    }
-
-
-
-    .line {
-        position: absolute;
-        width: 150%;
-        height: 0; /* Height is 0 because we're using borders */
-        border-top: 2px dashed black; /* Dashed line with a top border */
-        top: 50%;
-        left: 50%;
-        transform-origin: center center;
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-
-    .carousel-order-pills {
-        stroke-width: 10px;
-        stroke: hsla(160, 84%, 39%, 0.5);
-    }
-    .quadrant-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #f0f0f0;
-        overflow: hidden;
-    }
-
-    .react-flow .react-flow__handle {
-        width: 30px;
-        height: 14px;
-        border-radius: 3px;
-    }
-
-    .fc-view {
-        border-radius: 8px;
-    }
-    .fc-view-harness {
-        border-radius: 8px;
-        overflow: hidden;
-        border: 3px solid gray;
-    }
-
 }
 
 @keyframes ping {
@@ -243,6 +261,7 @@ canvas {
         animation-iteration-count: infinite;
         animation-timing-function: linear;
     }
+
     .to-source {
         animation-direction: reverse;
         @apply to-target;
@@ -264,15 +283,19 @@ canvas {
         transform: scale(0); /* Initial state */
         animation: scaleUp 500ms ease-out forwards;
     }
+
     .bulge-top {
         border-radius: 64px 64px 12px 12px;
     }
+
     .bulge-bottom {
         border-radius: 12px 12px 64px 64px;
     }
+
     .bulge-left {
         border-radius: 64px 12px 12px 64px;
     }
+
     .bulge-right {
         border-radius: 12px 64px 64px 12px;
     }
@@ -280,16 +303,11 @@ canvas {
 }
 
 
-
-
-
-
 @keyframes pulse {
     50% {
         opacity: 0.5;
     }
 }
-
 
 
 /* Keyframes to scale the element */
@@ -301,7 +319,4 @@ canvas {
         transform: scale(1); /* End at full size */
     }
 }
-
-
-
 
