@@ -8,6 +8,7 @@ import { TransferList } from '@/components/generic/combo-boxes/TransferList';
 import { useLabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
 import { sortBy } from 'lodash';
 import { useWpssQueryWithWorkPlanRequest } from '@/components/work-plan-request/steps/useWpssQueryWithWorkPlanRequest';
+import { useRemainingUnselectedSchemas } from '@/components/work-plan-request/steps/SynchronizedBundles';
 
 export function useKnowledgeDomainWorkProjectSeriesSchemaLabel() {
   return useLabelMaker<WorkProjectSeriesSchemaDto>(
@@ -15,11 +16,17 @@ export function useKnowledgeDomainWorkProjectSeriesSchemaLabel() {
   );
 }
 
+export function sortByKnowledgeDomainWpss(
+  data: WorkProjectSeriesSchemaDto[] | undefined
+) {
+  return sortBy(data ?? [], (item) => item.workTaskType.knowledgeDomain.name);
+}
+
 export function useSortWpssByKnowledgeDomainName(
   data: WorkProjectSeriesSchemaDto[] | undefined
 ) {
   return useMemo(() => {
-    return sortBy(data ?? [], (item) => item.workTaskType.knowledgeDomain.name);
+    return sortByKnowledgeDomainWpss(data);
   }, [data]);
 }
 
@@ -33,7 +40,19 @@ export function IndependentBundle({
   const selection = useMemo(() => {
     const idSet = new Set(currentState.independentWorkSchemas);
     return sortedData.filter((dto) => idSet.has(dto.id));
-  }, [currentState, sortedData]);
+  }, [currentState.independentWorkSchemas, sortedData]);
+
+  const workProjectSeriesSchemaDtos = useRemainingUnselectedSchemas(
+    currentState,
+    sortedData
+  );
+
+  const availableHere = useMemo(() => {
+    return sortByKnowledgeDomainWpss([
+      ...workProjectSeriesSchemaDtos,
+      ...selection
+    ]);
+  }, [workProjectSeriesSchemaDtos, selection]);
 
   const propagateChange = useCallback(
     (value: WorkProjectSeriesSchemaDto[]) => {
@@ -54,7 +73,7 @@ export function IndependentBundle({
   const selectApi = useSelectApi<
     SelectApiParamsMultiFlat<WorkProjectSeriesSchemaDto>
   >({
-    rawData: sortedData,
+    rawData: availableHere,
     type: 'multiFlat',
     labelMaker,
     value: selection,

@@ -1,6 +1,7 @@
 import { WorkPlanRequestWizardStepProps } from '@/components/work-plan-request/WorkPlanRequestController';
 import {
   ParallelWorkPlanRequest,
+  WorkPlanRequest,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types_';
 import CoreTable from '@/components/tables/CoreTable';
@@ -25,7 +26,7 @@ import {
   SelectRemainingWorkSchemasCell,
   useSmarterListMemo
 } from '@/components/tables/cells-v2/specific/SelectRemainingWorkSchemasCell';
-import { NamespacedHooks } from 'dto-stores';
+import { NamespacedHooks, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/literals';
@@ -38,6 +39,28 @@ import { useDisclosure } from '@mantine/hooks';
 import { isNotNullish } from '@/api/main';
 
 const synchronizedBundles = 'synchronizedBundles';
+
+export function useRemainingUnselectedSchemas(
+  currentState: WorkPlanRequest,
+  allSchemas: WorkProjectSeriesSchemaDto[]
+) {
+  return useMemo(() => {
+    const assignedSchemas = new Set<number>();
+    currentState.independentWorkSchemas.forEach((id) =>
+      assignedSchemas.add(id)
+    );
+    Object.values(currentState.repeatCountToParallelWorkPlanRequests).forEach(
+      (plan) => {
+        plan.workSchemaList.forEach((id) => assignedSchemas.add(id));
+      }
+    );
+    return allSchemas.filter((schema) => !assignedSchemas.has(schema.id));
+  }, [
+    currentState.independentWorkSchemas,
+    currentState.repeatCountToParallelWorkPlanRequests,
+    allSchemas
+  ]);
+}
 
 export function SynchronizedBundles({
   currentState,
@@ -76,29 +99,14 @@ export function SynchronizedBundles({
   useEffect(() => {
     dispatchAllSchemas(sortedData);
   }, [dispatchAllSchemas, sortedData]);
-
-  const remainingSchemas = useMemo(() => {
-    console.log({ currentState, allSchemas });
-    const assignedSchemas = new Set<number>();
-    currentState.independentWorkSchemas.forEach((id) =>
-      assignedSchemas.add(id)
-    );
-    Object.values(currentState.repeatCountToParallelWorkPlanRequests).forEach(
-      (plan) => {
-        plan.workSchemaList.forEach((id) => assignedSchemas.add(id));
-      }
-    );
-    return allSchemas.filter((schema) => !assignedSchemas.has(schema.id));
-  }, [
-    currentState.independentWorkSchemas,
-    currentState.repeatCountToParallelWorkPlanRequests,
+  const remainingSchemas = useRemainingUnselectedSchemas(
+    currentState,
     allSchemas
-  ]);
+  );
 
   const smarterListMemo = useSmarterListMemo(remainingSchemas);
 
   useEffect(() => {
-    console.log(smarterListMemo);
     dispatchRemainingWorkSchemas(smarterListMemo);
   }, [smarterListMemo, dispatchRemainingWorkSchemas]);
 
@@ -120,7 +128,21 @@ export function SynchronizedBundles({
     return () => dispatch(EmptyArray);
   }, [parallelPlans, dispatch]);
 
-  useEffect(() => {}, []);
+  const { currentState: parallelPlanIdArray } = NamespacedHooks.useListen<
+    string[]
+  >(
+    EntityClassMap.parallelWorkPlan,
+    KEY_TYPES.ID_LIST,
+    synchronizedBundles,
+    EmptyArray
+  );
+  const writeAnyDto = useWriteAnyDto(EntityClassMap.parallelWorkPlan);
+
+  useEffect(() => {
+    parallelPlans
+      .filter((plan) => parallelPlanIdArray.includes(plan.id))
+      .forEach((plan) => writeAnyDto(plan.id, plan));
+  }, [parallelPlanIdArray, writeAnyDto, parallelPlans]);
 
   const unusedSegmentCounts = useMemo(() => {
     return segmentsAllowed.filter(

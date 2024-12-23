@@ -1,15 +1,22 @@
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
-import { useGlobalListener } from 'selective-context';
+import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import {
+  ParallelWorkPlanRequest,
+  WorkPlanRequest,
+  WorkProjectSeriesSchemaDto
+} from '@/api/generated-types/generated-types_';
 import { TransferList } from '@/components/generic/combo-boxes/TransferList';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { useCallback, useMemo, useRef } from 'react';
-import { isEqual } from 'lodash';
+import { isEqual, set } from 'lodash';
 import { useKnowledgeDomainWorkProjectSeriesSchemaLabel } from '@/components/work-plan-request/steps/IndependentBundle';
 import { Button } from '@mantine/core';
+import { workPlanGeneratorWizard } from '@/components/work-plan-request/WorkPlanRequestController';
+import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
+import { TypedPaths } from '@/api/custom-types/typePaths';
 
 export function SelectRemainingWorkSchemasCell(
   props: IdInnerCellProps<number[]>
@@ -32,6 +39,10 @@ function InnerCell({
   entityId,
   onClose
 }: IdInnerCellProps<number[]> & { onClose?: () => void }) {
+  const { dispatchWithoutListen } = useGlobalDispatch<WorkPlanRequest>(
+    workPlanGeneratorWizard
+  );
+
   const { currentState: remainingSchemas } = useGlobalListener<
     WorkProjectSeriesSchemaDto[]
   >({
@@ -66,11 +77,23 @@ function InnerCell({
 
   const propagateChange = useCallback(
     (value: WorkProjectSeriesSchemaDto[]) => {
-      if (onChange) {
-        onChange(value.map((dto) => dto.id));
-      }
+      dispatchWithoutListen((prev) => {
+        const mutable = structuredClone(prev);
+        const { repeatCountToParallelWorkPlanRequests } = prev;
+        const syncedPlan = repeatCountToParallelWorkPlanRequests[entityId];
+        const updatedPlan: ParallelWorkPlanRequest = {
+          ...syncedPlan,
+          workSchemaList: value.map((dto) => dto.id)
+        };
+        set(
+          mutable,
+          `repeatCountToParallelWorkPlanRequests.${String(entityId)}`,
+          updatedPlan
+        );
+        return mutable;
+      });
     },
-    [onChange]
+    [dispatchWithoutListen, entityId]
   );
 
   const selectApi = useSelectApi<
