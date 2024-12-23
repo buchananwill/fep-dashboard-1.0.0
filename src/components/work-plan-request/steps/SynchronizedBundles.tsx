@@ -4,7 +4,6 @@ import {
   WorkPlanRequest,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types_';
-import CoreTable from '@/components/tables/CoreTable';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
 import { Column } from '@/types';
@@ -37,6 +36,7 @@ import { Button, Popover } from '@mantine/core';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useDisclosure } from '@mantine/hooks';
 import { isNotNullish } from '@/api/main';
+import EntityTable from '@/components/tables/edit-tables/EntityTable';
 
 const synchronizedBundles = 'synchronizedBundles';
 
@@ -190,13 +190,42 @@ export function SynchronizedBundles({
           }
         }
       }));
+      const remainingSegments = unusedSegmentCounts.filter(
+        (count) => count !== segmentToAdd
+      );
+      setSegmentToAdd(
+        remainingSegments.length > 0 ? remainingSegments[0] : undefined
+      );
     }
-  }, [dispatchWithoutControl, segmentToAdd]);
+  }, [dispatchWithoutControl, segmentToAdd, unusedSegmentCounts]);
+
+  const {
+    currentState: deletedList,
+    dispatchWithoutControl: dispatchDeletedList
+  } = NamespacedHooks.useDispatchAndListen(
+    EntityClassMap.parallelWorkPlan,
+    KEY_TYPES.DELETED,
+    synchronizedBundles,
+    EmptyArray
+  );
+
+  useEffect(() => {
+    if (dispatchWithoutControl) {
+      dispatchWithoutControl((prev) => {
+        const mutable = structuredClone(prev);
+        deletedList.forEach((id) => {
+          delete mutable.repeatCountToParallelWorkPlanRequests[id];
+        });
+        return mutable;
+      });
+      dispatchDeletedList(EmptyArray);
+    }
+  }, [deletedList, dispatchDeletedList, dispatchWithoutControl]);
 
   return (
     <>
-      <CoreTable
-        rowIdList={rowIdList}
+      <EntityTable
+        entityClass={EntityClassMap.parallelWorkPlan}
         columns={synchronizedWorkPlanColumns}
         cellModel={synchronizedWorkPlanCellModel}
       />
@@ -224,6 +253,11 @@ export function SynchronizedBundles({
 export const synchronizedWorkPlanColumns: Column<
   IdWrapper<ParallelWorkPlanRequest>
 >[] = [
+  {
+    uid: 'id',
+    name: 'Delete',
+    sortable: false
+  },
   {
     uid: 'data.name',
     name: 'Name',

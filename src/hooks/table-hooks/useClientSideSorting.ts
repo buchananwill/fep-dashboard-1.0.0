@@ -69,9 +69,11 @@ export default function useClientSideSorting<
       .filter(isNotUndefined);
     const sortedAsc = sortBy(filteredEntities, [
       (t) => {
-        const value = get(t, path);
+        const value = get<T, any>(t, path);
         if (typeof value === 'string') return (value as string).toLowerCase();
-        else return value;
+        if (typeof value === 'number') return value;
+        if (Array.isArray(value)) return value.length;
+        else return String(value);
       }
     ]).map((t) => t.id);
     if (direction === 'asc') return sortedAsc;
