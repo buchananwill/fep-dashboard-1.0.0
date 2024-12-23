@@ -24,7 +24,7 @@ import {
   remainingWorkSchemas,
   SelectRemainingWorkSchemasCell,
   useSmarterListMemo
-} from '@/components/tables/cells-v2/specific/SelectRemainingWorkSchemasCell';
+} from '@/components/tables/cells-v2/specific/synchronized-bundles/SelectRemainingWorkSchemasCell';
 import { NamespacedHooks, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -37,6 +37,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useDisclosure } from '@mantine/hooks';
 import { isNotNullish } from '@/api/main';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
+import { EditGroupSizeCell } from '@/components/tables/cells-v2/specific/synchronized-bundles/EditGroupSizeCell';
 
 const synchronizedBundles = 'synchronizedBundles';
 
@@ -291,8 +292,7 @@ const synchronizedCellRecord: CellComponentRecord<
   },
   'data.groupSize': {
     type: 'IdInnerCell',
-    component: NumberEditCell,
-    updater: getNumberUpdater('data.groupSize')
+    component: EditGroupSizeCell
   },
   'data.organizationRepeatCount': {
     type: 'IdInnerCell',
