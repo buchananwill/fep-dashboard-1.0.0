@@ -5,10 +5,16 @@ import { useStepperState } from '@/components/work-plan-request/useStepperState'
 import classes from './work-plan-wizard.module.css';
 import pushable from '../../css-modules/pushable-button.module.css';
 
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { steps } from '@/components/work-plan-request/steps/Steps';
-import { WorkPlanRequestController } from '@/components/work-plan-request/WorkPlanRequestController';
+import {
+  workPlanGeneratorWizard,
+  WorkPlanRequestController
+} from '@/components/work-plan-request/WorkPlanRequestController';
 import { WorkPlanRequestWizardStepWrapper } from '@/components/work-plan-request/steps/WorkPlanRequestWizardStepWrapper';
+import { useGlobalReadAny } from 'selective-context';
+import { WorkPlanRequest } from '@/api/generated-types/generated-types_';
+import { submitWorkPlanRequest } from '@/app/data-entry/test/submitWorkPlanRequest';
 
 export function WorkPlanRequestRoot() {
   const { active, setActive, nextStep, prevStep } = useStepperState({
@@ -22,6 +28,20 @@ export function WorkPlanRequestRoot() {
         ? steps[active].component
         : () => 'No component defined!';
   }, [active]);
+
+  const readAny = useGlobalReadAny<WorkPlanRequest>();
+  const readRequest = useCallback(() => {
+    return readAny(workPlanGeneratorWizard);
+  }, [readAny]);
+
+  const onSubmit = useCallback(async () => {
+    const request = readRequest();
+    if (request) {
+      const response = await submitWorkPlanRequest(request);
+
+      console.log({ request, response });
+    }
+  }, [readRequest]);
 
   return (
     <Card mt={'xs'}>
@@ -63,6 +83,7 @@ export function WorkPlanRequestRoot() {
                   root: pushable.pushable,
                   label: pushable.pushableLabel
                 }}
+                onClick={onSubmit}
               >
                 <span className={pushable.shadow}></span>
                 <span className={pushable.edge}></span>
