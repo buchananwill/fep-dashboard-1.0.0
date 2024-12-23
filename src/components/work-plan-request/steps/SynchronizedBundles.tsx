@@ -38,6 +38,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { isNotNullish } from '@/api/main';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { EditGroupSizeCell } from '@/components/tables/cells-v2/specific/synchronized-bundles/EditGroupSizeCell';
+import { EditSynchronizedPlanNameCell } from '@/components/tables/cells-v2/specific/synchronized-bundles/EditSynchronizedPlanNameCell';
 
 const synchronizedBundles = 'synchronizedBundles';
 
@@ -287,7 +288,7 @@ const synchronizedCellRecord: CellComponentRecord<
   id: { type: 'CustomCell', component: DeleteEntity },
   'data.name': {
     type: 'IdInnerCell',
-    component: EditTextWithModalCell,
+    component: EditSynchronizedPlanNameCell,
     updater: getStringUpdater('data.name')
   },
   'data.groupSize': {
