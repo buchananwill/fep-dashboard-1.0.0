@@ -4,28 +4,21 @@ import {
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types_';
 import CoreTable from '@/components/tables/CoreTable';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { isEqual, sortBy } from 'lodash';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { isEqual } from 'lodash';
 import { Column } from '@/types';
 import { IdWrapper } from '@/api/types';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
-import { EditOrganizationWorkHierarchyNameCell } from '@/components/tables/cells-v2/specific/UpdateOrganizationNameCell';
 import {
   getNumberUpdater,
   getStringUpdater
 } from '@/functions/cellUpdaterFunctions';
-import { SelectOrganizationTypeNameCell } from '@/components/tables/cells-v2/specific/SelectOrganizationTypeTypeNameCell';
-import { SelectParentOrganizationNamesCell } from '@/components/tables/cells-v2/specific/SelectParentOrganizationNamesCell';
-import { SelectWorkSchemaNodeCell } from '@/components/tables/cells-v2/specific/SelectWorkSchemaNodeCell';
 import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import EditTextWithModalCell from '@/components/tables/cells-v2/generic/EditTextWithModalCell';
 import { NumberEditCell } from '@/components/tables/cells-v2/generic/NumberEditCell';
-import {
-  AnyValueToString,
-  SimpleValueToStringOrUndefined
-} from '@/components/tables/cells-v2/generic/AnyValueToString';
+import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import {
   allWorkSchemas,
   remainingWorkSchemas,
@@ -39,8 +32,10 @@ import { EmptyArray } from '@/api/literals';
 import { useWpssQueryWithWorkPlanRequest } from '@/components/work-plan-request/steps/useWpssQueryWithWorkPlanRequest';
 import { useGlobalController } from 'selective-context';
 import { useSortWpssByKnowledgeDomainName } from '@/components/work-plan-request/steps/IndependentBundle';
-import { Button } from '@mantine/core';
+import { Button, Popover } from '@mantine/core';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { useDisclosure } from '@mantine/hooks';
+import { isNotNullish } from '@/api/main';
 
 const synchronizedBundles = 'synchronizedBundles';
 
@@ -83,6 +78,7 @@ export function SynchronizedBundles({
   }, [dispatchAllSchemas, sortedData]);
 
   const remainingSchemas = useMemo(() => {
+    console.log({ currentState, allSchemas });
     const assignedSchemas = new Set<number>();
     currentState.independentWorkSchemas.forEach((id) =>
       assignedSchemas.add(id)
@@ -102,6 +98,7 @@ export function SynchronizedBundles({
   const smarterListMemo = useSmarterListMemo(remainingSchemas);
 
   useEffect(() => {
+    console.log(smarterListMemo);
     dispatchRemainingWorkSchemas(smarterListMemo);
   }, [smarterListMemo, dispatchRemainingWorkSchemas]);
 
@@ -112,7 +109,7 @@ export function SynchronizedBundles({
       ([key, value]) =>
         ({ id: key, data: value }) as IdWrapper<ParallelWorkPlanRequest>
     );
-  }, [currentState]);
+  }, [currentState.repeatCountToParallelWorkPlanRequests]);
 
   const dispatch = NamespacedHooks.useDispatch<
     IdWrapper<ParallelWorkPlanRequest>[]
@@ -123,14 +120,56 @@ export function SynchronizedBundles({
     return () => dispatch(EmptyArray);
   }, [parallelPlans, dispatch]);
 
+  useEffect(() => {}, []);
+
   const unusedSegmentCounts = useMemo(() => {
     return segmentsAllowed.filter(
       (count) =>
-        !currentState.repeatCountToParallelWorkPlanRequests[String(count)]
+        !isNotNullish(
+          currentState.repeatCountToParallelWorkPlanRequests[String(count)]
+        )
     );
   }, [currentState.repeatCountToParallelWorkPlanRequests]);
 
-  const addPlan = useCallback(() => {}, []);
+  const [segmentToAdd, setSegmentToAdd] = useState<number | undefined>(
+    undefined
+  );
+
+  const [opened, { toggle, close, open }] = useDisclosure();
+
+  const segmentButtons = useMemo(() => {
+    return unusedSegmentCounts.map((count) => {
+      return (
+        <Button
+          variant={'subtle'}
+          key={count}
+          onClick={() => {
+            setSegmentToAdd(count);
+            close();
+          }}
+        >
+          {count}
+        </Button>
+      );
+    });
+  }, [unusedSegmentCounts, close]);
+
+  const addPlan = useCallback(() => {
+    if (dispatchWithoutControl && segmentToAdd) {
+      dispatchWithoutControl((prev) => ({
+        ...prev,
+        repeatCountToParallelWorkPlanRequests: {
+          ...prev.repeatCountToParallelWorkPlanRequests,
+          [String(segmentToAdd)]: {
+            ...baselineRequest,
+            name: `${prev.planName}.${segmentToAdd}`,
+            userCount: prev.numberOfUsers,
+            organizationRepeatCount: segmentToAdd
+          }
+        }
+      }));
+    }
+  }, [dispatchWithoutControl, segmentToAdd]);
 
   return (
     <>
@@ -140,10 +179,21 @@ export function SynchronizedBundles({
         cellModel={synchronizedWorkPlanCellModel}
       />
       <Button.Group>
-        <Button>Add Bundle</Button>
-        <Button px={'0.5rem'}>
-          <ChevronDownIcon height={'1.5rem'} />
+        <Button disabled={!segmentToAdd} onClick={addPlan} className={'grow'}>
+          Add Bundle with segments:
         </Button>
+        <Popover trapFocus onClose={close} onChange={toggle} opened={opened}>
+          <Popover.Target>
+            <Button
+              px={'0.5rem'}
+              onClick={toggle}
+              rightSection={<ChevronDownIcon height={'1.5rem'} />}
+            >
+              {segmentToAdd ?? '-'}
+            </Button>
+          </Popover.Target>
+          <Popover.Dropdown>{...segmentButtons}</Popover.Dropdown>
+        </Popover>
       </Button.Group>
     </>
   );
@@ -206,3 +256,11 @@ export const synchronizedWorkPlanCellModel = getCellRenderFunction(
 );
 
 const segmentsAllowed: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const baselineRequest: ParallelWorkPlanRequest = {
+  name: '',
+  workSchemaList: [],
+  userCount: 0,
+  organizationRepeatCount: 0,
+  groupSize: 1
+};

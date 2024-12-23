@@ -9,12 +9,13 @@ import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes
 import { useCallback, useMemo, useRef } from 'react';
 import { isEqual } from 'lodash';
 import { useKnowledgeDomainWorkProjectSeriesSchemaLabel } from '@/components/work-plan-request/steps/IndependentBundle';
+import { Button } from '@mantine/core';
 
 export function SelectRemainingWorkSchemasCell(
   props: IdInnerCellProps<number[]>
 ) {
   return (
-    <ModalEditCell buttonLabel={`${props.value.length}`}>
+    <ModalEditCell buttonLabel={`${props.value?.length ?? '0'}`}>
       {({ onClose }) => <InnerCell {...props} onClose={onClose} />}
     </ModalEditCell>
   );
@@ -28,7 +29,8 @@ function InnerCell({
   value,
   onChange,
   entityClass,
-  entityId
+  entityId,
+  onClose
 }: IdInnerCellProps<number[]> & { onClose?: () => void }) {
   const { currentState: remainingSchemas } = useGlobalListener<
     WorkProjectSeriesSchemaDto[]
@@ -84,6 +86,7 @@ function InnerCell({
   return (
     <>
       <TransferList {...selectApi} />
+      <Button onClick={onClose}>Close</Button>
     </>
   );
 }
@@ -92,6 +95,7 @@ export function useSmarterListMemo<T>(simpleMemoValue: T[]) {
   const listRef = useRef(EmptyArray);
 
   return useMemo(() => {
+    console.log({ simpleMemoValue });
     if (isEqual(listRef.current, simpleMemoValue)) {
       return listRef.current;
     } else {
