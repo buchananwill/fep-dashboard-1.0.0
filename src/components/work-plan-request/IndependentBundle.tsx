@@ -11,6 +11,7 @@ import { nameAccessor } from '@/functions/nameSetter';
 import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
 import { TransferList } from '@/components/generic/combo-boxes/TransferList';
 import { useLabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
+import { sortBy } from 'lodash';
 
 export function IndependentBundle({
   currentState,
@@ -33,12 +34,14 @@ export function IndependentBundle({
     ]
   });
 
-  console.log(data);
+  const sortedData = useMemo(() => {
+    return sortBy(data ?? [], (item) => item.workTaskType.knowledgeDomain.name);
+  }, [data]);
 
   const selection = useMemo(() => {
     const idSet = new Set(currentState.independentWorkSchemas);
-    return (data ?? []).filter((dto) => idSet.has(dto.id));
-  }, [currentState, data]);
+    return sortedData.filter((dto) => idSet.has(dto.id));
+  }, [currentState, sortedData]);
 
   const propagateChange = useCallback(
     (value: WorkProjectSeriesSchemaDto[]) => {
@@ -62,12 +65,12 @@ export function IndependentBundle({
   const selectApi = useSelectApi<
     SelectApiParamsMultiFlat<WorkProjectSeriesSchemaDto>
   >({
-    rawData: data ?? EmptyArray,
+    rawData: sortedData,
     type: 'multiFlat',
     labelMaker,
     value: selection,
     propagateChange
   });
 
-  return <TransferList {...selectApi} />;
+  return <TransferList {...selectApi} mah={'24em'} />;
 }

@@ -24,7 +24,7 @@ export function WorkPlanRequestRoot() {
   }, [active]);
 
   return (
-    <Card>
+    <Card mt={'xs'}>
       <WorkPlanRequestController />
       <Card.Section className={classes.wizardHeader}>
         Work Plan Generator Wizard
