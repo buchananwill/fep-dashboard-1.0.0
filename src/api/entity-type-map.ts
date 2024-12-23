@@ -22,7 +22,7 @@ import {
   KnowledgeLevelSeriesDto,
   OrganizationDto,
   OrganizationTypeDto,
-  OrganizationWorkHierarchyDto,
+  OrganizationWorkHierarchyDto, ParallelWorkPlanRequest,
   PersonDto,
   ProviderRoleAvailabilityDto,
   ProviderRoleDto,
@@ -80,6 +80,7 @@ export type EntityTypeMap = {
   organizationWorkHierarchy: IdWrapper<OrganizationWorkHierarchyDto>;
   person: PersonDto;
   queueTreeNode: QueueTreeNodeDto;
+  parallelWorkPlan: IdWrapper<ParallelWorkPlanRequest>
   providerRole: ProviderRoleDto;
   providerRolePostRequest: IdWrapper<RolePostRequest<PersonDto>>;
   providerRoleAvailability: ProviderRoleAvailabilityDto;

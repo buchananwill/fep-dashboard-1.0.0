@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
 import { WorkPlanRequestWizardStepProps } from '@/components/work-plan-request/WorkPlanRequestController';
-import { SelectYearStep } from '@/components/work-plan-request/SelectYearStep';
-import { ChooseNameStep } from '@/components/work-plan-request/ChooseNameStep';
-import { SetStudentSize } from '@/components/work-plan-request/SetStudentSize';
-import { IndependentBundle } from '@/components/work-plan-request/IndependentBundle';
+import { SelectYearStep } from '@/components/work-plan-request/steps/SelectYearStep';
+import { ChooseNameStep } from '@/components/work-plan-request/steps/ChooseNameStep';
+import { SetStudentSize } from '@/components/work-plan-request/steps/SetStudentSize';
+import { IndependentBundle } from '@/components/work-plan-request/steps/IndependentBundle';
+import { SynchronizedBundles } from '@/components/work-plan-request/steps/SynchronizedBundles';
 
 export const steps: {
   label: string;
@@ -34,6 +35,7 @@ export const steps: {
   {
     label: 'Synchronized Bundles',
     description:
-      'Select subsets of lessons types to be assigned as synchronized bundles'
+      'Select subsets of lessons types to be assigned as synchronized bundles',
+    component: SynchronizedBundles
   }
 ];

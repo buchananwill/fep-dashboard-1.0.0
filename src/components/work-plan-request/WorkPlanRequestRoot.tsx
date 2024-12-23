@@ -6,9 +6,9 @@ import classes from './work-plan-wizard.module.css';
 import pushable from '../../css-modules/pushable-button.module.css';
 
 import { useMemo } from 'react';
-import { steps } from '@/components/work-plan-request/Steps';
+import { steps } from '@/components/work-plan-request/steps/Steps';
 import { WorkPlanRequestController } from '@/components/work-plan-request/WorkPlanRequestController';
-import { WorkPlanRequestWizardStepWrapper } from '@/components/work-plan-request/WorkPlanRequestWizardStepWrapper';
+import { WorkPlanRequestWizardStepWrapper } from '@/components/work-plan-request/steps/WorkPlanRequestWizardStepWrapper';
 
 export function WorkPlanRequestRoot() {
   const { active, setActive, nextStep, prevStep } = useStepperState({
@@ -50,6 +50,7 @@ export function WorkPlanRequestRoot() {
           <WorkPlanRequestWizardStepWrapper>
             {(props) => <Component {...props} />}
           </WorkPlanRequestWizardStepWrapper>
+          <div className={classes.spacer}></div>
           <div className={classes.buttonGroup}>
             <Button variant="default" onClick={prevStep}>
               Back

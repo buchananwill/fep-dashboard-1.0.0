@@ -7,7 +7,7 @@
 
 .step-div {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     flex-direction: column;
     gap: 0.25rem;
 }
@@ -28,8 +28,12 @@
     margin-bottom: 0.25rem;
 }
 
+.spacer {
+    flex-grow: 1;
+}
+
 .button-group {
-    justify-self: center;
+    justify-self: end;
     display: flex;
     justify-content: center;
     gap: 0.25rem;

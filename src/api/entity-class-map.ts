@@ -51,7 +51,8 @@ export const EntityClassMap = {
   workSchemaNodeManualDefinition: 'WorkSchemaNodeManualDefinition',
   workSchemaNodeAssignment: 'WorkSchemaNodeAssignment',
   workTaskType: 'WorkTaskType',
-  workTaskTypeName: 'WorkTaskTypeName'
+  workTaskTypeName: 'WorkTaskTypeName',
+  parallelWorkPlan: 'ParallelWorkPlan'
 } as const satisfies { [Key in keyof EntityTypeMap]: string };
 
 export type EntityClass = (typeof EntityClassMap)[keyof typeof EntityClassMap];

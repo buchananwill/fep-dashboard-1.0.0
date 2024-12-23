@@ -29,9 +29,6 @@ import CoreTable from '@/components/tables/CoreTable';
 import { Identifier } from 'dto-stores';
 import { HasIdClass } from '@/api/types';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
-import { useUserGuideTooltip } from '@/components/user-guide/user-guide-tool-tip/UserGuideToolTip';
-import { singular } from 'pluralize';
-import { kebabCase } from 'lodash';
 import { compactTableStyles } from '@/components/tables/edit-tables/CompactTableStyles';
 
 export default function EntityTable<
