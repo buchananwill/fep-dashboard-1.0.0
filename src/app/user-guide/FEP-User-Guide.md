@@ -3,8 +3,10 @@
 ## Overview
 
 Future Education Paradigm (FEP) is born of a single core principle: students want to learn, and teachers want to expend their work effort on helping students learn.
+
 > The interface of curiosity with encouragement 
 > is the essence of good teaching.
+
 The most valuable resources available to any type of "school" are thus two things: 
 
 - its teachers' time, and how it is distributed, 
