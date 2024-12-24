@@ -2,10 +2,9 @@
 
 ## Introduction
 
-Future Education Paradigm (FEP) is born of a single core principle: students want to learn, and teachers want to expend their work effort on helping students learn.
+> The essence of good teaching is the regular interface of curiosity with encouragement
 
-> The interface of curiosity with encouragement 
-> is the essence of good teaching.
+Future Education Paradigm (FEP) is born of a single core principle: students want to learn, and teachers want to expend their work effort on helping students learn.
 
 The most valuable resources available to any type of "school" are thus two things: 
 
