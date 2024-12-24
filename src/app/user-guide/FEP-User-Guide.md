@@ -20,13 +20,18 @@ FEP offers solutions to both these challenges:
 
 > Make the solution as simple as possible, but no simpler.
 
-There are five core processes when using FEP, in order of roughly increasing frequency:
+There are **five core processes** when using FEP. In order from "least frequently used" to "most frequently used", they are:
 
 1. [Baseline Data Entry](#baseline-data-entry)
-2. Work Plan Creation
-3. User Requirement Input
-4. Resource Management
-5. Schedule Generation
+2. [Work Plan Creation](#work-plan-creation)
+3. [User Requirement Input](#user-requirement-input)
+4. [Resource Management](#resource-management)
+5. [Schedule Generation](#schedule-generation)
+
+The goal is to build a data model of your institution that comprises:
+
+1. How to divide up days into allocatable time units, and how a schedule work cycle repeats (e.g. 6 periods a day, repeating fortnightly).
+2. What work 
 
 ### Baseline Data Entry
 
