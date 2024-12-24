@@ -2,7 +2,7 @@
 
 ## Introduction
 
-> The essence of good teaching is the regular interface of curiosity with encouragement
+> The essence of good teaching is the regular meeting of curiosity with encouragement
 
 Future Education Paradigm (FEP) is born of a single core principle: students want to learn, and teachers want to expend their work effort on helping students learn.
 
