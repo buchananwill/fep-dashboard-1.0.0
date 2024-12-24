@@ -9,7 +9,7 @@ Future Education Paradigm (FEP) is born of a single core principle: students wan
 The most valuable resources available to any type of "school" are thus two things: 
 
 - its teachers' time, and how it is distributed, 
-- its students' engagement and how it is nurtured
+- its students' curious engagement and how it is nurtured
 
 FEP offers solutions to both these challenges:
 
