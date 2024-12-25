@@ -73,7 +73,7 @@ This data is generally input once a year, in order to integrate  a new cohort be
 
 Resources are the constraints that will shape the schedule generation. Human and physical resources are modelled in broadly the same way, and have two key attributes:
 
-- Suitability for one or more of a given Work Task Type's [Resource Requirements](#resource-requirement-item)
+- Suitability for one or more of a given Work Task Type's [Resource Requirements](#resource-requirement-attributes)
 - Availability according to the defined [Cycles](#cycle).
 
 This data tends to be the most frequently updated, as most years see the arrival or departure of some staff members, and sometimes again during the course of the year. Changes to the resource availability may invalidate the current schedule, requiring it to be replaced with one that minimizes the disruption caused. Don't worry, FEP has got your back when that happens.
