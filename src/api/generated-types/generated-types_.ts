@@ -916,12 +916,11 @@ export interface WorkPlanRequest {
   organizationTypeName: string;
   numberOfUsers: number;
   independentWorkSchemas: number[];
-  repeatCountToParallelWorkPlanRequests: {
-    [index: string]: ParallelWorkPlanRequest;
-  };
+  synchronizedWorkPlanRequests: SynchronizedWorkPlanRequest[];
 }
 
-export interface ParallelWorkPlanRequest {
+export interface SynchronizedWorkPlanRequest {
+  id: string;
   name: string;
   workSchemaList: number[];
   userCount: number;

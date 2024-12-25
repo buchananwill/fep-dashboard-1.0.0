@@ -26,11 +26,11 @@ function checkSynchronizedPlanNameIsUnique(
   value: string,
   entityId: Identifier
 ) {
-  return !Object.entries(
-    currentState.repeatCountToParallelWorkPlanRequests
-  ).some(([key, innerValue]) => {
-    return value === innerValue.name && key != entityId;
-  });
+  return !Object.entries(currentState.synchronizedWorkPlanRequests).some(
+    ([key, innerValue]) => {
+      return value === innerValue.name && key != entityId;
+    }
+  );
 }
 
 function InnerCell({
@@ -60,16 +60,16 @@ function InnerCell({
     ) {
       dispatchWithoutControl((prev) => {
         const mutable = { ...prev };
-        const { repeatCountToParallelWorkPlanRequests } = mutable;
-        const synchronizedWorkPlanRequest = structuredClone(
-          repeatCountToParallelWorkPlanRequests[entityId]
-        );
-        synchronizedWorkPlanRequest.name = valueRef.current;
-        mutable.repeatCountToParallelWorkPlanRequests = {
-          ...repeatCountToParallelWorkPlanRequests
-        };
-        mutable.repeatCountToParallelWorkPlanRequests[entityId] =
-          synchronizedWorkPlanRequest;
+        mutable.synchronizedWorkPlanRequests =
+          mutable.synchronizedWorkPlanRequests.map((request) => {
+            if (request.id !== entityId) return request;
+            else {
+              const copy = { ...request };
+              copy.name = valueRef.current;
+              return copy;
+            }
+          });
+
         return mutable;
       });
       onClose && onClose();

@@ -4,7 +4,7 @@ export const requestTest: WorkPlanRequest = {
   organizationTypeName: 'Year 7',
   planName: 'Year 7 Test9',
   numberOfUsers: 180,
-  repeatCountToParallelWorkPlanRequests: {
+  synchronizedWorkPlanRequests: {
     '1': {
       name: 'Maths and Games4',
       workSchemaList: [61, 44],

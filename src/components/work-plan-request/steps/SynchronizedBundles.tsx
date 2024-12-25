@@ -1,6 +1,6 @@
 import { WorkPlanRequestWizardStepProps } from '@/components/work-plan-request/WorkPlanRequestController';
 import {
-  ParallelWorkPlanRequest,
+  SynchronizedWorkPlanRequest,
   WorkPlanRequest,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types_';
@@ -51,15 +51,13 @@ export function useRemainingUnselectedSchemas(
     currentState.independentWorkSchemas.forEach((id) =>
       assignedSchemas.add(id)
     );
-    Object.values(currentState.repeatCountToParallelWorkPlanRequests).forEach(
-      (plan) => {
-        plan.workSchemaList.forEach((id) => assignedSchemas.add(id));
-      }
-    );
+    Object.values(currentState.synchronizedWorkPlanRequests).forEach((plan) => {
+      plan.workSchemaList.forEach((id) => assignedSchemas.add(id));
+    });
     return allSchemas.filter((schema) => !assignedSchemas.has(schema.id));
   }, [
     currentState.independentWorkSchemas,
-    currentState.repeatCountToParallelWorkPlanRequests,
+    currentState.synchronizedWorkPlanRequests,
     allSchemas
   ]);
 }
@@ -70,16 +68,14 @@ export function SynchronizedBundles({
 }: WorkPlanRequestWizardStepProps) {
   const rowIdRef = useRef<string[]>([]);
   const rowIdList = useMemo(() => {
-    const strings = Object.keys(
-      currentState.repeatCountToParallelWorkPlanRequests
-    );
+    const strings = Object.keys(currentState.synchronizedWorkPlanRequests);
     if (isEqual(strings, rowIdRef.current)) {
       return rowIdRef.current;
     } else {
       rowIdRef.current = strings;
       return strings;
     }
-  }, [currentState.repeatCountToParallelWorkPlanRequests]);
+  }, [currentState.synchronizedWorkPlanRequests]);
 
   const { data } = useWpssQueryWithWorkPlanRequest(currentState);
 
@@ -113,16 +109,14 @@ export function SynchronizedBundles({
   }, [smarterListMemo, dispatchRemainingWorkSchemas]);
 
   const parallelPlans = useMemo(() => {
-    return Object.entries(
-      currentState.repeatCountToParallelWorkPlanRequests
-    ).map(
+    return Object.entries(currentState.synchronizedWorkPlanRequests).map(
       ([key, value]) =>
-        ({ id: key, data: value }) as IdWrapper<ParallelWorkPlanRequest>
+        ({ id: key, data: value }) as IdWrapper<SynchronizedWorkPlanRequest>
     );
-  }, [currentState.repeatCountToParallelWorkPlanRequests]);
+  }, [currentState.synchronizedWorkPlanRequests]);
 
   const dispatch = NamespacedHooks.useDispatch<
-    IdWrapper<ParallelWorkPlanRequest>[]
+    IdWrapper<SynchronizedWorkPlanRequest>[]
   >(EntityClassMap.parallelWorkPlan, KEY_TYPES.MASTER_LIST);
 
   useEffect(() => {
@@ -147,13 +141,8 @@ export function SynchronizedBundles({
   }, [parallelPlanIdArray, writeAnyDto, parallelPlans]);
 
   const unusedSegmentCounts = useMemo(() => {
-    return segmentsAllowed.filter(
-      (count) =>
-        !isNotNullish(
-          currentState.repeatCountToParallelWorkPlanRequests[String(count)]
-        )
-    );
-  }, [currentState.repeatCountToParallelWorkPlanRequests]);
+    return segmentsAllowed;
+  }, []);
 
   const [segmentToAdd, setSegmentToAdd] = useState<number | undefined>(
     undefined
@@ -182,10 +171,11 @@ export function SynchronizedBundles({
     if (dispatchWithoutControl && segmentToAdd) {
       dispatchWithoutControl((prev) => ({
         ...prev,
-        repeatCountToParallelWorkPlanRequests: {
-          ...prev.repeatCountToParallelWorkPlanRequests,
+        synchronizedWorkPlanRequests: {
+          ...prev.synchronizedWorkPlanRequests,
           [String(segmentToAdd)]: {
             ...baselineRequest,
+            id: crypto.randomUUID(),
             name: `${prev.planName}.${segmentToAdd}`,
             userCount: prev.numberOfUsers,
             organizationRepeatCount: segmentToAdd
@@ -216,7 +206,7 @@ export function SynchronizedBundles({
       dispatchWithoutControl((prev) => {
         const mutable = structuredClone(prev);
         deletedList.forEach((id) => {
-          delete mutable.repeatCountToParallelWorkPlanRequests[id];
+          delete mutable.synchronizedWorkPlanRequests[id];
         });
         return mutable;
       });
@@ -253,7 +243,7 @@ export function SynchronizedBundles({
 }
 
 export const synchronizedWorkPlanColumns: Column<
-  IdWrapper<ParallelWorkPlanRequest>
+  IdWrapper<SynchronizedWorkPlanRequest>
 >[] = [
   {
     uid: 'id',
@@ -283,7 +273,7 @@ export const synchronizedWorkPlanColumns: Column<
 ];
 
 const synchronizedCellRecord: CellComponentRecord<
-  IdWrapper<ParallelWorkPlanRequest>
+  IdWrapper<SynchronizedWorkPlanRequest>
 > = {
   id: { type: 'CustomCell', component: DeleteEntity },
   'data.name': {
@@ -308,13 +298,14 @@ const synchronizedCellRecord: CellComponentRecord<
 };
 
 export const synchronizedWorkPlanCellModel = getCellRenderFunction(
-  'parallelWorkPlan',
+  'synchronizedWorkPlan',
   synchronizedCellRecord
 );
 
 const segmentsAllowed: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const baselineRequest: ParallelWorkPlanRequest = {
+const baselineRequest: SynchronizedWorkPlanRequest = {
+  id: '',
   name: '',
   workSchemaList: [],
   userCount: 0,

@@ -3,7 +3,7 @@ import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCe
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { EmptyArray } from '@/api/literals';
 import {
-  ParallelWorkPlanRequest,
+  SynchronizedWorkPlanRequest,
   WorkPlanRequest,
   WorkProjectSeriesSchemaDto
 } from '@/api/generated-types/generated-types_';
@@ -78,18 +78,17 @@ function InnerCell({
   const propagateChange = useCallback(
     (value: WorkProjectSeriesSchemaDto[]) => {
       dispatchWithoutListen((prev) => {
-        const mutable = structuredClone(prev);
-        const { repeatCountToParallelWorkPlanRequests } = prev;
-        const syncedPlan = repeatCountToParallelWorkPlanRequests[entityId];
-        const updatedPlan: ParallelWorkPlanRequest = {
-          ...syncedPlan,
-          workSchemaList: value.map((dto) => dto.id)
-        };
-        set(
-          mutable,
-          `repeatCountToParallelWorkPlanRequests.${String(entityId)}`,
-          updatedPlan
-        );
+        const mutable = { ...prev };
+        mutable.synchronizedWorkPlanRequests =
+          mutable.synchronizedWorkPlanRequests.map((request) => {
+            if (request.id !== entityId) return request;
+            else {
+              const copy = { ...request };
+              copy.workSchemaList = value.map((schema) => schema.id);
+              return copy;
+            }
+          });
+
         return mutable;
       });
     },

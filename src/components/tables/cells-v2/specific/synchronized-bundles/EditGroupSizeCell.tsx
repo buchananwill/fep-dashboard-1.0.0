@@ -4,6 +4,7 @@ import { useGlobalDispatch } from 'selective-context';
 import { workPlanGeneratorWizard } from '@/components/work-plan-request/WorkPlanRequestController';
 import { useCallback } from 'react';
 import { WorkPlanRequest } from '@/api/generated-types/generated-types_';
+import { isNotNullish } from '@/api/main';
 
 export function EditGroupSizeCell({
   entityClass,
@@ -18,17 +19,17 @@ export function EditGroupSizeCell({
     (value: number | string) => {
       dispatchWithoutListen((prev) => {
         const mutable = { ...prev };
-        const { repeatCountToParallelWorkPlanRequests } = mutable;
-        const parallelWorkPlanRequest = structuredClone(
-          repeatCountToParallelWorkPlanRequests[entityId]
-        );
-        parallelWorkPlanRequest.groupSize =
-          typeof value === 'number' ? value : parseInt(value);
-        mutable.repeatCountToParallelWorkPlanRequests = {
-          ...repeatCountToParallelWorkPlanRequests
-        };
-        mutable.repeatCountToParallelWorkPlanRequests[entityId] =
-          parallelWorkPlanRequest;
+        mutable.synchronizedWorkPlanRequests =
+          mutable.synchronizedWorkPlanRequests.map((request) => {
+            if (request.id !== entityId) return request;
+            else {
+              const copy = { ...request };
+              copy.groupSize =
+                typeof value === 'number' ? value : parseInt(value);
+              return copy;
+            }
+          });
+
         return mutable;
       });
     },
