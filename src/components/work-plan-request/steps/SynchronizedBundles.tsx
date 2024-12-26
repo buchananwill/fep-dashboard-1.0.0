@@ -7,17 +7,11 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
 import { Column } from '@/types';
-import { IdWrapper } from '@/api/types';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
-import {
-  getNumberUpdater,
-  getStringUpdater
-} from '@/functions/cellUpdaterFunctions';
+import { getStringUpdater } from '@/functions/cellUpdaterFunctions';
 import { updateNestedValueWithLodash } from '@/functions/updateNestedValue';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
-import EditTextWithModalCell from '@/components/tables/cells-v2/generic/EditTextWithModalCell';
-import { NumberEditCell } from '@/components/tables/cells-v2/generic/NumberEditCell';
 import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import {
   allWorkSchemas,
@@ -35,7 +29,6 @@ import { useSortWpssByKnowledgeDomainName } from '@/components/work-plan-request
 import { Button, Popover } from '@mantine/core';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { useDisclosure } from '@mantine/hooks';
-import { isNotNullish } from '@/api/main';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { EditGroupSizeCell } from '@/components/tables/cells-v2/specific/synchronized-bundles/EditGroupSizeCell';
 import { EditSynchronizedPlanNameCell } from '@/components/tables/cells-v2/specific/synchronized-bundles/EditSynchronizedPlanNameCell';
@@ -61,6 +54,8 @@ export function useRemainingUnselectedSchemas(
     allSchemas
   ]);
 }
+
+const synchronizedWorkPlanEntityClass = EntityClassMap.synchronizedWorkPlan;
 
 export function SynchronizedBundles({
   currentState,
@@ -109,15 +104,13 @@ export function SynchronizedBundles({
   }, [smarterListMemo, dispatchRemainingWorkSchemas]);
 
   const parallelPlans = useMemo(() => {
-    return Object.entries(currentState.synchronizedWorkPlanRequests).map(
-      ([key, value]) =>
-        ({ id: key, data: value }) as IdWrapper<SynchronizedWorkPlanRequest>
-    );
+    return currentState.synchronizedWorkPlanRequests ?? [];
   }, [currentState.synchronizedWorkPlanRequests]);
 
-  const dispatch = NamespacedHooks.useDispatch<
-    IdWrapper<SynchronizedWorkPlanRequest>[]
-  >(EntityClassMap.parallelWorkPlan, KEY_TYPES.MASTER_LIST);
+  const dispatch = NamespacedHooks.useDispatch<SynchronizedWorkPlanRequest[]>(
+    synchronizedWorkPlanEntityClass,
+    KEY_TYPES.MASTER_LIST
+  );
 
   useEffect(() => {
     dispatch(parallelPlans);
@@ -127,12 +120,12 @@ export function SynchronizedBundles({
   const { currentState: parallelPlanIdArray } = NamespacedHooks.useListen<
     string[]
   >(
-    EntityClassMap.parallelWorkPlan,
+    synchronizedWorkPlanEntityClass,
     KEY_TYPES.ID_LIST,
     synchronizedBundles,
     EmptyArray
   );
-  const writeAnyDto = useWriteAnyDto(EntityClassMap.parallelWorkPlan);
+  const writeAnyDto = useWriteAnyDto(synchronizedWorkPlanEntityClass);
 
   useEffect(() => {
     parallelPlans
@@ -171,16 +164,16 @@ export function SynchronizedBundles({
     if (dispatchWithoutControl && segmentToAdd) {
       dispatchWithoutControl((prev) => ({
         ...prev,
-        synchronizedWorkPlanRequests: {
+        synchronizedWorkPlanRequests: [
           ...prev.synchronizedWorkPlanRequests,
-          [String(segmentToAdd)]: {
+          {
             ...baselineRequest,
             id: crypto.randomUUID(),
-            name: `${prev.planName}.${segmentToAdd}`,
+            name: `${prev.planName}.${prev.synchronizedWorkPlanRequests.length}`,
             userCount: prev.numberOfUsers,
             organizationRepeatCount: segmentToAdd
           }
-        }
+        ]
       }));
       const remainingSegments = unusedSegmentCounts.filter(
         (count) => count !== segmentToAdd
@@ -195,7 +188,7 @@ export function SynchronizedBundles({
     currentState: deletedList,
     dispatchWithoutControl: dispatchDeletedList
   } = NamespacedHooks.useDispatchAndListen(
-    EntityClassMap.parallelWorkPlan,
+    synchronizedWorkPlanEntityClass,
     KEY_TYPES.DELETED,
     synchronizedBundles,
     EmptyArray
@@ -205,9 +198,10 @@ export function SynchronizedBundles({
     if (dispatchWithoutControl) {
       dispatchWithoutControl((prev) => {
         const mutable = structuredClone(prev);
-        deletedList.forEach((id) => {
-          delete mutable.synchronizedWorkPlanRequests[id];
-        });
+        mutable.synchronizedWorkPlanRequests =
+          prev.synchronizedWorkPlanRequests.filter(
+            (plan) => !deletedList.includes(plan.id)
+          );
         return mutable;
       });
       dispatchDeletedList(EmptyArray);
@@ -217,7 +211,7 @@ export function SynchronizedBundles({
   return (
     <>
       <EntityTable
-        entityClass={EntityClassMap.parallelWorkPlan}
+        entityClass={synchronizedWorkPlanEntityClass}
         columns={synchronizedWorkPlanColumns}
         cellModel={synchronizedWorkPlanCellModel}
       />
@@ -242,60 +236,58 @@ export function SynchronizedBundles({
   );
 }
 
-export const synchronizedWorkPlanColumns: Column<
-  IdWrapper<SynchronizedWorkPlanRequest>
->[] = [
-  {
-    uid: 'id',
-    name: 'Delete',
-    sortable: false
-  },
-  {
-    uid: 'data.name',
-    name: 'Name',
-    sortable: true
-  },
-  {
-    uid: 'data.groupSize',
-    name: 'Group Size',
-    sortable: true
-  },
-  {
-    uid: 'data.organizationRepeatCount',
-    name: 'Segments',
-    sortable: true
-  },
-  {
-    uid: 'data.workSchemaList',
-    name: 'Schemas',
-    sortable: true
-  }
-];
+export const synchronizedWorkPlanColumns: Column<SynchronizedWorkPlanRequest>[] =
+  [
+    {
+      uid: 'id',
+      name: 'Delete',
+      sortable: false
+    },
+    {
+      uid: 'name',
+      name: 'Name',
+      sortable: true
+    },
+    {
+      uid: 'groupSize',
+      name: 'Group Size',
+      sortable: true
+    },
+    {
+      uid: 'organizationRepeatCount',
+      name: 'Segments',
+      sortable: true
+    },
+    {
+      uid: 'workSchemaList',
+      name: 'Schemas',
+      sortable: true
+    }
+  ];
 
-const synchronizedCellRecord: CellComponentRecord<
-  IdWrapper<SynchronizedWorkPlanRequest>
-> = {
-  id: { type: 'CustomCell', component: DeleteEntity },
-  'data.name': {
-    type: 'IdInnerCell',
-    component: EditSynchronizedPlanNameCell,
-    updater: getStringUpdater('data.name')
-  },
-  'data.groupSize': {
-    type: 'IdInnerCell',
-    component: EditGroupSizeCell
-  },
-  'data.organizationRepeatCount': {
-    type: 'IdInnerCell',
-    component: AnyValueToString
-  },
-  'data.workSchemaList': {
-    type: 'IdInnerCell',
-    component: SelectRemainingWorkSchemasCell,
-    updater: (prev, value) =>
-      updateNestedValueWithLodash(prev, 'data.workSchemaList', value)
-  }
-};
+const synchronizedCellRecord: CellComponentRecord<SynchronizedWorkPlanRequest> =
+  {
+    id: { type: 'CustomCell', component: DeleteEntity },
+    name: {
+      type: 'IdInnerCell',
+      component: EditSynchronizedPlanNameCell,
+      updater: getStringUpdater('name')
+    },
+    groupSize: {
+      type: 'IdInnerCell',
+      component: EditGroupSizeCell
+    },
+    organizationRepeatCount: {
+      type: 'IdInnerCell',
+      component: AnyValueToString
+    },
+    workSchemaList: {
+      type: 'IdInnerCell',
+      component: SelectRemainingWorkSchemasCell,
+      updater: (prev, value) =>
+        updateNestedValueWithLodash(prev, 'workSchemaList', value)
+    }
+  };
 
 export const synchronizedWorkPlanCellModel = getCellRenderFunction(
   'synchronizedWorkPlan',

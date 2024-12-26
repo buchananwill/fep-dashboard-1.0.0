@@ -22,7 +22,7 @@ export function WorkPlanRequestController({
 
   return (
     <EditAddDeleteDtoControllerArray
-      entityClass={EntityClassMap.parallelWorkPlan}
+      entityClass={EntityClassMap.synchronizedWorkPlan}
       dtoList={EmptyArray}
     />
   );

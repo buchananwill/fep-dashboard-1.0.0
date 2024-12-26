@@ -81,7 +81,7 @@ export type EntityTypeMap = {
   organizationWorkHierarchy: IdWrapper<OrganizationWorkHierarchyDto>;
   person: PersonDto;
   queueTreeNode: QueueTreeNodeDto;
-  synchronizedWorkPlan: IdWrapper<SynchronizedWorkPlanRequest>;
+  synchronizedWorkPlan: SynchronizedWorkPlanRequest;
   providerRole: ProviderRoleDto;
   providerRolePostRequest: IdWrapper<RolePostRequest<PersonDto>>;
   providerRoleAvailability: ProviderRoleAvailabilityDto;
