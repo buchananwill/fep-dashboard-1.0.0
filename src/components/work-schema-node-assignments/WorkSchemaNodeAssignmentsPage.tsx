@@ -38,8 +38,6 @@ async function WorkSchemaNodeAssignmentsPage({
     ...organizationTypeDtos.map((typeDto) => ({ type: typeDto }))
   ]);
 
-  console.log({ typeName, orgType, orgList });
-
   const idList = orgList.map((org) => org.id);
 
   const classesAndWorkGroups =
@@ -50,8 +48,6 @@ async function WorkSchemaNodeAssignmentsPage({
   );
 
   const deliveryAllocationRollupDtos = await getWorkSchemaNodeRollUps();
-
-  console.log({ classesAndWorkGroups, deliveryAllocationRollupDtos });
 
   return (
     <>

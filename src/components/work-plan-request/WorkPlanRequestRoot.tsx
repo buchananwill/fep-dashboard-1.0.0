@@ -38,8 +38,6 @@ export function WorkPlanRequestRoot() {
     const request = readRequest();
     if (request) {
       const response = await submitWorkPlanRequest(request);
-
-      console.log({ request, response });
     }
   }, [readRequest]);
 

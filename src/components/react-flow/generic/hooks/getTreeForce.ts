@@ -112,7 +112,6 @@ export function getTreeForce() {
     }
 
     depthOffsetList = cumulativeOffsetList;
-    console.log(depthOffsetList);
   }
 
   function buildLayoutRef(options?: HierarchicalDataOptions) {
@@ -146,7 +145,6 @@ export function getTreeForce() {
   }
 
   force.links = (links?: DataLink<any>[]) => {
-    console.log({ links });
     if (links === undefined) {
       return linksReference;
     } else {

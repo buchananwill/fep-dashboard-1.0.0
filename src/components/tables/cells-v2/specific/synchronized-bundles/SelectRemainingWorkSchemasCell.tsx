@@ -117,7 +117,6 @@ export function useSmarterListMemo<T>(simpleMemoValue: T[]) {
   const listRef = useRef(EmptyArray);
 
   return useMemo(() => {
-    console.log({ simpleMemoValue });
     if (isEqual(listRef.current, simpleMemoValue)) {
       return listRef.current;
     } else {

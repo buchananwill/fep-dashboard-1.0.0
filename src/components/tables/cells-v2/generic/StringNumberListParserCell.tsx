@@ -13,7 +13,6 @@ export function StringNumberListParserCell({
 }: IdInnerCellProps<string>) {
   const handleOnChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      console.log({ message: 'handler called', event });
       if (!onChange) return;
       else {
         const list = event.target.value;

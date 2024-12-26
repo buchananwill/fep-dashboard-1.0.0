@@ -16,7 +16,6 @@ export async function fetchXlsx(nextRequest: NextRequest) {
     }
   } else {
     const token = templateToken();
-    console.log(token);
     nextRequest.headers.append('authorization', `Bearer ${token}`);
   }
 

@@ -22,7 +22,6 @@ export function LinkScrollTo({
         identity = identity.slice(1);
       }
       const element = document.getElementById(identity) ?? null;
-      console.log(element);
       linkTargetRef.current = element;
       return () => {
         linkTargetRef.current = null;
@@ -31,7 +30,6 @@ export function LinkScrollTo({
   }, [href]);
 
   const onClick = useCallback((event: MouseEvent<HTMLAnchorElement>) => {
-    console.log("Scrollin'!");
     event.preventDefault();
     if (linkTargetRef.current) {
       linkTargetRef.current.scrollIntoView({

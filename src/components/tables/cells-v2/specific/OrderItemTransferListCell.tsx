@@ -128,7 +128,6 @@ function CarouselOrderTransferList({
 
   useEffect(() => {
     data && dispatch(idWrapperData);
-    console.log(idWrapperData);
     return () => dispatch(EmptyArray);
   }, [idWrapperData, dispatch, data]);
 

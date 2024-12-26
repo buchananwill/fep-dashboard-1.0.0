@@ -19,8 +19,6 @@ export async function OrganizationTypeLinks({
   ) as EntityTypeKey;
   const entityTypeDtos = await api(entityTypeClass, 'getAll', {});
 
-  console.log({ entityTypeDtos, entityClass, entityTypeClass, pathVariables });
-
   // @ts-ignore
   return (
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
