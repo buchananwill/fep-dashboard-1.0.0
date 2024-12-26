@@ -62,6 +62,7 @@ export const navTreeData: NavTreeNode = {
       component: CarouselGroupsAndOrders
     },
     workSchemaNodes: WorkSchemaNodeNavTree,
+    organizations: { component: WorkSchemaNodeAssignmentsHome },
     workSchemaNodeAssignments: {
       component: WorkSchemaNodeAssignmentsHome,
       children: {

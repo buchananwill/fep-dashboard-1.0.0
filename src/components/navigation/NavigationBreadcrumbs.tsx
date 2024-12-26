@@ -22,24 +22,21 @@ export default function NavigationBreadcrumbs({
   const breadCrumbsRender = useMemo(() => {
     return (
       <Breadcrumbs className={'h-4'}>
-        {pathVariables.map((pathVariable, index) =>
-          index + 1 === pathVariables.length ? (
-            <span key={index}>
-              {isUuid(pathVariable)
-                ? pathVariable
-                : startCase(getDomainAlias(pathVariable))}
-            </span>
+        {pathVariables.map((pathVariable, index) => {
+          const label = isUuid(pathVariable)
+            ? pathVariable
+            : startCase(getDomainAlias(decodeURIComponent(pathVariable)));
+          return index + 1 === pathVariables.length ? (
+            <span key={index}>{label}</span>
           ) : (
             <LinkButton
               href={`/core/${pathVariables.slice(0, index + 1).join('/')}`}
               key={index}
             >
-              {isUuid(pathVariable)
-                ? pathVariable
-                : startCase(getDomainAlias(pathVariable))}
+              {label}
             </LinkButton>
-          )
-        )}
+          );
+        })}
       </Breadcrumbs>
     );
   }, [pathVariables]);

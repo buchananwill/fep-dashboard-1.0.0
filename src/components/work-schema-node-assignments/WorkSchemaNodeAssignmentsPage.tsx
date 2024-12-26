@@ -16,12 +16,11 @@ import { defaultForceGraphPageOptions } from '@/components/work-schema-node-assi
 import { Api } from '@/api/clientApi_';
 import React from 'react';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
-import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { getWorkSchemaNodeRollUps } from '@/api/actions-custom/workSchemaNodeRollUpsAction';
 import { EdgeAnimationContextType } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
+import { OrganizationTypeLinks } from '@/components/organizations/OrganizationTypeLinks';
 
 export const workSchemaNodeRollUp = `${EntityClassMap.workSchemaNode}RollUp`;
 
@@ -29,17 +28,17 @@ async function WorkSchemaNodeAssignmentsPage({
   pathVariables,
   depth
 }: LeafComponentProps) {
-  const [levelOrdinal] = getLastNVariables(pathVariables, 1);
+  const [typeName] = getLastNVariables(pathVariables, 1);
   const organizationTypeDtos = await getDtoListByExampleList([
-    { name: `Year ${levelOrdinal}` },
-    { name: 'Class' },
-    { name: 'Work Group' }
+    { name: typeName }
   ]);
   const [orgType] = organizationTypeDtos;
 
   const orgList = await Api.Organization.getDtoListByExampleList([
     ...organizationTypeDtos.map((typeDto) => ({ type: typeDto }))
   ]);
+
+  console.log({ typeName, orgType, orgList });
 
   const idList = orgList.map((org) => org.id);
 
@@ -81,13 +80,9 @@ async function WorkSchemaNodeAssignmentsPage({
   );
 }
 
-const AssignmentLevelLinks = getPathVariableSplitComponent(
-  KnowledgeLevelLinks,
-  WorkSchemaNodeAssignmentsPage
-);
 export const WorkSchemaNodeAssignmentsHome = getPathVariableSplitComponent(
-  KnowledgeLevelSeriesLinks,
-  AssignmentLevelLinks
+  OrganizationTypeLinks,
+  WorkSchemaNodeAssignmentsPage
 );
 
 const WorkSchemaNodeAssignmentsForceGraphDefaults: ForceGraphPageOptions = {
