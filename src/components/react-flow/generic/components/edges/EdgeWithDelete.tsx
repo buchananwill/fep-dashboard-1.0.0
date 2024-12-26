@@ -18,7 +18,7 @@ export function EdgeWithDelete({
   path,
   labelX,
   labelY,
-  ...edgeProps
+  className
 }: EdgeProps & {
   path: string;
   labelX: number;
@@ -34,7 +34,7 @@ export function EdgeWithDelete({
 
   return (
     <>
-      <BaseEdge id={id} path={path} {...edgeProps} />
+      <BaseEdge id={id} path={path} className={className} />
       <EdgeLabelRenderer>
         <button
           style={{

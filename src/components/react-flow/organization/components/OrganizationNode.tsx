@@ -61,8 +61,6 @@ export function OrganizationNode(
       listenerKey
     });
 
-  console.log({ data, workSchemaNodeRoot, ancestorNodeIdList });
-
   const localAllocation = workSchemaNodeRoot?.deliveryAllocationSum ?? 0;
 
   const inheritedTotal = useMemo(() => {
