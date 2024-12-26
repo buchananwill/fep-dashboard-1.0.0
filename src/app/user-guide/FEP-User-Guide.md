@@ -39,7 +39,7 @@ The goal of the first four processes is to build a data model of your institutio
 3. What of this work is actually desired by the students?
 4. What human and physical resources are available for this work?
 
-The fifth process, [Schedule Creation](#schedule-creation) is the raison d'etre of this data model. Put the kettle on, get the jigsaw puzzle out, gather the crossword team; your hard work is done. FEP will now match your taxonomical effort by inexhaustibly searching for a schedule that delivers your work plan, while meeting your resource constraints. This is the stuff algorithms and silicon excel at, so let them have their day and save your energy for those unique and necessary human interactions that---intrinsically---can never be automated: the *sine qua non* of good teaching.
+The fifth process, [Schedule Generation](#schedule-generation) is the raison d'etre of this data model. Put the kettle on, get the jigsaw puzzle out, gather the crossword team; your hard work is done. FEP will now match your taxonomical effort by inexhaustibly searching for a schedule that delivers your work plan, while meeting your resource constraints. This is the stuff algorithms and silicon excel at, so let them have their day and save your energy for those unique and necessary human interactions that---intrinsically---can never be automated: the *sine qua non* of good teaching.
 
 ### Baseline Data Entry
 
@@ -73,12 +73,12 @@ This data is generally input once a year, in order to integrate  a new cohort be
 
 Resources are the constraints that will shape the schedule generation. Human and physical resources are modelled in broadly the same way, and have two key attributes:
 
-- Suitability for one or more of a given Work Task Type's [Resource Requirements](#resource-requirement-item)
+- Suitability for one or more of a given Work Task Type's [Resource Requirements](#resource-requirement-attributes)
 - Availability according to the defined [Cycles](#cycle).
 
 This data tends to be the most frequently updated, as most years see the arrival or departure of some staff members, and sometimes again during the course of the year. Changes to the resource availability may invalidate the current schedule, requiring it to be replaced with one that minimizes the disruption caused. Don't worry, FEP has got your back when that happens.
 
-### Schedule Creation
+### Schedule Generation
 
 We're here - the exciting part. At your bidding, FEP will take the Work Plan and resource constraints and start building a schedule that satisfies them both. The schedule building process follows these principles:
 
