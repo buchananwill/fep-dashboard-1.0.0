@@ -8,6 +8,9 @@ import {
 import { redirect, usePathname } from 'next/navigation';
 
 import { refreshSchemaTokens } from '@/api/actions-custom/schemas/refresh-schema-tokens';
+import { FRONTEND_URL } from '@/api/BASE_URL';
+import { NextRequest } from 'next/server';
+import { SCHEMA_REFRESH_COOKIE } from '@/api/literals';
 
 export default async function page(props: {
   params: Promise<{ pathVariables: string[] }>;
@@ -22,9 +25,12 @@ export default async function page(props: {
     if (!schemaName) {
       const refreshCookie = await getSchemaRefreshCookie();
       if (refreshCookie) {
-        redirect(
-          `/api/auth/schema-access?redirect=${encodeURIComponent(['core', ...pathVariables].join('/'))}`
+        console.log({ refreshCookie });
+        const nextRequest = new NextRequest(
+          `${FRONTEND_URL}/api/auth/schema-access?redirect=${encodeURIComponent(['core', ...pathVariables].join('/'))}`
         );
+        nextRequest.headers.append(SCHEMA_REFRESH_COOKIE, refreshCookie.value);
+        await fetch(nextRequest);
       } else {
         redirect('/admin/create-schema');
       }
