@@ -5,7 +5,7 @@ import { publicToken } from '@/api/auth/schemaName';
 import { NextRequest } from 'next/server';
 import { API_V2_URL } from '@/api/literals';
 import { TenancyDto } from '@/api/generated-types/generated-types_';
-import { setSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
+import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
 
 export default async function createSchemaName(name: string) {
   const session = await authOrSignInRedirect('/admin/create-schema');
@@ -30,7 +30,7 @@ export default async function createSchemaName(name: string) {
       const tenancyDto: TenancyDto | undefined = await response.json();
 
       if (tenancyDto) {
-        await setSchemaCookies(tenancyDto);
+        await requestNewSchemaCookies(tenancyDto);
         return true;
       }
     } else {

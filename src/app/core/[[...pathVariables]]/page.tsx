@@ -1,8 +1,13 @@
 import { navTreeData } from '@/app/core/navigation/data/navTreeData';
 import { ResolveNavTree } from '@/app/core/navigation/data/ResolveNavTree';
 import { auth } from '@/auth';
-import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
-import { redirect } from 'next/navigation';
+import {
+  getSchemaNameCookie,
+  getSchemaRefreshCookie
+} from '@/api/auth/get-schema-name-cookie';
+import { redirect, usePathname } from 'next/navigation';
+
+import { refreshSchemaTokens } from '@/api/actions-custom/schemas/refresh-schema-tokens';
 
 export default async function page(props: {
   params: Promise<{ pathVariables: string[] }>;
@@ -15,7 +20,14 @@ export default async function page(props: {
   if (session) {
     const schemaName = await getSchemaNameCookie();
     if (!schemaName) {
-      redirect('/admin/create-schema');
+      const refreshCookie = await getSchemaRefreshCookie();
+      if (refreshCookie) {
+        redirect(
+          `/api/auth/schema-access?redirect=${encodeURIComponent(['core', ...pathVariables].join('/'))}`
+        );
+      } else {
+        redirect('/admin/create-schema');
+      }
     }
   }
 
