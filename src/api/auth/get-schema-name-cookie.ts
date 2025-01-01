@@ -1,21 +1,20 @@
 import { addMinutes } from 'date-fns';
-
-('server only');
-
 import { SCHEMA_NAME_COOKIE, SCHEMA_REFRESH_COOKIE } from '@/api/literals';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 
+('server only');
+
 export const getSchemaNameCookie = async () => {
   console.log('reading schema name cookie');
   const cookieStore = await cookies();
-  return cookieStore.get(SCHEMA_NAME_COOKIE);
+  return cookieStore.get(SCHEMA_NAME_COOKIE)?.value;
 };
 
 export const getSchemaRefreshCookie = async () => {
   console.log('reading schema refresh cookie');
   const cookieStore = await cookies();
-  return cookieStore.get(SCHEMA_REFRESH_COOKIE);
+  return cookieStore.get(SCHEMA_REFRESH_COOKIE)?.value;
 };
 
 export type ExpirationStatus = 'valid' | 'refresh-window' | 'expired';

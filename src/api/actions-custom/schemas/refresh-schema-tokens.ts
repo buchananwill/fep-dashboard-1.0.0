@@ -8,8 +8,7 @@ export async function refreshSchemaTokens() {
   if (!refreshCookie) {
     throw Error('Refresh cookie not present');
   }
-  const { value } = refreshCookie;
 
-  const schemaAccessTokenDto = await requestRefreshSchemaCookies(value);
+  const schemaAccessTokenDto = await requestRefreshSchemaCookies(refreshCookie);
   await storeTokensInCookies(schemaAccessTokenDto);
 }

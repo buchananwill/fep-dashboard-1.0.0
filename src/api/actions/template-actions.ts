@@ -148,7 +148,7 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
     if (session?.user) {
       const schemaNameCookie = await getSchemaNameCookie();
       if (schemaNameCookie) {
-        const token = schemaNameCookie.value;
+        const token = schemaNameCookie;
         const expiration = checkJwtExpiration(token);
         switch (expiration) {
           case 'expired': {
