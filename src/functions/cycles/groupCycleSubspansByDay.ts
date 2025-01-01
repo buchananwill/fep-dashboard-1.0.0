@@ -6,9 +6,10 @@ import {
 
 import { StringObjectRecord } from '@/api/string-object-record';
 import { isNotUndefined } from '@/api/main';
-import { CycleDto } from '@/api/generated-types/generated-types_';
-import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
-import { publicToken } from '@/api/auth/schemaName';
+import {
+  CycleDto,
+  CycleSubspanDto
+} from '@/api/generated-types/generated-types_';
 
 export interface CycleDay {
   zeroIndexedCycleDay: number;

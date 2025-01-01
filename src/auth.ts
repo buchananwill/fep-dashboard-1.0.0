@@ -1,8 +1,7 @@
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 import MicrosoftEntraID from 'next-auth/providers/microsoft-entra-id';
-import { getTenancy } from '@/api/auth/get-tenancy';
-import { setSchemaNameCookie } from '@/api/actions-custom/schemas/set-schema-name-cookie';
+import { exchangeEmailForSchemaTokens } from '@/exchangeEmailForSchemaTokens';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -26,13 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.refreshToken = account.refresh_token;
 
         const email = user.email ?? profile?.email;
-
-        if (email) {
-          const tenancyDtoPartial = await getTenancy(email);
-          if (tenancyDtoPartial.schemaName) {
-            await setSchemaNameCookie(tenancyDtoPartial);
-          }
-        }
+        await exchangeEmailForSchemaTokens(email);
       }
       return token;
     },

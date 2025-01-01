@@ -748,6 +748,16 @@ export interface ScheduleParametersDto {
   costParameters: string[];
 }
 
+export interface SchemaAccessTokenDto {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface SchemaRequestDto {
+  schemaName: string;
+  email: string;
+}
+
 export interface StaticDeliveryAllocationDto extends Serializable {
   id: number;
   cycleId: number;
