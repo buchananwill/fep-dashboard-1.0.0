@@ -144,30 +144,20 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
     // @ts-ignore
     const nextRequest = new NextRequest(url, request);
     const session = await auth();
-    let refreshedTokens = Promise.resolve();
     if (session?.user) {
       const schemaNameCookie = await getSchemaNameCookie();
       if (schemaNameCookie) {
-        const token = schemaNameCookie;
-        const expiration = checkJwtExpiration(token);
-        switch (expiration) {
-          case 'expired': {
-            throw Error('Refresh token expired');
-          }
-          case 'refresh-window': {
-            refreshedTokens = refreshSchemaTokens();
-            break;
-          }
-        }
-        nextRequest.headers.append('authorization', `Bearer ${token}`);
+        nextRequest.headers.append(
+          'authorization',
+          `Bearer ${schemaNameCookie}`
+        );
       }
     } else {
       const token = templateToken();
       nextRequest.headers.append('authorization', `Bearer ${token}`);
     }
 
-    const fetchPromise = await fetch(nextRequest);
-    const [response] = await Promise.all([fetchPromise, refreshedTokens]);
+    const response = await fetch(nextRequest);
 
     // Check if response is successful
     if (response.status >= 200 && response.status < 300) {

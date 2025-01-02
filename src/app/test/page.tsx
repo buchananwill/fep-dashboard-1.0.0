@@ -1,32 +1,16 @@
-import { Api } from '@/api/clientApi';
-import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { EntityClassMap } from '@/api/entity-class-map';
-import { joinWorkProjectSeriesSchemaIdKey } from '@/functions/workProjectSeriesSchemaIdTransforms';
-import { IdWrapper } from '@/api/types';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+'use client';
+import { Button } from '@mantine/core';
+import { testAction } from '@/app/test/test-action';
 
-export default async function Page() {
-  const workProjectSeriesSchemaDtos =
-    await Api.WorkProjectSeriesSchema.getAll();
-
-  const tagIdWrapper = workProjectSeriesSchemaDtos.map(
-    (wpss) =>
-      ({
-        id: joinWorkProjectSeriesSchemaIdKey(wpss),
-        data: wpss
-      }) as IdWrapper<WorkProjectSeriesSchemaDto>
-  );
-
+export default function Page() {
   return (
-    <>
-      <EditAddDeleteDtoControllerArray
-        dtoList={workProjectSeriesSchemaDtos}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-      />
-      <EditAddDeleteDtoControllerArray
-        dtoList={tagIdWrapper}
-        entityClass={'IdWrapper'}
-      />
-    </>
+    <Button
+      onClick={async () => {
+        const hello = await testAction();
+        console.log(hello);
+      }}
+    >
+      Click Me
+    </Button>
   );
 }

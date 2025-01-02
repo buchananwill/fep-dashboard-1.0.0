@@ -1,20 +1,11 @@
-// export { auth as middleware } from '@/auth';
-
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import {
-  checkJwtExpiration,
-  getSchemaNameCookie,
-  getSchemaRefreshCookie
-} from '@/api/auth/get-schema-name-cookie';
-import { redirect } from 'next/navigation';
+import { checkJwtExpiration } from '@/api/auth/get-schema-name-cookie';
 import { SCHEMA_NAME_COOKIE, SCHEMA_REFRESH_COOKIE } from '@/api/literals';
 import { requestRefreshSchemaCookies } from './api/actions-custom/schemas/request-refresh-schema-cookies';
-import { storeTokensInCookies } from '@/api/actions-custom/schemas/store-tokens-in-cookies';
 import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
 import { SchemaAccessTokenDto } from '@/api/generated-types/generated-types_';
 import jwt from 'jsonwebtoken';
-import { addMinutes } from 'date-fns';
 import { Session } from 'next-auth';
 
 const custom = async (request: NextRequest) => {
@@ -54,10 +45,6 @@ const custom = async (request: NextRequest) => {
       }
 
       console.log(request);
-      // if (!request.nextUrl.pathname.includes('create-schema')) {
-      //   const urlRedirect = new URL('/admin/create-schema', url);
-      //   response = NextResponse.redirect(urlRedirect);
-      // }
     }
   }
   console.log({ response, url, pathname });
