@@ -9,10 +9,7 @@ export async function fetchXlsx(nextRequest: NextRequest) {
   if (session?.user) {
     const databaseJwt = await getSchemaNameCookie();
     if (databaseJwt) {
-      nextRequest.headers.append(
-        'authorization',
-        `Bearer ${databaseJwt.value}`
-      );
+      nextRequest.headers.append('authorization', `Bearer ${databaseJwt}`);
     }
   } else {
     const token = templateToken();
