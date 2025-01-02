@@ -15,26 +15,26 @@ export default async function page(props: {
 
   const { pathVariables } = params;
 
-  const session = await auth();
-  if (session) {
-    const schemaName = await getSchemaNameCookie();
-    if (!schemaName || checkJwtExpiration(schemaName) !== 'valid') {
-      const refreshCookie = await getSchemaRefreshCookie();
-      if (refreshCookie) {
-        if (checkJwtExpiration(refreshCookie) !== 'expired') {
-          const searchParams = new URLSearchParams();
-          searchParams.set('redirect', ['core', ...pathVariables].join('/'));
-          redirect(
-            `/api/auth/refresh-schema-access?${searchParams.toString()}`
-          );
-        } else {
-          redirect('/api/auth/generate-schema-access');
-        }
-      } else {
-        redirect('/admin/create-schema');
-      }
-    }
-  }
+  // const session = await auth();
+  // if (session) {
+  //   const schemaName = await getSchemaNameCookie();
+  //   if (!schemaName || checkJwtExpiration(schemaName) !== 'valid') {
+  //     const refreshCookie = await getSchemaRefreshCookie();
+  //     if (refreshCookie) {
+  //       if (checkJwtExpiration(refreshCookie) !== 'expired') {
+  //         const searchParams = new URLSearchParams();
+  //         searchParams.set('redirect', ['core', ...pathVariables].join('/'));
+  //         redirect(
+  //           `/api/auth/refresh-schema-access?${searchParams.toString()}`
+  //         );
+  //       } else {
+  //         redirect('/api/auth/generate-schema-access');
+  //       }
+  //     } else {
+  //       redirect('/admin/create-schema');
+  //     }
+  //   }
+  // }
 
   return (
     <ResolveNavTree
