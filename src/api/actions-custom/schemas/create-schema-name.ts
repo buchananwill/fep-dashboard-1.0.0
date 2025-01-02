@@ -6,6 +6,7 @@ import { NextRequest } from 'next/server';
 import { API_V2_URL } from '@/api/literals';
 import { TenancyDto } from '@/api/generated-types/generated-types_';
 import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
+import { storeTokensInCookies } from '@/api/actions-custom/schemas/store-tokens-in-cookies';
 
 export default async function createSchemaName(name: string) {
   const session = await authOrSignInRedirect('/admin/create-schema');
@@ -20,7 +21,7 @@ export default async function createSchemaName(name: string) {
       body: name,
       method: 'POST',
       headers: {
-        'Content-Type': 'text/plain' // Indicate we're sending plain text.
+        'Content-Type': 'text/plain'
       }
     });
     nextRequest.headers.append('Authorization', `Bearer ${token}`);
@@ -30,7 +31,10 @@ export default async function createSchemaName(name: string) {
       const tenancyDto: TenancyDto | undefined = await response.json();
 
       if (tenancyDto) {
-        await requestNewSchemaCookies(tenancyDto);
+        const schemaAccessTokenDto = await requestNewSchemaCookies(
+          tenancyDto.email
+        );
+        await storeTokensInCookies(schemaAccessTokenDto);
         return true;
       }
     } else {

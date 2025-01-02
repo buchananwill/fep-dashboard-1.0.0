@@ -18,10 +18,3 @@ export const publicToken = (userPayload: { email: string }) => {
     expiresIn: '24h'
   });
 };
-
-export const userToken = ({ email, schemaName }: Partial<TenancyDto>) => {
-  return jwt.sign({ email, schemaName }, cookieSecret, {
-    algorithm: 'HS256',
-    expiresIn: '24h'
-  });
-};

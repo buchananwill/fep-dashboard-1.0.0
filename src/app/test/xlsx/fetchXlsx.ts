@@ -11,9 +11,6 @@ export async function fetchXlsx(nextRequest: NextRequest) {
     if (databaseJwt) {
       nextRequest.headers.append('authorization', `Bearer ${databaseJwt}`);
     }
-  } else {
-    const token = templateToken();
-    nextRequest.headers.append('authorization', `Bearer ${token}`);
   }
 
   return fetch(nextRequest);

@@ -153,10 +153,6 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
         );
       }
     }
-    // else {
-    //   const token = templateToken();
-    //   nextRequest.headers.append('authorization', `Bearer ${token}`);
-    // }
 
     const response = await fetch(nextRequest);
 
