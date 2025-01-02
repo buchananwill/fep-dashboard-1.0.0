@@ -27,6 +27,7 @@ export default async function createSchemaName(name: string) {
     nextRequest.headers.append('Authorization', `Bearer ${token}`);
 
     const response = await fetch(nextRequest);
+    // TODO: Split this part into a follow up action, with a progress indicator page.
     if (response.status === 201) {
       const tenancyDto: TenancyDto | undefined = await response.json();
 
