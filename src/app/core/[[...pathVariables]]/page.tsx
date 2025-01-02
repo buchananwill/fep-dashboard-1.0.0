@@ -4,16 +4,6 @@ import { ResolveNavTree } from '@/app/core/navigation/data/ResolveNavTree';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 
-async function checkAuthAndSchemaStatus() {
-  const session = await auth();
-  if (session) {
-    const schemaName = await getSchemaNameCookie();
-    if (!schemaName) {
-      redirect('/admin/create-schema');
-    }
-  }
-}
-
 export default async function page(props: {
   params: Promise<{ pathVariables: string[] }>;
 }) {
@@ -30,4 +20,14 @@ export default async function page(props: {
       depth={0}
     />
   );
+}
+
+async function checkAuthAndSchemaStatus() {
+  const session = await auth();
+  if (session) {
+    const schemaName = await getSchemaNameCookie();
+    if (!schemaName) {
+      redirect('/admin/create-schema');
+    }
+  }
 }
