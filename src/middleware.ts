@@ -9,13 +9,9 @@ import jwt from 'jsonwebtoken';
 import { Session } from 'next-auth';
 
 const custom = async (request: NextRequest) => {
-  console.log('in middleware');
   const requestCookieStore = request.cookies;
   let response = NextResponse.next();
   const responseCookieStore = response.cookies;
-  let url = request.nextUrl.clone();
-  const pathname = request.nextUrl.pathname;
-  console.log({ url, pathname });
   const session = await auth();
   if (session) {
     const schemaName = requestCookieStore.get(SCHEMA_NAME_COOKIE)?.value;
@@ -27,27 +23,26 @@ const custom = async (request: NextRequest) => {
       const tokens = await getTokens(refreshCookie, session);
       if (tokens) {
         const { accessToken, refreshToken } = tokens;
-        responseCookieStore.set(SCHEMA_NAME_COOKIE, accessToken, {
-          httpOnly: true,
-          secure: true,
-          path: '/',
-          sameSite: 'strict',
-          maxAge: 60 * 60 // 1 hour in seconds
-        });
+        if (accessToken && refreshToken) {
+          responseCookieStore.set(SCHEMA_NAME_COOKIE, accessToken, {
+            httpOnly: true,
+            secure: true,
+            path: '/',
+            sameSite: 'strict',
+            maxAge: 60 * 60 // 1 hour in seconds
+          });
 
-        responseCookieStore.set(SCHEMA_REFRESH_COOKIE, refreshToken, {
-          httpOnly: true,
-          secure: true,
-          path: '/',
-          sameSite: 'strict',
-          maxAge: 60 * 60 * 24 * 7 // 1 week in seconds
-        });
+          responseCookieStore.set(SCHEMA_REFRESH_COOKIE, refreshToken, {
+            httpOnly: true,
+            secure: true,
+            path: '/',
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 24 * 7 // 1 week in seconds
+          });
+        }
       }
-
-      console.log(request);
     }
   }
-  console.log({ response, url, pathname });
   return response; //NextResponse.next();
 };
 
@@ -75,7 +70,6 @@ async function getTokens(
   refreshCookie: string | undefined,
   session: Session
 ): Promise<SchemaAccessTokenDto | undefined> {
-  console.log('fetching tokens');
   let tokens: Promise<undefined | SchemaAccessTokenDto> =
     Promise.resolve(undefined);
   if (!refreshCookie) {
