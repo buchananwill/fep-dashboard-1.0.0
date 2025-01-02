@@ -16,15 +16,17 @@ export default async function createSchemaName(name: string) {
   }
   const email = session.user?.email;
   if (email) {
-    const token = publicToken({ email });
-    const nextRequest = new NextRequest(`${API_V2_URL}/tenancy/createSchema`, {
-      body: name,
+    const nextRequest = new NextRequest(`${API_V2_URL}/tenancy/create-schema`, {
+      body: JSON.stringify({ schemaName: name, email }),
       method: 'POST',
       headers: {
-        'Content-Type': 'text/plain'
+        'Content-Type': 'Application/JSON'
       }
     });
-    nextRequest.headers.append('Authorization', `Bearer ${token}`);
+    nextRequest.headers.append(
+      'create-schema',
+      `${process.env.CREATE_SCHEMA!}`
+    );
 
     const response = await fetch(nextRequest);
     // TODO: Split this part into a follow up action, with a progress indicator page.
