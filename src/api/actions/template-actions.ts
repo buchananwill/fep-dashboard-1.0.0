@@ -152,10 +152,11 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
           `Bearer ${schemaNameCookie}`
         );
       }
-    } else {
-      const token = templateToken();
-      nextRequest.headers.append('authorization', `Bearer ${token}`);
     }
+    // else {
+    //   const token = templateToken();
+    //   nextRequest.headers.append('authorization', `Bearer ${token}`);
+    // }
 
     const response = await fetch(nextRequest);
 
