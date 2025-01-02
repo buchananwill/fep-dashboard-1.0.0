@@ -12,13 +12,13 @@ function getRetrieveSchemaKey() {
   return key;
 }
 
-export async function requestNewSchemaCookies(email: string) {
+export async function requestNewSchemaCookies(
+  email: string
+): Promise<SchemaAccessTokenDto> {
   const url = `${BASE_URL}/api/v2/tenancy/retrieve-schema`;
   const request = new NextRequest(url, { body: email, method: 'POST' });
   request.headers.append('retrieve-schema', getRetrieveSchemaKey());
 
   const schemaTokensResponse = await fetch(request);
-  const tokens: SchemaAccessTokenDto = await schemaTokensResponse.json();
-
-  await storeTokensInCookies(tokens);
+  return await schemaTokensResponse.json();
 }
