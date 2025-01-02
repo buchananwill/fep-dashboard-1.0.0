@@ -40,4 +40,4 @@ const custom = async (request: NextRequest) => {
   return response; //NextResponse.next();
 };
 
-export default custom; //auth(custom);
+export default auth(custom);
