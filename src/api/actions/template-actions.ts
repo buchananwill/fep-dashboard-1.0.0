@@ -29,7 +29,7 @@ function createRequestInit<T>({
     headers: {
       'Content-Type': 'application/json' // Indicate we're sending JSON data
     },
-    cache: caching
+    cache: caching ?? 'no-cache'
   };
   if (body) {
     init.body = JSON.stringify(body);

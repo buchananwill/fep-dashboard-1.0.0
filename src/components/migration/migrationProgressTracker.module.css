@@ -1,0 +1,8 @@
+.checkIcon {
+    height: 4rem;
+    width: 4rem;
+    color: var(--mantine-color-success-filled);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

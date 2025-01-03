@@ -1,4 +1,9 @@
+'use client';
 import { Card, Loader, RingProgress, Text, Title } from '@mantine/core';
+import { useQuery } from '@tanstack/react-query';
+import { getInitializationStatus } from '@/api/actions-custom/schemas/getInitializationStatus';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
+import classes from './migrationProgressTracker.module.css';
 
 /*
  * Todo:
@@ -12,7 +17,15 @@ export function MigrationProgressTracker({
 }: {
   progress?: TemplateProgress;
 }) {
-  const { templatesQueued, templatesLoaded } = progress;
+  const { isFetching, data } = useQuery({
+    queryFn: getInitializationStatus,
+    queryKey: ['initialization-status'],
+    refetchInterval: 5_000
+  });
+
+  if (!data) return <Loader />;
+
+  const { templatesQueued, templatesLoaded } = data;
   const totalTemplates = templatesQueued.length + templatesLoaded.length;
   const completedValue = (templatesLoaded.length / totalTemplates) * 100;
   const pendingValue = (templatesQueued.length / totalTemplates) * 100;
@@ -29,6 +42,7 @@ export function MigrationProgressTracker({
         }
         size={320}
         thickness={30}
+        transitionDuration={250}
         sections={[
           {
             value: completedValue,
@@ -39,16 +53,19 @@ export function MigrationProgressTracker({
             color: 'amberSunrise'
           }
         ]}
-        classNames={{}}
+        classNames={{ root: 'center-horizontal-with-margin' }}
       />
       {completedValue < 100 && (
         <Loader type={'dots'} className={'center-all-margin'} />
+      )}
+      {completedValue === 100 && (
+        <CheckCircleIcon className={classes.checkIcon} />
       )}
     </Card>
   );
 }
 
-type TemplateProgress = {
+export type TemplateProgress = {
   templatesLoaded: string[];
   templatesQueued: string[];
 };
