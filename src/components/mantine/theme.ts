@@ -116,7 +116,8 @@ const MantineTheme: MantineThemeOverride = {
     secondaryRGB: celestialLagoonColorsRGB,
     success: mintColors,
     danger: redColors,
-    default: grayColors
+    default: grayColors,
+    amberSunrise: amberSunriseColorsHex
   },
   lineHeights: {
     xxs: rem('16px'),
