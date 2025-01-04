@@ -53,7 +53,6 @@ export default async function UserAvatar({}: {}) {
             )}
           </button>
         </form>
-        <ResetButton />
       </div>
     );
 }
