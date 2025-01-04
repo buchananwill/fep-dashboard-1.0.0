@@ -53,7 +53,9 @@ export function MigrationProgressTracker({
             color: 'amberSunrise'
           }
         ]}
-        classNames={{ root: 'center-horizontal-with-margin' }}
+        classNames={{
+          root: 'center-horizontal-with-margin'
+        }}
       />
       {completedValue < 100 && (
         <Loader type={'dots'} className={'center-all-margin'} />

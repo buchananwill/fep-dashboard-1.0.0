@@ -6,3 +6,7 @@
     margin-right: auto;
     display: block;
 }
+
+.label {
+    background-color: rgb(255,255,255,10%);
+}
