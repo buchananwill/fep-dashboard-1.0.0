@@ -44,9 +44,9 @@ export default function Page({}: {}) {
   });
 
   return (
-    <Card>
+    <Card className={'gap-2'}>
       <div>
-        <Select {...selectApi} />
+        <Select {...selectApi} w={'24em'} />
       </div>
       <div>
         <Button
@@ -57,6 +57,7 @@ export default function Page({}: {}) {
             });
             redirect('/admin/schema-status');
           }}
+          className={'center-horizontal-with-margin block'}
         >
           Initialize
         </Button>
