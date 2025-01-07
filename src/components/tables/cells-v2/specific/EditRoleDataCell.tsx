@@ -37,7 +37,7 @@ import {
 } from '@/functions/workProjectSeriesSchemaIdTransforms';
 import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { useTransientState } from '@/hooks/useTransientState';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { usePropagateRoleDataChange } from '@/components/roles/create-role/usePropagateRoleDataChange';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
 import FullCalendar from '@fullcalendar/react';

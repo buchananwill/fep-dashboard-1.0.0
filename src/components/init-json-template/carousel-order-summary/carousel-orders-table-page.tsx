@@ -2,7 +2,7 @@ import { Api } from '@/api/clientApi';
 import { CarouselOrderSummaryDto } from '@/api/generated-types/generated-types_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { CarouselOrderSummaryTable } from '@/components/tables/edit-tables/CarouselOrderSummaryTable';
 import { InitJsonTemplatePageProps } from '@/components/init-json-template/dataTypes';
 

@@ -17,7 +17,7 @@ import {
   useGlobalListener
 } from 'selective-context';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { isEqual } from 'lodash';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 

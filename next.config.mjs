@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+
+import { validateEnv } from './src/api/validateEnv.js';
+
+validateEnv();
+
 const nextConfig = {
   reactStrictMode: false,
   experimental: {

@@ -1,7 +1,7 @@
 import { Entity, Identifier, NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { CSSProperties, useCallback, useMemo } from 'react';
 import { parseTen } from '@/api/date-and-time';
 

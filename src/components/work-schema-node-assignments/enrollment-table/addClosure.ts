@@ -1,5 +1,5 @@
 import { ClosureMap } from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTable';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/client-literals';
 import { getClosureTargetMap } from '@/components/work-schema-node-assignments/enrollment-table/getClosureTargetMap';
 import { ClosureDto } from '@/api/types';
 

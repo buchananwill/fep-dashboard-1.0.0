@@ -1,2 +1,5 @@
-export const BASE_URL = process.env.BASE_URL!;
-export const FRONTEND_URL = process.env.FRONTEND_URL!;
+'server only';
+import Env from './environment';
+
+export const BASE_URL = Env.getBaseUrl();
+export const FRONTEND_URL = Env.getFrontendUrl();

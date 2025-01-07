@@ -20,7 +20,7 @@ import clsx from 'clsx';
 import { useStaticAllocationCellUpdater } from '@/components/work-project-series-schema/static-allocation/UseStaticAllocationCellUpdater';
 import { useGlobalListener } from 'selective-context';
 import { cycleSubspanGroupMap } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Button, Popover } from '@mantine/core';
 import { StaticAllocationDispensor } from '@/components/work-project-series-schema/StaticAllocationDispensor';

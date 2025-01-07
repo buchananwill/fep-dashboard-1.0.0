@@ -1,7 +1,7 @@
 import { Entity, NamespacedHooks } from 'dto-stores';
 import { GenericTableDto } from '@/api/types';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useMemo } from 'react';
 import { useTableProps } from '@/components/grids/useTableProps';
 

@@ -1,7 +1,10 @@
 import { addMinutes } from 'date-fns';
-import { SCHEMA_NAME_COOKIE, SCHEMA_REFRESH_COOKIE } from '@/api/literals';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
+import {
+  SCHEMA_NAME_COOKIE,
+  SCHEMA_REFRESH_COOKIE
+} from '@/api/server-literals';
 
 ('server only');
 

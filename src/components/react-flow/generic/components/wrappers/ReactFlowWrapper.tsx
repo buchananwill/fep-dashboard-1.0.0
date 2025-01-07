@@ -6,7 +6,7 @@ import {
   EdgeAnimationContextProvider,
   EdgeAnimationContextType
 } from '@/components/react-flow/generic/components/wrappers/edgeAnimationContext';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 
 export function ReactFlowWrapper({
   children,

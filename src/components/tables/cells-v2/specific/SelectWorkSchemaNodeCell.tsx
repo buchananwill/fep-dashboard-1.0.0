@@ -5,7 +5,7 @@ import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useCallback, useEffect } from 'react';
 import { nameAccessor } from '@/functions/nameSetter';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
 import { Autocomplete } from '@mantine/core';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';

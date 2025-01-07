@@ -3,9 +3,12 @@ import { SignInGoogle } from '@/components/auth/SignInGoogle';
 import { SignInAzure } from '@/components/auth/SignInAzure';
 import { Image } from '@mantine/core';
 import { cookies } from 'next/headers';
-import { SCHEMA_NAME_COOKIE, SCHEMA_REFRESH_COOKIE } from '@/api/literals';
 import { redirect } from 'next/navigation';
 import { ResetButton } from '@/components/auth/ResetButton';
+import {
+  SCHEMA_NAME_COOKIE,
+  SCHEMA_REFRESH_COOKIE
+} from '@/api/server-literals';
 
 export default async function UserAvatar({}: {}) {
   const session = await auth();

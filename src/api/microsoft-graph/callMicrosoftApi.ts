@@ -1,8 +1,8 @@
 'use server';
 import { auth } from '@/auth';
-import { MICROSOFT_GRAPH_DELEGATED } from '@/api/literals';
 import { SessionWithAccessToken } from '@/api/microsoft-graph/sessionWithAccessToken';
 import { produce } from 'immer';
+import { MICROSOFT_GRAPH_DELEGATED } from '@/api/server-literals';
 
 export async function callMicrosoftApi(request: RequestInit, endpoint: string) {
   const session = (await auth()) as SessionWithAccessToken;

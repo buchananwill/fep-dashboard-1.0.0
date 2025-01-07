@@ -4,8 +4,8 @@ import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-acti
 import { CarouselGroupDto } from '@/api/generated-types/generated-types_';
 import { HeatMapSerie } from '@nivo/heatmap';
 
-import { API_V2_URL } from '@/api/literals';
 import { ChordMapWithMetaData, NivoChordMetaData } from '@/api/types';
+import { API_V2_URL } from '@/api/server-literals';
 
 export async function getHeatMapSeriesList(levelOrdinal: string, id: string) {
   const [carouselGroup] = await getCarouselGroups(levelOrdinal, id);

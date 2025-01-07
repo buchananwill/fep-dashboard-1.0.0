@@ -28,7 +28,7 @@ import {
 } from '@/functions/cellUpdaterFunctions';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { ExportDataButton } from '@/components/export/ExportDataButton';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { ImportDataButton } from '@/components/import/ImportDataButton';

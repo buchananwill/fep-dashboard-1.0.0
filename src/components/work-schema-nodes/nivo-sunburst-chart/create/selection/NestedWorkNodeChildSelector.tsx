@@ -11,7 +11,7 @@ import {
   joinPath,
   splitPathOf
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import {
   KnowledgeLevelSeriesGroup,
   NestedWorkNode,

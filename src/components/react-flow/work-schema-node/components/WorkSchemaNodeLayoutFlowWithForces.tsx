@@ -37,7 +37,7 @@ import {
   NamespacedHooks,
   useReadAnyDto
 } from 'dto-stores';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { NodeValidator } from '@/components/react-flow/generic/types';
 import {
   CarouselDto,

@@ -8,7 +8,7 @@ import {
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { Button } from '@mantine/core';
 import { HasNumberId } from '@/api/types';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 
 export function AddRootNode<T extends HasNumberId>({}: {}) {
   const listenerKey = useUuidListenerKey();

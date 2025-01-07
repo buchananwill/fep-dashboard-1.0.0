@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { checkJwtExpiration } from '@/api/auth/get-schema-name-cookie';
-import { SCHEMA_NAME_COOKIE, SCHEMA_REFRESH_COOKIE } from '@/api/literals';
 import { requestRefreshSchemaCookies } from './api/actions-custom/schemas/request-refresh-schema-cookies';
 import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
 import { SchemaAccessTokenDto } from '@/api/generated-types/generated-types_';
 import jwt from 'jsonwebtoken';
 import { Session } from 'next-auth';
+import {
+  SCHEMA_NAME_COOKIE,
+  SCHEMA_REFRESH_COOKIE
+} from '@/api/server-literals';
 
 const custom = async (request: NextRequest) => {
   const requestCookieStore = request.cookies;

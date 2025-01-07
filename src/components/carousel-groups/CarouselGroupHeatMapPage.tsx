@@ -3,7 +3,7 @@ import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
 import { getHeatMapSeriesList } from '@/api/actions-custom/getHeatMapSeriesList';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 

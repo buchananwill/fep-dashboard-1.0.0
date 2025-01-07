@@ -10,7 +10,7 @@ import SelectFilterPath, {
   getVisibleColumnsContextKey
 } from '@/components/tables/SelectFilterPath';
 import { getFilteredSortedIdListContextKey } from '@/hooks/table-hooks/useClientSideSorting';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { getSetPageContextKey } from '@/hooks/table-hooks/useClientSideFilteringIdList';
 import { getRowsPerPageContextKey } from '@/hooks/table-hooks/useClientSidePaginationController';
 import React, { useMemo } from 'react';

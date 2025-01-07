@@ -3,10 +3,11 @@ import { authOrSignInRedirect } from '@/api/auth/auth-or-sign-in-redirect';
 import { schemaNameSchema } from '@/api/actions-custom/schemas/schema-name-schema';
 import { publicToken } from '@/api/auth/schemaName';
 import { NextRequest } from 'next/server';
-import { API_V2_URL } from '@/api/literals';
 import { TenancyDto } from '@/api/generated-types/generated-types_';
 import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
 import { storeTokensInCookies } from '@/api/actions-custom/schemas/store-tokens-in-cookies';
+import Env from '../../environment';
+import { API_V2_URL } from '@/api/server-literals';
 
 export default async function createSchemaName(name: string) {
   const session = await authOrSignInRedirect('/admin/create-schema');
@@ -23,10 +24,7 @@ export default async function createSchemaName(name: string) {
         'Content-Type': 'Application/JSON'
       }
     });
-    nextRequest.headers.append(
-      'create-schema',
-      `${process.env.CREATE_SCHEMA!}`
-    );
+    nextRequest.headers.append('create-schema', Env.getCreateSchemaSecret());
 
     const response = await fetch(nextRequest);
     // TODO: Split this part into a follow up action, with a progress indicator page.

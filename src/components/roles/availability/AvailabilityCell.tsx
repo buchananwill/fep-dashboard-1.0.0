@@ -6,7 +6,7 @@ import { CellIdReference } from '@/components/grids/CellQueryManager';
 import { BaseDtoUiProps, DtoUiWrapper } from 'dto-stores';
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 import {
   ProviderRoleAvailabilityDto,
   RoleAvailabilityDto

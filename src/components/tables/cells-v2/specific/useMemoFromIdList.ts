@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 
 /**
  * Will NOT reflect updates to the entities in state AFTER the initial render,

@@ -19,7 +19,7 @@ import {
   HighlightedSubjects,
   RotationPrime
 } from '@/components/carousel-groups/orders/_literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { TwoStageClick } from '@/components/generic/TwoStageClick';
 import { resetAssignmentsAction } from '@/components/carousel-groups/orders/_functions/resetAssignmentsAction';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';

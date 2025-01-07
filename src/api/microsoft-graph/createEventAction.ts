@@ -1,8 +1,8 @@
 'use server';
 import { auth } from '@/auth';
-import { MICROSOFT_GRAPH_DELEGATED } from '@/api/literals';
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { SessionWithAccessToken } from '@/api/microsoft-graph/sessionWithAccessToken';
+import { MICROSOFT_GRAPH_DELEGATED } from '@/api/server-literals';
 
 export const createEvent = async (event: OutlookEvent) => {
   const session = (await auth()) as SessionWithAccessToken;

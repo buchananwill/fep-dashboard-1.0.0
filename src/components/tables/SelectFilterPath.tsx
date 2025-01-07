@@ -4,7 +4,7 @@ import { useGlobalController, useGlobalListener } from 'selective-context';
 import { getFilterPropertyContextKey } from '@/hooks/table-hooks/useClientSideFilteringIdList';
 import { Paths } from 'type-fest';
 import { useCallback, useMemo } from 'react';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { ComboboxItem, Select } from '@mantine/core';
 import { TypedPaths } from '@/api/custom-types/typePaths';
 

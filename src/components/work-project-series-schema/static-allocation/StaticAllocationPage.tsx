@@ -12,7 +12,7 @@ import { Api } from '@/api/clientApi_';
 import StaticAllocationAuditor, {
   allocationCounter
 } from '@/components/work-project-series-schema/static-allocation/StaticAllocationAuditor';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import {
   StaticDeliveryAllocationItemDto,
   WorkProjectSeriesSchemaDto

@@ -12,7 +12,7 @@ import { isNotUndefined } from '@/api/main';
 import { replaceKnowledgeDomainsInGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupProducers';
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/combo-boxes/MultiSelectMaxDisplayedItems';
 import { useSimpleSelectableListMapAndIdMap } from '@/hooks/useSimpleSelectableListMapAndIdMap';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useLabelMaker } from '@/hooks/select-adaptors/useLabelMaker';
 import { isEqual } from 'lodash';
 

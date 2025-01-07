@@ -2,9 +2,9 @@
 
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { FlywayOperationRequest } from '@/api/generated-types/generated-types_';
-import { API_V2_URL } from '@/api/literals';
 import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
 import { getInitializationStatus } from '@/api/actions-custom/schemas/getInitializationStatus';
+import { API_V2_URL } from '@/api/server-literals';
 
 const initialRequest: Pick<FlywayOperationRequest, 'beginWith' | 'finishWith'> =
   { beginWith: 'BASELINE', finishWith: 'MIGRATE' };

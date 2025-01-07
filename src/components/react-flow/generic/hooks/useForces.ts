@@ -19,7 +19,7 @@ import { HasNumberId } from '@/api/types';
 import { treeForce } from '@/components/react-flow/generic/hooks/getTreeForce';
 import { HierarchicalDataOptions } from '@/components/react-flow/generic/hooks/getHierarchicalDataLayout';
 import { dagreForce } from '@/components/react-flow/generic/hooks/getDagreForce';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 
 export const draggingNodeKey = 'dragging-node';
 

@@ -3,7 +3,7 @@ import { Identifier, NamespacedHooks } from 'dto-stores';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalListener } from 'selective-context';
 import { getFilteredSortedIdListContextKey } from '@/hooks/table-hooks/useClientSideSorting';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { ReactNode, useCallback, useMemo, useRef } from 'react';
 import { Checkbox, CheckIcon, Indicator } from '@mantine/core';

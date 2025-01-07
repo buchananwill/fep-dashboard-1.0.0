@@ -2,7 +2,7 @@ import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { CreateRoleCell } from '@/components/work-task-types/suitabilityMatrixCell';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useReadAnyDtoTyped } from '@/api/typed-dto-store-hooks';
 import { useCallback } from 'react';
 import { isNotUndefined } from '@/api/main';

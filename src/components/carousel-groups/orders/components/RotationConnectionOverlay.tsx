@@ -10,7 +10,7 @@ import { HasId } from '@/api/types';
 import { useViewportSize, useWindowScroll } from '@mantine/hooks';
 import { Portal } from '@mantine/core';
 import { MainScrollPosition } from '@/components/generic/MainScrollPort';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 
 export interface ConnectionVector {
   source?: Coordinate & HasId;

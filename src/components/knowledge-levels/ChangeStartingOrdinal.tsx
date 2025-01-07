@@ -2,7 +2,7 @@ import { NamespacedHooks, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
 import { StepperContext } from '@/components/generic/stepper/stepperContextCreator';
 import { useMemo } from 'react';

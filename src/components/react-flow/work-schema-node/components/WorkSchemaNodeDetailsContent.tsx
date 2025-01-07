@@ -37,7 +37,7 @@ import { getIdFromLinkReference } from 'react-d3-force-wrapper/dist/editing/func
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import {

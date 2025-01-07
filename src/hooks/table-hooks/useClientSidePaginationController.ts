@@ -4,7 +4,7 @@ import {
   getFilteredIdContextKey,
   getSetPageContextKey
 } from '@/hooks/table-hooks/useClientSideFilteringIdList';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { Identifier } from 'dto-stores';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 

@@ -15,7 +15,7 @@ import { performDiffOnCarouselOrderItem } from '@/components/carousel-groups/ord
 import { CarouselOptionDto } from '@/api/generated-types/generated-types_';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { checkForClash } from '@/components/carousel-groups/orders/_functions/checkForClash';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 
 export interface WriteAnyDto<T> {
   (entityId: Identifier, proposedUpdate: SetStateAction<T>): void;

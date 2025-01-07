@@ -1,7 +1,7 @@
 import { OutlookEvent } from '@/api/microsoft-graph/helperTypes';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useCallback } from 'react';
 import { EventImpl } from '@fullcalendar/core/internal';
 import { produce } from 'immer';

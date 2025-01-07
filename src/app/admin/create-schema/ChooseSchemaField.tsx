@@ -9,7 +9,7 @@ import { api } from '@/api/v3/clientApiV3';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { SelectApiParamsSingleFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { InitJsonTemplateDto } from '@/api/generated-types/generated-types_';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { nameAccessor } from '@/functions/nameSetter';
 
 export function ChooseSchemaField() {

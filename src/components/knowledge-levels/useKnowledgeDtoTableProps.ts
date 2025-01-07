@@ -1,7 +1,7 @@
 import { Identifier, NamespacedHooks } from 'dto-stores';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useCallback, useMemo } from 'react';
 import { HasId } from '@/api/types';
 import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';

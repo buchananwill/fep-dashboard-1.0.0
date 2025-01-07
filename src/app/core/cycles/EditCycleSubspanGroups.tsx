@@ -10,10 +10,10 @@ import { putGroupEditAction } from '@/functions/cycles/putGroupEditAction';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { getOne } from '@/api/generated-actions/Cycle';
 import { parseTen } from '@/api/date-and-time';
-import { API_V2_URL } from '@/api/literals';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { API_V2_URL } from '@/api/server-literals';
 
 const entityName = 'CycleSubspanGroupEdit';
 export default async function EditCycleSubspanGroups({

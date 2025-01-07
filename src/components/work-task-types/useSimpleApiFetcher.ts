@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 
 export function useSimpleApiFetcher<T>(serverAction: () => Promise<T[]>) {
   const [entities, setEntities] = useState<T[]>(EmptyArray);

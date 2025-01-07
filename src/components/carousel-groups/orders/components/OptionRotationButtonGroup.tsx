@@ -32,7 +32,7 @@ import {
   OptionRotationTarget
 } from '@/components/carousel-groups/orders/_types';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import {
   ConnectionVector,
   RotationConnectionMap

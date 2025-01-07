@@ -1,7 +1,7 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
 import { TimeSpanDto } from '@/api/generated-types/generated-types_';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/client-literals';
 import { TimeInput } from '@mantine/dates';
 
 export function TimeInputCycleSubspan({

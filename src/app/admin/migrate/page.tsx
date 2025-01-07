@@ -6,7 +6,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { InitJsonTemplateDto } from '@/api/generated-types/generated-types_';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { SelectApiParamsSingleFlat } from '@/hooks/select-adaptors/selectApiTypes';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { nameAccessor } from '@/functions/nameSetter';
 import { migrateSchema } from '@/api/actions-custom/schemas/migrate-schema';
 import { redirect } from 'next/navigation';

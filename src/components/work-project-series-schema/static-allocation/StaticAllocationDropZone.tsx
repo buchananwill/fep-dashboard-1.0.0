@@ -17,7 +17,7 @@ import {
 } from '@/components/work-project-series-schema/static-allocation/allocationDropZonePermissions';
 import { cycleSubspanGroupMap } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
 import { useGlobalListener } from 'selective-context';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 import { useStaticAllocationCellUpdater } from '@/components/work-project-series-schema/static-allocation/UseStaticAllocationCellUpdater';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 

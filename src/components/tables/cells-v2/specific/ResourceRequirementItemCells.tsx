@@ -10,7 +10,7 @@ import {
 } from '@/components/tables/core-table-types';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { Select } from '@mantine/core';
 import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';

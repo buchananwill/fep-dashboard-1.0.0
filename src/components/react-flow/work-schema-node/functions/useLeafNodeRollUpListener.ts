@@ -3,7 +3,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
 import { useEffect, useMemo } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeLayoutFlowWithForces';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';

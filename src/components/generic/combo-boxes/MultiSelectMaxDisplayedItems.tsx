@@ -13,7 +13,7 @@ import {
   useCombobox
 } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { SimpleSelectable } from '@/components/types/types';
 
 const noop = (value: string[]) => {};

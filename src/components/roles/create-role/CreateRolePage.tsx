@@ -1,7 +1,7 @@
 import { Api } from '@/api/clientApi_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import SuitabilityCellManager from '@/components/roles/suitability/SuitabilityCellManager';
 import { getIdList } from '@/functions/getIdList';
 import { getLastNVariables } from '@/functions/getLastNVariables';

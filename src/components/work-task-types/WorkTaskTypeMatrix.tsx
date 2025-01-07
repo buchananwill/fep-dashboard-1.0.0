@@ -3,7 +3,7 @@ import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowe
 import { Identifier, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
+import { EmptyArray, ObjectPlaceholder } from '@/api/client-literals';
 import {
   CellIndex,
   useRowIdColumnIdCells

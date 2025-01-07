@@ -4,7 +4,7 @@ import { KnowledgeDomainDto } from '@/api/generated-types/generated-types_';
 import CheckBoxEntity from '@/components/generic/checkbox-group-entity/CheckBoxEntity';
 import { NamespacedHooks, useLazyDtoListListener } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useMemo } from 'react';
 import { flattenTimesIntoEvent } from '@/components/calendar/full-calendar/flattenTimesIntoEvent';
 import { EventSourceSimple } from '@/api/custom-types/eventSourceSimple';

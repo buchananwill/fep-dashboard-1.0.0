@@ -5,7 +5,7 @@ import {
   useGlobalListener
 } from 'selective-context';
 import { useCallback, useMemo } from 'react';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { getVisibleColumnsContextKey } from '@/components/tables/SelectFilterPath';
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/combo-boxes/MultiSelectMaxDisplayedItems';
 import { SimpleSelectable } from '@/components/types/types';

@@ -2,7 +2,7 @@ import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import BuildMetricTable from '@/app/core/schedules/build-metrics/BuildMetricTable';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';

@@ -10,7 +10,7 @@ import {
   dropResultContextKey,
   hoverTargetCellIndex
 } from '@/components/work-task-types/WorkTaskTypeMatrix';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 import {
   isWithinRange,
   liesOnBoundary

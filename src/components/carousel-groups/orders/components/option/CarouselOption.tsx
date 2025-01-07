@@ -24,7 +24,7 @@ import {
 import { canAssignToOrderItem } from '@/components/carousel-groups/orders/_functions/canAssignOptionToOrderItem';
 import { ClashBadge } from '@/components/generic/ClashBadge';
 import { getAssigneeCountColor } from '@/components/carousel-groups/orders/_functions/getAssigneeCountColor';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { initialMap } from '@/app/_literals';
 import {
   CarouselOrderDto,

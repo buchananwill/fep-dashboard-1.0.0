@@ -14,7 +14,7 @@ import {
   useEffectSyncWithDispatch
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { getWorkProjectSeriesMetricsByWpsIdList } from '@/components/work-project-series-metrics/getWorkProjectSeriesMetricsByWpsIdList';
 
 export default function WorkProjectSeriesTableDataFetcher({

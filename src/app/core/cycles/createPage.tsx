@@ -10,7 +10,7 @@ import { DayOfWeekArray } from '@/api/date-and-time';
 import { Button, NumberInput, Select } from '@mantine/core';
 
 import { postOne } from '@/api/generated-actions/Cycle';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/client-literals';
 import { CycleDto } from '@/api/generated-types/generated-types_';
 import { CycleDtoSchema } from '@/api/generated-schemas/schemas_';
 import RootCard from '@/components/generic/RootCard';

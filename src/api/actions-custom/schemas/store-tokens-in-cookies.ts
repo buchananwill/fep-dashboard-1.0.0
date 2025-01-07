@@ -1,7 +1,10 @@
 'use server';
 import { SchemaAccessTokenDto } from '@/api/generated-types/generated-types_';
 import { cookies } from 'next/headers';
-import { SCHEMA_NAME_COOKIE, SCHEMA_REFRESH_COOKIE } from '@/api/literals';
+import {
+  SCHEMA_NAME_COOKIE,
+  SCHEMA_REFRESH_COOKIE
+} from '@/api/server-literals';
 
 export async function storeTokensInCookies(tokens: SchemaAccessTokenDto) {
   const { accessToken, refreshToken } = tokens;

@@ -8,7 +8,7 @@ import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
 import { CycleDto } from '@/api/generated-types/generated-types_';
 import { deleteIdList } from '@/api/generated-actions/CycleSubspan';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/client-literals';
 
 const entityClass = EntityClassMap.cycleSubspan;
 

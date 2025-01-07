@@ -7,7 +7,7 @@ import {
   getCellIdReference,
   OuterCellProps
 } from '@/components/grids/getCellIdReference';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 import {
   Cell,
   joinCellId

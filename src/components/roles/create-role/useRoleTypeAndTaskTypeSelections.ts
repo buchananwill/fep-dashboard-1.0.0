@@ -1,7 +1,7 @@
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { HasNumberId } from '@/api/types';
 import { useReadSelectedEntities } from '@/api/typed-dto-store-hooks';
 import { useGlobalReadAny } from 'selective-context';

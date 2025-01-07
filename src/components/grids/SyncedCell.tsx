@@ -4,7 +4,7 @@ import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { ProviderRoleDto } from '@/api/generated-types/generated-types_';
 import clsx from 'clsx';
 import { SuitabilityCellData } from '@/components/roles/suitability/SuitabilityTable';

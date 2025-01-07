@@ -4,7 +4,7 @@ import { WorkPlanRequest } from '@/api/generated-types/generated-types_';
 import { DispatchState } from '@/types';
 import { EditAddDeleteDtoControllerArray, NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
 export const workPlanGeneratorWizard = 'work-plan-generator-wizard';

@@ -4,7 +4,7 @@ import { Identifier, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { useCallback } from 'react';
 import { get } from 'lodash';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 
 export function useUniqueStringFieldConstraint<T extends HasId>(
   entityClass: string,

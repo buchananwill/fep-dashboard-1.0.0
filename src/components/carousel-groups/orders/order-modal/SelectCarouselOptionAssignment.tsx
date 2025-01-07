@@ -7,7 +7,7 @@ import {
 import { useCallback, useMemo } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
+import { EmptyArray, ObjectPlaceholder } from '@/api/client-literals';
 import { isNotUndefined } from '@/api/main';
 import { ClashBadge } from '@/components/generic/ClashBadge';
 import { CarouselOptionState } from '@/components/carousel-groups/orders/components/option/CarouselOption';

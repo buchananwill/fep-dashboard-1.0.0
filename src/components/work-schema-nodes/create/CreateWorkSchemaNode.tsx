@@ -1,6 +1,6 @@
 import WorkSchemaNodeGraph from '@/components/work-schema-nodes/_components/WorkSchemaNodeGraph';
 import { workSchemaNodeForceGraphOptions } from '@/components/work-schema-nodes/workSchemaNodeForceGraphOptions';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { Api } from '@/api/clientApi_';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types_';

@@ -2,7 +2,7 @@ import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
 import { useCallback, useEffect } from 'react';
 import { nameAccessorInWrapper } from '@/functions/nameSetter';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
 import { Autocomplete } from '@mantine/core';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';

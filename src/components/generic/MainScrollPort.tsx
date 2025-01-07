@@ -3,7 +3,7 @@
 import React, { PropsWithChildren, useCallback, useEffect } from 'react';
 import { ScrollArea } from '@mantine/core';
 import { useGlobalController } from 'selective-context';
-import { ObjectPlaceholder } from '@/api/literals';
+import { ObjectPlaceholder } from '@/api/client-literals';
 
 export const MainScrollPosition = 'main-scroll-position';
 export const MainScrollPortId = 'main-scroll-port';

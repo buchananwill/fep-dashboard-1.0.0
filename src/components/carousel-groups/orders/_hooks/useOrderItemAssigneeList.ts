@@ -6,7 +6,7 @@ import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { isNotUndefined } from '@/api/main';
 
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 
 export function useOrderItemAssigneeList(
   optionList: CarouselOptionStateInterface[]

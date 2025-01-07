@@ -12,7 +12,7 @@ import {
 } from '@/api/generated-types/generated-types_';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray, ObjectPlaceholder } from '@/api/literals';
+import { EmptyArray, ObjectPlaceholder } from '@/api/client-literals';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import {

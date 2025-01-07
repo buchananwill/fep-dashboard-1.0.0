@@ -10,7 +10,7 @@ import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useGlobalDispatchAndListener } from 'selective-context';
 import { selectedAssignmentCell } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import clsx from 'clsx';
 import VirtualizedOuterCell from '@/components/grids/VirtualizedCell';

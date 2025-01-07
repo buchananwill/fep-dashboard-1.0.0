@@ -3,7 +3,7 @@ import { EntityTypeMap } from '@/api/entity-type-map';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useCallback } from 'react';
 import { isNotUndefined } from '@/api/main';

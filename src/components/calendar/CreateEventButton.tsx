@@ -3,7 +3,7 @@ import { Button } from '@mantine/core';
 import { NamespacedHooks } from 'dto-stores';
 import { eventSourceEntityClass } from '@/components/calendar/CalendarWithShowHideSources';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { EventSourceSimple } from '@/api/custom-types/eventSourceSimple';
 import { useCallback } from 'react';
 import { createEvent } from '@/api/microsoft-graph/createEventAction';

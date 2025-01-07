@@ -8,7 +8,7 @@ import { useGlobalController, useGlobalDispatch } from 'selective-context';
 import { ChangesCallbackMap, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {

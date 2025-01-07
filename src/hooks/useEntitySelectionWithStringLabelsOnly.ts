@@ -1,6 +1,6 @@
 import { Identifier, NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { HasIdClass } from '@/api/types';
 import { TypedPaths } from '@/api/custom-types/typePaths';

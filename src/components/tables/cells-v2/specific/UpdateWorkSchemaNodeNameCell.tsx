@@ -5,7 +5,7 @@ import { NamespacedHooks, useReadAnyDto, useWriteAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { isNotUndefined } from '@/api/main';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { IdWrapper } from '@/api/types';
 import {

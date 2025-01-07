@@ -4,7 +4,7 @@ import React from 'react';
 import CellQueryManager from '@/components/grids/CellQueryManager';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useGlobalController } from 'selective-context';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import AssignmentCell from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/table-view/workProjectSeriesDataRetrieval';
 import { NamespacedHooks } from 'dto-stores';

@@ -1,7 +1,7 @@
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import {
   SynchronizedWorkPlanRequest,
   WorkPlanRequest,

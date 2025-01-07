@@ -14,7 +14,7 @@ import {
 } from '@/components/carousel-groups/orders/_literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { checkOptionCanPrime } from '@/components/carousel-groups/orders/_functions/checkOptionCanPrime';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { transformOptionForClientState } from '@/components/carousel-groups/orders/_functions/transformOptionForClientState';
 import { LayoutGroup } from 'framer-motion';

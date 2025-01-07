@@ -9,7 +9,7 @@ import CarouselGroup from '@/components/carousel-groups/orders/components/Carous
 import { CarouselOptionState } from '@/components/carousel-groups/orders/components/option/CarouselOption';
 import RotationConnectionOverlay from '@/components/carousel-groups/orders/components/RotationConnectionOverlay';
 import { getCarouselGroups } from '@/components/carousel-groups/orders/getCarouselGroups';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { transformOptionForClientState } from '@/components/carousel-groups/orders/_functions/transformOptionForClientState';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';

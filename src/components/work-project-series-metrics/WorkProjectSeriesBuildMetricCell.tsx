@@ -3,7 +3,7 @@ import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import VirtualizedOuterCellV2 from '@/components/grids/VirtualizedCellV2';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types_';
 import { useMemo, useRef } from 'react';
 import { clamp, round } from 'lodash';

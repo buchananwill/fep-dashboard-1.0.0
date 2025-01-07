@@ -4,7 +4,7 @@ import { Identifier, NamespacedHooks } from 'dto-stores';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import { useCallback, useMemo } from 'react';
 import { sortedIndex } from 'lodash';
 import { Checkbox } from '@mantine/core';

@@ -4,7 +4,7 @@ import { CarouselOrderDto } from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 
 export function useOptionAssigneeList(optionIdList: number[]) {
   const listener = useRef(crypto.randomUUID());

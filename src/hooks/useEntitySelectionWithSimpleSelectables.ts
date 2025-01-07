@@ -3,7 +3,7 @@ import { TypedPaths } from '@/api/custom-types/typePaths';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { Identifier, NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { EmptyArray } from '@/api/literals';
+import { EmptyArray } from '@/api/client-literals';
 import {
   LabelMakerParams,
   useLabelMaker

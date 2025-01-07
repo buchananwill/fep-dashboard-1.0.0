@@ -8,7 +8,7 @@ import { AllocationUnitGroup } from '@/components/work-project-series-schema/_co
 import LandscapeStepper from '@/components/generic/stepper/LandscapeStepper';
 import { DeliveryAllocation } from '@/components/work-project-series-schema/_components/DeliveryAllocation';
 import { SetOptional } from 'type-fest';
-import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/literals';
+import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/client-literals';
 import {
   CycleDto,
   DeliveryAllocationDto,
