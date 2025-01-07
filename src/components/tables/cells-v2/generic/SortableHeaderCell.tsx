@@ -53,7 +53,7 @@ export default function SortableHeaderCell<
       variant={'light'}
       styles={{
         label: { padding: '0.25em' },
-        inner: { padding: '0em', width: 'fit-content' },
+        inner: { padding: '0em' },
         root: { borderRadius: 0 }
       }}
       onClick={changeSortState}
