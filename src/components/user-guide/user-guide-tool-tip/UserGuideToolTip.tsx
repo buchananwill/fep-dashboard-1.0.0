@@ -1,5 +1,5 @@
 'use client';
-import { forwardRef, useCallback, useMemo, useRef } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useGlobalDispatch } from 'selective-context';
 import {
   TooltipContext,
@@ -22,6 +22,7 @@ export function useUserGuideTooltip(htmlId: string) {
   const ref = useRef(null);
   const toolTipRef = useRef(null);
   const timeoutRef = useRef<number | null>(null);
+  const handleMouseMoveRef = useRef<(event: MouseEvent) => void>();
 
   const getSafeTrapezium = useSafeTrapezium(ref, toolTipRef);
 
@@ -43,7 +44,10 @@ export function useUserGuideTooltip(htmlId: string) {
         case 'SAFE_TRAPEZIUM':
           if (!timeoutRef.current) {
             timeoutRef.current = window.setTimeout(() => {
-              document.removeEventListener('mousemove', handleMouseMove);
+              document.removeEventListener(
+                'mousemove',
+                handleMouseMoveRef.current!
+              );
               dispatchTooltip((state) => ({ ...state, isOpen: false }));
             }, 2000);
           }
@@ -53,7 +57,10 @@ export function useUserGuideTooltip(htmlId: string) {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
           }
-          document.removeEventListener('mousemove', handleMouseMove);
+          document.removeEventListener(
+            'mousemove',
+            handleMouseMoveRef.current!
+          );
           dispatchTooltip((state) => ({ ...state, isOpen: false }));
           break;
         case 'CHILD': {
@@ -64,6 +71,10 @@ export function useUserGuideTooltip(htmlId: string) {
     },
     [isPointInSafeZone, dispatchTooltip]
   );
+
+  useEffect(() => {
+    handleMouseMoveRef.current = handleMouseMove;
+  }, [handleMouseMove]);
 
   const onMouseOver = useCallback(() => {
     dispatchTooltip((state) => {

@@ -37,8 +37,8 @@ export const NavLinkDescriptionsDefault: NavLinkDescriptionsRecord = {
   ),
   workSchemaNodes:
     'Work Schema Nodes connect together a set of Work Project Series Schemas that are assignable to a single Organization',
-  workSchemaNodeAssignments:
-    'Organizations can be connected hierarchically to allow a set of WorkSchemaNodes to apply across multiple Organizations in parallel.',
+  organizations:
+    'Organizations can be connected hierarchically to allow the output from a WorkSchemaNode graph to synchronize across multiple Organizations.',
   feasibility:
     'Assess a baseline logistical feasibility of a schedule design, regarding its provider and asset resources, and the proposed timetable shape.',
   autoScheduling: 'Commission an automated schedule build via the cloud.',

@@ -34,7 +34,7 @@ export const iconDefinitions = {
   users: UserGroupIcon,
   carouselGroups: ArrowPathRoundedSquareIcon,
   workSchemaNodes: ShareIcon,
-  workSchemaNodeAssignments: ArrowUpOnSquareStackIcon,
+  organizations: ArrowUpOnSquareStackIcon,
   feasibility: NewspaperIcon,
   autoScheduling: CpuChipIcon,
   schedules: CalendarDaysIcon

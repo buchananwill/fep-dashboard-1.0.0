@@ -6,23 +6,27 @@ import {
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/view/NivoSunburstChartPage';
 import CreateViaSunburst from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
 import { NavTreeNode } from '@/app/core/navigation/data/types';
+import { WorkPlanRequestRoot } from '@/components/work-plan-request/WorkPlanRequestRoot';
 
 export const WorkSchemaNodeNavTree: NavTreeNode = {
   component: WorkSchemaNodesHome,
   children: {
-    create: {
+    createWithGraph: {
       component: CreateWorkSchemaNode
     },
-    sunburstChart: {
-      children: {
-        byRootId: {
-          component: SunburstChartByRootIdHome
-        },
-        byKnowledgeLevelSeries: {
-          component: SunburstChartByKnowledgeLevelSeries
-        }
-      }
-    },
-    createViaSunburst: { component: CreateViaSunburst }
+    createWithWizard: {
+      component: WorkPlanRequestRoot
+    }
+    // sunburstChart: {
+    //   children: {
+    //     byRootId: {
+    //       component: SunburstChartByRootIdHome
+    //     },
+    //     byKnowledgeLevelSeries: {
+    //       component: SunburstChartByKnowledgeLevelSeries
+    //     }
+    //   }
+    // },
+    // createViaSunburst: { component: CreateViaSunburst }
   }
 };
