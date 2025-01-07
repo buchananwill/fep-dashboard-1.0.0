@@ -8,6 +8,7 @@ import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import RootCard from '@/components/generic/RootCard';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { Center, List, ListItem } from '@mantine/core';
 
 export async function KnowledgeLevelLinks({
   depth,
@@ -22,19 +23,26 @@ export async function KnowledgeLevelLinks({
   return (
     <RootCard
       layoutId={rootCardLayoutId}
-      displayHeader={startCase(getDomainAlias(pathVariables[depth - 2]))}
+      displayHeader={
+        <Center px={'md'}>
+          {startCase(getDomainAlias(pathVariables[depth - 2]))}
+        </Center>
+      }
     >
-      {kLevels.map((kLevel) => (
-        <LinkButton
-          href={getCoreEntityLink(pathVariables.slice(0, depth - 1), [
-            knowledgeSeriesId,
-            kLevel.levelOrdinal
-          ])}
-          key={kLevel.id}
-        >
-          {kLevel.name}
-        </LinkButton>
-      ))}
+      <List px={'sm'} listStyleType={'none'}>
+        {kLevels.map((kLevel) => (
+          <ListItem key={kLevel.id}>
+            <LinkButton
+              href={getCoreEntityLink(pathVariables.slice(0, depth - 1), [
+                knowledgeSeriesId,
+                kLevel.levelOrdinal
+              ])}
+            >
+              {kLevel.name}
+            </LinkButton>
+          </ListItem>
+        ))}
+      </List>
     </RootCard>
   );
 }

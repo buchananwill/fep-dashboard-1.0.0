@@ -24,6 +24,9 @@ import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
+import { getDomainAlias } from '@/api/getDomainAlias';
+import { Center, List, ListItem } from '@mantine/core';
+import React from 'react';
 
 export function getRoleEntityKey(roleCategory: 'user' | 'provider' | 'asset') {
   return `${roleCategory}Role` as keyof typeof EntityClassMap;
@@ -88,18 +91,25 @@ export async function RoleTypeListMenu(props: LeafComponentProps) {
     <div className={'p-4'}>
       <RootCard
         layoutId={getRootCardLayoutId(pathVariables)}
-        displayHeader={startCase(pathVariables[0])}
+        displayHeader={
+          <Center px={'md'}>
+            {startCase(getDomainAlias(pathVariables[0]))}
+          </Center>
+        }
       >
-        {roleTypeList.map((roleType) => (
-          <LinkButton
-            href={getCoreEntityLink(pathVariables.slice(0, depth), [
-              roleType.id
-            ])}
-            key={roleType.id}
-          >
-            {roleType.name}
-          </LinkButton>
-        ))}
+        <List px={'sm'} listStyleType={'none'}>
+          {roleTypeList.map((roleType) => (
+            <ListItem key={roleType.id}>
+              <LinkButton
+                href={getCoreEntityLink(pathVariables.slice(0, depth), [
+                  roleType.id
+                ])}
+              >
+                {roleType.name}
+              </LinkButton>
+            </ListItem>
+          ))}
+        </List>
       </RootCard>
     </div>
   );
