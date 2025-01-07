@@ -20,6 +20,7 @@ import { Button, Popover, Slider } from '@mantine/core';
 import { BoltSlashIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { BoltIcon } from '@heroicons/react/24/solid';
 import MiniPieChart from '@/components/work-task-types/MiniPieChart';
+import classes from './genericSuitabilityCell.module.css';
 
 export type NumberCell = CellIndex & { value: number };
 export type DropResult = {
@@ -130,8 +131,25 @@ export function GenericSuitabilityCell({
     }
   }, [dropResult, cell, isDynamic, setCurrentCell]);
 
-  const isOnLastBoundary = useMemo(() => {
-    return liesOnBoundary(cell, dropResult?.dragged, dropResult?.dropped);
+  const getBoundaryPosition = useMemo(() => {
+    const { top, right, left, bottom } = liesOnBoundary(
+      cell,
+      dropResult?.dragged,
+      dropResult?.dropped
+    );
+
+    const positions = [];
+    if (top) positions.push('top');
+    if (right) positions.push('right');
+    if (left) positions.push('left');
+    if (bottom) positions.push('bottom');
+
+    if (top && left) positions.push('topLeft');
+    if (top && right) positions.push('topRight');
+    if (bottom && left) positions.push('bottomLeft');
+    if (bottom && right) positions.push('bottomRight');
+
+    return positions; // Array of boundary positions
   }, [cell, dropResult]);
 
   return drop(
@@ -141,22 +159,15 @@ export function GenericSuitabilityCell({
       data-within-range={withinRange}
       className={clsx(
         ' rounded-lg outline-2 -outline-offset-2 outline-blue-500 data-[can-drop=true]:animate-pulse data-[within-range=true]:bg-sky-200 data-[is-over=true]:outline',
-        open && 'outline'
+        open && 'outline',
+        classes.draggableCell
       )}
     >
       <div
         className={clsx(
-          currentCell?.isDynamic && 'bg-yellow-100',
-          'border-1 box-content h-full w-full border-transparent',
-
-          isOnLastBoundary.top && 'border-t-red-500',
-          isOnLastBoundary.right && 'border-r-red-500',
-          isOnLastBoundary.left && 'border-l-red-500',
-          isOnLastBoundary.bottom && 'border-b-red-500',
-          isOnLastBoundary.top && isOnLastBoundary.left && 'rounded-tl',
-          isOnLastBoundary.top && isOnLastBoundary.right && 'rounded-tr',
-          isOnLastBoundary.bottom && isOnLastBoundary.left && 'rounded-bl',
-          isOnLastBoundary.bottom && isOnLastBoundary.right && 'rounded-br'
+          currentCell?.isDynamic && classes.dynamicCell,
+          classes.cell,
+          ...getBoundaryPosition.map((position) => classes[position]) // Apply all boundary positions
         )}
       >
         {drag(
@@ -164,11 +175,11 @@ export function GenericSuitabilityCell({
             onClick={() => {
               setOpen((prev) => !prev);
             }}
-            className={'relative'}
+            className={classes.draggableCell}
           >
             <Popover withArrow trapFocus>
               <Popover.Target>
-                <button className={'absolute h-[92%] w-[92%]'}></button>
+                <button className={classes.popoverButton}></button>
               </Popover.Target>
               <Popover.Dropdown
                 className={'flex flex-row items-center gap-2 align-middle'}

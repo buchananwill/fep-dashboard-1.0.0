@@ -1,0 +1,68 @@
+.popover-button {
+    height: 92%;
+    width: 92%;
+    position: absolute;
+    background-color: rgb(0,0,0,0%);
+    border-width: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: inline;
+    padding: 0;
+
+}
+
+/* Base cell styling */
+.cell {
+    border-width: 1px;
+    border-style: solid;
+    box-sizing: content-box;
+    height: 100%;
+    width: 100%;
+    border-color: transparent;
+}
+
+.draggable-cell {
+    width: 100%;
+    height: 100%;
+}
+
+/* Dynamic cell styling */
+.dynamicCell {
+    background-color: var(--mantine-color-yellow-3); /* Tailwind bg-yellow-100 */
+}
+
+/* Edge boundary styles */
+.top {
+    border-top-color: var(--mantine-color-danger-3); /* Tailwind border-t-red-500 */
+}
+
+.right {
+    border-right-color: var(--mantine-color-danger-3); /* Tailwind border-r-red-500 */
+}
+
+.left {
+    border-left-color: var(--mantine-color-danger-3); /* Tailwind border-l-red-500 */
+}
+
+.bottom {
+    border-bottom-color: var(--mantine-color-danger-3); /* Tailwind border-b-red-500 */
+}
+
+/* Corner boundary styles */
+.topLeft {
+    border-top-left-radius: 0.25rem; /* Tailwind rounded-tl */
+}
+
+.topRight {
+    border-top-right-radius: 0.25rem; /* Tailwind rounded-tr */
+}
+
+.bottomLeft {
+    border-bottom-left-radius: 0.25rem; /* Tailwind rounded-bl */
+}
+
+.bottomRight {
+    border-bottom-right-radius: 0.25rem; /* Tailwind rounded-br */
+}
