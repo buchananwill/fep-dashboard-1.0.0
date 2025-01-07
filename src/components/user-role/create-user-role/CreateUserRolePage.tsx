@@ -37,7 +37,7 @@ export async function CreateUserRolePage({
           dtoList={knowledgeLevelSeries}
           entityClass={EntityClassMap.knowledgeLevelSeries}
         />
-        <div className={'flex flex-col justify-center'}>
+        <div className={'mb-2 flex flex-col justify-center'}>
           <CreateUserRoleForm
             redirectUrl={'/core/users'}
             createUserRoleAction={Api.UserRole.postOne}

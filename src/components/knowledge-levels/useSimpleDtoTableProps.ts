@@ -6,7 +6,7 @@ import { useCallback, useMemo } from 'react';
 import { HasId } from '@/api/types';
 import { useMasterListToCreate } from '@/hooks/useMasterListToCreate';
 
-export function useKnowledgeDtoTableProps<T extends HasId>(
+export function useSimpleDtoTableProps<T extends HasId>(
   entityClass: string,
   comparatorFunction: (t1: T, t2: T) => number,
   createEntity: (current: T[]) => T

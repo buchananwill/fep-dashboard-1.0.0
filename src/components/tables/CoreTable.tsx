@@ -61,7 +61,7 @@ export default function CoreTable<
       body,
       head
     };
-  }, [showSelectionCell, columns, CellModel, rowIdList, HeaderModel]);
+  }, [showSelectionCell, columns, rowIdList, HeaderModel]);
 
   return (
     <Table {...otherProps}>

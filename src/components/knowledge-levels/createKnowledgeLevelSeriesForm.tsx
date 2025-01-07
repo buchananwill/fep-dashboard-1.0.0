@@ -4,10 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React, { useTransition } from 'react';
 import { PendingOverlay } from '@/components/overlays/pending-overlay';
-import { Button } from '@mantine/core';
+import { Button, Center } from '@mantine/core';
 import { KnowledgeLevelSeriesDto } from '@/api/generated-types/generated-types_';
 import { ControlledInput } from '@/components/react-hook-form/ControlledInput';
 import { KnowledgeLevelSeriesDtoSchema } from '@/api/generated-schemas/schemas_';
+import classes from './knowledgeLevelSeries.module.css';
 
 const defaultKlsValues: KnowledgeLevelSeriesDto = {
   id: -1,
@@ -60,6 +61,7 @@ export default function CreateKnowledgeLevelSeriesForm({
             handleSubmit(onSubmit)(event);
           }}
           autoComplete={'on'}
+          className={classes.createSeriesForm}
         >
           <div className={'items-center justify-center gap-2'}>
             <ControlledInput<KnowledgeLevelSeriesDto>
@@ -77,9 +79,9 @@ export default function CreateKnowledgeLevelSeriesForm({
               autoComplete={'on'}
             />
           </div>
-          <div className={'justify-center'}>
+          <Center>
             <Button type={'submit'}>Submit</Button>
-          </div>
+          </Center>
         </form>
       </FormProvider>
     </>

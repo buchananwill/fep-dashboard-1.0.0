@@ -1,5 +1,5 @@
 'use client';
-import { BaseLazyDtoUiProps } from 'dto-stores';
+import { BaseDtoUiProps, BaseLazyDtoUiProps } from 'dto-stores';
 import { StringPropertyKey } from '@/types';
 import { useEditTextProperty } from '@/hooks/useEditTextProperty';
 import { HasId } from '@/api/types';
@@ -17,8 +17,11 @@ export function DtoStoreStringInput<T extends HasId>({
   entity,
   dispatchWithoutControl,
   stringKey,
+  entityClass,
+  dispatchDeletion,
+  deleted,
   ...inputProps
-}: BaseDtoStoreStringInputProps<T> & BaseLazyDtoUiProps<T>) {
+}: BaseDtoStoreStringInputProps<T> & BaseDtoUiProps<T>) {
   const update = useEditTextProperty(
     dispatchWithoutControl,
     stringKey as TypedPaths<T, string>
@@ -27,7 +30,7 @@ export function DtoStoreStringInput<T extends HasId>({
   return (
     <TextInput
       type={'text'}
-      value={entity[stringKey] as string}
+      value={entity ? (entity[stringKey] as string) : ''}
       onChange={update}
       {...inputProps}
     ></TextInput>
