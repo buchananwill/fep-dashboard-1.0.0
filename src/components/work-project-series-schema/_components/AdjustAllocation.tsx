@@ -119,7 +119,7 @@ export function AdjustAllocation({
           </div>
         </Popover.Dropdown>
       </Popover>
-      <h3 className={'w-20 px-2 text-sm'}>Total: {totalAllocations}</h3>
+      <span className={'w-20 px-2 text-sm'}>Total: {totalAllocations}</span>
       {currentAllocations.map((delivAl) => (
         <DeliveryAllocation deliveryAllocation={delivAl} key={delivAl.id} />
       ))}
