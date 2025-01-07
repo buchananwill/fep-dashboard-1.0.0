@@ -3,9 +3,9 @@ import { List, Title, TitleOrder } from '@mantine/core';
 import { startCase } from 'lodash';
 import { EntityIcon } from '@/components/navigation/EntityIcon';
 import Markdown from 'markdown-to-jsx';
-import clsx from 'clsx';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { plural } from 'pluralize';
+import classes from './markdownBlock.module.css';
 
 export function MarkdownFromBlock({
   block,
@@ -24,15 +24,7 @@ export function MarkdownFromBlock({
         order={(block.level + 1) as TitleOrder}
         id={block.htmlId}
         fw={400}
-        styles={{
-          root: {
-            textDecoration: 'underline solid var(--mantine-color-primary-3)',
-            display: 'flex',
-            flexDirection: 'row',
-            columnGap: '0.5rem',
-            alignItems: 'end'
-          }
-        }}
+        classNames={{ root: classes.titleRoot }}
       >
         {startCase(block.htmlId)}
 
@@ -46,8 +38,10 @@ export function MarkdownFromBlock({
         <Markdown
           options={{
             overrides: {
-              ol: (props) => <List {...props} type={'ordered'} withPadding />,
-              ul: (props) => <List {...props} withPadding />,
+              ol: (props) => (
+                <List {...props} type={'ordered'} ml={'xs'} withPadding />
+              ),
+              ul: (props) => <List {...props} withPadding ml={'xs'} />,
               li: List.Item,
               a: ({ href, ...props }) => (
                 <LinkButton
@@ -58,9 +52,7 @@ export function MarkdownFromBlock({
                   }
                   {...props}
                   {...aOverrides}
-                  className={clsx(
-                    'duration-250 transition-colors-opacity relative z-10 -m-2 inline h-fit w-fit rounded-xl bg-transparent p-2 text-blue-500 outline-offset-2 hover:bg-blue-100/50'
-                  )}
+                  className={classes.linkButton}
                 />
               )
             }

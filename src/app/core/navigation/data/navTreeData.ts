@@ -63,14 +63,6 @@ export const navTreeData: NavTreeNode = {
     },
     workSchemaNodes: WorkSchemaNodeNavTree,
     organizations: { component: WorkSchemaNodeAssignmentsHome },
-    workSchemaNodeAssignments: {
-      component: WorkSchemaNodeAssignmentsHome,
-      children: {
-        enrollments: {
-          component: EnrollmentTablePage
-        }
-      }
-    },
     feasibility: feasibilityBranch,
     autoScheduling: { component: BuildSchedulePage },
     schedules: schedulesNavTree
