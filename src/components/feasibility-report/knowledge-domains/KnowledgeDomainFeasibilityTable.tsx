@@ -10,6 +10,8 @@ export default async function KnowledgeDomainFeasibilityTable({
 }: LeafComponentProps) {
   const knowledgeDomainTaskAreas = await getKnowledgeDomainTaskAreas();
 
+  console.log(knowledgeDomainTaskAreas);
+
   return (
     <FeasibilityTable
       pathVariables={pathVariables}

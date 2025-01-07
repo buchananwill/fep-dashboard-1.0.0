@@ -787,6 +787,14 @@ export interface SuitabilitySummaryDto extends HasWorkTaskTypeViewId {
   rating: number;
 }
 
+export interface TaskAreaPerKnowledgeDomainDto extends Serializable {
+  id: number;
+  taskArea: number;
+  name: string;
+  shortCode: string;
+  color: ColorDto;
+}
+
 export interface TenancyDto extends Serializable {
   id: number;
   schemaName?: string;
