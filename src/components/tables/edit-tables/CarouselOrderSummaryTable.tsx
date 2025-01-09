@@ -13,7 +13,10 @@ import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 import { CellComponentRecord } from '@/components/tables/core-table-types';
 import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
-import { getStringUpdater } from '@/functions/cellUpdaterFunctions';
+import {
+  getStringUpdater,
+  getStringUpdaterAllowUndefined
+} from '@/functions/cellUpdaterFunctions';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/client-literals';
@@ -120,7 +123,7 @@ const carouselOrderSummaryCellRecord: CellComponentRecord<CarouselOrderSummaryDt
     dateOfBirth: {
       type: 'IdInnerCell',
       component: EditDateCell,
-      updater: getStringUpdater('dateOfBirth')
+      updater: getStringUpdaterAllowUndefined('dateOfBirth')
     },
     carouselGroupName: {
       type: 'IdInnerCell',

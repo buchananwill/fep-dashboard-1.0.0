@@ -22,7 +22,7 @@ export function PersonNestedInForm() {
     [setValue]
   );
 
-  const dateValue = new Date(dateOfBirth);
+  const dateValue = dateOfBirth ? new Date(dateOfBirth) : null;
 
   return (
     <>

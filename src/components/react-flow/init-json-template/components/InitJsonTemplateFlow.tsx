@@ -64,7 +64,7 @@ const TemplateInitJsonTemplateNode: FlowNode<InitJsonTemplateNodeData> = {
   id: '-1',
   data: {
     id: -1,
-    content: null,
+    content: '',
     dataType: {
       id: -1,
       name: 'NOT_DEFINED'

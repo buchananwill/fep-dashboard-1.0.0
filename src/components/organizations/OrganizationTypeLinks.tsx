@@ -17,7 +17,7 @@ export async function OrganizationTypeLinks({
   const entityTypeClass = camelCase(
     `${singular(entityClass)}Type`
   ) as EntityTypeKey;
-  const entityTypeDtos = await api(entityTypeClass, 'getAll', {});
+  const entityTypeDtos = await api('organizationType', 'getAll', {});
 
   // @ts-ignore
   return (

@@ -36,7 +36,7 @@ export interface AvailabilitySummaryDto {
 
 export interface CarouselOrderSummaryDto extends Serializable {
   id: number;
-  dateOfBirth: DateAsString;
+  dateOfBirth?: DateAsString;
   orderItems: string;
   carouselGroupName: string;
   lName: string;
