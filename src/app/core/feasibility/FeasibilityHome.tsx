@@ -8,8 +8,7 @@ import KnowledgeDomainFeasibilityTable from '@/components/feasibility-report/kno
 
 export const feasibilityBranch = {
   children: {
-    organizations: { component: OrganizationFeasibilityTable },
-    knowledgeDomains: { component: KnowledgeDomainFeasibilityTable }
+    organizations: { component: OrganizationFeasibilityTable }
   },
   component: FeasibilityHome
 } as const;

@@ -23,7 +23,7 @@ export default async function OrganizationFeasibilityTable({
     <FeasibilityTable
       pathVariables={pathVariables}
       depth={depth}
-      headerCellContent={['Size', 'Sum', 'Residual']}
+      headerCellContent={['Period Size', 'Sum', 'Residual']}
       bodyContent={
         <tbody>
           {totalAllocationFeasibilityDtos.map((feasibility) => (
