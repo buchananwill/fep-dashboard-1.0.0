@@ -5,8 +5,8 @@ import * as CarouselOrder from './generated-actions/CarouselOrder';
 import * as ProviderRoleAvailability from './generated-actions/ProviderRoleAvailability';
 import * as TimeDivision from './generated-actions/TimeDivision';
 import * as StaticDeliveryAllocationItem from './generated-actions/StaticDeliveryAllocationItem';
-import * as WorkTaskType from './generated-actions/WorkTaskType';
-import * as AssetRoleTypeWorkTaskTypeSuitability from './generated-actions/AssetRoleTypeWorkTaskTypeSuitability';
+import * as WorkType from './generated-actions/WorkType';
+import * as AssetRoleTypeWorkTypeSuitability from './generated-actions/AssetRoleTypeWorkTypeSuitability';
 import * as TimeSpan from './generated-actions/TimeSpan';
 import * as WorkProjectSeriesMetric from './generated-actions/WorkProjectSeriesMetric';
 import * as Asset from './generated-actions/Asset';
@@ -18,7 +18,7 @@ import * as ProviderRole from './generated-actions/ProviderRole';
 import * as CarouselGroup from './generated-actions/CarouselGroup';
 import * as CycleSubspanGroup from './generated-actions/CycleSubspanGroup';
 import * as OrganizationType from './generated-actions/OrganizationType';
-import * as ProviderRoleTypeWorkTaskTypeSuitability from './generated-actions/ProviderRoleTypeWorkTaskTypeSuitability';
+import * as ProviderRoleTypeWorkTypeSuitability from './generated-actions/ProviderRoleTypeWorkTypeSuitability';
 import * as Cycle from './generated-actions/Cycle';
 import * as WorkProjectSeries from './generated-actions/WorkProjectSeries';
 import * as BuildMetric from './generated-actions/BuildMetric';
@@ -43,7 +43,7 @@ export const Api = {
   AssetRole,
   AssetRoleAvailability,
   AssetRoleType,
-  AssetRoleTypeWorkTaskTypeSuitability,
+  AssetRoleTypeWorkTypeSuitability,
   AssetType,
   BuildMetric,
   Carousel,
@@ -64,7 +64,7 @@ export const Api = {
   ProviderRole,
   ProviderRoleAvailability,
   ProviderRoleType,
-  ProviderRoleTypeWorkTaskTypeSuitability,
+  ProviderRoleTypeWorkTypeSuitability,
   Schedule,
   StaticDeliveryAllocationItem,
   TimeDivision,
@@ -77,5 +77,5 @@ export const Api = {
   WorkProjectSeriesSchema,
   WorkSchemaNode,
   WorkSchemaNodeAssignment,
-  WorkTaskType
+  WorkType
 } as const;

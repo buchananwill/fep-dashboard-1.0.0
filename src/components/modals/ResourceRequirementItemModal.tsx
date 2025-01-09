@@ -11,7 +11,7 @@ import ResourceRequirementItemEditTable from '@/components/tables/edit-tables/Re
 import { useCallback, useMemo, useTransition } from 'react';
 import { Loading } from '@/components/feasibility-report/Loading';
 import { useGlobalDispatch, useGlobalListener } from 'selective-context';
-import { workTaskTypeIdInModal } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
+import { workTypeIdInModal } from '@/components/tables/edit-tables/WorkTypeEditTable';
 import { Button, Modal, ModalProps } from '@mantine/core';
 import { SetOptional } from 'type-fest';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -19,14 +19,14 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 export default function ResourceRequirementItemModal({
   onClose,
   opened,
-  workTaskTypeId
+  workTypeId
 }: SetOptional<Pick<ModalProps, 'opened' | 'onClose'>, 'onClose'> & {
-  workTaskTypeId?: number;
+  workTypeId?: number;
 }) {
   const [isPending, startTransition] = useTransition();
   const rriQueryKey = useMemo(() => {
-    return [EntityClassMap.resourceRequirementItem, { workTaskTypeId }];
-  }, [workTaskTypeId]);
+    return [EntityClassMap.resourceRequirementItem, { workTypeId }];
+  }, [workTypeId]);
 
   const { data: assetRoleTypeDtos, isFetching: assetsPending } = useQuery({
     queryKey: [EntityClassMap.assetRoleType, 'all'],
@@ -42,9 +42,7 @@ export default function ResourceRequirementItemModal({
     useQuery({
       queryKey: rriQueryKey,
       queryFn: () =>
-        Api.ResourceRequirementItem.getDtoListByExampleList([
-          { workTaskTypeId }
-        ])
+        Api.ResourceRequirementItem.getDtoListByExampleList([{ workTypeId }])
     });
   const queryClient = useQueryClient();
 
@@ -55,7 +53,7 @@ export default function ResourceRequirementItemModal({
     !assetRoleTypeDtos;
 
   const { dispatchWithoutListen } = useGlobalDispatch<number | 'closed'>(
-    workTaskTypeIdInModal
+    workTypeIdInModal
   );
 
   const { currentState } = useGlobalListener({
@@ -83,7 +81,7 @@ export default function ResourceRequirementItemModal({
     });
   }, [currentState, closeModal, rriQueryKey, queryClient]);
 
-  if (workTaskTypeId === undefined) return null;
+  if (workTypeId === undefined) return null;
 
   return (
     <>
@@ -113,9 +111,7 @@ export default function ResourceRequirementItemModal({
           </h1>
           {!anyDataFetching ? (
             <div>
-              <ResourceRequirementItemEditTable
-                workTaskTypeId={workTaskTypeId}
-              />
+              <ResourceRequirementItemEditTable workTypeId={workTypeId} />
             </div>
           ) : (
             <div>

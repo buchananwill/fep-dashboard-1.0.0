@@ -1,5 +1,5 @@
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import UserRoleEditTable from '@/components/tables/edit-tables/UserRoleEditTable';
 import { Api } from '@/api/clientApi_';

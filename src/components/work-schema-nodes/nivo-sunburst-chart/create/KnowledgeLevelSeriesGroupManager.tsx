@@ -9,7 +9,7 @@ import { ChangesCallbackMap, NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/client-literals';
-import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
+import { workTypeCategory } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   HasNameDto,
@@ -22,7 +22,7 @@ import { useHasChangesFlagCallback } from 'dto-stores/dist/hooks/internal/useHas
 import submitKnowledgeLevelSeriesGroup from '@/components/work-schema-nodes/nivo-sunburst-chart/create/submitAction';
 import { makeKnowledgeLevelGroup } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/editing/knowledgeLevelGroupFunctions';
 
-type WorkTaskTypeNameDto = HasNameDto & HasNumberId;
+type WorkTypeCategoryDto = HasNameDto & HasNumberId;
 
 const listenerKey = 'klg-controller';
 export const KnowledgeLevelSeriesGroupContextKey = 'knowledgeLevelSeriesGroup';
@@ -50,7 +50,7 @@ export default function KnowledgeLevelSeriesGroupManager({
   }, [knowledgeLevels, dispatch]);
 
   const readCycle = useReadAnyDto(EntityClassMap.cycle);
-  const readWorkTaskTypeName = useReadAnyDto(workTaskTypeName);
+  const readWorkTypeCategory = useReadAnyDto(workTypeCategory);
   const readKnowledgeLevel = useReadAnyDto(EntityClassMap.knowledgeLevel);
 
   const { dispatchWithoutListen: dispatchUnsavedFlag } =
@@ -86,9 +86,9 @@ export default function KnowledgeLevelSeriesGroupManager({
       listenerKey,
       EmptyArray
     );
-  const { currentState: selectedWorkTaskTypeNameIdList } =
+  const { currentState: selectedWorkTypeCategoryIdList } =
     NamespacedHooks.useListen(
-      workTaskTypeName,
+      workTypeCategory,
       KEY_TYPES.SELECTED,
       listenerKey,
       EmptyArray
@@ -131,7 +131,7 @@ export const BlankKnowledgeDomain: KnowledgeDomainDto = {
 
 export type KnowledgeLevelSeriesGroupTemplate = SetOptional<
   KnowledgeLevelSeriesGroup,
-  'knowledgeLevelSeries' | 'cycle' | 'workTaskTypeName'
+  'knowledgeLevelSeries' | 'cycle' | 'workTypeCategory'
 >;
 
 export const klsgTemplate: KnowledgeLevelSeriesGroupTemplate = {

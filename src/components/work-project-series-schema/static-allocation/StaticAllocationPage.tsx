@@ -28,7 +28,7 @@ import { Suspense } from 'react';
 import When_loading from '@/app/core/when_loading';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 
 export type StaticAllocationTableDto = GenericTableDto<
   WorkProjectSeriesSchemaDto,

@@ -5,7 +5,7 @@ import {
   CellIdReference
 } from '@/components/grids/CellQueryManager';
 import React, { memo, useCallback, useMemo } from 'react';
-import { EntityWithWorkTaskTypeShortCode } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
+import { EntityWithWorkTypeShortCode } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useGlobalDispatchAndListener } from 'selective-context';
@@ -91,7 +91,7 @@ function InnerAssignmentCell({
       {...tooltip}
     >
       {cellData && (
-        <EntityWithWorkTaskTypeShortCode entity={cellData.workProjectSeries} />
+        <EntityWithWorkTypeShortCode entity={cellData.workProjectSeries} />
       )}
     </div>
   );

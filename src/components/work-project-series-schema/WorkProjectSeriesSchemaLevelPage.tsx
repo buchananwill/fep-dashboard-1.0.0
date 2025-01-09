@@ -23,7 +23,7 @@ async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
 
   const wpssData = await Api.WorkProjectSeriesSchema.getDtoListByExampleList([
     {
-      workTaskType: {
+      workType: {
         knowledgeLevel: {
           levelOrdinal: parseInt(levelOrdinal),
           knowledgeLevelSeriesId: parseInt(knowledgeLevelSeriesId)

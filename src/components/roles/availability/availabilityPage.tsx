@@ -15,7 +15,7 @@ import { notFound } from 'next/navigation';
 import { GenericTableDto, HasNumberId } from '@/api/types';
 import { CycleSubspanDto } from '@/api/generated-types/generated-types_';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import pluralize from 'pluralize';
 
 export default async function AvailabilityPage<

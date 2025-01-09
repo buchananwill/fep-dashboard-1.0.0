@@ -1,9 +1,9 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 
-export default function WorkTaskTypeSummary({
+export default function WorkTypeSummary({
   entity
-}: BaseLazyDtoUiProps<WorkTaskTypeDto>) {
+}: BaseLazyDtoUiProps<WorkTypeDto>) {
   return (
     <div>
       {entity.knowledgeDomain?.name}:{entity.knowledgeLevel?.name}

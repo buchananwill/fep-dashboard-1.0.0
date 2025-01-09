@@ -1,5 +1,5 @@
 'use client';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 import { CarouselOptionStateInterface } from '@/components/carousel-groups/orders/_types';
 import { Button, Popover } from '@mantine/core';
 import clsx from 'clsx';
@@ -14,7 +14,7 @@ function ShowAssigneesButtonInner(props: {
   textFade: string | undefined;
   canDrop?: boolean;
   fallBackColor: FallbackColors;
-  workTaskType?: WorkTaskTypeDto | undefined;
+  workType?: WorkTypeDto | undefined;
   badgeColor: string;
   dragHappening?: boolean;
   carouselOptionDto: CarouselOptionStateInterface;
@@ -60,7 +60,7 @@ function ShowAssigneesButtonInner(props: {
               'center-vertical-with-margin inline-block truncate align-middle leading-normal'
             }
           >
-            {props.workTaskType?.knowledgeDomain?.name}
+            {props.workType?.knowledgeDomain?.name}
           </span>
         </Button>
       </Popover.Target>

@@ -16,7 +16,7 @@ import {
 } from '@/api/generated-types/generated-types_';
 import React from 'react';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function WorkProjectSeriesAssignmentsForSchedule({

@@ -4,7 +4,6 @@ import { SignInAzure } from '@/components/auth/SignInAzure';
 import { Image } from '@mantine/core';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { ResetButton } from '@/components/auth/ResetButton';
 import {
   SCHEMA_NAME_COOKIE,
   SCHEMA_REFRESH_COOKIE

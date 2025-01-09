@@ -6,7 +6,7 @@ import { EntityTypeKey } from '@/components/tables/types';
 import { LinkButtonThatJoinsList } from '@/app/core/navigation/links/LinkButtonThatJoinsList';
 import { singular } from 'pluralize';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import classes from './organization-type-links.module.css';
 
 export async function OrganizationTypeLinks({

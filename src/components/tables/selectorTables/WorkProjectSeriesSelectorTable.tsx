@@ -9,7 +9,7 @@ import { getDomainAlias } from '@/api/getDomainAlias';
 import { EntityTableProps } from '@/components/tables/types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
-import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTaskTypeCell';
+import EmbeddedWorkTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTypeCell';
 import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 
 export default function WorkProjectSeriesSelectorTable({
@@ -29,24 +29,24 @@ export default function WorkProjectSeriesSelectorTable({
 
 export const WorkProjectSeriesColumns: Column<WorkProjectSeriesDto>[] = [
   {
-    name: 'WorkTaskType Name',
-    uid: 'workTaskType.name',
+    name: 'WorkType Name',
+    uid: 'workType.name',
     sortable: true
   },
   { name: 'Id', uid: 'id', sortable: false },
   {
     name: 'ShortCode',
-    uid: 'workTaskType.knowledgeDomain.shortCode',
+    uid: 'workType.knowledgeDomain.shortCode',
     sortable: true
   },
   {
     name: getDomainAlias('knowledgeLevel'),
-    uid: 'workTaskType.knowledgeLevel.levelOrdinal',
+    uid: 'workType.knowledgeLevel.levelOrdinal',
     sortable: true
   },
   {
     name: getDomainAlias('knowledgeDomain'),
-    uid: 'workTaskType.knowledgeDomain.name',
+    uid: 'workType.knowledgeDomain.name',
     sortable: true
   }
 ];
@@ -56,24 +56,24 @@ const CellRenderFunction = getCellRenderFunction<
   WorkProjectSeriesDto
 >('workProjectSeries', {
   scheduleId: { type: 'IdInnerCell', component: AnyValueToString },
-  'workTaskType.knowledgeDomain.shortCode': {
+  'workType.knowledgeDomain.shortCode': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   },
-  'workTaskType.knowledgeDomain.name': {
+  'workType.knowledgeDomain.name': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   },
-  'workTaskType.name': {
+  'workType.name': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   },
-  'workTaskType.knowledgeLevel.name': {
+  'workType.knowledgeLevel.name': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   },
-  'workTaskType.knowledgeLevel.levelOrdinal': {
+  'workType.knowledgeLevel.levelOrdinal': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   }
 });

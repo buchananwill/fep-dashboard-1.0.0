@@ -24,9 +24,9 @@ export function InnerWorkProjectSeriesCell({
 }: Partial<BaseLazyDtoUiProps<WorkProjectSeriesDto>>) {
   return (
     <span className={'center-all-margin inline-block w-full truncate pl-0.5'}>
-      {getValue(entity, 'workTaskType.knowledgeDomain.shortCode') ??
-        getValue(entity, 'workTaskType.knowledgeDomain.name')}
-      :{getValue(entity, 'workTaskType.knowledgeLevel.levelOrdinal')}
+      {getValue(entity, 'workType.knowledgeDomain.shortCode') ??
+        getValue(entity, 'workType.knowledgeDomain.name')}
+      :{getValue(entity, 'workType.knowledgeLevel.levelOrdinal')}
     </span>
   );
 }

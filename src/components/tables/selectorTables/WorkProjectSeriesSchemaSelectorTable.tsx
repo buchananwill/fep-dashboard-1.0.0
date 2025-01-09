@@ -5,14 +5,14 @@ import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   WorkProjectSeriesSchemaDto,
-  WorkTaskTypeDto
+  WorkTypeDto
 } from '@/api/generated-types/generated-types_';
 import { Paths } from 'type-fest';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import { startCase } from 'lodash';
 import { getDomainAlias } from '@/api/getDomainAlias';
-import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTaskTypeCell';
+import EmbeddedWorkTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTypeCell';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { EntityInnerCellProps } from '@/components/tables/core-table-types';
 
@@ -36,31 +36,31 @@ export default function WorkProjectSeriesSchemaSelectorTable({
 export const WorkProjectSeriesSchemaColumnsInitial: Paths<WorkProjectSeriesSchemaDto>[] =
   [
     'name',
-    'workTaskType.knowledgeDomain.name',
-    'workTaskType.knowledgeDomain.shortCode'
+    'workType.knowledgeDomain.name',
+    'workType.knowledgeDomain.shortCode'
   ];
 export const WorkProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[] =
   [
     { uid: 'name', name: 'Name', sortable: true },
     {
-      uid: 'workTaskType.knowledgeLevel.levelOrdinal',
+      uid: 'workType.knowledgeLevel.levelOrdinal',
       name: 'levelOrdinal',
       sortable: true
     },
     {
-      uid: 'workTaskType.knowledgeLevel.name',
+      uid: 'workType.knowledgeLevel.name',
       name: 'levelName',
       sortable: true
     },
     {
-      uid: 'workTaskType.knowledgeDomain.shortCode',
+      uid: 'workType.knowledgeDomain.shortCode',
       name: 'Short Code',
       sortable: true,
       style: { padding: '0px' }
     },
     {
-      uid: 'workTaskType.name',
-      name: startCase('workTaskType'),
+      uid: 'workType.name',
+      name: startCase('workType'),
       sortable: true
     },
     {
@@ -76,21 +76,21 @@ export const WpssCellModelReadOnly = getCellRenderFunction<
 >('workProjectSeriesSchema', {
   name: { type: 'EntityInnerCell', component: WpssNamespaceCell },
   userToProviderRatio: { type: 'IdInnerCell', component: AnyValueToString },
-  'workTaskType.knowledgeDomain.shortCode': {
+  'workType.knowledgeDomain.shortCode': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   },
-  'workTaskType.name': {
+  'workType.name': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   },
-  'workTaskType.knowledgeLevel.name': {
+  'workType.knowledgeLevel.name': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   },
-  'workTaskType.knowledgeLevel.levelOrdinal': {
+  'workType.knowledgeLevel.levelOrdinal': {
     type: 'EntityInnerCell',
-    component: EmbeddedWorkTaskTypeCell
+    component: EmbeddedWorkTypeCell
   }
 });
 
@@ -99,9 +99,9 @@ function WpssNamespaceCell(
 ) {
   const { entity } = props;
 
-  return getWorkTaskTypeViewIdString(entity.workTaskType);
+  return getWorkTypeViewIdString(entity.workType);
 }
 
-export function getWorkTaskTypeViewIdString(workTaskType: WorkTaskTypeDto) {
-  return `${workTaskType.name} - ${workTaskType.knowledgeDomain.name} - ${workTaskType.knowledgeLevel?.name ?? 'no level'}`;
+export function getWorkTypeViewIdString(workType: WorkTypeDto) {
+  return `${workType.name} - ${workType.knowledgeDomain.name} - ${workType.knowledgeLevel?.name ?? 'no level'}`;
 }

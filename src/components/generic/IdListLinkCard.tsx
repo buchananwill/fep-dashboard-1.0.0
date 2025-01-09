@@ -5,7 +5,7 @@ import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 import { Identifier } from 'dto-stores';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 
 export async function IdListLinkCard({
   depth,

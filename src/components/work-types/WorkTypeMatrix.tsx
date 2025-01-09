@@ -9,16 +9,16 @@ import {
   useRowIdColumnIdCells
 } from '@/components/grids/createRowIdColumnIdCells';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
-import { KnowledgeDomainRowHeader } from '@/components/work-task-types/KnowledgeDomainRowHeader';
-import { KnowledgeLevelColumnHeader } from '@/components/work-task-types/KnowledgeLevelColumnHeader';
-import { WorkTaskTypeMatrixCell } from '@/components/work-task-types/WorkTaskTypeMatrixCell';
+import { KnowledgeDomainRowHeader } from '@/components/work-types/KnowledgeDomainRowHeader';
+import { KnowledgeLevelColumnHeader } from '@/components/work-types/KnowledgeLevelColumnHeader';
+import { WorkTypeMatrixCell } from '@/components/work-types/WorkTypeMatrixCell';
 import { useGlobalController } from 'selective-context';
-import { DropResult } from '@/components/work-task-types/GenericSuitabilityCell';
+import { DropResult } from '@/components/work-types/GenericSuitabilityCell';
 
-const listenerKey = 'work-task-type-matrix';
+const listenerKey = 'work-type-matrix';
 export const hoverTargetCellIndex = 'hover-target-cellIndex';
 export const dropResultContextKey = 'drop-result';
-export default function WorkTaskTypeMatrix() {
+export default function WorkTypeMatrix() {
   const { currentState: rowIdList } = NamespacedHooks.useListen<number[]>(
     EntityClassMap.knowledgeDomain,
     KEY_TYPES.SELECTED,
@@ -50,7 +50,7 @@ export default function WorkTaskTypeMatrix() {
         rowIdList={rowIdList}
         columnIdList={columnIdList}
         itemData={cells}
-        renderCell={WorkTaskTypeMatrixCell}
+        renderCell={WorkTypeMatrixCell}
         renderSyncedRowCell={KnowledgeLevelColumnHeader}
         renderSyncedColumnCell={KnowledgeDomainRowHeader}
         syncColumnWidth={200}

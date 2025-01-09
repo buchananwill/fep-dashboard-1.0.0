@@ -1,5 +1,5 @@
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
-import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
+import { WorkTypeCategory } from '@/components/roles/create-role/literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/client-literals';
 import { HasNumberId } from '@/api/types';
@@ -14,12 +14,12 @@ export function useRoleTypeAndTaskTypeSelections(
   roleEntity: 'provider' | 'asset' | 'user'
 ) {
   const { currentState: wttTaskNameIdList } = NamespacedHooks.useListen(
-    WorkTaskTypeName,
+    WorkTypeCategory,
     KEY_TYPES.SELECTED,
     listenerKey,
     EmptyArray
   );
-  const readAnyWttName = useReadAnyDto<HasName & HasNumberId>(WorkTaskTypeName);
+  const readAnyWttName = useReadAnyDto<HasName & HasNumberId>(WorkTypeCategory);
   const roleTypeNames = useReadSelectedEntities(`${roleEntity}RoleType`);
   const readAny = useGlobalReadAny();
 

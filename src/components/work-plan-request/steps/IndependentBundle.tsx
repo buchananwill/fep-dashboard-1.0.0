@@ -12,14 +12,14 @@ import { useRemainingUnselectedSchemas } from '@/components/work-plan-request/st
 
 export function useKnowledgeDomainWorkProjectSeriesSchemaLabel() {
   return useLabelMaker<WorkProjectSeriesSchemaDto>(
-    'workTaskType.knowledgeDomain.name'
+    'workType.knowledgeDomain.name'
   );
 }
 
 export function sortByKnowledgeDomainWpss(
   data: WorkProjectSeriesSchemaDto[] | undefined
 ) {
-  return sortBy(data ?? [], (item) => item.workTaskType.knowledgeDomain.name);
+  return sortBy(data ?? [], (item) => item.workType.knowledgeDomain.name);
 }
 
 export function useSortWpssByKnowledgeDomainName(

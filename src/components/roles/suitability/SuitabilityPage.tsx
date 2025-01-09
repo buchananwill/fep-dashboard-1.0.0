@@ -22,7 +22,7 @@ import { getLastNVariables } from '@/functions/getLastNVariables';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { Center, List, ListItem } from '@mantine/core';
@@ -45,13 +45,13 @@ export default async function SuitabilityPage(props: RolePageProps) {
   const roleTypeIdInt = parseInt(roleTypeId, 10);
   const roles = await RoleApiByTypeIdList[roleCategory]([roleTypeIdInt]);
 
-  let workTaskTypes = await Api.WorkTaskType.getAll();
+  let workTypes = await Api.WorkType.getAll();
 
   return (
     <RootCard layoutId={getRootCardLayoutId([pluralize(roleCategory)])}>
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workTaskType}
-        dtoList={workTaskTypes}
+        entityClass={EntityClassMap.workType}
+        dtoList={workTypes}
       />
       <EditAddDeleteDtoControllerArray
         entityClass={suitabilityType}
@@ -61,7 +61,7 @@ export default async function SuitabilityPage(props: RolePageProps) {
         <FinderTableButton
           providerRole={roleCategory === 'provider' ? roles : undefined}
           assetRole={roleCategory === 'asset' ? roles : undefined}
-          workTaskType={workTaskTypes}
+          workType={workTypes}
         />
         <SuitabilityTable
           roleTypeId={roleTypeIdInt}

@@ -79,12 +79,12 @@ export default function CarouselOption({
     listenerKey: `carouselOption:${entity.id}`
   });
 
-  // const { entity: workTaskType } = useLazyDtoStore<WorkTaskTypeDto>(
-  //   schema?.workTaskType?.id ?? NaN,
-  //   EntityClassMap.workTaskType
+  // const { entity: workType } = useLazyDtoStore<WorkTypeDto>(
+  //   schema?.workType?.id ?? NaN,
+  //   EntityClassMap.workType
   // );
 
-  const workTaskType = schema?.workTaskType;
+  const workType = schema?.workType;
 
   // Get the dispatch for editing any dropped order.
   const dispatchWriteAny = useWriteAnyDto<CarouselOrderDto>(
@@ -93,12 +93,12 @@ export default function CarouselOption({
 
   // Update own state with display name
   useEffect(() => {
-    if (entity?.name !== workTaskType?.name && workTaskType)
+    if (entity?.name !== workType?.name && workType)
       dispatchWithoutListen((state) => ({
         ...state,
-        name: workTaskType.name
+        name: workType.name
       }));
-  }, [entity, workTaskType, dispatchWithoutListen]);
+  }, [entity, workType, dispatchWithoutListen]);
 
   // Get drag data and functions
   const [{ isOver, canDrop, currentItem, currentItemType }, drop] = useDrop(
@@ -156,7 +156,7 @@ export default function CarouselOption({
     }
   }
 
-  const loading = !schema || !workTaskType;
+  const loading = !schema || !workType;
 
   const assigneeCount = entity.carouselOrderAssignees.length;
 
@@ -189,7 +189,7 @@ export default function CarouselOption({
                 textFade={textFade}
                 canDrop={canDrop}
                 fallBackColor={fallBackColor}
-                workTaskType={workTaskType}
+                workType={workType}
                 badgeColor={badgeColor}
                 dragHappening={!!currentItem}
                 carouselOptionDto={entity}

@@ -11,13 +11,13 @@ import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
 
 export default function ResourceRequirementItemEditTable({
-  workTaskTypeId
+  workTypeId
 }: {
-  workTaskTypeId: number;
+  workTypeId: number;
 }) {
   const createCallback = useCallback(() => {
-    return createResourceRequirementItem(workTaskTypeId);
-  }, [workTaskTypeId]);
+    return createResourceRequirementItem(workTypeId);
+  }, [workTypeId]);
 
   const create = useMasterListToCreate(
     createCallback,
@@ -43,21 +43,21 @@ const COLUMNS: Column<ResourceRequirementItemDto>[] = [
     uid: 'providerRoleType'
   },
   { name: getStartCaseDomainAlias('AssetRoleType'), uid: 'assetRoleType' },
-  { name: 'WorkTaskType', uid: 'workTaskTypeId' }
+  { name: 'WorkType', uid: 'workTypeId' }
 ];
 
 const INITIAL_COLUMNS: ColumnUid<ResourceRequirementItemDto>[] = [
   'id',
   'assetRoleType',
   'providerRoleType',
-  'workTaskTypeId'
+  'workTypeId'
 ];
 
 function createResourceRequirementItem(
-  workTaskTypeId: number
+  workTypeId: number
 ): ResourceRequirementItemDto {
   return {
-    workTaskTypeId: workTaskTypeId,
+    workTypeId: workTypeId,
     id: idDecrementer()
   };
 }

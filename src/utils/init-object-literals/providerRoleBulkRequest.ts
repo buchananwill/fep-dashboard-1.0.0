@@ -1,7 +1,7 @@
 import { RepeatPostRequest } from '@/api/types';
 import { ProviderRolePostRequest } from '@/api/old-zod-schemas/ProviderRolePostRequestSchema_';
 import { ProviderRoleTypeDto } from '@/api/generated-types/generated-types_';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 import { getTemplateMergingFunction } from '@/utils/init-object-literals/getTemplateMergingFunction';
 import { createWholeSchoolPartials } from '@/utils/init-object-literals/createKnowledgeDomainLevelCrossProduct';
 import { createRequestRecordCombiner } from '@/utils/init-object-literals/createRequestRecordCombiner';
@@ -27,7 +27,7 @@ const roleTypeExample: Partial<ProviderRoleTypeDto> = {
 const templateRequest: ProviderRolePostRequest = {
   roleTypeExample: roleTypeExample,
   rating: 1,
-  workTaskTypeExampleList: []
+  workTypeExampleList: []
 };
 
 const templateRepeatRequest: RepeatPostRequest<ProviderRolePostRequest> = {
@@ -69,7 +69,7 @@ const standardDepartmentParams: RequestCreationParams[][] = Object.entries(
 ).map(([subject, count]) => {
   return [
     [`${subject} Department`, count, createWholeSchoolPartials([subject])]
-  ] as [string, number, Partial<WorkTaskTypeDto>[]][];
+  ] as [string, number, Partial<WorkTypeDto>[]][];
 });
 
 const classics: RequestCreationParams[] = [

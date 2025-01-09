@@ -34,7 +34,7 @@ import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { useCreateTypeProps } from '@/components/user-role/create-user-role/UseCreateTypeProps';
 import { Api } from '@/api/clientApi';
 import CreateNewTypeModal from '@/components/entities-with-type/CreateNewRoleTypeModal';
-import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
+import { useSimpleApiFetcher } from '@/components/work-types/useSimpleApiFetcher';
 import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
 import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';

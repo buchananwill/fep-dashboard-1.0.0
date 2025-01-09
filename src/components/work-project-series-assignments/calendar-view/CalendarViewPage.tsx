@@ -11,7 +11,7 @@ import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 async function CalendarViewPage({ pathVariables }: LeafComponentProps) {

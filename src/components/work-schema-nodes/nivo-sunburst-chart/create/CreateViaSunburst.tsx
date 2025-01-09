@@ -4,7 +4,7 @@ import {
   EditAddDeleteDtoControllerArray,
   MasterMapController
 } from 'dto-stores';
-import { getNames } from '@/components/work-task-types/getNamesServerAction';
+import { getNames } from '@/components/work-types/getNamesServerAction';
 
 import CycleDataFetcher from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CycleDataFetcher';
 import SunburstEditView from '@/components/work-schema-nodes/nivo-sunburst-chart/create/SunburstEditView';
@@ -14,18 +14,18 @@ import SelectionCallout from '@/components/work-schema-nodes/nivo-sunburst-chart
 import { initDefaults } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/templateKnowledgeLevelSeriesGroup';
 import { get } from 'lodash';
 
-export const workTaskTypeName = 'workTaskTypeName';
+export const workTypeCategory = 'workTypeCategory';
 export default async function CreateViaSunburst() {
   const knowledgeDomains = await Api.KnowledgeDomain.getAll();
 
   const knowledgeLevelSeriesDtoList = await Api.KnowledgeLevelSeries.getAll();
-  const workTaskTypesNames = await getNames();
+  const workTypesNames = await getNames();
   const cycleList = await Api.Cycle.getAll();
 
   const defaultKnowledgeLevelSeriesGroup = initDefaults({
     cycle: get(cycleList, 0),
     knowledgeLevelSeries: get(knowledgeLevelSeriesDtoList, 0),
-    workTaskTypeName: get(workTaskTypesNames, 0)
+    workTypeCategory: get(workTypesNames, 0)
   });
   const knowledgeLevelDtos = knowledgeLevelSeriesDtoList.flatMap(
     (kls) => kls.knowledgeLevels
@@ -51,12 +51,12 @@ export default async function CreateViaSunburst() {
         dtoList={cycleList}
       />
       <EditAddDeleteDtoControllerArray
-        entityClass={workTaskTypeName}
-        dtoList={workTaskTypesNames}
+        entityClass={workTypeCategory}
+        dtoList={workTypesNames}
       />
       <EditAddDeleteDtoControllerArray
         entityClass={EntityClassMap.cycleSubspan}
-        dtoList={workTaskTypesNames}
+        dtoList={workTypesNames}
       />
       <div className={'h-[100%] w-[55%]'}>
         <SunburstEditView

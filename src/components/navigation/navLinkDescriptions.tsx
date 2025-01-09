@@ -11,7 +11,7 @@ export const NavLinkDescriptionsDefault: NavLinkDescriptionsRecord = {
   knowledgeDomains:
     'Labels for areas of specialized expertise, e.g. Maths, Science.',
   knowledgeLevelSeries: 'Hierarchical labels to organize depth of expertise.',
-  workTaskTypes: (
+  workTypes: (
     <span>
       Defining the tasks that require scheduling. Usually labelled with an
       intersection of a <strong>Knowledge Domain</strong> and{' '}

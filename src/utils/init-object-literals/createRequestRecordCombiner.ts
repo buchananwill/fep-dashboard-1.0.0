@@ -2,24 +2,17 @@ import { TemplateRequestOverrides } from '@/api/types';
 
 import { RequestCreationParams } from '@/utils/init-object-literals/requestCreationParams';
 import { PartialDeep } from 'type-fest';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 
 export function createRequestRecordCombiner(
-  globalSuitabilities: PartialDeep<WorkTaskTypeDto>[]
+  globalSuitabilities: PartialDeep<WorkTypeDto>[]
 ) {
-  return function ([
-    name,
-    count,
-    workTaskTypeExampleList
-  ]: RequestCreationParams) {
+  return function ([name, count, workTypeExampleList]: RequestCreationParams) {
     const response: Record<string, TemplateRequestOverrides<any>> = {};
     response[name] = {
       count,
       postRequest: {
-        workTaskTypeExampleList: [
-          ...workTaskTypeExampleList,
-          ...globalSuitabilities
-        ]
+        workTypeExampleList: [...workTypeExampleList, ...globalSuitabilities]
       }
     };
     return response;

@@ -9,7 +9,7 @@ import { AdjustAllocationInWrapper } from '@/components/work-project-series-sche
 import { Column, ColumnUid } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
@@ -17,7 +17,7 @@ import { CellComponentRecord } from '@/components/tables/core-table-types';
 import EditNameCell from '@/components/tables/cells-v2/generic/EditNameCell';
 import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
 import { NumberEditCell } from '@/components/tables/cells-v2/generic/NumberEditCell';
-import EmbeddedWorkTaskTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTaskTypeCell';
+import EmbeddedWorkTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTypeCell';
 import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetCellRenderFunction';
 
 const entityType = EntityClassMap.workProjectSeriesSchema;
@@ -49,18 +49,18 @@ export const workProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[
       ignoreFilter: true
     },
     {
-      uid: 'workTaskType.knowledgeDomain.shortCode',
+      uid: 'workType.knowledgeDomain.shortCode',
       name: 'Short Code',
       sortable: true,
       style: { padding: '0px' }
     },
     {
-      uid: 'workTaskType.knowledgeLevel.levelOrdinal',
+      uid: 'workType.knowledgeLevel.levelOrdinal',
       name: 'levelOrdinal',
       sortable: true
     },
     {
-      uid: 'workTaskType.knowledgeLevel.name',
+      uid: 'workType.knowledgeLevel.name',
       name: 'levelName',
       sortable: true
     },
@@ -70,8 +70,8 @@ export const workProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[
       name: `${startCase(getDomainAlias('user'))} limit`
     },
     {
-      uid: 'workTaskType.name',
-      name: startCase('workTaskType'),
+      uid: 'workType.name',
+      name: startCase('workType'),
       sortable: true
     }
   ];
@@ -79,7 +79,7 @@ export const workProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[
 const initialColumns: ColumnUid<WorkProjectSeriesSchemaDto>[] = [
   'name',
   'deliveryAllocations',
-  'workTaskType.knowledgeDomain.shortCode',
+  'workType.knowledgeDomain.shortCode',
   'userToProviderRatio'
 ];
 
@@ -96,21 +96,21 @@ const WorkProjectSeriesSchemaEditTableCellRecord: CellComponentRecord<WorkProjec
       type: 'EntityInnerCell',
       component: AdjustAllocationInWrapper
     },
-    'workTaskType.knowledgeDomain.shortCode': {
+    'workType.knowledgeDomain.shortCode': {
       type: 'EntityInnerCell',
-      component: EmbeddedWorkTaskTypeCell
+      component: EmbeddedWorkTypeCell
     },
-    'workTaskType.name': {
+    'workType.name': {
       type: 'EntityInnerCell',
-      component: EmbeddedWorkTaskTypeCell
+      component: EmbeddedWorkTypeCell
     },
-    'workTaskType.knowledgeLevel.name': {
+    'workType.knowledgeLevel.name': {
       type: 'EntityInnerCell',
-      component: EmbeddedWorkTaskTypeCell
+      component: EmbeddedWorkTypeCell
     },
-    'workTaskType.knowledgeLevel.levelOrdinal': {
+    'workType.knowledgeLevel.levelOrdinal': {
       type: 'EntityInnerCell',
-      component: EmbeddedWorkTaskTypeCell
+      component: EmbeddedWorkTypeCell
     }
   };
 

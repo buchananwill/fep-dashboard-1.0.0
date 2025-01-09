@@ -11,7 +11,7 @@ import { LinkButton } from '@/components/navigation/LinkButton';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 
 export default async function BuildMetricTablePage({
   pathVariables

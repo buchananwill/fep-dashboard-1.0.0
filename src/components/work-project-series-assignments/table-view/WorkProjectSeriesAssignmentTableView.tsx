@@ -3,7 +3,7 @@ import { getPathVariableSplitComponent } from '@/components/generic/PathVariable
 import TableViewFallbackPage from '@/components/work-project-series-assignments/table-view/TableViewFallbackPage';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 export default async function WorkProjectSeriesAssignmentTableView({

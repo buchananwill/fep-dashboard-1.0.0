@@ -1,10 +1,10 @@
 'use client';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
-import { useCellIdReferences } from '@/components/work-task-types/useCellIdReferences';
+import { useCellIdReferences } from '@/components/work-types/useCellIdReferences';
 import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreDispatchAndListener';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
-import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
-import { GenericSuitabilityCell } from '@/components/work-task-types/GenericSuitabilityCell';
+import { SuitabilityMatrixCell } from '@/components/work-types/suitabilityMatrixCell';
+import { GenericSuitabilityCell } from '@/components/work-types/GenericSuitabilityCell';
 
 export function joinRowAndColumnId(
   rowId: string | number | undefined,
@@ -13,7 +13,7 @@ export function joinRowAndColumnId(
   return `${rowId}:${columnId}`;
 }
 
-export function WorkTaskTypeMatrixCell(props: CellWrapperProps) {
+export function WorkTypeMatrixCell(props: CellWrapperProps) {
   const { columnId, rowId } = useCellIdReferences(props);
   const { currentState: currentCell, dispatchWithoutControl: setCurrentCell } =
     useDtoStoreDispatchAndListener<SuitabilityMatrixCell>(

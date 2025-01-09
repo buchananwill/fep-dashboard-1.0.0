@@ -6,7 +6,7 @@ import { WorkSchemaNodeManualDefinitionDto } from '@/api/generated-types/generat
 import { Column } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';
@@ -30,7 +30,7 @@ import { useDataExportCallback } from '@/hooks/useDataExportCallback';
 import { validate } from '@/functions/validation/validateWorkSchemaNodeManualDefinitionList';
 import { DeliveryAllocationListParserCell } from '@/components/tables/cells-v2/specific/DeliveryAllocationListParserCell';
 import { SelectKnowledgeDomainNameCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeDomainNameCell';
-import { SelectTaskTypeNameNameCell } from '@/components/tables/cells-v2/specific/SelectTaskTypeNameCell';
+import { SelectTaskTypeNameNameCell } from '@/components/tables/cells-v2/specific/SelectWorkTypeCategoryCell';
 import { SelectKnowledgeLevelCell } from '@/components/tables/cells-v2/specific/SelectKnowledgeLevelCell';
 import { SelectChildrenAsCell } from '@/components/tables/cells-v2/specific/SelectChildrenAsCell';
 import { SelectParentNodeNameCell } from '@/components/tables/cells-v2/specific/SelectParentNodeNameCell';

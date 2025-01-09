@@ -50,7 +50,7 @@ export type KnowledgeLevelSeriesGroup = {
   type: 'knowledgeLevelSeriesGroup';
   knowledgeLevelSeries: KnowledgeLevelSeriesDto;
   cycle?: CycleDto;
-  workTaskTypeName: HasName & HasNumberId;
+  workTypeCategory: HasName & HasNumberId;
   organizationTypeName?: string;
   children: KnowledgeLevelGroup[];
 } & DeliveryAllocationBase;

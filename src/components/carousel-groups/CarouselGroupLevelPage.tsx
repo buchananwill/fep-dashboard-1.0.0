@@ -13,7 +13,7 @@ import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLeve
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { Api } from '@/api/clientApi';

@@ -1,14 +1,14 @@
 import { auth } from '@/auth';
 import { notFound } from 'next/navigation';
-import CreateWorkTaskType from '@/components/work-task-types/CreateWorkTaskType';
+import CreateWorkType from '@/components/work-types/CreateWorkType';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
-export default async function CreateWorkTaskTypeWithAuth(
+export default async function CreateWorkTypeWithAuth(
   props: LeafComponentProps
 ) {
   const session = await auth();
 
   if (!session) notFound();
 
-  return <CreateWorkTaskType {...props} />;
+  return <CreateWorkType {...props} />;
 }

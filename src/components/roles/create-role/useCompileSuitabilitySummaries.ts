@@ -1,5 +1,5 @@
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
-import { CreateRoleCell } from '@/components/work-task-types/suitabilityMatrixCell';
+import { CreateRoleCell } from '@/components/work-types/suitabilityMatrixCell';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/client-literals';

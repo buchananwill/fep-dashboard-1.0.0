@@ -7,7 +7,7 @@ export const EntityClassMap = {
   assetRolePostRequest: 'AssetRolePostRequest',
   assetRoleAvailability: 'AssetRoleAvailability',
   assetRoleType: 'AssetRoleType',
-  assetRoleTypeWorkTaskTypeSuitability: 'AssetRoleTypeWorkTaskTypeSuitability',
+  assetRoleTypeWorkTypeSuitability: 'AssetRoleTypeWorkTypeSuitability',
   assetType: 'AssetType',
   carousel: 'Carousel',
   carouselGroup: 'CarouselGroup',
@@ -32,8 +32,7 @@ export const EntityClassMap = {
   providerRoleAvailability: 'ProviderRoleAvailability',
   providerRolePostRequest: 'ProviderRolePostRequest',
   providerRoleType: 'ProviderRoleType',
-  providerRoleTypeWorkTaskTypeSuitability:
-    'ProviderRoleTypeWorkTaskTypeSuitability',
+  providerRoleTypeWorkTypeSuitability: 'ProviderRoleTypeWorkTypeSuitability',
   queueTreeNode: 'QueueTreeNode',
   resourceRequirementItem: 'ResourceRequirementItem',
   schedule: 'Schedule',
@@ -50,8 +49,8 @@ export const EntityClassMap = {
   workSchemaNode: 'WorkSchemaNode',
   workSchemaNodeManualDefinition: 'WorkSchemaNodeManualDefinition',
   workSchemaNodeAssignment: 'WorkSchemaNodeAssignment',
-  workTaskType: 'WorkTaskType',
-  workTaskTypeName: 'WorkTaskTypeName',
+  workType: 'WorkType',
+  workTypeCategory: 'WorkTypeCategory',
   synchronizedWorkPlan: 'SynchronizedWorkPlan'
 } as const satisfies { [Key in keyof EntityTypeMap]: string };
 

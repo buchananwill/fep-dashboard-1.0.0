@@ -5,7 +5,7 @@ import { EmptyArray } from '@/api/client-literals';
 import SuitabilityCellManager from '@/components/roles/suitability/SuitabilityCellManager';
 import { getIdList } from '@/functions/getIdList';
 import { getLastNVariables } from '@/functions/getLastNVariables';
-import { getNames } from '@/components/work-task-types/getNamesServerAction';
+import { getNames } from '@/components/work-types/getNamesServerAction';
 import { RoleEntity } from '@/components/roles/types';
 import pluralize, { singular } from 'pluralize';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
@@ -13,11 +13,11 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 import {
   initialMutationList,
   MutationCounterContextKey,
-  WorkTaskTypeName
+  WorkTypeCategory
 } from '@/components/roles/create-role/literals';
 import FormWrapper from '@/components/roles/create-role/FormWrapper';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { KnowledgeLevelDto } from '@/api/generated-types/generated-types_';
 
@@ -30,7 +30,7 @@ export default async function CreateRolePage({
   const roleTypes = await Api[EntityClassKey].getAll();
   const knowledgeDomainDtos = await Api.KnowledgeDomain.getAll();
   const knowledgeLevelSeriesDtos = await Api.KnowledgeLevelSeries.getAll();
-  const workTaskTypeNames = await getNames();
+  const workTypeCategorys = await getNames();
   const allKnowledgeLevels =
     knowledgeLevelSeriesDtos.length > 0
       ? knowledgeLevelSeriesDtos.flatMap((kls) => kls.knowledgeLevels)
@@ -52,8 +52,8 @@ export default async function CreateRolePage({
           dtoList={roleTypes}
         />
         <EditAddDeleteDtoControllerArray
-          entityClass={WorkTaskTypeName}
-          dtoList={workTaskTypeNames}
+          entityClass={WorkTypeCategory}
+          dtoList={workTypeCategorys}
         />
         <EditAddDeleteDtoControllerArray
           entityClass={EntityClassMap.knowledgeLevelSeries}

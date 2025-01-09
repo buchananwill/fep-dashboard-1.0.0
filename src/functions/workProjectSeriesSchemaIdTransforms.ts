@@ -2,7 +2,7 @@ import {
   SuitabilitySummaryDto,
   WorkProjectSeriesSchemaDto,
   WorkProjectSeriesSchemaSummaryId,
-  WorkTaskTypeDto
+  WorkTypeDto
 } from '@/api/generated-types/generated-types_';
 import { getIntListFromDeliveryAllocations } from '@/components/react-flow/work-schema-node/functions/getIntListFromDeliveryAllocations';
 
@@ -33,22 +33,21 @@ export function joinWorkProjectSeriesSchemaIdKey(
   const allocationList = getIntListFromDeliveryAllocations(
     wpss.deliveryAllocations
   ).join(',');
-  return [joinWorkTaskTypeKey(wpss.workTaskType), allocationList].join('::');
+  return [joinWorkTypeKey(wpss.workType), allocationList].join('::');
 }
 
-export function joinWorkTaskTypeKey(workTaskType: WorkTaskTypeDto | undefined) {
-  if (workTaskType === undefined) throw Error('WorkTaskType was undefined');
+export function joinWorkTypeKey(workType: WorkTypeDto | undefined) {
+  if (workType === undefined) throw Error('WorkType was undefined');
   return [
-    workTaskType.name,
-    workTaskType.knowledgeDomain.name,
-    workTaskType.knowledgeLevel?.name
+    workType.name,
+    workType.knowledgeDomain.name,
+    workType.knowledgeLevel?.name
   ].join('::');
 }
-export function joinWorkTaskTypeKeyFromSuitability(
+export function joinWorkTypeKeyFromSuitability(
   suitabilitySummary: SuitabilitySummaryDto | undefined
 ) {
-  if (suitabilitySummary === undefined)
-    throw Error('WorkTaskType was undefined');
+  if (suitabilitySummary === undefined) throw Error('WorkType was undefined');
   return [
     suitabilitySummary.taskTypeName,
     suitabilitySummary.knowledgeDomainName,

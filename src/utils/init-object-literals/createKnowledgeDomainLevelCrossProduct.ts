@@ -1,10 +1,10 @@
 import { PartialDeep } from 'type-fest';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 
 function createKnowledgeDomainLevelCrossProduct(
   domainNames: string[],
   levels: number[]
-): PartialDeep<WorkTaskTypeDto>[] {
+): PartialDeep<WorkTypeDto>[] {
   return domainNames.flatMap((knowledgeDomainName) =>
     levels.map((knowledgeLevelLevelOrdinal) => ({
       knowledgeDomain: { name: knowledgeDomainName },

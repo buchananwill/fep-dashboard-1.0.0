@@ -5,7 +5,7 @@ import { useRowIdColumnIdCells } from '@/components/grids/createRowIdColumnIdCel
 import {
   CreateRoleCell,
   SuitabilityMatrixCell
-} from '@/components/work-task-types/suitabilityMatrixCell';
+} from '@/components/work-types/suitabilityMatrixCell';
 
 export const CellEntityClass = 'Cell';
 export default function SuitabilityCellManager({

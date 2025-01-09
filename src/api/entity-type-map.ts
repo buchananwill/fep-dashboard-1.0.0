@@ -3,7 +3,7 @@ import {
   AssetRoleAvailabilityDto,
   AssetRoleDto,
   AssetRoleTypeDto,
-  AssetRoleTypeWorkTaskTypeSuitabilityDto,
+  AssetRoleTypeWorkTypeSuitabilityDto,
   AssetTypeDto,
   BuildMetricDto,
   CarouselDto,
@@ -28,7 +28,7 @@ import {
   ProviderRoleAvailabilityDto,
   ProviderRoleDto,
   ProviderRoleTypeDto,
-  ProviderRoleTypeWorkTaskTypeSuitabilityDto,
+  ProviderRoleTypeWorkTypeSuitabilityDto,
   QueueTreeNodeDto,
   ResourceRequirementItemDto,
   RolePostRequest,
@@ -45,7 +45,7 @@ import {
   WorkSchemaNodeAssignmentDto,
   WorkSchemaNodeDto,
   WorkSchemaNodeManualDefinitionDto,
-  WorkTaskTypeDto
+  WorkTypeDto
 } from './generated-types/generated-types_';
 import { InitJsonTemplateNodeData } from '@/components/react-flow/init-json-template/types';
 import { UserGuideMarkdown } from '@/app/user-guide/parseMarkdownToTree';
@@ -58,7 +58,7 @@ export type EntityTypeMap = {
   assetRolePostRequest: IdWrapper<RolePostRequest<AssetDto>>;
   assetRoleAvailability: AssetRoleAvailabilityDto;
   assetRoleType: AssetRoleTypeDto;
-  assetRoleTypeWorkTaskTypeSuitability: AssetRoleTypeWorkTaskTypeSuitabilityDto;
+  assetRoleTypeWorkTypeSuitability: AssetRoleTypeWorkTypeSuitabilityDto;
   assetType: AssetTypeDto;
   buildMetric: BuildMetricDto;
   carousel: CarouselDto;
@@ -86,7 +86,7 @@ export type EntityTypeMap = {
   providerRolePostRequest: IdWrapper<RolePostRequest<PersonDto>>;
   providerRoleAvailability: ProviderRoleAvailabilityDto;
   providerRoleType: ProviderRoleTypeDto;
-  providerRoleTypeWorkTaskTypeSuitability: ProviderRoleTypeWorkTaskTypeSuitabilityDto;
+  providerRoleTypeWorkTypeSuitability: ProviderRoleTypeWorkTypeSuitabilityDto;
   resourceRequirementItem: ResourceRequirementItemDto;
   schedule: ScheduleDto;
   staticDeliveryAllocationItem: StaticDeliveryAllocationItemDto;
@@ -102,6 +102,6 @@ export type EntityTypeMap = {
   workSchemaNode: WorkSchemaNodeDto;
   workSchemaNodeManualDefinition: IdWrapper<WorkSchemaNodeManualDefinitionDto>;
   workSchemaNodeAssignment: WorkSchemaNodeAssignmentDto;
-  workTaskType: WorkTaskTypeDto;
-  workTaskTypeName: HasName & HasNumberId;
+  workType: WorkTypeDto;
+  workTypeCategory: HasName & HasNumberId;
 };

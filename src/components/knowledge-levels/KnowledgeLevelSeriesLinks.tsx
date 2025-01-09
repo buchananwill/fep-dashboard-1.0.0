@@ -8,7 +8,7 @@ import {
   NavigationType,
   navKeyList
 } from '@/components/navigation/iconDefinitions';
-import { getFirstNVariables } from '@/components/work-task-types/getRootCardLayoutId';
+import { getFirstNVariables } from '@/components/work-types/getRootCardLayoutId';
 import { camelCase } from 'lodash';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 

@@ -1,7 +1,7 @@
 # Work Project Series Schema
 A **Work Project Series Schema** represents a *template* for creating a *group of tasks of the same type* (i.e. a
 project), that will each be performed _once per [Cycle](#cycle)_. A Work Project Series Schema is thus a plan to perform
-a certain amount of a given [Work Task Type](#work-task-type) across the duration of a [Cycle](#cycle), both the size
+a certain amount of a given [Work Task Type](#work-type) across the duration of a [Cycle](#cycle), both the size
 and
 shape of this amount being defined by the [Delivery Allocation](#delivery-allocation).
 
@@ -17,7 +17,7 @@ they are not compatible.
 A **Work Task Type** has two sets of attributes:
 
 1. Classification
-   1. [Work Task Type Name](#work-task-type-name)
+   1. [Work Task Type Name](#work-type-name)
    2. [Knowledge Domain](#knowledge-domain)
    3. [Knowledge Level](#knowledge-level)
 2. Resources
@@ -47,7 +47,7 @@ setting, knowledge domains also guide expectations of competency. "Maths", "Engl
 Politics" would very likely not elicit the same expectations of context or relevancy from most people or situations.
 Knowledge Domains can be arranged as a hierarchy of specifity, e.g. "Isaac Asimov" is a more specific Knowledge Domain
 than "science fiction author". Specificity should be considered separately however from expertise or difficulty, as an
-attribute of [Work Task Type](#work-task-type) - for that a [Knowledge Level](#knowledge-level) is appropriate.
+attribute of [Work Task Type](#work-type) - for that a [Knowledge Level](#knowledge-level) is appropriate.
 
 
 ### Knowledge Level
@@ -75,7 +75,7 @@ classroom", or "laboratory" would denote Asset Role Type.
 
 ### Provider Role Type
 A **Provider Role Type** is the label applied to the person or organization whom we expect engage in performing a
-given [Work Task Type](#work-task-type). For example "teaching" is performed by a "teacher". "Lesson planning" may
+given [Work Task Type](#work-type). For example "teaching" is performed by a "teacher". "Lesson planning" may
 require a "teacher", or it may require a specialist "lesson planner" Provider Role Type. This is dependent on the local
 deployment and business rules applied.
 
@@ -154,7 +154,7 @@ suitability is used to determine permissible allocation by the [scheduling alogr
 An **Asset Role** is the registration of an [Asset](#asset) as being [available](#availability) for use as a
 particular [Asset Role Type](#asset-role-type), for some or all of a [Cycle](#cycle). An Asset could be available in
 multiple roles, but these may not overlap in their availability. In order for an Asset to be considered for
-a [Work Task Type](#work-task-type) during scheduling, it must also be recorded with
+a [Work Task Type](#work-type) during scheduling, it must also be recorded with
 appropriate [Suitabilities](#suitability).
 
 
@@ -162,7 +162,7 @@ appropriate [Suitabilities](#suitability).
 A **Provider Role** is the registration of a [Party](#party) as being available for performing a
 particular [Provider Role Type](#provider-role-type), for some or all of a [Cycle](#cycle). A Party could be available
 in multiple roles, but these may not overlap in their availability. In order for a Party to be considered for
-a [Work Task Type](#work-task-type) during scheduling, it must also be recording with
+a [Work Task Type](#work-type) during scheduling, it must also be recording with
 appropriate [Suitabilities](#suitability).
 
 
@@ -196,7 +196,7 @@ of [Work Task Series](#work-task-series).
 
 
 ## Work Task Series
-A **Work Task Series** designates a recurring [Work Task Type](#work-task-type) that will be performed during the
+A **Work Task Series** designates a recurring [Work Task Type](#work-type) that will be performed during the
 assigned [Cycle Subspan Group](#cycle-subspan-group) on each repetition of the [Cycle](#cycle).
 
 

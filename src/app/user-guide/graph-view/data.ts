@@ -4,7 +4,7 @@ export const data = [
       id: 0,
       level: 1,
       content:
-        '\nA **Work Project Series Schema** represents a *template* for creating a *group of tasks of the same type* (i.e. a\r\nproject), that will each be performed _once per [Cycle](#cycle)_. A Work Project Series Schema is thus a plan to perform\r\na certain amount of a given [Work Task Type](#work-task-type) across the duration of a [Cycle](#cycle), both the size\r\nand\r\nshape of this amount being defined by the [Delivery Allocation](#delivery-allocation).\r\n\r\n\r',
+        '\nA **Work Project Series Schema** represents a *template* for creating a *group of tasks of the same type* (i.e. a\r\nproject), that will each be performed _once per [Cycle](#cycle)_. A Work Project Series Schema is thus a plan to perform\r\na certain amount of a given [Work Task Type](#work-type) across the duration of a [Cycle](#cycle), both the size\r\nand\r\nshape of this amount being defined by the [Delivery Allocation](#delivery-allocation).\r\n\r\n\r',
       blockPosition: 0,
       htmlId: 'work-project-series-schema'
     },
@@ -27,9 +27,9 @@ export const data = [
       id: 2,
       level: 1,
       content:
-        '\nA **Work Task Type** has two sets of attributes:\r\n\r\n1. Classification\r\n   1. [Work Task Type Name](#work-task-type-name)\r\n   2. [Knowledge Domain](#knowledge-domain)\r\n   3. [Knowledge Level](#knowledge-level)\r\n2. Resources\r\n   1. [Provider Role Type](#provider-role-type)\r\n   2. [Asset Role Type](#asset-role-type)\r\n\r\nThe **classifications** are used to give a Work Task Type its identity: no two Work Task Types can share the same set of\r\nall three classification attributes. The **resources** are used to define what human or other physical resources are\r\nneeded when carrying out the task.\r\n\r\n\r',
+        '\nA **Work Task Type** has two sets of attributes:\r\n\r\n1. Classification\r\n   1. [Work Task Type Name](#work-type-name)\r\n   2. [Knowledge Domain](#knowledge-domain)\r\n   3. [Knowledge Level](#knowledge-level)\r\n2. Resources\r\n   1. [Provider Role Type](#provider-role-type)\r\n   2. [Asset Role Type](#asset-role-type)\r\n\r\nThe **classifications** are used to give a Work Task Type its identity: no two Work Task Types can share the same set of\r\nall three classification attributes. The **resources** are used to define what human or other physical resources are\r\nneeded when carrying out the task.\r\n\r\n\r',
       blockPosition: 2,
-      htmlId: 'work-task-type'
+      htmlId: 'work-type'
     },
     children: [
       {
@@ -48,7 +48,7 @@ export const data = [
               content:
                 '\nA **Work Task Type Name** is best conceived as a verb that can be applied to a range of scenarios. For example\r\n*planning*,\r\n*teaching*,\r\n*delivering*, *assembling*, *assessing*, *advising* could be used as Work Task Type Names. They do not give information\r\nabout the *"what"* aspect of the object. These aspects are defined by the [Knowledge Domain](#knowledge-domain)\r\nand [Knowledge Level](#knowledge-level).\r\n\r\n\r',
               blockPosition: 4,
-              htmlId: 'work-task-type-name'
+              htmlId: 'work-type-name'
             },
             children: []
           },
@@ -57,7 +57,7 @@ export const data = [
               id: 5,
               level: 3,
               content:
-                '\nA **Knowledge Domain** is difficult to define without resorting to tautology! As labels, knowledge domains are used to\r\ncompartmentalize expertise or understanding, to help us form expectations about context and relevancy. In a professional\r\nsetting, knowledge domains also guide expectations of competency. "Maths", "English Literature", and "International\r\nPolitics" would very likely not elicit the same expectations of context or relevancy from most people or situations.\r\nKnowledge Domains can be arranged as a hierarchy of specifity, e.g. "Isaac Asimov" is a more specific Knowledge Domain\r\nthan "science fiction author". Specificity should be considered separately however from expertise or difficulty, as an\r\nattribute of [Work Task Type](#work-task-type) - for that a [Knowledge Level](#knowledge-level) is appropriate.\r\n\r\n\r',
+                '\nA **Knowledge Domain** is difficult to define without resorting to tautology! As labels, knowledge domains are used to\r\ncompartmentalize expertise or understanding, to help us form expectations about context and relevancy. In a professional\r\nsetting, knowledge domains also guide expectations of competency. "Maths", "English Literature", and "International\r\nPolitics" would very likely not elicit the same expectations of context or relevancy from most people or situations.\r\nKnowledge Domains can be arranged as a hierarchy of specifity, e.g. "Isaac Asimov" is a more specific Knowledge Domain\r\nthan "science fiction author". Specificity should be considered separately however from expertise or difficulty, as an\r\nattribute of [Work Task Type](#work-type) - for that a [Knowledge Level](#knowledge-level) is appropriate.\r\n\r\n\r',
               blockPosition: 5,
               htmlId: 'knowledge-domain'
             },
@@ -112,7 +112,7 @@ export const data = [
               id: 10,
               level: 3,
               content:
-                '\nA **Provider Role Type** is the label applied to the person or organization whom we expect engage in performing a\r\ngiven [Work Task Type](#work-task-type). For example "teaching" is performed by a "teacher". "Lesson planning" may\r\nrequire a "teacher", or it may require a specialist "lesson planner" Provider Role Type. This is dependent on the local\r\ndeployment and business rules applied.\r\n\r\n\r',
+                '\nA **Provider Role Type** is the label applied to the person or organization whom we expect engage in performing a\r\ngiven [Work Task Type](#work-type). For example "teaching" is performed by a "teacher". "Lesson planning" may\r\nrequire a "teacher", or it may require a specialist "lesson planner" Provider Role Type. This is dependent on the local\r\ndeployment and business rules applied.\r\n\r\n\r',
               blockPosition: 10,
               htmlId: 'provider-role-type'
             },
@@ -204,7 +204,7 @@ export const data = [
           id: 18,
           level: 2,
           content:
-            '\nAn **Asset Role** is the registration of an [Asset](#asset) as being [available](#availability) for use as a\r\nparticular [Asset Role Type](#asset-role-type), for some or all of a [Cycle](#cycle). An Asset could be available in\r\nmultiple roles, but these may not overlap in their availability. In order for an Asset to be considered for\r\na [Work Task Type](#work-task-type) during scheduling, it must also be recorded with\r\nappropriate [Suitabilities](#suitability).\r\n\r\n\r',
+            '\nAn **Asset Role** is the registration of an [Asset](#asset) as being [available](#availability) for use as a\r\nparticular [Asset Role Type](#asset-role-type), for some or all of a [Cycle](#cycle). An Asset could be available in\r\nmultiple roles, but these may not overlap in their availability. In order for an Asset to be considered for\r\na [Work Task Type](#work-type) during scheduling, it must also be recorded with\r\nappropriate [Suitabilities](#suitability).\r\n\r\n\r',
           blockPosition: 18,
           htmlId: 'asset-role'
         },
@@ -215,7 +215,7 @@ export const data = [
           id: 19,
           level: 2,
           content:
-            '\nA **Provider Role** is the registration of a [Party](#party) as being available for performing a\r\nparticular [Provider Role Type](#provider-role-type), for some or all of a [Cycle](#cycle). A Party could be available\r\nin multiple roles, but these may not overlap in their availability. In order for a Party to be considered for\r\na [Work Task Type](#work-task-type) during scheduling, it must also be recording with\r\nappropriate [Suitabilities](#suitability).\r\n\r\n\r',
+            '\nA **Provider Role** is the registration of a [Party](#party) as being available for performing a\r\nparticular [Provider Role Type](#provider-role-type), for some or all of a [Cycle](#cycle). A Party could be available\r\nin multiple roles, but these may not overlap in their availability. In order for a Party to be considered for\r\na [Work Task Type](#work-type) during scheduling, it must also be recording with\r\nappropriate [Suitabilities](#suitability).\r\n\r\n\r',
           blockPosition: 19,
           htmlId: 'provider-role'
         },
@@ -283,7 +283,7 @@ export const data = [
           id: 25,
           level: 2,
           content:
-            '\nA **Work Task Series** designates a recurring [Work Task Type](#work-task-type) that will be performed during the\r\nassigned [Cycle Subspan Group](#cycle-subspan-group) on each repetition of the [Cycle](#cycle).\r\n\r\n\r',
+            '\nA **Work Task Series** designates a recurring [Work Task Type](#work-type) that will be performed during the\r\nassigned [Cycle Subspan Group](#cycle-subspan-group) on each repetition of the [Cycle](#cycle).\r\n\r\n\r',
           blockPosition: 25,
           htmlId: 'work-task-series'
         },

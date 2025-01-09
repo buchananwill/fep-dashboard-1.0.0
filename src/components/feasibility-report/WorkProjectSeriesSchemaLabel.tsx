@@ -4,7 +4,7 @@ import { HasId } from '@/api/types';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
 import {
   HasNameDto,
-  WorkTaskTypeDto
+  WorkTypeDto
 } from '@/api/generated-types/generated-types_';
 import clsx from 'clsx';
 import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
@@ -13,17 +13,17 @@ import { getShortCodeColor } from '@/functions/getShortcodeColor';
 import { SetOptional, SetRequired } from 'type-fest';
 import { parseToCssRgba } from '@/functions/parseToCssRgba';
 
-export function EntityWithWorkTaskTypeShortCode({
+export function EntityWithWorkTypeShortCode({
   entity
 }: SetRequired<
-  Partial<BaseLazyDtoUiProps<HasId & { workTaskType: WorkTaskTypeDto }>>,
+  Partial<BaseLazyDtoUiProps<HasId & { workType: WorkTypeDto }>>,
   'entity'
 >) {
   const subjectCode =
-    entity.workTaskType.knowledgeDomain?.shortCode ??
-    entity.workTaskType.knowledgeDomain?.name ??
-    entity.workTaskType.name;
-  const cssRgba = parseToCssRgba(entity.workTaskType.knowledgeDomain?.color);
+    entity.workType.knowledgeDomain?.shortCode ??
+    entity.workType.knowledgeDomain?.name ??
+    entity.workType.name;
+  const cssRgba = parseToCssRgba(entity.workType.knowledgeDomain?.color);
   return (
     <div
       className={clsx(

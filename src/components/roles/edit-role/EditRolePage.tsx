@@ -1,7 +1,7 @@
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import ProviderRoleEditTable from '@/components/tables/edit-tables/ProviderRoleEditTable';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { Api } from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';

@@ -1,5 +1,5 @@
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
-import { useCellIdReferences } from '@/components/work-task-types/useCellIdReferences';
+import { useCellIdReferences } from '@/components/work-types/useCellIdReferences';
 import { Identifier } from 'dto-stores';
 import FallbackCell from '@/components/grids/FallbackCell';
 import { useDtoStoreDispatchAndListener } from 'dto-stores/dist/hooks/main/store/useDtoStoreDispatchAndListener';

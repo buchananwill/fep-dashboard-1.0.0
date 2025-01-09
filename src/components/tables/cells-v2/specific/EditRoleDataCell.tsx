@@ -6,7 +6,7 @@ import {
   RoleData,
   RolePostRequest,
   SuitabilitySummaryDto,
-  WorkTaskTypeDto
+  WorkTypeDto
 } from '@/api/generated-types/generated-types_';
 import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
 import { IdWrapper } from '@/api/types';
@@ -32,8 +32,8 @@ import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import {
-  joinWorkTaskTypeKey,
-  joinWorkTaskTypeKeyFromSuitability
+  joinWorkTypeKey,
+  joinWorkTypeKeyFromSuitability
 } from '@/functions/workProjectSeriesSchemaIdTransforms';
 import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { useTransientState } from '@/hooks/useTransientState';
@@ -136,46 +136,46 @@ function RoleDataModalContent({
   }, [value]);
 
   // SUITABILITY SECTION
-  // TODO Limit fetching to the WorkTaskTypes that are relevant to the selected Role Type.
+  // TODO Limit fetching to the WorkTypes that are relevant to the selected Role Type.
   const { data, isLoading } = useQuery({
-    queryFn: Api.WorkTaskType.getAll,
-    queryKey: [EntityClassMap.workTaskType, 'all']
+    queryFn: Api.WorkType.getAll,
+    queryKey: [EntityClassMap.workType, 'all']
   });
 
   const { transientState, setTransientState, transientStateRef } =
-    useTransientState<WorkTaskTypeDto[]>();
+    useTransientState<WorkTypeDto[]>();
 
   const wttMap = useMemo(() => {
     return (data ?? []).reduce(
-      (prev, curr) => prev.set(joinWorkTaskTypeKey(curr), curr),
-      new Map<string, WorkTaskTypeDto>()
+      (prev, curr) => prev.set(joinWorkTypeKey(curr), curr),
+      new Map<string, WorkTypeDto>()
     );
   }, [data]);
 
   useEffect(() => {
-    const workTaskTypes = Object.values(value)
+    const workTypes = Object.values(value)
       .flatMap((roleData) => roleData.suitabilities)
       .map((suitabilitySummary) =>
-        joinWorkTaskTypeKeyFromSuitability(suitabilitySummary)
+        joinWorkTypeKeyFromSuitability(suitabilitySummary)
       )
       .map((key) => wttMap.get(key))
       .filter(isNotUndefined);
 
-    const unique = [...new Set(workTaskTypes)];
+    const unique = [...new Set(workTypes)];
     setTransientState(unique);
   }, [value, wttMap, setTransientState]);
 
-  const selectApi = useSelectApi<SelectApiParamsMultiFlat<WorkTaskTypeDto>>({
+  const selectApi = useSelectApi<SelectApiParamsMultiFlat<WorkTypeDto>>({
     rawData: data ?? EmptyArray,
-    labelMaker: joinWorkTaskTypeKey,
+    labelMaker: joinWorkTypeKey,
     value: transientState ?? EmptyArray,
     propagateChange: setTransientState,
     type: 'multiFlat'
   });
 
   const compileSuitabilitiesWithoutSetting = useCallback(() => {
-    const selectedWorkTaskTypes = transientStateRef.current ?? [];
-    const suitabilitiesWithoutRoleTypes = selectedWorkTaskTypes.map(
+    const selectedWorkTypes = transientStateRef.current ?? [];
+    const suitabilitiesWithoutRoleTypes = selectedWorkTypes.map(
       (wtt) =>
         ({
           rating: DEFAULT_VALUE_FOR_IS_SUITABLE,

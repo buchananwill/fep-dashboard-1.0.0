@@ -1,7 +1,6 @@
 'use server';
 import { auth } from '@/auth';
 import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
-import { templateToken } from '@/api/auth/schemaName';
 import { NextRequest } from 'next/server';
 
 export async function fetchXlsx(nextRequest: NextRequest) {

@@ -1,4 +1,4 @@
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 import { PartialDeep } from 'type-fest';
 
 /**
@@ -7,5 +7,5 @@ import { PartialDeep } from 'type-fest';
 export type RequestCreationParams = [
   string,
   number,
-  PartialDeep<WorkTaskTypeDto>[]
+  PartialDeep<WorkTypeDto>[]
 ];

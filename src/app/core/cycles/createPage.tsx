@@ -15,7 +15,7 @@ import { CycleDto } from '@/api/generated-types/generated-types_';
 import { CycleDtoSchema } from '@/api/generated-schemas/schemas_';
 import RootCard from '@/components/generic/RootCard';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { isNumber, startCase } from 'lodash';
 
 export default function CreatePage({ pathVariables }: LeafComponentProps) {

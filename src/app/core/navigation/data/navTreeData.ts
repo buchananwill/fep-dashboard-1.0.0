@@ -11,11 +11,11 @@ import NavigationHome from '@/app/core/navigation/NavigationHome';
 import BuildSchedulePage from '@/app/core/auto-scheduling/BuildSchedulePage';
 import { feasibilityBranch } from '@/app/core/feasibility/FeasibilityHome';
 import { StaticAllocationHome } from '@/components/work-project-series-schema/static-allocation/StaticAllocationPage';
-import WorkTaskTypeTablePage from '@/components/work-task-types/pages/WorkTaskTypeTablePage';
+import WorkTypeTablePage from '@/components/work-types/pages/WorkTypeTablePage';
 import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
 import CyclesHome from '@/app/core/cycles/CyclesHome';
 import { rolePageTree } from '@/components/roles/rolePageTree';
-import CreateWorkTaskTypeWithAuth from '@/components/work-task-types/CreateWorkTaskTypeWithAuth';
+import CreateWorkTypeWithAuth from '@/components/work-types/CreateWorkTypeWithAuth';
 import { CreateUserRolePage } from '@/components/user-role/create-user-role/CreateUserRolePage';
 import UserRoleTablePage from '@/components/user-role/table-page/UserRoleTablePage';
 import { NavTreeNode } from '@/app/core/navigation/data/types';
@@ -35,11 +35,11 @@ export const navTreeData: NavTreeNode = {
         createNewSeries: { component: CreateSeriesFormPage }
       }
     },
-    workTaskTypes: {
+    workTypes: {
       children: {
-        create: { component: CreateWorkTaskTypeWithAuth }
+        create: { component: CreateWorkTypeWithAuth }
       },
-      component: WorkTaskTypeTablePage
+      component: WorkTypeTablePage
     },
     workProjectSeriesSchemas: {
       children: {

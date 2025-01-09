@@ -1,5 +1,5 @@
 import { EntityInnerCellProps } from '@/components/tables/core-table-types';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 import { ColumnUid } from '@/types';
 import { HasIdClass } from '@/api/types';
 import { Identifier } from 'dto-stores';
@@ -8,8 +8,8 @@ import { get } from 'lodash';
 import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 
-export default function EmbeddedWorkTaskTypeCell<
-  T extends HasIdClass<T_ID> & { workTaskType: WorkTaskTypeDto },
+export default function EmbeddedWorkTypeCell<
+  T extends HasIdClass<T_ID> & { workType: WorkTypeDto },
   T_ID extends Identifier,
   K extends string & ColumnUid<T>
 >({

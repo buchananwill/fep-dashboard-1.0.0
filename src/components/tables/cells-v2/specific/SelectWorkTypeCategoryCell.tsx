@@ -31,8 +31,8 @@ function SelectTaskTypeName({
   onClose
 }: IdInnerCellProps<string | undefined> & { onClose?: () => void }) {
   const { data, isLoading } = useQuery({
-    queryFn: async () => await api('workTaskTypeName', 'getAll', {}),
-    queryKey: [EntityClassMap.workTaskTypeName, 'all']
+    queryFn: async () => await api('workTypeCategory', 'getAll', {}),
+    queryKey: [EntityClassMap.workTypeCategory, 'all']
   });
   const {
     transientState,

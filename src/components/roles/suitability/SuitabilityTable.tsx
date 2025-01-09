@@ -7,8 +7,8 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
-  AssetRoleTypeWorkTaskTypeSuitabilityDto,
-  ProviderRoleTypeWorkTaskTypeSuitabilityDto
+  AssetRoleTypeWorkTypeSuitabilityDto,
+  ProviderRoleTypeWorkTypeSuitabilityDto
 } from '@/api/generated-types/generated-types_';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -26,11 +26,11 @@ import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowe
 import { CellComponentMemo } from '@/components/grids/CellComponent';
 import { useGlobalController } from 'selective-context';
 import { CellIndex } from '@/components/grids/createRowIdColumnIdCells';
-import { DropResult } from '@/components/work-task-types/GenericSuitabilityCell';
+import { DropResult } from '@/components/work-types/GenericSuitabilityCell';
 import {
   dropResultContextKey,
   hoverTargetCellIndex
-} from '@/components/work-task-types/WorkTaskTypeMatrix';
+} from '@/components/work-types/WorkTypeMatrix';
 
 export type RoleTypes = (typeof EntityClassMap)[
   | 'assetRole'
@@ -38,12 +38,12 @@ export type RoleTypes = (typeof EntityClassMap)[
   | 'userRole'];
 
 export type SuitabilityEntityTypes = (typeof EntityClassMap)[
-  | 'assetRoleTypeWorkTaskTypeSuitability'
-  | 'providerRoleTypeWorkTaskTypeSuitability'];
+  | 'assetRoleTypeWorkTypeSuitability'
+  | 'providerRoleTypeWorkTypeSuitability'];
 
 export type SuitabilityEntity =
-  | ProviderRoleTypeWorkTaskTypeSuitabilityDto
-  | AssetRoleTypeWorkTaskTypeSuitabilityDto;
+  | ProviderRoleTypeWorkTypeSuitabilityDto
+  | AssetRoleTypeWorkTypeSuitabilityDto;
 
 export interface SuitabilityTableProps {
   suitabilityType: RoleTypes;
@@ -59,23 +59,23 @@ export interface SuitabilityConditions {
 }
 
 const SuitabilityApis = {
-  ProviderRole: Api.ProviderRoleTypeWorkTaskTypeSuitability,
-  AssetRole: Api.AssetRoleTypeWorkTaskTypeSuitability
+  ProviderRole: Api.ProviderRoleTypeWorkTypeSuitability,
+  AssetRole: Api.AssetRoleTypeWorkTypeSuitability
 } as const;
 
 export const AssetSuitabilityCondition: SuitabilityConditions = {
-  suitabilityEntityType: EntityClassMap.assetRoleTypeWorkTaskTypeSuitability,
+  suitabilityEntityType: EntityClassMap.assetRoleTypeWorkTypeSuitability,
   suitabilityType: EntityClassMap.assetRole,
   baseEntityIdAccessor: 'assetId',
   displayNameAccessor: 'assetName',
-  api: Api.AssetRoleTypeWorkTaskTypeSuitability
+  api: Api.AssetRoleTypeWorkTypeSuitability
 } as const;
 export const ProviderSuitabilityCondition: SuitabilityConditions = {
-  suitabilityEntityType: EntityClassMap.providerRoleTypeWorkTaskTypeSuitability,
+  suitabilityEntityType: EntityClassMap.providerRoleTypeWorkTypeSuitability,
   suitabilityType: EntityClassMap.providerRole,
   baseEntityIdAccessor: 'partyId',
   displayNameAccessor: 'partyName',
-  api: Api.ProviderRoleTypeWorkTaskTypeSuitability
+  api: Api.ProviderRoleTypeWorkTypeSuitability
 };
 
 export interface SuitabilityCellData {
@@ -96,7 +96,7 @@ export default function SuitabilityTable({
 
   const listenerKey = useUuidListenerKey();
   const { currentState: selectedWTT } = NamespacedHooks.useListen(
-    EntityClassMap.workTaskType,
+    EntityClassMap.workType,
     KEY_TYPES.SELECTED,
     listenerKey,
     EmptyArray as number[]

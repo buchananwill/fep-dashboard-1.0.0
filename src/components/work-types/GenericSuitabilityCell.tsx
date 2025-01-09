@@ -1,5 +1,5 @@
 import { CellIndex } from '@/components/grids/createRowIdColumnIdCells';
-import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
+import { SuitabilityMatrixCell } from '@/components/work-types/suitabilityMatrixCell';
 import { DispatchState } from '@/types';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from 'react';
@@ -9,17 +9,17 @@ import { useGlobalDispatchAndListener } from 'selective-context';
 import {
   dropResultContextKey,
   hoverTargetCellIndex
-} from '@/components/work-task-types/WorkTaskTypeMatrix';
+} from '@/components/work-types/WorkTypeMatrix';
 import { ObjectPlaceholder } from '@/api/client-literals';
 import {
   isWithinRange,
   liesOnBoundary
-} from '@/components/work-task-types/isWithinRange';
+} from '@/components/work-types/isWithinRange';
 import clsx from 'clsx';
 import { Button, Popover, Slider } from '@mantine/core';
 import { BoltSlashIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { BoltIcon } from '@heroicons/react/24/solid';
-import MiniPieChart from '@/components/work-task-types/MiniPieChart';
+import MiniPieChart from '@/components/work-types/MiniPieChart';
 import classes from './genericSuitabilityCell.module.css';
 
 export type NumberCell = CellIndex & { value: number };

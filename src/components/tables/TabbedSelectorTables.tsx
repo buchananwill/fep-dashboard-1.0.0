@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { startCase } from 'lodash';
 import { getDomainAlias } from '@/api/getDomainAlias';
-import WorkTaskTypeSelectorTable from '@/components/tables/selectorTables/WorkTaskTypeSelectorTable';
+import WorkTypeSelectorTable from '@/components/tables/selectorTables/WorkTypeSelectorTable';
 import ProviderRoleSelectorTable from '@/components/tables/selectorTables/ProviderRoleSelectorTable';
 import AssetRoleSelectorTable from '@/components/tables/selectorTables/AssetRoleSelectorTable';
 import OrganizationSelectorTable from '@/components/tables/selectorTables/OrganizationSelectorTable';
@@ -61,7 +61,7 @@ export default function TabbedSelectorTables({
 
 const TableMap = {
   workProjectSeries: WorkProjectSeriesSelectorTable,
-  workTaskType: WorkTaskTypeSelectorTable,
+  workType: WorkTypeSelectorTable,
   providerRole: ProviderRoleSelectorTable,
   assetRole: AssetRoleSelectorTable,
   organization: OrganizationSelectorTable,

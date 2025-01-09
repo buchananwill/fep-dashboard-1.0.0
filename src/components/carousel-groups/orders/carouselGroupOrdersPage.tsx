@@ -21,7 +21,7 @@ import { notFound } from 'next/navigation';
 import { CarouselOrderDto } from '@/api/generated-types/generated-types_';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 
 async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   const [id, levelOrdinal] = getLastNVariables(pathVariables, 2);
@@ -66,8 +66,8 @@ async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
       />
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
-        entityClass={EntityClassMap.workTaskType}
-        getServerAction={Api.WorkTaskType.getDtoListByBodyList}
+        entityClass={EntityClassMap.workType}
+        getServerAction={Api.WorkType.getDtoListByBodyList}
       />
       <EditAddDeleteDtoControllerArray
         dtoList={carouselDtoList}

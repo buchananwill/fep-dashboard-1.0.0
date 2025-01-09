@@ -5,7 +5,7 @@ import AvailabilityPage from '@/components/roles/availability/availabilityPage';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { notFound } from 'next/navigation';
 import CreateRolePage from '@/components/roles/create-role/CreateRolePage';
-import { getFirstNVariables } from '@/components/work-task-types/getRootCardLayoutId';
+import { getFirstNVariables } from '@/components/work-types/getRootCardLayoutId';
 import { createLinksFromNavTree } from '@/app/core/navigation/links/createLinksFromNavTree';
 import { getNavIndex } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { NavigationType } from '@/components/navigation/iconDefinitions';

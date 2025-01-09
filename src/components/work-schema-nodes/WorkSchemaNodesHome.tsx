@@ -4,7 +4,7 @@ import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { chunk, sortBy } from 'lodash';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
 const DESIRED_COLUMN_NUMBER = 3;
@@ -28,7 +28,7 @@ async function Home({ pathVariables }: LeafComponentProps) {
           {arrays.map((list, index) => (
             <div
               key={index}
-              className={'flex flex-col gap-2  rounded-large shadow-small'}
+              className={'rounded-large shadow-small flex  flex-col gap-2'}
             >
               {list.map((node) => {
                 return (

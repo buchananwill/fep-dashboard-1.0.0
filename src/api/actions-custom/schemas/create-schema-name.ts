@@ -1,7 +1,6 @@
 'use server';
 import { authOrSignInRedirect } from '@/api/auth/auth-or-sign-in-redirect';
 import { schemaNameSchema } from '@/api/actions-custom/schemas/schema-name-schema';
-import { publicToken } from '@/api/auth/schemaName';
 import { NextRequest } from 'next/server';
 import { TenancyDto } from '@/api/generated-types/generated-types_';
 import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';

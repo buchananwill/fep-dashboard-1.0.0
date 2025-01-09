@@ -13,7 +13,7 @@ import React, { useMemo } from 'react';
 import { RoleEntity } from '@/components/roles/types';
 import { FieldErrors, useFormContext } from 'react-hook-form';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkTaskTypeName } from '@/components/roles/create-role/literals';
+import { WorkTypeCategory } from '@/components/roles/create-role/literals';
 import { useEntitySelectionWithStringLabelsOnly } from '@/hooks/useEntitySelectionWithStringLabelsOnly';
 import { Select } from '@mantine/core';
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/combo-boxes/MultiSelectMaxDisplayedItems';
@@ -21,7 +21,7 @@ import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelect
 
 const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {
   each: {
-    'workTaskTypeMatrix.workTaskTypeNames': (props) =>
+    'workTypeMatrix.workTypeCategorys': (props) =>
       props.errors?.message && <span>{props.errors.message}</span>,
     roleTypeNames: (props) =>
       props.errors?.message && <span>{props.errors.message}</span>
@@ -49,7 +49,7 @@ export function RoleAspectSelectors({
     }, [errors]);
 
   const taskNameErrors =
-    suitabilityErrors.each?.['workTaskTypeMatrix.workTaskTypeNames'];
+    suitabilityErrors.each?.['workTypeMatrix.workTypeCategorys'];
   const roleTypeErrors = suitabilityErrors.each?.roleTypeNames;
 
   const {
@@ -66,7 +66,7 @@ export function RoleAspectSelectors({
     onChange: onChangeTaskTypes,
     selectableList
   } = useEntitySelectionWithSimpleSelectables<TypeDto<any, any>>(
-    WorkTaskTypeName,
+    WorkTypeCategory,
     'name'
   );
 

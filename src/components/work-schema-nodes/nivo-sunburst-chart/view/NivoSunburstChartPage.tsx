@@ -21,7 +21,7 @@ async function NivoSunburstChartPage({ pathVariables }: LeafComponentProps) {
   );
   const param =
     camelCase(chartType) === 'byKnowledgeLevelSeries'
-      ? '?workTaskTypeName=Teaching'
+      ? '?workTypeCategory=Teaching'
       : undefined;
   const { data } = await getWithoutBody<NestedWorkNodeDto>(
     `${constructUrl([

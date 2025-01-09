@@ -5,7 +5,7 @@ import { LinkButton } from '@/components/navigation/LinkButton';
 import { getDomainAlias } from '@/api/getDomainAlias';
 import { getCoreEntityLink } from '@/functions/getCoreEntityLink';
 
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import RootCard from '@/components/generic/RootCard';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { Center, List, ListItem } from '@mantine/core';

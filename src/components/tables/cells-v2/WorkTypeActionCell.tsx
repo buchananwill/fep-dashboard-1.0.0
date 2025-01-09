@@ -2,13 +2,13 @@
 import { DeleteEntity } from '@/components/tables/cells-v2/generic/DeleteEntity';
 import { useCallback } from 'react';
 import { useGlobalDispatch } from 'selective-context';
-import { workTaskTypeIdInModal } from '@/components/tables/edit-tables/WorkTaskTypeEditTable';
+import { workTypeIdInModal } from '@/components/tables/edit-tables/WorkTypeEditTable';
 import { IdInnerCellProps } from '@/components/tables/core-table-types';
 import { Button, Popover } from '@mantine/core';
 
-export function WorkTaskTypeActionCell(props: IdInnerCellProps<number>) {
+export function WorkTypeActionCell(props: IdInnerCellProps<number>) {
   const { entityId, value } = props;
-  const { dispatchWithoutListen } = useGlobalDispatch(workTaskTypeIdInModal);
+  const { dispatchWithoutListen } = useGlobalDispatch(workTypeIdInModal);
   const openModal = useCallback(() => {
     dispatchWithoutListen(entityId);
   }, [dispatchWithoutListen, entityId]);

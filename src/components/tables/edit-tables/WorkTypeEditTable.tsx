@@ -1,12 +1,12 @@
 'use client';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Column, ColumnUid } from '@/types';
 import { useRouter } from 'next/navigation';
-import { WorkTaskTypeCell } from '@/components/tables/cells-v2/WorkTaskTypeCell';
-import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTaskTypeColumns';
-import { INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS';
+import { WorkTypeCell } from '@/components/tables/cells-v2/WorkTypeCell';
+import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTypeColumns';
+import { INITIAL_VISIBLE_WORK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TYPE_COLUMNS';
 import { useGlobalController } from 'selective-context';
 import ResourceRequirementItemModal from '@/components/modals/ResourceRequirementItemModal';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
@@ -20,14 +20,14 @@ export function useNavigationCallback(href: string) {
   }, [appRouterInstance, href]);
 }
 
-export const workTaskTypeIdInModal = 'workTaskTypeIdInModal';
+export const workTypeIdInModal = 'workTypeIdInModal';
 const noRriModal = 'closed';
-export default function WorkTaskTypeEditTable() {
-  const goToCreate = useNavigationCallback('/core/work-task-types/create');
+export default function WorkTypeEditTable() {
+  const goToCreate = useNavigationCallback('/core/work-types/create');
 
   const { currentState, dispatch } = useGlobalController<number | 'closed'>({
-    contextKey: workTaskTypeIdInModal,
-    listenerKey: 'workTaskTypeEditTable',
+    contextKey: workTypeIdInModal,
+    listenerKey: 'workTypeEditTable',
     initialValue: noRriModal
   });
 
@@ -40,15 +40,15 @@ export default function WorkTaskTypeEditTable() {
   return (
     <>
       <EntityTable
-        entityClass={EntityClassMap.workTaskType}
+        entityClass={EntityClassMap.workType}
         columns={COLUMNS}
-        cellModel={WorkTaskTypeCell}
+        cellModel={WorkTypeCell}
         defaultSort={Sorts.name}
         // addRow={goToCreate}
       />
       {currentState === noRriModal ? null : (
         <ResourceRequirementItemModal
-          workTaskTypeId={currentState}
+          workTypeId={currentState}
           opened={modalIsOpen}
           onClose={onClose}
         />
@@ -57,12 +57,12 @@ export default function WorkTaskTypeEditTable() {
   );
 }
 
-const COLUMNS: Column<WorkTaskTypeDto>[] = [
+const COLUMNS: Column<WorkTypeDto>[] = [
   { name: 'Actions', uid: 'id', sortable: false },
   ...WORK_TASK_TYPE_COLUMNS
 ];
 
-const INITIAL_COLUMNS: ColumnUid<WorkTaskTypeDto>[] = [
-  ...INITIAL_VISIBLE_WORK_TASK_TYPE_COLUMNS,
+const INITIAL_COLUMNS: ColumnUid<WorkTypeDto>[] = [
+  ...INITIAL_VISIBLE_WORK_TYPE_COLUMNS,
   'id'
 ];

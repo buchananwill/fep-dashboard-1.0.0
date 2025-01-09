@@ -49,7 +49,7 @@ export const overViewData: DomTreeSketch = {
         }
       },
       childComponents: {
-        workTaskTypes: {
+        workTypes: {
           component: {
             styles: {
               children: {
@@ -70,7 +70,7 @@ export const overViewData: DomTreeSketch = {
                 }
               },
               childComponents: {
-                workTaskTypeNames: { component: {} },
+                workTypeCategorys: { component: {} },
                 knowledgeLevelSeries: {
                   component: {},
                   childComponents: {

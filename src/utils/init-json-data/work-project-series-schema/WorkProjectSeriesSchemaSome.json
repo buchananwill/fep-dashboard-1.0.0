@@ -2,14 +2,14 @@
   {
     "id": "0d260b4e-db3e-454d-86d7-a501ed912842",
     "name": "Teaching: RS: 8: KS3 3 periods per cycle as: [{size=1, count=3}]",
-    "workTaskTypeId": 216,
+    "workTypeId": 216,
     "deliveryAllocations": [
       {
         "id": 1,
         "deliveryAllocationSize": 1,
         "count": 3,
         "workProjectSeriesSchemaId": "0d260b4e-db3e-454d-86d7-a501ed912842",
-        "workTaskTypeId": 216,
+        "workTypeId": 216,
         "priority": 1
       }
     ],
@@ -20,14 +20,14 @@
   {
     "id": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
     "name": "Teaching: Learning Development: 12: A-Level 11 periods per cycle as: [{size=1, count=5}, {size=2, count=3}]",
-    "workTaskTypeId": 82,
+    "workTypeId": 82,
     "deliveryAllocations": [
       {
         "id": 3,
         "deliveryAllocationSize": 2,
         "count": 3,
         "workProjectSeriesSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
-        "workTaskTypeId": 82,
+        "workTypeId": 82,
         "priority": 1
       },
       {
@@ -35,7 +35,7 @@
         "deliveryAllocationSize": 1,
         "count": 5,
         "workProjectSeriesSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
-        "workTaskTypeId": 82,
+        "workTypeId": 82,
         "priority": 1
       }
     ],
@@ -45,14 +45,14 @@
   {
     "id": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
     "name": "Teaching: Drama: 13: A-Level 11 periods per cycle as: [{size=1, count=5}, {size=2, count=3}]",
-    "workTaskTypeId": 208,
+    "workTypeId": 208,
     "deliveryAllocations": [
       {
         "id": 5,
         "deliveryAllocationSize": 2,
         "count": 3,
         "workProjectSeriesSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
-        "workTaskTypeId": 208,
+        "workTypeId": 208,
         "priority": 1
       },
       {
@@ -60,7 +60,7 @@
         "deliveryAllocationSize": 1,
         "count": 5,
         "workProjectSeriesSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
-        "workTaskTypeId": 208,
+        "workTypeId": 208,
         "priority": 1
       }
     ],
@@ -70,14 +70,14 @@
   {
     "id": "6eb84c54-492c-4052-acc4-c1407cd72d20",
     "name": "Teaching: Private Study: 13: A-Level 11 periods per cycle as: [{size=1, count=5}, {size=2, count=3}]",
-    "workTaskTypeId": 186,
+    "workTypeId": 186,
     "deliveryAllocations": [
       {
         "id": 7,
         "deliveryAllocationSize": 2,
         "count": 3,
         "workProjectSeriesSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
-        "workTaskTypeId": 186,
+        "workTypeId": 186,
         "priority": 1
       },
       {
@@ -85,7 +85,7 @@
         "deliveryAllocationSize": 1,
         "count": 5,
         "workProjectSeriesSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
-        "workTaskTypeId": 186,
+        "workTypeId": 186,
         "priority": 1
       }
     ],
@@ -96,14 +96,14 @@
   {
     "id": "f1513413-d95d-4b66-a887-1d2982930ba0",
     "name": "Teaching: Learning Development: 11: GCSE 5 periods per cycle as: [{size=1, count=5}]",
-    "workTaskTypeId": 172,
+    "workTypeId": 172,
     "deliveryAllocations": [
       {
         "id": 8,
         "deliveryAllocationSize": 1,
         "count": 5,
         "workProjectSeriesSchemaId": "f1513413-d95d-4b66-a887-1d2982930ba0",
-        "workTaskTypeId": 172,
+        "workTypeId": 172,
         "priority": 1
       }
     ],

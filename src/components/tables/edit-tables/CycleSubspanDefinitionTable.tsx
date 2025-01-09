@@ -10,7 +10,7 @@ import {
 import { Column, ColumnUid } from '@/types';
 import RootCard from '@/components/generic/RootCard';
 
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { Sorts } from '@/components/tables/cells-v2/DefaultSortStates';

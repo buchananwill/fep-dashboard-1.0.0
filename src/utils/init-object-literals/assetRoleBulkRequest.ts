@@ -1,5 +1,5 @@
 import { RepeatPostRequest } from '@/api/types';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 import { getTemplateMergingFunction } from '@/utils/init-object-literals/getTemplateMergingFunction';
 import { createWholeSchoolPartials } from '@/utils/init-object-literals/createKnowledgeDomainLevelCrossProduct';
 import { createRequestRecordCombiner } from '@/utils/init-object-literals/createRequestRecordCombiner';
@@ -31,7 +31,7 @@ const assetRoleTypeExample: Partial<AssetRoleTypeDto> = {
 const templateRequest: AssetRolePostRequest = {
   roleTypeExample: assetRoleTypeExample,
   rating: 1,
-  workTaskTypeExampleList: []
+  workTypeExampleList: []
 };
 
 const templateRepeatRequest: RepeatPostRequest<AssetRolePostRequest> = {
@@ -71,7 +71,7 @@ const standardDepartmentParams: RequestCreationParams[][] = Object.entries(
 ).map(([subject, count]) => {
   return [
     [`${subject} Department`, count, createWholeSchoolPartials([subject])]
-  ] as [string, number, PartialDeep<WorkTaskTypeDto>[]][];
+  ] as [string, number, PartialDeep<WorkTypeDto>[]][];
 });
 
 const languagesShared: RequestCreationParams[] = [

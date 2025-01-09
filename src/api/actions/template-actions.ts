@@ -7,13 +7,7 @@ import {
 } from '@/api/types';
 import { auth } from '@/auth';
 import { NextRequest } from 'next/server';
-import { templateToken } from '@/api/auth/schemaName';
-import {
-  checkJwtExpiration,
-  getSchemaNameCookie
-} from '@/api/auth/get-schema-name-cookie';
-
-import { refreshSchemaTokens } from '@/api/actions-custom/schemas/refresh-schema-tokens';
+import { getSchemaNameCookie } from '@/api/auth/get-schema-name-cookie';
 
 function createRequestInit<T>({
   body,

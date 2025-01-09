@@ -17,4 +17,4 @@ export const initialMutationList = RoleFormMutationsList.map((mutation) => ({
 export const mutationContextKeyList = RoleFormMutationsList.map((id) =>
   getEntityNamespaceContextKey(MutationCounterContextKey, id)
 );
-export const WorkTaskTypeName = 'WorkTaskTypeName';
+export const WorkTypeCategory = 'WorkTypeCategory';

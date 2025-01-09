@@ -1,5 +1,5 @@
 'use client';
-import { workTaskTypeName } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
+import { workTypeCategory } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/CreateViaSunburst';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
   CycleDto,
@@ -31,7 +31,7 @@ export default function TopLevelSelectors() {
 
   const selectTaskType = useNestedUpdateCallback(
     dispatchWithoutControl,
-    'workTaskTypeName'
+    'workTypeCategory'
   );
 
   const selectCycle = useNestedUpdateCallback(dispatchWithoutControl, 'cycle');
@@ -76,8 +76,8 @@ export default function TopLevelSelectors() {
       </div>
       <ControlledSelector<number, HasNameDto & HasNumberId>
         aria-label={'Task Type'}
-        entityClass={workTaskTypeName}
-        entityId={currentState.workTaskTypeName?.id ?? null}
+        entityClass={workTypeCategory}
+        entityId={currentState.workTypeCategory?.id ?? null}
         labelPath={'name'}
         selectionCallback={selectTaskType}
       />

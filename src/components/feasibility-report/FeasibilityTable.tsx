@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 
 export function FeasibilityTable({
   headerCellContent,
@@ -38,7 +38,7 @@ export function FeasibilityTable({
               >
                 <tr
                   className={
-                    'z-50 overflow-hidden rounded-lg px-4 shadow-small'
+                    'shadow-small z-50 overflow-hidden rounded-lg px-4'
                   }
                 >
                   {headerCellContent.map((item, index) => (

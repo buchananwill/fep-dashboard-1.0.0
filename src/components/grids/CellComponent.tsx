@@ -7,8 +7,8 @@ import {
   SuitabilityEntity
 } from '@/components/roles/suitability/SuitabilityTable';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
-import { GenericSuitabilityCell } from '@/components/work-task-types/GenericSuitabilityCell';
-import { SuitabilityMatrixCell } from '@/components/work-task-types/suitabilityMatrixCell';
+import { GenericSuitabilityCell } from '@/components/work-types/GenericSuitabilityCell';
+import { SuitabilityMatrixCell } from '@/components/work-types/suitabilityMatrixCell';
 import { DispatchState } from '@/types';
 
 export const CellComponent = ({

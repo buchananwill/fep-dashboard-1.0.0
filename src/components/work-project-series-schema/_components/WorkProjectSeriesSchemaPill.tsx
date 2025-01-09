@@ -19,7 +19,7 @@ export function WorkProjectSeriesSchemaPill({
     entityClass: 'IdWrapper'
   });
 
-  let color = parseToHsl(entity?.data?.workTaskType?.knowledgeDomain?.color);
+  let color = parseToHsl(entity?.data?.workType?.knowledgeDomain?.color);
   let contrastWhiteBlack = undefined;
   if (color) {
     color.l *= 1.3;

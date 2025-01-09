@@ -10,18 +10,16 @@ import clsx from 'clsx';
 import { SuitabilityCellData } from '@/components/roles/suitability/SuitabilityTable';
 import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import { TooltipMemo } from '@/components/tooltip/SimpleTooltip';
-import { WorkTaskTypeDto } from '@/api/generated-types/generated-types_';
+import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 
 const SyncedRowCell = ({
   style,
   columnIndex
 }: GridChildComponentProps<SuitabilityCellData>) => {
   const uuidListenerKey = useUuidListenerKey();
-  const readAnyWorkTaskType = useReadAnyDto<WorkTaskTypeDto>(
-    EntityClassMap.workTaskType
-  );
+  const readAnyWorkType = useReadAnyDto<WorkTypeDto>(EntityClassMap.workType);
   const { currentState } = NamespacedHooks.useListen(
-    EntityClassMap.workTaskType,
+    EntityClassMap.workType,
     KEY_TYPES.SELECTED,
     uuidListenerKey,
     EmptyArray as number[]
@@ -29,10 +27,10 @@ const SyncedRowCell = ({
 
   const wttId = currentState[columnIndex];
 
-  const workTaskType = readAnyWorkTaskType(wttId);
+  const workType = readAnyWorkType(wttId);
 
-  const name = workTaskType
-    ? `${workTaskType.knowledgeDomain?.shortCode ?? workTaskType.knowledgeDomain?.name}:${workTaskType.knowledgeLevel?.levelOrdinal}`
+  const name = workType
+    ? `${workType.knowledgeDomain?.shortCode ?? workType.knowledgeDomain?.name}:${workType.knowledgeLevel?.levelOrdinal}`
     : 'No Data Found';
 
   const tooltip = usePopoverSingleton(<TooltipMemo text={name} />, 'bottom');

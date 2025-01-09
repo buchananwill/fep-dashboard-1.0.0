@@ -7,7 +7,7 @@ import {
 import { useMemo } from 'react';
 import { getCycleSubspansWithJoins } from '@/components/work-project-series-schema/static-allocation/getCycleSubspansWithJoins';
 import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types_';
-import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
+import { useSimpleApiFetcher } from '@/components/work-types/useSimpleApiFetcher';
 import { NamespacedHooks, useEffectSyncWithDispatch } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { KEY_TYPES } from 'dto-stores/dist/literals';

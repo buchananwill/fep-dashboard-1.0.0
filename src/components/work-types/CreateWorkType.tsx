@@ -9,17 +9,17 @@ import {
   KnowledgeDomainDto,
   KnowledgeLevelDto,
   KnowledgeLevelSeriesDto,
-  WorkTaskTypeDto
+  WorkTypeDto
 } from '@/api/generated-types/generated-types_';
 import { Api } from '@/api/clientApi_';
 import { HasId } from '@/api/types';
-import { getNames } from '@/components/work-task-types/getNamesServerAction';
+import { getNames } from '@/components/work-types/getNamesServerAction';
 import { nameAccessor } from '@/functions/nameSetter';
-import { useSimpleApiFetcher } from '@/components/work-task-types/useSimpleApiFetcher';
-import { WorkTaskTypeDtoSchema } from '@/api/generated-schemas/schemas_';
+import { useSimpleApiFetcher } from '@/components/work-types/useSimpleApiFetcher';
+import { WorkTypeDtoSchema } from '@/api/generated-schemas/schemas_';
 import RootCard from '@/components/generic/RootCard';
 import { LinkButton } from '@/components/navigation/LinkButton';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import { useAutocompleteApi } from '@/hooks/select-adaptors/useAutocompleteApi';
@@ -27,17 +27,15 @@ import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutoc
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { flattenErrors } from '@/functions/flatten-errors';
 
-const defaultWorkTaskTypeValues = {
+const defaultWorkTypeValues = {
   id: -1,
   name: 'Planning'
 };
 
-export default function CreateWorkTaskType({
-  pathVariables
-}: LeafComponentProps) {
-  const formReturn = useForm<WorkTaskTypeDto>({
-    resolver: zodResolver(WorkTaskTypeDtoSchema),
-    defaultValues: defaultWorkTaskTypeValues
+export default function CreateWorkType({ pathVariables }: LeafComponentProps) {
+  const formReturn = useForm<WorkTypeDto>({
+    resolver: zodResolver(WorkTypeDtoSchema),
+    defaultValues: defaultWorkTypeValues
   });
   const knowledgeDomains = useSimpleApiFetcher(Api.KnowledgeDomain.getAll);
   const knowledgeLevelSeriesDtos = useSimpleApiFetcher(
@@ -148,15 +146,15 @@ export default function CreateWorkTaskType({
     propagateChange: updateKls
   });
 
-  const onSubmit: SubmitHandler<WorkTaskTypeDto> = async (data) => {
+  const onSubmit: SubmitHandler<WorkTypeDto> = async (data) => {
     startTransition(async () => {
-      const newWtt = await Api.WorkTaskType.postOne(data); // TODO: define posting action
+      const newWtt = await Api.WorkType.postOne(data); // TODO: define posting action
       // Handle post submit actions, e.g., redirect to a different page
-      appRouterInstance.push(`/core/work-task-types`); // TODO: set WTT redirect
+      appRouterInstance.push(`/core/work-types`); // TODO: set WTT redirect
     });
   };
 
-  const workTaskTypesLayoutId = getRootCardLayoutId(pathVariables);
+  const workTypesLayoutId = getRootCardLayoutId(pathVariables);
 
   useEffect(() => {
     trigger('knowledgeDomain');
@@ -177,7 +175,7 @@ export default function CreateWorkTaskType({
   }, [kl, trigger]);
 
   return (
-    <RootCard layoutId={workTaskTypesLayoutId}>
+    <RootCard layoutId={workTypesLayoutId}>
       <PendingOverlay pending={pending} />
       <form
         onSubmit={(event) => {
@@ -216,7 +214,7 @@ export default function CreateWorkTaskType({
             )}
           </div>
           <div className={'justify-center gap-2'}>
-            <LinkButton href={workTaskTypesLayoutId} color={'danger'}>
+            <LinkButton href={workTypesLayoutId} color={'danger'}>
               Cancel
             </LinkButton>
             <Button type={'submit'}>Submit</Button>

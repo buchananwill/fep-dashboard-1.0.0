@@ -2,7 +2,7 @@ import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import CreateKnowledgeLevelSeriesForm from '@/components/knowledge-levels/createKnowledgeLevelSeriesForm';
 import { Api } from '@/api/clientApi';
 import RootCard from '@/components/generic/RootCard';
-import { getRootCardLayoutId } from '@/components/work-task-types/getRootCardLayoutId';
+import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { Center } from '@mantine/core';

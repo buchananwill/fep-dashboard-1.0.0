@@ -129,7 +129,7 @@ export interface KnowledgeLevelSeriesGroup<T>
   knowledgeLevelSeries: KnowledgeLevelSeriesDto;
   organizationTypeName?: string;
   children: KnowledgeLevelGroup<T>[];
-  workTaskTypeName: any;
+  workTypeCategory: any;
   cycle?: CycleDto;
 }
 
@@ -411,7 +411,7 @@ export interface WorkProjectSeriesSchemaDto
   name: string;
   deliveryAllocations: { [index: string]: DeliveryAllocationDto };
   userToProviderRatio: number;
-  workTaskType: WorkTaskTypeDto;
+  workType: WorkTypeDto;
 }
 
 export interface AssetRoleAvailabilityDto
@@ -423,16 +423,16 @@ export interface AssetRoleAvailabilityDto
   assetId: number;
 }
 
-export interface AssetRoleTypeWorkTaskTypeSuitabilityDto
+export interface AssetRoleTypeWorkTypeSuitabilityDto
   extends Serializable,
-    DtoWrapper<any, AssetRoleTypeWorkTaskTypeSuitabilityDto, number>,
+    DtoWrapper<any, AssetRoleTypeWorkTypeSuitabilityDto, number>,
     TriIntersectionDto<number, number, number> {
   id: number;
   rating: number;
   assetRoleTypeName: string;
   assetRoleTypeId: number;
-  workTaskTypeName: string;
-  workTaskTypeId: number;
+  workTypeCategory: string;
+  workTypeId: number;
   assetId: number;
   assetName: string;
   dynamic: boolean;
@@ -512,17 +512,17 @@ export interface ProviderRoleDto
   type: ProviderRoleTypeDto;
 }
 
-export interface ProviderRoleTypeWorkTaskTypeSuitabilityDto
+export interface ProviderRoleTypeWorkTypeSuitabilityDto
   extends Serializable,
-    DtoWrapper<any, ProviderRoleTypeWorkTaskTypeSuitabilityDto, number>,
+    DtoWrapper<any, ProviderRoleTypeWorkTypeSuitabilityDto, number>,
     TriIntersectionDto<number, number, number> {
   id: number;
   rating: number;
   partyId: number;
   providerRoleTypeId: number;
   providerRoleTypeName: string;
-  workTaskTypeId: number;
-  workTaskTypeName: string;
+  workTypeId: number;
+  workTypeCategory: string;
   isDynamic: boolean;
   idEntityC: number;
 }
@@ -587,7 +587,7 @@ export interface WorkSchemaNodeDto
 
 export interface WorkTaskSeriesDto extends Serializable {
   id: number;
-  workTaskTypeId: number;
+  workTypeId: number;
   cycleSubSpanGroupSize: number;
   cycleSubspanGroupId: number;
   workTaskSeriesUnits: WorkTaskSeriesUnitDto[];
@@ -619,9 +619,7 @@ export interface UserRoleTypeDto
   extends Serializable,
     TypeDto<any, UserRoleTypeDto> {}
 
-export interface WorkTaskTypeDto
-  extends Serializable,
-    TypeDto<any, WorkTaskTypeDto> {
+export interface WorkTypeDto extends Serializable, TypeDto<any, WorkTypeDto> {
   knowledgeDomain: KnowledgeDomainDto;
   knowledgeLevel?: KnowledgeLevelDto;
   knowledgeLevelSeriesId?: number;
@@ -644,7 +642,7 @@ export interface WorkProjectSeriesDto
   workTaskSeries: WorkTaskSeriesDto[];
   workProjectSeriesSchemaId: number;
   completedStatus: boolean;
-  workTaskType: WorkTaskTypeDto;
+  workType: WorkTypeDto;
 }
 
 export interface GenericNestedDto<T> extends NestedDto<T> {
@@ -691,7 +689,7 @@ export interface ResourceFlowQueryInterface {
 }
 
 export interface ResourceFlowQueryMapRecord extends ResourceFlowQueryInterface {
-  workTaskTypeIndexToLoadMap: { [index: string]: number };
+  workTypeIndexToLoadMap: { [index: string]: number };
 }
 
 export interface ResourceFlowResponse {
@@ -703,7 +701,7 @@ export interface ResourceFlowResponse {
 export interface ResourceRequirementItemDto
   extends Serializable,
     DtoWrapper<any, ResourceRequirementItemDto, number> {
-  workTaskTypeId: number;
+  workTypeId: number;
   providerRoleType?: ProviderRoleTypeDto;
   assetRoleType?: AssetRoleTypeDto;
   id: number;
@@ -774,12 +772,12 @@ export interface StaticDeliveryAllocationItemDto
 }
 
 export interface SuitabilityPostRequest {
-  workTaskTypeMatrix: WorkTaskTypeListMatrix;
+  workTypeMatrix: WorkTypeListMatrix;
   roleTypeNames: string[];
   rating: number;
 }
 
-export interface SuitabilitySummaryDto extends HasWorkTaskTypeViewId {
+export interface SuitabilitySummaryDto extends HasWorkTypeViewId {
   roleTypeName: string;
   taskTypeName: string;
   knowledgeLevelName: string;
@@ -829,7 +827,7 @@ export interface WorkProjectSeriesNodeLinkDto extends Serializable {
 export interface WorkProjectSeriesSchemaWithLabelsDto extends Serializable {
   id: number;
   name: string;
-  workTaskType: WorkTaskTypeDto;
+  workType: WorkTypeDto;
   userToProviderRatio: number;
 }
 
@@ -838,7 +836,7 @@ export interface WorkProjectSeriesWithSchemaLabelsDto extends Serializable {
   scheduleId: number;
   completedStatus: boolean;
   workProjectSeriesSchema: WorkProjectSeriesSchemaWithLabelsDto;
-  workTaskType: WorkTaskTypeDto;
+  workType: WorkTypeDto;
 }
 
 export interface WorkSchemaNodeManualDefinitionDto extends Serializable {
@@ -859,7 +857,7 @@ export interface WorkTaskSeriesEventDto {
   end: DateAsString;
   id: number;
   title: string;
-  workTaskTypeId: number;
+  workTypeId: number;
   providerRoleList: ProviderRoleDto[];
   assetRoleList: AssetRoleDto[];
 }
@@ -873,10 +871,10 @@ export interface WorkTaskSeriesResourceRequirementItemDto extends Serializable {
   providerRoleFulfillmentId: number;
 }
 
-export interface WorkTaskTypeListMatrix {
+export interface WorkTypeListMatrix {
   knowledgeLevelSeriesDtoList: KnowledgeLevelSeriesDto[];
   knowledgeDomainDtoList: KnowledgeDomainDto[];
-  workTaskTypeNames: string[];
+  workTypeCategorys: string[];
 }
 
 export interface Serializable {}
@@ -903,7 +901,7 @@ export interface RoleData {
   availabilities: AvailabilitySummaryDto[];
 }
 
-export interface HasWorkTaskTypeViewId {}
+export interface HasWorkTypeViewId {}
 
 export interface DtoWrapper<E, D, I> extends Serializable {
   id: I;

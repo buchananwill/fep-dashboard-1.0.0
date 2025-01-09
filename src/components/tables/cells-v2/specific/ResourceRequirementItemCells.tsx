@@ -57,7 +57,7 @@ function RoleTypeCell({
 
 const ResourceRequirementItemCellMap: CellComponentRecord<ResourceRequirementItemDto> =
   {
-    workTaskTypeId: { type: 'IdInnerCell', component: AnyValueToString },
+    workTypeId: { type: 'IdInnerCell', component: AnyValueToString },
     providerRoleType: { type: 'EntityInnerCell', component: RoleTypeCell },
     assetRoleType: { type: 'EntityInnerCell', component: RoleTypeCell },
     id: { type: 'CustomCell', component: DeleteEntity }

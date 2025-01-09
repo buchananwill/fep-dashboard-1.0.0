@@ -9,7 +9,7 @@ export function useWpssQueryWithWorkPlanRequest(currentState: WorkPlanRequest) {
       api('workProjectSeriesSchema', 'getDtoListByExampleList', {
         exampleList: [
           {
-            workTaskType: {
+            workType: {
               knowledgeLevel: { name: currentState.organizationTypeName }
             }
           }

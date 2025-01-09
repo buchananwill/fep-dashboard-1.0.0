@@ -1,7 +1,7 @@
 'use client';
 
 import FinderTableButton from '@/components/tables/FinderTableButton';
-import WorkTaskTypeMatrix from '@/components/work-task-types/WorkTaskTypeMatrix';
+import WorkTypeMatrix from '@/components/work-types/WorkTypeMatrix';
 import {
   KnowledgeDomainDto,
   KnowledgeLevelDto
@@ -51,7 +51,7 @@ export default function CreateRoleTabs({
           knowledgeDomain={knowledgeDomains}
           knowledgeLevel={knowledgeLevels}
         />
-        <WorkTaskTypeMatrix />
+        <WorkTypeMatrix />
       </Tabs.Panel>
       <Tabs.Panel value={'availabilities'}>
         <div className={'w-full'}>

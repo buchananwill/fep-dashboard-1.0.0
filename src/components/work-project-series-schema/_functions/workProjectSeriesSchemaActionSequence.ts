@@ -1,26 +1,24 @@
 import { PartialDeep } from 'type-fest';
 import {
   WorkProjectSeriesSchemaDto,
-  WorkTaskTypeDto
+  WorkTypeDto
 } from '@/api/generated-types/generated-types_';
 import { Api } from '@/api/clientApi_';
 
-export type WorkProjectSeriesSchemaFetchParams = PartialDeep<WorkTaskTypeDto>;
+export type WorkProjectSeriesSchemaFetchParams = PartialDeep<WorkTypeDto>;
 
 export async function workProjectSeriesSchemaActionSequence(
   example: WorkProjectSeriesSchemaFetchParams
 ): Promise<{
-  workTaskTypes: WorkTaskTypeDto[];
+  workTypes: WorkTypeDto[];
   workProjectSeriesSchemas: WorkProjectSeriesSchemaDto[];
 }> {
-  const workTaskTypes = await Api.WorkTaskType.getDtoListByExampleList([
-    example
-  ]);
+  const workTypes = await Api.WorkType.getDtoListByExampleList([example]);
 
   const workProjectSeriesSchemas =
     await Api.WorkProjectSeriesSchema.getDtoListByExampleList(
-      workTaskTypes.map((wtt) => ({ workTaskType: wtt }))
+      workTypes.map((wtt) => ({ workType: wtt }))
     );
 
-  return { workTaskTypes, workProjectSeriesSchemas };
+  return { workTypes, workProjectSeriesSchemas };
 }
