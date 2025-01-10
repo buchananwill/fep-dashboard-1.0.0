@@ -1,8 +1,7 @@
+'server only';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 import { Session } from 'next-auth';
-
-('server only');
 
 // TODO COVER ALL CONTROL PATHWAYS PROPERLY
 export async function authOrSignInRedirect(

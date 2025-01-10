@@ -135,7 +135,7 @@ export async function deleteEntity<T>(url: string): Promise<T> {
 
 async function callApi<T>(url: string, request: RequestInit): Promise<T> {
   try {
-    // @ts-ignore
+    // @ts-expect-error RequestInit does not match NextRequestInit and I don't understand why, yet.
     const nextRequest = new NextRequest(url, request);
     const session = await auth();
     if (session?.user) {
@@ -193,5 +193,3 @@ async function callApi<T>(url: string, request: RequestInit): Promise<T> {
     throw Error('Error while fetching data.');
   }
 }
-
-const contentTypes = ['application/json'] as const;

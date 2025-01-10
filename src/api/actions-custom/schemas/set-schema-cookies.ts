@@ -1,6 +1,6 @@
 'use server';
 import { SchemaAccessTokenDto } from '@/api/generated-types/generated-types_';
-import Env from '../../environment';
+import Env from '../../environment.mjs';
 import { NextRequest } from 'next/server';
 
 export async function requestNewSchemaCookies(

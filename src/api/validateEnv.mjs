@@ -1,6 +1,5 @@
 // validateEnv.js
-
-const Env = require('./environment');
+import Env from './environment.mjs';
 
 // Function to validate required environment variables
 function validateEnv() {
@@ -21,4 +20,4 @@ function validateEnv() {
   }
 }
 
-module.exports = { validateEnv };
+export default { validateEnv };

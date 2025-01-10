@@ -5,7 +5,7 @@ import { NextRequest } from 'next/server';
 import { TenancyDto } from '@/api/generated-types/generated-types_';
 import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
 import { storeTokensInCookies } from '@/api/actions-custom/schemas/store-tokens-in-cookies';
-import Env from '../../environment';
+import Env from '../../environment.mjs';
 import { API_V2_URL } from '@/api/server-literals';
 
 export default async function createSchemaName(name: string) {

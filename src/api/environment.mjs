@@ -44,7 +44,7 @@ function getMicrosoftEntraIdSecret() {
 }
 
 // Export the retrieval functions
-module.exports = {
+export default {
   getCreateSchemaSecret,
   getRetrieveSchemaSecret,
   getBaseUrl,

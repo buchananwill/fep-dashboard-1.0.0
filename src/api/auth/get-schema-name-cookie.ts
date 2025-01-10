@@ -1,10 +1,14 @@
+import { Session } from 'next-auth';
 import { addMinutes } from 'date-fns';
 import { cookies } from 'next/headers';
-import jwt from 'jsonwebtoken';
 import {
   SCHEMA_NAME_COOKIE,
   SCHEMA_REFRESH_COOKIE
 } from '@/api/server-literals';
+import { SchemaAccessTokenDto } from '@/api/generated-types/generated-types_';
+import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
+import { requestRefreshSchemaCookies } from '@/api/actions-custom/schemas/request-refresh-schema-cookies';
+import jwt from 'jsonwebtoken';
 
 ('server only');
 
@@ -21,9 +25,10 @@ export const getSchemaRefreshCookie = async () => {
 };
 
 export type ExpirationStatus = 'valid' | 'refresh-window' | 'expired';
+
 export function checkJwtExpiration(token: string): ExpirationStatus {
   // Decode the JWT
-  const decoded = jwt.decode(token);
+  const decoded = parseJwt(token);
 
   if (!decoded || typeof decoded !== 'object') {
     throw Error('token not valid JWT');
@@ -48,4 +53,60 @@ export function checkJwtExpiration(token: string): ExpirationStatus {
   } else {
     return 'valid';
   }
+}
+
+function parseJwt(token: string): { iat: number; exp: number; sub: string } {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join('')
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
+function getEmailFromRefreshCookie(refreshCookie: string) {
+  // Decode the JWT
+  const decoded = parseJwt(refreshCookie);
+
+  if (!decoded || typeof decoded !== 'object') {
+    throw Error('token not valid JWT');
+  }
+
+  // Extract the `exp` field
+  const sub = decoded.sub as string | undefined;
+
+  if (!sub) {
+    throw Error('Token does not have a sub field');
+  }
+
+  return sub;
+}
+
+export async function getTokens(
+  refreshCookie: string | undefined,
+  session: Session
+): Promise<SchemaAccessTokenDto | undefined> {
+  let tokens: Promise<undefined | SchemaAccessTokenDto> =
+    Promise.resolve(undefined);
+  if (!refreshCookie) {
+    let email = session.user?.email;
+    if (email) {
+      tokens = requestNewSchemaCookies(email);
+    }
+  } else {
+    if (checkJwtExpiration(refreshCookie) !== 'expired') {
+      tokens = requestRefreshSchemaCookies(refreshCookie);
+    } else {
+      tokens = requestNewSchemaCookies(
+        getEmailFromRefreshCookie(refreshCookie)
+      );
+    }
+  }
+  return tokens;
 }

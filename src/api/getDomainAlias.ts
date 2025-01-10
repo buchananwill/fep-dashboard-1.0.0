@@ -27,10 +27,10 @@ function createPatternMatchedDomainAliasSet(
   genericNameSet: Set<string>,
   aliasSet: Record<string, string>
 ): Record<string, string> {
-  let remainingGenericNames = new Set([...genericNameSet]);
+  const remainingGenericNames = new Set([...genericNameSet]);
   const createdAliasMap = {} as Record<string, string>;
   for (const [matcher, replacement] of Object.entries(aliasSet)) {
-    let snakeMatcher = snakeCase(matcher);
+    const snakeMatcher = snakeCase(matcher);
     const matchedGenericNames = [...remainingGenericNames].filter(
       (nextString) => snakeCase(nextString).includes(snakeMatcher)
     );

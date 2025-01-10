@@ -34,10 +34,6 @@ export interface PageRequest {
   sort?: string;
 }
 
-type RecursivePartial<T> = {
-  [P in keyof T]?: T[P] extends object ? RecursivePartial<T[P]> : T[P];
-};
-
 export interface BaseEndpointSet<T, ID_TYPE extends string | number> {
   getPage: (pageRequest: PageRequest) => Promise<Page<T>>;
   getIdList: () => Promise<ID_TYPE[]>;

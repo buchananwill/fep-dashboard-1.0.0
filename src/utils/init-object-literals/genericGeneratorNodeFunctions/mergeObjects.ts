@@ -6,7 +6,7 @@ import {
 } from '@/types';
 import { isNotUndefined } from '@/api/main';
 
-export function getMergeObjectsFunction<T extends Object>(
+export function getMergeObjectsFunction<T extends {}>(
   template: T,
   reconciliationMap: ReconciliationMap<T>
 ): BinaryOperator<T> {

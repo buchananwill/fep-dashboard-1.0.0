@@ -38,9 +38,9 @@ export type ClientApiParams<
   putDtoList: DtoListParams<T>;
   getDtoListByExampleList: ExampleListParams<T>;
   getDtoListByBodyList: IdListParams<string | number>;
-  getIdList: {};
+  getIdList: object;
   getDtoPage: PageRequestParams;
-  getAll: {};
+  getAll: object;
 };
 export type ApiOperationKey<T extends HasIdClass> = keyof ClientApiParams<T>;
 type ClientApiReturnDefinition<

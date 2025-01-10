@@ -2,7 +2,7 @@ import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 import MicrosoftEntraID from 'next-auth/providers/microsoft-entra-id';
 import { exchangeEmailForSchemaTokens } from '@/exchangeEmailForSchemaTokens';
-import Env from './api/environment';
+import Env from './api/environment.mjs';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [

@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 
-import { validateEnv } from './src/api/validateEnv.js';
+import validateEnv from './src/api/validateEnv.mjs';
 
-validateEnv();
+validateEnv.validateEnv();
 
 const nextConfig = {
   reactStrictMode: false,

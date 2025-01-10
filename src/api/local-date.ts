@@ -4,13 +4,13 @@ export function getDayOfWeekAbr(dayOfWeek: number) {
 }
 
 export function createLocalDate(date: Date): LocalDate {
-  let localDate = new Date(date);
+  const localDate = new Date(date);
   localDate.setHours(0);
   localDate.setMinutes(0);
   localDate.setSeconds(0);
   localDate.setMilliseconds(0);
-  let getDayOfWeek = () => {
-    let day = localDate.getDay();
+  const getDayOfWeek = () => {
+    const day = localDate.getDay();
     return day == 0 ? 6 : day - 1; // Zero-Indexed to Monday;
   };
 

@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { checkJwtExpiration } from '@/api/auth/get-schema-name-cookie';
-import { requestRefreshSchemaCookies } from './api/actions-custom/schemas/request-refresh-schema-cookies';
-import { requestNewSchemaCookies } from '@/api/actions-custom/schemas/set-schema-cookies';
-import { SchemaAccessTokenDto } from '@/api/generated-types/generated-types_';
-import jwt from 'jsonwebtoken';
-import { Session } from 'next-auth';
+import {
+  checkJwtExpiration,
+  getTokens
+} from '@/api/auth/get-schema-name-cookie';
 import {
   SCHEMA_NAME_COOKIE,
   SCHEMA_REFRESH_COOKIE
@@ -50,47 +48,6 @@ const custom = async (request: NextRequest) => {
 };
 
 export default auth(custom);
-
-function getEmailFromRefreshCookie(refreshCookie: string) {
-  // Decode the JWT
-  const decoded = jwt.decode(refreshCookie);
-
-  if (!decoded || typeof decoded !== 'object') {
-    throw Error('token not valid JWT');
-  }
-
-  // Extract the `exp` field
-  const sub = decoded.sub as string | undefined;
-
-  if (!sub) {
-    throw Error('Token does not have a sub field');
-  }
-
-  return sub;
-}
-
-async function getTokens(
-  refreshCookie: string | undefined,
-  session: Session
-): Promise<SchemaAccessTokenDto | undefined> {
-  let tokens: Promise<undefined | SchemaAccessTokenDto> =
-    Promise.resolve(undefined);
-  if (!refreshCookie) {
-    let email = session.user?.email;
-    if (email) {
-      tokens = requestNewSchemaCookies(email);
-    }
-  } else {
-    if (checkJwtExpiration(refreshCookie) !== 'expired') {
-      tokens = requestRefreshSchemaCookies(refreshCookie);
-    } else {
-      tokens = requestNewSchemaCookies(
-        getEmailFromRefreshCookie(refreshCookie)
-      );
-    }
-  }
-  return tokens;
-}
 
 //
 // export const config = {

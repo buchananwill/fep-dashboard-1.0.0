@@ -1,4 +1,4 @@
-import Env from '@/api/environment';
+import Env from '@/api/environment.mjs';
 
 export const API_V2_URL = `${Env.getBaseUrl()}/api/v2`;
 export const MICROSOFT_GRAPH_DELEGATED = 'https://graph.microsoft.com/v1.0/me';

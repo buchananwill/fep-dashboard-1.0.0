@@ -10,7 +10,7 @@ export async function callMicrosoftApi(request: RequestInit, endpoint: string) {
   let response = new Response();
   if (session && accessToken) {
     const authorizedRequest = produce(request, (draft) => {
-      let headers = {
+      const headers = {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
       };

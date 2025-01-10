@@ -4,7 +4,7 @@ import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-acti
 import { API_V2_URL } from '@/api/server-literals';
 
 export default async function fillSandbox() {
-  return postEntitiesWithDifferentReturnType<{}, string>(
+  return postEntitiesWithDifferentReturnType<object, string>(
     {},
     `${API_V2_URL}/tenancy/initializeFromTemplate/${17}`
   );

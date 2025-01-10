@@ -50,8 +50,7 @@ export interface IntersectionRequestParams<T, U> {
   url: string;
 }
 
-export interface IdReferencedIntersectionTableDto<W>
-  extends StringObjectRecord<W[]> {}
+export type IdReferencedIntersectionTableDto<W> = StringObjectRecord<W[]>;
 
 export interface HasNumberId {
   id: number;
@@ -106,8 +105,8 @@ export interface BulkRepeatPostRequest<T> {
 export type TemplateRequestOverrides<T> = PartialDeep<RepeatPostRequest<T>>;
 
 export interface GenericTableDto<
-  Row extends {},
-  Column extends {},
+  Row extends object,
+  Column extends object,
   CellContent,
   CellContentReference
 > {
