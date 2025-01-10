@@ -3,7 +3,6 @@ import { AutoBuildParametersDto } from '@/api/generated-types/generated-types_';
 import AutoBuildForm from '@/app/core/auto-scheduling/BuildScheduleForm';
 
 export default function BuildSchedule({
-  cycleId,
   ...props
 }: {
   cycleId: number;

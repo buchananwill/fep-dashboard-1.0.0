@@ -4,7 +4,6 @@ import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 import OrganizationFeasibilityTable from '@/components/feasibility-report/organizations/OrganizationFeasibilityTable';
-import KnowledgeDomainFeasibilityTable from '@/components/feasibility-report/knowledge-domains/KnowledgeDomainFeasibilityTable';
 
 export const feasibilityBranch = {
   children: {

@@ -12,7 +12,7 @@ export interface AutoBuildParametersDto extends Serializable {
 
 export interface AutoCarouselGroupOptionDto extends Serializable {
   carouselGroupName: string;
-  taskTypeName: string;
+  workTypeCategoryName: string;
   knowledgeDomainName: string;
   knowledgeLevelName: string;
   allocationList: string;
@@ -715,7 +715,7 @@ export interface ResourceRequirementItemRequest {
 
 export interface ResourceRequirementItemSummaryDto extends Serializable {
   id: number;
-  taskTypeName: string;
+  workTypeCategoryName: string;
   knowledgeDomainName: string;
   knowledgeLevelName: string;
   providerRoleTypeName: string;

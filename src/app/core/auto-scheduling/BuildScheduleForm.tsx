@@ -18,12 +18,14 @@ export default function AutoBuildForm({
   defaultMultiStepUndoTimeout,
   defaultMultiUndoIncrement,
   disable,
-  costParameters
+  costParameters,
+  cycleId
 }: {
   defaultMultiStepUndoTimeout: number;
   defaultMultiUndoIncrement: number;
   disable?: boolean;
   costParameters: string[];
+  cycleId: number;
 }) {
   const {
     handleSubmit,
@@ -75,7 +77,7 @@ export default function AutoBuildForm({
   const onSubmit: SubmitHandler<ScheduleParametersDto> = async (data) => {
     startTransition(async () => {
       if (!disable) {
-        const pendingSchedule = await buildScheduleAction(1, data);
+        const pendingSchedule = await buildScheduleAction(cycleId, data);
         // Handle post submit actions, e.g., redirect to a different page
         appRouterInstance.push(`/core/schedules/${pendingSchedule.id}`);
       } else {
