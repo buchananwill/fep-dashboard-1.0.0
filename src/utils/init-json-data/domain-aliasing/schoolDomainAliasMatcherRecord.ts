@@ -6,7 +6,7 @@ export const schoolDomainAliasMatcherRecord: Record<string, string> = {
   knowledgeLevelSeries: 'levelSeries',
   workTaskSeries: 'lesson',
   workProjectSeries: 'lessonSeries',
-  workProjectSeriesSchema: 'lessonDeliveryModel',
+  workSchema: 'lessonDeliveryModel',
   user: 'student',
   provider: 'staff',
   workSchemaNode: 'class'

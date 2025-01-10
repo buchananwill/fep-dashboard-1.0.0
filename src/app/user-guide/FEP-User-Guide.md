@@ -93,18 +93,18 @@ The contents of this user guide can be found embedded through the FEP applicatio
 
 # FEP Data Models
 
-## Work Project Series Schema
-A **Work Project Series Schema** represents a *template* for creating a *group of tasks of the same type* (i.e. a
-project), that will each be performed _once per [Cycle](#cycle)_. A Work Project Series Schema is thus a plan to perform
+## Work Schema
+A **Work Schema** represents a *template* for creating *a group of tasks of the same type* (i.e. a
+project), that will each be performed _once per [Cycle](#cycle)_. A Work Schema is thus a plan to perform
 a certain amount of a given [Work Task Type](#work-type) across the duration of a [Cycle](#cycle), both the size
 and
 shape of this amount being defined by the [Delivery Allocation](#delivery-allocation).
 
 
 ### Delivery Allocation
-A **Delivery Allocation** is part of a [Work Project Series Schema](#work-project-series-schema) and describes how
+A **Delivery Allocation** is part of a [Work Schema](#work-schema) and describes how
 many [Cycle Subspan Groups](#cycle-subspan-group) of what size must be allocated during scheduling. If a
-given [Cycle](#cycle) does not contain Cycle Subspan Groups of all the size required by the Work Project Series Schema,
+given [Cycle](#cycle) does not contain Cycle Subspan Groups of all the size required by the Work Schema,
 they are not compatible.
 
 
@@ -181,7 +181,7 @@ A **Work Schema Node** represents one of three things:
 1. The root of a collection of Work Schema Nodes, that can be assigned to any number of [Organizations](#organization)
    in order to schedule that work.
 2. Rules defining whether attached nodes are to be scheduled simultaneously, or strictly non-concurrently.
-3. The inclusion of a specific [Work Project Series Schema](#work-project-series-schema) within a particular tree of
+3. The inclusion of a specific [Work Schema](#work-schema) within a particular tree of
    Work Schema Nodes.
 
 Thus, a tree of Work Schema Nodes allows the building of complex relationships between tasks that are competing for a

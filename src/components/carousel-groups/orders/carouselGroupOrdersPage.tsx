@@ -34,7 +34,7 @@ async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   );
 
   const schemaIdList = carouselGroupDtos.flatMap((dto) =>
-    dto.carouselGroupOptions.map((option) => option.workProjectSeriesSchemaId)
+    dto.carouselGroupOptions.map((option) => option.workSchemaId)
   );
   const carouselIdList = carouselGroupDtos.flatMap((dto) =>
     dto.carousels.map((carousel) => carousel.id)
@@ -45,8 +45,8 @@ async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
   const carouselDtoList =
     await Api.Carousel.getDtoListByBodyList(carouselIdList);
   const optionStateList = transformOptionForClientState(carouselDtoList);
-  const workProjectSeriesSchemaDtos =
-    await Api.WorkProjectSeriesSchema.getDtoListByBodyList(schemaIdList);
+  const workSchemaDtos =
+    await Api.WorkSchema.getDtoListByBodyList(schemaIdList);
 
   return (
     <>
@@ -61,8 +61,8 @@ async function CarouselGroupOrdersPage({ pathVariables }: LeafComponentProps) {
       />
       <MasterMapController entityClass={CarouselOptionState} />
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        dtoList={workProjectSeriesSchemaDtos}
+        entityClass={EntityClassMap.workSchema}
+        dtoList={workSchemaDtos}
       />
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}

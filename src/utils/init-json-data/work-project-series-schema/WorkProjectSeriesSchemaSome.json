@@ -8,7 +8,7 @@
         "id": 1,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "0d260b4e-db3e-454d-86d7-a501ed912842",
+        "workSchemaId": "0d260b4e-db3e-454d-86d7-a501ed912842",
         "workTypeId": 216,
         "priority": 1
       }
@@ -26,7 +26,7 @@
         "id": 3,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
+        "workSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
         "workTypeId": 82,
         "priority": 1
       },
@@ -34,7 +34,7 @@
         "id": 2,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
+        "workSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
         "workTypeId": 82,
         "priority": 1
       }
@@ -51,7 +51,7 @@
         "id": 5,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
+        "workSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
         "workTypeId": 208,
         "priority": 1
       },
@@ -59,7 +59,7 @@
         "id": 4,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
+        "workSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
         "workTypeId": 208,
         "priority": 1
       }
@@ -76,7 +76,7 @@
         "id": 7,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
+        "workSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
         "workTypeId": 186,
         "priority": 1
       },
@@ -84,7 +84,7 @@
         "id": 6,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
+        "workSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
         "workTypeId": 186,
         "priority": 1
       }
@@ -102,7 +102,7 @@
         "id": 8,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "f1513413-d95d-4b66-a887-1d2982930ba0",
+        "workSchemaId": "f1513413-d95d-4b66-a887-1d2982930ba0",
         "workTypeId": 172,
         "priority": 1
       }

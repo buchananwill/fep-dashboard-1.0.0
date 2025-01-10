@@ -18,25 +18,25 @@ export const NavLinkDescriptionsDefault: NavLinkDescriptionsRecord = {
       <strong>Knowledge Level</strong>
     </span>
   ),
-  workProjectSeriesSchemas:
+  workSchemas:
     'Defining how time is devoted to a particular task within a scheduled timetable.',
   users: 'The beneficiaries of the work carried out by the business',
   providers: 'The source of the work carried out by the business',
   assets: 'Physical resources required in order to carry out work.',
   carouselGroups: (
     <span>
-      <strong>Work Project Series Schemas</strong> that are delivered as a{' '}
+      <strong>Work Schemas</strong> that are delivered as a{' '}
       <strong>Carousel</strong> take place concurrently, and are allocated to
       the schedule simultaneously. They place a more complex set of demands on
       the resource constraints, but allow different <strong>Users</strong> to
       choose their own combinations of interchangeable options. A{' '}
       <strong>Carousel Group</strong> assists in automatically creating
       efficient groups of <strong>Carousels</strong> to deliver a wide variety
-      of <strong>Work Project Series Schema</strong> combinations.
+      of <strong>Work Schema</strong> combinations.
     </span>
   ),
   workSchemaNodes:
-    'Work Schema Nodes connect together a set of Work Project Series Schemas that are assignable to a single Organization',
+    'Work Schema Nodes connect together a set of Work Schemas that are assignable to a single Organization',
   organizations:
     'Organizations can be connected hierarchically to allow the output from a WorkSchemaNode graph to synchronize across multiple Organizations.',
   feasibility:

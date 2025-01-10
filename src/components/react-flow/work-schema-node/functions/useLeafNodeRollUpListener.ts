@@ -5,7 +5,7 @@ import { useEffect, useMemo } from 'react';
 import { AllocationRollupEntityClass } from '@/components/react-flow/work-schema-node/components/WorkSchemaNodeLayoutFlowWithForces';
 import { ObjectPlaceholder } from '@/api/client-literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
@@ -17,35 +17,35 @@ export interface AllocationRollup {
 
 export function useLeafNodeRollUpListener({
   id,
-  workProjectSeriesSchemaId
+  workSchemaId
 }: WorkSchemaNodeDto) {
   const nodeId = `${id}`;
 
-  // const { data: workProjectSeriesSchema, isPending } = useQuery({
+  // const { data: workSchema, isPending } = useQuery({
   //   queryKey: [
-  //     EntityClassMap.workProjectSeriesSchema,
-  //     workProjectSeriesSchemaId
+  //     EntityClassMap.workSchema,
+  //     workSchemaId
   //   ],
   //   queryFn: () =>
-  //     workProjectSeriesSchemaId
-  //       ? Api.WorkProjectSeriesSchema.getOne(workProjectSeriesSchemaId)
+  //     workSchemaId
+  //       ? Api.WorkSchema.getOne(workSchemaId)
   //       : undefined
   // });
 
   // const { dispatchWithoutListen } =
-  //   useGlobalDispatch<Map<string, WorkProjectSeriesSchemaDto>>(
+  //   useGlobalDispatch<Map<string, WorkSchemaDto>>(
   //     'leafToSchemaMap'
   //   );
   //
   // useEffect(() => {
-  //   if (workProjectSeriesSchema) {
+  //   if (workSchema) {
   //     dispatchWithoutListen((prevState) => {
   //       const updateMap = new Map(prevState.entries());
-  //       updateMap.set(nodeId, workProjectSeriesSchema);
+  //       updateMap.set(nodeId, workSchema);
   //       return updateMap;
   //     });
   //   }
-  // }, [workProjectSeriesSchema, dispatchWithoutListen, nodeId]);
+  // }, [workSchema, dispatchWithoutListen, nodeId]);
 
   const { currentState: allocationRollup } =
     useGlobalListener<AllocationRollup>({

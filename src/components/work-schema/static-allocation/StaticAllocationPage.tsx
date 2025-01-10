@@ -2,7 +2,7 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import { GenericTableDto } from '@/api/types';
 import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types_';
-import StaticAllocationTable from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
+import StaticAllocationTable from '@/components/work-schema/static-allocation/StaticAllocationTable';
 import {
   EditAddDeleteDtoControllerArray,
   MasterMapController
@@ -11,17 +11,17 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { Api } from '@/api/clientApi_';
 import StaticAllocationAuditor, {
   allocationCounter
-} from '@/components/work-project-series-schema/static-allocation/StaticAllocationAuditor';
+} from '@/components/work-schema/static-allocation/StaticAllocationAuditor';
 import { EmptyArray } from '@/api/client-literals';
 import {
   StaticDeliveryAllocationItemDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
-import { getCellDataIdReferenceOrUndefined } from '@/components/work-project-series-schema/static-allocation/getCellDataOrUndefined';
+import { getCellDataIdReferenceOrUndefined } from '@/components/work-schema/static-allocation/getCellDataOrUndefined';
 import { getTableProps } from '@/components/grids/useTableProps';
-import { createCell } from '@/components/work-project-series-schema/static-allocation/createCell';
+import { createCell } from '@/components/work-schema/static-allocation/createCell';
 import { IdListLinkCard } from '@/components/generic/IdListLinkCard';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
 import { Suspense } from 'react';
@@ -31,7 +31,7 @@ import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 
 export type StaticAllocationTableDto = GenericTableDto<
-  WorkProjectSeriesSchemaDto,
+  WorkSchemaDto,
   CycleSubspanWithJoinsListDto,
   StaticDeliveryAllocationItemDto,
   number
@@ -90,7 +90,7 @@ async function InnerStaticAllocationPage({
         dtoList={staticDeliveryTable.columnList}
       />
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workProjectSeriesSchema}
+        entityClass={EntityClassMap.workSchema}
         dtoList={staticDeliveryTable.rowList}
       />
       <EditAddDeleteDtoControllerArray

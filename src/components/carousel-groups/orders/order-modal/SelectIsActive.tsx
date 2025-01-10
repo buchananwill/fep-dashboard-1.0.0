@@ -14,7 +14,7 @@ export default function SelectIsActive({
     (e: ChangeEvent<HTMLInputElement>) => {
       dispatch((order) => {
         const updatedItems = { ...order.carouselOrderItems };
-        updatedItems[orderItem.workProjectSeriesSchemaId] = {
+        updatedItems[orderItem.workSchemaId] = {
           ...orderItem,
           active: e.currentTarget.checked
         };

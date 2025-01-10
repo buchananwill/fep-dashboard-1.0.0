@@ -22,7 +22,7 @@ export default function SelectCarouselOptionAssignment({
   dispatch
 }: OrderItemRowProps) {
   const listenerKey = `assignOptionModalSelect:${orderItem.id}`;
-  const { workProjectSeriesSchemaId, carouselOptionId } = orderItem;
+  const { workSchemaId, carouselOptionId } = orderItem;
   const { currentState } = NamespacedHooks.useListen<CarouselDto[]>(
     EntityClassMap.carousel,
     KEY_TYPES.MASTER_LIST,
@@ -46,10 +46,7 @@ export default function SelectCarouselOptionAssignment({
     currentState
       .map((carouselDto) => carouselDto.carouselOptionDtos)
       .flatMap((list) =>
-        list.find(
-          (optionDto) =>
-            optionDto.workProjectSeriesSchemaId === workProjectSeriesSchemaId
-        )
+        list.find((optionDto) => optionDto.workSchemaId === workSchemaId)
       )
       .filter(isNotUndefined)
       .forEach((co) => {
@@ -63,7 +60,7 @@ export default function SelectCarouselOptionAssignment({
         });
       });
     return { responseMap, data };
-  }, [workProjectSeriesSchemaId, currentState, readAnyCarousel]);
+  }, [workSchemaId, currentState, readAnyCarousel]);
 
   const currentSelection = useMemo(() => {
     return carouselOptionId ? String(carouselOptionId) : null;
@@ -77,8 +74,8 @@ export default function SelectCarouselOptionAssignment({
     (nextValue: string | null) => {
       dispatch((carouselOrder) => {
         const updatedOrderItems = { ...carouselOrder.carouselOrderItems };
-        const updatedItem = { ...updatedOrderItems[workProjectSeriesSchemaId] };
-        updatedOrderItems[workProjectSeriesSchemaId] = updatedItem;
+        const updatedItem = { ...updatedOrderItems[workSchemaId] };
+        updatedOrderItems[workSchemaId] = updatedItem;
         if (nextValue === null) {
           delete updatedItem.carouselOptionId;
         } else {
@@ -87,7 +84,7 @@ export default function SelectCarouselOptionAssignment({
         return { ...carouselOrder, carouselOrderItems: updatedOrderItems };
       });
     },
-    [dispatch, optionsToSelectFrom, workProjectSeriesSchemaId]
+    [dispatch, optionsToSelectFrom, workSchemaId]
   );
 
   return (

@@ -45,7 +45,7 @@ export const EntityClassMap = {
   workProjectSeries: 'WorkProjectSeries',
   workProjectSeriesAssignment: 'WorkProjectSeriesAssignment',
   workProjectSeriesMetric: 'WorkProjectSeriesMetric',
-  workProjectSeriesSchema: 'WorkProjectSeriesSchema',
+  workSchema: 'WorkSchema',
   workSchemaNode: 'WorkSchemaNode',
   workSchemaNodeManualDefinition: 'WorkSchemaNodeManualDefinition',
   workSchemaNodeAssignment: 'WorkSchemaNodeAssignment',

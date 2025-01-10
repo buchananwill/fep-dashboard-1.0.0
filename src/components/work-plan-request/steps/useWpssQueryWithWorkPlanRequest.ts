@@ -6,7 +6,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 export function useWpssQueryWithWorkPlanRequest(currentState: WorkPlanRequest) {
   return useQuery({
     queryFn: () =>
-      api('workProjectSeriesSchema', 'getDtoListByExampleList', {
+      api('workSchema', 'getDtoListByExampleList', {
         exampleList: [
           {
             workType: {
@@ -15,9 +15,6 @@ export function useWpssQueryWithWorkPlanRequest(currentState: WorkPlanRequest) {
           }
         ]
       }),
-    queryKey: [
-      EntityClassMap.workProjectSeriesSchema,
-      currentState.organizationTypeName
-    ]
+    queryKey: [EntityClassMap.workSchema, currentState.organizationTypeName]
   });
 }

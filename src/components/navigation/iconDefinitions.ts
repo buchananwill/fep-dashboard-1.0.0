@@ -28,7 +28,7 @@ export const iconDefinitions = {
   knowledgeDomains: AcademicCapIcon,
   knowledgeLevelSeries: ChartBarIcon,
   workTypes: TagIcon,
-  workProjectSeriesSchemas: SquaresPlusIcon,
+  workSchemas: SquaresPlusIcon,
   providers: BriefcaseIcon,
   assets: BuildingOfficeIcon,
   users: UserGroupIcon,

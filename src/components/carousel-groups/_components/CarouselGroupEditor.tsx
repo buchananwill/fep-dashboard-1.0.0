@@ -11,8 +11,8 @@ import {
 } from '@/api/generated-types/generated-types_';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 import { EntityClassMap } from '@/api/entity-class-map';
-import WorkProjectSeriesSchemaSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
-import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
+import WorkSchemaSelectorTable from '@/components/tables/selectorTables/WorkSchemaSelectorTable';
+import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
 import { isEqual } from 'lodash';
 
 export default function CarouselGroupEditor({
@@ -54,9 +54,7 @@ function InnerChooserComponent(
   const selectedIdListRef = useRef([] as number[]);
 
   const selectedIdList = useMemo(() => {
-    const idList = carouselGroupOptions.map(
-      (option) => option.workProjectSeriesSchemaId
-    );
+    const idList = carouselGroupOptions.map((option) => option.workSchemaId);
     if (isEqual(idList, selectedIdListRef.current)) {
       return selectedIdListRef.current;
     } else {
@@ -73,14 +71,14 @@ function InnerChooserComponent(
         const idSet = new Set(selectionList);
         const updatedList = [] as CarouselGroupOptionDto[];
         for (let carouselGroupOption of carouselGroupOptions) {
-          if (idSet.has(carouselGroupOption.workProjectSeriesSchemaId)) {
-            idSet.delete(carouselGroupOption.workProjectSeriesSchemaId);
+          if (idSet.has(carouselGroupOption.workSchemaId)) {
+            idSet.delete(carouselGroupOption.workSchemaId);
             updatedList.push(carouselGroupOption);
           }
         }
         for (let wpssId of idSet.values()) {
           updatedList.push({
-            workProjectSeriesSchemaId: wpssId,
+            workSchemaId: wpssId,
             carouselGroupId,
             id: idDecrementer()
           });
@@ -94,7 +92,7 @@ function InnerChooserComponent(
   useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders(
     selectedIdList,
     updateCarouselOptionList,
-    EntityClassMap.workProjectSeriesSchema
+    EntityClassMap.workSchema
   );
 
   const editCarouselCount = useCallback(
@@ -160,7 +158,7 @@ function InnerChooserComponent(
           </StepperContext.Provider>
         </div>
       </div>
-      <WorkProjectSeriesSchemaSelectorTable />
+      <WorkSchemaSelectorTable />
     </div>
   );
 }

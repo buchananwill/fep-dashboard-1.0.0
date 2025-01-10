@@ -1,7 +1,7 @@
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 
 export function getIntListFromDeliveryAllocations(
-  allocations: WorkProjectSeriesSchemaDto['deliveryAllocations']
+  allocations: WorkSchemaDto['deliveryAllocations']
 ) {
   return Object.values(allocations)
     .toSorted(

@@ -168,7 +168,7 @@ export interface WorkSchemaNodeLeafDto
   extends Serializable,
     DtoWrapper<WorkSchemaNodeLeaf, WorkSchemaNodeLeafDto, number> {
   id: number;
-  workProjectSeriesSchemaId: number;
+  workSchemaId: number;
   numberNeeded: number;
   rootId: number;
 }
@@ -355,7 +355,7 @@ export interface DeliveryAllocationDto
   id: number;
   deliveryAllocationSize: number;
   count: number;
-  workProjectSeriesSchemaId: number;
+  workSchemaId: number;
 }
 
 export interface EventDto extends Serializable {
@@ -403,9 +403,9 @@ export interface QueueTreeNodeDto extends Serializable {
   workProjectSeriesNodeLinks: WorkProjectSeriesNodeLinkDto[];
 }
 
-export interface WorkProjectSeriesSchemaDto
+export interface WorkSchemaDto
   extends Serializable,
-    DtoWrapper<any, WorkProjectSeriesSchemaDto, number>,
+    DtoWrapper<any, WorkSchemaDto, number>,
     CollectionDto<DeliveryAllocationDto, number> {
   id: number;
   name: string;
@@ -445,7 +445,7 @@ export interface CarouselGroupOptionDto
     IntersectionDto<number, number> {
   id: number;
   carouselGroupId: number;
-  workProjectSeriesSchemaId: number;
+  workSchemaId: number;
 }
 
 export interface CarouselOptionDto
@@ -454,7 +454,7 @@ export interface CarouselOptionDto
     DtoWrapper<any, CarouselOptionDto, number> {
   carouselId: number;
   id: number;
-  workProjectSeriesSchemaId: number;
+  workSchemaId: number;
 }
 
 export interface CarouselOrderItemDto
@@ -463,7 +463,7 @@ export interface CarouselOrderItemDto
     IntersectionDto<string, number> {
   id: number;
   carouselOrderId: string;
-  workProjectSeriesSchemaId: number;
+  workSchemaId: number;
   preferencePosition: number;
   active: boolean;
   carouselOptionId?: number;
@@ -580,7 +580,7 @@ export interface WorkSchemaNodeDto
   name: string;
   carouselGroupId?: number;
   carouselId?: number;
-  workProjectSeriesSchemaId?: number;
+  workSchemaId?: number;
   resolutionMode: any;
   childrenAs: any;
 }
@@ -640,7 +640,7 @@ export interface WorkProjectSeriesDto
   id: string;
   scheduleId: number;
   workTaskSeries: WorkTaskSeriesDto[];
-  workProjectSeriesSchemaId: number;
+  workSchemaId: number;
   completedStatus: boolean;
   workType: WorkTypeDto;
 }
@@ -768,7 +768,7 @@ export interface StaticDeliveryAllocationItemDto
   id: number;
   cycleSubspanGroupId: number;
   staticDeliveryAllocation: StaticDeliveryAllocationDto;
-  workProjectSeriesSchemaId: number;
+  workSchemaId: number;
 }
 
 export interface SuitabilityPostRequest {
@@ -824,7 +824,7 @@ export interface WorkProjectSeriesNodeLinkDto extends Serializable {
   outcomeId: number;
 }
 
-export interface WorkProjectSeriesSchemaWithLabelsDto extends Serializable {
+export interface WorkSchemaWithLabelsDto extends Serializable {
   id: number;
   name: string;
   workType: WorkTypeDto;
@@ -835,7 +835,7 @@ export interface WorkProjectSeriesWithSchemaLabelsDto extends Serializable {
   id: string;
   scheduleId: number;
   completedStatus: boolean;
-  workProjectSeriesSchema: WorkProjectSeriesSchemaWithLabelsDto;
+  workSchema: WorkSchemaWithLabelsDto;
   workType: WorkTypeDto;
 }
 
@@ -879,7 +879,7 @@ export interface WorkTypeListMatrix {
 
 export interface Serializable {}
 
-export interface WorkProjectSeriesSchemaSummaryId extends Serializable {
+export interface WorkSchemaSummaryId extends Serializable {
   taskTypeName: string;
   knowledgeDomainName: string;
   knowledgeLevelName: string;
@@ -922,7 +922,7 @@ export interface CycleSubspanGroupIndex {
 
 export interface WorkSchemaNodeLeaf {
   id: number;
-  workProjectSeriesSchemaId: number;
+  workSchemaId: number;
   numberNeeded: number;
   root: WorkSchemaNodeRootTotalDeliveryAllocationRollup;
 }

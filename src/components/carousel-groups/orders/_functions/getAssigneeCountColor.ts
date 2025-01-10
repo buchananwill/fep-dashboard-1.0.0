@@ -1,9 +1,6 @@
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 
-export function getAssigneeCountColor(
-  count: number,
-  schema: WorkProjectSeriesSchemaDto
-) {
+export function getAssigneeCountColor(count: number, schema: WorkSchemaDto) {
   if (count === 0) return 'bg-gray-300';
   const breakpointsPassed = count / schema.userToProviderRatio;
   if (breakpointsPassed <= 1) return 'bg-emerald-200';

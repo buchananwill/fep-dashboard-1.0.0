@@ -13,9 +13,8 @@ export function assignOrderItemToOption(
 ) {
   dispatchWrite(orderItem.carouselOrderId, (state: CarouselOrderDto) => {
     return produce(state, (draft) => {
-      draft.carouselOrderItems[
-        orderItem.workProjectSeriesSchemaId
-      ].carouselOptionId = option.id;
+      draft.carouselOrderItems[orderItem.workSchemaId].carouselOptionId =
+        option.id;
     });
   });
 }

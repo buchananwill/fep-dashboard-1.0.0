@@ -3,16 +3,15 @@ import { schedulesNavTree } from '@/app/core/schedules/schedulesNavTree';
 import { WorkSchemaNodeNavTree } from '@/components/work-schema-nodes/workSchemaNodeNavTree';
 import { KnowledgeDomains } from '@/components/knowledge-domains/KnowledgeDomains';
 import KnowledgeLevelsHome from '@/components/knowledge-levels/KnowledgeLevelsTablePage';
-import WorkProjectSeriesSchemaHome from '@/components/work-project-series-schema/WorkProjectSeriesSchemaLevelPage';
+import WorkSchemaHome from '@/components/work-schema/WorkSchemaLevelPage';
 import { CarouselGroupsAndOrders } from '@/components/carousel-groups/CarouselGroupLevelPage';
 import { CarouselGroupOrdersHome } from '@/components/carousel-groups/orders/carouselGroupOrdersPage';
 import { WorkSchemaNodeAssignmentsHome } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 import NavigationHome from '@/app/core/navigation/NavigationHome';
 import BuildSchedulePage from '@/app/core/auto-scheduling/BuildSchedulePage';
 import { feasibilityBranch } from '@/app/core/feasibility/FeasibilityHome';
-import { StaticAllocationHome } from '@/components/work-project-series-schema/static-allocation/StaticAllocationPage';
+import { StaticAllocationHome } from '@/components/work-schema/static-allocation/StaticAllocationPage';
 import WorkTypeTablePage from '@/components/work-types/pages/WorkTypeTablePage';
-import EnrollmentTablePage from '@/components/work-schema-node-assignments/enrollment-table/EnrollmentTablePage';
 import CyclesHome from '@/app/core/cycles/CyclesHome';
 import { rolePageTree } from '@/components/roles/rolePageTree';
 import CreateWorkTypeWithAuth from '@/components/work-types/CreateWorkTypeWithAuth';
@@ -41,11 +40,11 @@ export const navTreeData: NavTreeNode = {
       },
       component: WorkTypeTablePage
     },
-    workProjectSeriesSchemas: {
+    workSchemas: {
       children: {
         staticAllocations: { component: StaticAllocationHome }
       },
-      component: WorkProjectSeriesSchemaHome
+      component: WorkSchemaHome
     },
     users: {
       component: UserRoleTablePage,

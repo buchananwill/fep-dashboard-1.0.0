@@ -1,7 +1,7 @@
 import {
   SuitabilitySummaryDto,
-  WorkProjectSeriesSchemaDto,
-  WorkProjectSeriesSchemaSummaryId,
+  WorkSchemaDto,
+  WorkSchemaSummaryId,
   WorkTypeDto
 } from '@/api/generated-types/generated-types_';
 import { getIntListFromDeliveryAllocations } from '@/components/react-flow/work-schema-node/functions/getIntListFromDeliveryAllocations';
@@ -10,7 +10,7 @@ const NUMBER_OF_WPSS_VIEW_ID_ARGS = 4;
 
 function getOrderItemWpssSummaryIdList(
   orderItems: string
-): WorkProjectSeriesSchemaSummaryId[] {
+): WorkSchemaSummaryId[] {
   return orderItems
     .split(';')
     .map((item) => item.split('::'))
@@ -27,9 +27,7 @@ function splitOrderItemsIntoLutKeys(orderItems: string) {
   return orderItems.split(';');
 }
 
-export function joinWorkProjectSeriesSchemaIdKey(
-  wpss: WorkProjectSeriesSchemaDto
-) {
+export function joinWorkSchemaIdKey(wpss: WorkSchemaDto) {
   const allocationList = getIntListFromDeliveryAllocations(
     wpss.deliveryAllocations
   ).join(',');
@@ -55,17 +53,14 @@ export function joinWorkTypeKeyFromSuitability(
   ].join('::');
 }
 
-export type WorkProjectSeriesSchemaCanonicalLut = Record<
-  string,
-  WorkProjectSeriesSchemaDto
->;
+export type WorkSchemaCanonicalLut = Record<string, WorkSchemaDto>;
 
 export function convertWorkProjectSeriesListIntoLut(
-  list: WorkProjectSeriesSchemaDto[]
-): WorkProjectSeriesSchemaCanonicalLut {
-  const lut = {} as WorkProjectSeriesSchemaCanonicalLut;
+  list: WorkSchemaDto[]
+): WorkSchemaCanonicalLut {
+  const lut = {} as WorkSchemaCanonicalLut;
   list.forEach((dto) => {
-    lut[joinWorkProjectSeriesSchemaIdKey(dto)] = dto;
+    lut[joinWorkSchemaIdKey(dto)] = dto;
   });
   return lut;
 }

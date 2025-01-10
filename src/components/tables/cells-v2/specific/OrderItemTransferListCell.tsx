@@ -5,7 +5,7 @@ import { NamespacedHooks, useDtoStore } from 'dto-stores';
 import {
   CarouselGroupDto,
   CarouselOrderSummaryDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
@@ -14,8 +14,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WpssTransferList } from '@/components/work-project-series-schema/WpssTransferList';
-import { joinWorkProjectSeriesSchemaIdKey } from '@/functions/workProjectSeriesSchemaIdTransforms';
+import { WpssTransferList } from '@/components/work-schema/WpssTransferList';
+import { joinWorkSchemaIdKey } from '@/functions/workSchemaIdTransforms';
 import { isNotUndefined } from '@/api/main';
 import { ModalEditCell } from '@/components/tables/cells-v2/specific/ModalEditCell';
 import { ModalConfirmationFooter } from '@/components/tables/cells-v2/specific/ModalConfirmationFooter';
@@ -75,21 +75,20 @@ function CarouselOrderTransferList({
   const schemaIdList = useMemo(() => {
     return subscribedCarouselGroup
       ? subscribedCarouselGroup.carouselGroupOptions.map(
-          (option) => option.workProjectSeriesSchemaId
+          (option) => option.workSchemaId
         )
       : [];
   }, [subscribedCarouselGroup]);
 
   const { data, isLoading } = useQuery({
-    queryFn: () =>
-      Api.WorkProjectSeriesSchema.getDtoListByBodyList(schemaIdList),
-    queryKey: [EntityClassMap.workProjectSeriesSchema, ...schemaIdList]
+    queryFn: () => Api.WorkSchema.getDtoListByBodyList(schemaIdList),
+    queryKey: [EntityClassMap.workSchema, ...schemaIdList]
   });
 
   const idWrapperData = useMemo(() => {
     return data
       ? data.map((wpss) => ({
-          id: joinWorkProjectSeriesSchemaIdKey(wpss),
+          id: joinWorkSchemaIdKey(wpss),
           data: wpss
         }))
       : [];
@@ -97,9 +96,9 @@ function CarouselOrderTransferList({
   const availableSchemas = useMemo(() => {
     return (
       data?.reduce(
-        (prev, curr) => prev.set(joinWorkProjectSeriesSchemaIdKey(curr), curr),
-        new Map<string, WorkProjectSeriesSchemaDto>()
-      ) ?? new Map<string, WorkProjectSeriesSchemaDto>()
+        (prev, curr) => prev.set(joinWorkSchemaIdKey(curr), curr),
+        new Map<string, WorkSchemaDto>()
+      ) ?? new Map<string, WorkSchemaDto>()
     );
   }, [data]);
   const selectedSchemas = useMemo(() => {
@@ -110,9 +109,7 @@ function CarouselOrderTransferList({
       : [];
   }, [optionListSplit, availableSchemas]);
 
-  const [optionList, setOptionList] = useState(
-    [] as WorkProjectSeriesSchemaDto[]
-  );
+  const [optionList, setOptionList] = useState([] as WorkSchemaDto[]);
   const optionListRef = useRef(optionList);
   optionListRef.current = optionList;
 
@@ -131,18 +128,13 @@ function CarouselOrderTransferList({
     return () => dispatch(EmptyArray);
   }, [idWrapperData, dispatch, data]);
 
-  const propagateChange = useCallback(
-    (list: WorkProjectSeriesSchemaDto[] | undefined) => {
-      if (list && Array.isArray(list)) setOptionList(list);
-    },
-    []
-  );
+  const propagateChange = useCallback((list: WorkSchemaDto[] | undefined) => {
+    if (list && Array.isArray(list)) setOptionList(list);
+  }, []);
 
   const updateOrderAndClose = useCallback(() => {
     onChange &&
-      onChange(
-        optionListRef.current.map(joinWorkProjectSeriesSchemaIdKey).join(';')
-      );
+      onChange(optionListRef.current.map(joinWorkSchemaIdKey).join(';'));
     onClose();
   }, [onClose, onChange]);
 

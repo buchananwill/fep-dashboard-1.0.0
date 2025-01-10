@@ -6,7 +6,7 @@ import {
 import { DtoUiWrapper, useDtoStore } from 'dto-stores';
 import { AssignmentTableRowClassName } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
 import { AssignmentTableRow } from '@/api/types';
-import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
+import { NamedEntityLabel } from '@/components/feasibility-report/WorkSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useMemo } from 'react';
 

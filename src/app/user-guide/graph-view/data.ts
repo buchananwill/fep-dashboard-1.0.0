@@ -4,9 +4,9 @@ export const data = [
       id: 0,
       level: 1,
       content:
-        '\nA **Work Project Series Schema** represents a *template* for creating a *group of tasks of the same type* (i.e. a\r\nproject), that will each be performed _once per [Cycle](#cycle)_. A Work Project Series Schema is thus a plan to perform\r\na certain amount of a given [Work Task Type](#work-type) across the duration of a [Cycle](#cycle), both the size\r\nand\r\nshape of this amount being defined by the [Delivery Allocation](#delivery-allocation).\r\n\r\n\r',
+        '\nA **Work Schema** represents a *template* for creating a *group of tasks of the same type* (i.e. a\r\nproject), that will each be performed _once per [Cycle](#cycle)_. A Work Schema is thus a plan to perform\r\na certain amount of a given [Work Task Type](#work-type) across the duration of a [Cycle](#cycle), both the size\r\nand\r\nshape of this amount being defined by the [Delivery Allocation](#delivery-allocation).\r\n\r\n\r',
       blockPosition: 0,
-      htmlId: 'work-project-series-schema'
+      htmlId: 'work-schema'
     },
     children: [
       {
@@ -14,7 +14,7 @@ export const data = [
           id: 1,
           level: 2,
           content:
-            '\nA **Delivery Allocation** is part of a [Work Project Series Schema](#work-project-series-schema) and describes how\r\nmany [Cycle Subspan Groups](#cycle-subspan-group) of what size must be allocated during scheduling. If a\r\ngiven [Cycle](#cycle) does not contain Cycle Subspan Groups of all the size required by the Work Project Series Schema,\r\nthey are not compatible.\r\n\r\n\r',
+            '\nA **Delivery Allocation** is part of a [Work Schema](#work-schema) and describes how\r\nmany [Cycle Subspan Groups](#cycle-subspan-group) of what size must be allocated during scheduling. If a\r\ngiven [Cycle](#cycle) does not contain Cycle Subspan Groups of all the size required by the Work Schema,\r\nthey are not compatible.\r\n\r\n\r',
           blockPosition: 1,
           htmlId: 'delivery-allocation'
         },
@@ -127,7 +127,7 @@ export const data = [
       id: 11,
       level: 1,
       content:
-        '\nA **Work Schema Node** represents one of three things:\r\n\r\n1. The root of a collection of Work Schema Nodes, that can be assigned to any number of [Organizations](#organization)\r\n   in order to schedule that work.\r\n2. Rules defining whether attached nodes are to be scheduled simultaneously, or strictly non-concurrently.\r\n3. The inclusion of a specific [Work Project Series Schema](#work-project-series-schema) within a particular tree of\r\n   Work Schema Nodes.\r\n\r\nThus, a tree of Work Schema Nodes allows the building of complex relationships between tasks that are competing for a\r\nshared pool of [Cycle Subspans](#cycle-subspan), across a [Cycle](#cycle), and tasks that must coordinate\r\ntheir [Provider Role](#provider-role) and [Asset Role](#asset-role) requirements in order to\r\nallocate [Cycle Subspans](#cycle-subspan) that can support the combine workload.\r\n\r\nWork Schema Nodes can be considered as a leaf-to-root aggregation: various different things are combined to produce a\r\nsingle encapsulated package.\r\n\r\n\r',
+        '\nA **Work Schema Node** represents one of three things:\r\n\r\n1. The root of a collection of Work Schema Nodes, that can be assigned to any number of [Organizations](#organization)\r\n   in order to schedule that work.\r\n2. Rules defining whether attached nodes are to be scheduled simultaneously, or strictly non-concurrently.\r\n3. The inclusion of a specific [Work Schema](#work-schema) within a particular tree of\r\n   Work Schema Nodes.\r\n\r\nThus, a tree of Work Schema Nodes allows the building of complex relationships between tasks that are competing for a\r\nshared pool of [Cycle Subspans](#cycle-subspan), across a [Cycle](#cycle), and tasks that must coordinate\r\ntheir [Provider Role](#provider-role) and [Asset Role](#asset-role) requirements in order to\r\nallocate [Cycle Subspans](#cycle-subspan) that can support the combine workload.\r\n\r\nWork Schema Nodes can be considered as a leaf-to-root aggregation: various different things are combined to produce a\r\nsingle encapsulated package.\r\n\r\n\r',
       blockPosition: 11,
       htmlId: 'work-schema-node'
     },

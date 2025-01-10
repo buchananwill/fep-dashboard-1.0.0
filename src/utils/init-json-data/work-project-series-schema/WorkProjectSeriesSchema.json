@@ -8,7 +8,7 @@
         "id": 1,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "0d260b4e-db3e-454d-86d7-a501ed912842",
+        "workSchemaId": "0d260b4e-db3e-454d-86d7-a501ed912842",
         "workTypeId": 216,
         "priority": 1
       }
@@ -26,7 +26,7 @@
         "id": 3,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
+        "workSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
         "workTypeId": 82,
         "priority": 1
       },
@@ -34,7 +34,7 @@
         "id": 2,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
+        "workSchemaId": "7c4bc6d2-9125-4056-8c0f-ee6462d52c76",
         "workTypeId": 82,
         "priority": 1
       }
@@ -51,7 +51,7 @@
         "id": 5,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
+        "workSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
         "workTypeId": 208,
         "priority": 1
       },
@@ -59,7 +59,7 @@
         "id": 4,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
+        "workSchemaId": "7df997c3-c6f7-4ffa-8a7c-a4ff68ddcc49",
         "workTypeId": 208,
         "priority": 1
       }
@@ -76,7 +76,7 @@
         "id": 7,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
+        "workSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
         "workTypeId": 186,
         "priority": 1
       },
@@ -84,7 +84,7 @@
         "id": 6,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
+        "workSchemaId": "6eb84c54-492c-4052-acc4-c1407cd72d20",
         "workTypeId": 186,
         "priority": 1
       }
@@ -102,7 +102,7 @@
         "id": 8,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "f1513413-d95d-4b66-a887-1d2982930ba0",
+        "workSchemaId": "f1513413-d95d-4b66-a887-1d2982930ba0",
         "workTypeId": 172,
         "priority": 1
       }
@@ -119,7 +119,7 @@
         "id": 10,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "9f1c2e18-6ec6-48b7-955d-747d6ce27d93",
+        "workSchemaId": "9f1c2e18-6ec6-48b7-955d-747d6ce27d93",
         "workTypeId": 79,
         "priority": 1
       },
@@ -127,7 +127,7 @@
         "id": 9,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "9f1c2e18-6ec6-48b7-955d-747d6ce27d93",
+        "workSchemaId": "9f1c2e18-6ec6-48b7-955d-747d6ce27d93",
         "workTypeId": 79,
         "priority": 1
       }
@@ -145,7 +145,7 @@
         "id": 12,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "d5819ef4-2c34-45cb-b7be-1d6ae4e78c9e",
+        "workSchemaId": "d5819ef4-2c34-45cb-b7be-1d6ae4e78c9e",
         "workTypeId": 95,
         "priority": 1
       },
@@ -153,7 +153,7 @@
         "id": 11,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "d5819ef4-2c34-45cb-b7be-1d6ae4e78c9e",
+        "workSchemaId": "d5819ef4-2c34-45cb-b7be-1d6ae4e78c9e",
         "workTypeId": 95,
         "priority": 1
       }
@@ -171,7 +171,7 @@
         "id": 13,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "52ad8be1-6c50-4516-8502-c9455ef51d53",
+        "workSchemaId": "52ad8be1-6c50-4516-8502-c9455ef51d53",
         "workTypeId": 237,
         "priority": 1
       }
@@ -189,7 +189,7 @@
         "id": 14,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "ac73d9e8-6b1d-4d4b-ad52-d45fbe85de68",
+        "workSchemaId": "ac73d9e8-6b1d-4d4b-ad52-d45fbe85de68",
         "workTypeId": 133,
         "priority": 1
       }
@@ -207,7 +207,7 @@
         "id": 16,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "0cf2a32f-7f9c-4972-9405-ab55ae8d1ec3",
+        "workSchemaId": "0cf2a32f-7f9c-4972-9405-ab55ae8d1ec3",
         "workTypeId": 111,
         "priority": 1
       },
@@ -215,7 +215,7 @@
         "id": 15,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "0cf2a32f-7f9c-4972-9405-ab55ae8d1ec3",
+        "workSchemaId": "0cf2a32f-7f9c-4972-9405-ab55ae8d1ec3",
         "workTypeId": 111,
         "priority": 1
       }
@@ -233,7 +233,7 @@
         "id": 17,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "8b2d0cda-1e2e-4b7a-8e57-598892729e23",
+        "workSchemaId": "8b2d0cda-1e2e-4b7a-8e57-598892729e23",
         "workTypeId": 102,
         "priority": 1
       }
@@ -251,7 +251,7 @@
         "id": 19,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "1303d743-141c-45f4-9d22-d8533379a4cd",
+        "workSchemaId": "1303d743-141c-45f4-9d22-d8533379a4cd",
         "workTypeId": 195,
         "priority": 1
       },
@@ -259,7 +259,7 @@
         "id": 18,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "1303d743-141c-45f4-9d22-d8533379a4cd",
+        "workSchemaId": "1303d743-141c-45f4-9d22-d8533379a4cd",
         "workTypeId": 195,
         "priority": 1
       }
@@ -277,7 +277,7 @@
         "id": 20,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "753646fc-d46b-4ad3-a4b3-66fbb6973681",
+        "workSchemaId": "753646fc-d46b-4ad3-a4b3-66fbb6973681",
         "workTypeId": 41,
         "priority": 1
       }
@@ -294,7 +294,7 @@
         "id": 22,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "50d1fa48-05c0-4ba2-8cb6-86ed42bf6aff",
+        "workSchemaId": "50d1fa48-05c0-4ba2-8cb6-86ed42bf6aff",
         "workTypeId": 209,
         "priority": 1
       },
@@ -302,7 +302,7 @@
         "id": 21,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "50d1fa48-05c0-4ba2-8cb6-86ed42bf6aff",
+        "workSchemaId": "50d1fa48-05c0-4ba2-8cb6-86ed42bf6aff",
         "workTypeId": 209,
         "priority": 1
       }
@@ -320,7 +320,7 @@
         "id": 23,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "ac15356e-89f2-4a0f-9dca-0e10bc421b2d",
+        "workSchemaId": "ac15356e-89f2-4a0f-9dca-0e10bc421b2d",
         "workTypeId": 180,
         "priority": 1
       }
@@ -338,7 +338,7 @@
         "id": 24,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "4b41e833-8087-4091-b5db-58c32ebbfef5",
+        "workSchemaId": "4b41e833-8087-4091-b5db-58c32ebbfef5",
         "workTypeId": 115,
         "priority": 1
       }
@@ -356,7 +356,7 @@
         "id": 26,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "c6108b64-717f-4f6d-ae85-0cdf95c0bec7",
+        "workSchemaId": "c6108b64-717f-4f6d-ae85-0cdf95c0bec7",
         "workTypeId": 210,
         "priority": 1
       },
@@ -364,7 +364,7 @@
         "id": 25,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "c6108b64-717f-4f6d-ae85-0cdf95c0bec7",
+        "workSchemaId": "c6108b64-717f-4f6d-ae85-0cdf95c0bec7",
         "workTypeId": 210,
         "priority": 1
       }
@@ -382,7 +382,7 @@
         "id": 27,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "c0af79d0-03c9-4966-bcec-734596bdb9ff",
+        "workSchemaId": "c0af79d0-03c9-4966-bcec-734596bdb9ff",
         "workTypeId": 194,
         "priority": 1
       }
@@ -399,7 +399,7 @@
         "id": 28,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "28ac1035-e865-4509-a0df-1a3c9a040bf0",
+        "workSchemaId": "28ac1035-e865-4509-a0df-1a3c9a040bf0",
         "workTypeId": 219,
         "priority": 1
       }
@@ -417,7 +417,7 @@
         "id": 29,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7b93661a-6dfc-4339-aa50-8b6c5199f53f",
+        "workSchemaId": "7b93661a-6dfc-4339-aa50-8b6c5199f53f",
         "workTypeId": 150,
         "priority": 1
       }
@@ -435,7 +435,7 @@
         "id": 31,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "8c3a9f89-475c-416c-abbc-55b711a0b466",
+        "workSchemaId": "8c3a9f89-475c-416c-abbc-55b711a0b466",
         "workTypeId": 203,
         "priority": 1
       },
@@ -443,7 +443,7 @@
         "id": 30,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "8c3a9f89-475c-416c-abbc-55b711a0b466",
+        "workSchemaId": "8c3a9f89-475c-416c-abbc-55b711a0b466",
         "workTypeId": 203,
         "priority": 1
       }
@@ -461,7 +461,7 @@
         "id": 33,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "79f5a85b-6099-4504-8bd4-37f2dbc1fd99",
+        "workSchemaId": "79f5a85b-6099-4504-8bd4-37f2dbc1fd99",
         "workTypeId": 197,
         "priority": 1
       },
@@ -469,7 +469,7 @@
         "id": 32,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "79f5a85b-6099-4504-8bd4-37f2dbc1fd99",
+        "workSchemaId": "79f5a85b-6099-4504-8bd4-37f2dbc1fd99",
         "workTypeId": 197,
         "priority": 1
       }
@@ -487,7 +487,7 @@
         "id": 34,
         "deliveryAllocationSize": 2,
         "count": 2,
-        "workProjectSeriesSchemaId": "65c31655-7982-4a3c-8fe8-741ff0ece73c",
+        "workSchemaId": "65c31655-7982-4a3c-8fe8-741ff0ece73c",
         "workTypeId": 119,
         "priority": 1
       }
@@ -504,7 +504,7 @@
         "id": 36,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "90658bdd-7bd4-40ab-8044-859168776168",
+        "workSchemaId": "90658bdd-7bd4-40ab-8044-859168776168",
         "workTypeId": 61,
         "priority": 1
       },
@@ -512,7 +512,7 @@
         "id": 35,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "90658bdd-7bd4-40ab-8044-859168776168",
+        "workSchemaId": "90658bdd-7bd4-40ab-8044-859168776168",
         "workTypeId": 61,
         "priority": 1
       }
@@ -530,7 +530,7 @@
         "id": 38,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "8157fa95-1c1c-4e12-890d-f20107b60b3b",
+        "workSchemaId": "8157fa95-1c1c-4e12-890d-f20107b60b3b",
         "workTypeId": 76,
         "priority": 1
       },
@@ -538,7 +538,7 @@
         "id": 37,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "8157fa95-1c1c-4e12-890d-f20107b60b3b",
+        "workSchemaId": "8157fa95-1c1c-4e12-890d-f20107b60b3b",
         "workTypeId": 76,
         "priority": 1
       }
@@ -556,7 +556,7 @@
         "id": 39,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "d6124d75-c20b-4874-82ad-8ffeed11a896",
+        "workSchemaId": "d6124d75-c20b-4874-82ad-8ffeed11a896",
         "workTypeId": 135,
         "priority": 1
       }
@@ -574,7 +574,7 @@
         "id": 40,
         "deliveryAllocationSize": 2,
         "count": 2,
-        "workProjectSeriesSchemaId": "3b2faad7-78c3-4cd4-b671-5c9c11d71ec6",
+        "workSchemaId": "3b2faad7-78c3-4cd4-b671-5c9c11d71ec6",
         "workTypeId": 241,
         "priority": 1
       }
@@ -591,7 +591,7 @@
         "id": 42,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "d8fec993-feb3-4d05-af16-6b63ee5058ef",
+        "workSchemaId": "d8fec993-feb3-4d05-af16-6b63ee5058ef",
         "workTypeId": 199,
         "priority": 1
       },
@@ -599,7 +599,7 @@
         "id": 41,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "d8fec993-feb3-4d05-af16-6b63ee5058ef",
+        "workSchemaId": "d8fec993-feb3-4d05-af16-6b63ee5058ef",
         "workTypeId": 199,
         "priority": 1
       }
@@ -617,7 +617,7 @@
         "id": 43,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "0636860b-2113-4b27-be32-d71ccda16b56",
+        "workSchemaId": "0636860b-2113-4b27-be32-d71ccda16b56",
         "workTypeId": 179,
         "priority": 1
       }
@@ -634,7 +634,7 @@
         "id": 45,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "aeb9b800-2085-4ead-ae8e-02123a7c6163",
+        "workSchemaId": "aeb9b800-2085-4ead-ae8e-02123a7c6163",
         "workTypeId": 75,
         "priority": 1
       },
@@ -642,7 +642,7 @@
         "id": 44,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "aeb9b800-2085-4ead-ae8e-02123a7c6163",
+        "workSchemaId": "aeb9b800-2085-4ead-ae8e-02123a7c6163",
         "workTypeId": 75,
         "priority": 1
       }
@@ -660,7 +660,7 @@
         "id": 46,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7db99169-bce8-4007-a9cb-de346eea1872",
+        "workSchemaId": "7db99169-bce8-4007-a9cb-de346eea1872",
         "workTypeId": 130,
         "priority": 1
       }
@@ -678,7 +678,7 @@
         "id": 47,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "83fd2fb4-fe2f-48f1-90ee-f6175be8e39f",
+        "workSchemaId": "83fd2fb4-fe2f-48f1-90ee-f6175be8e39f",
         "workTypeId": 23,
         "priority": 1
       }
@@ -696,7 +696,7 @@
         "id": 49,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "f15caae9-3e04-41c5-971f-d830f235c337",
+        "workSchemaId": "f15caae9-3e04-41c5-971f-d830f235c337",
         "workTypeId": 68,
         "priority": 1
       },
@@ -704,7 +704,7 @@
         "id": 48,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "f15caae9-3e04-41c5-971f-d830f235c337",
+        "workSchemaId": "f15caae9-3e04-41c5-971f-d830f235c337",
         "workTypeId": 68,
         "priority": 1
       }
@@ -722,7 +722,7 @@
         "id": 50,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "13322f31-5b43-4a63-a2f4-00d9a14bc753",
+        "workSchemaId": "13322f31-5b43-4a63-a2f4-00d9a14bc753",
         "workTypeId": 49,
         "priority": 1
       }
@@ -739,7 +739,7 @@
         "id": 51,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "577503af-e726-4167-84ce-f4d9813afc6d",
+        "workSchemaId": "577503af-e726-4167-84ce-f4d9813afc6d",
         "workTypeId": 239,
         "priority": 1
       }
@@ -757,7 +757,7 @@
         "id": 53,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "ba33b387-47f0-44aa-9475-6549d507d209",
+        "workSchemaId": "ba33b387-47f0-44aa-9475-6549d507d209",
         "workTypeId": 83,
         "priority": 1
       },
@@ -765,7 +765,7 @@
         "id": 52,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "ba33b387-47f0-44aa-9475-6549d507d209",
+        "workSchemaId": "ba33b387-47f0-44aa-9475-6549d507d209",
         "workTypeId": 83,
         "priority": 1
       }
@@ -783,7 +783,7 @@
         "id": 54,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "e1cafb68-7792-4ad6-8c13-cd90d410096b",
+        "workSchemaId": "e1cafb68-7792-4ad6-8c13-cd90d410096b",
         "workTypeId": 27,
         "priority": 1
       }
@@ -801,7 +801,7 @@
         "id": 55,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "4a4888c3-ff4a-454b-b042-09a523aa559b",
+        "workSchemaId": "4a4888c3-ff4a-454b-b042-09a523aa559b",
         "workTypeId": 5,
         "priority": 1
       }
@@ -819,7 +819,7 @@
         "id": 57,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "f5d3188a-cc2d-412d-aa71-d56cf5e387ff",
+        "workSchemaId": "f5d3188a-cc2d-412d-aa71-d56cf5e387ff",
         "workTypeId": 81,
         "priority": 1
       },
@@ -827,7 +827,7 @@
         "id": 56,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "f5d3188a-cc2d-412d-aa71-d56cf5e387ff",
+        "workSchemaId": "f5d3188a-cc2d-412d-aa71-d56cf5e387ff",
         "workTypeId": 81,
         "priority": 1
       }
@@ -845,7 +845,7 @@
         "id": 58,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "0ab037d9-f052-4904-8fff-d029eef78778",
+        "workSchemaId": "0ab037d9-f052-4904-8fff-d029eef78778",
         "workTypeId": 118,
         "priority": 1
       }
@@ -863,7 +863,7 @@
         "id": 59,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "7a9db36d-022f-4213-b5c8-b3a64866c3e6",
+        "workSchemaId": "7a9db36d-022f-4213-b5c8-b3a64866c3e6",
         "workTypeId": 223,
         "priority": 1
       }
@@ -881,7 +881,7 @@
         "id": 60,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "a6a314cb-b68f-4700-92c5-bf6bfc3369d9",
+        "workSchemaId": "a6a314cb-b68f-4700-92c5-bf6bfc3369d9",
         "workTypeId": 211,
         "priority": 1
       }
@@ -898,7 +898,7 @@
         "id": 62,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "34588b3c-2ce0-4ad2-a0fb-71c860756075",
+        "workSchemaId": "34588b3c-2ce0-4ad2-a0fb-71c860756075",
         "workTypeId": 204,
         "priority": 1
       },
@@ -906,7 +906,7 @@
         "id": 61,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "34588b3c-2ce0-4ad2-a0fb-71c860756075",
+        "workSchemaId": "34588b3c-2ce0-4ad2-a0fb-71c860756075",
         "workTypeId": 204,
         "priority": 1
       }
@@ -923,7 +923,7 @@
         "id": 63,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "0da3f7a8-146a-44f7-ae32-681ea33c8a22",
+        "workSchemaId": "0da3f7a8-146a-44f7-ae32-681ea33c8a22",
         "workTypeId": 154,
         "priority": 1
       }
@@ -941,7 +941,7 @@
         "id": 64,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "ebb38ebd-6aa5-407f-8072-61b8ab187e6c",
+        "workSchemaId": "ebb38ebd-6aa5-407f-8072-61b8ab187e6c",
         "workTypeId": 155,
         "priority": 1
       }
@@ -959,7 +959,7 @@
         "id": 66,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "613c6067-697b-4400-b009-e974b8ee73df",
+        "workSchemaId": "613c6067-697b-4400-b009-e974b8ee73df",
         "workTypeId": 201,
         "priority": 1
       },
@@ -967,7 +967,7 @@
         "id": 65,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "613c6067-697b-4400-b009-e974b8ee73df",
+        "workSchemaId": "613c6067-697b-4400-b009-e974b8ee73df",
         "workTypeId": 201,
         "priority": 1
       }
@@ -985,7 +985,7 @@
         "id": 68,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "33ec4de5-bb11-4cc0-b0c1-076e612aa775",
+        "workSchemaId": "33ec4de5-bb11-4cc0-b0c1-076e612aa775",
         "workTypeId": 205,
         "priority": 1
       },
@@ -993,7 +993,7 @@
         "id": 67,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "33ec4de5-bb11-4cc0-b0c1-076e612aa775",
+        "workSchemaId": "33ec4de5-bb11-4cc0-b0c1-076e612aa775",
         "workTypeId": 205,
         "priority": 1
       }
@@ -1011,7 +1011,7 @@
         "id": 70,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "f425973f-bc64-4844-b56b-75bc6f4d1dcb",
+        "workSchemaId": "f425973f-bc64-4844-b56b-75bc6f4d1dcb",
         "workTypeId": 84,
         "priority": 1
       },
@@ -1019,7 +1019,7 @@
         "id": 69,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "f425973f-bc64-4844-b56b-75bc6f4d1dcb",
+        "workSchemaId": "f425973f-bc64-4844-b56b-75bc6f4d1dcb",
         "workTypeId": 84,
         "priority": 1
       }
@@ -1037,7 +1037,7 @@
         "id": 71,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "48875125-cfcf-4d4c-bdb6-37bff4cde389",
+        "workSchemaId": "48875125-cfcf-4d4c-bdb6-37bff4cde389",
         "workTypeId": 127,
         "priority": 1
       }
@@ -1055,7 +1055,7 @@
         "id": 73,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "ff1af7d4-79e5-4e0b-ab8b-087821fa2967",
+        "workSchemaId": "ff1af7d4-79e5-4e0b-ab8b-087821fa2967",
         "workTypeId": 45,
         "priority": 1
       },
@@ -1063,7 +1063,7 @@
         "id": 72,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "ff1af7d4-79e5-4e0b-ab8b-087821fa2967",
+        "workSchemaId": "ff1af7d4-79e5-4e0b-ab8b-087821fa2967",
         "workTypeId": 45,
         "priority": 1
       }
@@ -1081,7 +1081,7 @@
         "id": 74,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "2d86bbc3-965e-48d7-a4cc-07ee813ecea0",
+        "workSchemaId": "2d86bbc3-965e-48d7-a4cc-07ee813ecea0",
         "workTypeId": 93,
         "priority": 1
       }
@@ -1099,7 +1099,7 @@
         "id": 76,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "3543e5bf-b07c-4ab2-826e-fa586e78ea0b",
+        "workSchemaId": "3543e5bf-b07c-4ab2-826e-fa586e78ea0b",
         "workTypeId": 74,
         "priority": 1
       },
@@ -1107,7 +1107,7 @@
         "id": 75,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "3543e5bf-b07c-4ab2-826e-fa586e78ea0b",
+        "workSchemaId": "3543e5bf-b07c-4ab2-826e-fa586e78ea0b",
         "workTypeId": 74,
         "priority": 1
       }
@@ -1125,7 +1125,7 @@
         "id": 77,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "881f6dbc-d2e6-4dbb-877b-c64d8007dcfe",
+        "workSchemaId": "881f6dbc-d2e6-4dbb-877b-c64d8007dcfe",
         "workTypeId": 146,
         "priority": 1
       }
@@ -1142,7 +1142,7 @@
         "id": 79,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "811ec7cf-42ab-40a9-8156-acf27d166010",
+        "workSchemaId": "811ec7cf-42ab-40a9-8156-acf27d166010",
         "workTypeId": 85,
         "priority": 1
       },
@@ -1150,7 +1150,7 @@
         "id": 78,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "811ec7cf-42ab-40a9-8156-acf27d166010",
+        "workSchemaId": "811ec7cf-42ab-40a9-8156-acf27d166010",
         "workTypeId": 85,
         "priority": 1
       }
@@ -1168,7 +1168,7 @@
         "id": 80,
         "deliveryAllocationSize": 1,
         "count": 7,
-        "workProjectSeriesSchemaId": "d76cfdc3-f6e0-4731-b3cf-adeec0ee95c7",
+        "workSchemaId": "d76cfdc3-f6e0-4731-b3cf-adeec0ee95c7",
         "workTypeId": 137,
         "priority": 1
       }
@@ -1186,7 +1186,7 @@
         "id": 81,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "efa2a319-ccd8-4a99-8c2e-e509ecb8811c",
+        "workSchemaId": "efa2a319-ccd8-4a99-8c2e-e509ecb8811c",
         "workTypeId": 89,
         "priority": 1
       }
@@ -1203,7 +1203,7 @@
         "id": 82,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "a2597213-f4d1-4d4e-9c72-7958969da51b",
+        "workSchemaId": "a2597213-f4d1-4d4e-9c72-7958969da51b",
         "workTypeId": 7,
         "priority": 1
       }
@@ -1221,7 +1221,7 @@
         "id": 83,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "3d914d60-b996-471c-86d9-21a1bc0dc0b4",
+        "workSchemaId": "3d914d60-b996-471c-86d9-21a1bc0dc0b4",
         "workTypeId": 235,
         "priority": 1
       }
@@ -1239,7 +1239,7 @@
         "id": 84,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "e0cdf532-9d2c-4a96-8446-dd8a4eb8f40b",
+        "workSchemaId": "e0cdf532-9d2c-4a96-8446-dd8a4eb8f40b",
         "workTypeId": 167,
         "priority": 1
       }
@@ -1257,7 +1257,7 @@
         "id": 86,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "3b67523a-b2ce-4481-a6a6-dcf828184869",
+        "workSchemaId": "3b67523a-b2ce-4481-a6a6-dcf828184869",
         "workTypeId": 88,
         "priority": 1
       },
@@ -1265,7 +1265,7 @@
         "id": 85,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "3b67523a-b2ce-4481-a6a6-dcf828184869",
+        "workSchemaId": "3b67523a-b2ce-4481-a6a6-dcf828184869",
         "workTypeId": 88,
         "priority": 1
       }
@@ -1283,7 +1283,7 @@
         "id": 88,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "168f376f-08fc-4529-9a98-14f0c1444119",
+        "workSchemaId": "168f376f-08fc-4529-9a98-14f0c1444119",
         "workTypeId": 206,
         "priority": 1
       },
@@ -1291,7 +1291,7 @@
         "id": 87,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "168f376f-08fc-4529-9a98-14f0c1444119",
+        "workSchemaId": "168f376f-08fc-4529-9a98-14f0c1444119",
         "workTypeId": 206,
         "priority": 1
       }
@@ -1309,7 +1309,7 @@
         "id": 89,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "9558005a-7bfc-40b7-8bb1-8c47813d5b86",
+        "workSchemaId": "9558005a-7bfc-40b7-8bb1-8c47813d5b86",
         "workTypeId": 141,
         "priority": 1
       }
@@ -1327,7 +1327,7 @@
         "id": 90,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "557cbab1-3461-46ea-b59e-daa6b69cd5a7",
+        "workSchemaId": "557cbab1-3461-46ea-b59e-daa6b69cd5a7",
         "workTypeId": 57,
         "priority": 1
       }
@@ -1345,7 +1345,7 @@
         "id": 91,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "4a95b3bf-8893-4a85-bb35-c32f8f7f6c19",
+        "workSchemaId": "4a95b3bf-8893-4a85-bb35-c32f8f7f6c19",
         "workTypeId": 125,
         "priority": 1
       }
@@ -1363,7 +1363,7 @@
         "id": 93,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "d6fe345e-b9e8-45bb-b9d9-0a3cf68a7ad4",
+        "workSchemaId": "d6fe345e-b9e8-45bb-b9d9-0a3cf68a7ad4",
         "workTypeId": 207,
         "priority": 1
       },
@@ -1371,7 +1371,7 @@
         "id": 92,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "d6fe345e-b9e8-45bb-b9d9-0a3cf68a7ad4",
+        "workSchemaId": "d6fe345e-b9e8-45bb-b9d9-0a3cf68a7ad4",
         "workTypeId": 207,
         "priority": 1
       }
@@ -1389,7 +1389,7 @@
         "id": 94,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "1d5d62b4-93bc-47e8-8099-caf1d093d9cf",
+        "workSchemaId": "1d5d62b4-93bc-47e8-8099-caf1d093d9cf",
         "workTypeId": 71,
         "priority": 1
       }
@@ -1407,7 +1407,7 @@
         "id": 95,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "0ec9a4ea-f88b-43a4-8011-266e27d6a2ef",
+        "workSchemaId": "0ec9a4ea-f88b-43a4-8011-266e27d6a2ef",
         "workTypeId": 97,
         "priority": 1
       }
@@ -1425,7 +1425,7 @@
         "id": 96,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "ed658dbb-70ba-42c7-89d2-7e7846188942",
+        "workSchemaId": "ed658dbb-70ba-42c7-89d2-7e7846188942",
         "workTypeId": 19,
         "priority": 1
       }
@@ -1443,7 +1443,7 @@
         "id": 97,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "9f0abeb6-014e-4753-9223-493fc9c73e6e",
+        "workSchemaId": "9f0abeb6-014e-4753-9223-493fc9c73e6e",
         "workTypeId": 11,
         "priority": 1
       }
@@ -1461,7 +1461,7 @@
         "id": 99,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "b98670dc-b9a0-4f27-9c04-0f3a5c89f178",
+        "workSchemaId": "b98670dc-b9a0-4f27-9c04-0f3a5c89f178",
         "workTypeId": 183,
         "priority": 1
       },
@@ -1469,7 +1469,7 @@
         "id": 98,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "b98670dc-b9a0-4f27-9c04-0f3a5c89f178",
+        "workSchemaId": "b98670dc-b9a0-4f27-9c04-0f3a5c89f178",
         "workTypeId": 183,
         "priority": 1
       }
@@ -1487,7 +1487,7 @@
         "id": 100,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "1c3a161f-49f9-43ae-a402-c7639fb59333",
+        "workSchemaId": "1c3a161f-49f9-43ae-a402-c7639fb59333",
         "workTypeId": 145,
         "priority": 1
       }
@@ -1505,7 +1505,7 @@
         "id": 101,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "391d20a5-85e9-4e0b-bcb7-d2135c57ccfc",
+        "workSchemaId": "391d20a5-85e9-4e0b-bcb7-d2135c57ccfc",
         "workTypeId": 47,
         "priority": 1
       }
@@ -1523,7 +1523,7 @@
         "id": 103,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "5f4403c0-8ea4-4005-87a7-fa5c525eaed4",
+        "workSchemaId": "5f4403c0-8ea4-4005-87a7-fa5c525eaed4",
         "workTypeId": 187,
         "priority": 1
       },
@@ -1531,7 +1531,7 @@
         "id": 102,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "5f4403c0-8ea4-4005-87a7-fa5c525eaed4",
+        "workSchemaId": "5f4403c0-8ea4-4005-87a7-fa5c525eaed4",
         "workTypeId": 187,
         "priority": 1
       }
@@ -1549,7 +1549,7 @@
         "id": 104,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "f915ce83-2f18-42c7-8791-fcb67794da92",
+        "workSchemaId": "f915ce83-2f18-42c7-8791-fcb67794da92",
         "workTypeId": 39,
         "priority": 1
       }
@@ -1567,7 +1567,7 @@
         "id": 105,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "8bd961f9-ed8d-4ed1-8a21-550271998a5f",
+        "workSchemaId": "8bd961f9-ed8d-4ed1-8a21-550271998a5f",
         "workTypeId": 225,
         "priority": 1
       }
@@ -1585,7 +1585,7 @@
         "id": 106,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "85eced10-215a-4d4f-9052-dc40e98a28ea",
+        "workSchemaId": "85eced10-215a-4d4f-9052-dc40e98a28ea",
         "workTypeId": 177,
         "priority": 1
       }
@@ -1603,7 +1603,7 @@
         "id": 108,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "caf1faac-3f30-4870-8735-199709a7d341",
+        "workSchemaId": "caf1faac-3f30-4870-8735-199709a7d341",
         "workTypeId": 63,
         "priority": 1
       },
@@ -1611,7 +1611,7 @@
         "id": 107,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "caf1faac-3f30-4870-8735-199709a7d341",
+        "workSchemaId": "caf1faac-3f30-4870-8735-199709a7d341",
         "workTypeId": 63,
         "priority": 1
       }
@@ -1629,7 +1629,7 @@
         "id": 109,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "5450ae7d-0041-498b-94f0-06d2a050888f",
+        "workSchemaId": "5450ae7d-0041-498b-94f0-06d2a050888f",
         "workTypeId": 13,
         "priority": 1
       }
@@ -1647,7 +1647,7 @@
         "id": 110,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "0635e9e6-cb26-461d-840c-dc42e2e123d8",
+        "workSchemaId": "0635e9e6-cb26-461d-840c-dc42e2e123d8",
         "workTypeId": 156,
         "priority": 1
       }
@@ -1665,7 +1665,7 @@
         "id": 111,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "ac0a1fc7-6476-4497-9616-142a0ff006bc",
+        "workSchemaId": "ac0a1fc7-6476-4497-9616-142a0ff006bc",
         "workTypeId": 240,
         "priority": 1
       }
@@ -1683,7 +1683,7 @@
         "id": 113,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "49c7a18a-7b2c-4668-8df5-ba1009033a8f",
+        "workSchemaId": "49c7a18a-7b2c-4668-8df5-ba1009033a8f",
         "workTypeId": 66,
         "priority": 1
       },
@@ -1691,7 +1691,7 @@
         "id": 112,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "49c7a18a-7b2c-4668-8df5-ba1009033a8f",
+        "workSchemaId": "49c7a18a-7b2c-4668-8df5-ba1009033a8f",
         "workTypeId": 66,
         "priority": 1
       }
@@ -1709,7 +1709,7 @@
         "id": 114,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "ab3dcf56-2e2e-418a-8db7-a01c621f5cda",
+        "workSchemaId": "ab3dcf56-2e2e-418a-8db7-a01c621f5cda",
         "workTypeId": 224,
         "priority": 1
       }
@@ -1727,7 +1727,7 @@
         "id": 115,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "6f60022b-3ddd-48a6-a565-8d25a895f907",
+        "workSchemaId": "6f60022b-3ddd-48a6-a565-8d25a895f907",
         "workTypeId": 153,
         "priority": 1
       }
@@ -1745,7 +1745,7 @@
         "id": 116,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "48537413-3665-4606-a433-2b4fc81d0627",
+        "workSchemaId": "48537413-3665-4606-a433-2b4fc81d0627",
         "workTypeId": 31,
         "priority": 1
       }
@@ -1763,7 +1763,7 @@
         "id": 117,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "a2bdd93e-bcde-400d-b6cf-13610940f119",
+        "workSchemaId": "a2bdd93e-bcde-400d-b6cf-13610940f119",
         "workTypeId": 101,
         "priority": 1
       }
@@ -1781,7 +1781,7 @@
         "id": 119,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "0b39f250-5cd1-4038-a346-ba4820abf64e",
+        "workSchemaId": "0b39f250-5cd1-4038-a346-ba4820abf64e",
         "workTypeId": 188,
         "priority": 1
       },
@@ -1789,7 +1789,7 @@
         "id": 118,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "0b39f250-5cd1-4038-a346-ba4820abf64e",
+        "workSchemaId": "0b39f250-5cd1-4038-a346-ba4820abf64e",
         "workTypeId": 188,
         "priority": 1
       }
@@ -1807,7 +1807,7 @@
         "id": 120,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "3f55ad68-5060-4e14-bc54-78dbeb7479da",
+        "workSchemaId": "3f55ad68-5060-4e14-bc54-78dbeb7479da",
         "workTypeId": 43,
         "priority": 1
       }
@@ -1825,7 +1825,7 @@
         "id": 121,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "10082c98-a616-45da-a49c-ed448b5f3232",
+        "workSchemaId": "10082c98-a616-45da-a49c-ed448b5f3232",
         "workTypeId": 242,
         "priority": 1
       }
@@ -1843,7 +1843,7 @@
         "id": 122,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "ddd688ea-36f6-4aad-a400-74208eb6349d",
+        "workSchemaId": "ddd688ea-36f6-4aad-a400-74208eb6349d",
         "workTypeId": 162,
         "priority": 1
       }
@@ -1861,7 +1861,7 @@
         "id": 123,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "77430eb4-446a-4743-b053-af3da0da9cdb",
+        "workSchemaId": "77430eb4-446a-4743-b053-af3da0da9cdb",
         "workTypeId": 107,
         "priority": 1
       }
@@ -1879,7 +1879,7 @@
         "id": 125,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "bdd45f6a-dff9-4bc5-a654-e811c5af3698",
+        "workSchemaId": "bdd45f6a-dff9-4bc5-a654-e811c5af3698",
         "workTypeId": 69,
         "priority": 1
       },
@@ -1887,7 +1887,7 @@
         "id": 124,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "bdd45f6a-dff9-4bc5-a654-e811c5af3698",
+        "workSchemaId": "bdd45f6a-dff9-4bc5-a654-e811c5af3698",
         "workTypeId": 69,
         "priority": 1
       }
@@ -1905,7 +1905,7 @@
         "id": 126,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "0b53c750-d5a3-488c-be1e-03e0e3fd795b",
+        "workSchemaId": "0b53c750-d5a3-488c-be1e-03e0e3fd795b",
         "workTypeId": 222,
         "priority": 1
       }
@@ -1923,7 +1923,7 @@
         "id": 127,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "90e2fd28-fdb2-407f-a47c-60234bc51726",
+        "workSchemaId": "90e2fd28-fdb2-407f-a47c-60234bc51726",
         "workTypeId": 175,
         "priority": 1
       }
@@ -1941,7 +1941,7 @@
         "id": 128,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "38c669af-0b26-4bb1-94b6-e158c4319d98",
+        "workSchemaId": "38c669af-0b26-4bb1-94b6-e158c4319d98",
         "workTypeId": 116,
         "priority": 1
       }
@@ -1958,7 +1958,7 @@
         "id": 129,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "ab360492-0401-476a-b74a-38d918e99cce",
+        "workSchemaId": "ab360492-0401-476a-b74a-38d918e99cce",
         "workTypeId": 229,
         "priority": 1
       }
@@ -1976,7 +1976,7 @@
         "id": 131,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "a26bb2de-bde8-4475-8689-0de514536cea",
+        "workSchemaId": "a26bb2de-bde8-4475-8689-0de514536cea",
         "workTypeId": 86,
         "priority": 1
       },
@@ -1984,7 +1984,7 @@
         "id": 130,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "a26bb2de-bde8-4475-8689-0de514536cea",
+        "workSchemaId": "a26bb2de-bde8-4475-8689-0de514536cea",
         "workTypeId": 86,
         "priority": 1
       }
@@ -2001,7 +2001,7 @@
         "id": 133,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "baef5209-abe4-4036-902a-eac3a568224a",
+        "workSchemaId": "baef5209-abe4-4036-902a-eac3a568224a",
         "workTypeId": 62,
         "priority": 1
       },
@@ -2009,7 +2009,7 @@
         "id": 132,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "baef5209-abe4-4036-902a-eac3a568224a",
+        "workSchemaId": "baef5209-abe4-4036-902a-eac3a568224a",
         "workTypeId": 62,
         "priority": 1
       }
@@ -2027,7 +2027,7 @@
         "id": 135,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "3e57445b-094b-4883-bd2f-9d290326a498",
+        "workSchemaId": "3e57445b-094b-4883-bd2f-9d290326a498",
         "workTypeId": 213,
         "priority": 1
       },
@@ -2035,7 +2035,7 @@
         "id": 134,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "3e57445b-094b-4883-bd2f-9d290326a498",
+        "workSchemaId": "3e57445b-094b-4883-bd2f-9d290326a498",
         "workTypeId": 213,
         "priority": 1
       }
@@ -2053,7 +2053,7 @@
         "id": 136,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "d907ea5f-c045-459b-bb57-12b2e7975188",
+        "workSchemaId": "d907ea5f-c045-459b-bb57-12b2e7975188",
         "workTypeId": 171,
         "priority": 1
       }
@@ -2071,7 +2071,7 @@
         "id": 137,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "eb5dc6e2-ca53-4961-bc25-f8d11be5821d",
+        "workSchemaId": "eb5dc6e2-ca53-4961-bc25-f8d11be5821d",
         "workTypeId": 103,
         "priority": 1
       }
@@ -2089,7 +2089,7 @@
         "id": 138,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "f963c242-0035-4561-a8d1-72a88d4deac7",
+        "workSchemaId": "f963c242-0035-4561-a8d1-72a88d4deac7",
         "workTypeId": 113,
         "priority": 1
       }
@@ -2107,7 +2107,7 @@
         "id": 139,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "d13418ac-ee65-48b5-bc43-2b50c51265cb",
+        "workSchemaId": "d13418ac-ee65-48b5-bc43-2b50c51265cb",
         "workTypeId": 148,
         "priority": 1
       }
@@ -2125,7 +2125,7 @@
         "id": 140,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "33ec14cf-780e-4daf-9bcf-a57f22d4d023",
+        "workSchemaId": "33ec14cf-780e-4daf-9bcf-a57f22d4d023",
         "workTypeId": 126,
         "priority": 1
       }
@@ -2143,7 +2143,7 @@
         "id": 142,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "d76dca1c-c971-44bd-ad29-5d34eaec24cb",
+        "workSchemaId": "d76dca1c-c971-44bd-ad29-5d34eaec24cb",
         "workTypeId": 191,
         "priority": 1
       },
@@ -2151,7 +2151,7 @@
         "id": 141,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "d76dca1c-c971-44bd-ad29-5d34eaec24cb",
+        "workSchemaId": "d76dca1c-c971-44bd-ad29-5d34eaec24cb",
         "workTypeId": 191,
         "priority": 1
       }
@@ -2169,7 +2169,7 @@
         "id": 143,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "cdcbe99f-3a03-4bf5-a586-5446597913ac",
+        "workSchemaId": "cdcbe99f-3a03-4bf5-a586-5446597913ac",
         "workTypeId": 100,
         "priority": 1
       }
@@ -2187,7 +2187,7 @@
         "id": 144,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "da024b94-2b64-4cff-bde7-fab8f3dddd05",
+        "workSchemaId": "da024b94-2b64-4cff-bde7-fab8f3dddd05",
         "workTypeId": 147,
         "priority": 1
       }
@@ -2205,7 +2205,7 @@
         "id": 146,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "62eaf4a1-8c21-4c9c-b13c-5141ccd0a111",
+        "workSchemaId": "62eaf4a1-8c21-4c9c-b13c-5141ccd0a111",
         "workTypeId": 90,
         "priority": 1
       },
@@ -2213,7 +2213,7 @@
         "id": 145,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "62eaf4a1-8c21-4c9c-b13c-5141ccd0a111",
+        "workSchemaId": "62eaf4a1-8c21-4c9c-b13c-5141ccd0a111",
         "workTypeId": 90,
         "priority": 1
       }
@@ -2231,7 +2231,7 @@
         "id": 148,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "2d47e97f-319f-4f42-afbb-fe8faac30140",
+        "workSchemaId": "2d47e97f-319f-4f42-afbb-fe8faac30140",
         "workTypeId": 91,
         "priority": 1
       },
@@ -2239,7 +2239,7 @@
         "id": 147,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "2d47e97f-319f-4f42-afbb-fe8faac30140",
+        "workSchemaId": "2d47e97f-319f-4f42-afbb-fe8faac30140",
         "workTypeId": 91,
         "priority": 1
       }
@@ -2257,7 +2257,7 @@
         "id": 150,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "1c25c9e3-ce7d-4ca6-8df6-2687e1cc3376",
+        "workSchemaId": "1c25c9e3-ce7d-4ca6-8df6-2687e1cc3376",
         "workTypeId": 87,
         "priority": 1
       },
@@ -2265,7 +2265,7 @@
         "id": 149,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "1c25c9e3-ce7d-4ca6-8df6-2687e1cc3376",
+        "workSchemaId": "1c25c9e3-ce7d-4ca6-8df6-2687e1cc3376",
         "workTypeId": 87,
         "priority": 1
       }
@@ -2283,7 +2283,7 @@
         "id": 151,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "816b7a60-9c36-4334-a924-ffaf640b2b59",
+        "workSchemaId": "816b7a60-9c36-4334-a924-ffaf640b2b59",
         "workTypeId": 98,
         "priority": 1
       }
@@ -2301,7 +2301,7 @@
         "id": 153,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "3e0c6f17-9ce6-4a37-988b-0c8ffe869c9c",
+        "workSchemaId": "3e0c6f17-9ce6-4a37-988b-0c8ffe869c9c",
         "workTypeId": 80,
         "priority": 1
       },
@@ -2309,7 +2309,7 @@
         "id": 152,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "3e0c6f17-9ce6-4a37-988b-0c8ffe869c9c",
+        "workSchemaId": "3e0c6f17-9ce6-4a37-988b-0c8ffe869c9c",
         "workTypeId": 80,
         "priority": 1
       }
@@ -2327,7 +2327,7 @@
         "id": 154,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "911d0a9c-0f45-412e-bdac-39f4827cbb59",
+        "workSchemaId": "911d0a9c-0f45-412e-bdac-39f4827cbb59",
         "workTypeId": 120,
         "priority": 1
       }
@@ -2345,7 +2345,7 @@
         "id": 155,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "acf2862e-fc46-4aad-a496-527c1afed2b9",
+        "workSchemaId": "acf2862e-fc46-4aad-a496-527c1afed2b9",
         "workTypeId": 17,
         "priority": 1
       }
@@ -2363,7 +2363,7 @@
         "id": 156,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "136bdcae-a594-4ec4-b2a1-8fa372abdfe6",
+        "workSchemaId": "136bdcae-a594-4ec4-b2a1-8fa372abdfe6",
         "workTypeId": 131,
         "priority": 1
       }
@@ -2381,7 +2381,7 @@
         "id": 157,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "96dccaf3-2c3f-4a60-810c-33e00233753b",
+        "workSchemaId": "96dccaf3-2c3f-4a60-810c-33e00233753b",
         "workTypeId": 72,
         "priority": 1
       }
@@ -2398,7 +2398,7 @@
         "id": 158,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "c469d15e-a75e-4a13-9a0a-0fc79f0026e8",
+        "workSchemaId": "c469d15e-a75e-4a13-9a0a-0fc79f0026e8",
         "workTypeId": 160,
         "priority": 1
       }
@@ -2416,7 +2416,7 @@
         "id": 160,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "ea695bbe-ecee-4e65-8001-8e1189987149",
+        "workSchemaId": "ea695bbe-ecee-4e65-8001-8e1189987149",
         "workTypeId": 185,
         "priority": 1
       },
@@ -2424,7 +2424,7 @@
         "id": 159,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "ea695bbe-ecee-4e65-8001-8e1189987149",
+        "workSchemaId": "ea695bbe-ecee-4e65-8001-8e1189987149",
         "workTypeId": 185,
         "priority": 1
       }
@@ -2442,7 +2442,7 @@
         "id": 161,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "1ee9afbd-d595-48cb-8e09-2ef780950480",
+        "workSchemaId": "1ee9afbd-d595-48cb-8e09-2ef780950480",
         "workTypeId": 238,
         "priority": 1
       }
@@ -2459,7 +2459,7 @@
         "id": 162,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "32717aa9-eb89-435b-be03-bb947f1f6f60",
+        "workSchemaId": "32717aa9-eb89-435b-be03-bb947f1f6f60",
         "workTypeId": 114,
         "priority": 1
       }
@@ -2477,7 +2477,7 @@
         "id": 163,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "4c5f8783-a19c-4238-a37a-a8d5ebfe6209",
+        "workSchemaId": "4c5f8783-a19c-4238-a37a-a8d5ebfe6209",
         "workTypeId": 161,
         "priority": 1
       }
@@ -2495,7 +2495,7 @@
         "id": 164,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "15746400-bd47-4723-8a6d-529dc6a63fa5",
+        "workSchemaId": "15746400-bd47-4723-8a6d-529dc6a63fa5",
         "workTypeId": 215,
         "priority": 1
       }
@@ -2513,7 +2513,7 @@
         "id": 166,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "9e36e158-9c18-4739-98cd-0157f6268ede",
+        "workSchemaId": "9e36e158-9c18-4739-98cd-0157f6268ede",
         "workTypeId": 202,
         "priority": 1
       },
@@ -2521,7 +2521,7 @@
         "id": 165,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "9e36e158-9c18-4739-98cd-0157f6268ede",
+        "workSchemaId": "9e36e158-9c18-4739-98cd-0157f6268ede",
         "workTypeId": 202,
         "priority": 1
       }
@@ -2539,7 +2539,7 @@
         "id": 167,
         "deliveryAllocationSize": 2,
         "count": 2,
-        "workProjectSeriesSchemaId": "608be6ec-bd3e-49d0-be1b-1e11bfe60240",
+        "workSchemaId": "608be6ec-bd3e-49d0-be1b-1e11bfe60240",
         "workTypeId": 149,
         "priority": 1
       }
@@ -2556,7 +2556,7 @@
         "id": 169,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "91b7e8e5-ec80-4c34-930d-fd11221fc201",
+        "workSchemaId": "91b7e8e5-ec80-4c34-930d-fd11221fc201",
         "workTypeId": 190,
         "priority": 1
       },
@@ -2564,7 +2564,7 @@
         "id": 168,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "91b7e8e5-ec80-4c34-930d-fd11221fc201",
+        "workSchemaId": "91b7e8e5-ec80-4c34-930d-fd11221fc201",
         "workTypeId": 190,
         "priority": 1
       }
@@ -2582,7 +2582,7 @@
         "id": 170,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "47ed7a1d-820e-460f-b01f-bce00f0bcee3",
+        "workSchemaId": "47ed7a1d-820e-460f-b01f-bce00f0bcee3",
         "workTypeId": 157,
         "priority": 1
       }
@@ -2600,7 +2600,7 @@
         "id": 172,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "ef1fd8ba-6621-4e74-b33c-8eaee6d2349b",
+        "workSchemaId": "ef1fd8ba-6621-4e74-b33c-8eaee6d2349b",
         "workTypeId": 65,
         "priority": 1
       },
@@ -2608,7 +2608,7 @@
         "id": 171,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "ef1fd8ba-6621-4e74-b33c-8eaee6d2349b",
+        "workSchemaId": "ef1fd8ba-6621-4e74-b33c-8eaee6d2349b",
         "workTypeId": 65,
         "priority": 1
       }
@@ -2626,7 +2626,7 @@
         "id": 174,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "6ba7196b-4a00-4c18-b47e-6d2e7c4bef67",
+        "workSchemaId": "6ba7196b-4a00-4c18-b47e-6d2e7c4bef67",
         "workTypeId": 64,
         "priority": 1
       },
@@ -2634,7 +2634,7 @@
         "id": 173,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "6ba7196b-4a00-4c18-b47e-6d2e7c4bef67",
+        "workSchemaId": "6ba7196b-4a00-4c18-b47e-6d2e7c4bef67",
         "workTypeId": 64,
         "priority": 1
       }
@@ -2652,7 +2652,7 @@
         "id": 176,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "8e963223-a1dd-4008-b490-5dac36d75323",
+        "workSchemaId": "8e963223-a1dd-4008-b490-5dac36d75323",
         "workTypeId": 174,
         "priority": 1
       },
@@ -2660,7 +2660,7 @@
         "id": 175,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "8e963223-a1dd-4008-b490-5dac36d75323",
+        "workSchemaId": "8e963223-a1dd-4008-b490-5dac36d75323",
         "workTypeId": 174,
         "priority": 1
       }
@@ -2678,7 +2678,7 @@
         "id": 177,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "419634a1-a53f-4161-b411-8d127b4258d9",
+        "workSchemaId": "419634a1-a53f-4161-b411-8d127b4258d9",
         "workTypeId": 165,
         "priority": 1
       }
@@ -2696,7 +2696,7 @@
         "id": 179,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "4804932e-5081-4736-afc5-eba36db621bc",
+        "workSchemaId": "4804932e-5081-4736-afc5-eba36db621bc",
         "workTypeId": 212,
         "priority": 1
       },
@@ -2704,7 +2704,7 @@
         "id": 178,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "4804932e-5081-4736-afc5-eba36db621bc",
+        "workSchemaId": "4804932e-5081-4736-afc5-eba36db621bc",
         "workTypeId": 212,
         "priority": 1
       }
@@ -2722,7 +2722,7 @@
         "id": 181,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "dc7d3eee-138a-469c-a36f-ee1d699017d5",
+        "workSchemaId": "dc7d3eee-138a-469c-a36f-ee1d699017d5",
         "workTypeId": 184,
         "priority": 1
       },
@@ -2730,7 +2730,7 @@
         "id": 180,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "dc7d3eee-138a-469c-a36f-ee1d699017d5",
+        "workSchemaId": "dc7d3eee-138a-469c-a36f-ee1d699017d5",
         "workTypeId": 184,
         "priority": 1
       }
@@ -2748,7 +2748,7 @@
         "id": 182,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "9435ed41-1d59-42df-af26-07411e8ffe2c",
+        "workSchemaId": "9435ed41-1d59-42df-af26-07411e8ffe2c",
         "workTypeId": 173,
         "priority": 1
       }
@@ -2766,7 +2766,7 @@
         "id": 184,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "bf746604-21b9-43df-a968-8ea3b0ef6506",
+        "workSchemaId": "bf746604-21b9-43df-a968-8ea3b0ef6506",
         "workTypeId": 73,
         "priority": 1
       },
@@ -2774,7 +2774,7 @@
         "id": 183,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "bf746604-21b9-43df-a968-8ea3b0ef6506",
+        "workSchemaId": "bf746604-21b9-43df-a968-8ea3b0ef6506",
         "workTypeId": 73,
         "priority": 1
       }
@@ -2792,7 +2792,7 @@
         "id": 185,
         "deliveryAllocationSize": 1,
         "count": 3,
-        "workProjectSeriesSchemaId": "959da958-d5b5-4326-8981-46f5b3e02dfa",
+        "workSchemaId": "959da958-d5b5-4326-8981-46f5b3e02dfa",
         "workTypeId": 94,
         "priority": 1
       }
@@ -2810,7 +2810,7 @@
         "id": 186,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "4d5e2f94-a4f5-42bd-90df-866282614ae6",
+        "workSchemaId": "4d5e2f94-a4f5-42bd-90df-866282614ae6",
         "workTypeId": 117,
         "priority": 1
       }
@@ -2828,7 +2828,7 @@
         "id": 188,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "7cf0b12d-5ee6-48ef-826d-b77a40e6e29d",
+        "workSchemaId": "7cf0b12d-5ee6-48ef-826d-b77a40e6e29d",
         "workTypeId": 192,
         "priority": 1
       },
@@ -2836,7 +2836,7 @@
         "id": 187,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7cf0b12d-5ee6-48ef-826d-b77a40e6e29d",
+        "workSchemaId": "7cf0b12d-5ee6-48ef-826d-b77a40e6e29d",
         "workTypeId": 192,
         "priority": 1
       }
@@ -2854,7 +2854,7 @@
         "id": 189,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "67da8949-029f-4104-acb7-861a9db34f2b",
+        "workSchemaId": "67da8949-029f-4104-acb7-861a9db34f2b",
         "workTypeId": 21,
         "priority": 1
       }
@@ -2872,7 +2872,7 @@
         "id": 190,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "622594f9-c3c9-466c-acd2-66b025bbed65",
+        "workSchemaId": "622594f9-c3c9-466c-acd2-66b025bbed65",
         "workTypeId": 53,
         "priority": 1
       }
@@ -2890,7 +2890,7 @@
         "id": 191,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "aae035ec-5bf8-447e-a2e5-bdff60ab7d00",
+        "workSchemaId": "aae035ec-5bf8-447e-a2e5-bdff60ab7d00",
         "workTypeId": 158,
         "priority": 1
       }
@@ -2908,7 +2908,7 @@
         "id": 192,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "6e97e787-267f-46dd-b030-189c38d31271",
+        "workSchemaId": "6e97e787-267f-46dd-b030-189c38d31271",
         "workTypeId": 123,
         "priority": 1
       }
@@ -2926,7 +2926,7 @@
         "id": 193,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "6284cae6-384e-4066-9084-d2607cbd6aee",
+        "workSchemaId": "6284cae6-384e-4066-9084-d2607cbd6aee",
         "workTypeId": 178,
         "priority": 1
       }
@@ -2944,7 +2944,7 @@
         "id": 194,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7a1504d4-36de-4c09-84a4-e69930d3bc00",
+        "workSchemaId": "7a1504d4-36de-4c09-84a4-e69930d3bc00",
         "workTypeId": 142,
         "priority": 1
       }
@@ -2961,7 +2961,7 @@
         "id": 196,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "243b514f-be36-457b-b5ef-c53947506043",
+        "workSchemaId": "243b514f-be36-457b-b5ef-c53947506043",
         "workTypeId": 198,
         "priority": 1
       },
@@ -2969,7 +2969,7 @@
         "id": 195,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "243b514f-be36-457b-b5ef-c53947506043",
+        "workSchemaId": "243b514f-be36-457b-b5ef-c53947506043",
         "workTypeId": 198,
         "priority": 1
       }
@@ -2987,7 +2987,7 @@
         "id": 198,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "133c0e28-780a-419e-83a8-8804114fa7a0",
+        "workSchemaId": "133c0e28-780a-419e-83a8-8804114fa7a0",
         "workTypeId": 217,
         "priority": 1
       },
@@ -2995,7 +2995,7 @@
         "id": 197,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "133c0e28-780a-419e-83a8-8804114fa7a0",
+        "workSchemaId": "133c0e28-780a-419e-83a8-8804114fa7a0",
         "workTypeId": 217,
         "priority": 1
       }
@@ -3013,7 +3013,7 @@
         "id": 199,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "6cc61e6e-ab62-41a5-a41b-4dc701d8b96a",
+        "workSchemaId": "6cc61e6e-ab62-41a5-a41b-4dc701d8b96a",
         "workTypeId": 124,
         "priority": 1
       }
@@ -3031,7 +3031,7 @@
         "id": 200,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "36b39d76-93ba-47c6-b53a-c30d17922d97",
+        "workSchemaId": "36b39d76-93ba-47c6-b53a-c30d17922d97",
         "workTypeId": 236,
         "priority": 1
       }
@@ -3049,7 +3049,7 @@
         "id": 201,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "1dea9871-45e4-4a03-b108-67b0af47b648",
+        "workSchemaId": "1dea9871-45e4-4a03-b108-67b0af47b648",
         "workTypeId": 132,
         "priority": 1
       }
@@ -3067,7 +3067,7 @@
         "id": 202,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "f4814c42-9044-440e-b0a4-eb85e37d051f",
+        "workSchemaId": "f4814c42-9044-440e-b0a4-eb85e37d051f",
         "workTypeId": 193,
         "priority": 1
       }
@@ -3085,7 +3085,7 @@
         "id": 204,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "9ce3d19d-7fa4-4018-bbe8-4738422b54f2",
+        "workSchemaId": "9ce3d19d-7fa4-4018-bbe8-4738422b54f2",
         "workTypeId": 196,
         "priority": 1
       },
@@ -3093,7 +3093,7 @@
         "id": 203,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "9ce3d19d-7fa4-4018-bbe8-4738422b54f2",
+        "workSchemaId": "9ce3d19d-7fa4-4018-bbe8-4738422b54f2",
         "workTypeId": 196,
         "priority": 1
       }
@@ -3111,7 +3111,7 @@
         "id": 206,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "b35d758f-fa44-4670-b8ee-9e723d1c9c6c",
+        "workSchemaId": "b35d758f-fa44-4670-b8ee-9e723d1c9c6c",
         "workTypeId": 77,
         "priority": 1
       },
@@ -3119,7 +3119,7 @@
         "id": 205,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "b35d758f-fa44-4670-b8ee-9e723d1c9c6c",
+        "workSchemaId": "b35d758f-fa44-4670-b8ee-9e723d1c9c6c",
         "workTypeId": 77,
         "priority": 1
       }
@@ -3137,7 +3137,7 @@
         "id": 207,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "a2da47fe-b944-44fe-9666-7552a0661e06",
+        "workSchemaId": "a2da47fe-b944-44fe-9666-7552a0661e06",
         "workTypeId": 220,
         "priority": 1
       }
@@ -3155,7 +3155,7 @@
         "id": 208,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "8d9c9f7d-a700-4255-a1ba-10f0a1e1ffd2",
+        "workSchemaId": "8d9c9f7d-a700-4255-a1ba-10f0a1e1ffd2",
         "workTypeId": 55,
         "priority": 1
       }
@@ -3172,7 +3172,7 @@
         "id": 209,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "ce3bf5d3-fc9a-40d8-a096-6683f849a1fa",
+        "workSchemaId": "ce3bf5d3-fc9a-40d8-a096-6683f849a1fa",
         "workTypeId": 112,
         "priority": 1
       }
@@ -3189,7 +3189,7 @@
         "id": 210,
         "deliveryAllocationSize": 1,
         "count": 2,
-        "workProjectSeriesSchemaId": "3f96d5d7-feec-43c2-8588-40c453beaf55",
+        "workSchemaId": "3f96d5d7-feec-43c2-8588-40c453beaf55",
         "workTypeId": 51,
         "priority": 1
       }
@@ -3207,7 +3207,7 @@
         "id": 212,
         "deliveryAllocationSize": 2,
         "count": 3,
-        "workProjectSeriesSchemaId": "8ba31612-f796-477e-bad2-a57b10a5d684",
+        "workSchemaId": "8ba31612-f796-477e-bad2-a57b10a5d684",
         "workTypeId": 70,
         "priority": 1
       },
@@ -3215,7 +3215,7 @@
         "id": 211,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "8ba31612-f796-477e-bad2-a57b10a5d684",
+        "workSchemaId": "8ba31612-f796-477e-bad2-a57b10a5d684",
         "workTypeId": 70,
         "priority": 1
       }
@@ -3233,7 +3233,7 @@
         "id": 214,
         "deliveryAllocationSize": 2,
         "count": 1,
-        "workProjectSeriesSchemaId": "fe0b0ca4-0f84-479d-a107-ea9b5fd91023",
+        "workSchemaId": "fe0b0ca4-0f84-479d-a107-ea9b5fd91023",
         "workTypeId": 233,
         "priority": 1
       },
@@ -3241,7 +3241,7 @@
         "id": 213,
         "deliveryAllocationSize": 1,
         "count": 1,
-        "workProjectSeriesSchemaId": "fe0b0ca4-0f84-479d-a107-ea9b5fd91023",
+        "workSchemaId": "fe0b0ca4-0f84-479d-a107-ea9b5fd91023",
         "workTypeId": 233,
         "priority": 1
       }
@@ -3259,7 +3259,7 @@
         "id": 215,
         "deliveryAllocationSize": 1,
         "count": 4,
-        "workProjectSeriesSchemaId": "017e8094-0b8b-4de7-8d8f-bbd0c143bc0a",
+        "workSchemaId": "017e8094-0b8b-4de7-8d8f-bbd0c143bc0a",
         "workTypeId": 143,
         "priority": 1
       }
@@ -3277,7 +3277,7 @@
         "id": 216,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "0756f938-2de0-477b-bf37-85a6280176b7",
+        "workSchemaId": "0756f938-2de0-477b-bf37-85a6280176b7",
         "workTypeId": 3,
         "priority": 1
       }
@@ -3295,7 +3295,7 @@
         "id": 217,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "3a0f27a7-9041-434f-9b65-85f4e949f96a",
+        "workSchemaId": "3a0f27a7-9041-434f-9b65-85f4e949f96a",
         "workTypeId": 128,
         "priority": 1
       }
@@ -3313,7 +3313,7 @@
         "id": 218,
         "deliveryAllocationSize": 1,
         "count": 6,
-        "workProjectSeriesSchemaId": "52aace22-ab93-455c-839e-de7b2c744609",
+        "workSchemaId": "52aace22-ab93-455c-839e-de7b2c744609",
         "workTypeId": 144,
         "priority": 1
       }
@@ -3331,7 +3331,7 @@
         "id": 219,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "db2d9101-3e20-44d1-82d4-79dbb2c57fce",
+        "workSchemaId": "db2d9101-3e20-44d1-82d4-79dbb2c57fce",
         "workTypeId": 176,
         "priority": 1
       }
@@ -3348,7 +3348,7 @@
         "id": 220,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "ec41ee4d-6fec-41c8-b531-69330cdbc850",
+        "workSchemaId": "ec41ee4d-6fec-41c8-b531-69330cdbc850",
         "workTypeId": 152,
         "priority": 1
       }
@@ -3365,7 +3365,7 @@
         "id": 221,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "566fad26-c55c-4930-9e60-31c6c17a5e9b",
+        "workSchemaId": "566fad26-c55c-4930-9e60-31c6c17a5e9b",
         "workTypeId": 152,
         "priority": 1
       }
@@ -3382,7 +3382,7 @@
         "id": 222,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "8c373900-014b-43dd-adfa-254cd9e051e5",
+        "workSchemaId": "8c373900-014b-43dd-adfa-254cd9e051e5",
         "workTypeId": 152,
         "priority": 1
       }
@@ -3399,7 +3399,7 @@
         "id": 223,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "63f3c424-7882-428d-917d-bfa1be816cb1",
+        "workSchemaId": "63f3c424-7882-428d-917d-bfa1be816cb1",
         "workTypeId": 152,
         "priority": 1
       }
@@ -3416,7 +3416,7 @@
         "id": 224,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7cc42433-d6cf-4c7c-be90-a26ce90ac851",
+        "workSchemaId": "7cc42433-d6cf-4c7c-be90-a26ce90ac851",
         "workTypeId": 152,
         "priority": 1
       }
@@ -3433,7 +3433,7 @@
         "id": 225,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "610a81be-83c5-4bb3-912e-a11cc35c6fb3",
+        "workSchemaId": "610a81be-83c5-4bb3-912e-a11cc35c6fb3",
         "workTypeId": 60,
         "priority": 1
       }
@@ -3450,7 +3450,7 @@
         "id": 226,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "197a3659-d0c4-42b0-8a69-7581bbea8f97",
+        "workSchemaId": "197a3659-d0c4-42b0-8a69-7581bbea8f97",
         "workTypeId": 60,
         "priority": 1
       }
@@ -3467,7 +3467,7 @@
         "id": 227,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "caf9d8f2-2dad-443f-9f82-2cdbad1b2666",
+        "workSchemaId": "caf9d8f2-2dad-443f-9f82-2cdbad1b2666",
         "workTypeId": 60,
         "priority": 1
       }
@@ -3484,7 +3484,7 @@
         "id": 228,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "f1198006-fcde-4cd1-8dc3-730249d21d10",
+        "workSchemaId": "f1198006-fcde-4cd1-8dc3-730249d21d10",
         "workTypeId": 60,
         "priority": 1
       }
@@ -3501,7 +3501,7 @@
         "id": 229,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "8767c969-e084-49fb-9855-2eca704ce039",
+        "workSchemaId": "8767c969-e084-49fb-9855-2eca704ce039",
         "workTypeId": 60,
         "priority": 1
       }
@@ -3518,7 +3518,7 @@
         "id": 230,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "aa34301f-d623-472d-9ffa-7208052669f8",
+        "workSchemaId": "aa34301f-d623-472d-9ffa-7208052669f8",
         "workTypeId": 182,
         "priority": 1
       }
@@ -3535,7 +3535,7 @@
         "id": 231,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "e354b408-7bb9-4bd7-af9c-d545402e17a1",
+        "workSchemaId": "e354b408-7bb9-4bd7-af9c-d545402e17a1",
         "workTypeId": 182,
         "priority": 1
       }
@@ -3552,7 +3552,7 @@
         "id": 232,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "e52eb46e-79f4-41b3-a74c-c8d998f7a0e2",
+        "workSchemaId": "e52eb46e-79f4-41b3-a74c-c8d998f7a0e2",
         "workTypeId": 182,
         "priority": 1
       }
@@ -3569,7 +3569,7 @@
         "id": 233,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "435a3fc9-3e76-4cf4-98d7-c015f1dde35a",
+        "workSchemaId": "435a3fc9-3e76-4cf4-98d7-c015f1dde35a",
         "workTypeId": 182,
         "priority": 1
       }
@@ -3586,7 +3586,7 @@
         "id": 235,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "525e5f42-dea3-462b-9c6f-94adbd479d41",
+        "workSchemaId": "525e5f42-dea3-462b-9c6f-94adbd479d41",
         "workTypeId": 92,
         "priority": 1
       },
@@ -3594,7 +3594,7 @@
         "id": 234,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "525e5f42-dea3-462b-9c6f-94adbd479d41",
+        "workSchemaId": "525e5f42-dea3-462b-9c6f-94adbd479d41",
         "workTypeId": 92,
         "priority": 1
       }
@@ -3611,7 +3611,7 @@
         "id": 237,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "b3e3b15e-2612-41c9-b73b-360a829c4694",
+        "workSchemaId": "b3e3b15e-2612-41c9-b73b-360a829c4694",
         "workTypeId": 92,
         "priority": 1
       },
@@ -3619,7 +3619,7 @@
         "id": 236,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "b3e3b15e-2612-41c9-b73b-360a829c4694",
+        "workSchemaId": "b3e3b15e-2612-41c9-b73b-360a829c4694",
         "workTypeId": 92,
         "priority": 1
       }
@@ -3636,7 +3636,7 @@
         "id": 239,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "4cb5b4df-9a23-42fd-a519-b4ae9820d7ff",
+        "workSchemaId": "4cb5b4df-9a23-42fd-a519-b4ae9820d7ff",
         "workTypeId": 92,
         "priority": 1
       },
@@ -3644,7 +3644,7 @@
         "id": 238,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "4cb5b4df-9a23-42fd-a519-b4ae9820d7ff",
+        "workSchemaId": "4cb5b4df-9a23-42fd-a519-b4ae9820d7ff",
         "workTypeId": 92,
         "priority": 1
       }
@@ -3661,7 +3661,7 @@
         "id": 241,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "4f8baef7-21c8-4f83-ab19-ba6048112d2e",
+        "workSchemaId": "4f8baef7-21c8-4f83-ab19-ba6048112d2e",
         "workTypeId": 92,
         "priority": 1
       },
@@ -3669,7 +3669,7 @@
         "id": 240,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "4f8baef7-21c8-4f83-ab19-ba6048112d2e",
+        "workSchemaId": "4f8baef7-21c8-4f83-ab19-ba6048112d2e",
         "workTypeId": 92,
         "priority": 1
       }
@@ -3686,7 +3686,7 @@
         "id": 243,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "2e972cbd-383c-40a0-8214-b4c4bdb4d97c",
+        "workSchemaId": "2e972cbd-383c-40a0-8214-b4c4bdb4d97c",
         "workTypeId": 214,
         "priority": 1
       },
@@ -3694,7 +3694,7 @@
         "id": 242,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "2e972cbd-383c-40a0-8214-b4c4bdb4d97c",
+        "workSchemaId": "2e972cbd-383c-40a0-8214-b4c4bdb4d97c",
         "workTypeId": 214,
         "priority": 1
       }
@@ -3711,7 +3711,7 @@
         "id": 245,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "c2aafe4e-a5d8-47c3-bfa3-0af92ac4f3e6",
+        "workSchemaId": "c2aafe4e-a5d8-47c3-bfa3-0af92ac4f3e6",
         "workTypeId": 214,
         "priority": 1
       },
@@ -3719,7 +3719,7 @@
         "id": 244,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "c2aafe4e-a5d8-47c3-bfa3-0af92ac4f3e6",
+        "workSchemaId": "c2aafe4e-a5d8-47c3-bfa3-0af92ac4f3e6",
         "workTypeId": 214,
         "priority": 1
       }
@@ -3736,7 +3736,7 @@
         "id": 247,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "e27b52f8-6ede-4b18-bbfe-28b88ff7ac9e",
+        "workSchemaId": "e27b52f8-6ede-4b18-bbfe-28b88ff7ac9e",
         "workTypeId": 214,
         "priority": 1
       },
@@ -3744,7 +3744,7 @@
         "id": 246,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "e27b52f8-6ede-4b18-bbfe-28b88ff7ac9e",
+        "workSchemaId": "e27b52f8-6ede-4b18-bbfe-28b88ff7ac9e",
         "workTypeId": 214,
         "priority": 1
       }
@@ -3761,7 +3761,7 @@
         "id": 249,
         "deliveryAllocationSize": 2,
         "count": 4,
-        "workProjectSeriesSchemaId": "7333a78a-5af0-45a0-a54d-0205e10ada52",
+        "workSchemaId": "7333a78a-5af0-45a0-a54d-0205e10ada52",
         "workTypeId": 214,
         "priority": 1
       },
@@ -3769,7 +3769,7 @@
         "id": 248,
         "deliveryAllocationSize": 1,
         "count": 5,
-        "workProjectSeriesSchemaId": "7333a78a-5af0-45a0-a54d-0205e10ada52",
+        "workSchemaId": "7333a78a-5af0-45a0-a54d-0205e10ada52",
         "workTypeId": 214,
         "priority": 1
       }

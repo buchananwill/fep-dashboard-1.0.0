@@ -1,18 +1,18 @@
 import {
   DeliveryAllocationDto,
   StaticDeliveryAllocationItemDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import {
   allocationCounter,
   AllocationCounter,
   getAllocationCounterId
-} from '@/components/work-project-series-schema/static-allocation/StaticAllocationAuditor';
+} from '@/components/work-schema/static-allocation/StaticAllocationAuditor';
 import { BaseDtoUiProps, InitialMap } from 'dto-stores';
 import { useMemo } from 'react';
 import { useGlobalListener } from 'selective-context';
-import { getDeliveryAllocationSize } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDropZone';
-import { StaticAllocationDraggable } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDraggable';
+import { getDeliveryAllocationSize } from '@/components/work-schema/static-allocation/StaticAllocationDropZone';
+import { StaticAllocationDraggable } from '@/components/work-schema/static-allocation/StaticAllocationDraggable';
 import { idDecrementer } from '@/components/work-schema-node-assignments/enrollment-table/GetNextIdDecrement';
 
 const TWO_FIVE_SIX = Math.pow(2, 8);
@@ -31,7 +31,7 @@ function getCount(unusedAllocation: StaticDeliveryAllocationItemDto) {
 
 function getUsed(
   idToCounterMap: Map<string, AllocationCounter>,
-  entity: WorkProjectSeriesSchemaDto,
+  entity: WorkSchemaDto,
   deliveryAllocationSize: number
 ) {
   return (
@@ -43,7 +43,7 @@ function getUsed(
 
 export function StaticAllocationDispensor({
   entity
-}: BaseDtoUiProps<WorkProjectSeriesSchemaDto>) {
+}: BaseDtoUiProps<WorkSchemaDto>) {
   const allocationCounterIds = useMemo(() => {
     return Object.values(entity.deliveryAllocations).map(
       (deliveryAllocation) => {
@@ -79,8 +79,7 @@ export function StaticAllocationDispensor({
             cycleId: PRODUCTION_STATIC_CYCLE_ID,
             deliveryAllocation: deliveryAllocation
           },
-          workProjectSeriesSchemaId:
-            deliveryAllocation.workProjectSeriesSchemaId
+          workSchemaId: deliveryAllocation.workSchemaId
         } as StaticDeliveryAllocationItemDto;
       }
     );

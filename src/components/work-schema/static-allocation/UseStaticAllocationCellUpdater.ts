@@ -6,7 +6,7 @@ import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellM
 import {
   Cell,
   joinCellId
-} from '@/components/work-project-series-schema/static-allocation/createCell';
+} from '@/components/work-schema/static-allocation/createCell';
 
 function updateStaticAllocationTableCell(
   writeAnyCell: {

@@ -9,13 +9,13 @@ import AssignmentCell from '@/components/work-project-series-assignments/table-v
 import { workProjectSeriesDataRetrieval } from '@/components/work-project-series-assignments/table-view/workProjectSeriesDataRetrieval';
 import { NamespacedHooks } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { useFilteredRows } from '@/components/work-project-series-schema/static-allocation/useFilteredRows';
+import { useFilteredRows } from '@/components/work-schema/static-allocation/useFilteredRows';
 import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
   WorkProjectSeriesAssignmentDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
@@ -36,11 +36,11 @@ export default function AssignmentTable({
   >;
   organizations: OrganizationDto[];
 }) {
-  const { currentState: workProjectSeriesSchemas } = NamespacedHooks.useListen(
-    EntityClassMap.workProjectSeriesSchema,
+  const { currentState: workSchemas } = NamespacedHooks.useListen(
+    EntityClassMap.workSchema,
     KEY_TYPES.MASTER_LIST,
     'AssignmentTable',
-    EmptyArray as WorkProjectSeriesSchemaDto[]
+    EmptyArray as WorkSchemaDto[]
   );
 
   const listenerKey = useUuidListenerKey();
@@ -60,7 +60,7 @@ export default function AssignmentTable({
     <>
       <FinderTableButton
         organization={organizations}
-        // workProjectSeriesSchemas={workProjectSeriesSchemas}
+        // workSchemas={workSchemas}
       />
       <CellQueryManager
         tableData={tableData}

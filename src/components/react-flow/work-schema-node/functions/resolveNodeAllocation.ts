@@ -1,11 +1,11 @@
 import { DataNode } from 'react-d3-force-wrapper';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 import { isNotUndefined } from '@/api/main';
 import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptors';
 import { getIntListFromDeliveryAllocations } from '@/components/react-flow/work-schema-node/functions/getIntListFromDeliveryAllocations';
 
 interface GraphRollupData {
-  readLeafSchema: (id: string) => WorkProjectSeriesSchemaDto | undefined;
+  readLeafSchema: (id: string) => WorkSchemaDto | undefined;
   idToChildIdMap: Map<string, Set<string>>;
   idToNodeMap: Map<string, DataNode<WorkSchemaNodeDto>>;
 }
@@ -19,17 +19,17 @@ export function resolveNodeAllocation(
   const responseMap = new Map<string, number[]>();
   const { data, id } = node;
   const {
-    workProjectSeriesSchemaId,
+    workSchemaId,
     carouselOptionId,
     resolutionMode,
     childrenAs,
     carouselId
   } = data;
-  let schema: WorkProjectSeriesSchemaDto | undefined = undefined;
+  let schema: WorkSchemaDto | undefined = undefined;
   let deliveryAllocationTokenList: number[] = [];
 
   // BASE CASES
-  if (workProjectSeriesSchemaId || carouselOptionId) {
+  if (workSchemaId || carouselOptionId) {
     schema = readLeafSchema(node.id);
     if (schema) {
       deliveryAllocationTokenList = getIntListFromDeliveryAllocations(

@@ -41,7 +41,7 @@ import {
   WorkProjectSeriesAssignmentDto,
   WorkProjectSeriesDto,
   WorkProjectSeriesMetricDto,
-  WorkProjectSeriesSchemaDto,
+  WorkSchemaDto,
   WorkSchemaNodeAssignmentDto,
   WorkSchemaNodeDto,
   WorkSchemaNodeManualDefinitionDto,
@@ -98,7 +98,7 @@ export type EntityTypeMap = {
   workProjectSeries: WorkProjectSeriesDto;
   workProjectSeriesAssignment: WorkProjectSeriesAssignmentDto;
   workProjectSeriesMetric: WorkProjectSeriesMetricDto;
-  workProjectSeriesSchema: WorkProjectSeriesSchemaDto;
+  workSchema: WorkSchemaDto;
   workSchemaNode: WorkSchemaNodeDto;
   workSchemaNodeManualDefinition: IdWrapper<WorkSchemaNodeManualDefinitionDto>;
   workSchemaNodeAssignment: WorkSchemaNodeAssignmentDto;

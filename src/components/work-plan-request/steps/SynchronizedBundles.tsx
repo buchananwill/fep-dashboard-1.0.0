@@ -2,7 +2,7 @@ import { WorkPlanRequestWizardStepProps } from '@/components/work-plan-request/W
 import {
   SynchronizedWorkPlanRequest,
   WorkPlanRequest,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { isEqual } from 'lodash';
@@ -37,7 +37,7 @@ const synchronizedBundles = 'synchronizedBundles';
 
 export function useRemainingUnselectedSchemas(
   currentState: WorkPlanRequest,
-  allSchemas: WorkProjectSeriesSchemaDto[]
+  allSchemas: WorkSchemaDto[]
 ) {
   return useMemo(() => {
     const assignedSchemas = new Set<number>();
@@ -83,7 +83,7 @@ export function SynchronizedBundles({
   });
 
   const { dispatch: dispatchAllSchemas, currentState: allSchemas } =
-    useGlobalController<WorkProjectSeriesSchemaDto[]>({
+    useGlobalController<WorkSchemaDto[]>({
       contextKey: allWorkSchemas,
       initialValue: EmptyArray,
       listenerKey: synchronizedBundles

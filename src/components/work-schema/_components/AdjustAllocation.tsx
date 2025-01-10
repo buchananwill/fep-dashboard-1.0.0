@@ -2,17 +2,17 @@ import React, { useCallback, useMemo } from 'react';
 
 import { BaseDtoUiProps, useLazyDtoStore } from 'dto-stores';
 
-import { sumDeliveryAllocations } from '@/components/work-project-series-schema/_functions/sumDeliveryAllocations';
+import { sumDeliveryAllocations } from '@/components/work-schema/_functions/sumDeliveryAllocations';
 import { StepperContext } from '@/components/generic/stepper/stepperContextCreator';
-import { AllocationUnitGroup } from '@/components/work-project-series-schema/_components/AllocationUnitGroup';
+import { AllocationUnitGroup } from '@/components/work-schema/_components/AllocationUnitGroup';
 import LandscapeStepper from '@/components/generic/stepper/LandscapeStepper';
-import { DeliveryAllocation } from '@/components/work-project-series-schema/_components/DeliveryAllocation';
+import { DeliveryAllocation } from '@/components/work-schema/_components/DeliveryAllocation';
 import { SetOptional } from 'type-fest';
 import { ABSOLUTE_SMALLEST_TRANSIENT_ID } from '@/api/client-literals';
 import {
   CycleDto,
   DeliveryAllocationDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import { EntityClassMap } from '@/api/entity-class-map';
 
@@ -21,9 +21,9 @@ import { useEntityTableContext } from '@/hooks/table-hooks/table-context';
 import { Button, Popover } from '@mantine/core';
 
 export function AdjustAllocation({
-  entity: workProjectSeriesSchemaDto,
+  entity: workSchemaDto,
   dispatchWithoutControl
-}: SetOptional<BaseDtoUiProps<WorkProjectSeriesSchemaDto>, 'deleted'>) {
+}: SetOptional<BaseDtoUiProps<WorkSchemaDto>, 'deleted'>) {
   const { entity: cycle } = useLazyDtoStore<CycleDto>(1, EntityClassMap.cycle);
   const cycleSubspanGroupSizes = useMemo(() => {
     return cycle ? cycle.cycleSubspanGroupSizes : [];
@@ -31,23 +31,23 @@ export function AdjustAllocation({
 
   const currentAllocations = useMemo(() => {
     return cycleSubspanGroupSizes.map((size: number) => {
-      const allocations = workProjectSeriesSchemaDto
-        ? workProjectSeriesSchemaDto.deliveryAllocations
+      const allocations = workSchemaDto
+        ? workSchemaDto.deliveryAllocations
         : {};
       const found = allocations[String(size)];
       const nullAllocation: DeliveryAllocationDto = {
         id: ABSOLUTE_SMALLEST_TRANSIENT_ID - size, // TODO improve this transient ID allocation
         count: 0,
         deliveryAllocationSize: size,
-        workProjectSeriesSchemaId: workProjectSeriesSchemaDto.id
+        workSchemaId: workSchemaDto.id
       };
       return found ?? nullAllocation;
     });
-  }, [workProjectSeriesSchemaDto, cycleSubspanGroupSizes]);
+  }, [workSchemaDto, cycleSubspanGroupSizes]);
 
   const totalAllocations = useMemo(() => {
-    return sumDeliveryAllocations(workProjectSeriesSchemaDto);
-  }, [workProjectSeriesSchemaDto]);
+    return sumDeliveryAllocations(workSchemaDto);
+  }, [workSchemaDto]);
 
   const handleModifyAllocation = useCallback(
     (size: number, up: boolean) => {
@@ -67,13 +67,13 @@ export function AdjustAllocation({
         },
         {} as Record<string, DeliveryAllocationDto>
       );
-      const updatedSchema: WorkProjectSeriesSchemaDto = {
-        ...workProjectSeriesSchemaDto,
+      const updatedSchema: WorkSchemaDto = {
+        ...workSchemaDto,
         deliveryAllocations: updatedRecord
       };
       dispatchWithoutControl(updatedSchema);
     },
-    [workProjectSeriesSchemaDto, dispatchWithoutControl, currentAllocations]
+    [workSchemaDto, dispatchWithoutControl, currentAllocations]
   );
 
   return (
@@ -130,11 +130,7 @@ export function AdjustAllocation({
 export function AdjustAllocationInWrapper({
   entity,
   dispatchWithoutControl
-}: EntityInnerCellProps<
-  WorkProjectSeriesSchemaDto,
-  number,
-  'deliveryAllocations'
->) {
+}: EntityInnerCellProps<WorkSchemaDto, number, 'deliveryAllocations'>) {
   const { entityClass } = useEntityTableContext();
 
   return (

@@ -5,7 +5,7 @@ import {
   KnowledgeLevelSeriesGroupContextKey
 } from '@/components/work-schema-nodes/nivo-sunburst-chart/create/KnowledgeLevelSeriesGroupManager';
 import { useMemo } from 'react';
-import { getCycleSubspansWithJoins } from '@/components/work-project-series-schema/static-allocation/getCycleSubspansWithJoins';
+import { getCycleSubspansWithJoins } from '@/components/work-schema/static-allocation/getCycleSubspansWithJoins';
 import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types_';
 import { useSimpleApiFetcher } from '@/components/work-types/useSimpleApiFetcher';
 import { NamespacedHooks, useEffectSyncWithDispatch } from 'dto-stores';

@@ -5,7 +5,7 @@ import {
   CellIdReference
 } from '@/components/grids/CellQueryManager';
 import React, { memo, useCallback, useMemo } from 'react';
-import { EntityWithWorkTypeShortCode } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
+import { EntityWithWorkTypeShortCode } from '@/components/feasibility-report/WorkSchemaLabel';
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useGlobalDispatchAndListener } from 'selective-context';
@@ -42,7 +42,7 @@ function InnerAssignmentCell({
   const listenerKey = `assignmentCell:${rowIndex}:${columnIndex}`;
 
   const selectSchemaIdList = NamespacedHooks.useListen(
-    EntityClassMap.workProjectSeriesSchema,
+    EntityClassMap.workSchema,
     KEY_TYPES.SELECTED,
     listenerKey,
     EmptyArray as number[]
@@ -52,8 +52,7 @@ function InnerAssignmentCell({
     return (
       selectSchemaIdList.currentState.length === 0 ||
       selectSchemaIdList.currentState.some(
-        (someId) =>
-          someId === cellData?.workProjectSeries.workProjectSeriesSchemaId
+        (someId) => someId === cellData?.workProjectSeries.workSchemaId
       )
     );
   }, [cellData, selectSchemaIdList]);

@@ -8,7 +8,7 @@ import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptor
 import { parseToCssRgba } from '@/functions/parseToCssRgba';
 import { useQuery } from '@tanstack/react-query';
 import { Api } from '@/api/clientApi';
-import { getWorkTypeViewIdString } from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
+import { getWorkTypeViewIdString } from '@/components/tables/selectorTables/WorkSchemaSelectorTable';
 
 export default function LeafNode(
   props: NodeProps<NodeBase<WorkSchemaNodeDto>>
@@ -16,14 +16,9 @@ export default function LeafNode(
   const { selected, dragging, data } = props;
 
   const { data: entity, isPending } = useQuery({
-    queryKey: [
-      EntityClassMap.workProjectSeriesSchema,
-      data.workProjectSeriesSchemaId
-    ],
+    queryKey: [EntityClassMap.workSchema, data.workSchemaId],
     queryFn: () =>
-      data.workProjectSeriesSchemaId
-        ? Api.WorkProjectSeriesSchema.getOne(data.workProjectSeriesSchemaId)
-        : undefined
+      data.workSchemaId ? Api.WorkSchema.getOne(data.workSchemaId) : undefined
   });
 
   return (

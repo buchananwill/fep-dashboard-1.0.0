@@ -15,7 +15,7 @@ export function performDiffOnCarouselOrderItem(
   readAnyOption: ReadAnyDto<CarouselOptionStateInterface>
 ) {
   let updateSucceeded = false;
-  const prevItem = orderItems.current[item.workProjectSeriesSchemaId];
+  const prevItem = orderItems.current[item.workSchemaId];
   const prevOptionDefined =
     prevItem && !!readAnyOption(prevItem.carouselOptionId!);
   const currOptionDefined = item && !!readAnyOption(item.carouselOptionId!);
@@ -60,6 +60,5 @@ export function performDiffOnCarouselOrderItem(
     // No add action needed for the current item, since it isn't active.
   }
   // finally: update the ref
-  if (updateSucceeded)
-    orderItems.current[item.workProjectSeriesSchemaId] = item;
+  if (updateSucceeded) orderItems.current[item.workSchemaId] = item;
 }

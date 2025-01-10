@@ -1,7 +1,7 @@
 import { getDtoListByExampleList as getKnowledgeLevelsByExampleList } from '@/api/generated-actions/KnowledgeLevel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import CarouselGroupTabGroup from '@/components/carousel-groups/_components/CarouselGroupTabGroup';
-import { getLevelPartialAndSchemaList } from '@/components/work-project-series-schema/_functions/getLevelPartialAndSchemaList';
+import { getLevelPartialAndSchemaList } from '@/components/work-schema/_functions/getLevelPartialAndSchemaList';
 import {
   deleteIdList,
   getDtoListByExampleList as getCarouselGroupsByExampleList,
@@ -23,7 +23,7 @@ export default async function CarouselGroupLevelPage({
   pathVariables
 }: LeafComponentProps) {
   const [serviceCategoryId, levelOrdinal] = getLastNVariables(pathVariables, 2);
-  const { levelPartial, workProjectSeriesSchemaList: data } =
+  const { levelPartial, workSchemaList: data } =
     await getLevelPartialAndSchemaList(levelOrdinal, serviceCategoryId);
 
   const kLevelList = await getKnowledgeLevelsByExampleList([levelPartial]);
@@ -45,14 +45,14 @@ export default async function CarouselGroupLevelPage({
           postServerAction={Api.CarouselGroup.postList}
         />
         <EditAddDeleteDtoControllerArray
-          entityClass={EntityClassMap.workProjectSeriesSchema}
+          entityClass={EntityClassMap.workSchema}
           dtoList={data}
-          key={`${EntityClassMap.workProjectSeriesSchema}:${levelOrdinal}`}
+          key={`${EntityClassMap.workSchema}:${levelOrdinal}`}
         />
         <CarouselGroupTabGroup
           knowledgeLevel={knowledgeLevel}
           collectionEntityClass={EntityClassMap.carouselGroup}
-          referencedEntityClass={EntityClassMap.workProjectSeriesSchema}
+          referencedEntityClass={EntityClassMap.workSchema}
         />
       </RootCard>
     </div>

@@ -1,5 +1,5 @@
 'use server';
-import { getKnowledgeLevelPartial } from '@/components/work-project-series-schema/_functions/getLevelPartialAndSchemaList';
+import { getKnowledgeLevelPartial } from '@/components/work-schema/_functions/getLevelPartialAndSchemaList';
 import { Api } from '@/api/clientApi_';
 
 export async function getCarouselGroups(

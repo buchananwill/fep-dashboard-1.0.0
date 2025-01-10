@@ -9,20 +9,17 @@ import { EmptyArray } from '@/api/client-literals';
 import { useMemo } from 'react';
 import {
   StaticDeliveryAllocationItemDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
-import { getDeliveryAllocationSize } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDropZone';
+import { getDeliveryAllocationSize } from '@/components/work-schema/static-allocation/StaticAllocationDropZone';
 import { useGlobalController } from 'selective-context';
 
-export function getWorkProjectSeriesSchemaId(
-  curr: StaticDeliveryAllocationItemDto
-) {
-  return curr.staticDeliveryAllocation.deliveryAllocation
-    .workProjectSeriesSchemaId;
+export function getWorkSchemaId(curr: StaticDeliveryAllocationItemDto) {
+  return curr.staticDeliveryAllocation.deliveryAllocation.workSchemaId;
 }
 
 export function getAllocationCounterId(
-  wpssId: WorkProjectSeriesSchemaDto['id'],
+  wpssId: WorkSchemaDto['id'],
   deliveryAllocationSize: number
 ) {
   return `${wpssId}:${deliveryAllocationSize}`;
@@ -42,7 +39,7 @@ export default function StaticAllocationAuditor() {
   const staticAllocationCounters = useMemo(() => {
     return currentState.reduce((prev, curr) => {
       const allocationCounterId = getAllocationCounterId(
-        getWorkProjectSeriesSchemaId(curr),
+        getWorkSchemaId(curr),
         getDeliveryAllocationSize(curr)
       );
       let counter = prev.get(allocationCounterId);

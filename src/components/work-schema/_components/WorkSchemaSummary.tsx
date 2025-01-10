@@ -1,12 +1,12 @@
 import { BaseLazyDtoUiProps } from 'dto-stores';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 import { NumberPropertyKey, StringPropertyKey } from '@/types';
 import { useMemo } from 'react';
-import { sumDeliveryAllocationList } from '@/components/work-project-series-schema/_functions/sumDeliveryAllocations';
+import { sumDeliveryAllocationList } from '@/components/work-schema/_functions/sumDeliveryAllocations';
 
 export default function WorkProjectionSeriesSchemaSummary({
   entity
-}: BaseLazyDtoUiProps<WorkProjectSeriesSchemaDto>) {
+}: BaseLazyDtoUiProps<WorkSchemaDto>) {
   const allocationTotal = useMemo(() => {
     return sumDeliveryAllocationList(Object.values(entity.deliveryAllocations));
   }, [entity.deliveryAllocations]);
@@ -31,6 +31,6 @@ export default function WorkProjectionSeriesSchemaSummary({
 }
 
 const simpleAttributes: (
-  | StringPropertyKey<WorkProjectSeriesSchemaDto>
-  | NumberPropertyKey<WorkProjectSeriesSchemaDto>
+  | StringPropertyKey<WorkSchemaDto>
+  | NumberPropertyKey<WorkSchemaDto>
 )[] = ['name', 'userToProviderRatio'];

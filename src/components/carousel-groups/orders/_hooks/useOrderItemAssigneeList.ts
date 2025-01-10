@@ -45,7 +45,7 @@ export function useSingleOptionAssigneeList(
     .map((order) => {
       return order.carouselOrderItems;
     })
-    .map((items) => items[option.workProjectSeriesSchemaId])
+    .map((items) => items[option.workSchemaId])
     .filter(isNotUndefined);
   // [orderItemAssigneeList, option]
   // );

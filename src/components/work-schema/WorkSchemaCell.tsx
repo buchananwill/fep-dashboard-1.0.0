@@ -6,7 +6,7 @@ import {
 } from 'dto-stores';
 import {
   StaticDeliveryAllocationItemDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import {
   CellWrapperProps,
@@ -17,17 +17,15 @@ import { memo, useCallback } from 'react';
 import { DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import clsx from 'clsx';
-import { useStaticAllocationCellUpdater } from '@/components/work-project-series-schema/static-allocation/UseStaticAllocationCellUpdater';
+import { useStaticAllocationCellUpdater } from '@/components/work-schema/static-allocation/UseStaticAllocationCellUpdater';
 import { useGlobalListener } from 'selective-context';
-import { cycleSubspanGroupMap } from '@/components/work-project-series-schema/static-allocation/StaticAllocationTable';
+import { cycleSubspanGroupMap } from '@/components/work-schema/static-allocation/StaticAllocationTable';
 import { ObjectPlaceholder } from '@/api/client-literals';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { Button, Popover } from '@mantine/core';
-import { StaticAllocationDispensor } from '@/components/work-project-series-schema/StaticAllocationDispensor';
+import { StaticAllocationDispensor } from '@/components/work-schema/StaticAllocationDispensor';
 
-function InnerWorkProjectSeriesSchemaCell({
-  entity
-}: BaseDtoUiProps<WorkProjectSeriesSchemaDto>) {
+function InnerWorkSchemaCell({ entity }: BaseDtoUiProps<WorkSchemaDto>) {
   return (
     <span className={'center-vertical-with-margin inline-block truncate pl-1'}>
       {entity.name}
@@ -35,7 +33,7 @@ function InnerWorkProjectSeriesSchemaCell({
   );
 }
 
-export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
+export default function WorkSchemaCell(props: CellWrapperProps) {
   const { columnIndex, rowIndex, data, style } = props;
   const { rowId } = getCellIdReference({ data, columnIndex, rowIndex });
   const canDropCallback = useCallback(
@@ -48,7 +46,7 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
     []
   );
 
-  const listenerKey = `workProjectSeriesSchemaCell:${rowId}`;
+  const listenerKey = `workSchemaCell:${rowId}`;
   const { currentState: cycleSubspanGroupMapCurrent } = useGlobalListener({
     contextKey: cycleSubspanGroupMap,
     listenerKey,
@@ -114,15 +112,15 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
               styles={{ root: { padding: '4px 2px 4px' } }}
             >
               <DtoUiWrapper
-                entityClass={EntityClassMap.workProjectSeriesSchema}
+                entityClass={EntityClassMap.workSchema}
                 entityId={rowId}
-                renderAs={InnerWorkProjectSeriesSchemaCell}
+                renderAs={InnerWorkSchemaCell}
               />
             </Button>
           </Popover.Target>
           <Popover.Dropdown>
             <DtoUiWrapper
-              entityClass={EntityClassMap.workProjectSeriesSchema}
+              entityClass={EntityClassMap.workSchema}
               entityId={rowId}
               renderAs={StaticAllocationDispensor}
             />
@@ -133,6 +131,4 @@ export default function WorkProjectSeriesSchemaCell(props: CellWrapperProps) {
   );
 }
 
-export const MemoWorkProjectSeriesSchemaCell = memo(
-  WorkProjectSeriesSchemaCell
-);
+export const MemoWorkSchemaCell = memo(WorkSchemaCell);

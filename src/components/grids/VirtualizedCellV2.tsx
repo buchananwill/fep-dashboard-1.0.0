@@ -11,7 +11,7 @@ import { ObjectPlaceholder } from '@/api/client-literals';
 import {
   Cell,
   joinCellId
-} from '@/components/work-project-series-schema/static-allocation/createCell';
+} from '@/components/work-schema/static-allocation/createCell';
 
 export default function VirtualizedOuterCellV2<T>({
   rowIndex,

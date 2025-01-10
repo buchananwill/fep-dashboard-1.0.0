@@ -1,5 +1,5 @@
 import { DataNode } from 'react-d3-force-wrapper';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 import { useMemo } from 'react';
 import { resolveNodeAllocation } from '@/components/react-flow/work-schema-node/functions/resolveNodeAllocation';
 import { AllocationRollup } from '@/components/react-flow/work-schema-node/functions/useLeafNodeRollUpListener';
@@ -7,7 +7,7 @@ import { WorkSchemaNodeDto } from '@/components/react-flow/generic/utils/adaptor
 
 export function useWorkSchemaNodeRollupMemo(
   nodesFromContext: DataNode<WorkSchemaNodeDto>[],
-  leafToSchemaMap: Map<string, WorkProjectSeriesSchemaDto>,
+  leafToSchemaMap: Map<string, WorkSchemaDto>,
   idToChildIdMap: Map<string, Set<string>>,
   idToNodeMap: Map<string, DataNode<WorkSchemaNodeDto>>
 ) {

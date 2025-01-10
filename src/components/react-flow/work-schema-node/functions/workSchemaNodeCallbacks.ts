@@ -59,7 +59,7 @@ const referenceProps: (keyof WorkSchemaNodeDto)[] = [
   'carouselId',
   'carouselOptionId',
   'carouselGroupId',
-  'workProjectSeriesSchemaId'
+  'workSchemaId'
 ];
 
 export function validateHierarchy(
@@ -109,7 +109,7 @@ export function validateHierarchy(
 export function determineLocalResolution(
   workSchemaNode: WorkSchemaNodeDto
 ): WorkSchemaNodeType {
-  if (workSchemaNode.workProjectSeriesSchemaId !== undefined) return 'LEAF';
+  if (workSchemaNode.workSchemaId !== undefined) return 'LEAF';
   if (workSchemaNode.carouselOptionId !== undefined) return 'CAROUSEL_OPTION';
   if (
     workSchemaNode.carouselId !== undefined ||
@@ -124,7 +124,7 @@ export function determineLocalResolution(
 const maxOneOf: (keyof WorkSchemaNodeDto)[] = [
   'carouselGroupId',
   'carouselId',
-  'workProjectSeriesSchemaId'
+  'workSchemaId'
 ];
 
 function spyOnRequest<T, U>(currentRequest: ServerAction<T, U>) {

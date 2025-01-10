@@ -22,9 +22,9 @@ export async function WorkProjectSeriesMetricsPage({
         dtoList={workProjectSeries}
       />
       {/*<DataFetchingEditDtoControllerArray*/}
-      {/*  entityClass={EntityClassMap.workProjectSeriesSchema}*/}
-      {/*  idList={[...workProjectSeriesSchemaIds.values()]}*/}
-      {/*  getServerAction={Api.WorkProjectSeriesSchema.getDtoListByBodyList}*/}
+      {/*  entityClass={EntityClassMap.workSchema}*/}
+      {/*  idList={[...workSchemaIds.values()]}*/}
+      {/*  getServerAction={Api.WorkSchema.getDtoListByBodyList}*/}
       {/*/>*/}
       <WorkProjectSeriesTableDataFetcher
         workProjectSeries={workProjectSeries}

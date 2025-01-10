@@ -37,7 +37,7 @@ import CreateNewTypeModal from '@/components/entities-with-type/CreateNewRoleTyp
 import { useSimpleApiFetcher } from '@/components/work-types/useSimpleApiFetcher';
 import { workSchemaNodeRollUp } from '@/components/work-schema-node-assignments/WorkSchemaNodeAssignmentsPage';
 import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
-import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
+import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
 import { isEqual } from 'lodash';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 

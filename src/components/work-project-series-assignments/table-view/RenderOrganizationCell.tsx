@@ -1,5 +1,5 @@
 import { LazyDtoUiWrapper } from 'dto-stores';
-import { NamedEntityLabel } from '@/components/feasibility-report/WorkProjectSeriesSchemaLabel';
+import { NamedEntityLabel } from '@/components/feasibility-report/WorkSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { HasNameDto } from '@/api/generated-types/generated-types_';

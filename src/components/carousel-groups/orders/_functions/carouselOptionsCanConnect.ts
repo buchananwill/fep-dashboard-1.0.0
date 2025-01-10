@@ -1,8 +1,8 @@
 /** Two Carousel options can connect if:
  *  1. They are on different Carousels.
  *  2. They are both primed.
- *  3. They have different WorkProjectSeriesSchema IDs.
- *  4. The second Option's Carousel has an Option which matches the WorkProjectSeriesSchema of the first Option.
+ *  3. They have different WorkSchema IDs.
+ *  4. The second Option's Carousel has an Option which matches the WorkSchema of the first Option.
  *
  *  Therefore, the following extrinsic data is needed:
  *   1. Read any Carousel.
@@ -23,15 +23,13 @@ export function getOptionConnectionValidator(
     optionA: CarouselOptionStateInterface,
     optionB: CarouselOptionStateInterface
   ) => {
-    if (optionA.workProjectSeriesSchemaId === optionB.workProjectSeriesSchemaId)
-      return false;
+    if (optionA.workSchemaId === optionB.workSchemaId) return false;
     if (optionA.carouselId === optionB.carouselId) return false;
     const carouselB = readAnyCarousel(optionB.carouselId);
     if (carouselB === undefined)
       throw Error(`Could not find expected Carousel for option ${optionB}`);
     return carouselB.carouselOptionDtos.some(
-      (option) =>
-        option.workProjectSeriesSchemaId === optionA.workProjectSeriesSchemaId
+      (option) => option.workSchemaId === optionA.workSchemaId
     );
   };
 }

@@ -1,7 +1,7 @@
 import HeatMapCarouselOrders from '@/components/carousel-groups/_components/HeatMapCarouselOrders';
 import { DataFetchingEditDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { getDtoListByBodyList } from '@/api/generated-actions/WorkProjectSeriesSchema';
+import { getDtoListByBodyList } from '@/api/generated-actions/WorkSchema';
 import { getHeatMapSeriesList } from '@/api/actions-custom/getHeatMapSeriesList';
 import { EmptyArray } from '@/api/client-literals';
 import { getLastNVariables } from '@/functions/getLastNVariables';
@@ -17,7 +17,7 @@ export default async function carouselGroupHeatMapPage({
     <div className={'h-[100vh] w-[100vw] p-8'}>
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
+        entityClass={EntityClassMap.workSchema}
         getServerAction={getDtoListByBodyList}
       />
       <HeatMapCarouselOrders data={heatMapSeriesList} />

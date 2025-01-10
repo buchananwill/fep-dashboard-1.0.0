@@ -1,6 +1,6 @@
 import { useDtoStore } from 'dto-stores';
 import { IdWrapper } from '@/api/types';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 import { Pill } from '@mantine/core';
 import {
   getAutoContrastFromCielab,
@@ -10,11 +10,8 @@ import { lab } from 'd3';
 import { TransferItemLabelProps } from '@/components/generic/combo-boxes/TransferList';
 import { Reorder } from 'framer-motion';
 
-export function WorkProjectSeriesSchemaPill({
-  item,
-  type
-}: TransferItemLabelProps) {
-  const { entity } = useDtoStore<IdWrapper<WorkProjectSeriesSchemaDto>>({
+export function WorkSchemaPill({ item, type }: TransferItemLabelProps) {
+  const { entity } = useDtoStore<IdWrapper<WorkSchemaDto>>({
     entityId: item,
     entityClass: 'IdWrapper'
   });

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { NamespacedHooks } from 'dto-stores';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { EmptyArray } from '@/api/client-literals';
-import { SyncDirection } from '@/components/work-project-series-schema/_components/WorkSchemaNodeModalTable';
+import { SyncDirection } from '@/components/work-schema/_components/WorkSchemaNodeModalTable';
 import { isEqual } from 'lodash';
 
 export function useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders<

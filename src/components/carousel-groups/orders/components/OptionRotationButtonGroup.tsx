@@ -175,13 +175,10 @@ export default function OptionRotationButtonGroup() {
       const optionRotations = new Map<number, OptionRotationTarget>();
       for (let i = 0; i < optionList.length; i++) {
         const carouselOrderItem =
-          order.carouselOrderItems[optionList[i].workProjectSeriesSchemaId];
+          order.carouselOrderItems[optionList[i].workSchemaId];
         // SAFETY CHECK TO UNDERSTAND BUG ...
         if (carouselOrderItem === undefined) {
-          console.warn(
-            'no order item for ',
-            optionList[i].workProjectSeriesSchemaId
-          );
+          console.warn('no order item for ', optionList[i].workSchemaId);
           return new Map<number, OptionRotationTarget>();
         }
         // ... END SAFETY CHECK
@@ -189,9 +186,7 @@ export default function OptionRotationButtonGroup() {
           optionList[(i + 1) % optionList.length].carouselId;
         const nextCarousel = readAnyCarousel(nextCarouselId);
         const nextOption = nextCarousel?.carouselOptionDtos?.find(
-          (option) =>
-            option.workProjectSeriesSchemaId ===
-            carouselOrderItem.workProjectSeriesSchemaId
+          (option) => option.workSchemaId === carouselOrderItem.workSchemaId
         );
         if (nextOption === undefined) throw Error(`Could not find option!`);
         optionRotations.set(nextOption.id, {
@@ -246,7 +241,7 @@ export default function OptionRotationButtonGroup() {
       const schemaIdList = rotationPrimeList
         .map((primedId) => readAnyOption(primedId))
         .filter(isNotUndefined)
-        .map((option) => option.workProjectSeriesSchemaId);
+        .map((option) => option.workSchemaId);
       for (let [idKey] of oldMap.entries()) {
         if (!schemaIdList.includes(idKey)) {
           map.delete(idKey);

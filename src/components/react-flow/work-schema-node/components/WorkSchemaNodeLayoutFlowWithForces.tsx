@@ -41,7 +41,7 @@ import { EmptyArray } from '@/api/client-literals';
 import { NodeValidator } from '@/components/react-flow/generic/types';
 import {
   CarouselDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import { UnassignedRootButton } from '@/components/react-flow/work-schema-node/components/UnassignedRootButton';
 import { RollupUpdater } from '@/components/react-flow/work-schema-node/components/RollupUpdater';
@@ -105,28 +105,23 @@ export function WorkSchemaNodeLayoutFlowWithForces({
 
   const schemaIdList = useMemo(() => {
     return nodesFromContext
-      .map((node) => node.data.workProjectSeriesSchemaId)
+      .map((node) => node.data.workSchemaId)
       .filter(isNotUndefined);
   }, [nodesFromContext]);
 
   const { data } = useQuery({
-    queryKey: [
-      EntityClassMap.workProjectSeriesSchema,
-      'leafNodes',
-      ...schemaIdList
-    ],
-    queryFn: () =>
-      Api.WorkProjectSeriesSchema.getDtoListByBodyList(schemaIdList)
+    queryKey: [EntityClassMap.workSchema, 'leafNodes', ...schemaIdList],
+    queryFn: () => Api.WorkSchema.getDtoListByBodyList(schemaIdList)
   });
 
   const schemaMap = useMemo(() => {
-    if (!data) return new Map<number, WorkProjectSeriesSchemaDto>();
+    if (!data) return new Map<number, WorkSchemaDto>();
     return data.reduce((prev, curr) => prev.set(curr.id, curr), new Map());
   }, [data]);
 
   const leafToSchemaMap = useMemo(() => {
     return nodesFromContext.reduce((prev, curr) => {
-      const leafSchemaId = curr.data.workProjectSeriesSchemaId;
+      const leafSchemaId = curr.data.workSchemaId;
       if (leafSchemaId !== undefined) {
         const schema = schemaMap.get(leafSchemaId);
         if (schema) {
@@ -134,7 +129,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         }
       }
       return prev;
-    }, new Map<string, WorkProjectSeriesSchemaDto>());
+    }, new Map<string, WorkSchemaDto>());
   }, [nodesFromContext, schemaMap]);
 
   const allocationRollupEntities = useWorkSchemaNodeRollupMemo(
@@ -219,7 +214,7 @@ export function WorkSchemaNodeLayoutFlowWithForces({
         dtoList={EmptyArray}
       />
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workProjectSeriesSchema}
+        entityClass={EntityClassMap.workSchema}
         dtoList={EmptyArray}
       />
       <RollupUpdater allocationRollupEntities={allocationRollupEntities} />

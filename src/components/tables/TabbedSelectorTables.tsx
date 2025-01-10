@@ -9,7 +9,7 @@ import WorkTypeSelectorTable from '@/components/tables/selectorTables/WorkTypeSe
 import ProviderRoleSelectorTable from '@/components/tables/selectorTables/ProviderRoleSelectorTable';
 import AssetRoleSelectorTable from '@/components/tables/selectorTables/AssetRoleSelectorTable';
 import OrganizationSelectorTable from '@/components/tables/selectorTables/OrganizationSelectorTable';
-import WorkProjectSeriesSchemaSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
+import WorkSchemaSelectorTable from '@/components/tables/selectorTables/WorkSchemaSelectorTable';
 import {
   EntityTypeKey,
   TabbedTablesDataProps,
@@ -65,7 +65,7 @@ const TableMap = {
   providerRole: ProviderRoleSelectorTable,
   assetRole: AssetRoleSelectorTable,
   organization: OrganizationSelectorTable,
-  workProjectSeriesSchema: WorkProjectSeriesSchemaSelectorTable,
+  workSchema: WorkSchemaSelectorTable,
   knowledgeDomain: KnowledgeDomainSelectorTable,
   knowledgeLevel: KnowledgeLevelSelectorTable
 } as const satisfies TableComponentMap;

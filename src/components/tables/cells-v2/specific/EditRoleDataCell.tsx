@@ -34,7 +34,7 @@ import { useSelectApi } from '@/hooks/select-adaptors/useSelectApi';
 import {
   joinWorkTypeKey,
   joinWorkTypeKeyFromSuitability
-} from '@/functions/workProjectSeriesSchemaIdTransforms';
+} from '@/functions/workSchemaIdTransforms';
 import { SelectApiParamsMultiFlat } from '@/hooks/select-adaptors/selectApiTypes';
 import { useTransientState } from '@/hooks/useTransientState';
 import { EmptyArray } from '@/api/client-literals';

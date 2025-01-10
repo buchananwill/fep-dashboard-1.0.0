@@ -156,7 +156,7 @@ const initialColumns: ColumnUid<IdWrapper<CycleSubspanDefinitionDto>>[] = [
   'data.beginsGroupsOfSize'
 ];
 
-const WorkProjectSeriesSchemaEditTableCellRecord: CellComponentRecord<
+const WorkSchemaEditTableCellRecord: CellComponentRecord<
   IdWrapper<CycleSubspanDefinitionDto>
 > = {
   id: { type: 'CustomCell', component: DeleteEntity },
@@ -189,5 +189,5 @@ const WorkProjectSeriesSchemaEditTableCellRecord: CellComponentRecord<
 
 export const cycleSubspanDefinitionCellModel = getCellRenderFunction(
   'cycleSubspanDefinition',
-  WorkProjectSeriesSchemaEditTableCellRecord
+  WorkSchemaEditTableCellRecord
 );

@@ -4,7 +4,7 @@ import React from 'react';
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
 import {
-  WorkProjectSeriesSchemaDto,
+  WorkSchemaDto,
   WorkTypeDto
 } from '@/api/generated-types/generated-types_';
 import { Paths } from 'type-fest';
@@ -16,64 +16,62 @@ import EmbeddedWorkTypeCell from '@/components/tables/cells-v2/specific/Embedded
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import { EntityInnerCellProps } from '@/components/tables/core-table-types';
 
-export default function WorkProjectSeriesSchemaSelectorTable({
+export default function WorkSchemaSelectorTable({
   entities
 }: {
-  entities?: WorkProjectSeriesSchemaDto[];
+  entities?: WorkSchemaDto[];
 }) {
   return (
     <>
       <EntityTable
         cellModel={WpssCellModelReadOnly}
         withSelection={'multiple'}
-        columns={WorkProjectSeriesSchemaColumns}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
+        columns={WorkSchemaColumns}
+        entityClass={EntityClassMap.workSchema}
       />
     </>
   );
 }
 
-export const WorkProjectSeriesSchemaColumnsInitial: Paths<WorkProjectSeriesSchemaDto>[] =
-  [
-    'name',
-    'workType.knowledgeDomain.name',
-    'workType.knowledgeDomain.shortCode'
-  ];
-export const WorkProjectSeriesSchemaColumns: Column<WorkProjectSeriesSchemaDto>[] =
-  [
-    { uid: 'name', name: 'Name', sortable: true },
-    {
-      uid: 'workType.knowledgeLevel.levelOrdinal',
-      name: 'levelOrdinal',
-      sortable: true
-    },
-    {
-      uid: 'workType.knowledgeLevel.name',
-      name: 'levelName',
-      sortable: true
-    },
-    {
-      uid: 'workType.knowledgeDomain.shortCode',
-      name: 'Short Code',
-      sortable: true,
-      style: { padding: '0px' }
-    },
-    {
-      uid: 'workType.name',
-      name: startCase('workType'),
-      sortable: true
-    },
-    {
-      uid: 'userToProviderRatio',
-      sortable: true,
-      name: `${startCase(getDomainAlias('user'))} limit`
-    }
-  ];
+export const WorkSchemaColumnsInitial: Paths<WorkSchemaDto>[] = [
+  'name',
+  'workType.knowledgeDomain.name',
+  'workType.knowledgeDomain.shortCode'
+];
+export const WorkSchemaColumns: Column<WorkSchemaDto>[] = [
+  { uid: 'name', name: 'Name', sortable: true },
+  {
+    uid: 'workType.knowledgeLevel.levelOrdinal',
+    name: 'levelOrdinal',
+    sortable: true
+  },
+  {
+    uid: 'workType.knowledgeLevel.name',
+    name: 'levelName',
+    sortable: true
+  },
+  {
+    uid: 'workType.knowledgeDomain.shortCode',
+    name: 'Short Code',
+    sortable: true,
+    style: { padding: '0px' }
+  },
+  {
+    uid: 'workType.name',
+    name: startCase('workType'),
+    sortable: true
+  },
+  {
+    uid: 'userToProviderRatio',
+    sortable: true,
+    name: `${startCase(getDomainAlias('user'))} limit`
+  }
+];
 
 export const WpssCellModelReadOnly = getCellRenderFunction<
-  'workProjectSeriesSchema',
-  WorkProjectSeriesSchemaDto
->('workProjectSeriesSchema', {
+  'workSchema',
+  WorkSchemaDto
+>('workSchema', {
   name: { type: 'EntityInnerCell', component: WpssNamespaceCell },
   userToProviderRatio: { type: 'IdInnerCell', component: AnyValueToString },
   'workType.knowledgeDomain.shortCode': {
@@ -94,9 +92,7 @@ export const WpssCellModelReadOnly = getCellRenderFunction<
   }
 });
 
-function WpssNamespaceCell(
-  props: EntityInnerCellProps<WorkProjectSeriesSchemaDto>
-) {
+function WpssNamespaceCell(props: EntityInnerCellProps<WorkSchemaDto>) {
   const { entity } = props;
 
   return getWorkTypeViewIdString(entity.workType);

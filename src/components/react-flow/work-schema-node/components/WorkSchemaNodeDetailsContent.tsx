@@ -27,9 +27,9 @@ import {
   NamespacedHooks
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import WorkSchemaNodeModalTable from '@/components/work-project-series-schema/_components/WorkSchemaNodeModalTable';
+import WorkSchemaNodeModalTable from '@/components/work-schema/_components/WorkSchemaNodeModalTable';
 import EntityPropertyCheckbox from '@/components/generic/EntityPropertyCheckbox';
-import WorkProjectionSeriesSchemaSummary from '@/components/work-project-series-schema/_components/WorkProjectSeriesSchemaSummary';
+import WorkProjectionSeriesSchemaSummary from '@/components/work-schema/_components/WorkSchemaSummary';
 
 import { DtoStoreNumberInput } from '@/components/generic/DtoStoreNumberInput';
 import { BooleanPropertyKey, NumberPropertyKey } from '@/types';
@@ -82,12 +82,12 @@ export default function WorkSchemaNodeDetailsContent({
   ]);
 
   const { data, isPending } = useQuery({
-    queryKey: [EntityClassMap.workProjectSeriesSchema, 'all'],
-    queryFn: () => Api.WorkProjectSeriesSchema.getAll()
+    queryKey: [EntityClassMap.workSchema, 'all'],
+    queryFn: () => Api.WorkSchema.getAll()
   });
 
   const dispatch = NamespacedHooks.useDispatch(
-    EntityClassMap.workProjectSeriesSchema,
+    EntityClassMap.workSchema,
     KEY_TYPES.MASTER_LIST
   );
 
@@ -168,17 +168,16 @@ export default function WorkSchemaNodeDetailsContent({
                 )}
               </div>
               <Card p={'xs'}>
-                {currentState.workProjectSeriesSchemaId ||
-                currentState.carouselOptionId ? (
+                {currentState.workSchemaId || currentState.carouselOptionId ? (
                   <div
                     className={'shadow-small m-1 flex flex-col rounded-lg p-2'}
                   >
                     Leaf Content:
-                    {currentState.workProjectSeriesSchemaId && (
+                    {currentState.workSchemaId && (
                       <LazyDtoUiWrapper
                         renderAs={WorkProjectionSeriesSchemaSummary}
-                        entityId={currentState.workProjectSeriesSchemaId}
-                        entityClass={EntityClassMap.workProjectSeriesSchema}
+                        entityId={currentState.workSchemaId}
+                        entityClass={EntityClassMap.workSchema}
                         whileLoading={() => <Loader />}
                       />
                     )}
@@ -243,8 +242,8 @@ function CarouselOptionSummary({
   return (
     <LazyDtoUiWrapper
       renderAs={WorkProjectionSeriesSchemaSummary}
-      entityId={entity.workProjectSeriesSchemaId}
-      entityClass={EntityClassMap.workProjectSeriesSchema}
+      entityId={entity.workSchemaId}
+      entityClass={EntityClassMap.workSchema}
       whileLoading={() => <Loader />}
     />
   );

@@ -35,7 +35,7 @@ export const overViewData: DomTreeSketch = {
     }
   },
   childComponents: {
-    workProjectSeriesSchemas: {
+    workSchemas: {
       component: {
         styles: {
           card: {
@@ -163,7 +163,7 @@ export const overViewData: DomTreeSketch = {
             workSchemaNodeA1: {
               component: {},
               childComponents: {
-                workProjectSeriesSchema: {
+                workSchema: {
                   component: {
                     styles: {
                       card: {
@@ -178,7 +178,7 @@ export const overViewData: DomTreeSketch = {
             workSchemaNodeA2: {
               component: {},
               childComponents: {
-                workProjectSeriesSchema: {
+                workSchema: {
                   component: {
                     styles: {
                       card: {
@@ -193,7 +193,7 @@ export const overViewData: DomTreeSketch = {
             workSchemaNodeA3: {
               component: {},
               childComponents: {
-                workProjectSeriesSchema: {
+                workSchema: {
                   component: {
                     styles: {
                       card: {
@@ -223,7 +223,7 @@ export const overViewData: DomTreeSketch = {
             workSchemaNodeB1: {
               component: {},
               childComponents: {
-                workProjectSeriesSchema: {
+                workSchema: {
                   component: {
                     styles: {
                       card: {
@@ -238,7 +238,7 @@ export const overViewData: DomTreeSketch = {
             workSchemaNodeB2: {
               component: {},
               childComponents: {
-                workProjectSeriesSchema: {
+                workSchema: {
                   component: {
                     styles: {
                       card: {
@@ -253,7 +253,7 @@ export const overViewData: DomTreeSketch = {
             workSchemaNodeB3: {
               component: {},
               childComponents: {
-                workProjectSeriesSchema: {
+                workSchema: {
                   component: {
                     styles: {
                       card: {
@@ -268,7 +268,7 @@ export const overViewData: DomTreeSketch = {
             workSchemaNodeB4: {
               component: {},
               childComponents: {
-                workProjectSeriesSchema: {
+                workSchema: {
                   component: {
                     styles: {
                       card: {
@@ -298,7 +298,7 @@ export const overViewData: DomTreeSketch = {
             workSchemaNodeC1: {
               component: {},
               childComponents: {
-                workProjectSeriesSchema: {
+                workSchema: {
                   component: {
                     styles: {
                       card: {
@@ -323,7 +323,7 @@ export const overViewData: DomTreeSketch = {
                 workSchemaNodeC2A: {
                   component: {},
                   childComponents: {
-                    workProjectSeriesSchema: {
+                    workSchema: {
                       component: {
                         styles: {
                           card: {
@@ -338,7 +338,7 @@ export const overViewData: DomTreeSketch = {
                 workSchemaNodeC2B: {
                   component: {},
                   childComponents: {
-                    workProjectSeriesSchema: {
+                    workSchema: {
                       component: {
                         styles: {
                           card: {

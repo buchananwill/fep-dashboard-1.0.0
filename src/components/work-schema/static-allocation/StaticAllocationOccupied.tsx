@@ -6,12 +6,12 @@ import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated
 import { getCellIdReference } from '@/components/grids/getCellIdReference';
 import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types_';
 import { memo, useMemo } from 'react';
-import { matchIsFirst } from '@/components/work-project-series-schema/static-allocation/allocationDropZonePermissions';
+import { matchIsFirst } from '@/components/work-schema/static-allocation/allocationDropZonePermissions';
 import clsx from 'clsx';
 import { defaultCellSize } from '@/components/grids/VirtualizedTableWindowed';
-import { StaticAllocationDraggable } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDraggable';
-import { getDeliveryAllocationSize } from '@/components/work-project-series-schema/static-allocation/StaticAllocationDropZone';
-import { joinCellId } from '@/components/work-project-series-schema/static-allocation/createCell';
+import { StaticAllocationDraggable } from '@/components/work-schema/static-allocation/StaticAllocationDraggable';
+import { getDeliveryAllocationSize } from '@/components/work-schema/static-allocation/StaticAllocationDropZone';
+import { joinCellId } from '@/components/work-schema/static-allocation/createCell';
 
 const entityClass = EntityClassMap.staticDeliveryAllocationItem;
 

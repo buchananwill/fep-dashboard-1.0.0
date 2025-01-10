@@ -1,6 +1,6 @@
 import { CycleSubspanJoinNestedDto } from '@/api/generated-types/generated-types_';
 import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types_';
-import { WorkProjectSeriesSchemaDto } from '@/api/generated-types/generated-types_';
+import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 
 export function matchSize(
   sizesSet: Record<string, CycleSubspanJoinNestedDto>,
@@ -23,10 +23,10 @@ export function matchIsFirst(
 
 export function matchRow(
   item: StaticDeliveryAllocationItemDto,
-  workProjectSeriesSchemaId: WorkProjectSeriesSchemaDto['id']
+  workSchemaId: WorkSchemaDto['id']
 ) {
   return (
-    item.staticDeliveryAllocation.deliveryAllocation
-      .workProjectSeriesSchemaId === workProjectSeriesSchemaId
+    item.staticDeliveryAllocation.deliveryAllocation.workSchemaId ===
+    workSchemaId
   );
 }

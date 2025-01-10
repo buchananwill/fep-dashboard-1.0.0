@@ -12,26 +12,21 @@ export default function CarouselOptionNode(
 ) {
   const { selected, dragging, data } = props;
 
-  const { data: workProjectSeriesSchema, isPending } = useQuery({
-    queryKey: [
-      EntityClassMap.workProjectSeriesSchema,
-      data.workProjectSeriesSchemaId
-    ],
+  const { data: workSchema, isPending } = useQuery({
+    queryKey: [EntityClassMap.workSchema, data.workSchemaId],
     queryFn: () =>
-      data.workProjectSeriesSchemaId
-        ? Api.WorkProjectSeriesSchema.getOne(data.workProjectSeriesSchemaId)
-        : undefined
+      data.workSchemaId ? Api.WorkSchema.getOne(data.workSchemaId) : undefined
   });
 
   return (
     <BaseWorkSchemaNode
       {...props}
       className={clsx(
-        'relative flex flex-col gap-1 rounded-md border-black bg-white p-2 transition-colors-opacity',
+        'transition-colors-opacity relative flex flex-col gap-1 rounded-md border-black bg-white p-2',
         selected ? 'border-2' : 'border',
         dragging ? 'opacity-50' : ''
       )}
-      label={`Option: ${workProjectSeriesSchema && workProjectSeriesSchema.name}`}
+      label={`Option: ${workSchema && workSchema.name}`}
     ></BaseWorkSchemaNode>
   );
 }

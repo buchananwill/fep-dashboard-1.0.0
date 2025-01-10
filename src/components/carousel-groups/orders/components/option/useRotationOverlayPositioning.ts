@@ -57,9 +57,7 @@ export function useRotationOverlayPositioning(
     ) {
       dispatchConnectionMap((currentMap) => {
         let map = currentMap;
-        const currentConnection = currentMap.get(
-          entity.workProjectSeriesSchemaId
-        );
+        const currentConnection = currentMap.get(entity.workSchemaId);
         let currentSource = currentConnection?.source;
         let currentTarget = currentConnection?.target;
         // Start out with the update being the current
@@ -95,7 +93,7 @@ export function useRotationOverlayPositioning(
         // If the references no longer match, we now update the map
         if (updatedConnection && currentConnection !== updatedConnection) {
           map = new Map(map);
-          map.set(entity.workProjectSeriesSchemaId, updatedConnection);
+          map.set(entity.workSchemaId, updatedConnection);
         }
         return map;
       });

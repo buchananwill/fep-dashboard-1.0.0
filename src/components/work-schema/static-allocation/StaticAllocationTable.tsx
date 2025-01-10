@@ -1,22 +1,22 @@
 'use client';
-import { StaticAllocationTableDto } from '@/components/work-project-series-schema/static-allocation/StaticAllocationPage';
+import { StaticAllocationTableDto } from '@/components/work-schema/static-allocation/StaticAllocationPage';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import CellQueryManager from '@/components/grids/CellQueryManager';
 import {
   getCellDataIdReferenceOrUndefined,
   getCellDataOrUndefined
-} from '@/components/work-project-series-schema/static-allocation/getCellDataOrUndefined';
+} from '@/components/work-schema/static-allocation/getCellDataOrUndefined';
 import CycleSubspanCellWithJoins from '@/components/grids/CycleSubspanCellWithJoins';
 import { NamespacedHooks, useEffectSyncWithDispatch } from 'dto-stores';
-import { MemoWorkProjectSeriesSchemaCell } from '@/components/work-project-series-schema/WorkProjectSeriesSchemaCell';
-import StaticAllocationCell from '@/components/work-project-series-schema/static-allocation/StaticAllocationCell';
+import { MemoWorkSchemaCell } from '@/components/work-schema/WorkSchemaCell';
+import StaticAllocationCell from '@/components/work-schema/static-allocation/StaticAllocationCell';
 import { memo, useMemo } from 'react';
 import { useGlobalController } from 'selective-context';
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import { useTableProps } from '@/components/grids/useTableProps';
 import { CellEntityClass } from '@/components/roles/suitability/SuitabilityCellManager';
-import { createCell } from '@/components/work-project-series-schema/static-allocation/createCell';
+import { createCell } from '@/components/work-schema/static-allocation/createCell';
 
 export const cycleSubspanGroupMap = 'CycleSubspanGroupMap';
 
@@ -91,7 +91,7 @@ export default function StaticAllocationTable({
 
   return (
     <div className={'h-[90vh] w-[90vw] p-8 pt-12'}>
-      <FinderTableButton workProjectSeriesSchema={rowList} />
+      <FinderTableButton workSchema={rowList} />
 
       <CellQueryManager
         tableData={tableData}
@@ -101,7 +101,7 @@ export default function StaticAllocationTable({
         {...tableProps}
         renderCell={MemoStaticAllocationCell}
         renderSyncedRowCell={MemoCycleSubspanCell}
-        renderSyncedColumnCell={MemoWorkProjectSeriesSchemaCell}
+        renderSyncedColumnCell={MemoWorkSchemaCell}
       />
     </div>
   );

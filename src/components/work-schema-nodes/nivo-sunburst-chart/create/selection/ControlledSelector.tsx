@@ -4,7 +4,7 @@ import { TypedPaths } from '@/api/custom-types/typePaths';
 import { Select, SelectProps } from '@mantine/core';
 import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
 import { useCallback, useRef } from 'react';
-import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
+import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
 
 export function ControlledSelector<
   ID_CLASS extends Identifier,

@@ -8,7 +8,7 @@ export function canAssignToOrderItem(
   option: CarouselOptionDto
 ) {
   return (
-    option.workProjectSeriesSchemaId === orderItem.workProjectSeriesSchemaId &&
+    option.workSchemaId === orderItem.workSchemaId &&
     // orderItem.carouselOptionId !== option.id &&
     orderItem.active
   );

@@ -1,11 +1,11 @@
 import { EntityClassMap } from '@/api/entity-class-map';
-import WorkProjectSeriesSchemaEditTable from '@/components/tables/edit-tables/WorkProjectSeriesSchemaEditTable';
+import WorkSchemaEditTable from '@/components/tables/edit-tables/WorkSchemaEditTable';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import {
   deleteIdList,
   postList,
   putList
-} from '@/api/generated-actions/WorkProjectSeriesSchema';
+} from '@/api/generated-actions/WorkSchema';
 import PathVariableSplit from '@/components/generic/PathVariableSplit';
 import { KnowledgeLevelSeriesLinks } from '@/components/knowledge-levels/KnowledgeLevelSeriesLinks';
 import { KnowledgeLevelLinks } from '@/components/knowledge-levels/KnowledgeLevelLinks';
@@ -13,7 +13,7 @@ import { getLastNVariables } from '@/functions/getLastNVariables';
 import { Api } from '@/api/clientApi_';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
-async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
+async function WorkSchemaLevelPage(props: LeafComponentProps) {
   const { pathVariables } = props;
   const [knowledgeLevelSeriesId, levelOrdinal] = getLastNVariables(
     pathVariables,
@@ -21,7 +21,7 @@ async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
   );
   const availableCycles = await Api.Cycle.getAll();
 
-  const wpssData = await Api.WorkProjectSeriesSchema.getDtoListByExampleList([
+  const wpssData = await Api.WorkSchema.getDtoListByExampleList([
     {
       workType: {
         knowledgeLevel: {
@@ -36,7 +36,7 @@ async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
     <div className={'p-4'}>
       <EditAddDeleteDtoControllerArray
         dtoList={wpssData}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
+        entityClass={EntityClassMap.workSchema}
         updateServerAction={putList}
         deleteServerAction={deleteIdList}
         postServerAction={postList}
@@ -45,12 +45,12 @@ async function WorkProjectSeriesSchemaLevelPage(props: LeafComponentProps) {
         entityClass={EntityClassMap.cycle}
         dtoList={availableCycles}
       />
-      <WorkProjectSeriesSchemaEditTable {...props} />
+      <WorkSchemaEditTable {...props} />
     </div>
   );
 }
 
-export default function WorkProjectSeriesSchemaHome(props: LeafComponentProps) {
+export default function WorkSchemaHome(props: LeafComponentProps) {
   return (
     <PathVariableSplit
       {...props}
@@ -65,7 +65,7 @@ function WorkProjectSeriesLevelLinks(props: LeafComponentProps) {
     <PathVariableSplit
       {...props}
       homeComponent={KnowledgeLevelLinks}
-      subRouteComponent={WorkProjectSeriesSchemaLevelPage}
+      subRouteComponent={WorkSchemaLevelPage}
     />
   );
 }

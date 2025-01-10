@@ -29,7 +29,7 @@ import { initialMap } from '@/app/_literals';
 import {
   CarouselOrderDto,
   CarouselOrderItemDto,
-  WorkProjectSeriesSchemaDto
+  WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import { RotationPrimeButton } from '@/components/carousel-groups/orders/components/option/RotationPrimeButton';
 import { HighlightMatchingSchemasButton } from '@/components/carousel-groups/orders/components/option/HighlightMatchingSchemasButton';
@@ -48,7 +48,7 @@ export default function CarouselOption({
   entity: CarouselOptionStateInterface;
   canPrime?: boolean;
 }) {
-  const { workProjectSeriesSchemaId } = entity;
+  const { workSchemaId } = entity;
 
   // Highlighting subject section.
   const listenerKey = `${CarouselOptionState}:${entity.id}`;
@@ -62,8 +62,8 @@ export default function CarouselOption({
   });
 
   const isHighlighted = useMemo(() => {
-    return highlightedList.includes(entity.workProjectSeriesSchemaId);
-  }, [highlightedList, entity.workProjectSeriesSchemaId]);
+    return highlightedList.includes(entity.workSchemaId);
+  }, [highlightedList, entity.workSchemaId]);
 
   // For dispatching own state changes.
   const { dispatchWithoutListen } =
@@ -73,9 +73,9 @@ export default function CarouselOption({
     );
 
   // Subscribe to schema and work type data.
-  const { entity: schema } = useDtoStore<WorkProjectSeriesSchemaDto>({
-    entityId: workProjectSeriesSchemaId,
-    entityClass: EntityClassMap.workProjectSeriesSchema,
+  const { entity: schema } = useDtoStore<WorkSchemaDto>({
+    entityId: workSchemaId,
+    entityClass: EntityClassMap.workSchema,
     listenerKey: `carouselOption:${entity.id}`
   });
 
@@ -150,7 +150,7 @@ export default function CarouselOption({
     const orderItem = currentItem as CarouselOrderItemDto;
     if (
       entity.carouselOrderAssignees.includes(orderItem.carouselOrderId) &&
-      entity.workProjectSeriesSchemaId !== orderItem.workProjectSeriesSchemaId
+      entity.workSchemaId !== orderItem.workSchemaId
     ) {
       fallBackColor = Yellow_300;
     }
@@ -201,10 +201,9 @@ export default function CarouselOption({
                   highlightSubject((list) => {
                     if (isHighlighted)
                       return list.filter(
-                        (schemaId) =>
-                          schemaId !== entity.workProjectSeriesSchemaId
+                        (schemaId) => schemaId !== entity.workSchemaId
                       );
-                    else return [...list, entity.workProjectSeriesSchemaId];
+                    else return [...list, entity.workSchemaId];
                   })
                 }
                 canDrop={canDrop}

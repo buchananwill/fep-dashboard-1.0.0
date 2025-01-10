@@ -8,7 +8,7 @@ export function produceCarouselGroupOptionsEdit(
   const carouselOptionList = updatedKeys.map((schemaUuid, index) => ({
     id: makeTransientId(index),
     carouselGroupId: carouselGroupDto.id,
-    workProjectSeriesSchemaId: parseInt(schemaUuid)
+    workSchemaId: parseInt(schemaUuid)
   }));
   return { ...carouselGroupDto, carouselGroupOptions: carouselOptionList };
 }

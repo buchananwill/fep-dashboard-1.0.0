@@ -6,10 +6,10 @@ import { DispatchState } from '@/types';
 import { WorkSchemaNodeDto } from '@/api/generated-types/generated-types_';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';
 import {
-  WorkProjectSeriesSchemaColumns,
+  WorkSchemaColumns,
   WpssCellModelReadOnly
-} from '@/components/tables/selectorTables/WorkProjectSeriesSchemaSelectorTable';
-import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-project-series-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
+} from '@/components/tables/selectorTables/WorkSchemaSelectorTable';
+import { useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders } from '@/components/work-schema/_components/useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders';
 import { Card } from '@mantine/core';
 import { getDomainAlias } from '@/api/getDomainAlias';
 
@@ -22,10 +22,10 @@ export default function WorkSchemaNodeModalTable({
   workSchemaNode: WorkSchemaNodeDto;
   dispatchWithoutControl?: DispatchState<WorkSchemaNodeDto>;
 }) {
-  const { workProjectSeriesSchemaId } = workSchemaNode;
+  const { workSchemaId } = workSchemaNode;
   const wpssIdSelection = useMemo(() => {
-    return workProjectSeriesSchemaId ? [workProjectSeriesSchemaId] : [];
-  }, [workProjectSeriesSchemaId]);
+    return workSchemaId ? [workSchemaId] : [];
+  }, [workSchemaId]);
 
   const updateEntityFromStateSelectionList = useCallback(
     (list: number[]) => {
@@ -33,7 +33,7 @@ export default function WorkSchemaNodeModalTable({
       if (!dispatchWithoutControl) return;
       dispatchWithoutControl((wsn) => ({
         ...wsn,
-        workProjectSeriesSchemaId: nextWpssId
+        workSchemaId: nextWpssId
       }));
     },
     [dispatchWithoutControl]
@@ -41,19 +41,19 @@ export default function WorkSchemaNodeModalTable({
   useSyncStateToPropOnFirstRenderTheEntityToStateOnFutureRenders(
     wpssIdSelection,
     updateEntityFromStateSelectionList,
-    EntityClassMap.workProjectSeriesSchema
+    EntityClassMap.workSchema
   );
 
   return (
     <Card className={'flex flex-col gap-1 p-1'}>
       <Card.Section className={'flex justify-center text-center font-bold'}>
-        Select {getDomainAlias('workProjectSeriesSchema')} for node:
+        Select {getDomainAlias('workSchema')} for node:
       </Card.Section>
       <EntityTable
         key={`select-table-${workSchemaNode.id}`}
         cellModel={WpssCellModelReadOnly}
-        entityClass={EntityClassMap.workProjectSeriesSchema}
-        columns={WorkProjectSeriesSchemaColumns}
+        entityClass={EntityClassMap.workSchema}
+        columns={WorkSchemaColumns}
         withSelection={'single'}
       />
     </Card>

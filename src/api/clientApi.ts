@@ -26,7 +26,7 @@ import * as BuildMetric from './generated-actions/BuildMetric';
 import * as AssetRole from './generated-actions/AssetRole';
 import * as KnowledgeDomain from './generated-actions/KnowledgeDomain';
 import * as AssetType from './generated-actions/AssetType';
-import * as WorkProjectSeriesSchema from './generated-actions/WorkProjectSeriesSchema';
+import * as WorkSchema from './generated-actions/WorkSchema';
 import * as ResourceRequirementItem from './generated-actions/ResourceRequirementItem';
 import * as InitJsonTemplate from './generated-actions/InitJsonTemplate';
 import * as CarouselOrderItem from './generated-actions/CarouselOrderItem';
@@ -68,7 +68,7 @@ export const Api = {
   AssetRole,
   KnowledgeDomain,
   AssetType,
-  WorkProjectSeriesSchema,
+  WorkSchema,
   ResourceRequirementItem,
   InitJsonTemplate,
   CarouselOrderItem,

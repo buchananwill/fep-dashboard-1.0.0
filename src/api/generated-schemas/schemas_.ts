@@ -233,7 +233,7 @@ export const StaticDeliveryAllocationItemDtoSchema = zod.object({
   id: zod.number().int(),
   cycleSubspanGroupId: zod.number().int(),
   staticDeliveryAllocation: zod.lazy(() => StaticDeliveryAllocationDtoSchema),
-  workProjectSeriesSchemaId: zod.number().int()
+  workSchemaId: zod.number().int()
 });
 
 export const SuitabilityPostRequestSchema = zod.object({
@@ -263,7 +263,7 @@ export const TenancyDtoSchema = zod.object({
 
 export const ValidationTypeDtoSchema = zod.object({});
 
-export const WorkProjectSeriesSchemaWithLabelsDtoSchema = zod.object({
+export const WorkSchemaWithLabelsDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
   workType: zod.lazy(() => WorkTypeDtoSchema),
@@ -387,7 +387,7 @@ export const DeliveryAllocationDtoSchema = zod.object({
   id: zod.number().int(),
   deliveryAllocationSize: zod.number().int(),
   count: zod.number().int(),
-  workProjectSeriesSchemaId: zod.number().int()
+  workSchemaId: zod.number().int()
 });
 
 export const KnowledgeLevelDtoSchema = zod.object({
@@ -406,7 +406,7 @@ export const OrganizationDtoSchema = zod.object({
   )
 });
 
-export const WorkProjectSeriesSchemaDtoSchema = zod.object({
+export const WorkSchemaDtoSchema = zod.object({
   id: zod.number().int(),
   name: zod.string(),
   deliveryAllocations: zod.record(
@@ -478,7 +478,7 @@ export const WorkSchemaNodeDtoSchema = zod.object({
   name: zod.string().min(1).max(50),
   carouselGroupId: zod.number().int().optional(),
   carouselId: zod.number().int().optional(),
-  workProjectSeriesSchemaId: zod.number().int().optional(),
+  workSchemaId: zod.number().int().optional(),
   resolutionMode: zod.enum([
     'OPEN',
     'LEAF',
