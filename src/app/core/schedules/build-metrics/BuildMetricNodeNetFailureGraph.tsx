@@ -7,7 +7,7 @@ import {
   ResponsiveLineCanvas
 } from '@nivo/line';
 
-export default function BuildMetricQueueTreeGraph({
+export function BuildMetricNodeNetFailureGraph({
   data
 }: {
   data: BuildMetricDto;

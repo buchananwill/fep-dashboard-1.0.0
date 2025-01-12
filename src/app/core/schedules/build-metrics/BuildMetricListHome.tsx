@@ -1,7 +1,7 @@
 import { Api } from '@/api/clientApi_';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import BuildMetricQueueTreeGraphPage from '@/app/core/schedules/build-metrics/BuildMetricQueueTreeGraphPage';
+import { BuildMetricQueueTreeGraphPage } from '@/app/core/schedules/build-metrics/BuildMetricQueueTreeGraphPage';
 import { WorkProjectSeriesMetricsPage } from '@/components/work-project-series-metrics/WorkProjectSeriesMetrics';
 import BuildMetricTablePage from '@/app/core/schedules/build-metrics/BuildMetricTablePage';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
@@ -14,7 +14,7 @@ async function BuildMetricListHome({}: LeafComponentProps) {
         <div key={stringId}>
           <div
             className={
-              'pointer-events-none inline-block rounded-xl border px-2 text-default-500'
+              'text-default-500 pointer-events-none inline-block rounded-xl border px-2'
             }
           >
             Metric Id: {stringId}
