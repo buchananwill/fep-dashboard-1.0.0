@@ -18,7 +18,7 @@ export default function QueueTreeNodeCell({
 
   const value = get(entity, columnKey);
 
-  if (columnKey === 'workProjectSeriesNodeLinks') return null;
+  if (columnKey === 'queueTreeNodeTaskDtos') return null;
 
   return (
     <Button

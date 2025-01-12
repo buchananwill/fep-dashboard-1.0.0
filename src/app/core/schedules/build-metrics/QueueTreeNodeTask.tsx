@@ -1,4 +1,6 @@
 import {
+  QueueTreeNodeTaskDto,
+  TaskSourceEntitySummaryDto,
   WorkProjectSeriesNodeLinkDto,
   WorkProjectSeriesWithSchemaLabelsDto
 } from '@/api/generated-types/generated-types_';
@@ -9,25 +11,27 @@ import React from 'react';
 import { getValue } from '@/functions/allowingNestedFiltering';
 import { Loading } from '@/components/feasibility-report/Loading';
 
-export function WorkProjectSeriesNodeLink({
-  nodeLink: { workProjectSeriesId }
+export function QueueTreeNodeTask({
+  nodeTask
 }: {
-  nodeLink: WorkProjectSeriesNodeLinkDto;
+  nodeTask: QueueTreeNodeTaskDto;
 }) {
+  console.log({ nodeTask });
+
   return (
     <LazyDtoUiWrapper
-      renderAs={WorkProjectSeries}
-      entityId={workProjectSeriesId}
-      entityClass={EntityClassMap.workProjectSeries}
+      renderAs={TaskSourceEntity}
+      entityId={nodeTask.taskSourceEntityId}
+      entityClass={'TaskSourceEntitySummary'}
       whileLoading={Loading}
     />
   );
 }
 
-function WorkProjectSeries({
+function TaskSourceEntity({
   entity
-}: BaseLazyDtoUiProps<WorkProjectSeriesWithSchemaLabelsDto>) {
-  const kdName = getValue(entity, 'workType.knowledgeDomain.name');
-  const kLName = getValue(entity, 'workType.knowledgeLevel.name');
+}: BaseLazyDtoUiProps<TaskSourceEntitySummaryDto>) {
+  const kdName = getValue(entity, 'knowledgeDomainName');
+  const kLName = getValue(entity, 'knowledgeLevelName');
   return `${kdName}: ${kLName}`;
 }

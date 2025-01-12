@@ -318,9 +318,10 @@ export interface BuildMetricDto
     DtoWrapper<any, BuildMetricDto, number> {
   id: number;
   finalState: string;
-  totalAllocationLoops: number;
+  totalNodeSteps: number;
   scheduleId: number;
   queueTreeNodes: QueueTreeNodeDto[];
+  queueProgress: number[];
 }
 
 export interface CarouselDto
@@ -396,11 +397,30 @@ export interface QueueTreeNodeDto extends Serializable {
   id: string;
   nodeNumber: number;
   taskSize: number;
-  degreeOfNesting: number;
   netFailureCount: number;
   batchSize: number;
   totalAllocationArea: number;
-  workProjectSeriesNodeLinks: WorkProjectSeriesNodeLinkDto[];
+  queueTreeNodeTaskDtos: QueueTreeNodeTaskDto[];
+}
+export interface QueueTreeNodeTaskDto
+  extends Serializable,
+    DtoWrapper<any, QueueTreeNodeTaskDto, number> {
+  id: number;
+  queueTreeNodeId: number;
+  queueTreeNodeTaskSize: number;
+  taskSourceEntityId: number;
+  cycleSubspanGroupId: number;
+}
+
+export interface TaskSourceEntitySummaryDto extends Serializable {
+  id: number;
+  organizationName: string;
+  workSchemaNodeName: string;
+  knowledgeDomainName: string;
+  knowledgeLevelName: string;
+  workTypeCategory: string;
+  scheduleId: number;
+  parentId: number;
 }
 
 export interface WorkSchemaDto

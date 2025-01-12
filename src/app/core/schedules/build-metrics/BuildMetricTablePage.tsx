@@ -6,7 +6,10 @@ import { EmptyArray } from '@/api/client-literals';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types_';
+import {
+  TaskSourceEntitySummaryDto,
+  WorkProjectSeriesWithSchemaLabelsDto
+} from '@/api/generated-types/generated-types_';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import React from 'react';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
@@ -23,8 +26,8 @@ export default async function BuildMetricTablePage({
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
       <DataFetchingEditDtoControllerArray
         idList={EmptyArray}
-        getServerAction={getWorkProjectSeriesByIdWithSchemaLabels}
-        entityClass={EntityClassMap.workProjectSeries}
+        getServerAction={getTaskSourceEntitySummaries}
+        entityClass={'TaskSourceEntitySummary'}
       />
       <BuildMetricTable buildMetric={buildMetric} />
       <LinkButton
@@ -36,13 +39,13 @@ export default async function BuildMetricTablePage({
   );
 }
 
-const getWorkProjectSeriesByIdWithSchemaLabels = async (idList: string[]) => {
+const getTaskSourceEntitySummaries = async (idList: number[]) => {
   'use server';
+
+  const url = constructUrl(['/task-source-entity-summaries']);
+  console.log({ url });
   return postEntitiesWithDifferentReturnType<
-    string[],
-    WorkProjectSeriesWithSchemaLabelsDto[]
-  >(
-    idList,
-    constructUrl(['/api/v2/workProjectSeries', 'byIdWithSchemaLabels'])
-  );
+    number[],
+    TaskSourceEntitySummaryDto[]
+  >(idList, url);
 };

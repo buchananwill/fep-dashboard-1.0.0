@@ -1,7 +1,7 @@
 'use client';
 import { QueueTreeNodeDto } from '@/api/generated-types/generated-types_';
 import { Modal, ModalProps } from '@mantine/core';
-import { WorkProjectSeriesNodeLink } from '@/app/core/schedules/build-metrics/WorkProjectSeriesNodeLink';
+import { QueueTreeNodeTask } from '@/app/core/schedules/build-metrics/QueueTreeNodeTask';
 import { useGlobalDispatch } from 'selective-context';
 import { NodeInModal } from '@/app/core/schedules/build-metrics/BuildMetricTable';
 import { SetOptional } from 'type-fest';
@@ -60,10 +60,10 @@ export default function QueueTreeNodeModal({
         </h1>
         <div>
           <div className={'grid max-h-[50vh] grid-cols-1 overflow-auto'}>
-            {queueTreeNode.workProjectSeriesNodeLinks.map((nodeLink) => {
+            {queueTreeNode.queueTreeNodeTaskDtos.map((task) => {
               return (
-                <div key={nodeLink.id}>
-                  <WorkProjectSeriesNodeLink nodeLink={nodeLink} />
+                <div key={task.id}>
+                  <QueueTreeNodeTask nodeTask={task} />
                 </div>
               );
             })}

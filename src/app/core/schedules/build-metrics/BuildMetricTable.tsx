@@ -74,7 +74,6 @@ const simpleKeys: Column<QueueTreeNodeDto>[] = [
   'netFailureCount',
   'batchSize',
   'taskSize',
-  'degreeOfNesting',
   'totalAllocationArea'
 ].map((qtnKey) => ({
   uid: qtnKey as keyof QueueTreeNodeDto,
@@ -88,7 +87,6 @@ const QueueTreeNodeCellComponentRecord: CellComponentRecord<QueueTreeNodeDto> =
     netFailureCount: { type: 'EntityInnerCell', component: QueueTreeNodeCell },
     batchSize: { type: 'EntityInnerCell', component: QueueTreeNodeCell },
     taskSize: { type: 'EntityInnerCell', component: QueueTreeNodeCell },
-    degreeOfNesting: { type: 'EntityInnerCell', component: QueueTreeNodeCell },
     totalAllocationArea: {
       type: 'EntityInnerCell',
       component: QueueTreeNodeCell
