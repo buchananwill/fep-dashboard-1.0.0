@@ -20,9 +20,12 @@ export function constructUrl(
 ) {
   const basePath = BASE_URL;
 
-  const resourcePath = Array.isArray(resourceSegments)
+  let resourcePath = Array.isArray(resourceSegments)
     ? resourceSegments.join('/')
     : resourceSegments;
+  resourcePath = resourcePath.startsWith('/')
+    ? resourcePath
+    : `/${resourcePath}`;
   return `${basePath}${resourcePath}${
     isNotUndefined(action) ? `/${action}` : ''
   }`;

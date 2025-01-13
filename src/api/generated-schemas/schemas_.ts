@@ -531,14 +531,16 @@ export const UserRoleTypeDtoSchema = zod.object({
 });
 
 export const WorkTypeDtoSchema = zod.object({
-  name: zod.string().regex(/\S/).min(1),
   id: zod.number().int(),
   knowledgeDomain: zod.lazy(() => KnowledgeDomainDtoSchema),
-  knowledgeLevel: zod.lazy(() => KnowledgeLevelDtoSchema.optional()),
-  validationType: zod.lazy(() => ValidationTypeDtoSchema.optional()),
-  partyClassificationSetId: zod.number().int().optional(),
-  assetClassificationSetId: zod.number().int(),
-  knowledgeLevelSeriesId: zod.number().int().optional()
+  knowledgeLevel: zod.lazy(() => KnowledgeLevelDtoSchema),
+  workTypeCategory: zod.lazy(() => WorkTypeCategoryDtoSchema)
+});
+
+export const WorkTypeCategoryDtoSchema = zod.object({
+  id: zod.number().int(),
+  name: zod.string(),
+  validationType: zod.lazy(() => ValidationTypeDtoSchema.optional())
 });
 
 export const AssetRolePostRequestSchema = zod.object({

@@ -9,9 +9,10 @@ import {
   KnowledgeDomainDto,
   KnowledgeLevelDto,
   KnowledgeLevelSeriesDto,
+  WorkTypeCategoryDto,
   WorkTypeDto
 } from '@/api/generated-types/generated-types_';
-import { Api } from '@/api/clientApi_';
+import { Api } from '@/api/clientApi';
 import { HasId } from '@/api/types';
 import { getNames } from '@/components/work-types/getNamesServerAction';
 import { nameAccessor } from '@/functions/nameSetter';
@@ -26,6 +27,9 @@ import { useAutocompleteApi } from '@/hooks/select-adaptors/useAutocompleteApi';
 import { useSelectAutocompleteApi } from '@/hooks/select-adaptors/useSelectAutocompleteApi';
 import { getStartCaseDomainAlias } from '@/api/getDomainAlias';
 import { flattenErrors } from '@/functions/flatten-errors';
+import { useQuery } from '@tanstack/react-query';
+import { EntityClassMap } from '@/api/entity-class-map';
+import { EmptyArray } from '@/api/client-literals';
 
 const defaultWorkTypeValues = {
   id: -1,
@@ -54,7 +58,7 @@ export default function CreateWorkType({ pathVariables }: LeafComponentProps) {
   const klsId = watch('knowledgeLevel.knowledgeLevelSeriesId');
   const kl = watch('knowledgeLevel');
   const knowledgeDomain = watch('knowledgeDomain');
-  const wttName = watch('name');
+  const workTypeCategory = watch('workTypeCategory');
 
   const fetchKnowledgeLevels = useCallback(async () => {
     if (!klsId) return [];
@@ -68,7 +72,10 @@ export default function CreateWorkType({ pathVariables }: LeafComponentProps) {
   const appRouterInstance = useRouter();
   const [pending, startTransition] = useTransition();
 
-  const names = useSimpleApiFetcher(getNames);
+  const { data: names, isFetching } = useQuery({
+    queryFn: Api.WorkTypeCategory.getAll,
+    queryKey: [EntityClassMap.workTypeCategory, 'all']
+  });
 
   const klsIdList = useMemo(() => {
     return knowledgeLevelSeriesDtos.map((kls) => kls.id);
@@ -90,24 +97,26 @@ export default function CreateWorkType({ pathVariables }: LeafComponentProps) {
     allowUndefined: false
   });
 
-  const updateName = useCallback(
-    (value: string | null) => {
-      setValue('name', value as string);
+  const updateCategory = useCallback(
+    (value: WorkTypeCategoryDto | undefined) => {
+      if (value) {
+        setValue('workTypeCategory', value);
+      }
     },
     [setValue]
   );
 
   const namesData = useMemo(() => {
-    return names.map((name) => name.name);
+    return names ?? (EmptyArray as WorkTypeCategoryDto[]);
   }, [names]);
 
-  const nameAutocompleteProps = useAutocompleteApi({
+  const categorySelectProps = useSelectAutocompleteApi({
     type: 'singleFlat',
-    data: namesData,
-    allowUndefined: true,
-    allowCustom: true,
-    value: wttName,
-    onChange: updateName
+    rawData: namesData,
+    value: workTypeCategory,
+    propagateChange: updateCategory,
+    labelMaker: nameAccessor,
+    allowUndefined: false
   });
 
   const kls = useMemo(() => {
@@ -161,8 +170,8 @@ export default function CreateWorkType({ pathVariables }: LeafComponentProps) {
   }, [knowledgeDomain, trigger]);
 
   useEffect(() => {
-    trigger('name');
-  }, [wttName, trigger]);
+    trigger('workTypeCategory');
+  }, [workTypeCategory, trigger]);
 
   useEffect(() => {
     setValue('knowledgeLevel', {
@@ -186,12 +195,12 @@ export default function CreateWorkType({ pathVariables }: LeafComponentProps) {
       >
         <FormProvider {...formReturn}>
           <h1 className={'items-center justify-center align-middle '}>
-            New Work Task Type
+            New Work Type
           </h1>
           <div className={'flex flex-col items-center justify-center gap-2'}>
             <Autocomplete
-              {...nameAutocompleteProps}
-              error={errors.name?.message}
+              {...categorySelectProps}
+              error={errors.workTypeCategory?.message}
             />
             <Autocomplete
               label={getStartCaseDomainAlias('knowledgeDomain')}
@@ -213,7 +222,7 @@ export default function CreateWorkType({ pathVariables }: LeafComponentProps) {
               />
             )}
           </div>
-          <div className={'justify-center gap-2'}>
+          <div className={'m-2 flex items-center justify-center gap-4'}>
             <LinkButton href={workTypesLayoutId} color={'danger'}>
               Cancel
             </LinkButton>

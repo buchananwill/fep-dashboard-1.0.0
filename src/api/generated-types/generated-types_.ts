@@ -639,10 +639,21 @@ export interface UserRoleTypeDto
   extends Serializable,
     TypeDto<any, UserRoleTypeDto> {}
 
-export interface WorkTypeDto extends Serializable, TypeDto<any, WorkTypeDto> {
+export interface WorkTypeDto
+  extends DtoWrapper<any, WorkTypeDto, number>,
+    Serializable {
+  workTypeCategory: WorkTypeCategoryDto;
+  id: number;
   knowledgeDomain: KnowledgeDomainDto;
   knowledgeLevel?: KnowledgeLevelDto;
   knowledgeLevelSeriesId?: number;
+}
+
+export interface WorkTypeCategoryDto
+  extends Serializable,
+    DtoWrapper<any, WorkTypeCategoryDto, number> {
+  id: number;
+  name: string;
 }
 
 export interface WorkProjectSeriesAssignmentDto
