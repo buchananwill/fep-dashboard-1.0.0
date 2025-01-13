@@ -44,11 +44,6 @@ export default function CreateRoleForm<T extends FieldValues>({
   createRoleAction,
   redirectUrl
 }: RoleFormProps<T>) {
-  const listFields = useMemo(
-    () =>
-      ['suitabilities', 'availabilities'] as FieldName<RolePostRequest<T>>[],
-    []
-  );
   const methods = useFormContext<RolePostRequest<T>>();
   const {
     handleSubmit,
@@ -58,16 +53,17 @@ export default function CreateRoleForm<T extends FieldValues>({
     watch
   } = methods;
 
-  const { readAny, getWttNameStrings, getRoleTypeNames } =
+  const { readAny, getWorkTypeCategoryNameStrings, getRoleTypeNames } =
     useRoleTypeAndTaskTypeSelections(roleEntity);
   const compileSuitabilityRequestWithoutSetting =
-    useCompileSuitabilitySummaries(getWttNameStrings, getRoleTypeNames);
+    useCompileSuitabilitySummaries(
+      getWorkTypeCategoryNameStrings,
+      getRoleTypeNames
+    );
   const compileAvailabilitiesWithoutSetting = useCompileAvailabilities(
     readAny,
     getRoleTypeNames
   );
-
-  const roleDataMap = watch('roleDataMap');
 
   const propagateRoleDataChange = useCallback(
     (update: Record<string, RoleData>) => {

@@ -47,7 +47,7 @@ export function joinWorkTypeKeyFromSuitability(
 ) {
   if (suitabilitySummary === undefined) throw Error('WorkType was undefined');
   return [
-    suitabilitySummary.taskTypeName,
+    suitabilitySummary.workTypeCategory,
     suitabilitySummary.knowledgeDomainName,
     suitabilitySummary.knowledgeLevelName
   ].join('::');

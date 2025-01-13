@@ -1,11 +1,10 @@
-import { Api } from '@/api/clientApi_';
+import { Api } from '@/api/clientApi';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/client-literals';
 import SuitabilityCellManager from '@/components/roles/suitability/SuitabilityCellManager';
 import { getIdList } from '@/functions/getIdList';
 import { getLastNVariables } from '@/functions/getLastNVariables';
-import { getNames } from '@/components/work-types/getNamesServerAction';
 import { RoleEntity } from '@/components/roles/types';
 import pluralize, { singular } from 'pluralize';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
@@ -30,7 +29,7 @@ export default async function CreateRolePage({
   const roleTypes = await Api[EntityClassKey].getAll();
   const knowledgeDomainDtos = await Api.KnowledgeDomain.getAll();
   const knowledgeLevelSeriesDtos = await Api.KnowledgeLevelSeries.getAll();
-  const workTypeCategorys = await getNames();
+  const workTypeCategories = await Api.WorkTypeCategory.getAll();
   const allKnowledgeLevels =
     knowledgeLevelSeriesDtos.length > 0
       ? knowledgeLevelSeriesDtos.flatMap((kls) => kls.knowledgeLevels)
@@ -53,7 +52,7 @@ export default async function CreateRolePage({
         />
         <EditAddDeleteDtoControllerArray
           entityClass={WorkTypeCategory}
-          dtoList={workTypeCategorys}
+          dtoList={workTypeCategories}
         />
         <EditAddDeleteDtoControllerArray
           entityClass={EntityClassMap.knowledgeLevelSeries}

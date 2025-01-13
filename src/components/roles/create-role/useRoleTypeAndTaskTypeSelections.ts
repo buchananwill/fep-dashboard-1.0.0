@@ -9,29 +9,31 @@ import { useCallback } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { listenerKey } from '@/components/roles/create-role/CreateRoleForm';
 import { HasName } from 'react-d3-force-wrapper';
+import { WorkTypeCategoryDto } from '@/api/generated-types/generated-types_';
 
 export function useRoleTypeAndTaskTypeSelections(
   roleEntity: 'provider' | 'asset' | 'user'
 ) {
-  const { currentState: wttTaskNameIdList } = NamespacedHooks.useListen(
+  const { currentState: workTypeCategoryIdList } = NamespacedHooks.useListen(
     WorkTypeCategory,
     KEY_TYPES.SELECTED,
     listenerKey,
     EmptyArray
   );
-  const readAnyWttName = useReadAnyDto<HasName & HasNumberId>(WorkTypeCategory);
+  const readAnyWorkTypeCategory =
+    useReadAnyDto<WorkTypeCategoryDto>(WorkTypeCategory);
   const roleTypeNames = useReadSelectedEntities(`${roleEntity}RoleType`);
   const readAny = useGlobalReadAny();
 
-  const getWttNameStrings = useCallback(() => {
-    return wttTaskNameIdList
-      .map((id) => readAnyWttName(id))
+  const getWorkTypeCategoryNameStrings = useCallback(() => {
+    return workTypeCategoryIdList
+      .map((id) => readAnyWorkTypeCategory(id))
       .filter(isNotUndefined)
       .map((name) => name.name);
-  }, [wttTaskNameIdList, readAnyWttName]);
+  }, [workTypeCategoryIdList, readAnyWorkTypeCategory]);
 
   const getRoleTypeNames = useCallback(() => {
     return roleTypeNames().map((type) => type.name);
   }, [roleTypeNames]);
-  return { readAny, getWttNameStrings, getRoleTypeNames };
+  return { readAny, getWorkTypeCategoryNameStrings, getRoleTypeNames };
 }

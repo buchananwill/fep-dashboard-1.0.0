@@ -1,8 +1,6 @@
 import { z } from 'zod';
 import {
-  AvailabilityPostRequestSchema,
   AvailabilitySummaryDtoSchema,
-  SuitabilityPostRequestSchema,
   SuitabilitySummaryDtoSchema
 } from '@/api/generated-schemas/schemas_';
 

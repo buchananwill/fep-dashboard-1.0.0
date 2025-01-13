@@ -181,7 +181,7 @@ function RoleDataModalContent({
           rating: DEFAULT_VALUE_FOR_IS_SUITABLE,
           knowledgeDomainName: wtt.knowledgeDomain.name,
           knowledgeLevelName: wtt.knowledgeLevel?.name,
-          taskTypeName: wtt.name
+          workTypeCategory: wtt.name
         }) as SuitabilitySummaryDto
     );
     const kvPairs = Object.keys(value).map((roleTypeNameKey) => {

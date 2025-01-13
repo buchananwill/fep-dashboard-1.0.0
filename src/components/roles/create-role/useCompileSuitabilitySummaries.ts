@@ -14,7 +14,7 @@ import {
 import { listenerKey } from '@/components/roles/create-role/CreateRoleForm';
 
 export function useCompileSuitabilitySummaries(
-  getWttNameStrings: () => string[],
+  getWorkTypeCategoryNameStrings: () => string[],
   getRoleTypeNames: () => string[]
 ) {
   const readAnyDto = useReadAnyDto<CreateRoleCell>(CellEntityClass);
@@ -29,7 +29,7 @@ export function useCompileSuitabilitySummaries(
 
   return useCallback(() => {
     const roleTypeNames = getRoleTypeNames();
-    const wttNameStrings = getWttNameStrings();
+    const workTypeCategoryNameStrings = getWorkTypeCategoryNameStrings();
     const withoutRoleTypeNames = cellIdList
       .map((id) => readAnyDto(id))
       .filter(isNotUndefined)
@@ -40,7 +40,7 @@ export function useCompileSuitabilitySummaries(
         if (knowledgeLevel && knowledgeDomain) {
           const suitabilityRequest: Omit<
             SuitabilitySummaryDto,
-            'taskTypeName' | 'roleTypeName'
+            'workTypeCategory' | 'roleTypeName'
           > = {
             knowledgeDomainName: knowledgeDomain.name,
             knowledgeLevelName: knowledgeLevel.name,
@@ -51,9 +51,9 @@ export function useCompileSuitabilitySummaries(
       })
       .filter(isNotUndefined)
       .flatMap((sSum) => {
-        return wttNameStrings.map((wttName) => ({
+        return workTypeCategoryNameStrings.map((workTypeCategory) => ({
           ...sSum,
-          taskTypeName: wttName
+          workTypeCategory: workTypeCategory
         }));
       });
     const response = {} as Record<string, RoleData>;
@@ -69,7 +69,7 @@ export function useCompileSuitabilitySummaries(
   }, [
     cellIdList,
     getRoleTypeNames,
-    getWttNameStrings,
+    getWorkTypeCategoryNameStrings,
     readAnyDto,
     readAnyKnowledgeDomain,
     readAnyKnowledgeLevel

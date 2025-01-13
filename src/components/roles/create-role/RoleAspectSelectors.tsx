@@ -18,12 +18,13 @@ import { useEntitySelectionWithStringLabelsOnly } from '@/hooks/useEntitySelecti
 import { Select } from '@mantine/core';
 import { MultiSelectMaxDisplayedItems } from '@/components/generic/combo-boxes/MultiSelectMaxDisplayedItems';
 import { useEntitySelectionWithSimpleSelectables } from '@/hooks/useEntitySelectionWithSimpleSelectables';
+import { ErrorDiv } from '@/components/roles/create-role/ErrorDiv';
 
-const SuitabilitiesErrorMap: RenderErrorsMap<SuitabilityPostRequest> = {
+const RoleDataErrorsMap: RenderErrorsMap<RoleData> = {
   each: {
-    'workTypeMatrix.workTypeCategorys': (props) =>
+    suitabilities: (props) =>
       props.errors?.message && <span>{props.errors.message}</span>,
-    roleTypeNames: (props) =>
+    availabilities: (props) =>
       props.errors?.message && <span>{props.errors.message}</span>
   }
 };
@@ -37,20 +38,6 @@ export function RoleAspectSelectors({
     formState: { errors },
     control
   } = useFormContext<RolePostRequest<any>>();
-  const suitabilityErrors: PathRenderedErrorMap<SuitabilityPostRequest> =
-    useMemo(() => {
-      const errorList = errors?.roleDataMap;
-      if (errorList) {
-        return flattenArrayErrorsAndRender(
-          Object.values(errorList) as FieldErrors<RoleData>[],
-          SuitabilitiesErrorMap
-        );
-      } else return {};
-    }, [errors]);
-
-  const taskNameErrors =
-    suitabilityErrors.each?.['workTypeMatrix.workTypeCategorys'];
-  const roleTypeErrors = suitabilityErrors.each?.roleTypeNames;
 
   const {
     selectionList: selectionListRoleType,
@@ -81,18 +68,9 @@ export function RoleAspectSelectors({
         }
         onChange={onChange}
         placeholder={'Role Type'}
-        error={
-          roleTypeErrors && roleTypeErrors.length > 0
-            ? roleTypeErrors
-            : undefined
-        }
       />
       <MultiSelectMaxDisplayedItems
         pillsInput={{
-          error:
-            taskNameErrors && taskNameErrors.length > 0
-              ? taskNameErrors
-              : undefined,
           classNames: {
             root: 'w-full'
           }

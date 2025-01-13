@@ -236,18 +236,9 @@ export const StaticDeliveryAllocationItemDtoSchema = zod.object({
   workSchemaId: zod.number().int()
 });
 
-export const SuitabilityPostRequestSchema = zod.object({
-  workTypeMatrix: zod.lazy(() => WorkTypeListMatrixSchema),
-  roleTypeNames: zod
-    .array(zod.string())
-    .min(1, { message: 'Please provide exactly one role type' })
-    .max(1, { message: 'Please provide exactly one role type' }),
-  rating: zod.number()
-});
-
 export const SuitabilitySummaryDtoSchema = zod.object({
   roleTypeName: zod.string(),
-  taskTypeName: zod.string(),
+  workTypeCategory: zod.string(),
   knowledgeLevelName: zod.string(),
   knowledgeDomainName: zod.string(),
   rating: zod.number()

@@ -810,7 +810,7 @@ export interface SuitabilityPostRequest {
 
 export interface SuitabilitySummaryDto extends HasWorkTypeViewId {
   roleTypeName: string;
-  taskTypeName: string;
+  workTypeCategory: string;
   knowledgeLevelName: string;
   knowledgeDomainName: string;
   rating: number;

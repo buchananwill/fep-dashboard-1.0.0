@@ -25,8 +25,7 @@ export default function FormWrapper<T extends FieldValues>(
     defaultValues: {
       baseEntity:
         roleEntity === 'asset' ? defaultAssetValues : defaultPersonValues,
-      suitabilities: [],
-      availabilities: []
+      roleDataMap: {}
     }
   });
 
