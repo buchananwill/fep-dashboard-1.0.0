@@ -57,7 +57,7 @@ export const WorkSchemaColumns: Column<WorkSchemaDto>[] = [
     style: { padding: '0px' }
   },
   {
-    uid: 'workType.name',
+    uid: 'workType.workTypeCategory.name',
     name: startCase('workType'),
     sortable: true
   },
@@ -78,7 +78,7 @@ export const WpssCellModelReadOnly = getCellRenderFunction<
     type: 'EntityInnerCell',
     component: EmbeddedWorkTypeCell
   },
-  'workType.name': {
+  'workType.workTypeCategory.name': {
     type: 'EntityInnerCell',
     component: EmbeddedWorkTypeCell
   },
@@ -99,5 +99,5 @@ function WpssNamespaceCell(props: EntityInnerCellProps<WorkSchemaDto>) {
 }
 
 export function getWorkTypeViewIdString(workType: WorkTypeDto) {
-  return `${workType.name} - ${workType.knowledgeDomain.name} - ${workType.knowledgeLevel?.name ?? 'no level'}`;
+  return `${workType.workTypeCategory.name} - ${workType.knowledgeDomain.name} - ${workType.knowledgeLevel?.name ?? 'no level'}`;
 }
