@@ -23,6 +23,9 @@
     border-radius: 6px;
 }
 
+:root {
+    --default-cell-size: 40px; /* Replace 100px with your desired default size */
+}
 
 @layer tw-base {
     ol, ul {
@@ -313,6 +316,10 @@ canvas {
     50% {
         opacity: 0.5;
     }
+}
+
+.animate-pulsing {
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 

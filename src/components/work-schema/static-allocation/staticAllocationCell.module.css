@@ -6,9 +6,22 @@
 }
 
 .droppable {
-    background-color: var(--mantine-color-success-3); /* Tailwind's bg-emerald-500 */
+    background-color: var(); /* Tailwind's bg-emerald-500 */
 }
 
 .not-droppable {
     background-color: var(--mantine-color-gray-3); /* Tailwind's bg-gray-200 */
+}
+
+.static-item-cell {
+    height: var(--default-cell-size);
+    width: var(--default-cell-size);
+}
+
+.tail-cell {
+    background-color: var(--mantine-color-secondary-3); /* Tailwind's bg-blue-500 */
+}
+
+.draggable-cell {
+    background-color: var(--mantine-color-secondary-5); /* Tailwind's bg-blue-500 */
 }

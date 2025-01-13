@@ -3,6 +3,7 @@ import { useDrag } from 'react-dnd';
 import { DragTypes } from '@/components/react-dnd/literals';
 import clsx from 'clsx';
 import { defaultCellSize } from '@/components/grids/VirtualizedTableWindowed';
+import classes from './staticAllocationCell.module.css';
 
 export function StaticAllocationDraggable(props: {
   entity: StaticDeliveryAllocationItemDto;
@@ -28,8 +29,9 @@ export function StaticAllocationDraggable(props: {
     drag(
       <div
         className={clsx(
-          'h-[40px] bg-blue-500',
-          isDragging && 'animate-pulse bg-opacity-50'
+          classes.draggableCell,
+          classes.staticItemCell,
+          isDragging && 'animate-pulsing'
         )}
         style={style}
       ></div>

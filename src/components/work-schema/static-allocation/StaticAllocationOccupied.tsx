@@ -2,16 +2,18 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { SetRequired } from 'type-fest';
 import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
 import { useDtoStore } from 'dto-stores';
-import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types_';
+import {
+  CycleSubspanWithJoinsListDto,
+  StaticDeliveryAllocationItemDto
+} from '@/api/generated-types/generated-types_';
 import { getCellIdReference } from '@/components/grids/getCellIdReference';
-import { CycleSubspanWithJoinsListDto } from '@/api/generated-types/generated-types_';
 import { memo, useMemo } from 'react';
 import { matchIsFirst } from '@/components/work-schema/static-allocation/allocationDropZonePermissions';
-import clsx from 'clsx';
-import { defaultCellSize } from '@/components/grids/VirtualizedTableWindowed';
 import { StaticAllocationDraggable } from '@/components/work-schema/static-allocation/StaticAllocationDraggable';
 import { getDeliveryAllocationSize } from '@/components/work-schema/static-allocation/StaticAllocationDropZone';
 import { joinCellId } from '@/components/work-schema/static-allocation/createCell';
+import classes from './staticAllocationCell.module.css';
+import clsx from 'clsx';
 
 const entityClass = EntityClassMap.staticDeliveryAllocationItem;
 
@@ -61,15 +63,16 @@ function SafelyOccupied({
       deliveryAllocationSize,
       cycleSubspanGroupId
     );
-  }, [cycleSubspan, deliveryAllocationSize, cycleSubspanGroupId]);
+  }, [
+    cycleSubspan.cycleSubspanJoins,
+    deliveryAllocationSize,
+    cycleSubspanGroupId
+  ]);
 
   if (isDraggable) {
     return <DraggableMemo entity={entity} {...props} />;
   } else
     return (
-      <div
-        className={clsx('h-[40px] bg-blue-500')}
-        style={{ width: `${defaultCellSize}px` }}
-      ></div>
+      <div className={clsx(classes.staticItemCell, classes.tailCell)}></div>
     );
 }
