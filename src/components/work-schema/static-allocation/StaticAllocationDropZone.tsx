@@ -20,6 +20,7 @@ import { useGlobalListener } from 'selective-context';
 import { ObjectPlaceholder } from '@/api/client-literals';
 import { useStaticAllocationCellUpdater } from '@/components/work-schema/static-allocation/UseStaticAllocationCellUpdater';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
+import classes from './staticAllocationCell.module.css';
 
 export function getDeliveryAllocationSize(
   item: StaticDeliveryAllocationItemDto | undefined
@@ -158,8 +159,8 @@ export function StaticAllocationDropZone({
   return drop(
     <div
       className={clsx(
-        'h-full w-full border border-gray-200 bg-opacity-30',
-        currentItem && (canDrop ? 'bg-emerald-500' : 'bg-gray-200')
+        classes.cell,
+        currentItem && (canDrop ? classes.droppable : classes.notDroppable)
       )}
     ></div>
   );

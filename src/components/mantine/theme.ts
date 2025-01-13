@@ -39,6 +39,19 @@ const mintColors = [
   '#009e54'
 ] as const;
 
+const mintColorsRGB = [
+  '227, 255, 242',
+  '208, 252, 230',
+  '163, 246, 206',
+  '115, 240, 179',
+  '76, 236, 157',
+  '50, 233, 142',
+  '33, 232, 134',
+  '13, 205, 115',
+  '0, 183, 101',
+  '0, 158, 84'
+] as const;
+
 const redColors = [
   '#ffeae9',
   '#ffd5d2',
@@ -115,6 +128,7 @@ const MantineTheme: MantineThemeOverride = {
     secondary: celestialLagoonColors,
     secondaryRGB: celestialLagoonColorsRGB,
     success: mintColors,
+    successRGB: mintColorsRGB,
     danger: redColors,
     default: grayColors,
     amberSunrise: amberSunriseColorsHex

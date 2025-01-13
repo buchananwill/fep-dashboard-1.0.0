@@ -1,0 +1,14 @@
+.cell {
+    height: 100%;
+    width: 100%;
+    border: 1px solid #e5e7eb; /* Tailwind's border-gray-200 */
+    background-color: rgba(255, 255, 255, 0.3); /* Tailwind's bg-opacity-30 */
+}
+
+.droppable {
+    background-color: var(--mantine-color-success-3); /* Tailwind's bg-emerald-500 */
+}
+
+.not-droppable {
+    background-color: var(--mantine-color-gray-3); /* Tailwind's bg-gray-200 */
+}
