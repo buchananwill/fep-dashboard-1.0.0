@@ -1,16 +1,16 @@
-import { CycleSubspanJoinNestedDto } from '@/api/generated-types/generated-types_';
+import { CsjNestedDto } from '@/api/generated-types/generated-types_';
 import { StaticDeliveryAllocationItemDto } from '@/api/generated-types/generated-types_';
 import { WorkSchemaDto } from '@/api/generated-types/generated-types_';
 
 export function matchSize(
-  sizesSet: Record<string, CycleSubspanJoinNestedDto>,
+  sizesSet: Record<string, CsjNestedDto>,
   size: number
 ) {
   return sizesSet[String(size)] !== undefined;
 }
 
 export function matchIsFirst(
-  sizesSet: Record<string, CycleSubspanJoinNestedDto>,
+  sizesSet: Record<string, CsjNestedDto>,
   size: number,
   cycleSubspanGroupId?: number
 ) {

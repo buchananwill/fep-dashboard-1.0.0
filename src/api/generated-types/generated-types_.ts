@@ -72,7 +72,7 @@ export interface CycleSubspanGroupIndexDto
   cycleSubspanIndexIntSetZeroIndexed: number[];
 }
 
-export interface CycleSubspanJoinNestedDto extends Serializable {
+export interface CsjNestedDto extends Serializable {
   id: number;
   cycleSubspanId: number;
   cycleSubspanGroupSize: number;
@@ -85,10 +85,10 @@ export interface CycleSubspanWithJoinsListDto extends Serializable {
   timeSpan: TimeSpanDto;
   parentCycleId: number;
   name: string;
-  cycleSubspanJoins: { [index: string]: CycleSubspanJoinNestedDto };
+  cycleSubspanJoins: { [index: string]: CsjNestedDto };
   zeroIndexedCycleDay: number;
   dayOrdinal: number;
-  joinsIfNotFirst: { [index: string]: CycleSubspanJoinNestedDto[] };
+  joinsIfNotFirst: { [index: string]: CsjNestedDto[] };
 }
 
 export interface BaseReportItemDto {

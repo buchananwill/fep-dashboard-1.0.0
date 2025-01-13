@@ -86,7 +86,7 @@ export const CycleSubspanGroupIndexDtoSchema = zod.object({
   cycleSubspanGroupSubsetIdList: zod.array(zod.number().int())
 });
 
-export const CycleSubspanJoinNestedDtoSchema = zod.object({
+export const CsjNestedDtoSchema = zod.object({
   id: zod.number().int(),
   cycleSubspanId: zod.number().int(),
   cycleSubspanGroupSize: zod.number().int(),
@@ -109,13 +109,13 @@ export const CycleSubspanWithJoinsListDtoSchema = zod.object({
   name: zod.string(),
   cycleSubspanJoins: zod.record(
     zod.string(),
-    zod.lazy(() => CycleSubspanJoinNestedDtoSchema)
+    zod.lazy(() => CsjNestedDtoSchema)
   ),
   zeroIndexedCycleDay: zod.number().int(),
   dayOrdinal: zod.number().int(),
   joinsIfNotFirst: zod.record(
     zod.string(),
-    zod.array(zod.lazy(() => CycleSubspanJoinNestedDtoSchema))
+    zod.array(zod.lazy(() => CsjNestedDtoSchema))
   )
 });
 
