@@ -41,9 +41,9 @@ export default function WorkSchemaCell(props: CellWrapperProps) {
       item: StaticDeliveryAllocationItemDto,
       monitor: DropTargetMonitor<StaticDeliveryAllocationItemDto>
     ) => {
-      return true;
+      return item.workSchemaId === rowId;
     },
-    []
+    [rowId]
   );
 
   const listenerKey = `workSchemaCell:${rowId}`;
@@ -71,10 +71,12 @@ export default function WorkSchemaCell(props: CellWrapperProps) {
     ) => {
       const cycleSubspanIdList =
         cycleSubspanGroupMapCurrent[item.cycleSubspanGroupId];
-      cycleSubspanIdList.forEach((csId) => {
-        staticAllocationCellUpdater(undefined, csId);
-      });
-      dispatchDeleted((list) => [...list, item.id]);
+      if (cycleSubspanIdList) {
+        cycleSubspanIdList.forEach((csId) => {
+          staticAllocationCellUpdater(undefined, csId);
+        });
+        dispatchDeleted((list) => [...list, item.id]);
+      }
     },
     [cycleSubspanGroupMapCurrent, staticAllocationCellUpdater, dispatchDeleted]
   );
