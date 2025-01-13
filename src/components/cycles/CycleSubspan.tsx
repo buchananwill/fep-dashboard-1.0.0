@@ -27,7 +27,7 @@ export default function CycleSubspan({
       );
       if (dispatchDeletion) dispatchDeletion(action);
     },
-    [dispatchDeletion, dispatchWithoutListen, entity]
+    [dispatchDeletion, dispatchWithoutListen, entity?.id]
   );
 
   if (!entity || entity === ObjectPlaceholder) {

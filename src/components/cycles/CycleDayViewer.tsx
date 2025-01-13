@@ -62,7 +62,7 @@ export default function CycleDayViewer({
       dispatchMasterList(addCycleSubspan);
       dispatchAddedList(addId);
     },
-    [cycle.id, dispatch, cycleDay]
+    [cycle.id, dispatch, cycleDay.zeroIndexedCycleDay]
   );
 
   const dispatchInitialList = NamespacedHooks.useDispatch<CycleSubspanDto[]>(
