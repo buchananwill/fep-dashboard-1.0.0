@@ -69,7 +69,7 @@ export const workSchemaColumns: Column<WorkSchemaDto>[] = [
     name: `${startCase(getDomainAlias('user'))} limit`
   },
   {
-    uid: 'workType.name',
+    uid: 'workType.workTypeCategory.name',
     name: startCase('workType'),
     sortable: true
   }
@@ -98,7 +98,7 @@ const WorkSchemaEditTableCellRecord: CellComponentRecord<WorkSchemaDto> = {
     type: 'EntityInnerCell',
     component: EmbeddedWorkTypeCell
   },
-  'workType.name': {
+  'workType.workTypeCategory.name': {
     type: 'EntityInnerCell',
     component: EmbeddedWorkTypeCell
   },
