@@ -2,11 +2,10 @@
 import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 import React, { useCallback } from 'react';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { Column, ColumnUid } from '@/types';
+import { Column } from '@/types';
 import { useRouter } from 'next/navigation';
 import { WorkTypeCell } from '@/components/tables/cells-v2/WorkTypeCell';
 import { WORK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTypeColumns';
-import { INITIAL_VISIBLE_WORK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TYPE_COLUMNS';
 import { useGlobalController } from 'selective-context';
 import ResourceRequirementItemModal from '@/components/modals/ResourceRequirementItemModal';
 import EntityTable from '@/components/tables/edit-tables/EntityTable';

@@ -22,7 +22,7 @@ export function EntityWithWorkTypeShortCode({
   const subjectCode =
     entity.workType.knowledgeDomain?.shortCode ??
     entity.workType.knowledgeDomain?.name ??
-    entity.workType.name;
+    entity.workType.workTypeCategory.name;
   const cssRgba = parseToCssRgba(entity.workType.knowledgeDomain?.color);
   return (
     <div

@@ -19,7 +19,7 @@ export default function WorkTypeSelectorTable({
       entityClass={EntityClassMap.workType}
       columns={WORK_TYPE_COLUMNS}
       cellModel={WorkTypeCell}
-      defaultSort={Sorts.name}
+      defaultSort={Sorts['workTypeCategory.name']}
     />
   );
 }

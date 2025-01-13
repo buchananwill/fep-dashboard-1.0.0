@@ -93,10 +93,10 @@ export default function CarouselOption({
 
   // Update own state with display name
   useEffect(() => {
-    if (entity?.name !== workType?.name && workType)
+    if (entity?.name !== workType?.workTypeCategory.name && workType)
       dispatchWithoutListen((state) => ({
         ...state,
-        name: workType.name
+        name: workType.workTypeCategory.name
       }));
   }, [entity, workType, dispatchWithoutListen]);
 

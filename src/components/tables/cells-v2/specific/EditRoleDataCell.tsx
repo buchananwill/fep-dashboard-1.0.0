@@ -176,12 +176,12 @@ function RoleDataModalContent({
   const compileSuitabilitiesWithoutSetting = useCallback(() => {
     const selectedWorkTypes = transientStateRef.current ?? [];
     const suitabilitiesWithoutRoleTypes = selectedWorkTypes.map(
-      (wtt) =>
+      (workType) =>
         ({
           rating: DEFAULT_VALUE_FOR_IS_SUITABLE,
-          knowledgeDomainName: wtt.knowledgeDomain.name,
-          knowledgeLevelName: wtt.knowledgeLevel?.name,
-          workTypeCategory: wtt.name
+          knowledgeDomainName: workType.knowledgeDomain.name,
+          knowledgeLevelName: workType.knowledgeLevel?.name,
+          workTypeCategory: workType.workTypeCategory.name
         }) as SuitabilitySummaryDto
     );
     const kvPairs = Object.keys(value).map((roleTypeNameKey) => {

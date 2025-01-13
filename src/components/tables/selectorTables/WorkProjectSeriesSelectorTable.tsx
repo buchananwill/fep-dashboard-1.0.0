@@ -30,7 +30,7 @@ export default function WorkProjectSeriesSelectorTable({
 export const WorkProjectSeriesColumns: Column<WorkProjectSeriesDto>[] = [
   {
     name: 'WorkType Name',
-    uid: 'workType.name',
+    uid: 'workType.workTypeCategory.name',
     sortable: true
   },
   { name: 'Id', uid: 'id', sortable: false },
@@ -64,7 +64,7 @@ const CellRenderFunction = getCellRenderFunction<
     type: 'EntityInnerCell',
     component: EmbeddedWorkTypeCell
   },
-  'workType.name': {
+  'workType.workTypeCategory.name': {
     type: 'EntityInnerCell',
     component: EmbeddedWorkTypeCell
   },

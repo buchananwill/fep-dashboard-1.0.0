@@ -37,7 +37,7 @@ export function joinWorkSchemaIdKey(wpss: WorkSchemaDto) {
 export function joinWorkTypeKey(workType: WorkTypeDto | undefined) {
   if (workType === undefined) throw Error('WorkType was undefined');
   return [
-    workType.name,
+    workType.workTypeCategory.name,
     workType.knowledgeDomain.name,
     workType.knowledgeLevel?.name
   ].join('::');
