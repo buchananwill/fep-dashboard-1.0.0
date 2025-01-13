@@ -3,8 +3,8 @@ import { WorkTypeDto } from '@/api/generated-types/generated-types_';
 import { startCase } from 'lodash';
 import { getDomainAlias } from '@/api/getDomainAlias';
 
-export const WORK_TASK_TYPE_COLUMNS: Column<WorkTypeDto>[] = [
-  { name: 'Name', uid: 'name', sortable: true },
+export const WORK_TYPE_COLUMNS: Column<WorkTypeDto>[] = [
+  { name: 'Category', uid: 'workTypeCategory.name', sortable: true },
   {
     name: startCase(getDomainAlias('knowledgeDomain')),
     uid: 'knowledgeDomain.name',

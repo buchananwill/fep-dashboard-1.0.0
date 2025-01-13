@@ -12,6 +12,10 @@ export const Sorts = {
     direction: 'asc',
     path: 'name'
   },
+  'workTypeCategory.name': {
+    direction: 'asc',
+    path: 'workTypeCategory.name'
+  },
   'data.name': {
     direction: 'asc',
     path: 'data.name'

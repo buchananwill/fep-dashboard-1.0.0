@@ -5,7 +5,7 @@ import { EntityClassMap } from '@/api/entity-class-map';
 import { Column, ColumnUid } from '@/types';
 import { useRouter } from 'next/navigation';
 import { WorkTypeCell } from '@/components/tables/cells-v2/WorkTypeCell';
-import { WORK_TASK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTypeColumns';
+import { WORK_TYPE_COLUMNS } from '@/components/tables/selectorTables/workTypeColumns';
 import { INITIAL_VISIBLE_WORK_TYPE_COLUMNS } from '@/components/tables/selectorTables/INITIAL_VISIBLE_WORK_TYPE_COLUMNS';
 import { useGlobalController } from 'selective-context';
 import ResourceRequirementItemModal from '@/components/modals/ResourceRequirementItemModal';
@@ -43,7 +43,7 @@ export default function WorkTypeEditTable() {
         entityClass={EntityClassMap.workType}
         columns={COLUMNS}
         cellModel={WorkTypeCell}
-        defaultSort={Sorts.name}
+        defaultSort={Sorts['workTypeCategory.name']}
         // addRow={goToCreate}
       />
       {currentState === noRriModal ? null : (
@@ -59,10 +59,5 @@ export default function WorkTypeEditTable() {
 
 const COLUMNS: Column<WorkTypeDto>[] = [
   { name: 'Actions', uid: 'id', sortable: false },
-  ...WORK_TASK_TYPE_COLUMNS
-];
-
-const INITIAL_COLUMNS: ColumnUid<WorkTypeDto>[] = [
-  ...INITIAL_VISIBLE_WORK_TYPE_COLUMNS,
-  'id'
+  ...WORK_TYPE_COLUMNS
 ];

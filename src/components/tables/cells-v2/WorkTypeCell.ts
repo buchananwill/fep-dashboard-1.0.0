@@ -10,7 +10,7 @@ import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetC
 
 const CellRecord: CellComponentRecord<WorkTypeDto> = {
   id: { component: WorkTypeActionCell, type: 'IdInnerCell' },
-  name: { component: AnyValueToString, type: 'IdInnerCell' },
+  'workTypeCategory.name': { component: AnyValueToString, type: 'IdInnerCell' },
   'knowledgeLevel.name': {
     component: SimpleValueToStringOrUndefined,
     type: 'IdInnerCell'
