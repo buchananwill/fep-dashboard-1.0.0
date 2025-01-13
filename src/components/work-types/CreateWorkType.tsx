@@ -233,7 +233,3 @@ export default function CreateWorkType({ pathVariables }: LeafComponentProps) {
     </RootCard>
   );
 }
-
-function idAccessor<T extends HasId>(item: T) {
-  return String(item.id);
-}
