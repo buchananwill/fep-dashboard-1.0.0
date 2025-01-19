@@ -1,5 +1,5 @@
 import { Api } from '@/api/clientApi';
-import { Affix, Card, Title } from '@mantine/core';
+import { Card, Title } from '@mantine/core';
 
 import { MarkdownFromNestedBlock } from '@/components/user-guide/markdownFromNestedBlock';
 import { UserGuideDrawer } from '@/components/user-guide/UserGuideDrawer';

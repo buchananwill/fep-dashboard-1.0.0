@@ -1,16 +1,8 @@
-'use client';
-import { Button } from '@mantine/core';
-import { testAction } from '@/app/test/test-action';
+import { getUserGuide } from '@/app/user-guide/test';
+import { ClientComponent } from '@/app/test/ClientComponent';
 
-export default function Page() {
-  return (
-    <Button
-      onClick={async () => {
-        const hello = await testAction();
-        console.log(hello);
-      }}
-    >
-      Click Me
-    </Button>
-  );
+export default async function Page() {
+  const userGuide = await getUserGuide();
+
+  return <ClientComponent userGuide={userGuide} />;
 }

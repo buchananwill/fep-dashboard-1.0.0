@@ -1,3 +1,4 @@
+'use client';
 import { DownloadDataParams, useDownloadData } from '@/hooks/useDownloadData';
 import { Button, ButtonProps } from '@mantine/core';
 import { ComponentPropsWithoutRef } from 'react';
