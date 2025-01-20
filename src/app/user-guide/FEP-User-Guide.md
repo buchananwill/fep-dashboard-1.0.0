@@ -279,7 +279,7 @@ a [User Role](#user-role) can only attend one of them: you can only pick a singl
 
 ### Carousel Option
 
-A **Carousel Option* is a leaf [Work Schema Node](#work-schema-node), packaged onto a [Carousel](#carousel) to enable
+A **Carousel Option** is a leaf [Work Schema Node](#work-schema-node), packaged onto a [Carousel](#carousel) to enable
 the allocation of simultaneous [Work Project Series](#work-project-series) within a Work Schema Node graph.
 
 ## Carousel Order
@@ -362,7 +362,7 @@ in multiple roles, but these may not overlap in their availability. In order for
 a [Work Type](#work-type) during scheduling, it must also be recorded with
 appropriate [Suitabilities](#suitability).
 
-The specific use of "Provider" (as opposed to "Worker" or another related work) was chosen because it can imply "
+The specific use of "Provider" (as opposed to "Worker" or another related word) was chosen because it can imply "
 providing effort", "providing support", or "providing a service". It also is intended to reflect that effort is not a
 one-way expenditure; a provider is not unilaterally responsible for the success or failure of their effort. It may
 depend on both the work of other Providers, and the [Users](#user-role), who are also likely working in their own way.
