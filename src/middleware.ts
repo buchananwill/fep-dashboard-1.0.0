@@ -8,6 +8,7 @@ import {
   SCHEMA_NAME_COOKIE,
   SCHEMA_REFRESH_COOKIE
 } from '@/api/server-literals';
+import { SchemaAccessTokenDto } from '@/api/generated-types/generated-types_';
 
 const custom = async (request: NextRequest) => {
   const requestCookieStore = request.cookies;
@@ -20,27 +21,33 @@ const custom = async (request: NextRequest) => {
       const refreshCookie = requestCookieStore.get(
         SCHEMA_REFRESH_COOKIE
       )?.value;
+      let tokens: SchemaAccessTokenDto | undefined = undefined;
+      try {
+        tokens = await getTokens(refreshCookie, session);
+        if (tokens) {
+          const { accessToken, refreshToken } = tokens;
+          if (accessToken && refreshToken) {
+            responseCookieStore.set(SCHEMA_NAME_COOKIE, accessToken, {
+              httpOnly: true,
+              secure: true,
+              path: '/',
+              sameSite: 'strict',
+              maxAge: 60 * 60 // 1 hour in seconds
+            });
 
-      const tokens = await getTokens(refreshCookie, session);
-      if (tokens) {
-        const { accessToken, refreshToken } = tokens;
-        if (accessToken && refreshToken) {
-          responseCookieStore.set(SCHEMA_NAME_COOKIE, accessToken, {
-            httpOnly: true,
-            secure: true,
-            path: '/',
-            sameSite: 'strict',
-            maxAge: 60 * 60 // 1 hour in seconds
-          });
-
-          responseCookieStore.set(SCHEMA_REFRESH_COOKIE, refreshToken, {
-            httpOnly: true,
-            secure: true,
-            path: '/',
-            sameSite: 'strict',
-            maxAge: 60 * 60 * 24 * 7 // 1 week in seconds
-          });
+            responseCookieStore.set(SCHEMA_REFRESH_COOKIE, refreshToken, {
+              httpOnly: true,
+              secure: true,
+              path: '/',
+              sameSite: 'strict',
+              maxAge: 60 * 60 * 24 * 7 // 1 week in seconds
+            });
+          }
         }
+      } catch (e) {
+        console.error(e);
+        responseCookieStore.delete(SCHEMA_REFRESH_COOKIE);
+        responseCookieStore.delete(SCHEMA_NAME_COOKIE);
       }
     }
   }

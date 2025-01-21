@@ -10,7 +10,10 @@ export async function requestRefreshSchemaCookies(token: string) {
   request.headers.append('authorization', `Bearer ${token}`);
 
   const schemaTokensResponse = await fetch(request);
-  const tokens: SchemaAccessTokenDto = await schemaTokensResponse.json();
-
-  return tokens;
+  const contentType = schemaTokensResponse.headers.get('Content-Type');
+  if (contentType && contentType.includes('application/json')) {
+    const tokens: SchemaAccessTokenDto = await schemaTokensResponse.json();
+    return tokens;
+  }
+  throw new Error('Request did not return JSON token.');
 }
