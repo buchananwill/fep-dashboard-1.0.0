@@ -55,7 +55,10 @@ function InnerAssignmentCell({
         (someId) => someId === cellData?.workProjectSeries.workSchemaId
       )
     );
-  }, [cellData, selectSchemaIdList]);
+  }, [
+    cellData?.workProjectSeries.workSchemaId,
+    selectSchemaIdList.currentState
+  ]);
 
   const handleClick = useCallback(() => {
     dispatchWithoutControl([rowIndex, columnIndex]);
