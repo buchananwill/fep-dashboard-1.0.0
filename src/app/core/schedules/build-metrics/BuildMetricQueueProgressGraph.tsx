@@ -21,7 +21,6 @@ export function BuildMetricQueueProgressGraph({
   const { queueProgress, totalNodeSteps, scheduleId } = data;
   const lineData = useMemo(() => {
     const modulus = getModulus(totalNodeSteps);
-    console.log({ totalNodeSteps, modulus, queueProgress });
     const points = queueProgress.map((node, index) => {
       return { x: index * modulus, y: node };
     });
