@@ -12,8 +12,10 @@ export async function BuildMetricQueueTreeGraphPage({
   pathVariables
 }: LeafComponentProps) {
   const [buildMetricId] = getLastNVariables(pathVariables, 1);
+  console.log(Date.now());
   const buildMetric = await Api.BuildMetric.getOne(parseInt(buildMetricId));
-
+  console.log(Date.now());
+  console.log(buildMetric);
   return (
     <RootCard layoutId={getRootCardLayoutId(pathVariables)}>
       <Paper p={'md'}>

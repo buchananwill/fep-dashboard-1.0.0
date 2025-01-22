@@ -12,6 +12,7 @@ export function BuildMetricNodeNetFailureGraph({
 }: {
   data: BuildMetricDto;
 }) {
+  console.log(Date.now());
   const { queueTreeNodes } = data;
   const lineData = useMemo(() => {
     const points = queueTreeNodes.map((qT) => {
@@ -19,7 +20,7 @@ export function BuildMetricNodeNetFailureGraph({
     });
     return { id: `Schedule ${data.scheduleId}`, data: points };
   }, [queueTreeNodes, data]);
-
+  console.log(Date.now());
   return (
     <div className={'h-[90vh] w-[95vw]'}>
       <ResponsiveLineCanvas

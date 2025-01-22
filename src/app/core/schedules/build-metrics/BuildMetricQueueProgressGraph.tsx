@@ -7,10 +7,10 @@ import {
   ResponsiveLineCanvas
 } from '@nivo/line';
 
-const MAX_X_LOCATIONS_POINTS = 20_000;
+const MAX_X_LOCATIONS_POINTS = 10_000;
 
-function getModulus(queueProgress: number[]) {
-  return Math.max(1, Math.round(queueProgress.length / MAX_X_LOCATIONS_POINTS));
+function getModulus(queueProgressLength: number) {
+  return Math.max(1, Math.round(queueProgressLength / MAX_X_LOCATIONS_POINTS));
 }
 
 export function BuildMetricQueueProgressGraph({
@@ -18,16 +18,15 @@ export function BuildMetricQueueProgressGraph({
 }: {
   data: BuildMetricDto;
 }) {
-  const { queueProgress } = data;
+  const { queueProgress, totalNodeSteps, scheduleId } = data;
   const lineData = useMemo(() => {
-    const modulus = getModulus(queueProgress);
-    const points = queueProgress
-      .filter((_node, index) => index % modulus === 0)
-      .map((node, index) => {
-        return { x: index * modulus, y: node };
-      });
-    return { id: `Schedule ${data.scheduleId}`, data: points };
-  }, [queueProgress, data.scheduleId]);
+    const modulus = getModulus(totalNodeSteps);
+    console.log({ totalNodeSteps, modulus, queueProgress });
+    const points = queueProgress.map((node, index) => {
+      return { x: index * modulus, y: node };
+    });
+    return { id: `Schedule ${scheduleId}`, data: points };
+  }, [totalNodeSteps, scheduleId, queueProgress]);
 
   return (
     <div className={'h-[90vh] w-[95vw]'}>
