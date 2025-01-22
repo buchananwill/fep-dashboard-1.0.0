@@ -75,8 +75,6 @@ export default function WorkProjectTableDataFetcher({
   );
 }
 
-export type WorkProjectLeanDto = Omit<WorkProjectDto, 'workTask'>;
-
 const emptyTable: GenericTableDto<any, any, any, any> = {
   rowList: [],
   columnList: [],

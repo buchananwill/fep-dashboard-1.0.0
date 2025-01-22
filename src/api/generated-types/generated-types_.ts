@@ -402,6 +402,7 @@ export interface QueueTreeNodeDto extends Serializable {
   totalAllocationArea: number;
   queueTreeNodeTaskDtos: QueueTreeNodeTaskDto[];
 }
+
 export interface QueueTreeNodeTaskDto
   extends Serializable,
     DtoWrapper<any, QueueTreeNodeTaskDto, number> {
@@ -656,24 +657,15 @@ export interface WorkTypeCategoryDto
   name: string;
 }
 
-export interface WorkProjectAssignmentDto
-  extends Serializable,
-    DtoWrapper<any, WorkProjectAssignmentDto, number> {
-  id: number;
-  sourceNodeId: number;
-  workProject: WorkProjectDto;
-  organizationId: number;
-}
-
 export interface WorkProjectDto
   extends Serializable,
-    DtoWrapper<any, WorkProjectDto, string> {
-  id: string;
+    DtoWrapper<any, WorkProjectDto, number> {
+  id: number;
   scheduleId: number;
-  workTask: WorkTaskDto[];
   workSchemaId: number;
   completedStatus: boolean;
   workType: WorkTypeDto;
+  organizationId: number;
 }
 
 export interface GenericNestedDto<T> extends NestedDto<T> {

@@ -35,7 +35,6 @@ import * as AssetRoleAvailability from './generated-actions/AssetRoleAvailabilit
 import * as UserRole from './generated-actions/UserRole';
 import * as ProviderRoleType from './generated-actions/ProviderRoleType';
 import * as KnowledgeLevelSeries from './generated-actions/KnowledgeLevelSeries';
-import * as WorkProjectAssignment from './generated-actions/WorkProjectAssignment';
 import * as Schedule from './generated-actions/Schedule';
 import * as UserRoleType from './generated-actions/UserRoleType';
 import * as CarouselOption from './generated-actions/CarouselOption';
@@ -78,7 +77,6 @@ export const Api = {
   UserRole,
   UserRoleType,
   WorkProject,
-  WorkProjectAssignment,
   WorkProjectMetric,
   WorkSchema,
   WorkSchemaNode,

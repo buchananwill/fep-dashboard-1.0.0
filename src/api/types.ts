@@ -3,7 +3,7 @@ import { StringObjectRecord } from '@/api/string-object-record';
 import { PartialDeep } from 'type-fest';
 import {
   OrganizationDto,
-  WorkProjectAssignmentDto
+  WorkProjectDto
 } from '@/api/generated-types/generated-types_';
 import { Api } from '@/api/clientApi';
 import { ClosureDto as ClosureDtoLibrary } from 'react-d3-force-wrapper';
@@ -127,12 +127,11 @@ export interface OrganizationRow extends GenericRow<OrganizationDto> {
   entityClass: 'Organization';
 }
 
-export interface WorkProjectAssignmentRow
-  extends GenericRow<WorkProjectAssignmentDto> {
+export interface WorkProjectRow extends GenericRow<WorkProjectDto> {
   entityClass: 'WorkProjectAssignment';
 }
 
-export type AssignmentTableRow = OrganizationRow | WorkProjectAssignmentRow;
+export type AssignmentTableRow = OrganizationRow | WorkProjectRow;
 
 export type EntityApiKey = keyof typeof Api;
 export type Comparator<T> = (a: T, b: T) => number;

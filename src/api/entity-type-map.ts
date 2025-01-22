@@ -38,7 +38,6 @@ import {
   TimeSpanDto,
   UserRoleDto,
   UserRoleTypeDto,
-  WorkProjectAssignmentDto,
   WorkProjectDto,
   WorkProjectMetricDto,
   WorkSchemaDto,
@@ -96,7 +95,6 @@ export type EntityTypeMap = {
   userRole: UserRoleDto;
   userRoleType: UserRoleTypeDto;
   workProject: WorkProjectDto;
-  workProjectAssignment: WorkProjectAssignmentDto;
   workProjectMetric: WorkProjectMetricDto;
   workSchema: WorkSchemaDto;
   workSchemaNode: WorkSchemaNodeDto;

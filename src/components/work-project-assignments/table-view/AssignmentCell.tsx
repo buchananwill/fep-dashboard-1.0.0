@@ -18,7 +18,7 @@ import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import {
   CycleSubspanWithJoinsListDto,
-  WorkProjectAssignmentDto
+  WorkProjectDto
 } from '@/api/generated-types/generated-types_';
 import { InnerWorkProjectCell } from '@/components/work-project-metrics/WorkProjectCell';
 
@@ -31,7 +31,7 @@ function InnerAssignmentCell({
   columnIndex,
   cellData,
   data
-}: InnerCellContent<WorkProjectAssignmentDto>) {
+}: InnerCellContent<WorkProjectDto>) {
   const { dispatchWithoutControl, currentState } = useGlobalDispatchAndListener<
     number[]
   >({
@@ -52,10 +52,10 @@ function InnerAssignmentCell({
     return (
       selectSchemaIdList.currentState.length === 0 ||
       selectSchemaIdList.currentState.some(
-        (someId) => someId === cellData?.workProject.workSchemaId
+        (someId) => someId === cellData?.workSchemaId
       )
     );
-  }, [cellData?.workProject.workSchemaId, selectSchemaIdList.currentState]);
+  }, [cellData?.workSchemaId, selectSchemaIdList.currentState]);
 
   const handleClick = useCallback(() => {
     dispatchWithoutControl([rowIndex, columnIndex]);
@@ -89,9 +89,7 @@ function InnerAssignmentCell({
       )}
       {...tooltip}
     >
-      {cellData && (
-        <EntityWithWorkTypeShortCode entity={cellData.workProject} />
-      )}
+      {cellData && <EntityWithWorkTypeShortCode entity={cellData} />}
     </div>
   );
 }
@@ -105,7 +103,7 @@ function AssignmentTooltip({ content }: { content: AssignmentCellContent }) {
         'pointer-events-none flex flex-col rounded-md border border-amber-300 bg-amber-50 p-2 text-black'
       }
     >
-      <InnerWorkProjectCell entity={content.workProject} />
+      <InnerWorkProjectCell entity={content} />
     </div>
   );
 }

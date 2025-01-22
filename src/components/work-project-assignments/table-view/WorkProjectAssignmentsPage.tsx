@@ -12,7 +12,7 @@ import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
-  WorkProjectAssignmentDto
+  WorkProjectDto
 } from '@/api/generated-types/generated-types_';
 import React from 'react';
 import RootCard from '@/components/generic/RootCard';
@@ -27,7 +27,7 @@ async function WorkProjectAssignmentsForSchedule({
   const workProjectAssignmentTableDto: GenericTableDto<
     AssignmentTableRow,
     CycleSubspanDto,
-    WorkProjectAssignmentDto,
+    WorkProjectDto,
     number
   > = await getWithoutBody(
     constructUrl(['/api/v2/workProject/assignments/schedule', scheduleId])

@@ -14,7 +14,7 @@ import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
-  WorkProjectAssignmentDto,
+  WorkProjectDto,
   WorkSchemaDto
 } from '@/api/generated-types/generated-types_';
 import FinderTableButton from '@/components/tables/FinderTableButton';
@@ -31,7 +31,7 @@ export default function AssignmentTable({
   tableData: GenericTableDto<
     AssignmentTableRow,
     CycleSubspanDto,
-    WorkProjectAssignmentDto,
+    WorkProjectDto,
     number
   >;
   organizations: OrganizationDto[];

@@ -3,10 +3,10 @@ import { MemoizedFunction } from 'react-d3-force-wrapper';
 import { useGlobalController } from 'selective-context';
 import { Identifier, useEffectSyncWithDispatch } from 'dto-stores';
 import { useUuidListenerKey } from '@/hooks/useUuidListenerKey';
-import { WorkProjectAssignmentDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectDto } from '@/api/generated-types/generated-types_';
 
 export const GetCellContentKey = 'getCellContent';
-export type AssignmentCellContent = WorkProjectAssignmentDto | undefined;
+export type AssignmentCellContent = WorkProjectDto | undefined;
 export type GetCellContent<T> = MemoizedFunction<
   CellIdReference,
   T | undefined

@@ -3,14 +3,14 @@ import { AssignmentTableRow, GenericTableDto } from '@/api/types';
 import {
   CycleSubspanDto,
   OrganizationDto,
-  WorkProjectAssignmentDto
+  WorkProjectDto
 } from '@/api/generated-types/generated-types_';
 
 export function workProjectDataRetrieval(
   tableData: GenericTableDto<
     AssignmentTableRow,
     CycleSubspanDto,
-    WorkProjectAssignmentDto,
+    WorkProjectDto,
     number
   >
 ) {
