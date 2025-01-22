@@ -280,7 +280,7 @@ export const data = [
               id: 77,
               level: 3,
               content:
-                "\n\r\nA **Synchronized Work Schema Node** stacks all its descendants to be allocated simultaneously, meaning\r\na [User Role](#user-role) can only attend one of the descendants' [Work Project Series](#work-project-series). See\r\nalso [Carousel](#carousel).\r\n\r",
+                "\n\r\nA **Synchronized Work Schema Node** stacks all its descendants to be allocated simultaneously, meaning\r\na [User Role](#user-role) can only attend one of the descendants' [Work Project Series](#work-project). See\r\nalso [Carousel](#carousel).\r\n\r",
               blockPosition: 77,
               htmlId: 'synchronized-work-schema-node'
             },
@@ -313,7 +313,7 @@ export const data = [
               id: 80,
               level: 3,
               content:
-                '\n\r\nA **Carousel** is a kind of [Synchronized Work Schema Node](#work-schema-node), allowing its\r\nattached [Carousel Options](#carousel-option) to perform a synchronized, parallel allocation.\r\nThe [Work Project Series](#work-project-series) produced by a Carousel will occur simultaneously, meaning\r\na [User Role](#user-role) can only attend one of them: you can only pick a single horse to ride on a carousel at a time.\r\n\r',
+                '\n\r\nA **Carousel** is a kind of [Synchronized Work Schema Node](#work-schema-node), allowing its\r\nattached [Carousel Options](#carousel-option) to perform a synchronized, parallel allocation.\r\nThe [Work Project Series](#work-project) produced by a Carousel will occur simultaneously, meaning\r\na [User Role](#user-role) can only attend one of them: you can only pick a single horse to ride on a carousel at a time.\r\n\r',
               blockPosition: 80,
               htmlId: 'carousel'
             },
@@ -324,7 +324,7 @@ export const data = [
               id: 81,
               level: 3,
               content:
-                '\n\r\nA **Carousel Option* is a leaf [Work Schema Node](#work-schema-node), packaged onto a [Carousel](#carousel) to enable\r\nthe allocation of simultaneous [Work Project Series](#work-project-series) within a Work Schema Node graph.\r\n\r',
+                '\n\r\nA **Carousel Option* is a leaf [Work Schema Node](#work-schema-node), packaged onto a [Carousel](#carousel) to enable\r\nthe allocation of simultaneous [Work Project Series](#work-project) within a Work Schema Node graph.\r\n\r',
               blockPosition: 81,
               htmlId: 'carousel-option'
             },
@@ -359,7 +359,7 @@ export const data = [
           id: 84,
           level: 2,
           content:
-            '\n\r\nThe top-level input for automated schedule building is the set of **Work Schema Node Assignments**: a list\r\nof [Organizations](#organization) and the [Work Schema Nodes](#work-schema-node) that are assigned to each. Only root\r\nWork Schema Nodes (and the trees they represent) _that have been assigned to an Organization_ result in the generation\r\nof any [Work Project Series](#work-project-series) by the scheduling algorithm. The hierarchical relationships between\r\nthe Organizations also is crucial to the output from the scheduling algorithm.\r\n\r\nFrom the input plan, the **scheduling algorithm** builds a lists of all required work allocations, and proceeds to\r\nprovide a solution bounded by the resource constraints of [suitability](#suitability) and [availability](#availability)\r\n\r',
+            '\n\r\nThe top-level input for automated schedule building is the set of **Work Schema Node Assignments**: a list\r\nof [Organizations](#organization) and the [Work Schema Nodes](#work-schema-node) that are assigned to each. Only root\r\nWork Schema Nodes (and the trees they represent) _that have been assigned to an Organization_ result in the generation\r\nof any [Work Project Series](#work-project) by the scheduling algorithm. The hierarchical relationships between\r\nthe Organizations also is crucial to the output from the scheduling algorithm.\r\n\r\nFrom the input plan, the **scheduling algorithm** builds a lists of all required work allocations, and proceeds to\r\nprovide a solution bounded by the resource constraints of [suitability](#suitability) and [availability](#availability)\r\n\r',
           blockPosition: 84,
           htmlId: 'scheduling-input-plan'
         },
@@ -496,7 +496,7 @@ export const data = [
           content:
             '\n\r\nA **Work Project Series** belongs to a [Schedule](#schedule) and comprises a set\r\nof [Work Task Series](#work-task-series).\r\n\r',
           blockPosition: 96,
-          htmlId: 'work-project-series'
+          htmlId: 'work-project'
         },
         children: [
           {
@@ -574,7 +574,7 @@ export const data = [
           id: 103,
           level: 2,
           content:
-            '\n\r\nA **Schedule** is a reference to designate a set of [Work Project Series](#work-project-series) that apply to a\r\ngiven [Cycle](#cycle), and were created\r\ntogether without violating any of the resource or other constraints, determined by\r\nthe [scheduling input plan](#scheduling-input-plan).',
+            '\n\r\nA **Schedule** is a reference to designate a set of [Work Project Series](#work-project) that apply to a\r\ngiven [Cycle](#cycle), and were created\r\ntogether without violating any of the resource or other constraints, determined by\r\nthe [scheduling input plan](#scheduling-input-plan).',
           blockPosition: 103,
           htmlId: 'schedule'
         },

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Column } from '@/types';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { WorkProjectSeriesDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectDto } from '@/api/generated-types/generated-types_';
 import { getDomainAlias } from '@/api/getDomainAlias';
 
 import { EntityTableProps } from '@/components/tables/types';
@@ -12,22 +12,22 @@ import { getCellRenderFunction } from '@/components/tables/cells-v2/generic/GetC
 import EmbeddedWorkTypeCell from '@/components/tables/cells-v2/specific/EmbeddedWorkTypeCell';
 import { AnyValueToString } from '@/components/tables/cells-v2/generic/AnyValueToString';
 
-export default function WorkProjectSeriesSelectorTable({
+export default function WorkProjectSelectorTable({
   entities
-}: EntityTableProps<'workProjectSeries'>) {
+}: EntityTableProps<'workProject'>) {
   return (
     <>
       <EntityTable
         withSelection={'multiple'}
         cellModel={CellRenderFunction}
-        columns={WorkProjectSeriesColumns}
-        entityClass={EntityClassMap.workProjectSeries}
+        columns={WorkProjectColumns}
+        entityClass={EntityClassMap.workProject}
       />
     </>
   );
 }
 
-export const WorkProjectSeriesColumns: Column<WorkProjectSeriesDto>[] = [
+export const WorkProjectColumns: Column<WorkProjectDto>[] = [
   {
     name: 'WorkType Name',
     uid: 'workType.workTypeCategory.name',
@@ -51,29 +51,29 @@ export const WorkProjectSeriesColumns: Column<WorkProjectSeriesDto>[] = [
   }
 ];
 
-const CellRenderFunction = getCellRenderFunction<
-  'workProjectSeries',
-  WorkProjectSeriesDto
->('workProjectSeries', {
-  scheduleId: { type: 'IdInnerCell', component: AnyValueToString },
-  'workType.knowledgeDomain.shortCode': {
-    type: 'EntityInnerCell',
-    component: EmbeddedWorkTypeCell
-  },
-  'workType.knowledgeDomain.name': {
-    type: 'EntityInnerCell',
-    component: EmbeddedWorkTypeCell
-  },
-  'workType.workTypeCategory.name': {
-    type: 'EntityInnerCell',
-    component: EmbeddedWorkTypeCell
-  },
-  'workType.knowledgeLevel.name': {
-    type: 'EntityInnerCell',
-    component: EmbeddedWorkTypeCell
-  },
-  'workType.knowledgeLevel.levelOrdinal': {
-    type: 'EntityInnerCell',
-    component: EmbeddedWorkTypeCell
+const CellRenderFunction = getCellRenderFunction<'workProject', WorkProjectDto>(
+  'workProject',
+  {
+    scheduleId: { type: 'IdInnerCell', component: AnyValueToString },
+    'workType.knowledgeDomain.shortCode': {
+      type: 'EntityInnerCell',
+      component: EmbeddedWorkTypeCell
+    },
+    'workType.knowledgeDomain.name': {
+      type: 'EntityInnerCell',
+      component: EmbeddedWorkTypeCell
+    },
+    'workType.workTypeCategory.name': {
+      type: 'EntityInnerCell',
+      component: EmbeddedWorkTypeCell
+    },
+    'workType.knowledgeLevel.name': {
+      type: 'EntityInnerCell',
+      component: EmbeddedWorkTypeCell
+    },
+    'workType.knowledgeLevel.levelOrdinal': {
+      type: 'EntityInnerCell',
+      component: EmbeddedWorkTypeCell
+    }
   }
-});
+);

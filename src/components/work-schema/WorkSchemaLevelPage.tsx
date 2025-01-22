@@ -55,12 +55,12 @@ export default function WorkSchemaHome(props: LeafComponentProps) {
     <PathVariableSplit
       {...props}
       homeComponent={KnowledgeLevelSeriesLinks}
-      subRouteComponent={WorkProjectSeriesLevelLinks}
+      subRouteComponent={WorkProjectLevelLinks}
     />
   );
 }
 
-function WorkProjectSeriesLevelLinks(props: LeafComponentProps) {
+function WorkProjectLevelLinks(props: LeafComponentProps) {
   return (
     <PathVariableSplit
       {...props}

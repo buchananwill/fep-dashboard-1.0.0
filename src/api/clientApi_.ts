@@ -8,7 +8,7 @@ import * as StaticDeliveryAllocationItem from './generated-actions/StaticDeliver
 import * as WorkType from './generated-actions/WorkType';
 import * as AssetRoleTypeWorkTypeSuitability from './generated-actions/AssetRoleTypeWorkTypeSuitability';
 import * as TimeSpan from './generated-actions/TimeSpan';
-import * as WorkProjectSeriesMetric from './generated-actions/WorkProjectSeriesMetric';
+import * as WorkProjectMetric from './generated-actions/WorkProjectMetric';
 import * as Asset from './generated-actions/Asset';
 import * as CarouselGroupOption from './generated-actions/CarouselGroupOption';
 import * as WorkSchemaNode from './generated-actions/WorkSchemaNode';
@@ -20,7 +20,7 @@ import * as CycleSubspanGroup from './generated-actions/CycleSubspanGroup';
 import * as OrganizationType from './generated-actions/OrganizationType';
 import * as ProviderRoleTypeWorkTypeSuitability from './generated-actions/ProviderRoleTypeWorkTypeSuitability';
 import * as Cycle from './generated-actions/Cycle';
-import * as WorkProjectSeries from './generated-actions/WorkProjectSeries';
+import * as WorkProject from './generated-actions/WorkProject';
 import * as BuildMetric from './generated-actions/BuildMetric';
 import * as AssetRole from './generated-actions/AssetRole';
 import * as KnowledgeDomain from './generated-actions/KnowledgeDomain';
@@ -31,7 +31,7 @@ import * as AssetRoleAvailability from './generated-actions/AssetRoleAvailabilit
 import * as UserRole from './generated-actions/UserRole';
 import * as ProviderRoleType from './generated-actions/ProviderRoleType';
 import * as KnowledgeLevelSeries from './generated-actions/KnowledgeLevelSeries';
-import * as WorkProjectSeriesAssignment from './generated-actions/WorkProjectSeriesAssignment';
+import * as WorkProjectAssignment from './generated-actions/WorkProjectAssignment';
 import * as Schedule from './generated-actions/Schedule';
 import * as UserRoleType from './generated-actions/UserRoleType';
 import * as CarouselOption from './generated-actions/CarouselOption';
@@ -71,9 +71,9 @@ export const Api = {
   TimeSpan,
   UserRole,
   UserRoleType,
-  WorkProjectSeries,
-  WorkProjectSeriesAssignment,
-  WorkProjectSeriesMetric,
+  WorkProject,
+  WorkProjectAssignment,
+  WorkProjectMetric,
   WorkSchema,
   WorkSchemaNode,
   WorkSchemaNodeAssignment,

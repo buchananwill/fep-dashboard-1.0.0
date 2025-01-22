@@ -1,6 +1,6 @@
 import { GridChildComponentProps } from 'react-window';
 import { CellIdReference } from '@/components/grids/CellQueryManager';
-import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-assignments/table-view/AssignmentCell';
 import { ReactNode } from 'react';
 import { Identifier } from 'dto-stores';
 

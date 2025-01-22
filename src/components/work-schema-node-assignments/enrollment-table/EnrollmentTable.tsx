@@ -18,7 +18,7 @@ import {
   connectNodes,
   defaultClosureTemplate
 } from '@/components/work-schema-node-assignments/enrollment-table/addClosure';
-import RenderOrganizationCell from '@/components/work-project-series-assignments/table-view/RenderOrganizationCell';
+import RenderOrganizationCell from '@/components/work-project-assignments/table-view/RenderOrganizationCell';
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { ChangesCallbackMap } from 'dto-stores';
 import { ClosureDto, HasIdClass } from '@/api/types';

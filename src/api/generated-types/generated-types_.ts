@@ -605,15 +605,15 @@ export interface WorkSchemaNodeDto
   childrenAs: any;
 }
 
-export interface WorkTaskSeriesDto extends Serializable {
+export interface WorkTaskDto extends Serializable {
   id: number;
   workTypeId: number;
   cycleSubSpanGroupSize: number;
   cycleSubspanGroupId: number;
-  workTaskSeriesUnits: WorkTaskSeriesUnitDto[];
+  workTaskUnits: WorkTaskUnitDto[];
 }
 
-export interface WorkTaskSeriesUnitDto extends Serializable {
+export interface WorkTaskUnitDto extends Serializable {
   id: number;
   scheduleId: number;
   cycleSubspanId: number;
@@ -656,21 +656,21 @@ export interface WorkTypeCategoryDto
   name: string;
 }
 
-export interface WorkProjectSeriesAssignmentDto
+export interface WorkProjectAssignmentDto
   extends Serializable,
-    DtoWrapper<any, WorkProjectSeriesAssignmentDto, number> {
+    DtoWrapper<any, WorkProjectAssignmentDto, number> {
   id: number;
   sourceNodeId: number;
-  workProjectSeries: WorkProjectSeriesDto;
+  workProject: WorkProjectDto;
   organizationId: number;
 }
 
-export interface WorkProjectSeriesDto
+export interface WorkProjectDto
   extends Serializable,
-    DtoWrapper<any, WorkProjectSeriesDto, string> {
+    DtoWrapper<any, WorkProjectDto, string> {
   id: string;
   scheduleId: number;
-  workTaskSeries: WorkTaskSeriesDto[];
+  workTask: WorkTaskDto[];
   workSchemaId: number;
   completedStatus: boolean;
   workType: WorkTypeDto;
@@ -832,26 +832,26 @@ export interface TenancyDto extends Serializable {
   initJsonTemplateBaseline?: number;
 }
 
-export interface WorkProjectSeriesEnrollmentDto
+export interface WorkProjectEnrollmentDto
   extends Serializable,
-    DtoWrapper<any, WorkProjectSeriesEnrollmentDto, number> {
+    DtoWrapper<any, WorkProjectEnrollmentDto, number> {
   id: number;
   userRoleId: number;
-  workProjectSeriesId: string;
+  workProjectId: string;
   fromDate: DateAsString;
   thruDate: DateAsString;
 }
 
-export interface WorkProjectSeriesMetricDto
-  extends DtoWrapper<any, WorkProjectSeriesMetricDto, number> {
+export interface WorkProjectMetricDto
+  extends DtoWrapper<any, WorkProjectMetricDto, number> {
   id: number;
   finiteCostCount: number;
   infinityCostCount: number;
 }
 
-export interface WorkProjectSeriesNodeLinkDto extends Serializable {
+export interface WorkProjectNodeLinkDto extends Serializable {
   id: number;
-  workProjectSeriesId: string;
+  workProjectId: string;
   outcomeId: number;
 }
 
@@ -862,7 +862,7 @@ export interface WorkSchemaWithLabelsDto extends Serializable {
   userToProviderRatio: number;
 }
 
-export interface WorkProjectSeriesWithSchemaLabelsDto extends Serializable {
+export interface WorkProjectWithSchemaLabelsDto extends Serializable {
   id: string;
   scheduleId: number;
   completedStatus: boolean;
@@ -883,7 +883,7 @@ export interface WorkSchemaNodeManualDefinitionDto extends Serializable {
   auto: AutoNodeType;
 }
 
-export interface WorkTaskSeriesEventDto {
+export interface WorkTaskEventDto {
   start: DateAsString;
   end: DateAsString;
   id: number;
@@ -893,9 +893,9 @@ export interface WorkTaskSeriesEventDto {
   assetRoleList: AssetRoleDto[];
 }
 
-export interface WorkTaskSeriesResourceRequirementItemDto extends Serializable {
+export interface WorkTaskResourceRequirementItemDto extends Serializable {
   id: number;
-  workTaskSeriesId: number;
+  workTaskId: number;
   assetRoleTypeId: number;
   providerRoleTypeId: number;
   assetRoleFulfillmentId: number;

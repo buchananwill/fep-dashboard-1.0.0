@@ -2,31 +2,29 @@
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import VirtualizedOuterCellV2 from '@/components/grids/VirtualizedCellV2';
 import { EntityClassMap } from '@/api/entity-class-map';
-import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-assignments/table-view/AssignmentCell';
 import { EmptyArray } from '@/api/client-literals';
-import { WorkProjectSeriesMetricDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectMetricDto } from '@/api/generated-types/generated-types_';
 import { useMemo, useRef } from 'react';
 import { clamp, round } from 'lodash';
 import VirtualizedOuterCell from '@/components/grids/VirtualizedCell';
 import { interpolateRgb, interpolateRgbBasis } from 'd3';
 import { useLazyDtoListListener } from 'dto-stores';
 
-export default function WorkProjectSeriesBuildMetricCell(
-  props: CellWrapperProps
-) {
+export default function WorkProjectBuildMetricCell(props: CellWrapperProps) {
   return (
     <VirtualizedOuterCell
       {...props}
       innerCell={InnerCell}
-      // entityClass={EntityClassMap.workProjectSeriesMetric}
+      // entityClass={EntityClassMap.workProjectMetric}
     />
   );
 }
 
 function InnerCell({ cellData }: InnerCellContent<number[]>) {
-  const { currentState } = useLazyDtoListListener<WorkProjectSeriesMetricDto>(
+  const { currentState } = useLazyDtoListListener<WorkProjectMetricDto>(
     cellData ?? EmptyArray,
-    EntityClassMap.workProjectSeriesMetric
+    EntityClassMap.workProjectMetric
   );
 
   // const currentState = useMemo(() => {

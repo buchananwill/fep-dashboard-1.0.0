@@ -274,7 +274,7 @@ export const WorkSchemaNodeManualDefinitionDtoSchema = zod.object({
   auto: zod.enum(['NONE', 'CAROUSEL_GROUP', 'CAROUSEL'])
 });
 
-export const WorkTaskSeriesEventDtoSchema = zod.object({
+export const WorkTaskEventDtoSchema = zod.object({
   start: zod.string().datetime(),
   end: zod.string().datetime(),
   id: zod.number().int(),
@@ -481,15 +481,15 @@ export const WorkSchemaNodeDtoSchema = zod.object({
   childrenAs: zod.enum(['BUNDLE', 'CAROUSEL', 'SERIAL'])
 });
 
-export const WorkTaskSeriesDtoSchema = zod.object({
+export const WorkTaskDtoSchema = zod.object({
   id: zod.number().int(),
   workTypeId: zod.number().int(),
   cycleSubSpanGroupSize: zod.number().int(),
   cycleSubspanGroupId: zod.number().int(),
-  workTaskSeriesUnits: zod.array(zod.lazy(() => WorkTaskSeriesUnitDtoSchema))
+  workTaskUnits: zod.array(zod.lazy(() => WorkTaskUnitDtoSchema))
 });
 
-export const WorkTaskSeriesUnitDtoSchema = zod.object({
+export const WorkTaskUnitDtoSchema = zod.object({
   id: zod.number().int(),
   scheduleId: zod.number().int(),
   cycleSubspanId: zod.number().int()

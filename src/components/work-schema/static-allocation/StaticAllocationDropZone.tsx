@@ -1,4 +1,4 @@
-import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-assignments/table-view/AssignmentCell';
 import {
   CycleSubspanWithJoinsListDto,
   StaticDeliveryAllocationItemDto

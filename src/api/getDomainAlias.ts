@@ -21,7 +21,7 @@ function getDomainAliasingFunction(domainAliasRecord: Record<string, string>) {
     }
   };
 }
-const pluralExceptions = new Set(['workProjectSeries', 'workTaskSeries']);
+const pluralExceptions = new Set(['workProject', 'workTask']);
 
 function createPatternMatchedDomainAliasSet(
   genericNameSet: Set<string>,

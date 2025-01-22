@@ -3,19 +3,19 @@
 import { GenericTableDto } from '@/api/types';
 import {
   CycleSubspanWithJoinsListDto,
-  WorkProjectSeriesDto,
-  WorkProjectSeriesMetricDto
+  WorkProjectDto,
+  WorkProjectMetricDto
 } from '@/api/generated-types/generated-types_';
 import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 
-export const getWorkProjectSeriesMetricsByWpsIdList = async (list: string[]) =>
+export const getWorkProjectMetricsByWpsIdList = async (list: string[]) =>
   postEntitiesWithDifferentReturnType<
     string[],
     GenericTableDto<
-      WorkProjectSeriesDto,
+      WorkProjectDto,
       CycleSubspanWithJoinsListDto,
-      WorkProjectSeriesMetricDto,
+      WorkProjectMetricDto,
       number[]
     >
-  >(list, constructUrl(['/api/v2/workProjectSeries/metrics/heatMapTable']));
+  >(list, constructUrl(['/api/v2/workProject/metrics/heatMapTable']));

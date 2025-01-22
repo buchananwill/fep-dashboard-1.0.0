@@ -38,9 +38,9 @@ import {
   TimeSpanDto,
   UserRoleDto,
   UserRoleTypeDto,
-  WorkProjectSeriesAssignmentDto,
-  WorkProjectSeriesDto,
-  WorkProjectSeriesMetricDto,
+  WorkProjectAssignmentDto,
+  WorkProjectDto,
+  WorkProjectMetricDto,
   WorkSchemaDto,
   WorkSchemaNodeAssignmentDto,
   WorkSchemaNodeDto,
@@ -95,9 +95,9 @@ export type EntityTypeMap = {
   userGuideMarkdown: UserGuideMarkdown;
   userRole: UserRoleDto;
   userRoleType: UserRoleTypeDto;
-  workProjectSeries: WorkProjectSeriesDto;
-  workProjectSeriesAssignment: WorkProjectSeriesAssignmentDto;
-  workProjectSeriesMetric: WorkProjectSeriesMetricDto;
+  workProject: WorkProjectDto;
+  workProjectAssignment: WorkProjectAssignmentDto;
+  workProjectMetric: WorkProjectMetricDto;
   workSchema: WorkSchemaDto;
   workSchemaNode: WorkSchemaNodeDto;
   workSchemaNodeManualDefinition: IdWrapper<WorkSchemaNodeManualDefinitionDto>;

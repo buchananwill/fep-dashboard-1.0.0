@@ -1,12 +1,12 @@
 import { Api } from '@/api/clientApi_';
 import { getPathVariableSplitComponent } from '@/components/generic/PathVariableSplit';
-import TableViewFallbackPage from '@/components/work-project-series-assignments/table-view/TableViewFallbackPage';
+import TableViewFallbackPage from '@/components/work-project-assignments/table-view/TableViewFallbackPage';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import RootCard from '@/components/generic/RootCard';
 import { getRootCardLayoutId } from '@/components/work-types/getRootCardLayoutId';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
-export default async function WorkProjectSeriesAssignmentTableView({
+export default async function WorkProjectAssignmentTableView({
   pathVariables
 }: LeafComponentProps) {
   const passingSchedules = await Api.Schedule.getDtoListByExampleList([
@@ -24,7 +24,7 @@ export default async function WorkProjectSeriesAssignmentTableView({
         <div className={'flex flex-col'}>
           {passingSchedules.map((passingSchedule) => (
             <LinkButton
-              href={`/core/schedules/work-project-series-assignments/${passingSchedule.id}`}
+              href={`/core/schedules/work-project-assignments/${passingSchedule.id}`}
               key={passingSchedule.id}
             >
               Schedule {passingSchedule.id}
@@ -40,6 +40,6 @@ export default async function WorkProjectSeriesAssignmentTableView({
 }
 
 export const SchedulesHomeRedirect = getPathVariableSplitComponent(
-  WorkProjectSeriesAssignmentTableView,
+  WorkProjectAssignmentTableView,
   TableViewFallbackPage
 );

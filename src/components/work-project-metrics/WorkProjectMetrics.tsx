@@ -1,34 +1,32 @@
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
-import { WorkProjectSeriesWithSchemaLabelsDto } from '@/api/generated-types/generated-types_';
+import { WorkProjectWithSchemaLabelsDto } from '@/api/generated-types/generated-types_';
 import { EditAddDeleteDtoControllerArray } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
-import WorkProjectSeriesTableDataFetcher from '@/components/work-project-series-metrics/WorkProjectSeriesTableDataFetcher';
+import WorkProjectTableDataFetcher from '@/components/work-project-metrics/WorkProjectTableDataFetcher';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
-export async function WorkProjectSeriesMetricsPage({
+export async function WorkProjectMetricsPage({
   pathVariables
 }: LeafComponentProps) {
   const [buildMetricId] = getLastNVariables(pathVariables, 1);
-  const workProjectSeries = await getWithoutBody<
-    WorkProjectSeriesWithSchemaLabelsDto[]
-  >(constructUrl(['/api/v2/workProjectSeries/byBuildMetricId', buildMetricId]));
+  const workProject = await getWithoutBody<WorkProjectWithSchemaLabelsDto[]>(
+    constructUrl(['/api/v2/workProject/byBuildMetricId', buildMetricId])
+  );
 
   return (
     <>
       <EditAddDeleteDtoControllerArray
-        entityClass={EntityClassMap.workProjectSeries}
-        dtoList={workProjectSeries}
+        entityClass={EntityClassMap.workProject}
+        dtoList={workProject}
       />
       {/*<DataFetchingEditDtoControllerArray*/}
       {/*  entityClass={EntityClassMap.workSchema}*/}
       {/*  idList={[...workSchemaIds.values()]}*/}
       {/*  getServerAction={Api.WorkSchema.getDtoListByBodyList}*/}
       {/*/>*/}
-      <WorkProjectSeriesTableDataFetcher
-        workProjectSeries={workProjectSeries}
-      />
+      <WorkProjectTableDataFetcher workProject={workProject} />
     </>
   );
 }

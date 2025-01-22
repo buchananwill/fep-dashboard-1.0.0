@@ -9,7 +9,7 @@ import { EntityWithWorkTypeShortCode } from '@/components/feasibility-report/Wor
 import { NamespacedHooks, useReadAnyDto } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { useGlobalDispatchAndListener } from 'selective-context';
-import { selectedAssignmentCell } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
+import { selectedAssignmentCell } from '@/components/work-project-assignments/table-view/AssignmentTable';
 import { EmptyArray } from '@/api/client-literals';
 import { usePopoverSingleton } from '@/components/tooltip/usePopoverSingleton';
 import clsx from 'clsx';
@@ -18,9 +18,9 @@ import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import { KEY_TYPES } from 'dto-stores/dist/literals';
 import {
   CycleSubspanWithJoinsListDto,
-  WorkProjectSeriesAssignmentDto
+  WorkProjectAssignmentDto
 } from '@/api/generated-types/generated-types_';
-import { InnerWorkProjectSeriesCell } from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
+import { InnerWorkProjectCell } from '@/components/work-project-metrics/WorkProjectCell';
 
 export default function AssignmentCell(props: CellWrapperProps) {
   return <VirtualizedOuterCell {...props} innerCell={InnerAssignmentCell} />;
@@ -31,7 +31,7 @@ function InnerAssignmentCell({
   columnIndex,
   cellData,
   data
-}: InnerCellContent<WorkProjectSeriesAssignmentDto>) {
+}: InnerCellContent<WorkProjectAssignmentDto>) {
   const { dispatchWithoutControl, currentState } = useGlobalDispatchAndListener<
     number[]
   >({
@@ -52,13 +52,10 @@ function InnerAssignmentCell({
     return (
       selectSchemaIdList.currentState.length === 0 ||
       selectSchemaIdList.currentState.some(
-        (someId) => someId === cellData?.workProjectSeries.workSchemaId
+        (someId) => someId === cellData?.workProject.workSchemaId
       )
     );
-  }, [
-    cellData?.workProjectSeries.workSchemaId,
-    selectSchemaIdList.currentState
-  ]);
+  }, [cellData?.workProject.workSchemaId, selectSchemaIdList.currentState]);
 
   const handleClick = useCallback(() => {
     dispatchWithoutControl([rowIndex, columnIndex]);
@@ -93,7 +90,7 @@ function InnerAssignmentCell({
       {...tooltip}
     >
       {cellData && (
-        <EntityWithWorkTypeShortCode entity={cellData.workProjectSeries} />
+        <EntityWithWorkTypeShortCode entity={cellData.workProject} />
       )}
     </div>
   );
@@ -108,7 +105,7 @@ function AssignmentTooltip({ content }: { content: AssignmentCellContent }) {
         'pointer-events-none flex flex-col rounded-md border border-amber-300 bg-amber-50 p-2 text-black'
       }
     >
-      <InnerWorkProjectSeriesCell entity={content.workProjectSeries} />
+      <InnerWorkProjectCell entity={content.workProject} />
     </div>
   );
 }

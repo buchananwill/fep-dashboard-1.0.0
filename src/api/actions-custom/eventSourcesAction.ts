@@ -4,7 +4,7 @@ import { constructUrl } from '@/api/actions/template-base-endpoints';
 
 export async function getEventSourcesAsKnowledgeDomains(scheduleId: number) {
   const url = constructUrl(
-    `/api/v2/workProjectSeries/assignments/schedule/${scheduleId}/asKnowledgeDomainEventSourcesOutlook`
+    `/api/v2/workProject/assignments/schedule/${scheduleId}/asKnowledgeDomainEventSourcesOutlook`
   );
   return getWithoutBody(url);
 }

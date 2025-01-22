@@ -55,7 +55,7 @@ export function joinWorkTypeKeyFromSuitability(
 
 export type WorkSchemaCanonicalLut = Record<string, WorkSchemaDto>;
 
-export function convertWorkProjectSeriesListIntoLut(
+export function convertWorkProjectListIntoLut(
   list: WorkSchemaDto[]
 ): WorkSchemaCanonicalLut {
   const lut = {} as WorkSchemaCanonicalLut;

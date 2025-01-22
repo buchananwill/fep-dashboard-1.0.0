@@ -1,11 +1,11 @@
 import {
   QueueTreeNodeTaskDto,
   TaskSourceEntitySummaryDto,
-  WorkProjectSeriesNodeLinkDto,
-  WorkProjectSeriesWithSchemaLabelsDto
+  WorkProjectNodeLinkDto,
+  WorkProjectWithSchemaLabelsDto
 } from '@/api/generated-types/generated-types_';
 import { BaseLazyDtoUiProps, LazyDtoUiWrapper } from 'dto-stores';
-import { InnerWorkProjectSeriesCell } from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
+import { InnerWorkProjectCell } from '@/components/work-project-metrics/WorkProjectCell';
 import { EntityClassMap } from '@/api/entity-class-map';
 import React from 'react';
 import { getValue } from '@/functions/allowingNestedFiltering';

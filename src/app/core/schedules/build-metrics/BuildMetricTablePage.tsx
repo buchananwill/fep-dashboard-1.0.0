@@ -8,7 +8,7 @@ import { postEntitiesWithDifferentReturnType } from '@/api/actions/template-acti
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import {
   TaskSourceEntitySummaryDto,
-  WorkProjectSeriesWithSchemaLabelsDto
+  WorkProjectWithSchemaLabelsDto
 } from '@/api/generated-types/generated-types_';
 import { LinkButton } from '@/components/navigation/LinkButton';
 import React from 'react';

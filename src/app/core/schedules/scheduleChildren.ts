@@ -1,16 +1,16 @@
-import { WorkProjectSeriesAssignmentsPage } from '@/components/work-project-series-assignments/table-view/WorkProjectSeriesAssignmentsPage';
-import { CalendarViewPageSplit } from '@/components/work-project-series-assignments/calendar-view/CalendarViewPage';
+import { WorkProjectAssignmentsPage } from '@/components/work-project-assignments/table-view/WorkProjectAssignmentsPage';
+import { CalendarViewPageSplit } from '@/components/work-project-assignments/calendar-view/CalendarViewPage';
 import {
   BuildMetricQueueTreeGraphFallback,
   BuildMetricTableFallback,
-  WorkProjectSeriesMetricFallback
+  WorkProjectMetricFallback
 } from '@/app/core/schedules/build-metrics/BuildMetricListHome';
 
 import { NavTreeChildren } from '@/app/core/navigation/data/types';
 
 export const scheduleChildren: NavTreeChildren = {
-  workProjectSeriesAssignments: {
-    component: WorkProjectSeriesAssignmentsPage
+  workProjectAssignments: {
+    component: WorkProjectAssignmentsPage
   },
   calendarView: {
     component: CalendarViewPageSplit
@@ -21,7 +21,7 @@ export const scheduleChildren: NavTreeChildren = {
   buildMetricTable: {
     component: BuildMetricTableFallback
   },
-  workProjectSeriesMetrics: {
-    component: WorkProjectSeriesMetricFallback
+  workProjectMetrics: {
+    component: WorkProjectMetricFallback
   }
 } as const;

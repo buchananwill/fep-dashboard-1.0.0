@@ -4,7 +4,7 @@ import {
   getCellIdReference
 } from '@/components/grids/getCellIdReference';
 import { DtoUiWrapper, useDtoStore } from 'dto-stores';
-import { AssignmentTableRowClassName } from '@/components/work-project-series-assignments/table-view/AssignmentTable';
+import { AssignmentTableRowClassName } from '@/components/work-project-assignments/table-view/AssignmentTable';
 import { AssignmentTableRow } from '@/api/types';
 import { NamedEntityLabel } from '@/components/feasibility-report/WorkSchemaLabel';
 import { EntityClassMap } from '@/api/entity-class-map';
@@ -35,7 +35,7 @@ export default function AssignmentRowCell({
             renderAs={NamedEntityLabel}
           />
         );
-      case 'WorkProjectSeriesAssignment':
+      case 'WorkProjectAssignment':
         return (
           <DtoUiWrapper
             entityClass={EntityClassMap.organization}

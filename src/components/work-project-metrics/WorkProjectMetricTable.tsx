@@ -2,25 +2,25 @@
 import { GenericTableDto } from '@/api/types';
 import {
   CycleSubspanWithJoinsListDto,
-  WorkProjectSeriesDto,
-  WorkProjectSeriesMetricDto
+  WorkProjectDto,
+  WorkProjectMetricDto
 } from '@/api/generated-types/generated-types_';
 import CellQueryManager from '@/components/grids/CellQueryManager';
 import VirtualizedTableWindowed from '@/components/grids/VirtualizedTableWindowed';
 import React, { memo } from 'react';
 import { getCellDataIdReferenceOrUndefined } from '@/components/work-schema/static-allocation/getCellDataOrUndefined';
-import WorkProjectSeriesCell from '@/components/work-project-series-metrics/WorkProjectSeriesCell';
-import WorkProjectSeriesBuildMetricCell from '@/components/work-project-series-metrics/WorkProjectSeriesBuildMetricCell';
+import WorkProjectCell from '@/components/work-project-metrics/WorkProjectCell';
+import WorkProjectBuildMetricCell from '@/components/work-project-metrics/WorkProjectBuildMetricCell';
 import { MemoCycleSubspanCell } from '@/components/work-schema/static-allocation/StaticAllocationTable';
 import { useTableProps } from '@/components/grids/useTableProps';
 
-export default function WorkProjectSeriesMetricTable({
+export default function WorkProjectMetricTable({
   tableData
 }: {
   tableData: GenericTableDto<
-    WorkProjectSeriesDto,
+    WorkProjectDto,
     CycleSubspanWithJoinsListDto,
-    WorkProjectSeriesMetricDto,
+    WorkProjectMetricDto,
     number[]
   >;
 }) {
@@ -41,5 +41,5 @@ export default function WorkProjectSeriesMetricTable({
   );
 }
 
-const MemoCell = memo(WorkProjectSeriesBuildMetricCell);
-const MemoRowCell = memo(WorkProjectSeriesCell);
+const MemoCell = memo(WorkProjectBuildMetricCell);
+const MemoRowCell = memo(WorkProjectCell);

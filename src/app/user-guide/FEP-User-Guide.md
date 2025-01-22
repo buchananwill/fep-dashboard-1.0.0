@@ -252,7 +252,7 @@ single encapsulated package.
 ### Synchronized Work Schema Node
 
 A **Synchronized Work Schema Node** stacks all its descendants to be allocated simultaneously, meaning
-a [User Role](#user-role) can only attend one of the descendants' [Work Project Series](#work-project-series). See
+a [User Role](#user-role) can only attend one of the descendants' [Work Project Series](#work-project). See
 also [Carousel](#carousel).
 
 ### Serial Work Schema Node
@@ -274,13 +274,13 @@ the related [Carousel Orders](#carousel-order).
 
 A **Carousel** is a kind of [Synchronized Work Schema Node](#work-schema-node), allowing its
 attached [Carousel Options](#carousel-option) to perform a synchronized, parallel allocation.
-The [Work Project Series](#work-project-series) produced by a Carousel will occur simultaneously, meaning
+The [Work Project Series](#work-project) produced by a Carousel will occur simultaneously, meaning
 a [User Role](#user-role) can only attend one of them: you can only pick a single horse to ride on a carousel at a time.
 
 ### Carousel Option
 
 A **Carousel Option** is a leaf [Work Schema Node](#work-schema-node), packaged onto a [Carousel](#carousel) to enable
-the allocation of simultaneous [Work Project Series](#work-project-series) within a Work Schema Node graph.
+the allocation of simultaneous [Work Project Series](#work-project) within a Work Schema Node graph.
 
 ## Carousel Order
 
@@ -299,7 +299,7 @@ See [Carousel Order](#carousel-order).
 The top-level input for automated schedule building is the set of **Work Schema Node Assignments**: a list
 of [Organizations](#organization) and the [Work Schema Nodes](#work-schema-node) that are assigned to each. Only root
 Work Schema Nodes (and the trees they represent) _that have been assigned to an Organization_ result in the generation
-of any [Work Project Series](#work-project-series) by the scheduling algorithm. The hierarchical relationships between
+of any [Work Project Series](#work-project) by the scheduling algorithm. The hierarchical relationships between
 the Organizations also is crucial to the output from the scheduling algorithm.
 
 From the input plan, the **scheduling algorithm** builds a lists of all required work allocations, and proceeds to
@@ -428,7 +428,7 @@ An individual, in the legal sense of an individual person.
 
 ## Schedule
 
-A **Schedule** is a reference to designate a set of [Work Project Series](#work-project-series) that apply to a
+A **Schedule** is a reference to designate a set of [Work Project Series](#work-project) that apply to a
 given [Cycle](#cycle), and were created
 together without violating any of the resource or other constraints, determined by
 the [scheduling input plan](#scheduling-input-plan).

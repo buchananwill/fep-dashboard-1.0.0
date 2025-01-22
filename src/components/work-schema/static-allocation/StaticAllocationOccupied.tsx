@@ -1,6 +1,6 @@
 import { EntityClassMap } from '@/api/entity-class-map';
 import { SetRequired } from 'type-fest';
-import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-assignments/table-view/AssignmentCell';
 import { useDtoStore } from 'dto-stores';
 import {
   CycleSubspanWithJoinsListDto,

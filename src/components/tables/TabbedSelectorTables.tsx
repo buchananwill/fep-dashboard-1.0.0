@@ -1,6 +1,6 @@
 'use client';
 import { GenericDivProps } from '@/components/react-flow/generic/components/nodes/BaseEditableNode';
-import WorkProjectSeriesSelectorTable from '@/components/tables/selectorTables/WorkProjectSeriesSelectorTable';
+import WorkProjectSelectorTable from '@/components/tables/selectorTables/WorkProjectSelectorTable';
 import { useMemo } from 'react';
 import { isNotUndefined } from '@/api/main';
 import { startCase } from 'lodash';
@@ -60,7 +60,7 @@ export default function TabbedSelectorTables({
 }
 
 const TableMap = {
-  workProjectSeries: WorkProjectSeriesSelectorTable,
+  workProject: WorkProjectSelectorTable,
   workType: WorkTypeSelectorTable,
   providerRole: ProviderRoleSelectorTable,
   assetRole: AssetRoleSelectorTable,

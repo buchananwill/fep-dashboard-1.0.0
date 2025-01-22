@@ -102,7 +102,7 @@ single encapsulated package.
 The top-level input for automated schedule building is the set of **Work Schema Node Assignments**: a list
 of [Organizations](#organization) and the [Work Schema Nodes](#work-schema-node) that are assigned to each. Only root
 Work Schema Nodes (and the trees they represent) _that have been assigned to an Organization_ result in the generation
-of any [Work Project Series](#work-project-series) by the scheduling algorithm. The hierarchical relationships between
+of any [Work Project Series](#work-project) by the scheduling algorithm. The hierarchical relationships between
 the Organizations also is crucial to the output from the scheduling algorithm.
 
 From the input plan, the **scheduling algorithm** builds a lists of all required work allocations, and proceeds to
@@ -224,7 +224,7 @@ A **Party** is one of either a [Person](#person) or an [Organization](#organizat
 An individual, in the legal sense of an individual person.
 
 # Schedule
-A **Schedule** is a reference to designate a set of [Work Project Series](#work-project-series) that apply to a
+A **Schedule** is a reference to designate a set of [Work Project Series](#work-project) that apply to a
 given [Cycle](#cycle), and were created
 together without violating any of the resource or other constraints, determined by
 the [scheduling input plan](#scheduling-input-plan).

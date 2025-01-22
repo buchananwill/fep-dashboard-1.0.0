@@ -2,11 +2,11 @@
 import FinderTableButton from '@/components/tables/FinderTableButton';
 import React, { useEffect, useState } from 'react';
 import {
-  WorkProjectSeriesDto,
-  WorkProjectSeriesWithSchemaLabelsDto
+  WorkProjectDto,
+  WorkProjectWithSchemaLabelsDto
 } from '@/api/generated-types/generated-types_';
 import { GenericTableDto } from '@/api/types';
-import WorkProjectSeriesMetricTable from '@/components/work-project-series-metrics/WorkProjectSeriesMetricTable';
+import WorkProjectMetricTable from '@/components/work-project-metrics/WorkProjectMetricTable';
 import {
   EditAddDeleteDtoControllerArray,
   KEY_TYPES,
@@ -15,16 +15,16 @@ import {
 } from 'dto-stores';
 import { EntityClassMap } from '@/api/entity-class-map';
 import { EmptyArray } from '@/api/client-literals';
-import { getWorkProjectSeriesMetricsByWpsIdList } from '@/components/work-project-series-metrics/getWorkProjectSeriesMetricsByWpsIdList';
+import { getWorkProjectMetricsByWpsIdList } from '@/components/work-project-metrics/getWorkProjectMetricsByWpsIdList';
 
-export default function WorkProjectSeriesTableDataFetcher({
-  workProjectSeries
+export default function WorkProjectTableDataFetcher({
+  workProject
 }: {
-  workProjectSeries: WorkProjectSeriesWithSchemaLabelsDto[];
+  workProject: WorkProjectWithSchemaLabelsDto[];
 }) {
   const [tableData, setTableData] = useState(emptyTable);
   const { currentState: selectedList } = NamespacedHooks.useListen<string[]>(
-    EntityClassMap.workProjectSeries,
+    EntityClassMap.workProject,
     KEY_TYPES.SELECTED,
     'heatMapDataFetcher',
     EmptyArray
@@ -32,7 +32,7 @@ export default function WorkProjectSeriesTableDataFetcher({
 
   useEffect(() => {
     const fetchData = async () => {
-      const metricTableDto = await getWorkProjectSeriesMetricsByWpsIdList(
+      const metricTableDto = await getWorkProjectMetricsByWpsIdList(
         selectedList ?? []
       );
       setTableData(metricTableDto);
@@ -45,7 +45,7 @@ export default function WorkProjectSeriesTableDataFetcher({
     KEY_TYPES.MASTER_LIST
   );
   const dispatchMetrics = NamespacedHooks.useDispatch(
-    EntityClassMap.workProjectSeriesMetric,
+    EntityClassMap.workProjectMetric,
     KEY_TYPES.MASTER_LIST
   );
 
@@ -59,28 +59,23 @@ export default function WorkProjectSeriesTableDataFetcher({
     <>
       <div className={'h-[90vh] w-[90vw] p-8 pt-12'}>
         <FinderTableButton
-          workProjectSeries={
-            workProjectSeries as unknown as WorkProjectSeriesDto[]
-          }
+          workProject={workProject as unknown as WorkProjectDto[]}
         />
         <EditAddDeleteDtoControllerArray
           entityClass={EntityClassMap.cycleSubspan}
           dtoList={EmptyArray}
         />
         <EditAddDeleteDtoControllerArray
-          entityClass={EntityClassMap.workProjectSeriesMetric}
+          entityClass={EntityClassMap.workProjectMetric}
           dtoList={EmptyArray}
         />
-        <WorkProjectSeriesMetricTable tableData={tableData} />
+        <WorkProjectMetricTable tableData={tableData} />
       </div>
     </>
   );
 }
 
-export type WorkProjectSeriesLeanDto = Omit<
-  WorkProjectSeriesDto,
-  'workTaskSeries'
->;
+export type WorkProjectLeanDto = Omit<WorkProjectDto, 'workTask'>;
 
 const emptyTable: GenericTableDto<any, any, any, any> = {
   rowList: [],

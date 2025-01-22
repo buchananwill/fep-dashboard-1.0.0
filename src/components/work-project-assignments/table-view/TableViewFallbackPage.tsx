@@ -2,7 +2,7 @@ import { getWithoutBody } from '@/api/actions/template-actions';
 import { constructUrl } from '@/api/actions/template-base-endpoints';
 import JsonTree from '@/components/generic/JsonTree';
 import { ScheduleDto } from '@/api/generated-types/generated-types_';
-import { WorkProjectSeriesAssignmentsPage } from '@/components/work-project-series-assignments/table-view/WorkProjectSeriesAssignmentsPage';
+import { WorkProjectAssignmentsPage } from '@/components/work-project-assignments/table-view/WorkProjectAssignmentsPage';
 import { getLastNVariables } from '@/functions/getLastNVariables';
 import { LeafComponentProps } from '@/app/core/navigation/data/types';
 
@@ -18,9 +18,6 @@ export default async function TableViewFallbackPage({
   if (schedule.status === 'PENDING') return <JsonTree data={schedule} />;
   else
     return (
-      <WorkProjectSeriesAssignmentsPage
-        pathVariables={pathVariables}
-        depth={depth}
-      />
+      <WorkProjectAssignmentsPage pathVariables={pathVariables} depth={depth} />
     );
 }

@@ -1,6 +1,6 @@
 import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import VirtualizedOuterCell from '@/components/grids/VirtualizedCell';
-import { InnerCellContent } from '@/components/work-project-series-assignments/table-view/AssignmentCell';
+import { InnerCellContent } from '@/components/work-project-assignments/table-view/AssignmentCell';
 import { SetRequired } from 'type-fest';
 import { useGlobalListener } from 'selective-context';
 import { useCallback } from 'react';
