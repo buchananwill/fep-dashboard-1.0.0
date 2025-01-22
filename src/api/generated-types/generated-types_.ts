@@ -394,7 +394,7 @@ export interface OrganizationDto
 }
 
 export interface QueueTreeNodeDto extends Serializable {
-  id: string;
+  id: number;
   nodeNumber: number;
   taskSize: number;
   netFailureCount: number;
@@ -666,6 +666,18 @@ export interface WorkProjectDto
   completedStatus: boolean;
   workType: WorkTypeDto;
   organizationId: number;
+}
+
+export interface CycleSubspansWithIndexAndDayOrdinal {
+  id: number;
+  cycleId: number;
+  zeroIndexedCycleDay: number;
+  startTime: DateAsString;
+  endTime: DateAsString;
+  name: string;
+  cycleDayZero: number;
+  dayOrdinal: number;
+  cycleSubspanIndex: number;
 }
 
 export interface GenericNestedDto<T> extends NestedDto<T> {

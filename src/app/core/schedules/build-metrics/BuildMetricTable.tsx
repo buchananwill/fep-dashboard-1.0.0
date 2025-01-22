@@ -23,20 +23,13 @@ export default function BuildMetricTable({
 }: {
   buildMetric: BuildMetricDto;
 }) {
-  const { queueTreeNodes } = buildMetric;
-  const nodeMap = useMemo(() => {
-    return queueTreeNodes.reduce(
-      (prev, curr) => prev.set(curr.id, curr),
-      new Map<string, QueueTreeNodeDto>()
-    );
-  }, [queueTreeNodes]);
-
-  const { currentState: nodeInModal, dispatch: setNodeInModal } =
-    useGlobalController<QueueTreeNodeDto | undefined>({
-      contextKey: NodeInModal,
-      initialValue: undefined,
-      listenerKey: 'table'
-    });
+  const { currentState: nodeInModal } = useGlobalController<
+    QueueTreeNodeDto | undefined
+  >({
+    contextKey: NodeInModal,
+    initialValue: undefined,
+    listenerKey: 'table'
+  });
 
   const [opened, { open, close }] = useDisclosure();
 
@@ -72,9 +65,7 @@ export default function BuildMetricTable({
 const simpleKeys: Column<QueueTreeNodeDto>[] = [
   'nodeNumber',
   'netFailureCount',
-  'batchSize',
-  'taskSize',
-  'totalAllocationArea'
+  'taskSize'
 ].map((qtnKey) => ({
   uid: qtnKey as keyof QueueTreeNodeDto,
   name: startCase(qtnKey),
@@ -85,12 +76,7 @@ const QueueTreeNodeCellComponentRecord: CellComponentRecord<QueueTreeNodeDto> =
   {
     nodeNumber: { type: 'EntityInnerCell', component: QueueTreeNodeCell },
     netFailureCount: { type: 'EntityInnerCell', component: QueueTreeNodeCell },
-    batchSize: { type: 'EntityInnerCell', component: QueueTreeNodeCell },
-    taskSize: { type: 'EntityInnerCell', component: QueueTreeNodeCell },
-    totalAllocationArea: {
-      type: 'EntityInnerCell',
-      component: QueueTreeNodeCell
-    }
+    taskSize: { type: 'EntityInnerCell', component: QueueTreeNodeCell }
   };
 
 const QueueTreeNodeCellModel = getCellRenderFunction(

@@ -7,6 +7,7 @@ import { CellWrapperProps } from '@/components/grids/getCellIdReference';
 import clsx from 'clsx';
 import {
   CycleSubspanDto,
+  CycleSubspansWithIndexAndDayOrdinal,
   CycleSubspanWithJoinsListDto
 } from '@/api/generated-types/generated-types_';
 
@@ -27,10 +28,10 @@ export default function CycleSubspanCell(props: CellWrapperProps) {
 
 function InnerCycleSubspanCell({
   entity
-}: BaseLazyDtoUiProps<CycleSubspanDto>) {
+}: BaseLazyDtoUiProps<CycleSubspansWithIndexAndDayOrdinal>) {
   const floatingTooltip = usePopoverSingleton(
     <TooltipMemo
-      text={`${entity.zeroIndexedCycleDay + 1}: ${entity?.timeSpanDto?.startTimeDivisionInstant}`}
+      text={`${entity.zeroIndexedCycleDay + 1}: ${entity?.startTime}`}
     />
   );
 
@@ -38,11 +39,11 @@ function InnerCycleSubspanCell({
     <span
       className={clsx(
         'center-all-margin inline-block truncate text-xs',
-        entity.dayOrdinal === 0 && 'bg-sky-300'
+        entity.dayOrdinal === 1 && 'bg-sky-300'
       )}
       {...floatingTooltip}
     >
-      {String(entity?.timeSpanDto?.startTimeDivisionInstant)}
+      {String(entity?.startTime)}
       {/*{entity.zeroIndexedCycleDay + 1}.{entity.dayOrdinal + 1}*/}
     </span>
   );

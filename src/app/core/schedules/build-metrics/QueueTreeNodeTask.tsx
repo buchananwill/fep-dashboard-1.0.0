@@ -16,8 +16,6 @@ export function QueueTreeNodeTask({
 }: {
   nodeTask: QueueTreeNodeTaskDto;
 }) {
-  console.log({ nodeTask });
-
   return (
     <LazyDtoUiWrapper
       renderAs={TaskSourceEntity}

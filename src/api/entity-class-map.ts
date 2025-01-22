@@ -43,7 +43,6 @@ export const EntityClassMap = {
   userRole: 'UserRole',
   userRoleType: 'UserRoleType',
   workProject: 'WorkProject',
-  workProjectAssignment: 'WorkProjectAssignment',
   workProjectMetric: 'WorkProjectMetric',
   workSchema: 'WorkSchema',
   workSchemaNode: 'WorkSchemaNode',

@@ -1,11 +1,14 @@
 'use client';
 import { QueueTreeNodeDto } from '@/api/generated-types/generated-types_';
-import { Modal, ModalProps } from '@mantine/core';
+import { Loader, Modal, ModalProps } from '@mantine/core';
 import { QueueTreeNodeTask } from '@/app/core/schedules/build-metrics/QueueTreeNodeTask';
 import { useGlobalDispatch } from 'selective-context';
 import { NodeInModal } from '@/app/core/schedules/build-metrics/BuildMetricTable';
 import { SetOptional } from 'type-fest';
 import clsx from 'clsx';
+import { useQuery } from '@tanstack/react-query';
+import { fetchQueueTreeNodeTasks } from '@/api/actions-custom/fetchQueueTreeNodeTasks';
+import { EntityClassMap } from '@/api/entity-class-map';
 
 export default function QueueTreeNodeModal({
   queueTreeNode,
@@ -18,6 +21,11 @@ export default function QueueTreeNodeModal({
   const { dispatchWithoutListen } = useGlobalDispatch<
     QueueTreeNodeDto | undefined
   >(NodeInModal);
+
+  const { data, isFetching } = useQuery({
+    queryFn: () => fetchQueueTreeNodeTasks(queueTreeNode?.id),
+    queryKey: [EntityClassMap.queueTreeNode + 'Task', queueTreeNode?.id]
+  });
 
   if (!queueTreeNode) return null;
 
@@ -60,13 +68,19 @@ export default function QueueTreeNodeModal({
         </h1>
         <div>
           <div className={'grid max-h-[50vh] grid-cols-1 overflow-auto'}>
-            {queueTreeNode.queueTreeNodeTaskDtos.map((task) => {
-              return (
-                <div key={task.id}>
-                  <QueueTreeNodeTask nodeTask={task} />
-                </div>
-              );
-            })}
+            {isFetching ? (
+              <Loader />
+            ) : !data ? (
+              'Tasks not found!'
+            ) : (
+              data.map((task) => {
+                return (
+                  <div key={task.id}>
+                    <QueueTreeNodeTask nodeTask={task} />
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </div>

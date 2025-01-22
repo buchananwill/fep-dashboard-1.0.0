@@ -11,7 +11,7 @@ export default function QueueTreeNodeCell({
   columnKey
 }: EntityInnerCellProps<
   QueueTreeNodeDto,
-  string,
+  number,
   ColumnUid<QueueTreeNodeDto>
 >) {
   const { dispatchWithoutListen } = useGlobalDispatch(NodeInModal);
